@@ -10,7 +10,7 @@ Quý vị đã liên hệ với Bộ Tư pháp vào ngày {{ vi.date_of_intake }
 
 Những gì chúng tôi đã làm:
 
-Các thành viên trong nhóm của Ban Dân quyền đã đánh giá các thông tin mà quý vị gửi.  Dựa trên thông tin này, nhóm của chúng tôi xác định rằng luật dân quyền của liên bang mà chúng tôi đảm bảo thực thi không bao gồm tình huống quý vị đã mô tả.  Do đó, chúng tôi không thể thực hiện thêm hành động nào nữa.
+Các thành viên trong Ban Dân quyền đã xem xét những thông tin mà quý vị đã nộp. Dựa trên thông tin này, chúng tôi xác định rằng tình huống mà quý vị mô tả xem ra không thuộc thẩm quyền của luật dân quyền liên bang mà chúng tôi thực thi.  Vì lý do đó, và trong việc thực hiện quyền thực thi của mình, Ban Dân Quyền sẽ không có hành động nào thêm đối với thư mà quý vị đã gửi. Ngay cả khi Ban Dân Quyền có thẩm quyền đối với một vấn đề cụ thể nào đó, Ban chúng tôi cũng có toàn quyền quyết định xem có nên theo đuổi một vấn đề cụ thể nào đó hay không vì nhiều lý do khác nhau, bao gồm những bằng chứng có được, trong số nhiều vấn đề khác cần cân nhắc.
 
 Mã số báo cáo của quý vị là {{ record_locator }}.
 

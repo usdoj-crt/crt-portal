@@ -10,7 +10,7 @@ Usted se comunicó con el Departamento de Justicia el {{ es.date_of_intake}}. Tr
 
 Lo que hicimos:
 
-Miembros del equipo de la División de Derechos Civiles revisaron la información que usted entregó. Con base en esta información, nuestro equipo determinó que las leyes federales de derechos civiles que nosotros hacemos cumplir no se aplican a la situación que usted describió. Por lo tanto, no podremos tomar medidas adicionales.
+Miembros del equipo de la División de Derechos Civiles revisaron la información que usted entregó. Con base en esa información, nuestro equipo determinó que la situación que usted describió no parece estar dentro de la jurisdicción de las leyes civiles federales que nosotros hacemos cumplir. Por consiguiente, y en ejercicio de nuestra capacidad discrecional de aplicación de la ley, la División no tomará medidas adicionales en lo que se refiere a su correspondencia. Incluso cuando un asunto en particular es de competencia de la División, queda al criterio de la División determinar si desea seguir adelante con un asunto en concreto, por distintas razones, incluida la disponibilidad de pruebas, entre otras consideraciones.
 
 Su número de registro es {{ record_locator }}.
 
