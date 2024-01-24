@@ -7,7 +7,7 @@ python /code/crt_portal/manage.py migrate
 python /code/crt_portal/manage.py refresh_form_letters_sent_view
 
 echo 'Generating css and js...'
-node node_modules/gulp/bin/gulp build-sass
+node node_modules/gulp/bin/gulp build-css
 node node_modules/gulp/bin/gulp build-js
 
 echo 'Start `npm run gulp:watch` to recompile assets.'

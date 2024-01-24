@@ -66,7 +66,7 @@ jobs:
           name: Node install, generate CSS
           command: |
             npm ci
-            node node_modules/gulp/bin/gulp build-sass
+            node node_modules/gulp/bin/gulp build-css
             node node_modules/gulp/bin/gulp build-js
       - save_cache:
           paths:
@@ -249,7 +249,7 @@ jobs:
             apt-get install -yqq nodejs && \
             rm -rf /var/lib/apt/lists/*
             npm ci --production
-            node node_modules/gulp/bin/gulp build-sass
+            node node_modules/gulp/bin/gulp build-css
             node node_modules/gulp/bin/gulp build-js
       - run:
           name: install cf8
@@ -315,7 +315,7 @@ jobs:
             apt-get install -yqq nodejs && \
             rm -rf /var/lib/apt/lists/*
             npm ci --production
-            node node_modules/gulp/bin/gulp build-sass
+            node node_modules/gulp/bin/gulp build-css
             node node_modules/gulp/bin/gulp build-js
       # database will be migrated in cloud.gov
       - run:
@@ -378,7 +378,7 @@ jobs:
             apt-get install -yqq nodejs && \
             rm -rf /var/lib/apt/lists/*
             npm ci --production
-            node node_modules/gulp/bin/gulp build-sass
+            node node_modules/gulp/bin/gulp build-css
             node node_modules/gulp/bin/gulp build-js
       # database will be migrated in cloud.gov
       - run:
