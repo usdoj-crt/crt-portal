@@ -2,7 +2,7 @@
 title: CRT - Non-Actionable (Tagalog)
 subject: "Tugon: Ang Iyong Ulat sa Dibisyon sa Mga Karapatang Sibil – {{ record_locator }} mula sa Seksyon na {{ tl.section_name }}"
 language: tl
-show_in_dropdown: false
+show_in_dropdown: true
 ---
 {{ tl.addressee }}，
 
