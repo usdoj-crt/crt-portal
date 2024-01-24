@@ -1648,6 +1648,10 @@ class ComplaintActions(LitigationHoldLock, ModelForm, ActivityStreamUpdater):
         # if both are Falsy, nothing actually changed (None ~= "")
         old = self.initial.get(field, None)
         new = self.cleaned_data.get(field, None)
+        logging.info(old)
+        if field == 'retention_schedule' and new:
+            new = new.retention_years
+            logging.info(new)
         if not old and not new:
             return False
         return old != new
@@ -1662,9 +1666,9 @@ class ComplaintActions(LitigationHoldLock, ModelForm, ActivityStreamUpdater):
         ]
 
     def can_assign_schedule(self):
-        if not self.user:
-            return False
-        return self.user.has_perm('cts_forms.assign_retentionschedule')
+        # if not self.user:
+        return False
+        # return self.user.has_perm('cts_forms.assign_retentionschedule')
 
     class Meta:
         model = Report
@@ -2200,9 +2204,9 @@ class BulkActionsForm(LitigationHoldLock, Form, ActivityStreamUpdater):
         return cleaned_data
 
     def can_assign_schedule(self):
-        if not self.user:
-            return False
-        return self.user.has_perm('cts_forms.assign_retentionschedule')
+        # if not self.user:
+        return False
+        # return self.user.has_perm('cts_forms.assign_retentionschedule')
 
     def clean_retention_schedule(self):
         if 'retention_schedule' not in self.changed_data:
