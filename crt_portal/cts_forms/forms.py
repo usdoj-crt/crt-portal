@@ -1820,9 +1820,6 @@ class ComplaintActions(LitigationHoldLock, ModelForm, ActivityStreamUpdater):
         return dj_number
 
     def clean_retention_schedule(self):
-        logging.info(self.has_changed())
-        logging.info(self.is_valid())
-        logging.info(self.changed_data)
         if not self.field_changed('retention_schedule'):
             return self.cleaned_data.get('retention_schedule')
         if not self.can_assign_schedule():
