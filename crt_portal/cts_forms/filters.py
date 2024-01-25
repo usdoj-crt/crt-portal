@@ -3,13 +3,13 @@
 import re
 import urllib.parse
 from datetime import datetime, timedelta
-from operator import or_
+from operator import or_, and_
 
 from django.apps import apps
 from django.core.validators import ValidationError
 
 from django.db.models import ExpressionWrapper, Count, IntegerField, Min, F, Value, CharField, DateField, Func
-from django.db.models.functions import ExtractYear, Concat, Cast
+from django.db.models.functions import ExtractYear, Concat, Cast, Left
 
 from django.contrib.postgres.search import SearchQuery, TrigramSimilarity
 from django.db import connection
@@ -304,26 +304,44 @@ class LevenshteinLessEqual(Func):
     output_field = IntegerField()
 
 
+class OctetLength(Func):
+    function = 'octet_length'
+    arity = 1
+    output_field = IntegerField()
+
+
 def filter_by_similar(queryset, column, search_text):
-    return queryset.annotate(
-        **{f'{column}_similar': or_(
-            # Checks for "sounds like" similarity:
-            GreaterThan(
-                TrigramSimilarity(
-                    Metaphone(column, 10),
-                    Metaphone(Value(search_text), 10),
-                ),
-                0.5,
+    target = Left(column, 255)
+    is_similar = or_(
+        # Checks for "sounds like" similarity:
+        GreaterThan(
+            TrigramSimilarity(
+                Metaphone(target, 255),
+                Metaphone(Value(search_text), 255),
             ),
-            # Checks for "looks like" similarity:
+            0.5,
+        ),
+        # Checks for "looks like" similarity:
+        LessThanOrEqual(
+            LevenshteinLessEqual(
+                target,
+                Value(search_text),
+                Value(4),
+            ),
+            4,
+        )
+    )
+
+    # Fuzzy match functions only support 255 bytes.
+    # Some characters take up more than a byte.
+    # There's no good way to truncate by byte, so we filter these out.
+    return queryset.annotate(
+        **{f'{column}_similar': and_(
             LessThanOrEqual(
-                LevenshteinLessEqual(
-                    column,
-                    Value(search_text),
-                    Value(4),
-                ),
-                4,
-            )
+                OctetLength(target),
+                255,
+            ),
+            is_similar,
         )}
     ).filter(**{f'{column}_similar': True})
 

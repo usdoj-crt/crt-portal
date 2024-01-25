@@ -7,13 +7,14 @@ from datetime import datetime
 from babel.dates import format_date
 
 import markdown
+from crequest.middleware import CrequestMiddleware
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.postgres.indexes import GinIndex
 from django.contrib.postgres.search import SearchVectorField
 from django.core.exceptions import ValidationError
 from django.core.validators import MaxValueValidator, RegexValidator
-from django.db import connection, models
+from django.db import connection, models, transaction
 from django.template import Context, Template
 from django.urls import reverse
 from django.utils import translation
@@ -414,6 +415,9 @@ class Report(models.Model):
     closed_date = models.DateTimeField(blank=True, null=True, help_text="The Date this report's status was most recently set to \"Closed\"")
     language = models.CharField(default='en', max_length=10, blank=True, null=True)
     viewed = models.BooleanField(default=False)
+    # Eventually, these reports will be deleted - but for now, we can use this
+    # boolean to hide them from view.
+    disposed = models.BooleanField(default=False)
 
     # Not in use- but need to preserving historical data
     hatecrimes_trafficking = models.ManyToManyField(HateCrimesandTrafficking, blank=True)
@@ -673,6 +677,48 @@ class Report(models.Model):
         if first and last:
             return f'{first} {last}'
         return first or last
+
+
+class ReportDispositionBatch(models.Model):
+    """A group of reports that have been disposed of together."""
+    uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, unique=True, editable=False)
+    disposed_date = models.DateTimeField(auto_now_add=True)
+    disposed_by = models.ForeignKey(User, related_name="disposed_report_batches", on_delete=models.PROTECT)
+    disposed_count = models.IntegerField(default=0)
+
+    @classmethod
+    def dispose(cls, queryset):
+        """Creates a batch of disposed reports."""
+        current_request = CrequestMiddleware.get_request()
+        if not current_request:
+            raise ValueError("Cannot determine the current user for report disposal.")
+
+        user = current_request.user
+        if not user:
+            raise ValueError("Cannot determine the current user for report disposal.")
+
+        with transaction.atomic():
+            batch = cls.objects.create(disposed_by=user,
+                                       disposed_count=queryset.count())
+            queryset.all().update(disposed=True)
+            ReportDisposition.objects.bulk_create([
+                ReportDisposition(
+                    schedule=report.retention_schedule,
+                    batch=batch,
+                    public_id=report.public_id)
+                for report
+                in queryset.all().select_related('retention_schedule').only('retention_schedule', 'public_id')
+            ])
+
+        return batch
+
+
+class ReportDisposition(models.Model):
+    """Records the deletion of a report in accordance with a retention schedule."""
+    uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, unique=True, editable=False)
+    schedule = models.ForeignKey(RetentionSchedule, related_name="disposed_reports", on_delete=models.PROTECT)
+    batch = models.ForeignKey(ReportDispositionBatch, related_name="disposed_reports", on_delete=models.PROTECT)
+    public_id = models.CharField(max_length=100, null=False, blank=False, help_text="The record locator for the disposed report")
 
 
 class ReportAttachment(models.Model):

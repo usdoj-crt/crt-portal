@@ -552,6 +552,8 @@ class SimilarityFilterTests(TestCase):
                                  'location_name': 'fayk lokayshun'})
         Report.objects.create(**{**SAMPLE_REPORT_4,
                                  'location_name': 'no do not match this'})
+        Report.objects.create(**{**SAMPLE_REPORT_1,
+                                 'location_name': 225 * "🚨"})
 
     def test_matches(self):
         reports = filter_by_similar(
