@@ -2116,6 +2116,7 @@ class BulkActionsForm(LitigationHoldLock, Form, ActivityStreamUpdater):
         widget=UsaCheckboxSelectMultiple(attrs={
             'name': 'retention_schedule',
         }),
+        initial='',
     )
     referred = BooleanField(
         label='Secondary review',
