@@ -104,6 +104,17 @@ hr {
     font-weight: 600;
   }
 
+  .dataTables_wrapper {
+    .dataTables_filter, .dataTables_length {
+      margin-bottom: 1em;
+      label {
+        align-items: center;
+        display: flex;
+        gap: 6px;
+      }
+    }
+  }
+
   .crt-portal-card {
     &.dark {
       background-color: #162e51;

@@ -62,4 +62,4 @@ class StaticEmbedTest(SimpleTestCase):
 
     def test_renders(self):
         rendered = self.TEMPLATE.render(Context())
-        self.assertEquals(rendered, self.EXPECTED)
+        self.assertEqual(rendered, self.EXPECTED)

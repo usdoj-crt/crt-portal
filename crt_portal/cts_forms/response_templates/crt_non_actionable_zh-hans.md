@@ -2,7 +2,7 @@
 title: CRT - Non-Actionable (Chinese Simplified)
 subject: "回应：您的民权司报告 - {{ zh_hans.section_name }}科的 {{ record_locator }}"
 language: zh-hans
-show_in_dropdown: false
+show_in_dropdown: true
 ---
 {{ zh_hans.addressee }}，
 
@@ -10,7 +10,7 @@ show_in_dropdown: false
 
 我们已经完成以下事项：
 
-民权司的团队成员审查了您提交的信息。根据这些信息，我们的团队确定我们执行的联邦民权法不涵盖您所描述的情况。因此，我们无法采取进一步的行动。
+民權分部的成員審閱了您上交的資訊。根據這份資訊，本部門認定，您描述情形並不在本部門的聯邦民權法的執法權限範圍內。出於這個原因，也為了酌情慎用本部門的執法權，民權分部將不會對您的信函採取進一步的行動。即使民權分部對某具體事務有執法權，出於包括如證據的有效性的這樣的各種考慮，民權分部仍有權決定是否對該具體事務開展調查。
 
 您的报告编号为 {{ record_locator }}。
 

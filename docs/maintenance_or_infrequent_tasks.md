@@ -699,7 +699,7 @@ In general, follow these steps to update the USWDS:
     - Note any other bug fixes or feature improvements that affect or improve our site.
 3. Updates to stylesheet and visual assets.
     - Update our settings in `crt_portal/static/sass` from the [source theme](https://github.com/uswds/uswds/tree/develop/src/stylesheets/theme). (You can do a diff between the new version and last version to see new additions.) Don't override settings we set on purpose, but we should add or set new settings.
-    - Check that stylesheets can build with `npx gulp build-sass`.
+    - Check that stylesheets can build with `npx gulp build-css`.
         - A common issue is that a new component uses a color value that we set to `false`, which throws an error when Sass tries to resolve a value. Usually, setting it to the default value will resolve the problem.
     - Check for any changes or additions to static files, e.g. images that should be copied to the [static folder](https://github.com/usdoj-crt/crt-portal/tree/develop/crt_portal/static/img).
 4. Updates to JavaScript.
