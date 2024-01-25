@@ -1647,11 +1647,11 @@ class ComplaintActions(LitigationHoldLock, ModelForm, ActivityStreamUpdater):
     def field_changed(self, field):
         # if both are Falsy, nothing actually changed (None ~= "")
         old = self.initial.get(field, None)
-        if field == 'retention_schedule' and old:
-            old = RetentionSchedule.objects.get(id=old)
         new = self.cleaned_data.get(field, None)
         if not old and not new:
             return False
+        if field == 'retention_schedule':
+            old = RetentionSchedule.objects.get(pk=old)
         return old != new
 
     @cached_property
@@ -1820,6 +1820,9 @@ class ComplaintActions(LitigationHoldLock, ModelForm, ActivityStreamUpdater):
         return dj_number
 
     def clean_retention_schedule(self):
+        logging.info(self.has_changed())
+        logging.info(self.is_valid())
+        logging.info(self.changed_data)
         if not self.field_changed('retention_schedule'):
             return self.cleaned_data.get('retention_schedule')
         if not self.can_assign_schedule():
