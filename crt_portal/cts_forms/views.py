@@ -25,7 +25,7 @@ from django.shortcuts import get_object_or_404, redirect, render, reverse
 from django.utils.html import mark_safe
 from django.views.generic import FormView, TemplateView, View
 from formtools.wizard.views import SessionWizardView
-from analytics.models import get_dashboard_structure_from_db
+from analytics.models import AnalyticsFile, get_dashboard_structure_from_db
 from tms.models import TMSEmail
 from datetime import datetime
 
@@ -556,6 +556,32 @@ def data_view(request):
             'groups': get_dashboard_structure_from_db(),
             'sections': [choice[0] for choice in SECTION_CHOICES],
         })
+
+
+@login_required
+def data_piecemeal_view(request, notebook_names):
+    notebook_paths = [
+        f'assignments/intake-dashboard/{name.strip()}.ipynb'
+        for name in notebook_names.split(',')
+    ]
+
+    notebooks = [
+        get_object_or_404(AnalyticsFile, path=path)
+        for path in notebook_paths
+    ]
+
+    html = [
+        notebook.to_html()
+        for notebook in notebooks
+    ]
+
+    return render(
+        request,
+        'forms/complaint_view/data/piecemeal.html',
+        {
+            'notebooks': html,
+        },
+    )
 
 
 @login_required
