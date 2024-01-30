@@ -1818,10 +1818,12 @@ class ComplaintActions(LitigationHoldLock, ModelForm, ActivityStreamUpdater):
         return dj_number
 
     def clean_retention_schedule(self):
-        old = RetentionSchedule.objects.get(pk=old) if self.initial.get('retention_schedule', None) else None
-        new = RetentionSchedule.objects.get(pk=new) if self.data.get('retention_schedule', None) else None
+        old = self.initial.get('retention_schedule', None)
+        new = self.data.get('retention_schedule', None)
         if not old and not new:
             return None
+        old = RetentionSchedule.objects.get(pk=old) if old else None
+        new = RetentionSchedule.objects.get(pk=new) if new else None
         if old == new:
             return new
         if not self.can_assign_schedule():
