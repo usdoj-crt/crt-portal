@@ -252,6 +252,8 @@ class SavedSearch(models.Model):
     auto_close_reason = models.CharField(max_length=255, null=True, blank=True, help_text="The reason to add to the report summary when auto-closing. Will be filled in the following blank: 'Report automatically closed on submission because ____'")
     override_section_assignment = models.BooleanField(default=False, null=False, help_text="Whether to override the section assignment for all reports with this campaign")
     override_section_assignment_with = models.TextField(choices=SECTION_CHOICES, null=True, blank=True, help_text="If set, this will override the section assignment for all reports with this campaign. This can be used to 'tweak' the routing logic based on Personal Description, etc.")
+    section = models.TextField(choices=SECTION_CHOICES, null=True, blank=True, default=None, help_text="The section to which this saved search applies.")
+    user = models.OneToOneField(User, related_name="saved_searches", help_text="The user who created this search.")
 
     def get_absolute_url(self):
         return f'/form/view?{self.query}'

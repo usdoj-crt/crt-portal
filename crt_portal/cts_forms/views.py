@@ -31,7 +31,7 @@ from datetime import datetime
 
 
 from .attachments import ALLOWED_FILE_EXTENSIONS
-from .filters import report_filter, dashboard_filter, report_grouping
+from .filters import get_report_filter_from_search, report_filter, dashboard_filter, report_grouping
 from .forms import (
     BulkActionsForm, BulkDispositionForm, CommentActions, ComplaintActions, ComplaintOutreach,
     ContactEditForm, Filters, PrintActions, ProfileForm,
@@ -1064,6 +1064,30 @@ class ActionsView(LoginRequiredMixin, FormView):
                 'questions': Review.question_text,
             }
             return render(request, 'forms/complaint_view/actions/index.html', output)
+
+
+class SavedSearchView(LoginRequiredMixin, FormView):
+
+    def get(self, request):
+        output = {}
+        return render(request, 'forms/complaint_view/saved_searches/index.html', output)
+
+    def post(self, request):
+        output = {}
+        return render(request, 'forms/complaint_view/saved_searches/index.html', output)
+
+    def search_url(self, obj):
+        url = obj.get_absolute_url()
+        return mark_safe(f'<input aria-label="Search Results" disabled="disabled" class="admin-copy absolute-url" value="{url}"/>')
+
+    def matching_reports(self, obj):
+        try:
+            reports, _ = get_report_filter_from_search(obj)
+            count = reports.count()
+        except Exception as e:
+            return f'Something went wrong running this search: {e}'
+        url = obj.get_absolute_url()
+        return mark_safe(f'<a href="{url}">View {count} matching reports</a>')
 
 
 class ReportAttachmentView(LoginRequiredMixin, FormView):
