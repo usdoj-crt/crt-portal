@@ -1650,10 +1650,6 @@ class ComplaintActions(LitigationHoldLock, ModelForm, ActivityStreamUpdater):
         new = self.cleaned_data.get(field, None)
         if not old and not new:
             return False
-        if field == 'retention_schedule' and old:
-            old = RetentionSchedule.objects.get(pk=old)
-        if field == 'retention_schedule' and new:
-            new = RetentionSchedule.objects.get(pk=self.data[field])
         return old != new
 
     @cached_property
@@ -1822,11 +1818,15 @@ class ComplaintActions(LitigationHoldLock, ModelForm, ActivityStreamUpdater):
         return dj_number
 
     def clean_retention_schedule(self):
-        if not self.field_changed('retention_schedule'):
-            return self.cleaned_data.get('retention_schedule')
+        old = RetentionSchedule.objects.get(pk=old) if self.initial.get('retention_schedule', None) else None
+        new = RetentionSchedule.objects.get(pk=new) if self.data.get('retention_schedule', None) else None
+        if not old and not new:
+            return None
+        if old == new:
+            return new
         if not self.can_assign_schedule():
             raise ValidationError('You do not have permission to assign retention schedules.')
-        return self.cleaned_data['retention_schedule']
+        return new
 
     def save(self, commit=True):
         """
