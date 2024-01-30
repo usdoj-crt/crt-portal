@@ -110,13 +110,76 @@
       });
   }
 
+  function saveRows(dataTable) {
+    const content = JSON.stringify(dataTable.data().toArray());
+    sessionStorage.setItem('dataDashboardContent', content);
+    return dataTable;
+  }
+
+  function readRows(dataTable) {
+    const data = JSON.parse(sessionStorage.getItem('dataDashboardContent'));
+    return dataTable.clear().rows.add(data);
+  }
+
+  /**
+   * Reduces duplication in table rows while aggregating data.
+   *
+   * If a row's name includes "(sum)",
+   * it will be added to other rows that are otherwise the same
+   */
+  function aggregate(dataTable) {
+    const aggregates = {};
+
+    const allColumnIndices = dataTable.columns().indexes();
+    const allColumns = dataTable
+      .columns()
+      .header()
+      .map(h => h.innerText);
+    const isColumnVisible = dataTable.columns().visible();
+    const visibleIndices = Array.from(allColumnIndices).filter(i => isColumnVisible[i]);
+    const visibleColumns = dataTable
+      .columns(visibleIndices)
+      .header()
+      .map(h => h.innerText);
+    const groupBy = Array.from(visibleColumns.filter(c => !c.toLowerCase().includes('(sum)')));
+    const groupByIndices = groupBy.map(col => allColumns.indexOf(col));
+    const sum = Array.from(visibleColumns.filter(c => c.toLowerCase().includes('(sum)')));
+    const sumIndices = sum.map(col => allColumns.indexOf(col));
+
+    dataTable.rows().every(function() {
+      const key = groupByIndices.reduce((soFar, col) => `${soFar}|${this.data()[col]}`, '');
+      if (!aggregates.hasOwnProperty(key)) {
+        aggregates[key] = groupByIndices.reduce((soFar, col) => {
+          soFar[col] = this.data()[col];
+          return soFar;
+        }, {});
+      }
+      sumIndices.forEach(col => {
+        aggregates[key][col] = (aggregates[key][col] || 0) + Number(this.data()[col]);
+      });
+    });
+
+    const groupedRows = Object.values(aggregates).map(row => {
+      return allColumnIndices.map(col => (row.hasOwnProperty(col) ? row[col] : ''));
+    });
+
+    dataTable.clear();
+    dataTable.rows.add(groupedRows);
+    return dataTable;
+  }
+
   $(document).ready(function() {
     $('.datatable-table').each((index, table) => {
       options = getOptions(table);
 
       const dataTable = $(table).DataTable(options);
+      saveRows(dataTable);
 
       setupFilters(table, dataTable);
+
+      $(table).on('column-visibility.dt', function() {
+        aggregate(readRows(dataTable)).draw();
+      });
     });
   });
 })(window, document);

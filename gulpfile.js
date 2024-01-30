@@ -38,7 +38,7 @@ const jszip = './node_modules/jszip';
 const datatable_root = './node_modules/datatables.net';
 
 // To add an extension, you must also update intake_base.html and package.json
-const datatable_extensions = ['select', 'buttons', 'colreorder', 'searchpanes'];
+const datatable_extensions = ['select', 'buttons', 'colreorder', 'searchpanes', 'staterestore'];
 
 /*
 ----------------------------------------
