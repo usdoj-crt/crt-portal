@@ -41,6 +41,7 @@
   "dependencies": {
     "@uswds/uswds": "^3.6.1",
     "autoprefixer": "^10.2.4",
+    "datatables.net-dt": "^1.13.8",
     "gulp": "^4.0.2",
     "gulp-postcss": "^9.0.0",
     "gulp-rename": "^2.0.0",
