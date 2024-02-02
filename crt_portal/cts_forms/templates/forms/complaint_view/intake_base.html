@@ -10,7 +10,7 @@
 {% for extension in datatables_extensions.split %}
  <script src="{% static "vendor/dataTables."|add:extension|add:".min.js" %}"></script>
  <link rel="stylesheet" href="{% static "css/vendor/"|add:extension|add:".dataTables.min.css" %}" />
- <script src="{% static "vendor/dataTables.staterestore.min.js" %}"></script>
+ <script src="{% static "vendor/dataTables.stateRestore.min.js" %}"></script>
  <script src="{% static "vendor/buttons.print.min.js" %}"></script>
  <script src="{% static "vendor/buttons.colVis.min.js" %}"></script>
  <script src="{% static "vendor/buttons.html5.min.js" %}"></script>
