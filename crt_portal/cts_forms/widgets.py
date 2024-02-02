@@ -34,14 +34,14 @@ class FuzzyWidget(MultiWidget):
             TextInput(attrs={
                 'label': 'Search for:',
                 'class': 'usa-input usa-tooltip margin-bottom-2',
-                'title': 'Enter the text to search for. Adjust the sliders below to match typos and misspellings.',
+                'title': 'Enter the text to search for. Adjust the sliders below to include typos and/or misspellings.',
                 **attrs
             }),
             NumberInput(attrs={
                 'label': 'Sounds like sensitivity:',
                 'class': 'usa-range usa-tooltip',
                 'type': 'range',
-                'title': 'Slide to the right to include more misspellings. All the way to the left means match exactly.',
+                'title': 'Slide to the right to include more misspellings. All the way to the left means include no misspellings.',
                 'min': '0',
                 'max': '10',
                 **attrs,
@@ -50,7 +50,7 @@ class FuzzyWidget(MultiWidget):
                 'label': 'Looks like sensitivity:',
                 'class': 'usa-range usa-tooltip',
                 'type': 'range',
-                'title': 'Slide to the right to include more typos. All the way to the left means match exactly.',
+                'title': 'Slide to the right to include more typos. All the way to the left means include no typos.',
                 'min': '0',
                 'max': '10',
                 **attrs,

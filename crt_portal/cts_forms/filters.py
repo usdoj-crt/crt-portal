@@ -137,19 +137,22 @@ def get_report_filter_from_search(search):
     return report_filter(querydict)
 
 
-def _get_fuzzy_kwargs(field, querydict) -> Tuple[Dict[str, Any], Dict[str, Any]]:
+def _get_fuzzy_kwargs(field, querydict) -> Tuple[Dict[str, Any], Dict[str, Any], Dict[str, Any]]:
     query = querydict.getlist(field)[0]
 
     if not Feature.is_feature_enabled('fuzzy-location-name'):
         exact_match = {f'{field}__icontains': query}, {}
         return exact_match
 
+    filters = {}
     try:
         soundslike = int(querydict.getlist(f'{field}_1')[0])
+        filters[f'{field}_1'] = [soundslike]
     except (IndexError, ValueError):
         soundslike = 0
     try:
         lookslike = int(querydict.getlist(f'{field}_2')[0])
+        filters[f'{field}_2'] = [lookslike]
     except (IndexError, ValueError):
         lookslike = 0
 
@@ -162,7 +165,7 @@ def _get_fuzzy_kwargs(field, querydict) -> Tuple[Dict[str, Any], Dict[str, Any]]
 
     return {}, {field: {'query': query,
                         'soundslike': soundslike,
-                        'lookslike': lookslike}}
+                        'lookslike': lookslike}}, filters
 
 
 def report_filter(querydict):
@@ -226,9 +229,10 @@ def report_filter(querydict):
         elif field_options == '__gte':
             kwargs[field] = querydict.getlist(field)
         elif field_options == 'fuzzy':
-            field_kwargs, field_similarity = _get_fuzzy_kwargs(field, querydict)
+            field_kwargs, field_similarity, field_filters = _get_fuzzy_kwargs(field, querydict)
             kwargs.update(field_kwargs)
             fuzzy.update(field_similarity)
+            filters.update(field_filters)
         elif field_options == 'violation_summary':
             search_query = querydict.getlist(field)[0]
             if search_query.startswith('^#') and search_query.endswith('$'):
