@@ -141,7 +141,7 @@ def _get_fuzzy_kwargs(field, querydict) -> Tuple[Dict[str, Any], Dict[str, Any],
     query = querydict.getlist(field)[0]
 
     if not Feature.is_feature_enabled('fuzzy-location-name'):
-        exact_match = {f'{field}__icontains': query}, {}
+        exact_match = {f'{field}__icontains': query}, {}, {}
         return exact_match
 
     filters = {}
