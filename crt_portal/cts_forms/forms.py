@@ -1817,19 +1817,6 @@ class ComplaintActions(LitigationHoldLock, ModelForm, ActivityStreamUpdater):
             return None
         return dj_number
 
-    def clean_retention_schedule(self):
-        old = self.initial.get('retention_schedule', None)
-        new = self.data.get('retention_schedule', None)
-        if not old and not new:
-            return None
-        old = RetentionSchedule.objects.get(pk=old) if old else None
-        new = RetentionSchedule.objects.get(pk=new) if new else None
-        if old == new:
-            return new
-        if not self.can_assign_schedule():
-            raise ValidationError('You do not have permission to assign retention schedules.')
-        return new
-
     def save(self, commit=True):
         """
         If report.status is `closed`, set assigned_to to None.
