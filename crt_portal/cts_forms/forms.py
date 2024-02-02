@@ -62,7 +62,7 @@ from .question_text import (CONTACT_QUESTIONS, DATE_QUESTIONS,
                             WORKPLACE_QUESTIONS, HATE_CRIME_HELP_TEXT,
                             HATE_CRIME_QUESTION)
 from .widgets import (ComplaintSelect, CrtMultiSelect,
-                      CrtPrimaryIssueRadioGroup, DjNumberWidget, UsaCheckboxSelectMultiple, UsaTagSelectMultiple,
+                      CrtPrimaryIssueRadioGroup, DjNumberWidget, FuzzyFilterField, UsaCheckboxSelectMultiple, UsaTagSelectMultiple,
                       UsaRadioSelect, DataAttributesSelect, CrtDateInput, add_empty_choice)
 from utils.voting_mode import is_voting_mode
 from utils import activity
@@ -102,6 +102,20 @@ def get_dj_widget():
         'field_label': 'ICM DJ Number',
         'name': 'dj_number',
     })
+
+
+def get_location_name_filter_field():
+    if not Feature.is_feature_enabled('fuzzy-location-name'):
+        return CharField(
+            required=False,
+            widget=TextInput(attrs={
+                'class': 'usa-input',
+                'name': 'location_name',
+                'placeholder': 'Organization name',
+                'aria-label': 'Organization name',
+            })
+        )
+    return FuzzyFilterField()
 
 
 class TagsField(ModelMultipleChoiceField):
@@ -1241,6 +1255,8 @@ class Filters(ModelForm):
 
         self.fields['tags'] = TagsField()
 
+        self.fields['location_name'] = get_location_name_filter_field()
+
         campaigns = {
             campaign.uuid: campaign
             for campaign in
@@ -1534,12 +1550,6 @@ class Filters(ModelForm):
             'location_city_town': TextInput(attrs={
                 'class': 'usa-input',
                 'name': 'location_city_town'
-            }),
-            'location_name': TextInput(attrs={
-                'class': 'usa-input',
-                'name': 'location_name',
-                'placeholder': labels['location_name'],
-                'aria-label': labels['location_name']
             }),
             'public_id': TextInput(attrs={
                 'class': 'usa-input',
