@@ -6,7 +6,7 @@
 <script src="{% static 'vendor/jszip.min.js' %}"></script>
 <link rel="stylesheet" href="{% static "css/vendor/jquery.dataTables.min.css" %}" />
 <!-- To add an extension, you must also update package.json and gulpfile.js -->
-{% with 'buttons colreorder searchpanes select' as datatables_extensions %}
+{% with 'buttons colReorder searchPanes select' as datatables_extensions %}
 {% for extension in datatables_extensions.split %}
  <script src="{% static "vendor/dataTables."|add:extension|add:".min.js" %}"></script>
  <link rel="stylesheet" href="{% static "css/vendor/"|add:extension|add:".dataTables.min.css" %}" />
