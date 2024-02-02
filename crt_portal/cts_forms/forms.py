@@ -1477,7 +1477,7 @@ class Filters(ModelForm):
         label='Retention schedule',
         choices=[
             ('', ''),  # Default choice: empty (include everything)
-            ('(none)', 'None'),  # Custom: No assigned campaign.
+            ('(none)', 'None'),  # Custom: No assigned schedule.
             *RETENTION_SCHEDULE_CHOICES,
         ],
         widget=UsaCheckboxSelectMultiple(attrs={
@@ -1827,13 +1827,6 @@ class ComplaintActions(LitigationHoldLock, ModelForm, ActivityStreamUpdater):
             return None
         return dj_number
 
-    def clean_retention_schedule(self):
-        if not self.field_changed('retention_schedule'):
-            return self.cleaned_data.get('retention_schedule')
-        if not self.can_assign_schedule():
-            raise ValidationError('You do not have permission to assign retention schedules.')
-        return self.cleaned_data['retention_schedule']
-
     def save(self, commit=True):
         """
         If report.status is `closed`, set assigned_to to None.
@@ -2115,7 +2108,7 @@ class BulkActionsForm(LitigationHoldLock, Form, ActivityStreamUpdater):
         label='Retention schedule',
         choices=[
             ('', ''),  # Default choice: empty (include everything)
-            ('(none)', 'None'),  # Custom: No assigned campaign.
+            ('(none)', 'None'),  # Custom: No assigned schedule.
             *RETENTION_SCHEDULE_CHOICES,
         ],
         widget=UsaCheckboxSelectMultiple(attrs={
