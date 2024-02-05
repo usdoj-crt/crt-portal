@@ -50,7 +50,7 @@ else:
 
 
 def redirect_static(request):
-    target = request.path.replace('/foostatic/', settings.STATIC_URL)
+    target = request.path.replace('/static/', settings.STATIC_URL)
     return redirect(target)
 
 
