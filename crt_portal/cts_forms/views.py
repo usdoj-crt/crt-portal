@@ -1079,17 +1079,14 @@ class SavedSearchView(LoginRequiredMixin, FormView):
         return render(request, 'forms/complaint_view/saved_searches/index.html', output)
 
     def post(self, request):
-        output = {}
+        saved_searches = SavedSearch.objects.filter().all()
+        selected_section = request.GET.get('section', None)
+        if selected_section:
+            saved_searches = SavedSearch.objects.filter(section=selected_section)
+        output = {
+            'saved_searches': saved_searches,
+        }
         return render(request, 'forms/complaint_view/saved_searches/index.html', output)
-
-    def matching_reports(self, obj):
-        try:
-            reports, _ = get_report_filter_from_search(obj)
-            count = reports.count()
-        except Exception as e:
-            return f'Something went wrong running this search: {e}'
-        url = obj.get_absolute_url()
-        return mark_safe(f'<a href="{url}">View {count} matching reports</a>')
 
 
 class ReportAttachmentView(LoginRequiredMixin, FormView):
