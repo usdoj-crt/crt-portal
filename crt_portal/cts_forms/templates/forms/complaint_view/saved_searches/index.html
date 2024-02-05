@@ -10,13 +10,19 @@
     {% include 'partials/messages.html' %}
   </div>
   <div class="grid-col-auto">
+    {% if saved_searches %}
+    <ul>
+      {% for saved_search in saved_searches %}
+        <li>
+          <a data-ga-event-name="saved search link: {{ saved_search.name }}" href="/form/view/?{{ saved_search.query }}">{{ saved_search.name }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+    {% endif %}
   </div>
 </div>
 {% endblock %}
 {% block page_js %}
 {{ block.super }}
-<script src="{% static 'js/dashboard_quick_view.min.js' %}"></script>
-<script src="{% static 'js/filters.min.js' %}"></script>
-<script src="{% static 'js/dashboard_view_filters.min.js' %}"></script>
 <script src="{% static 'js/ga_util.min.js' %}"></script>
 {% endblock %}

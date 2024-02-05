@@ -58,10 +58,24 @@ def get_system_user():
     return User.objects.get(username='system.user')
 
 
+class SavedSearch(models.Model):
+    name = models.CharField(max_length=255, null=False, blank=False, help_text="The name of the search as it will appear in lists and dropdowns.")
+    query = models.TextField(null=False, blank=False, help_text="The encoded search represented as a URL querystring for the /form/view page.", default='status=new&status=open&no_status=false&grouping=default')
+    auto_close = models.BooleanField(default=False, null=False, help_text="Whether to automatically close incoming reports that match this search. Only applies to new submissions.")
+    auto_close_reason = models.CharField(max_length=255, null=True, blank=True, help_text="The reason to add to the report summary when auto-closing. Will be filled in the following blank: 'Report automatically closed on submission because ____'")
+    override_section_assignment = models.BooleanField(default=False, null=False, help_text="Whether to override the section assignment for all reports with this campaign")
+    override_section_assignment_with = models.TextField(choices=SECTION_CHOICES, null=True, blank=True, help_text="If set, this will override the section assignment for all reports with this campaign. This can be used to 'tweak' the routing logic based on Personal Description, etc.")
+    section = models.TextField(choices=SECTION_CHOICES, null=True, blank=True, default=None, help_text="The section to which this saved search applies.")
+
+    def get_absolute_url(self):
+        return f'/form/view?{self.query}'
+
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     intake_filters = models.TextField(max_length=500, blank=True)
     section = models.TextField(choices=SECTION_CHOICES, null=True, blank=True, default=None)
+    saved_searches = models.ForeignKey(SavedSearch, on_delete=models.SET_NULL, null=True, blank=True, help_text="The user who created this saved search.")
 
     def __str__(self):
         return str(self.user)
@@ -243,20 +257,6 @@ class Campaign(models.Model):
 
     def __str__(self):
         return self.internal_name
-
-
-class SavedSearch(models.Model):
-    name = models.CharField(max_length=255, null=False, blank=False, help_text="The name of the search as it will appear in lists and dropdowns.")
-    query = models.TextField(null=False, blank=False, help_text="The encoded search represented as a URL querystring for the /form/view page.", default='status=new&status=open&no_status=false&grouping=default')
-    auto_close = models.BooleanField(default=False, null=False, help_text="Whether to automatically close incoming reports that match this search. Only applies to new submissions.")
-    auto_close_reason = models.CharField(max_length=255, null=True, blank=True, help_text="The reason to add to the report summary when auto-closing. Will be filled in the following blank: 'Report automatically closed on submission because ____'")
-    override_section_assignment = models.BooleanField(default=False, null=False, help_text="Whether to override the section assignment for all reports with this campaign")
-    override_section_assignment_with = models.TextField(choices=SECTION_CHOICES, null=True, blank=True, help_text="If set, this will override the section assignment for all reports with this campaign. This can be used to 'tweak' the routing logic based on Personal Description, etc.")
-    section = models.TextField(choices=SECTION_CHOICES, null=True, blank=True, default=None, help_text="The section to which this saved search applies.")
-    user = models.OneToOneField(User, related_name="saved_searches", help_text="The user who created this search.")
-
-    def get_absolute_url(self):
-        return f'/form/view?{self.query}'
 
 
 class RetentionSchedule(models.Model):

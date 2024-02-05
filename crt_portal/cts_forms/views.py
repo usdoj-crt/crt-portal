@@ -40,7 +40,7 @@ from .forms import (
 )
 from .mail import mail_to_complainant
 from .model_variables import HATE_CRIMES_TRAFFICKING_MODEL_CHOICES, SECTION_CHOICES
-from .models import CommentAndSummary, Profile, Report, ReportAttachment, ReportsData, Trends, EmailReportCount, Campaign, User, \
+from .models import CommentAndSummary, Profile, Report, ReportAttachment, ReportsData, SavedSearch, Trends, EmailReportCount, Campaign, User, \
     RoutingSection, RoutingStepOneContact, RepeatWriterInfo
 from .page_through import pagination
 from .sorts import activity_sort, report_sort
@@ -1069,16 +1069,18 @@ class ActionsView(LoginRequiredMixin, FormView):
 class SavedSearchView(LoginRequiredMixin, FormView):
 
     def get(self, request):
-        output = {}
+        saved_searches = SavedSearch.objects.filter().all()
+        selected_section = request.GET.get('section', None)
+        if selected_section:
+            saved_searches = SavedSearch.objects.filter(section=selected_section)
+        output = {
+            'saved_searches': saved_searches,
+        }
         return render(request, 'forms/complaint_view/saved_searches/index.html', output)
 
     def post(self, request):
         output = {}
         return render(request, 'forms/complaint_view/saved_searches/index.html', output)
-
-    def search_url(self, obj):
-        url = obj.get_absolute_url()
-        return mark_safe(f'<input aria-label="Search Results" disabled="disabled" class="admin-copy absolute-url" value="{url}"/>')
 
     def matching_reports(self, obj):
         try:
