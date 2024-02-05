@@ -78,6 +78,9 @@ class ReportFilterTests(TestCase):
         test_data['violation_summary'] = 'motorcycle'
         Report.objects.create(**test_data)
 
+        test_data['violation_summary'] = '#hashtag'
+        Report.objects.create(**test_data)
+
     def test_no_filters(self):
         """Returns all reports when no filters provided"""
         reports, _ = report_filter(QueryDict(''))
@@ -118,6 +121,12 @@ class ReportFilterTests(TestCase):
         self.assertEqual(reports.count(), 5)
         for report in reports:
             self.assertEqual('boat' in report.violation_summary or 'hovercraft' in report.violation_summary, True)
+
+    def test_hashtag_exact(self):
+        reports, _ = report_filter(QueryDict('violation_summary=^#hashtag$'))
+        self.assertEqual(reports.count(), 1)
+        for report in reports:
+            self.assertIn('#hashtag', report.violation_summary)
 
     def test_and_search(self):
         # "boat AND hovercraft" is functionally the same as "boat hovercraft"
