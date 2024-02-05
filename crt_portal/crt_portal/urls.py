@@ -34,6 +34,7 @@ from cts_forms.views_public import (
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
+from django.shortcuts import redirect
 from django.urls import include, path, re_path
 from django.views.generic import RedirectView, TemplateView
 
@@ -46,6 +47,21 @@ if environment in ['PRODUCTION', 'STAGE']:
     ]
 else:
     auth = []
+
+
+def redirect_static(request):
+    target = request.path.replace('/foostatic/', settings.STATIC_URL)
+    return redirect(target)
+
+
+static_for_aws = [
+    re_path(r'^static/.*$', redirect_static, name='aws-static-redirect')
+]
+
+if settings.STATIC_URL == '/static/':
+    static_urls = static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+else:
+    static_urls = static_for_aws
 
 # add app related urls here or in cts_forms.urls
 urlpatterns = auth + [
@@ -87,7 +103,7 @@ urlpatterns = auth + [
     path('voting-resources', TemplateView.as_view(template_name="vot_resources.html"), name='vot_resources'),
     path('', LandingPageView.as_view(), name='crt_landing_page'),
     path('api/', include('api.urls')),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+] + static_urls
 
 handler400 = 'cts_forms.views_public.error_400'
 handler403 = 'cts_forms.views_public.error_403'
