@@ -1,0 +1,15 @@
+<form
+  id="filters-form"
+  method="GET"
+  action="/form/saved-searches"
+  novalidate
+>
+  <div class="usa-form">
+      {% include 'forms/complaint_view/saved_searches/filters/section.html' %}
+      <div class="text-right margin-top-3">
+      <button class="usa-button" type="submit" id="submit-button">
+        Submit
+      </button>
+      </div>
+  </div>
+</form>

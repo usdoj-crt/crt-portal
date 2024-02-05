@@ -2630,3 +2630,44 @@ class AttachmentActions(ModelForm):
             target=instance.report,
             send_notification=True,
         )
+
+
+class SavedSearchFilter(Form):
+    section = MultipleChoiceField(
+        required=False,
+        label='Section',
+        choices=[
+            ('', ''),  # Default choice: empty (include everything)
+            *SECTION_CHOICES_WITHOUT_LABELS,
+        ],
+        widget=UsaCheckboxSelectMultiple(attrs={
+            'name': 'section',
+        }),
+    )
+
+
+class SavedSearchActions(ModelForm):
+    class Meta:
+        model = SavedSearch
+        fields = ['name', 'query', 'section']
+
+        widgets = {
+            'name': TextInput(attrs={
+                'class': 'usa-input',
+            }),
+            'query': TextInput(attrs={
+                'class': 'usa-input',
+            }),
+            'section': CrtMultiSelect(attrs={
+                'class': 'text-uppercase',
+                'name': 'section'
+            }),
+        }
+
+    def save(self, commit=True):
+        instance = ModelForm.save(self, commit=False)
+
+        if commit:
+            instance.save()
+
+        return instance

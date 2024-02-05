@@ -1,0 +1,13 @@
+{% extends "forms/complaint_view/index/filter.html" %}
+
+{% block controls %}section{% endblock %}
+{% block label %}Section{% endblock %}
+{% block id %}section{% endblock %}
+{% block content %}
+  <label for="id_section">
+    <span class="usa-sr-only">section</span>
+  </label>
+  <div id="section-filter" class="multicheckboxes-container">
+    {{ form.section }}
+  </div>
+{% endblock %}

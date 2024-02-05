@@ -31,11 +31,11 @@ from datetime import datetime
 
 
 from .attachments import ALLOWED_FILE_EXTENSIONS
-from .filters import get_report_filter_from_search, report_filter, dashboard_filter, report_grouping
+from .filters import report_filter, dashboard_filter, report_grouping
 from .forms import (
     BulkActionsForm, BulkDispositionForm, CommentActions, ComplaintActions, ComplaintOutreach,
     ContactEditForm, Filters, PrintActions, ProfileForm,
-    ReportEditForm, ResponseActions, add_activity,
+    ReportEditForm, ResponseActions, SavedSearchActions, SavedSearchFilter, add_activity,
     AttachmentActions, Review, save_form,
 )
 from .mail import mail_to_complainant
@@ -1067,6 +1067,7 @@ class ActionsView(LoginRequiredMixin, FormView):
 
 
 class SavedSearchView(LoginRequiredMixin, FormView):
+    form_class = SavedSearchActions
 
     def get(self, request):
         saved_searches = SavedSearch.objects.filter().all()
@@ -1074,7 +1075,10 @@ class SavedSearchView(LoginRequiredMixin, FormView):
         if selected_section:
             saved_searches = SavedSearch.objects.filter(section=selected_section)
         output = {
+            'section': selected_section,
             'saved_searches': saved_searches,
+            'form': SavedSearchFilter(request.GET),
+            'saved_search_actions': SavedSearchActions(),
         }
         return render(request, 'forms/complaint_view/saved_searches/index.html', output)
 
@@ -1084,7 +1088,10 @@ class SavedSearchView(LoginRequiredMixin, FormView):
         if selected_section:
             saved_searches = SavedSearch.objects.filter(section=selected_section)
         output = {
+            'section': selected_section,
             'saved_searches': saved_searches,
+            'form': SavedSearchFilter(request.GET),
+            'saved_search_actions': SavedSearchActions(),
         }
         return render(request, 'forms/complaint_view/saved_searches/index.html', output)
 

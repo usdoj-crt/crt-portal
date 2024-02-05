@@ -9,17 +9,21 @@
   <div id="status-update" class="grid-col-auto">
     {% include 'partials/messages.html' %}
   </div>
-  <div class="grid-col-auto">
+  {% include 'forms/complaint_view/saved_searches/saved-search-header.html' %}
+  {% include 'forms/complaint_view/saved_searches/filter-controls.html' %}
+<div class="grid-col-auto">
+  <div class="display-flex flex-align-center">
     {% if saved_searches %}
-    <ul>
-      {% for saved_search in saved_searches %}
-        <li>
-          <a data-ga-event-name="saved search link: {{ saved_search.name }}" href="/form/view/?{{ saved_search.query }}">{{ saved_search.name }}</a>
-        </li>
-      {% endfor %}
-    </ul>
+      <ul class="usa-list usa-list--unstyled">
+        {% for saved_search in saved_searches %}
+          <li>
+            <a data-ga-event-name="saved search link: {{ saved_search.name }}" href="/form/view/?{{ saved_search.query }}">{{ saved_search.name }}</a>
+          </li>
+        {% endfor %}
+      </ul>
     {% endif %}
   </div>
+</div>
 </div>
 {% endblock %}
 {% block page_js %}
