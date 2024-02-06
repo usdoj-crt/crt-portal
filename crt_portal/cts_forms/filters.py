@@ -8,7 +8,6 @@ from datetime import datetime, timedelta
 from operator import and_
 
 from django.apps import apps
-from django.core.validators import ValidationError
 
 from django.db.models import Q, ExpressionWrapper, Count, IntegerField, Min, F, Value, CharField, DateField, Func
 from django.db.models.functions import ExtractYear, Concat, Cast, Left
@@ -241,9 +240,10 @@ def report_filter(querydict):
                     continue  # This means "all other reports" when grouping
                 try:
                     report = Report.objects.get(pk=report_id)
+                    qs = qs.filter(violation_summary=report.violation_summary)
                 except (Report.DoesNotExist, ValueError):
-                    raise ValidationError(f'Attempted to filter by Personal Description for report {report_id}, but that report does not exist.')
-                qs = qs.filter(violation_summary=report.violation_summary)
+                    # This might not be a report id (for example, hashtags):
+                    qs = qs.filter(violation_summary=search_query[1:-1])
             elif search_query.startswith('^') and search_query.endswith('$'):
                 # Allow for "exact match" using the common regex syntax.
                 qs = qs.filter(violation_summary=search_query[1:-1])
