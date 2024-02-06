@@ -181,36 +181,27 @@ def export_actions_as_csv(modeladmin, request, queryset):
 export_actions_as_csv.allowed_permissions = ('view',)  # noqa
 
 
+def export_batch_as_pdf(modeladmin, request, queryset):
+    """Export a ReportDispositionBatch(s) as pdf files."""
+    del modeladmin, request  # Unused
+    return pdf.admin_export_pdf(
+        queryset,
+        pdf_filename=lambda batch: f'{batch.uuid}.pdf',
+        zip_filename='disposition_batch_export.zip',
+        converter=pdf.convert_disposed_to_pdf)
+
+
+export_batch_as_pdf.allowed_permissions = ('view',)  # noqa
+
+
 def export_reports_as_pdf(modeladmin, request, queryset):
     """Export a zip file containing Reports as pdf files."""
     del modeladmin, request  # Unused
-    buffer = io.BytesIO()
-    archive = zipfile.ZipFile(buffer, "w")
-
-    if queryset.count() == 1:
-        try:
-            content = pdf.convert_report_to_pdf(queryset.first())
-            return HttpResponse(content.getvalue(), content_type="application/pdf")
-        except pdf.FailedToGeneratePDF as error:
-            logging.exception(error)
-            return HttpResponse(f'{error}', status=500)
-
-    errors = []
-    for report in queryset:
-        try:
-            content = pdf.convert_report_to_pdf(report)
-            archive.writestr(f'{report.public_id}.pdf', content.getvalue())
-        except pdf.FailedToGeneratePDF as error:
-            logging.exception(error)
-            errors.append(f'{report.public_id}: {error}')
-    if errors:
-        archive.writestr("errors.txt", "\n".join(errors))
-    archive.close()
-
-    response = HttpResponse(buffer.getvalue(), content_type="application/zip")
-    response["Content-Disposition"] = 'attachment; filename="reports_export.zip"'
-
-    return response
+    return pdf.admin_export_pdf(
+        queryset,
+        pdf_filename=lambda report: f'{report.public_id}.pdf',
+        zip_filename='reports_export.zip',
+        converter=pdf.convert_report_to_pdf)
 
 
 export_reports_as_pdf.allowed_permissions = ('view',)  # noqa

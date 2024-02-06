@@ -46,4 +46,14 @@
 {{ block.super }}
 <script src="{% static 'js/ga_util.min.js' %}"></script>
 <script src="{% static 'js/data-filters.min.js' %}"></script>
+<script nonce="{{ request.csp_nonce }}">
+    $(document).ready(function () {
+      $('.datatable-table').each(function() {
+        $(this).DataTable({
+          responsive: true,
+          colReorder: true
+        });
+      });
+    });
+</script>
 {% endblock %}
