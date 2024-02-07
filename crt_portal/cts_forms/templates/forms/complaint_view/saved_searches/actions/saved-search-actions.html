@@ -1,5 +1,7 @@
 {% extends "forms/complaint_view/show/card.html" %}
-{% block title %}{{title}}{% endblock %}
+{% block title %}
+    Saved search actions
+{% endblock %}
 {% block extra_classes %}crt-action-card{% endblock %}
 {% block icon %}
 <img src="{% static icon %}" alt="" class="icon" />
@@ -12,21 +14,21 @@
     <legend class="usa-sr-only">Saved search actions</legend>
     <div class="margin-bottom-2 crt-dropdown crt-dropdown__shrink-to-contents">
       <label for="id_name" class="intake-label">
-        {{ actions.fields.name.widget.label }}
+        {{ form.fields.name.label }}
       </label>
-      {{ actions.name }}
+      {{ form.name }}
     </div>
     <div class="margin-bottom-2 crt-dropdown crt-dropdown__shrink-to-contents">
       <label for="id_query" class="intake-label">
-        {{ actions.fields.query.widget.label }}
+        {{ form.fields.query.label }}
       </label>
-      {{ actions.query }}
+      {{ form.query }}
     </div>
     <div class="margin-bottom-2 crt-dropdown">
       <label for="id_section" class="intake-label">
-        {{ actions.fields.section.widget.label }}
+        {{ form.fields.section.widget.label }}
       </label>
-      {{ actions.section }}
+      {{ form.section }}
     </div>
     <div class="intake-section apply-discard">
       <button class="usa-button" type="submit" name='type' value='{{actions.CONTEXT_KEY}}'>Apply changes</button>

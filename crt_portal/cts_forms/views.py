@@ -1067,33 +1067,71 @@ class ActionsView(LoginRequiredMixin, FormView):
 
 
 class SavedSearchView(LoginRequiredMixin, FormView):
-    form_class = SavedSearchActions
 
     def get(self, request):
         saved_searches = SavedSearch.objects.filter().all()
-        selected_section = request.GET.get('section', None)
+        selected_section = request.GET.getlist('section', None)
         if selected_section:
             saved_searches = SavedSearch.objects.filter(section=selected_section)
         output = {
             'section': selected_section,
             'saved_searches': saved_searches,
             'form': SavedSearchFilter(request.GET),
-            'saved_search_actions': SavedSearchActions(),
         }
         return render(request, 'forms/complaint_view/saved_searches/index.html', output)
 
     def post(self, request):
         saved_searches = SavedSearch.objects.filter().all()
-        selected_section = request.GET.get('section', None)
+        selected_section = request.GET.getlist('section', None)
         if selected_section:
             saved_searches = SavedSearch.objects.filter(section=selected_section)
         output = {
             'section': selected_section,
             'saved_searches': saved_searches,
             'form': SavedSearchFilter(request.GET),
-            'saved_search_actions': SavedSearchActions(),
         }
         return render(request, 'forms/complaint_view/saved_searches/index.html', output)
+
+
+class SavedSearchActionView(LoginRequiredMixin, FormView):
+    form_class = SavedSearchActions
+    http_method_names = ['get', 'post']
+
+    def get(self, request):
+        """
+        Get saved search to edit
+        """
+        saved_search_id = request.GET.get('saved_search_id')
+        saved_search = get_object_or_404(SavedSearch, pk=saved_search_id)
+        section = request.GET.getlist('section', None)
+        saved_search_form = SavedSearchActions(request.GET, instance=saved_search)
+        output = {
+            'form': saved_search_form,
+            'section': section,
+            'saved_search': saved_search,
+        }
+        return render(request, 'forms/complaint_view/saved_searches/actions/index.html', output)
+
+
+    def post(self, request):
+        saved_search_id = request.POST.get('saved_search_id')
+        saved_search = get_object_or_404(SavedSearch, pk=saved_search_id)
+        section = request.POST.getlist('section', None)
+
+        saved_search_form = self.form_class(request.POST)
+
+        if saved_search_form.is_valid() and saved_search_form.has_changed():
+            saved_search = saved_search_form.save(commit=False)
+            saved_search.user = request.user
+            saved_search.save()
+        else:
+            for key in saved_search_form.errors:
+                errors = '; '.join(saved_search_form.errors[key])
+                error_message = f'Could not edit saved search: {errors}'
+                messages.add_message(request, messages.ERROR, error_message)
+        url = reverse('crt_forms:saved-searches')
+
+        return redirect(f"{url}?section={section}")
 
 
 class ReportAttachmentView(LoginRequiredMixin, FormView):

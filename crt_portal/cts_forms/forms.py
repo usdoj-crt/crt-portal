@@ -2637,7 +2637,6 @@ class SavedSearchFilter(Form):
         required=False,
         label='Section',
         choices=[
-            ('', ''),  # Default choice: empty (include everything)
             *SECTION_CHOICES_WITHOUT_LABELS,
         ],
         widget=UsaCheckboxSelectMultiple(attrs={
@@ -2651,18 +2650,47 @@ class SavedSearchActions(ModelForm):
         model = SavedSearch
         fields = ['name', 'query', 'section']
 
-        widgets = {
-            'name': TextInput(attrs={
-                'class': 'usa-input',
-            }),
-            'query': TextInput(attrs={
-                'class': 'usa-input',
-            }),
-            'section': CrtMultiSelect(attrs={
-                'class': 'text-uppercase',
-                'name': 'section'
-            }),
-        }
+    def __init__(self, *args, user=None, **kwargs):
+        self.user = user
+        ModelForm.__init__(self, *args, **kwargs)
+
+        self.fields['section'] = ChoiceField(
+            widget=ComplaintSelect(
+                label='Section',
+                attrs={'class': 'usa-select crt-dropdown__data'},
+            ),
+            choices=[
+                ('Select Section', ''),  # Default choice: empty
+                *SECTION_CHOICES_WITHOUT_LABELS,
+            ],
+            required=False
+        )
+
+        self.fields['name'] = CharField(
+            label='Name',
+            widget=TextInput(
+                attrs={
+                    'class': 'usa-input',
+                    'name': 'name',
+                    'placeholder': 'Name',
+                    'aria-label': 'Name'
+                },
+            ),
+            required=True
+        )
+
+        self.fields['query'] = CharField(
+            label='Query',
+            widget=TextInput(
+                attrs={
+                    'class': 'usa-input',
+                    'name': 'query',
+                    'placeholder': 'Query',
+                    'aria-label': 'Query'
+                },
+            ),
+            required=True
+        )
 
     def save(self, commit=True):
         instance = ModelForm.save(self, commit=False)

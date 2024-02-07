@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import (ActionsView, SavedSearchView, index_view, data_view, dashboard_view, dashboard_activity_log_view, disposition_view, RoutingGuideView, DispositionGuideView, DispositionActionsView, ShowView, ProFormView,
+from .views import (ActionsView, SavedSearchActionView, SavedSearchView, index_view, data_view, dashboard_view, dashboard_activity_log_view, disposition_view, RoutingGuideView, DispositionGuideView, DispositionActionsView, ShowView, ProFormView,
                     SaveCommentView, TrendView, ResponseView, SearchHelperView,
                     PrintView, ProfileView, ReportAttachmentView, ReportDataView, DataExport, RemoveReportAttachmentView, unsubscribe_view)
 from .forms import ProForm
@@ -30,6 +30,7 @@ urlpatterns = [
     path('dashboard/', dashboard_view, name='dashboard'),
     path('data/', data_view, name='data'),
     path('saved-searches/', SavedSearchView.as_view(), name='saved-searches'),
+    path('saved-searches/actions', SavedSearchActionView.as_view(), name='saved-search-actions'),
     path('dashboard/activity', dashboard_activity_log_view, name='activity-log'),
     path('disposition', disposition_view, name='disposition'),
     path('disposition/actions', DispositionActionsView.as_view(), name='disposition-actions'),

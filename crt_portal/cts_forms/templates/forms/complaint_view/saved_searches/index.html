@@ -18,12 +18,33 @@
         {% for saved_search in saved_searches %}
           <li>
             <a data-ga-event-name="saved search link: {{ saved_search.name }}" href="/form/view/?{{ saved_search.query }}">{{ saved_search.name }}</a>
+            <form class="usa-form"
+              method="get"
+              action="{% url 'crt_forms:saved-search-actions' %}"
+              novalidate
+            >
+              <input type="hidden" value="{{ saved_search.pk }}" name="saved_search_id" id="saved_search_id"  />
+              <input type="hidden" value="{{ section }}" name="section" id="section"  />
+              <button class="usa-button" type="submit" id="submit-button">
+                Edit search
+              </button>
+            </form>
           </li>
         {% endfor %}
       </ul>
     {% endif %}
   </div>
 </div>
+<form class="usa-form"
+  method="get"
+  action="{% url 'crt_forms:saved-search-actions' %}"
+  novalidate
+>
+  <input type="hidden" value="{{ section }}" name="section" id="section"  />
+  <button class="usa-button" type="submit" id="submit-button">
+    Add new search
+  </button>
+</form>
 </div>
 {% endblock %}
 {% block page_js %}
