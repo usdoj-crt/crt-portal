@@ -77,6 +77,9 @@ def _get_tags_markup(field_content):
 def _prepare_fuzzy_for_chip(key, filters):
     prefix = filters.get(key, [''])[0]
 
+    if not prefix:
+        return
+
     sounds_like_value = filters.pop(f'{key}_1', [''])[0]
     suffix = []
     if sounds_like_value and sounds_like_value != '0':
