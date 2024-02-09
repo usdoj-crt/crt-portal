@@ -21,6 +21,8 @@
     }
     input.addEventListener('change', handleChange);
     input.addEventListener('keyup', handleChange);
+
+    document.querySelector('.iti__search-input').setAttribute('title', 'Search for a country');
   }
 
   document.addEventListener('DOMContentLoaded', function() {
