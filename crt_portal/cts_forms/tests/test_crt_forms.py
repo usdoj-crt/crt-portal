@@ -22,7 +22,7 @@ from cts_forms.mail import render_complainant_mail, render_agency_mail
 
 from ..forms import BulkActionsForm, BulkDispositionForm, ComplaintActions, ComplaintOutreach, ContactEditForm, Filters, ReportEditForm
 from ..model_variables import CLOSED_STATUS, PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES, NEW_STATUS
-from ..models import CommentAndSummary, NotificationPreference, ReferralContact, Report, ResponseTemplate, EmailReportCount, RetentionSchedule
+from ..models import CommentAndSummary, NotificationPreference, ReferralContact, Report, ResponseTemplate, EmailReportCount, RetentionSchedule, SavedSearch
 from .factories import ReportFactory
 from .test_data import SAMPLE_REFERRAL_CONTACT, SAMPLE_REPORT_1, SAMPLE_RESPONSE_TEMPLATE
 
@@ -1540,3 +1540,43 @@ class ReferralEmailContentTests(TestCase):
         self.assertEqual(referral_letter.subject, f'[DOJ CRT Referral] {self.report.public_id} - Lincoln Abraham')
         self.assertIn(f'<strong>Subject:</strong> test data with record {self.report.public_id}', referral_letter.html_message)
         self.assertIn('<strong>First name:</strong> Lincoln', referral_letter.html_message)
+
+
+class SavedSearchActionTests(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.test_pass = secrets.token_hex(32)
+        self.user = User.objects.create_user('DELETE_USER', 'ringo@thebeatles.com', self.test_pass)
+        self.client.login(username='DELETE_USER', password=self.test_pass)
+        self.saved_search = SavedSearch.objects.create(
+            name='APP Saved Search',
+            query='location_state=AK&intake_format=web&grouping=default',
+            section='ADM'
+        )
+
+    def test_update_search(self):
+        url = reverse('crt_forms:saved-search-actions', kwargs={'id': self.saved_search.id})
+        params = {
+            'section_filter': '&section_filter=APP',
+            'name': 'APP Saved Search',
+            'query': 'location_state=AK&intake_format=web&grouping=default',
+            'section': 'APP'
+        }
+        response = self.client.post(url, params, follow=True)
+        content = str(response.content)
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue('Successfully updated Section' in content)
+        self.saved_search.refresh_from_db()
+        self.assertTrue(self.saved_search.section == 'APP')
+
+    def test_create_search(self):
+        url = reverse('crt_forms:saved-search-actions')
+        params = {
+            'section_filter': 'ADM',
+            'section': 'ADM',
+            'name': 'ADM Search',
+            'query': 'location_state=IL&commercial_or_public_place=place_of_worship'
+        }
+        response = self.client.post(url, params, follow=True)
+        content = str(response.content)
+        self.assertTrue('Successfully added new saved search' in content)
