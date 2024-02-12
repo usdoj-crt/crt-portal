@@ -878,7 +878,6 @@ class CRT_Activity_Dashboard_Tests(TestCase):
 
 class CRT_Saved_Search_Tests(TestCase):
     def setUp(self):
-        # We'll need a report and a handful of actions
         self.client = Client()
         self.superuser = User.objects.create_superuser('superduperuser', 'a@a.com', '')
         self.ADMsavedSearch = SavedSearch.objects.create(
@@ -912,6 +911,38 @@ class CRT_Saved_Search_Tests(TestCase):
         response = self.client.get(url)
         self.assertTrue('ADM Saved Search' in str(response.content))
         self.assertFalse('CRM Saved Search' in str(response.content))
+
+
+class CRT_Saved_Search_Action_Tests(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.superuser = User.objects.create_superuser('superduperuser', 'a@a.com', '')
+        self.ADMsavedSearch = SavedSearch.objects.create(
+            name="ADM Saved Search",
+            query="status=closed&grouping=default",
+            section="ADM",
+        )
+        self.url = reverse('crt_forms:saved-search-actions')
+
+    def test_view_saved_search_actions_unauthenticated(self):
+        """Unauthenticated attempt to view saved search action page redirects to login page."""
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 302)
+
+    def test_view_add_saved_search_actions_authenticated(self):
+        """Authenticated will return 200 and display create save search action page."""
+        self.client.force_login(self.superuser)
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue('Add new saved search' in str(response.content))
+
+    def test_view_update_saved_search_actions_authenticated(self):
+        """Authenticated will return 200 and display update saved search action page."""
+        self.client.force_login(self.superuser)
+        url = reverse('crt_forms:saved-search-actions', kwargs={'id': self.ADMsavedSearch.pk} )
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue('Update saved search' in str(response.content))
 
 
 class CRTDispositionTests(TestCase):
