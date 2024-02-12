@@ -2,12 +2,13 @@
 
 {% block controls %}section{% endblock %}
 {% block label %}Section{% endblock %}
-{% block id %}section{% endblock %}
+{% block id %}section_filter{% endblock %}
 {% block content %}
-  <label for="id_section">
+
+  <label for="id_section_filter">
     <span class="usa-sr-only">section</span>
   </label>
-  <div id="section-filter" class="multicheckboxes-container">
-    {{ form.section }}
+  <div id="section_filter" class="multicheckboxes-container">
+    {{ form.section_filter }}
   </div>
 {% endblock %}

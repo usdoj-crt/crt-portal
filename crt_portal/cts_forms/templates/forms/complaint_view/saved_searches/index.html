@@ -10,44 +10,80 @@
     {% include 'partials/messages.html' %}
   </div>
   {% include 'forms/complaint_view/saved_searches/saved-search-header.html' %}
+  <form class="usa-form" method="get" action="/form/saved-searches/actions/new" novalidate>
+    <input type="hidden" value="{{ section_filter }}" name="section_filter" id="section_filter" />
+    <div class="text-left margin-top-3 margin-bottom-3">
+      <button class="usa-button" type="submit" id="add-button">
+        Add new search
+      </button>
+    </div>
+  </form>
   {% include 'forms/complaint_view/saved_searches/filter-controls.html' %}
-<div class="grid-col-auto">
-  <div class="display-flex flex-align-center">
-    {% if saved_searches %}
-      <ul class="usa-list usa-list--unstyled">
-        {% for saved_search in saved_searches %}
-          <li>
-            <a data-ga-event-name="saved search link: {{ saved_search.name }}" href="/form/view/?{{ saved_search.query }}">{{ saved_search.name }}</a>
-            <form class="usa-form"
-              method="get"
-              action="{% url 'crt_forms:saved-search-actions' %}"
-              novalidate
-            >
-              <input type="hidden" value="{{ saved_search.pk }}" name="saved_search_id" id="saved_search_id"  />
-              <input type="hidden" value="{{ section }}" name="section" id="section"  />
-              <button class="usa-button" type="submit" id="submit-button">
-                Edit search
-              </button>
-            </form>
-          </li>
-        {% endfor %}
-      </ul>
-    {% endif %}
+  <div class="grid-col-auto margin-top-3">
+    <div class="intake-table">
+      <div class="intake-table-header">
+        <h3 class="intake-section-title">Saved searches</h3>
+      </div>
+    <div class="crt-xscroll">
+      <table class="usa-table crt-table sort-table">
+        <thead>
+          <tr>
+            <th>
+              Name
+            </th>
+            <th>
+              Query
+            </th>
+            <th>
+              Section
+            </th>
+            <th></th>
+          </tr>
+        </thead>
+        {% if saved_searches %}
+        <tbody>
+          {% for saved_search in saved_searches %}
+          <tr>
+            <td>
+              <a
+                data-ga-event-name="saved search link: {{ saved_search.name }}"
+                href="/form/view/?{{ saved_search.query }}"
+                >{{ saved_search.name }}</a
+              >
+            </td>
+            <td>
+              {{ saved_search.query|truncatechars:60 }}
+            </td>
+            <td>
+              {{ saved_search.section }}
+            </td>
+            <td>
+              <form
+                class="usa-form"
+                method="get"
+                action="/form/saved-searches/actions/{{ saved_search.pk }}/"
+                novalidate
+              >
+                <input
+                  type="hidden"
+                  value="{{ section_filter }}"
+                  name="section_filter"
+                  id="section_filter"
+                />
+                <button class="usa-button usa-button--unstyled" type="submit" id="edit-button">
+                  Edit
+                </button>
+              </form>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+        {% endif %}
+      </table>
+    </div>
+  </div>
   </div>
 </div>
-<form class="usa-form"
-  method="get"
-  action="{% url 'crt_forms:saved-search-actions' %}"
-  novalidate
->
-  <input type="hidden" value="{{ section }}" name="section" id="section"  />
-  <button class="usa-button" type="submit" id="submit-button">
-    Add new search
-  </button>
-</form>
-</div>
-{% endblock %}
-{% block page_js %}
-{{ block.super }}
+{% endblock %} {% block page_js %} {{ block.super }}
 <script src="{% static 'js/ga_util.min.js' %}"></script>
 {% endblock %}

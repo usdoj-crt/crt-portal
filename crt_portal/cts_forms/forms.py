@@ -2633,19 +2633,37 @@ class AttachmentActions(ModelForm):
 
 
 class SavedSearchFilter(Form):
-    section = MultipleChoiceField(
+    section_filter = MultipleChoiceField(
         required=False,
         label='Section',
         choices=[
             *SECTION_CHOICES_WITHOUT_LABELS,
         ],
         widget=UsaCheckboxSelectMultiple(attrs={
-            'name': 'section',
+            'name': 'section_filter',
         }),
     )
 
 
 class SavedSearchActions(ModelForm):
+
+    def field_changed(self, field):
+        # if both are Falsy, nothing actually changed (None ~= "")
+        old = self.initial.get(field, None)
+        new = self.cleaned_data.get(field, None)
+        if not old and not new:
+            return False
+        return old != new
+
+    @cached_property
+    def changed_data(self):
+        return [
+            field_name
+            for field_name
+            in super().changed_data
+            if self.field_changed(field_name)
+        ]
+
     class Meta:
         model = SavedSearch
         fields = ['name', 'query', 'section']
@@ -2657,15 +2675,11 @@ class SavedSearchActions(ModelForm):
         self.fields['section'] = ChoiceField(
             widget=ComplaintSelect(
                 label='Section',
-                attrs={'class': 'usa-select crt-dropdown__data'},
+                attrs={ 'class': 'usa-select crt-dropdown__data'},
             ),
-            choices=[
-                ('Select Section', ''),  # Default choice: empty
-                *SECTION_CHOICES_WITHOUT_LABELS,
-            ],
+            choices=SECTION_CHOICES_WITHOUT_LABELS,
             required=False
         )
-
         self.fields['name'] = CharField(
             label='Name',
             widget=TextInput(
@@ -2673,10 +2687,10 @@ class SavedSearchActions(ModelForm):
                     'class': 'usa-input',
                     'name': 'name',
                     'placeholder': 'Name',
-                    'aria-label': 'Name'
+                    'aria-label': 'Name',
                 },
             ),
-            required=True
+            required=True,
         )
 
         self.fields['query'] = CharField(
@@ -2686,16 +2700,39 @@ class SavedSearchActions(ModelForm):
                     'class': 'usa-input',
                     'name': 'query',
                     'placeholder': 'Query',
-                    'aria-label': 'Query'
+                    'aria-label': 'Query',
                 },
             ),
             required=True
         )
 
+    def success_message(self, id=None):
+        """Prepare update success message for rendering in template"""
+        def get_label(field):
+            field = self.fields[field]
+            # Some fields can't support the extra context label, and store it
+            # on their attributes
+            if attrs_label := field.widget.attrs.get('field_label', None):
+                return attrs_label
+            # Most standard fields will have a direct label.
+            if hasattr(field.widget, 'label'):
+                return field.widget.label
+            return field.label
+        search_name = self.cleaned_data['name']
+        if not id:
+            message = f"Successfully added new saved search: {search_name}."
+        else:
+            updated_fields = [get_label(field) for field in self.changed_data]
+            if len(updated_fields) == 1:
+                message = f"Successfully updated {updated_fields[0]} in {search_name}."
+            else:
+                fields = ', '.join(updated_fields[:-1])
+                fields += f', and {updated_fields[-1]}'
+                message = f"Successfully updated {fields} in {search_name}."
+        return message
+
     def save(self, commit=True):
-        instance = ModelForm.save(self, commit=False)
-
+        saved_search = super().save(commit=False)
         if commit:
-            instance.save()
-
-        return instance
+            saved_search.save()
+        return saved_search
