@@ -84,6 +84,9 @@
   </div>
   </div>
 </div>
-{% endblock %} {% block page_js %} {{ block.super }}
+{% endblock %}
+{% block page_js %}
+{{ block.super }}
 <script src="{% static 'js/ga_util.min.js' %}"></script>
+<script src="{% static 'vendor/js.cookie.min.js' %}"></script>
 {% endblock %}

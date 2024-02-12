@@ -907,7 +907,7 @@ class CRT_Saved_Search_Tests(TestCase):
         self.assertTrue('CRM Saved Search' in str(response.content))
 
     def test_section_filter(self):
-        url = f'{self.url}?section=ADM'
+        url = f'{self.url}?section_filter=ADM'
         self.client.force_login(self.superuser)
         response = self.client.get(url)
         self.assertTrue('ADM Saved Search' in str(response.content))
