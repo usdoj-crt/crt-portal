@@ -1,6 +1,11 @@
 {% extends "forms/complaint_view/intake_base.html" %}
 {% load back_to_all %}
 
+{% block head %}
+  {{ super }}
+  <link rel="stylesheet" href="{% static 'css/vendor/intlTelInput.min.css' %}">
+{% endblock %}
+
 {% block page_title %}
  <title>CRT Complaint Records{% for message in messages %} - {{ message }}{% endfor %}</title>
 {% endblock %}
@@ -109,6 +114,7 @@
 {% block page_js %}
 {{ block.super }}
 <script src="{% static 'vendor/js.cookie.min.js' %}"></script>
+<script src="{% static 'vendor/intlTelInput.min.js' %}"></script>
 <script defer src="{% static 'vendor/marked.min.js' %}"></script>
 <script src="{% static 'js/edit_detail_card.min.js' %}"></script>
 <script src="{% static 'js/edit_details.min.js' %}"></script>
@@ -128,4 +134,6 @@
 <script src="{% static 'js/activity_stream.min.js'%}"></script>
 <script src="{% static 'js/discard_button.min.js'%}"></script>
 <script src="{% static 'js/save_warning.min.js'%}"></script>
+<script src="{% static 'js/report_phone.min.js' %}"></script>
+<script src="{% static 'js/intake_phone.min.js' %}"></script>
 {%endblock%}
