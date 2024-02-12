@@ -2675,7 +2675,7 @@ class SavedSearchActions(ModelForm):
         self.fields['section'] = ChoiceField(
             widget=ComplaintSelect(
                 label='Section',
-                attrs={ 'class': 'usa-select crt-dropdown__data'},
+                attrs={'class': 'usa-select crt-dropdown__data'},
             ),
             choices=SECTION_CHOICES_WITHOUT_LABELS,
             required=False
