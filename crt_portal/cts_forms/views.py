@@ -1078,26 +1078,34 @@ class SavedSearchView(LoginRequiredMixin, FormView):
     def get(self, request):
         saved_searches = SavedSearch.objects.filter().all()
         section_filter = request.GET.getlist('section_filter', [])
+        saved_search_view = request.GET.get('saved_search_view', 'all')
         section_args = self.get_section_args(section_filter)
         if section_filter:
             saved_searches = SavedSearch.objects.filter(section__in=section_filter)
+        if saved_search_view == 'my-saved-searches':
+            saved_searches = SavedSearch.objects.filter(user=request.user)
         output = {
             'section_filter': section_args,
             'saved_searches': saved_searches,
             'form': SavedSearchFilter(request.GET),
+            'saved_search_view': saved_search_view,
         }
         return render(request, 'forms/complaint_view/saved_searches/index.html', output)
 
     def post(self, request):
         saved_searches = SavedSearch.objects.filter().all()
         section_filter = request.GET.getlist('section_filter', [])
+        saved_search_view = request.GET.get('saved_search_view', 'all')
         section_args = self.get_section_args(section_filter)
         if section_filter:
             saved_searches = SavedSearch.objects.filter(section__in=section_filter)
+        if saved_search_view == 'my-saved-searches':
+            saved_searches = SavedSearch.objects.filter(user=request.user)
         output = {
             'section_filter': section_args,
             'saved_searches': saved_searches,
             'form': SavedSearchFilter(request.GET),
+            'saved_search_view': saved_search_view,
         }
         return render(request, 'forms/complaint_view/saved_searches/index.html', output)
 
@@ -1132,10 +1140,13 @@ class SavedSearchActionView(LoginRequiredMixin, View):
 
     def post(self, request, id=None):
         section_filter = request.POST.getlist('section_filter')
-        if id:
-            saved_search = get_object_or_404(SavedSearch, pk=id)
-        else:
+        new_search = id == None
+        if new_search:
             saved_search = SavedSearch()
+            saved_search.user = request.user
+        else:
+            saved_search = get_object_or_404(SavedSearch, pk=id)
+
 
         form = SavedSearchActions(request.POST, instance=saved_search)
         if not (form.is_valid() and form.has_changed()):
@@ -1162,18 +1173,21 @@ class SavedSearchActionView(LoginRequiredMixin, View):
             messages.add_message(request,
                                  messages.ERROR,
                                  mark_safe(fail_message))
-            if id:
-                return render(request, 'forms/complaint_view/saved_searches/actions/update.html', output)
-            else:
+            if new_search:
                 return render(request, 'forms/complaint_view/saved_searches/actions/new.html', output)
+            else:
+                return render(request, 'forms/complaint_view/saved_searches/actions/update.html', output)
         saved_search = form.save(commit=False)
 
         saved_search.save()
         messages.add_message(request, messages.SUCCESS, form.success_message(id))
         url = reverse('crt_forms:saved-searches')
-        section_filter = request.POST.get('section_filter')
-        section_args = self.get_section_args(section_filter)
-        return redirect(f"{url}?{section_filter}")
+        if new_search:
+            return redirect(f"{url}?saved_search_view=my-saved-searches")
+        else:
+            section_filter = request.POST.get('section_filter')
+            section_args = self.get_section_args(section_filter)
+            return redirect(f"{url}?{section_filter}")
 
 
 class ReportAttachmentView(LoginRequiredMixin, FormView):

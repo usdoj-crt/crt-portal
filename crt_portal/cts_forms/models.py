@@ -66,6 +66,7 @@ class SavedSearch(models.Model):
     override_section_assignment = models.BooleanField(default=False, null=False, help_text="Whether to override the section assignment for all reports with this campaign")
     override_section_assignment_with = models.TextField(choices=SECTION_CHOICES, null=True, blank=True, help_text="If set, this will override the section assignment for all reports with this campaign. This can be used to 'tweak' the routing logic based on Personal Description, etc.")
     section = models.TextField(choices=SECTION_CHOICES, null=True, blank=True, default=None, help_text="The section to which this saved search applies.")
+    user = models.ForeignKey(User, blank=True, null=True, on_delete=models.SET_NULL)
 
     def get_absolute_url(self):
         return f'/form/view?{self.query}'
@@ -75,7 +76,6 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     intake_filters = models.TextField(max_length=500, blank=True)
     section = models.TextField(choices=SECTION_CHOICES, null=True, blank=True, default=None)
-    saved_searches = models.ForeignKey(SavedSearch, on_delete=models.SET_NULL, null=True, blank=True, help_text="The user who created this saved search.")
 
     def __str__(self):
         return str(self.user)

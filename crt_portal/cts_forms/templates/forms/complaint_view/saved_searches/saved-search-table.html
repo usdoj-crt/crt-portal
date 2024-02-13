@@ -1,0 +1,57 @@
+<div class="crt-xscroll">
+    <table class="usa-table crt-table sort-table">
+      <thead>
+        <tr>
+          <th>
+            Name
+          </th>
+          <th>
+            Query
+          </th>
+          <th>
+            Section
+          </th>
+          <th></th>
+        </tr>
+      </thead>
+      {% if saved_searches %}
+      <tbody>
+        {% for saved_search in saved_searches %}
+        <tr>
+          <td>
+            <a
+              data-ga-event-name="saved search link: {{ saved_search.name }}"
+              href="/form/view/?{{ saved_search.query }}"
+              >{{ saved_search.name }}</a
+            >
+          </td>
+          <td>
+            {{ saved_search.query|truncatechars:60 }}
+          </td>
+          <td>
+            {{ saved_search.section }}
+          </td>
+          <td>
+            <form
+              class="usa-form"
+              method="get"
+              action="/form/saved-searches/actions/{{ saved_search.pk }}/"
+              novalidate
+            >
+              <input
+                type="hidden"
+                value="{{ section_filter }}"
+                name="section_filter"
+                id="section_filter"
+              />
+              <button class="usa-button usa-button--unstyled" type="submit" id="edit-button">
+                Edit
+              </button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+      {% endif %}
+    </table>
+</div>
