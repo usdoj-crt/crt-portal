@@ -55,3 +55,27 @@
 .usa-sr-only {
   max-width: 999em;
 }
+
+.usa-fieldset .iti,
+.form-group .iti {
+  margin-top: 0.5rem;
+  display: block;
+}
+
+.iti__flag {background-image: url("/static/img/flags.png") !important;}
+@media (min-resolution: 2x) {
+  .iti__flag {background-image: url("/static/img/flags@2x.png") !important;}
+}
+
+.phone-input {
+  &.usa-input.phone-input--valid:focus {
+    border: 1px solid #538200;
+    outline: 2px solid #538200;
+  }
+
+  &.usa-input.phone-input--error,
+  &.usa-input.phone-input--error:focus {
+    border: 1px solid #e41d3d;
+    outline: 2px solid #e41d3d;
+  }
+}

@@ -330,7 +330,7 @@ class Contact(ModelForm):
                 'class': 'usa-input',
             }),
             'contact_phone': TextInput(attrs={
-                'class': 'usa-input',
+                'class': 'usa-input phone-input',
                 'pattern': phone_validation_regex,
                 'title': CONTACT_PHONE_INVALID_MESSAGE
             }),
@@ -1358,10 +1358,11 @@ class Filters(ModelForm):
         required=False,
         widget=TextInput(
             attrs={
-                'class': 'usa-input',
+                'class': 'usa-input phone-input',
                 'name': 'contact_phone',
                 'placeholder': 'Contact Phone Number',
-                'aria-label': 'Contact Phone Number'
+                'aria-label': 'Contact Phone Number',
+                'title': CONTACT_PHONE_INVALID_MESSAGE,
             },
         ),
     )
@@ -2409,9 +2410,9 @@ class ContactEditForm(LitigationHoldLock, ModelForm, ActivityStreamUpdater):
                 'class': 'usa-input',
             }),
             'contact_phone': TextInput(attrs={
-                'class': 'usa-input',
+                'class': 'usa-input phone-input',
                 'pattern': phone_validation_regex,
-                'title': CONTACT_PHONE_INVALID_MESSAGE
+                'title': CONTACT_PHONE_INVALID_MESSAGE,
             }),
             'contact_address_line_1': TextInput(attrs={
                 'class': 'usa-input',
