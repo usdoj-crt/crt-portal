@@ -31,7 +31,7 @@ from datetime import datetime
 
 
 from .attachments import ALLOWED_FILE_EXTENSIONS
-from .filters import get_report_filter_from_search, report_filter, dashboard_filter, report_grouping
+from .filters import report_filter, dashboard_filter, report_grouping
 from .forms import (
     BulkActionsForm, BulkDispositionForm, CommentActions, ComplaintActions, ComplaintOutreach,
     ContactEditForm, Filters, PrintActions, ProfileForm,
