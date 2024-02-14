@@ -57,6 +57,7 @@
     "gulp-sass": "^5.1.0",
     "gulp-sourcemaps": "^3.0.0",
     "gulp-uglify": "^3.0.2",
+    "intl-tel-input": "^19.2.16",
     "jszip": "^3.10.1",
     "postcss": "^8.4.31",
     "postcss-csso": "^5.0.0",

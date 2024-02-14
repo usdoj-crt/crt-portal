@@ -1,18 +1,11 @@
-{% extends "forms/complaint_view/index/filter-no-dropdown.html" %}
+{% extends "forms/complaint_view/index/filter.html" %}
 
 {% block id %}incident-location{% endblock %}
+{% block label %}Organization name{% endblock %}
 {% block classes %}summary_input{% endblock %}
 
 {% block content %}
-{% if ENABLED_FEATURES.fuzzy_location_name %}
-<span class="usa-tooltip" data-position="right" data-classes="display-inline" title='Tip: Use "~some location" (without quotes) to match locations that sound or look similar to some location'>
-{% endif %}
-  <div id="incident_location-filter">
-    <label for="id_{{form.fields.location_name.widget.attrs.name}}">
-      {{ form.location_name }}
-    </label>
-  </div>
-{% if ENABLED_FEATURES.fuzzy_location_name %}
-</span>
-{% endif %}
+<div id="incident_location-filter">
+  {{ form.location_name }}
+</div>
 {% endblock %}

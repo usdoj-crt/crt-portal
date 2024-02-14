@@ -1,0 +1,9 @@
+{% spaceless %}
+  {% for widget in widget.subwidgets %}
+    <div>
+      <label id="{{widget.name}}_label" for="id_{{widget.name}}">{{widget.attrs.label}}</label>
+      {% include widget.template_name %}
+    </div>
+  {% endfor %}
+{% endspaceless %}
+

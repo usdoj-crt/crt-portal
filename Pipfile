@@ -23,7 +23,7 @@ factory-boy = "*"
 tblib = "*"
 
 [packages]
-django = "==4.2.7"
+django = "==4.2.10"
 gunicorn = "*"
 django-compressor = "*"
 django-compressor-toolkit = "*"

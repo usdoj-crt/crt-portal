@@ -33,6 +33,7 @@ const sass = require('gulp-sass')(require('sass'));
 const sourcemaps = require('gulp-sourcemaps');
 const uswds = './node_modules/@uswds/uswds';
 const shepherd = './node_modules/shepherd.js';
+const intlTelInput = './node_modules/intl-tel-input';
 const jquery = './node_modules/jquery';
 const jszip = './node_modules/jszip';
 const datatable_root = './node_modules/datatables.net';
@@ -66,12 +67,15 @@ const JS_FILES = [`${JS_DEST}/*.js`, `!${JS_DEST}/*.min.js`];
 const JS_VENDOR_FILES = [
   `${shepherd}/dist/js/**/**.min.js`,
   `${uswds}/dist/js/**/**.min.js`,
+  `${intlTelInput}/build/js/**.js`,
   `${jquery}/dist/**.min.js`,
   `${jszip}/dist/**.min.js`,
   `${datatable_root}/js/**.min.js`,
   ...datatable_extensions.map((ext) => `${datatable_root}-${ext}/js/**.min.js`),
 ];
 const JS_VENDOR_DEST = './crt_portal/static/vendor';
+
+const IMG_VENDOR_FILES = [`${intlTelInput}/build/img/**.png`];
 
 // Compiled CSS destination
 const CSS_DEST = './crt_portal/static/css/compiled';
@@ -80,6 +84,7 @@ const CSS_DEST = './crt_portal/static/css/compiled';
 const CSS_VENDOR_DEST = './crt_portal/static/css/vendor';
 
 const CSS_VENDOR_FILES = [
+  `${intlTelInput}/build/css/intlTelInput.min.css`,
   `${datatable_root}-dt/css/**.min.css`,
   ...datatable_extensions.map((ext) => `${datatable_root}-${ext}-dt/css/**.min.css`),
 ];
@@ -105,6 +110,10 @@ gulp.task('copy-uswds-fonts', () => {
 
 gulp.task('copy-uswds-images', () => {
   return gulp.src(`${uswds}/dist/img/**/**`).pipe(gulp.dest(`${IMG_DEST}`));
+});
+
+gulp.task('copy-vendor-images', () => {
+  return gulp.src(IMG_VENDOR_FILES).pipe(gulp.dest(`${IMG_DEST}`));
 });
 
 gulp.task('copy-vendor-js', () => {
@@ -163,7 +172,7 @@ gulp.task('build-sass', function (done) {
   );
 });
 
-gulp.task('build-css', gulp.parallel('copy-vendor-css', 'build-sass'));
+gulp.task('build-css', gulp.parallel('copy-vendor-css', 'copy-vendor-images', 'build-sass'));
 
 gulp.task(
   'init',

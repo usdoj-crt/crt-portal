@@ -41,7 +41,7 @@ class="edit-toggle-btn usa-button usa-button--unstyled button--edit margin-left-
       </tr>
       <tr>
         <th>Phone</th>
-        <td>{{ data.contact_phone|default:"—" }}</td>
+        <td><input disabled class="usa-input phone-input" value="{{ data.contact_phone|default:"" }}"/></td>
       </tr>
       <tr>
         <th>Address</th>

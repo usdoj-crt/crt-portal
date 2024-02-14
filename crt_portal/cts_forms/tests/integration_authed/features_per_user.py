@@ -17,7 +17,7 @@ def test_can_enable_features_per_user(page):
 
     page.goto("/form/view")
     nav = page.locator('.usa-nav__primary li').all()
-    assert len(nav) == 2
+    before = len(nav)
 
     features.toggle_feature_for_user(page=page,
                                      feature_name='data-dashboard',
@@ -26,8 +26,8 @@ def test_can_enable_features_per_user(page):
 
     page.goto("/form/view")
     nav = page.locator('.usa-nav__primary li').all()
-    assert len(nav) == 3
-    assert '🆕 Data dashboard' in nav[2].text_content().strip()
+    assert len(nav) == before + 1
+    assert '🆕 Data dashboard' in page.locator('.usa-nav__primary').text_content()
 
     features.toggle_feature_for_user(page=page,
                                      feature_name='data-dashboard',
@@ -36,4 +36,4 @@ def test_can_enable_features_per_user(page):
 
     page.goto("/form/view")
     nav = page.locator('.usa-nav__primary li').all()
-    assert len(nav) == 2
+    assert len(nav) == before
