@@ -1083,7 +1083,7 @@ class SavedSearchView(LoginRequiredMixin, FormView):
         if section_filter:
             saved_searches = SavedSearch.objects.filter(section__in=section_filter)
         if saved_search_view == 'my-saved-searches':
-            saved_searches = SavedSearch.objects.filter(user=request.user)
+            saved_searches = SavedSearch.objects.filter(created_by=request.user)
         output = {
             'section_filter': section_args,
             'saved_searches': saved_searches,
@@ -1100,7 +1100,7 @@ class SavedSearchView(LoginRequiredMixin, FormView):
         if section_filter:
             saved_searches = SavedSearch.objects.filter(section__in=section_filter)
         if saved_search_view == 'my-saved-searches':
-            saved_searches = SavedSearch.objects.filter(user=request.user)
+            saved_searches = SavedSearch.objects.filter(created_by=request.user)
         output = {
             'section_filter': section_args,
             'saved_searches': saved_searches,
@@ -1143,7 +1143,7 @@ class SavedSearchActionView(LoginRequiredMixin, View):
         new_search = id == None
         if new_search:
             saved_search = SavedSearch()
-            saved_search.user = request.user
+            saved_search.created_by = request.user
         else:
             saved_search = get_object_or_404(SavedSearch, pk=id)
 
