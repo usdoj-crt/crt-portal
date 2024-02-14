@@ -2729,7 +2729,5 @@ class SavedSearchActions(ModelForm):
         return f"Successfully updated {fields} in {search_name}."
 
     def save(self, commit=True):
-        saved_search = super().save(commit=False)
-        if commit:
-            saved_search.save()
+        saved_search = super().save(commit)
         return saved_search
