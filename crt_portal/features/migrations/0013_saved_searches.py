@@ -12,7 +12,7 @@ class Migration(migrations.Migration):
 
     operations = [
         AddFeatureMigration(
-            'saved-searches',
+            'saved_searches',
             False,
             description='Show saved search features'
         ),
