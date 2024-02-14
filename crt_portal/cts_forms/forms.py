@@ -2720,16 +2720,13 @@ class SavedSearchActions(ModelForm):
             return field.label
         search_name = self.cleaned_data['name']
         if not id:
-            message = f"Successfully added new saved search: {search_name}."
-        else:
-            updated_fields = [get_label(field) for field in self.changed_data]
-            if len(updated_fields) == 1:
-                message = f"Successfully updated {updated_fields[0]} in {search_name}."
-            else:
-                fields = ', '.join(updated_fields[:-1])
-                fields += f', and {updated_fields[-1]}'
-                message = f"Successfully updated {fields} in {search_name}."
-        return message
+            return f"Successfully added new saved search: {search_name}."
+        updated_fields = [get_label(field) for field in self.changed_data]
+        if len(updated_fields) == 1:
+            return f"Successfully updated {updated_fields[0]} in {search_name}."
+        fields = ', '.join(updated_fields[:-1])
+        fields += f', and {updated_fields[-1]}'
+        return f"Successfully updated {fields} in {search_name}."
 
     def save(self, commit=True):
         saved_search = super().save(commit=False)
