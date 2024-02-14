@@ -6,3 +6,8 @@ omit =
     */integration/*
     */integration_authed/*
     */tests.py
+    */settings.py
+    */local_settings.py
+    */middleware.py
+    */oauth_classes.py
+    */management/*

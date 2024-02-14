@@ -74,6 +74,37 @@ def _get_tags_markup(field_content):
     '''
 
 
+def _prepare_fuzzy_for_chip(key, filters):
+    prefix = filters.get(key, [''])[0]
+
+    if not prefix:
+        return
+
+    sounds_like_value = filters.pop(f'{key}_1', [''])[0]
+    suffix = []
+    if sounds_like_value and sounds_like_value != '0':
+        suffix.append('other pronunciations')
+
+    looks_like_value = filters.pop(f'{key}_2', [''])[0]
+    if looks_like_value and looks_like_value != '0':
+        suffix.append('typos')
+
+    if not suffix:
+        suffix.append('exact match')
+    suffix = ' and '.join(suffix)
+    filters[key] = [f'{prefix} ({suffix})']
+
+
+@register.filter(name='prepare_filters_for_chips')
+def prepare_filters_for_chips(filters):
+    if not filters:
+        return {}
+    filters = dict(filters)
+    for fuzzy_filter in ['location_name']:
+        _prepare_fuzzy_for_chip(fuzzy_filter, filters)
+    return filters
+
+
 @register.filter(name='get_field_markup')
 def get_field_markup(field_content, field_name) -> str:
     if field_name == 'tags':
@@ -86,7 +117,7 @@ def _get_tags_plaintext(field_content):
     return f'{section} - {name}'
 
 
-@register.filter(name='get_field_plaintext')
+@ register.filter(name='get_field_plaintext')
 def get_field_plaintext(field_content, field_name) -> str:
     if field_name == 'tags':
         return _get_tags_plaintext(field_content)

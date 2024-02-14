@@ -42,6 +42,12 @@
     return dropdown;
   });
 
+  window.addCRTDropdown = function(el) {
+    const dropdown = Dropdown(el);
+    dropdown.hide();
+    dropdowns.push(dropdown);
+  };
+
   function dropdownToggle(dropdown) {
     if (!dropdown) {
       return;

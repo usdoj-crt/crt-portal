@@ -86,6 +86,10 @@ LANDING_COMPLAINT_CHOICES_TO_NOTE = {
     'voting': _('To report a threat against voters, threats against election officials, or election fraud, visit <a href="https://tips.fbi.gov">tips.fbi.gov</a> or call 800-CALL-FBI'),
 }
 
+LANDING_COMPLAINT_CHOICES_TO_PREAMBLE = {
+    'hate_crime': _('A hate crime is violence or threats of violence based on race, color, national origin, religion, gender, sexual orientation, gender identity, or disability.'),
+}
+
 LANDING_COMPLAINT_CHOICES_TO_LEARNMORE = {
     'voting': './voting-resources',
     'housing': './housing-resources',
