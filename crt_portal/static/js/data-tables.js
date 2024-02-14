@@ -5,6 +5,62 @@
     return JSON.parse(atob(b64));
   }
 
+  function getFilters(tableOrApi) {
+    const filters = [];
+    if (tableOrApi instanceof DataTable.Api) {
+      tableOrApi.columns().every(function() {
+        if (!this.visible()) {
+          filters.push(null);
+          return;
+        }
+        const filter = this.header().dataset.filter;
+        filters.push(filter);
+      });
+      return filters;
+    }
+
+    const headers = [...tableOrApi.querySelectorAll('thead th')];
+    return headers.map(th => th.dataset.filter);
+  }
+
+  const SECTIONS =
+    '&assigned_section=ADM&assigned_section=APP&assigned_section=CRM&assigned_section=DRS&assigned_section=ELS&assigned_section=EOS&assigned_section=FCS&assigned_section=HCE&assigned_section=IER&assigned_section=POL&assigned_section=SPL&assigned_section=VOT';
+
+  function buildRowLink(filters, row) {
+    const filterMap = filters.reduce((soFar, filter, columnIndex) => {
+      if (!filter) return soFar;
+      soFar[filter] = row[columnIndex];
+      return soFar;
+    }, {});
+
+    const queryString = new URLSearchParams(filterMap).toString();
+    const sections = filterMap['assigned_section'] ? '' : SECTIONS;
+    return `/form/view/?${queryString}${sections}`;
+  }
+
+  function maybeAddViewAllHeader(tableOrApi) {
+    const table = $(tableOrApi instanceof DataTable.Api ? tableOrApi.table().node() : tableOrApi);
+    if (table.find('thead th.view-all').length) return;
+    table.find('thead tr').append('<th class="view-all">View all</th>');
+  }
+
+  function addViewAll(tableOrApi, rows) {
+    const filters = getFilters(tableOrApi);
+    if (filters.every(filter => !filter)) {
+      rows.forEach(row => {
+        row.push('N/A');
+      });
+      return;
+    }
+
+    maybeAddViewAllHeader(tableOrApi, filters);
+
+    rows.forEach(row => {
+      const link = buildRowLink(filters, row);
+      row.push(`<a class="view-all" href="${link}">View all</a>`);
+    });
+  }
+
   function getOptions(table) {
     const options = {
       colReorder: true,
@@ -29,11 +85,12 @@
       dom: 'Bfrtip'
     };
 
-    columns = getData(table, 'columns');
-    if (columns) options.columns = columns;
-
-    rows = getData(table, 'rows');
-    if (rows) options.data = rows;
+    const rows = getData(table, 'rows');
+    if (rows) {
+      saveRows(rows);
+      addViewAll(table, rows);
+      options.data = rows;
+    }
 
     return options;
   }
@@ -110,15 +167,12 @@
       });
   }
 
-  function saveRows(dataTable) {
-    const content = JSON.stringify(dataTable.data().toArray());
-    sessionStorage.setItem('dataDashboardContent', content);
-    return dataTable;
+  function saveRows(rows) {
+    sessionStorage.setItem('dataDashboardContent', JSON.stringify(rows));
   }
 
-  function readRows(dataTable) {
-    const data = JSON.parse(sessionStorage.getItem('dataDashboardContent'));
-    return dataTable.clear().rows.add(data);
+  function readRows() {
+    return JSON.parse(sessionStorage.getItem('dataDashboardContent'));
   }
 
   /**
@@ -127,7 +181,7 @@
    * If a row's name includes "(sum)",
    * it will be added to other rows that are otherwise the same
    */
-  function aggregate(dataTable) {
+  function aggregate(rows, dataTable) {
     const aggregates = {};
 
     const allColumnIndices = dataTable.columns().indexes();
@@ -146,22 +200,28 @@
     const sum = Array.from(visibleColumns.filter(c => c.toLowerCase().includes('(sum)')));
     const sumIndices = sum.map(col => allColumns.indexOf(col));
 
-    dataTable.rows().every(function() {
-      const key = groupByIndices.reduce((soFar, col) => `${soFar}|${this.data()[col]}`, '');
+    rows.forEach(row => {
+      const key = groupByIndices.reduce((soFar, col) => `${soFar}|${row[col]}`, '');
       if (!aggregates.hasOwnProperty(key)) {
         aggregates[key] = groupByIndices.reduce((soFar, col) => {
-          soFar[col] = this.data()[col];
+          soFar[col] = row[col];
           return soFar;
         }, {});
       }
       sumIndices.forEach(col => {
-        aggregates[key][col] = (aggregates[key][col] || 0) + Number(this.data()[col]);
+        aggregates[key][col] = (aggregates[key][col] || 0) + Number(row[col]);
       });
     });
+
+    if (allColumns[allColumns.length - 1].toLowerCase() === 'view all') {
+      allColumnIndices.pop();
+    }
 
     const groupedRows = Object.values(aggregates).map(row => {
       return allColumnIndices.map(col => (row.hasOwnProperty(col) ? row[col] : ''));
     });
+
+    addViewAll(dataTable, groupedRows);
 
     dataTable.clear();
     dataTable.rows.add(groupedRows);
@@ -173,12 +233,11 @@
       options = getOptions(table);
 
       const dataTable = $(table).DataTable(options);
-      saveRows(dataTable);
-
       setupFilters(table, dataTable);
+      dataTable.draw();
 
       $(table).on('column-visibility.dt', function() {
-        aggregate(readRows(dataTable)).draw();
+        aggregate(readRows(), dataTable).draw();
       });
     });
   });
