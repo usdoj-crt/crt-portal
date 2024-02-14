@@ -2668,6 +2668,9 @@ class SavedSearchActions(ModelForm):
         model = SavedSearch
         fields = ['name', 'query', 'section']
 
+    def is_locked(self):
+        return self.instance.auto_close or self.instance.override_section_assignment
+
     def __init__(self, *args, user=None, **kwargs):
         self.user = user
         ModelForm.__init__(self, *args, **kwargs)
@@ -2678,7 +2681,8 @@ class SavedSearchActions(ModelForm):
                 attrs={ 'class': 'usa-select crt-dropdown__data'},
             ),
             choices=SECTION_CHOICES_WITHOUT_LABELS,
-            required=False
+            required=False,
+            disabled=self.is_locked()
         )
         self.fields['name'] = CharField(
             label='Name',
@@ -2691,6 +2695,21 @@ class SavedSearchActions(ModelForm):
                 },
             ),
             required=True,
+            disabled=self.is_locked()
+        )
+
+        self.fields['description'] = CharField(
+            label='Description',
+            widget=TextInput(
+                attrs={
+                    'class': 'usa-input',
+                    'name': 'description',
+                    'placeholder': 'Description',
+                    'aria-label': 'Description',
+                },
+            ),
+            required=False,
+            disabled=self.is_locked()
         )
 
         self.fields['query'] = CharField(
@@ -2703,7 +2722,18 @@ class SavedSearchActions(ModelForm):
                     'aria-label': 'Query',
                 },
             ),
-            required=True
+            required=True,
+            disabled=self.is_locked()
+        )
+
+        self.fields['shared'] = BooleanField(
+            label='Share',
+            required=False,
+            widget=CheckboxInput(attrs={
+                'class': 'usa-checkbox__input',
+                'aria-label': 'Share',
+            }),
+            disabled=self.is_locked()
         )
 
     def success_message(self, id=None):
@@ -2732,7 +2762,5 @@ class SavedSearchActions(ModelForm):
         return message
 
     def save(self, commit=True):
-        saved_search = super().save(commit=False)
-        if commit:
-            saved_search.save()
+        saved_search = super().save(commit)
         return saved_search

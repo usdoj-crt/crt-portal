@@ -6,6 +6,9 @@
             Name
           </th>
           <th>
+            Description
+          </th>
+          <th>
             Query
           </th>
           <th>
@@ -29,6 +32,9 @@
             >
           </td>
           <td>
+            {{ saved_search.description|truncatechars:100|default:"-" }}
+          </td>
+          <td>
             {{ saved_search.query|truncatechars:60 }}
           </td>
           <td>
@@ -38,6 +44,7 @@
             {{ saved_search.created_by }}
           </td>
           <td>
+            {% if not saved_search.auto_close and not saved_search.override_section_assignment %}
             <form
               class="usa-form"
               method="get"
@@ -53,6 +60,9 @@
               <button class="usa-button usa-button--unstyled" type="submit" id="edit-button">
                 Edit
               </button>
+              {% else %}
+                Locked
+              {% endif %}
             </form>
           </td>
         </tr>

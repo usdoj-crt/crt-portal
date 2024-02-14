@@ -18,6 +18,12 @@
       {{ form.name }}
     </div>
     <div class="margin-bottom-2 crt-dropdown crt-dropdown__shrink-to-contents">
+      <label for="id_name" class="intake-label">
+        {{ form.fields.description.label }}
+      </label>
+      {{ form.description }}
+    </div>
+    <div class="margin-bottom-2 crt-dropdown crt-dropdown__shrink-to-contents">
       <label for="id_query" class="intake-label">
         {{ form.fields.query.label }}
       </label>
@@ -28,6 +34,14 @@
         {{ form.fields.section.widget.label }}
       </label>
       {{ form.section }}
+    </div>
+    <div class="margin-bottom-2 crt-checkbox">
+      <label for="id_shared" class="intake-label">
+        {{ form.fields.shared.label }}
+      </label>
+      {{ form.shared }}
+      {# empty label for the checkbox to render using the ::before selector #}
+      <label for="id_shared" class="usa-checkbox__label crt-checkbox__label"></label>
     </div>
     <div class="intake-section apply-discard">
       <button class="usa-button" type="submit" name='type'>Apply changes</button>

@@ -1076,14 +1076,14 @@ class SavedSearchView(LoginRequiredMixin, FormView):
         return section_args
 
     def get(self, request):
-        saved_searches = SavedSearch.objects.filter().all()
+        saved_searches = SavedSearch.objects.filter(shared=True)
         section_filter = request.GET.getlist('section_filter', [])
         saved_search_view = request.GET.get('saved_search_view', 'all')
         section_args = self.get_section_args(section_filter)
         if section_filter:
-            saved_searches = SavedSearch.objects.filter(section__in=section_filter)
+            saved_searches = SavedSearch.objects.filter(section__in=section_filter, shared=True)
         if saved_search_view == 'my-saved-searches':
-            saved_searches = SavedSearch.objects.filter(created_by=request.user)
+            saved_searches = SavedSearch.objects.filter(created_by=request.user.id)
         output = {
             'section_filter': section_args,
             'saved_searches': saved_searches,
@@ -1093,14 +1093,14 @@ class SavedSearchView(LoginRequiredMixin, FormView):
         return render(request, 'forms/complaint_view/saved_searches/index.html', output)
 
     def post(self, request):
-        saved_searches = SavedSearch.objects.filter().all()
+        saved_searches = SavedSearch.objects.filter(shared=True)
         section_filter = request.GET.getlist('section_filter', [])
         saved_search_view = request.GET.get('saved_search_view', 'all')
         section_args = self.get_section_args(section_filter)
         if section_filter:
-            saved_searches = SavedSearch.objects.filter(section__in=section_filter)
+            saved_searches = SavedSearch.objects.filter(section__in=section_filter, shared=True)
         if saved_search_view == 'my-saved-searches':
-            saved_searches = SavedSearch.objects.filter(created_by=request.user)
+            saved_searches = SavedSearch.objects.filter(created_by=request.user.id)
         output = {
             'section_filter': section_args,
             'saved_searches': saved_searches,
