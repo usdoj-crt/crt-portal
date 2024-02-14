@@ -141,9 +141,8 @@ class ActionTests(TestCase):
             user=unprivileged_user
         )
 
-        self.assertDictEqual(form.errors, {
-            'retention_schedule': ['You do not have permission to assign retention schedules.'],
-        })
+        # There should not be errors because field should be disabled and the new value ignored
+        self.assertDictEqual(form.errors, {})
 
         self.assertCountEqual(form.get_actions(), [])
 

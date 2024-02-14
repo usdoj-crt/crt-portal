@@ -1,14 +1,15 @@
 # Class to handle filtering Reports by supplied query params,
 # provided they are valid filterable model properties.
+from typing import Tuple, Dict, Any
+
 import re
 import urllib.parse
 from datetime import datetime, timedelta
-from operator import or_, and_
+from operator import and_
 
 from django.apps import apps
-from django.core.validators import ValidationError
 
-from django.db.models import ExpressionWrapper, Count, IntegerField, Min, F, Value, CharField, DateField, Func
+from django.db.models import Q, ExpressionWrapper, Count, IntegerField, Min, F, Value, CharField, DateField, Func
 from django.db.models.functions import ExtractYear, Concat, Cast, Left
 
 from django.contrib.postgres.search import SearchQuery, TrigramSimilarity
@@ -77,7 +78,7 @@ filter_options = {
 
     'violation_summary': 'violation_summary',  # aka "Personal description"
     'summary': 'summary',  # aka "CRT summary"
-    'location_name': 'location_name',
+    'location_name': 'fuzzy',
     'other_class': '__search',  # not in filter controls?
     'disposition_status': 'disposition_status',
     # this is not a db query filter, not needed here, duplicate tag fix, removed from the filter tag list
@@ -135,10 +136,41 @@ def get_report_filter_from_search(search):
     return report_filter(querydict)
 
 
+def _get_fuzzy_kwargs(field, querydict) -> Tuple[Dict[str, Any], Dict[str, Any], Dict[str, Any]]:
+    query = querydict.getlist(field)[0]
+
+    if not Feature.is_feature_enabled('fuzzy-location-name'):
+        exact_match = {f'{field}__icontains': query}, {}, {}
+        return exact_match
+
+    filters = {}
+    try:
+        soundslike = int(querydict.getlist(f'{field}_1')[0])
+        filters[f'{field}_1'] = [soundslike]
+    except (IndexError, ValueError):
+        soundslike = 0
+    try:
+        lookslike = int(querydict.getlist(f'{field}_2')[0])
+        filters[f'{field}_2'] = [lookslike]
+    except (IndexError, ValueError):
+        lookslike = 0
+
+    # This is for backwards compatibility to support the old fuzzy search syntax.
+    if query.startswith('~'):
+        if not soundslike and not lookslike:
+            lookslike = 3
+            soundslike = 3
+        query = query[1:]
+
+    return {}, {field: {'query': query,
+                        'soundslike': soundslike,
+                        'lookslike': lookslike}}, filters
+
+
 def report_filter(querydict):
     kwargs = {}
     filters = {}
-    similarity = {}
+    fuzzy = {}
     qs = Report.objects.filter()
     for field in filter_options.keys():
         filter_list = querydict.getlist(field)
@@ -195,14 +227,11 @@ def report_filter(querydict):
             kwargs[field] = querydict.getlist(field)[0]
         elif field_options == '__gte':
             kwargs[field] = querydict.getlist(field)
-        elif field_options == 'location_name':
-            location_query = querydict.getlist(field)[0]
-            fuzzy_enabled = Feature.is_feature_enabled('fuzzy-location-name')
-            if fuzzy_enabled and location_query.startswith('~'):
-                similarity['location_name'] = location_query[1:]
-            else:
-                kwargs['location_name__icontains'] = location_query
-
+        elif field_options == 'fuzzy':
+            field_kwargs, field_similarity, field_filters = _get_fuzzy_kwargs(field, querydict)
+            kwargs.update(field_kwargs)
+            fuzzy.update(field_similarity)
+            filters.update(field_filters)
         elif field_options == 'violation_summary':
             search_query = querydict.getlist(field)[0]
             if search_query.startswith('^#') and search_query.endswith('$'):
@@ -211,9 +240,10 @@ def report_filter(querydict):
                     continue  # This means "all other reports" when grouping
                 try:
                     report = Report.objects.get(pk=report_id)
+                    qs = qs.filter(violation_summary=report.violation_summary)
                 except (Report.DoesNotExist, ValueError):
-                    raise ValidationError(f'Attempted to filter by Personal Description for report {report_id}, but that report does not exist.')
-                qs = qs.filter(violation_summary=report.violation_summary)
+                    # This might not be a report id (for example, hashtags):
+                    qs = qs.filter(violation_summary=search_query[1:-1])
             elif search_query.startswith('^') and search_query.endswith('$'):
                 # Allow for "exact match" using the common regex syntax.
                 qs = qs.filter(violation_summary=search_query[1:-1])
@@ -250,8 +280,8 @@ def report_filter(querydict):
         qs = qs.filter(**kwargs).distinct()
     else:
         qs = qs.filter(**kwargs)
-    for field_name, query in similarity.items():
-        qs = filter_by_similar(qs, field_name, query)
+    for field_name, kwargs in fuzzy.items():
+        qs = filter_by_similar(qs, field_name, **kwargs)
     return qs, filters
 
 
@@ -310,27 +340,35 @@ class OctetLength(Func):
     output_field = IntegerField()
 
 
-def filter_by_similar(queryset, column, search_text):
+def filter_by_similar(queryset, column, *, query, soundslike, lookslike):
     target = Left(column, 255)
-    is_similar = or_(
-        # Checks for "sounds like" similarity:
-        GreaterThan(
-            TrigramSimilarity(
-                Metaphone(target, 255),
-                Metaphone(Value(search_text), 255),
-            ),
-            0.5,
+    soundslike = int(soundslike)
+    lookslike = int(lookslike)
+
+    soundslike_filter = GreaterThan(
+        TrigramSimilarity(
+            Metaphone(target, 255),
+            Metaphone(Value(query), 255),
         ),
-        # Checks for "looks like" similarity:
-        LessThanOrEqual(
-            LevenshteinLessEqual(
-                target,
-                Value(search_text),
-                Value(4),
-            ),
-            4,
-        )
+        1.0 - (soundslike / 10.0),
     )
+
+    # Normalize the distance based on the word size:
+    distance = min(int((lookslike / 10.0) * len(query)), 255)
+    lookslike_filter = LessThanOrEqual(
+        LevenshteinLessEqual(
+            target,
+            Value(query),
+            Value(distance),
+        ),
+        distance
+    )
+
+    is_similar = Q(**{f'{column}__icontains': query})
+    if soundslike:
+        is_similar |= soundslike_filter
+    if lookslike:
+        is_similar |= lookslike_filter
 
     # Fuzzy match functions only support 255 bytes.
     # Some characters take up more than a byte.

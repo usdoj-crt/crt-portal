@@ -2,6 +2,11 @@
 {% extends "forms/report_base.html" %}
 {{ super }}
 
+{% block head %}
+  {{ super }}
+  <link rel="stylesheet" href="{% static 'css/vendor/intlTelInput.min.css' %}">
+{% endblock %}
+
 {% block page_header %}
   {% include 'forms/complaint_view/intake_header.html' with title_text="CRT Public Complaint Intake" progress_bar=True%}
 {% endblock %}
@@ -117,4 +122,6 @@
 <script src="{% static 'js/autofill_current_date.min.js' %}"></script>
 <script src="{% static 'js/word_count.min.js' %}"></script>
 <script src="{% static 'js/progress-bar.min.js' %}"></script>
+<script src="{% static 'vendor/intlTelInput.min.js' %}"></script>
+<script src="{% static 'js/report_phone.min.js' %}"></script>
 {% endblock %}

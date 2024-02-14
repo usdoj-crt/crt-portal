@@ -55,8 +55,7 @@ def test_report_complete_and_valid_submission(page):
     # Fill input[name="0-contact_email"]
     page.fill("input[name='0-contact_email']", "testing@test.com")
 
-    # Fill input[name="0-contact_phone"]
-    page.fill("input[name='0-contact_phone']", "555-555-5555")
+    page.fill(".iti .iti__tel-input", "555-555-5555")
 
     # Fill input[name="0-contact_address_line_1"]
     page.fill("input[name='0-contact_address_line_1']", "1 tester street")

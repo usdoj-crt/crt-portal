@@ -62,7 +62,7 @@ from .question_text import (CONTACT_QUESTIONS, DATE_QUESTIONS,
                             WORKPLACE_QUESTIONS, HATE_CRIME_HELP_TEXT,
                             HATE_CRIME_QUESTION)
 from .widgets import (ComplaintSelect, CrtMultiSelect,
-                      CrtPrimaryIssueRadioGroup, DjNumberWidget, UsaCheckboxSelectMultiple, UsaTagSelectMultiple,
+                      CrtPrimaryIssueRadioGroup, DjNumberWidget, FuzzyFilterField, UsaCheckboxSelectMultiple, UsaTagSelectMultiple,
                       UsaRadioSelect, DataAttributesSelect, CrtDateInput, add_empty_choice)
 from utils.voting_mode import is_voting_mode
 from utils import activity
@@ -102,6 +102,20 @@ def get_dj_widget():
         'field_label': 'ICM DJ Number',
         'name': 'dj_number',
     })
+
+
+def get_location_name_filter_field():
+    if not Feature.is_feature_enabled('fuzzy-location-name'):
+        return CharField(
+            required=False,
+            widget=TextInput(attrs={
+                'class': 'usa-input',
+                'name': 'location_name',
+                'placeholder': 'Organization name',
+                'aria-label': 'Organization name',
+            })
+        )
+    return FuzzyFilterField()
 
 
 class TagsField(ModelMultipleChoiceField):
@@ -316,7 +330,7 @@ class Contact(ModelForm):
                 'class': 'usa-input',
             }),
             'contact_phone': TextInput(attrs={
-                'class': 'usa-input',
+                'class': 'usa-input phone-input',
                 'pattern': phone_validation_regex,
                 'title': CONTACT_PHONE_INVALID_MESSAGE
             }),
@@ -1241,6 +1255,8 @@ class Filters(ModelForm):
 
         self.fields['tags'] = TagsField()
 
+        self.fields['location_name'] = get_location_name_filter_field()
+
         campaigns = {
             campaign.uuid: campaign
             for campaign in
@@ -1342,10 +1358,11 @@ class Filters(ModelForm):
         required=False,
         widget=TextInput(
             attrs={
-                'class': 'usa-input',
+                'class': 'usa-input phone-input',
                 'name': 'contact_phone',
                 'placeholder': 'Contact Phone Number',
-                'aria-label': 'Contact Phone Number'
+                'aria-label': 'Contact Phone Number',
+                'title': CONTACT_PHONE_INVALID_MESSAGE,
             },
         ),
     )
@@ -1461,7 +1478,7 @@ class Filters(ModelForm):
         label='Retention schedule',
         choices=[
             ('', ''),  # Default choice: empty (include everything)
-            ('(none)', 'None'),  # Custom: No assigned campaign.
+            ('(none)', 'None'),  # Custom: No assigned schedule.
             *RETENTION_SCHEDULE_CHOICES,
         ],
         widget=UsaCheckboxSelectMultiple(attrs={
@@ -1534,12 +1551,6 @@ class Filters(ModelForm):
             'location_city_town': TextInput(attrs={
                 'class': 'usa-input',
                 'name': 'location_city_town'
-            }),
-            'location_name': TextInput(attrs={
-                'class': 'usa-input',
-                'name': 'location_name',
-                'placeholder': labels['location_name'],
-                'aria-label': labels['location_name']
             }),
             'public_id': TextInput(attrs={
                 'class': 'usa-input',
@@ -1816,13 +1827,6 @@ class ComplaintActions(LitigationHoldLock, ModelForm, ActivityStreamUpdater):
         if any(not c for c in dj_number.rsplit('-', 2)):
             return None
         return dj_number
-
-    def clean_retention_schedule(self):
-        if not self.field_changed('retention_schedule'):
-            return self.cleaned_data.get('retention_schedule')
-        if not self.can_assign_schedule():
-            raise ValidationError('You do not have permission to assign retention schedules.')
-        return self.cleaned_data['retention_schedule']
 
     def save(self, commit=True):
         """
@@ -2105,7 +2109,7 @@ class BulkActionsForm(LitigationHoldLock, Form, ActivityStreamUpdater):
         label='Retention schedule',
         choices=[
             ('', ''),  # Default choice: empty (include everything)
-            ('(none)', 'None'),  # Custom: No assigned campaign.
+            ('(none)', 'None'),  # Custom: No assigned schedule.
             *RETENTION_SCHEDULE_CHOICES,
         ],
         widget=UsaCheckboxSelectMultiple(attrs={
@@ -2406,9 +2410,9 @@ class ContactEditForm(LitigationHoldLock, ModelForm, ActivityStreamUpdater):
                 'class': 'usa-input',
             }),
             'contact_phone': TextInput(attrs={
-                'class': 'usa-input',
+                'class': 'usa-input phone-input',
                 'pattern': phone_validation_regex,
-                'title': CONTACT_PHONE_INVALID_MESSAGE
+                'title': CONTACT_PHONE_INVALID_MESSAGE,
             }),
             'contact_address_line_1': TextInput(attrs={
                 'class': 'usa-input',

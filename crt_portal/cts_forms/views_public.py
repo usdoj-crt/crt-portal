@@ -26,6 +26,7 @@ from .model_variables import (COMMERCIAL_OR_PUBLIC_PLACE_DICT,
                               LANDING_COMPLAINT_CHOICES_TO_HELPTEXT,
                               LANDING_COMPLAINT_CHOICES_TO_HELPLINK,
                               LANDING_COMPLAINT_CHOICES_TO_NOTE,
+                              LANDING_COMPLAINT_CHOICES_TO_PREAMBLE,
                               LANDING_COMPLAINT_CHOICES_TO_LEARNMORE,
                               LANDING_COMPLAINT_DICT,
                               PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES,
@@ -72,6 +73,9 @@ class LandingPageView(TemplateView):
         all_note = {
             **LANDING_COMPLAINT_CHOICES_TO_NOTE,
         }
+        all_preamble = {
+            **LANDING_COMPLAINT_CHOICES_TO_PREAMBLE,
+        }
         choices = [
             {
                 'key': key,
@@ -80,6 +84,7 @@ class LandingPageView(TemplateView):
                 'helptext': all_helptext.get(key, ''),
                 'helplink': all_helplinks.get(key, {}),
                 'learnmore': all_learnmore.get(key, ''),
+                'preamble': all_preamble.get(key, ''),
                 'note': all_note.get(key, ''),
             }
             for key, description in all_complaints.items()
