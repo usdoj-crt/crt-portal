@@ -35,8 +35,11 @@ const uswds = './node_modules/@uswds/uswds';
 const shepherd = './node_modules/shepherd.js';
 const intlTelInput = './node_modules/intl-tel-input';
 const jquery = './node_modules/jquery';
-const datatable_js = './node_modules/datatables.net';
-const datatable_css = './node_modules/datatables.net-dt';
+const jszip = './node_modules/jszip';
+const datatable_root = './node_modules/datatables.net';
+
+// To add an extension, you must also update intake_base.html and package.json
+const datatable_extensions = ['select', 'buttons', 'colreorder', 'searchpanes', 'staterestore'];
 
 /*
 ----------------------------------------
@@ -63,21 +66,28 @@ const JS_DEST = './crt_portal/static/js';
 const JS_FILES = [`${JS_DEST}/*.js`, `!${JS_DEST}/*.min.js`];
 const JS_VENDOR_FILES = [
   `${shepherd}/dist/js/**/**.min.js`,
-  `${intlTelInput}/build/js/**.js`,
   `${uswds}/dist/js/**/**.min.js`,
+  `${intlTelInput}/build/js/**.js`,
   `${jquery}/dist/**.min.js`,
-  `${datatable_js}/js/**.min.js`,
+  `${jszip}/dist/**.min.js`,
+  `${datatable_root}/js/**.min.js`,
+  ...datatable_extensions.map((ext) => `${datatable_root}-${ext}/js/**.min.js`),
 ];
+const JS_VENDOR_DEST = './crt_portal/static/vendor';
 
 const IMG_VENDOR_FILES = [`${intlTelInput}/build/img/**.png`];
-
-const JS_VENDOR_DEST = './crt_portal/static/vendor';
 
 // Compiled CSS destination
 const CSS_DEST = './crt_portal/static/css/compiled';
 
 // CSS vendor destination
 const CSS_VENDOR_DEST = './crt_portal/static/css/vendor';
+
+const CSS_VENDOR_FILES = [
+  `${intlTelInput}/build/css/intlTelInput.min.css`,
+  `${datatable_root}-dt/css/**.min.css`,
+  ...datatable_extensions.map((ext) => `${datatable_root}-${ext}-dt/css/**.min.css`),
+];
 
 // Site CSS destination
 // Like the _site/assets/css directory in Jekyll, if necessary.
@@ -111,9 +121,7 @@ gulp.task('copy-vendor-js', () => {
 });
 
 gulp.task('copy-vendor-css', () => {
-  return gulp
-    .src([`${datatable_css}/css/**.min.css`, `${intlTelInput}/build/css/intlTelInput.min.css`])
-    .pipe(gulp.dest(`${CSS_VENDOR_DEST}`));
+  return gulp.src(CSS_VENDOR_FILES).pipe(gulp.dest(`${CSS_VENDOR_DEST}`));
 });
 
 gulp.task('build-custom-js', function () {

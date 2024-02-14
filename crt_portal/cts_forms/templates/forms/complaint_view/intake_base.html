@@ -1,4 +1,22 @@
 {% extends "base.html" %}
+{% block head %}
+{{ block.super }}
+
+<script src="{% static 'vendor/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'vendor/jszip.min.js' %}"></script>
+<link rel="stylesheet" href="{% static "css/vendor/jquery.dataTables.min.css" %}" />
+<!-- To add an extension, you must also update package.json and gulpfile.js -->
+{% with 'buttons colReorder searchPanes select' as datatables_extensions %}
+{% for extension in datatables_extensions.split %}
+ <script src="{% static "vendor/dataTables."|add:extension|add:".min.js" %}"></script>
+ <link rel="stylesheet" href="{% static "css/vendor/"|add:extension|add:".dataTables.min.css" %}" />
+ <script src="{% static "vendor/dataTables.stateRestore.min.js" %}"></script>
+ <script src="{% static "vendor/buttons.print.min.js" %}"></script>
+ <script src="{% static "vendor/buttons.colVis.min.js" %}"></script>
+ <script src="{% static "vendor/buttons.html5.min.js" %}"></script>
+{% endfor %}
+{% endwith %}
+{% endblock %}
 {% block ga_tagmanager_head %}{% endblock %}
 {% block ga_tagmanager_body %}{% endblock %}
 {% block meta_analytics %}{% endblock %}
