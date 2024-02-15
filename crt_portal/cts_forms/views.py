@@ -40,7 +40,7 @@ from .forms import (
 )
 from .mail import mail_to_complainant
 from .model_variables import HATE_CRIMES_TRAFFICKING_MODEL_CHOICES, SECTION_CHOICES
-from .models import CommentAndSummary, Profile, Report, ReportAttachment, ReportsData, Trends, EmailReportCount, Campaign, User, \
+from .models import CommentAndSummary, Profile, Report, ReportAttachment, ReportsData, SavedSearch, Trends, EmailReportCount, Campaign, User, \
     RoutingSection, RoutingStepOneContact, RepeatWriterInfo
 from .page_through import pagination
 from .sorts import activity_sort, report_sort
@@ -1090,6 +1090,29 @@ class ActionsView(LoginRequiredMixin, FormView):
                 'questions': Review.question_text,
             }
             return render(request, 'forms/complaint_view/actions/index.html', output)
+
+
+class SavedSearchView(LoginRequiredMixin, FormView):
+
+    def get(self, request):
+        saved_searches = SavedSearch.objects.filter().all()
+        selected_section = request.GET.get('section', None)
+        if selected_section:
+            saved_searches = SavedSearch.objects.filter(section=selected_section)
+        output = {
+            'saved_searches': saved_searches,
+        }
+        return render(request, 'forms/complaint_view/saved_searches/index.html', output)
+
+    def post(self, request):
+        saved_searches = SavedSearch.objects.filter().all()
+        selected_section = request.GET.get('section', None)
+        if selected_section:
+            saved_searches = SavedSearch.objects.filter(section=selected_section)
+        output = {
+            'saved_searches': saved_searches,
+        }
+        return render(request, 'forms/complaint_view/saved_searches/index.html', output)
 
 
 class ReportAttachmentView(LoginRequiredMixin, FormView):
