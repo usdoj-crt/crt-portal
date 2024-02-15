@@ -47,8 +47,13 @@
       <button class="usa-button" type="submit" name='type'>Apply changes</button>
       <button type="button" class="discard outline-button outline-button--blue">Discard changes</button>
     </div>
-    <hr/>
   </fieldset>
 </form>
+<form id="saved-search-delete" class="usa-form" method="post" action="/form/saved-searches/actions/{{form.instance.pk}}/" novalidate>
+  {% csrf_token %}
+  <input type="hidden" value="true" name="delete" id="delete" />
+  <button class="usa-button--secondary usa-button margin-top-3" type="submit" name='type'>Delete saved search</button>
+</form>
+<hr/>
 
 {% endblock %}

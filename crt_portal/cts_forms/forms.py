@@ -2646,7 +2646,7 @@ class SavedSearchFilter(Form):
 
 
 class SavedSearchActions(ModelForm):
-
+    FAIL_MESSAGE = "Failed to update saved search."
     def field_changed(self, field):
         # if both are Falsy, nothing actually changed (None ~= "")
         old = self.initial.get(field, None)
@@ -2736,8 +2736,10 @@ class SavedSearchActions(ModelForm):
             disabled=self.is_locked()
         )
 
-    def success_message(self, id=None):
+    def success_message(self, id=None, delete=False):
         """Prepare update success message for rendering in template"""
+        if delete:
+            return "Successfully deleted saved search."
         def get_label(field):
             field = self.fields[field]
             # Some fields can't support the extra context label, and store it
