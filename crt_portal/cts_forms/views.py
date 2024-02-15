@@ -35,7 +35,7 @@ from .filters import report_filter, dashboard_filter, report_grouping
 from .forms import (
     BulkActionsForm, BulkDispositionForm, CommentActions, ComplaintActions, ComplaintOutreach,
     ContactEditForm, Filters, PrintActions, ProfileForm,
-    ReportEditForm, ResponseActions, add_activity,
+    ReportEditForm, ResponseActions, SavedSearchActions, SavedSearchFilter, add_activity,
     AttachmentActions, Review, save_form,
 )
 from .mail import mail_to_complainant
@@ -695,6 +695,13 @@ def unsubscribe_view(request):
     return redirect(reverse('crt_forms:crt-forms-index'))
 
 
+def get_section_args(section_filters):
+    return ''.join([
+        f'&section_filter={section_filter}'
+        for section_filter in section_filters
+    ])
+
+
 class ProfileView(LoginRequiredMixin, FormView):
     # Can be used for updating section filter for a profile
     form_class = ProfileForm
@@ -1095,24 +1102,96 @@ class ActionsView(LoginRequiredMixin, FormView):
 class SavedSearchView(LoginRequiredMixin, FormView):
 
     def get(self, request):
-        saved_searches = SavedSearch.objects.filter().all()
-        selected_section = request.GET.get('section', None)
-        if selected_section:
-            saved_searches = SavedSearch.objects.filter(section=selected_section)
+        section_filter = request.GET.getlist('section_filter', [])
+        filters = {'section__in': section_filter} if section_filter else {}
+        saved_searches = SavedSearch.objects.filter(**filters).all()
+        section_args = get_section_args(section_filter)
         output = {
+            'section_filter': section_args,
             'saved_searches': saved_searches,
+            'form': SavedSearchFilter(request.GET),
         }
         return render(request, 'forms/complaint_view/saved_searches/index.html', output)
 
     def post(self, request):
-        saved_searches = SavedSearch.objects.filter().all()
-        selected_section = request.GET.get('section', None)
-        if selected_section:
-            saved_searches = SavedSearch.objects.filter(section=selected_section)
+        section_filter = request.GET.getlist('section_filter', [])
+        filters = {'section__in': section_filter} if section_filter else {}
+        saved_searches = SavedSearch.objects.filter(**filters).all()
+        section_args = get_section_args(section_filter)
         output = {
+            'section_filter': section_args,
             'saved_searches': saved_searches,
+            'form': SavedSearchFilter(request.GET),
         }
         return render(request, 'forms/complaint_view/saved_searches/index.html', output)
+
+
+class SavedSearchActionView(LoginRequiredMixin, View):
+    form = SavedSearchActions
+
+    def get(self, request, id=None):
+        """
+        Get saved search to edit
+        """
+        if id:
+            saved_search = get_object_or_404(SavedSearch, pk=id)
+        else:
+            saved_search = SavedSearch()
+        section_filter = request.GET.getlist('section_filter', [])
+        section_args = get_section_args(section_filter)
+        saved_search_form = SavedSearchActions(instance=saved_search)
+        output = {
+            'form': saved_search_form,
+            'section_filter': section_args,
+        }
+        if id:
+            return render(request, 'forms/complaint_view/saved_searches/actions/update.html', output)
+        else:
+            return render(request, 'forms/complaint_view/saved_searches/actions/new.html', output)
+
+    def post(self, request, id=None):
+        section_filter = request.POST.getlist('section_filter')
+        if id:
+            saved_search = get_object_or_404(SavedSearch, pk=id)
+        else:
+            saved_search = SavedSearch()
+
+        form = SavedSearchActions(request.POST, instance=saved_search)
+        if not (form.is_valid() and form.has_changed()):
+            section_args = get_section_args(section_filter)
+            output = {
+                'form': form,
+                'section_filter': section_args,
+                'id': saved_search.pk
+            }
+
+            try:
+                fail_message = form.FAIL_MESSAGE
+            except AttributeError:
+                fail_message = 'No updates applied'
+
+            if not form.is_valid():
+                error_items = ''.join([
+                    f'<li>Problem modifying {field if field != "__all__" else "saved search"}: {error}</li>'
+                    for field, error
+                    in form.errors.items()
+                ])
+                fail_message += f'<ul>{error_items}</ul>'
+
+            messages.add_message(request,
+                                 messages.ERROR,
+                                 mark_safe(fail_message))
+            if id:
+                return render(request, 'forms/complaint_view/saved_searches/actions/update.html', output)
+            return render(request, 'forms/complaint_view/saved_searches/actions/new.html', output)
+        saved_search = form.save(commit=False)
+
+        saved_search.save()
+        messages.add_message(request, messages.SUCCESS, form.success_message(id))
+        url = reverse('crt_forms:saved-searches')
+        section_filter = request.POST.get('section_filter')
+        section_args = get_section_args(section_filter)
+        return redirect(f"{url}?{section_filter}")
 
 
 class ReportAttachmentView(LoginRequiredMixin, FormView):
