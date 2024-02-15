@@ -30,6 +30,11 @@
     district: '',
     reported_reason: [],
     commercial_or_public_place: [],
+    public_or_private_employer: [],
+    employer_size: [],
+    public_or_private_school: [],
+    inside_correctional_facility: [],
+    correctional_facility_type: [],
     intake_format: [],
     servicemember: [],
     hate_crime: [],
@@ -40,7 +45,6 @@
     no_status: '',
     language: [],
     contact_phone: '',
-    correctional_facility_type: [],
     grouping: 'default',
     group_params: [],
     litigation_hold: [],
@@ -76,7 +80,12 @@
     const primaryIssueEl = dom.getElementsByName('primary_complaint');
     const tagsEl = dom.getElementsByName('tags');
     const reportedReasonEl = dom.getElementsByName('reported_reason');
-    const relevantDetailsEl = dom.getElementsByName('commercial_or_public_place');
+    const commercialOrPublicPlaceEl = dom.getElementsByName('commercial_or_public_place');
+    const publicOrPrivateEmployerEl = dom.getElementsByName('public_or_private_employer');
+    const employerSizeEl = dom.getElementsByName('employer_size');
+    const publicOrPrivateSchoolEl = dom.getElementsByName('public_or_private_school');
+    const insideCorrectionalFacilityEl = dom.getElementsByName('inside_correctional_facility');
+    const correctionalFacilityTypeEl = dom.getElementsByName('correctional_facility_type');
     const intakeFormatEl = dom.getElementsByName('intake_format');
     const hateCrimeEl = dom.getElementsByName('hate_crime');
     const servicememberEl = dom.getElementsByName('servicemember');
@@ -84,7 +93,6 @@
     const referredEl = dom.getElementsByName('referred');
     const languageEl = dom.getElementsByName('language');
     const contactPhoneEL = dom.getElementsByName('contact_phone')[0];
-    const correctionalFacilityTypeEl = dom.getElementsByName('correctional_facility_type');
     const litigationHoldEl = dom.getElementsByName('litigation_hold');
     const retentionScheduleEl = dom.getElementsByName('retention_schedule');
 
@@ -192,8 +200,28 @@
       name: 'reported_reason'
     });
     root.CRT.checkBoxView({
-      el: relevantDetailsEl,
+      el: commercialOrPublicPlaceEl,
       name: 'commercial_or_public_place'
+    });
+    root.CRT.checkBoxView({
+      el: publicOrPrivateEmployerEl,
+      name: 'public_or_private_employer'
+    });
+    root.CRT.checkBoxView({
+      el: employerSizeEl,
+      name: 'employer_size'
+    });
+    root.CRT.checkBoxView({
+      el: publicOrPrivateSchoolEl,
+      name: 'public_or_private_school'
+    });
+    root.CRT.checkBoxView({
+      el: insideCorrectionalFacilityEl,
+      name: 'inside_correctional_facility'
+    });
+    root.CRT.checkBoxView({
+      el: correctionalFacilityTypeEl,
+      name: 'correctional_facility_type'
     });
     root.CRT.checkBoxView({
       el: intakeFormatEl,
@@ -222,10 +250,6 @@
     root.CRT.checkBoxView({
       el: languageEl,
       name: 'language'
-    });
-    root.CRT.checkBoxView({
-      el: correctionalFacilityTypeEl,
-      name: 'correctional_facility_type'
     });
     root.CRT.checkBoxView({
       el: litigationHoldEl,
