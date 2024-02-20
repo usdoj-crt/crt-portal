@@ -425,7 +425,10 @@ CSP_CONNECT_SRC = (
     'https://cdnjs.cloudflare.com/',
     *env_csp_sources,
 )
-CSP_IMG_SRC = allowed_sources
+CSP_IMG_SRC = (
+    *allowed_sources,
+    'data:',
+)
 CSP_MEDIA_SRC = allowed_sources
 CSP_FRAME_SRC = allowed_sources
 CSP_WORKER_SRC = allowed_sources
