@@ -1,4 +1,5 @@
 from crequest.middleware import CrequestMiddleware
+from bs4 import BeautifulSoup
 
 
 def get_client_ip(request):
@@ -16,3 +17,19 @@ def get_user_section():
     if hasattr(user, 'profile'):
         return current_request.user.profile.section
     return None
+
+
+def add_nonce_to_html(html):
+    current_request = CrequestMiddleware.get_request()
+    nonce = str(current_request.csp_nonce)
+    soup = BeautifulSoup(html, 'html.parser')
+
+    scripts = soup.find_all('script')
+    for script in scripts:
+        script['nonce'] = nonce
+
+    styles = soup.find_all('style')
+    for style in styles:
+        style['nonce'] = nonce
+
+    return str(soup)

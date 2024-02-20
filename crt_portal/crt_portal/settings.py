@@ -375,77 +375,80 @@ if environment not in ['LOCAL', 'UNDEFINED']:
     AWS_IS_GZIPPED = True
 
 if environment in ['PRODUCTION', 'STAGE', 'DEVELOP']:
-    MIDDLEWARE.append('csp.middleware.CSPMiddleware')
-    bucket = f"{STATIC_URL}"
-    allowed_sources = (
-        "'self'",
-        bucket,
-        'www.civilrights.justice.gov',
-        'civilrights.justice.gov',
-        'https://touchpoints.app.cloud.gov',
-        'https://dap.digitalgov.gov',
-        'https://www.google-analytics.com',
-        'https://stats.g.doubleclick.net',
-        'https://www.googletagmanager.com/',
-        'https://cdnjs.cloudflare.com/',
-    )
-    # headers required for security
-    SESSION_COOKIE_SECURE = True
-    CSRF_COOKIE_SECURE = True
-    X_FRAME_OPTIONS = "DENY"
-    # If this is set to True, client-side JavaScript will not be able to access the language cookie.
-    SESSION_COOKIE_HTTPONLY = True
-    # see settings options https://django-csp.readthedocs.io/en/latest/configuration.html#configuration-chapter
-    CSP_DEFAULT_SRC = allowed_sources
-    SESSION_COOKIE_SAMESITE = 'Lax'
-    CSP_SCRIPT_SRC = (
-        "'self'",
-        bucket,
-        'www.civilrights.justice.gov',
-        'civilrights.justice.gov',
-        'https://dap.digitalgov.gov',
-        'https://www.google-analytics.com',
-        'https://stats.g.doubleclick.net',
-        'https://touchpoints.app.cloud.gov',
-        'https://www.googletagmanager.com/',
-        'https://cdnjs.cloudflare.com/',
-    )
-    CSP_CONNECT_SRC = (
-        "'self'",
-        bucket,
-        'www.civilrights.justice.gov',
-        'civilrights.justice.gov',
-        'https://dap.digitalgov.gov',
-        'https://www.google-analytics.com',
-        'https://stats.g.doubleclick.net',
-        'https://touchpoints.app.cloud.gov',
-        'https://www.googletagmanager.com/',
-        'https://cdnjs.cloudflare.com/',
-    )
-    CSP_IMG_SRC = allowed_sources
-    CSP_MEDIA_SRC = allowed_sources
-    CSP_FRAME_SRC = allowed_sources
-    CSP_WORKER_SRC = allowed_sources
-    CSP_FRAME_ANCESTORS = allowed_sources
-    CSP_STYLE_SRC = (
-        "'self'",
-        bucket,
-        'www.civilrights.justice.gov',
-        'civilrights.justice.gov',
-        "'unsafe-inline'",
-        'https://fonts.googleapis.com',
-    )
-    CSP_FONT_SRC = (
-        "'self'",
-        bucket,
-        'www.civilrights.justice.gov',
-        'civilrights.justice.gov',
-        "'unsafe-inline'",
-        'https://fonts.gstatic.com',
-    )
-    CSP_INCLUDE_NONCE_IN = ['script-src']
-    # Allow admin panel functionality (which is trusted content that uses inline sources):
-    CSP_EXCLUDE_URL_PREFIXES = ('/admin', '/form/data')
+    env_csp_sources = [STATIC_URL]
+else:
+    env_csp_sources = []
+
+MIDDLEWARE.append('csp.middleware.CSPMiddleware')
+allowed_sources = (
+    "'self'",
+    'www.civilrights.justice.gov',
+    'civilrights.justice.gov',
+    'https://touchpoints.app.cloud.gov',
+    'https://dap.digitalgov.gov',
+    'https://www.google-analytics.com',
+    'https://stats.g.doubleclick.net',
+    'https://www.googletagmanager.com/',
+    'https://cdnjs.cloudflare.com/',
+    *env_csp_sources,
+)
+# headers required for security
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+X_FRAME_OPTIONS = "DENY"
+# If this is set to True, client-side JavaScript will not be able to access the language cookie.
+SESSION_COOKIE_HTTPONLY = True
+# see settings options https://django-csp.readthedocs.io/en/latest/configuration.html#configuration-chapter
+CSP_DEFAULT_SRC = allowed_sources
+SESSION_COOKIE_SAMESITE = 'Lax'
+CSP_SCRIPT_SRC = (
+    "'self'",
+    'www.civilrights.justice.gov',
+    'civilrights.justice.gov',
+    'https://dap.digitalgov.gov',
+    'https://www.google-analytics.com',
+    'https://stats.g.doubleclick.net',
+    'https://touchpoints.app.cloud.gov',
+    'https://www.googletagmanager.com/',
+    'https://cdnjs.cloudflare.com/',
+    *env_csp_sources,
+)
+CSP_CONNECT_SRC = (
+    "'self'",
+    'www.civilrights.justice.gov',
+    'civilrights.justice.gov',
+    'https://dap.digitalgov.gov',
+    'https://www.google-analytics.com',
+    'https://stats.g.doubleclick.net',
+    'https://touchpoints.app.cloud.gov',
+    'https://www.googletagmanager.com/',
+    'https://cdnjs.cloudflare.com/',
+    *env_csp_sources,
+)
+CSP_IMG_SRC = allowed_sources
+CSP_MEDIA_SRC = allowed_sources
+CSP_FRAME_SRC = allowed_sources
+CSP_WORKER_SRC = allowed_sources
+CSP_FRAME_ANCESTORS = allowed_sources
+CSP_STYLE_SRC = (
+    "'self'",
+    'www.civilrights.justice.gov',
+    'civilrights.justice.gov',
+    "'unsafe-inline'",
+    'https://fonts.googleapis.com',
+    *env_csp_sources,
+)
+CSP_FONT_SRC = (
+    "'self'",
+    'www.civilrights.justice.gov',
+    'civilrights.justice.gov',
+    "'unsafe-inline'",
+    'https://fonts.gstatic.com',
+    *env_csp_sources,
+)
+CSP_INCLUDE_NONCE_IN = ['script-src']
+# Allow admin panel functionality (which is trusted content that uses inline sources):
+CSP_EXCLUDE_URL_PREFIXES = ('/admin')
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
