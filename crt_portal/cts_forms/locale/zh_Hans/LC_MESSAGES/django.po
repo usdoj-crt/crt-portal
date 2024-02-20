@@ -1,29 +1,29 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-02 13:42+0000\n"
+"POT-Creation-Date: 2024-02-05 20:44+0000\n"
 "Language: Chinese Simplified\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #. Translators: this is the default- blank options for a drop-down menu where a user chooses a state
-#: forms.py:188 forms.py:1740
+#: forms.py:367 forms.py:2384
 msgid " - Select - "
 msgstr " - 选择 - "
 
 #. Translators: This is help text for the question asking if someone is a service member
-#: forms.py:200
+#: forms.py:379
 msgid ""
 "If you’re reporting on behalf of someone else, please select their status."
 msgstr "如果您代表其他人报告，请选择他们的状态。"
 
-#: forms.py:217 templates/forms/report_contact_info.html:9
+#: forms.py:396 templates/forms/report_contact_info.html:8
 msgid ""
 "If you believe you or someone else has experienced a civil rights violation, "
 "please tell us what happened."
 msgstr "如果您认为自己或他人的民事权利受到了侵犯，请告诉我们发生了什么。"
 
-#: forms.py:245
+#: forms.py:424
 msgid ""
 "Select the reason that best describes your concern. Each reason lists "
 "examples of civil rights violations that may relate to your incident. In "
@@ -33,17 +33,17 @@ msgstr ""
 "选择最能描述您有所顾虑的原因。每个理由都列出了可能与您的事件有关的侵犯民事权"
 "利的例子。在本报告的另一部分中，您将可以用自己的语言描述您的顾虑。"
 
-#: forms.py:303
+#: forms.py:482
 msgid ""
 "Examples: Name of business, school, intersection, prison, polling place, "
 "website, etc."
 msgstr "例如：公司、学校、路口、监狱、投票站、网站等名称。"
 
-#: forms.py:325 question_text.py:29
+#: forms.py:504 question_text.py:29
 msgid "Where did this happen?"
 msgstr "这是在哪里发生的？"
 
-#: forms.py:337
+#: forms.py:516
 msgid ""
 "Please tell us the city, state, and name of the location where this incident "
 "took place. This ensures your report is reviewed by the right people within "
@@ -52,7 +52,7 @@ msgstr ""
 "请告诉我们这一事件发生的城市、州以及地点的名称。这样可以确保您的报告会由民权"
 "司的适当人员进行审阅。"
 
-#: forms.py:400
+#: forms.py:579
 msgid ""
 "Public employers include organizations funded by the government like the "
 "military, post office, fire department, courthouse, DMV, or public school. "
@@ -61,18 +61,18 @@ msgstr ""
 "公共雇主包括由政府资助的组织，例如军队、邮局、消防局、法院、机动车管理局"
 "（DMV）或公立学校。可能是地方或州一级部门。"
 
-#: forms.py:401
+#: forms.py:580
 msgid ""
 "Private employers are business or non-profits not funded by the government "
 "such as retail stores, banks, or restaurants."
 msgstr "私人雇主是指不受政府资助的企业或非营利组织，如零售商店、银行或餐馆。"
 
 #. Translators: describe the "other" option for commercial or public place question
-#: forms.py:447
+#: forms.py:626
 msgid "Please describe"
 msgstr "请描述"
 
-#: forms.py:514
+#: forms.py:693
 msgid ""
 "Includes schools, educational programs, or educational activities, like "
 "training programs, sports teams, clubs, or other school-sponsored activities"
@@ -80,11 +80,11 @@ msgstr ""
 "包括学校、教育项目或教育活动，例如培训项目、运动团体、俱乐部或其他学校资助的"
 "活动"
 
-#: forms.py:525
+#: forms.py:704
 msgid "Please select the type of school or educational program."
 msgstr "请选择学校或教育项目的类型。"
 
-#: forms.py:548
+#: forms.py:727
 msgid ""
 "There are federal and state laws that protect people from discrimination "
 "based on their personal characteristics. Here is a list of the most common "
@@ -95,11 +95,11 @@ msgstr ""
 "特征。选择任何适用于您的事件的选项。"
 
 #. Translators: This is to explain an "other" choice for personal characteristics
-#: forms.py:553
+#: forms.py:732
 msgid "Please describe \"Other reason\""
 msgstr "请说明“其他原因”"
 
-#: forms.py:741
+#: forms.py:920
 msgid ""
 "It is important for us to know how recently this incident happened so we can "
 "take the appropriate action. If this happened over a period of time or is "
@@ -108,27 +108,41 @@ msgstr ""
 "让我们知道这起事件是在最近何时发生的很重要，这样我们才能采取适当的行动。如果"
 "该事件发生在一段时间里，或者现在仍然在发生，请提供最近一次发生的日期。"
 
-#: forms.py:1042
+#: forms.py:1249
 msgid "Assigned to"
 msgstr "分配给"
 
-#: forms.py:1058
+#: forms.py:1276
+msgid "Campaign"
+msgstr ""
+
+#: forms.py:1299
 msgid "Incident state"
 msgstr ""
 
-#: forms.py:1066
+#: forms.py:1307
+#, fuzzy
+#| msgid "District of Columbia"
+msgid "District number"
+msgstr "哥伦比亚特区"
+
+#: forms.py:1317
 msgid "Primary classification"
 msgstr "主要分类"
 
-#: forms.py:1076
+#: forms.py:1327
 msgid "Records per page"
 msgstr ""
 
-#: forms.py:1290
+#: forms.py:1338
+msgid "Grouping"
+msgstr ""
+
+#: forms.py:1575
 msgid "Create date cannot be in the future."
 msgstr "创建日期不能为未来时间。"
 
-#: forms.py:1473
+#: forms.py:1947
 msgid "Comment cannot be empty"
 msgstr "评论不能为空"
 
@@ -137,11 +151,11 @@ msgstr "评论不能为空"
 msgid "- Select -"
 msgstr "- 选择 -"
 
-#: model_variables.py:9 model_variables.py:177 model_variables.py:360
+#: model_variables.py:9 model_variables.py:201 model_variables.py:388
 msgid "Yes"
 msgstr "是"
 
-#: model_variables.py:10 model_variables.py:178 model_variables.py:359
+#: model_variables.py:10 model_variables.py:202 model_variables.py:387
 msgid "No"
 msgstr "否"
 
@@ -230,47 +244,75 @@ msgstr ""
 "贩卖人口是指有人被迫从事劳动或性工作以换取利益。这可能发生在很多类型的工作"
 "中，例如：农业、家政、餐馆、清洁服务和性工作。"
 
-#: model_variables.py:76 model_variables.py:118
+#: model_variables.py:75
+msgid "Were you forced to work against your will?"
+msgstr "是否有人违背您的意愿强迫您工作？"
+
+#: model_variables.py:76 templates/hate_crime_human_trafficking.html:71
+msgid "Get help from the National Human Trafficking Hotline"
+msgstr "向国家人口贩运专线寻求帮助"
+
+#: model_variables.py:80
+msgid "Get help for hate crimes"
+msgstr "为寻求仇恨犯罪的帮助"
+
+#: model_variables.py:86
+msgid ""
+"To report a threat against voters, threats against election officials, or "
+"election fraud, visit <a href=\"https://tips.fbi.gov\">tips.fbi.gov</a> or "
+"call 800-CALL-FBI"
+msgstr ""
+
+#: model_variables.py:90 templates/hate_crime_human_trafficking.html:45
+msgid ""
+"A hate crime is violence or threats of violence based on race, color, "
+"national origin, religion, gender, sexual orientation, gender identity, or "
+"disability."
+msgstr ""
+"仇恨犯罪是基于种族、肤色、国籍、宗教、性别、性取向、性别认同或残疾的暴力行为"
+"或暴力威胁。"
+
+#: model_variables.py:100 model_variables.py:142
 msgid ""
 "Fired, not hired, or demoted for reasons unrelated to job performance or "
 "qualifications"
 msgstr "因与工作表现或资格无关的原因被解雇、不被录用或降级"
 
-#: model_variables.py:77 model_variables.py:119
+#: model_variables.py:101 model_variables.py:143
 msgid "Retaliated against for reporting discrimination"
 msgstr "因举报歧视而受到报复"
 
-#: model_variables.py:78 model_variables.py:120
+#: model_variables.py:102 model_variables.py:144
 msgid "Inappropriately asked to provide immigration documentation"
 msgstr "不适当地被要求提供移民文件"
 
-#: model_variables.py:79 model_variables.py:121
+#: model_variables.py:103 model_variables.py:145
 msgid "Denied reemployment or fired based on military service"
 msgstr "因为兵役而被拒绝再就业或被解雇"
 
-#: model_variables.py:80 model_variables.py:122
+#: model_variables.py:104 model_variables.py:146
 msgid ""
 "Denied an accommodation for a disability, including not being allowed to "
 "have a service animal <strong>in the workplace</strong>"
 msgstr ""
 "拒绝为残疾人士提供协助，包括不允许<strong>在工作场所</strong>携带服务性动物"
 
-#: model_variables.py:83 model_variables.py:125
+#: model_variables.py:107 model_variables.py:149
 msgid ""
 "Denied housing, a permit, or a loan based on personal characteristics like "
 "race, sex, and/or having children under 18 years old"
 msgstr ""
 "基于种族、性别和/或有未满 18 岁的子女等个人特征而被拒绝住房、许可证件或贷款"
 
-#: model_variables.py:84 model_variables.py:126
+#: model_variables.py:108 model_variables.py:150
 msgid "Harassment by a landlord or another tenant, including sexual harassment"
 msgstr "受到房东或其他房客的骚扰，包括性骚扰"
 
-#: model_variables.py:85 model_variables.py:127
+#: model_variables.py:109 model_variables.py:151
 msgid "Challenges with terminating a lease due to military status change"
 msgstr "因兵役身份改变而要终止租约时受到阻碍"
 
-#: model_variables.py:86 model_variables.py:128
+#: model_variables.py:110 model_variables.py:152
 msgid ""
 "Denied an accommodation for a disability, including not being allowed to "
 "have a service or assistance animal <strong>in public housing</strong>"
@@ -278,53 +320,53 @@ msgstr ""
 "拒绝为残疾人士提供协助，包括不允许在<strong>公共住房内</strong>饲养服务性动物"
 "或辅助性动物"
 
-#: model_variables.py:89 model_variables.py:131
+#: model_variables.py:113 model_variables.py:155
 msgid "Harassment based on race, sex, national origin, disability, or religion"
 msgstr "基于种族、性别、原籍国、残疾或宗教的骚扰"
 
-#: model_variables.py:90 model_variables.py:132
+#: model_variables.py:114 model_variables.py:156
 msgid "Denied admission or segregated in an education program or activity"
 msgstr "在教育项目或活动中被拒绝入学或被隔离"
 
-#: model_variables.py:91 model_variables.py:133
+#: model_variables.py:115 model_variables.py:157
 msgid "Denied educational accommodations for a disability or language barrier"
 msgstr "有残疾或语言障碍但被拒绝提供教育上的便利设施"
 
-#: model_variables.py:94 model_variables.py:113
+#: model_variables.py:118 model_variables.py:137
 msgid ""
 "Obstacles to registering to vote, obtaining or submitting a ballot, having "
 "your ballot counted, or entering a polling place to vote"
 msgstr "登记投票、获取或提交选票、清点选票或进入投票站投票时遭遇障碍"
 
-#: model_variables.py:95 model_variables.py:114
+#: model_variables.py:119 model_variables.py:138
 msgid ""
 "Denied adequate voting assistance or accommodations for a disability at a "
 "polling place"
 msgstr "在投票站没有为残疾人士提供足够的投票援助或安排"
 
-#: model_variables.py:96 model_variables.py:115
+#: model_variables.py:120 model_variables.py:139
 msgid ""
 "Restricted or prevented from participating in an election, including voting, "
 "becoming a candidate, or being elected for office"
 msgstr "限制或阻止参加选举，包括投票、成为候选人或被选为公职人员"
 
-#: model_variables.py:99 model_variables.py:136
+#: model_variables.py:123 model_variables.py:160
 msgid ""
 "Police brutality or use of excessive force, including patterns of police "
 "misconduct"
 msgstr "警察的暴行或过度使用武力，包括警察不当行为"
 
-#: model_variables.py:100 model_variables.py:137
+#: model_variables.py:124 model_variables.py:161
 msgid ""
 "Searched and arrested under false pretenses, including racial or other "
 "discriminatory profiling"
 msgstr "以包括种族或其他歧视性貌相在内的虚假借口进行搜查和逮捕"
 
-#: model_variables.py:101 model_variables.py:138
+#: model_variables.py:125 model_variables.py:162
 msgid "Denied rights while arrested or incarcerated"
 msgstr "在被捕或监禁期间被剥夺权利"
 
-#: model_variables.py:102 model_variables.py:139
+#: model_variables.py:126 model_variables.py:163
 msgid ""
 "Denied access to safe living conditions or accommodations for a disability, "
 "language barrier, or religious practice while incarcerated"
@@ -332,18 +374,18 @@ msgstr ""
 "在被监禁期间，无法获得安全的居住环境或无法获得残疾、语言障碍或的宗教活动方面"
 "的便利设施"
 
-#: model_variables.py:105 model_variables.py:142
+#: model_variables.py:129 model_variables.py:166
 msgid ""
 "A physical or online location that does not provide disability accommodations"
 msgstr "没有提供残疾便利的实地场所或网站"
 
-#: model_variables.py:106 model_variables.py:143
+#: model_variables.py:130 model_variables.py:167
 msgid ""
 "Denied service or entry because of a perceived personal characteristic like "
 "race, sex, or religion"
 msgstr "由于种族、性别或宗教等个人特征而被拒绝服务或入境"
 
-#: model_variables.py:107 model_variables.py:144
+#: model_variables.py:131 model_variables.py:168
 msgid ""
 "Denied an accommodation for a disability, including not being allowed to "
 "have a service animal <strong>in a commercial or public location</strong>"
@@ -351,13 +393,13 @@ msgstr ""
 "拒绝为残疾人士提供协助，包括不允许<strong>在商业或公共场所内</strong>携带辅助"
 "性动物。"
 
-#: model_variables.py:150
+#: model_variables.py:174
 msgid ""
 "Physical attack causing injury, or an attempt to cause injury with a "
 "dangerous weapon, because of the above characteristics"
 msgstr "由于上述特征而造成伤害的身体攻击，或企图用危险武器造成伤害"
 
-#: model_variables.py:151
+#: model_variables.py:175
 msgid ""
 "Attacks, threats of violence, or destruction of property at place of worship "
 "(ie: shooting, arson, bombing, smashing windows, writing slurs)"
@@ -365,14 +407,14 @@ msgstr ""
 "在礼拜场所遭到攻击、暴力威胁或毁坏财产（例如枪击、纵火、爆炸、砸碎窗户、书写"
 "脏话）"
 
-#: model_variables.py:154
+#: model_variables.py:178
 msgid ""
 "Coerced into working through threats of harm or deportation, psychological "
 "manipulation, debt manipulation, document confiscation, or confinement"
 msgstr ""
 "由于遭受伤害或驱逐出境的威胁、心理操纵、债务操纵、文件没收或监禁而被迫工作"
 
-#: model_variables.py:155
+#: model_variables.py:179
 msgid ""
 "Forced into sex work for profit through physical abuse or assault, sexual "
 "abuse or assault, other threats of harm, or confinement"
@@ -380,25 +422,25 @@ msgstr ""
 "由于受到身体虐待或攻击、性虐待或侵害、其他伤害威胁或监禁而被迫从事性工作以牟"
 "利"
 
-#: model_variables.py:160 model_variables.py:366
+#: model_variables.py:184 model_variables.py:394
 msgid "Federal"
 msgstr "联邦"
 
-#: model_variables.py:161
+#: model_variables.py:185
 msgid "State or local"
 msgstr "州或地方"
 
 #. Translators: Both state, federal and local elections
-#: model_variables.py:163
+#: model_variables.py:187
 msgid "Both"
 msgstr "二者都有"
 
-#: model_variables.py:164 model_variables.py:368 model_variables.py:383
-#: model_variables.py:391 model_variables.py:408
+#: model_variables.py:188 model_variables.py:396 model_variables.py:411
+#: model_variables.py:419 model_variables.py:436
 msgid "I'm not sure"
 msgstr "我不确定"
 
-#: model_variables.py:170
+#: model_variables.py:194
 msgid ""
 "Physical harm or threats of violence based on race, color, national origin, "
 "religion, gender, sexual orientation, gender identity, or disability"
@@ -406,7 +448,7 @@ msgstr ""
 "基于种族、肤色、原籍国、宗教、性别、性取向、性别认同或残疾的而遭受身体伤害或"
 "暴力威胁"
 
-#: model_variables.py:171
+#: model_variables.py:195
 msgid ""
 "Threatened, forced, and held against your will for the purposes of "
 "performing work or commercial sex acts. This could include threats of "
@@ -416,70 +458,70 @@ msgstr ""
 "受到威胁、胁迫并在违背您的意愿下迫使您工作或从事性交易。这可能包括人身伤害威"
 "胁、扣发承诺的工资或用虚假的工作合同扣押您"
 
-#: model_variables.py:185 templates/landing.html:285
+#: model_variables.py:209 templates/landing.html:229
 msgid "Age"
 msgstr "年龄"
 
-#: model_variables.py:186
+#: model_variables.py:210
 msgid ""
 "Disability (including temporary or recovered and including HIV and drug "
 "addiction)"
 msgstr "残疾（包括暂时的或已康复的，也包括艾滋病和药物/毒品依赖）"
 
-#: model_variables.py:187
+#: model_variables.py:211
 msgid "Family, marital, or parental status"
 msgstr "家庭、婚姻或父母身份"
 
-#: model_variables.py:188
+#: model_variables.py:212
 msgid "Gender identity (including gender stereotypes)"
 msgstr "性别认同（包括性别定型观念）"
 
-#: model_variables.py:189
+#: model_variables.py:213
 msgid "Genetic information (including family medical history)"
 msgstr "遗传信息（包括家族病史）"
 
-#: model_variables.py:190
+#: model_variables.py:214
 msgid ""
 "Immigration/citizenship status (choosing this will not share your status)"
 msgstr "移民/公民身份（选择此项不会公开您的身份）"
 
-#: model_variables.py:191
+#: model_variables.py:215
 msgid "Language"
 msgstr "语言"
 
-#: model_variables.py:192
+#: model_variables.py:216
 msgid "National origin (including ancestry and ethnicity)"
 msgstr "原籍国（包括祖籍和种族）"
 
-#: model_variables.py:193
+#: model_variables.py:217
 msgid "Pregnancy"
 msgstr "怀孕"
 
-#: model_variables.py:194 templates/landing.html:278
+#: model_variables.py:218 templates/landing.html:222
 msgid "Race/color"
 msgstr "族裔/肤色"
 
-#: model_variables.py:195 templates/landing.html:280
+#: model_variables.py:219 templates/landing.html:224
 msgid "Religion"
 msgstr "宗教"
 
-#: model_variables.py:196
+#: model_variables.py:220
 msgid "Sex"
 msgstr "性别"
 
-#: model_variables.py:197
+#: model_variables.py:221
 msgid "Sexual orientation"
 msgstr "性取向"
 
-#: model_variables.py:198
+#: model_variables.py:222
 msgid "None of these apply to me"
 msgstr "这些都不适用"
 
-#: model_variables.py:199
+#: model_variables.py:223
 msgid "Other reason"
 msgstr "其他原因"
 
-#: model_variables.py:208
+#: model_variables.py:236
 msgid ""
 "Please make a selection to continue. If none of these apply to your "
 "situation, please select “None of these apply to me” or \"Other reason\"and "
@@ -488,444 +530,466 @@ msgstr ""
 "请做选择，然后继续。如果这些都不适用于您的情况，请选择“这些都不适用”或“其他原"
 "因”并做解释。"
 
-#: model_variables.py:331
+#: model_variables.py:359
 msgid "Place of worship or about a place of worship"
 msgstr "礼拜场所或和礼拜场所有关"
 
-#: model_variables.py:332
+#: model_variables.py:360
 msgid "Commercial or retail building"
 msgstr "商业或零售大楼"
 
-#: model_variables.py:333 model_variables.py:344
+#: model_variables.py:361 model_variables.py:372
 msgid "Healthcare facility"
 msgstr "医疗设施"
 
-#: model_variables.py:334 model_variables.py:345
+#: model_variables.py:362 model_variables.py:373
 msgid "Financial institution"
 msgstr "金融机构"
 
-#: model_variables.py:335
+#: model_variables.py:363
 msgid "Public space"
 msgstr "公共场所"
 
-#: model_variables.py:336 templatetags/commercial_public_space_view.py:17
+#: model_variables.py:364 templatetags/commercial_public_space_view.py:17
 msgid "Other"
 msgstr "其他"
 
-#: model_variables.py:339
+#: model_variables.py:367
 msgid ""
 "Please select the type of location. If none of these apply to your "
 "situation, please select \"Other\"."
 msgstr "请选择地点类型。如果这些都不适用于您的情况，请选择“其他”。"
 
-#: model_variables.py:342
+#: model_variables.py:370
 msgid "Place of worship"
 msgstr "礼拜场所"
 
-#: model_variables.py:343
+#: model_variables.py:371
 msgid "Commercial"
 msgstr "商业场所"
 
-#: model_variables.py:346
+#: model_variables.py:374
 msgid "Public outdoor space"
 msgstr "室外公共空间"
 
-#: model_variables.py:350
+#: model_variables.py:378
 msgid "Church, synagogue, temple, religious community center"
 msgstr "教堂、犹太教堂、寺庙、宗教社区中心"
 
-#: model_variables.py:351
+#: model_variables.py:379
 msgid "Store, restaurant, bar, hotel, theater"
 msgstr "商店、餐馆、酒吧、酒店、剧院"
 
-#: model_variables.py:352
+#: model_variables.py:380
 msgid ""
 "Hospital or clinic (including inpatient and outpatient programs), "
 "reproductive care clinic, state developmental institution, nursing home"
 msgstr "医院或诊所（包括住院和门诊）、生殖保健诊所、州立发展机构、疗养院"
 
-#: model_variables.py:353
+#: model_variables.py:381
 msgid "Bank, credit union, loan services"
 msgstr "银行、信用合作社、贷款服务"
 
-#: model_variables.py:354
+#: model_variables.py:382
 msgid ""
 "Park, sidewalk, street, other public buildings (courthouse, DMV, city "
 "library)"
 msgstr ""
 "公园、人行道、街道、其他公共建筑（法院、机动车管理局（DMV）、市图书馆）"
 
-#: model_variables.py:365
+#: model_variables.py:393
 msgid "State/local"
 msgstr "州/地方"
 
-#: model_variables.py:367
+#: model_variables.py:395
 msgid "Private"
 msgstr "私人"
 
-#: model_variables.py:373
+#: model_variables.py:401
 msgid "Outside of prison"
 msgstr "监狱外"
 
-#: model_variables.py:375
+#: model_variables.py:403
 msgid "Prison (Federal)"
 msgstr "监狱（联邦）"
 
-#: model_variables.py:376
+#: model_variables.py:404
 msgid "Prison (Private)"
 msgstr "监狱（私人）"
 
-#: model_variables.py:377
+#: model_variables.py:405
 msgid "Prison (I'm not sure)"
 msgstr "监狱（我不确定）"
 
-#: model_variables.py:381
+#: model_variables.py:409
 msgid "Public employer"
 msgstr "公共雇主"
 
-#: model_variables.py:382
+#: model_variables.py:410
 msgid "Private employer"
 msgstr "私人雇主"
 
-#: model_variables.py:386
+#: model_variables.py:414
 msgid "Please select what type of employer this is."
 msgstr "请选择这是哪种类型的雇主。"
 
-#: model_variables.py:389
+#: model_variables.py:417
 msgid "Fewer than 15 employees"
 msgstr "少于 15 名员工"
 
-#: model_variables.py:390
+#: model_variables.py:418
 msgid "15 or more employees"
 msgstr "15 名或 15 名以上员工 "
 
-#: model_variables.py:394
+#: model_variables.py:422
 msgid "Please select how large the employer is."
 msgstr "请选择雇主的规模。"
 
-#: model_variables.py:406
+#: model_variables.py:434
 msgid "Public school or educational program"
 msgstr "公立学校或教育项目"
 
-#: model_variables.py:407
+#: model_variables.py:435
 msgid "Private school or educational program"
 msgstr "私立学校或教育项目"
 
-#: model_variables.py:413
+#: model_variables.py:441
+#, fuzzy
+#| msgid "Year"
+msgid "1 Year"
+msgstr "年"
+
+#: model_variables.py:442
+#, fuzzy
+#| msgid "Year"
+msgid "3 Year"
+msgstr "年"
+
+#: model_variables.py:443
+#, fuzzy
+#| msgid "Year"
+msgid "10 Year"
+msgstr "年"
+
+#: model_variables.py:444
+msgid "Permanent"
+msgstr ""
+
+#: model_variables.py:448
 msgid "Alabama"
 msgstr "阿拉巴马州"
 
-#: model_variables.py:414
+#: model_variables.py:449
 msgid "Alaska"
 msgstr "阿拉斯加州"
 
-#: model_variables.py:415
+#: model_variables.py:450
 msgid "Arizona"
 msgstr "亚利桑那州"
 
-#: model_variables.py:416
+#: model_variables.py:451
 msgid "Arkansas"
 msgstr "阿肯色州"
 
-#: model_variables.py:417
+#: model_variables.py:452
 msgid "California"
 msgstr "加利福尼亚州"
 
-#: model_variables.py:418
+#: model_variables.py:453
 msgid "Colorado"
 msgstr "科罗拉多州"
 
-#: model_variables.py:419
+#: model_variables.py:454
 msgid "Connecticut"
 msgstr "康涅狄格州"
 
-#: model_variables.py:420
+#: model_variables.py:455
 msgid "Delaware"
 msgstr "特拉华州"
 
-#: model_variables.py:421
+#: model_variables.py:456
 msgid "District of Columbia"
 msgstr "哥伦比亚特区"
 
-#: model_variables.py:422
+#: model_variables.py:457
 msgid "Florida"
 msgstr "佛罗里达州"
 
-#: model_variables.py:423
+#: model_variables.py:458
 msgid "Georgia"
 msgstr "乔治亚州"
 
-#: model_variables.py:424
+#: model_variables.py:459
 msgid "Hawaii"
 msgstr "夏威夷州"
 
-#: model_variables.py:425
+#: model_variables.py:460
 msgid "Idaho"
 msgstr "爱达荷州"
 
-#: model_variables.py:426
+#: model_variables.py:461
 msgid "Illinois"
 msgstr "伊利诺伊州"
 
-#: model_variables.py:427
+#: model_variables.py:462
 msgid "Indiana"
 msgstr "印第安纳州"
 
-#: model_variables.py:428
+#: model_variables.py:463
 msgid "Iowa"
 msgstr "爱荷华州"
 
-#: model_variables.py:429
+#: model_variables.py:464
 msgid "Kansas"
 msgstr "堪萨斯州"
 
-#: model_variables.py:430
+#: model_variables.py:465
 msgid "Kentucky"
 msgstr "肯塔基州"
 
-#: model_variables.py:431
+#: model_variables.py:466
 msgid "Louisiana"
 msgstr "路易斯安那州"
 
-#: model_variables.py:432
+#: model_variables.py:467
 msgid "Maine"
 msgstr "缅因州"
 
-#: model_variables.py:433
+#: model_variables.py:468
 msgid "Maryland"
 msgstr "马里兰州"
 
-#: model_variables.py:434
+#: model_variables.py:469
 msgid "Massachusetts"
 msgstr "马萨诸塞州"
 
-#: model_variables.py:435
+#: model_variables.py:470
 msgid "Michigan"
 msgstr "密歇根州"
 
-#: model_variables.py:436
+#: model_variables.py:471
 msgid "Minnesota"
 msgstr "明尼苏达州"
 
-#: model_variables.py:437
+#: model_variables.py:472
 msgid "Mississippi"
 msgstr "密西西比州"
 
-#: model_variables.py:438
+#: model_variables.py:473
 msgid "Missouri"
 msgstr "密苏里州"
 
-#: model_variables.py:439
+#: model_variables.py:474
 msgid "Montana"
 msgstr "蒙大拿州"
 
-#: model_variables.py:440
+#: model_variables.py:475
 msgid "Nebraska"
 msgstr "内布拉斯加州"
 
-#: model_variables.py:441
+#: model_variables.py:476
 msgid "Nevada"
 msgstr "内华达州"
 
-#: model_variables.py:442
+#: model_variables.py:477
 msgid "New Hampshire"
 msgstr "新罕布什尔州"
 
-#: model_variables.py:443
+#: model_variables.py:478
 msgid "New Jersey"
 msgstr "新泽西州"
 
-#: model_variables.py:444
+#: model_variables.py:479
 msgid "New Mexico"
 msgstr "新墨西哥州"
 
-#: model_variables.py:445
+#: model_variables.py:480
 msgid "New York"
 msgstr "纽约州"
 
-#: model_variables.py:446
+#: model_variables.py:481
 msgid "North Carolina"
 msgstr "北卡罗莱纳州"
 
-#: model_variables.py:447
+#: model_variables.py:482
 msgid "North Dakota"
 msgstr "北达科他州"
 
-#: model_variables.py:448
+#: model_variables.py:483
 msgid "Ohio"
 msgstr "俄亥俄州"
 
-#: model_variables.py:449
+#: model_variables.py:484
 msgid "Oklahoma"
 msgstr "俄克拉荷马州"
 
-#: model_variables.py:450
+#: model_variables.py:485
 msgid "Oregon"
 msgstr "俄勒冈州"
 
-#: model_variables.py:451
+#: model_variables.py:486
 msgid "Pennsylvania"
 msgstr "宾夕法尼亚州"
 
-#: model_variables.py:452
+#: model_variables.py:487
 msgid "Rhode Island"
 msgstr "罗德岛州"
 
-#: model_variables.py:453
+#: model_variables.py:488
 msgid "South Carolina"
 msgstr "南卡罗来纳州"
 
-#: model_variables.py:454
+#: model_variables.py:489
 msgid "South Dakota"
 msgstr "南达科他州"
 
-#: model_variables.py:455
+#: model_variables.py:490
 msgid "Tennessee"
 msgstr "田纳西州"
 
-#: model_variables.py:456
+#: model_variables.py:491
 msgid "Texas"
 msgstr "得克萨斯州"
 
-#: model_variables.py:457
+#: model_variables.py:492
 msgid "Utah"
 msgstr "犹他州"
 
-#: model_variables.py:458
+#: model_variables.py:493
 msgid "Vermont"
 msgstr "佛蒙特州"
 
-#: model_variables.py:459
+#: model_variables.py:494
 msgid "Virginia"
 msgstr "弗吉尼亚州"
 
-#: model_variables.py:460
+#: model_variables.py:495
 msgid "Washington"
 msgstr "华盛顿州"
 
-#: model_variables.py:461
+#: model_variables.py:496
 msgid "West Virginia"
 msgstr "西弗吉尼亚州"
 
-#: model_variables.py:462
+#: model_variables.py:497
 msgid "Wisconsin"
 msgstr "威斯康星州"
 
-#: model_variables.py:463
+#: model_variables.py:498
 msgid "Wyoming"
 msgstr "怀俄明州"
 
-#: model_variables.py:464
+#: model_variables.py:499
 msgid "American Samoa"
 msgstr "美属萨摩亚"
 
-#: model_variables.py:465
+#: model_variables.py:500
 msgid "Guam"
 msgstr "关岛"
 
-#: model_variables.py:466
+#: model_variables.py:501
 msgid "Northern Mariana Islands"
 msgstr "北马里亚纳群岛"
 
-#: model_variables.py:467
+#: model_variables.py:502
 msgid "Puerto Rico"
 msgstr "波多黎各"
 
-#: model_variables.py:468
+#: model_variables.py:503
 msgid "Virgin Islands"
 msgstr "维尔京群岛"
 
-#: model_variables.py:469
+#: model_variables.py:504
 msgid "Armed Forces Africa"
 msgstr "非洲武装部队"
 
-#: model_variables.py:470
+#: model_variables.py:505
 msgid "Armed Forces Americas"
 msgstr "美洲武装部队"
 
-#: model_variables.py:471
+#: model_variables.py:506
 msgid "Armed Forces Canada"
 msgstr "加拿大武装部队"
 
-#: model_variables.py:472
+#: model_variables.py:507
 msgid "Armed Forces Europe"
 msgstr "欧洲武装部队"
 
-#: model_variables.py:473
+#: model_variables.py:508
 msgid "Armed Forces Middle East"
 msgstr "中东武装部队"
 
-#: model_variables.py:474
+#: model_variables.py:509
 msgid "Armed Forces Pacific"
 msgstr "太平洋武装部队"
 
-#: model_variables.py:477
+#: model_variables.py:512
 msgid "Please provide description to continue"
 msgstr "请提供说明，然后继续"
 
-#: model_variables.py:478
+#: model_variables.py:513
 msgid "Please select a primary reason to continue."
 msgstr "请选择主要原因，然后继续。"
 
-#: model_variables.py:482
+#: model_variables.py:517
 msgid "Please enter the name of the location where this took place."
 msgstr "请输入发生此事件地点的名称。"
 
-#: model_variables.py:483
+#: model_variables.py:518
 msgid "Please enter the city or town where this took place."
 msgstr "请输入发生此事件的城市或城镇。"
 
-#: model_variables.py:484
+#: model_variables.py:519
 msgid "Please select the state where this took place."
 msgstr "请选择发生此事件的州。"
 
-#: model_variables.py:488
+#: model_variables.py:523
 msgid "Please select where this occurred"
 msgstr "请选择发生此情况的地点"
 
-#: model_variables.py:489
+#: model_variables.py:524
 msgid "Please select the type of location"
 msgstr "请选择地点类型。"
 
-#: model_variables.py:501
+#: model_variables.py:536
 msgid "You must enter a month and year. Please use the format MM/DD/YYYY."
 msgstr "必须输入月和年。请使用 MM/DD/YYYY（月/日/年）的格式。"
 
-#: model_variables.py:504
+#: model_variables.py:539
 msgid "Please enter a month."
 msgstr "请输入月份。"
 
-#: model_variables.py:505
+#: model_variables.py:540
 msgid "Please enter a valid month. Month must be between 1 and 12."
 msgstr "请输入一个有效的月份。月份必须介于 1 和 12 之间。"
 
-#: model_variables.py:507
+#: model_variables.py:542
 msgid ""
 "Please enter a valid day of the month. Day must be between 1 and the last "
 "day of the month."
 msgstr "请输入当月的有效日期。日期必须介于 1 和当月最后一天之间。"
 
-#: model_variables.py:508
+#: model_variables.py:543
 msgid "Please enter a year."
 msgstr "请输入年份。"
 
-#: model_variables.py:509
+#: model_variables.py:544
 msgid "Date can not be in the future."
 msgstr "日期不能为将来的日期。"
 
-#: model_variables.py:510
+#: model_variables.py:545
 msgid "Please enter a year after 1900."
 msgstr "请输入一个 1900 年以后的年份。"
 
-#: model_variables.py:512
+#: model_variables.py:547
 msgid "Please enter a valid date. Use format MM/DD/YYYY."
 msgstr "请输入一个有效的日期。请使用 MM/DD/YYYY（月/日/年）格式。"
 
-#: model_variables.py:516
+#: model_variables.py:551
 msgid "Please select the type of election or voting activity."
 msgstr "请选择选举或投票活动的类型。"
 
-#: model_variables.py:636
+#: model_variables.py:702
 msgid ""
 "If you submit a phone number, please make sure to include between 7 and 15 "
 "digits. The characters \"+\", \")\", \"(\", \"-\", and \".\" are allowed. "
@@ -1113,12 +1177,12 @@ msgstr ""
 "这些材料的副本。如果您提供这些材料的详细信息，我们可以知道哪些材料对您的报告"
 "最有帮助。"
 
-#: templates/base.html:43 templates/base.html:68
+#: templates/base.html:42 templates/base.html:67
 #: templates/forms/report_base.html:10 templates/forms/report_base.html:13
 msgid "Contact the Civil Rights Division | Department of Justice"
 msgstr "联系司法部民权司"
 
-#: templates/base.html:56
+#: templates/base.html:55
 msgid ""
 "Have you or someone you know experienced unlawful discrimination? The Civil "
 "Rights Division may be able to help. Civil rights laws can protect you from "
@@ -1130,42 +1194,43 @@ msgstr ""
 "种环境中免受非法歧视、骚扰或虐待，例如住所、工作场所、学校、投票站、企业、医"
 "疗保健机构、公共场所等。"
 
-#: templates/base.html:78
+#: templates/base.html:79
 msgid "Skip to main content"
 msgstr "跳转到主要内容"
 
-#: templates/base.html:132 templates/forms/errors.html:13
-#: templates/forms/report_maintenance.html:13 templates/landing.html:11
+#: templates/base.html:132 templates/forms/errors.html:14
+#: templates/forms/report_maintenance.html:12 templates/landing.html:11
 #: templates/landing.html:18
 msgid "U.S. Department of Justice"
 msgstr "美国司法部"
 
 #: templates/base.html:135 templates/forms/confirmation.html:21
-#: templates/forms/errors.html:14 templates/forms/report_maintenance.html:14
+#: templates/forms/errors.html:15 templates/forms/report_maintenance.html:13
 #: templates/landing.html:11 templates/landing.html:21
 msgid "Civil Rights Division"
 msgstr "民权司"
 
-#: templates/forms/complaint_view/actions/bulk_actions.html:75
+#: templates/forms/complaint_view/actions/bulk_actions.html:94
 #: templates/forms/grouped_questions.html:6
 #: templates/forms/question_cards/commercial_public_location.html:5
+#: templates/forms/question_cards/other_question.html:11
 #: templates/forms/question_cards/police_location.html:4
 #: templates/forms/question_cards/single_form.html:16
 #: templates/forms/question_cards/single_question.html:13
-#: templates/forms/report_class.html:14 templates/forms/report_details.html:12
-#: templates/forms/report_location.html:33
-#: templates/forms/report_location.html:39
-#: templates/forms/report_primary_complaint.html:11
+#: templates/forms/report_class.html:13 templates/forms/report_details.html:12
+#: templates/forms/report_location.html:32
+#: templates/forms/report_location.html:38
+#: templates/forms/report_primary_complaint.html:10
 #: templates/forms/snippets/input.html:9
 msgid "required"
 msgstr "必填"
 
-#: templates/forms/confirmation.html:8
+#: templates/forms/confirmation.html:7
 msgid "Submission complete"
 msgstr "完成提交"
 
 #: templates/forms/confirmation.html:20 templates/forms/confirmation.html:26
-#: templates/forms/portal/header.html:3
+#: templates/forms/portal/header.html:2
 msgid "United States Department of Justice"
 msgstr "美国司法部"
 
@@ -1185,23 +1250,23 @@ msgstr "请保存您的记录号码以便查询。"
 msgid "Your record number is:"
 msgstr "您的记录号码是："
 
-#: templates/forms/confirmation.html:61
+#: templates/forms/confirmation.html:62
 msgid "Print report"
 msgstr "打印报告"
 
-#: templates/forms/confirmation.html:62
+#: templates/forms/confirmation.html:63
 msgid "Save report"
 msgstr "保存报告"
 
-#: templates/forms/confirmation.html:72
+#: templates/forms/confirmation.html:75
 msgid "What to expect"
 msgstr "后续流程"
 
-#: templates/forms/confirmation.html:82
+#: templates/forms/confirmation.html:85
 msgid "We review your report"
 msgstr "我们会审查您的报告"
 
-#: templates/forms/confirmation.html:87
+#: templates/forms/confirmation.html:90
 msgid ""
 "Our specialists in the Civil Rights Division carefully read every report to "
 "identify civil rights violations, spot trends, and determine if we have "
@@ -1210,27 +1275,27 @@ msgstr ""
 "我们民权司的专家会仔细阅读每一份报告，以查明侵犯公民权利的情况、发现趋势，并"
 "确定我们是否有权对您提交的报告提供帮助。"
 
-#: templates/forms/confirmation.html:97
+#: templates/forms/confirmation.html:100
 msgid "Our specialists determine the next step"
 msgstr "我们的专员决定下一步"
 
-#: templates/forms/confirmation.html:101
+#: templates/forms/confirmation.html:104
 msgid "We may decide to:"
 msgstr "我们可能会决定："
 
-#: templates/forms/confirmation.html:104
+#: templates/forms/confirmation.html:107
 msgid ""
 "<strong>Open an investigation</strong> or take some other action within the "
 "legal authority of the Justice Department."
 msgstr "在司法部的法律授权范围内<strong>展开调查</strong>或采取其他行动。"
 
-#: templates/forms/confirmation.html:105
+#: templates/forms/confirmation.html:108
 msgid ""
 "<strong>Collect more information</strong> before we can look into your "
 "report."
 msgstr "在我们针对您的报告进行调查之前<strong>收集更多信息</strong>。"
 
-#: templates/forms/confirmation.html:106
+#: templates/forms/confirmation.html:109
 msgid ""
 "<strong>Recommend another government agency</strong> that can properly look "
 "into your report. If so, we’ll let you know."
@@ -1238,7 +1303,7 @@ msgstr ""
 "<strong>推荐另一个政府机构</strong>，该机构可以适当地研究您的报告。如果是这"
 "样，我们会通知您。"
 
-#: templates/forms/confirmation.html:109
+#: templates/forms/confirmation.html:112
 msgid ""
 "In some cases, we may determine that we don’t have legal authority to handle "
 "your report and will recommend that you seek help from a private lawyer or "
@@ -1247,11 +1312,11 @@ msgstr ""
 "某些情况下，我们可能会确定我们没有法律权限处理您的报告，并建议您向私人律师或"
 "当地法律援助组织寻求帮助。"
 
-#: templates/forms/confirmation.html:119
+#: templates/forms/confirmation.html:122
 msgid "When possible, we will follow up with you"
 msgstr "如果可能，我们会进行跟进"
 
-#: templates/forms/confirmation.html:124
+#: templates/forms/confirmation.html:127
 msgid ""
 "We do our best to let you know about the outcome of our review. However, we "
 "may not always be able to provide you with updates because:"
@@ -1259,16 +1324,16 @@ msgstr ""
 "我们会尽最大努力让您了解我们的审查结果。但是，我们可能无法向您提供进度更新，"
 "因为："
 
-#: templates/forms/confirmation.html:128
+#: templates/forms/confirmation.html:131
 msgid ""
 "We’re actively working on an investigation or case related to your report."
 msgstr "我们正在积极调查与您的报告有关的案件。"
 
-#: templates/forms/confirmation.html:131
+#: templates/forms/confirmation.html:134
 msgid "We’re receiving and actively reviewing many requests at the same time."
 msgstr "我们同时收到并需要积极审查很多请求。"
 
-#: templates/forms/confirmation.html:134 templates/landing.html:381
+#: templates/forms/confirmation.html:137 templates/landing.html:325
 msgid ""
 "If we are able to respond, we will contact you using the contact information "
 "you provided in this report. Depending on the type of report, response times "
@@ -1280,26 +1345,26 @@ msgstr ""
 "型，响应时间可能会有所不同。如果您需要就报告联系我们，请在联系我们时告知您的"
 "报告号码。这就是我们追踪您提交材料的方式。"
 
-#: templates/forms/confirmation.html:142
+#: templates/forms/confirmation.html:145
 msgid "What you can do next"
 msgstr "下一步您能做什么"
 
-#: templates/forms/confirmation.html:148
+#: templates/forms/confirmation.html:151
 msgid "1"
 msgstr "1"
 
-#: templates/forms/confirmation.html:151
+#: templates/forms/confirmation.html:154
 msgid ""
 "Contact local legal aid organizations or a lawyer if you haven’t already"
 msgstr "如何您尚未与当地法律援助组织或律师联系，你可以联络"
 
-#: templates/forms/confirmation.html:155
+#: templates/forms/confirmation.html:158
 msgid ""
 "Legal aid offices or members of lawyer associations in your state may be "
 "able to help you with your issue."
 msgstr "您所在州的法律援助办公室或律师协会成员可能可以帮助您解决问题。"
 
-#: templates/forms/confirmation.html:158
+#: templates/forms/confirmation.html:161
 msgid ""
 "American Bar Association, visit <a class=\"external-link--blue external-"
 "link--popup\" href=\"https://www.americanbar.org/groups/legal_services/flh-"
@@ -1308,16 +1373,16 @@ msgid ""
 msgstr ""
 "美国律师协会，请访问 <a class=\"external-link--blue external-link--popup\" "
 "href=\"https://www.americanbar.org/groups/legal_services/flh-home/\">www."
-"americanbar.org/groups/legal_services/flh-home</a> 或拨打<a href="
-"\"tel:800-285-2221\">（800）285-2221</a>"
+"americanbar.org/groups/legal_services/flh-home</a> 或拨打<a "
+"href=\"tel:800-285-2221\">（800）285-2221</a>"
 
-#: templates/forms/confirmation.html:161
+#: templates/forms/confirmation.html:164
 #, fuzzy
 #| msgid ""
-#| "Legal Services Corporation (or Legal Aid Offices), visit <a aria-label="
-#| "\"www.lsc.gov/find-legal-aid\" class=\"external-link--blue external-link--"
-#| "popup\" href=\"https://www.lsc.gov/find-legal-aid\">www.lsc.gov/find-"
-#| "legal-aid</a>"
+#| "Legal Services Corporation (or Legal Aid Offices), visit <a aria-"
+#| "label=\"www.lsc.gov/find-legal-aid\" class=\"external-link--blue external-"
+#| "link--popup\" href=\"https://www.lsc.gov/find-legal-aid\">www.lsc.gov/"
+#| "find-legal-aid</a>"
 msgid ""
 "Legal Services Corporation (or Legal Aid Offices), to help you find a legal "
 "aid lawyer in your area visit <a aria-label=\"www.lsc.gov/find-legal-aid\" "
@@ -1325,18 +1390,18 @@ msgid ""
 "gov/find-legal-aid\">www.lsc.gov/find-legal-aid</a>"
 msgstr ""
 "法律服务公司（或法律援助办事处），请访问<a aria-label=\"www.lsc.gov/find-"
-"legal-aid\" class=\"external-link--blue external-link--popup\" href="
-"\"https://www.lsc.gov/find-legal-aid\">www.lsc.gov/find-legal-aid</a>"
+"legal-aid\" class=\"external-link--blue external-link--popup\" "
+"href=\"https://www.lsc.gov/find-legal-aid\">www.lsc.gov/find-legal-aid</a>"
 
-#: templates/forms/confirmation.html:169
+#: templates/forms/confirmation.html:172
 msgid "2"
 msgstr "2"
 
-#: templates/forms/confirmation.html:172
+#: templates/forms/confirmation.html:175
 msgid "Get help immediately if you are in danger"
 msgstr "如果身处危险之中，请立即寻求帮助"
 
-#: templates/forms/confirmation.html:177
+#: templates/forms/confirmation.html:180
 msgid ""
 "If you reported an incident where you or someone else has experienced or is "
 "still experiencing physical harm or violence, or are in immediate danger, "
@@ -1345,11 +1410,11 @@ msgstr ""
 "如果在您报告的事件中，您或他人已经历或仍在经历着身体伤害或暴力，或仍随时有危"
 "险，请拨打 <a href=\"tel:911\">911</a> 报警。"
 
-#: templates/forms/confirmation.html:190
+#: templates/forms/confirmation.html:193
 msgid "Your submission"
 msgstr "您提交的信息"
 
-#: templates/forms/error_422.html:5 templates/forms/errors.html:31
+#: templates/forms/error_422.html:5 templates/forms/errors.html:32
 msgid "We're sorry, something went wrong"
 msgstr "很抱歉，出了点故障"
 
@@ -1369,63 +1434,63 @@ msgstr ""
 "        <p>此外，请不要在输入报告时使用多个浏览器和/或浏览器分页。</p>\n"
 "    "
 
-#: templates/forms/errors.html:33
+#: templates/forms/errors.html:34
 msgid "We hope to fix this issue shortly"
 msgstr "我们希望尽快解决这个问题"
 
-#: templates/forms/errors.html:35
+#: templates/forms/errors.html:36
 msgid "Error: "
 msgstr "错误："
 
-#: templates/forms/errors.html:37 templates/forms/report_maintenance.html:33
+#: templates/forms/errors.html:38 templates/forms/report_maintenance.html:32
 msgid "If you need to contact us immediately, you can reach us by:"
 msgstr "如果您需要立即与我们取得联系，可以通过以下方式联系我们："
 
-#: templates/forms/errors.html:42 templates/forms/report_maintenance.html:38
+#: templates/forms/errors.html:43 templates/forms/report_maintenance.html:37
 msgid "Email"
 msgstr "电子邮件"
 
-#: templates/forms/errors.html:51 templates/forms/report_maintenance.html:47
+#: templates/forms/errors.html:52 templates/forms/report_maintenance.html:46
 #: templates/partials/footer.html:32
 msgid "(toll-free)"
 msgstr "（免费）"
 
-#: templates/forms/errors.html:52 templates/forms/report_maintenance.html:48
+#: templates/forms/errors.html:53 templates/forms/report_maintenance.html:47
 #: templates/partials/footer.html:33
 msgid "Telephone Device for the Deaf"
 msgstr "聋人专线"
 
-#: templates/forms/errors.html:53 templates/forms/report_maintenance.html:49
+#: templates/forms/errors.html:54 templates/forms/report_maintenance.html:48
 #: templates/partials/footer.html:34
 msgid "(TTY)"
 msgstr "（TTY）"
 
-#: templates/forms/errors.html:68 templates/forms/report_maintenance.html:64
+#: templates/forms/errors.html:69 templates/forms/report_maintenance.html:63
 msgid "Other information"
 msgstr "其他信息"
 
-#: templates/forms/errors.html:69
+#: templates/forms/errors.html:70
 msgid "File a complaint"
 msgstr "投诉"
 
-#: templates/forms/errors.html:71 templates/forms/report_maintenance.html:66
-#: templates/landing.html:138
+#: templates/forms/errors.html:72 templates/forms/report_maintenance.html:65
+#: templates/landing.html:137
 msgid "About the Civil Rights Division"
 msgstr "关于民权司"
 
-#: templates/forms/errors.html:74 templates/forms/report_maintenance.html:69
-#: templates/landing.html:121
+#: templates/forms/errors.html:75 templates/forms/report_maintenance.html:68
+#: templates/landing.html:120
 msgid ""
 "If you or someone else is in immediate danger, <a href=\"tel:911\">please "
 "call 911 or local police.</a>"
 msgstr ""
 "如果您或他人有紧急危险，<a href=\"tel:911\">请拨打 911 或联系当地警方</a>。"
 
-#: templates/forms/portal/progress-bar.html:6
+#: templates/forms/portal/progress-bar.html:5
 msgid "progress"
 msgstr "进展"
 
-#: templates/forms/portal/progress-bar.html:8
+#: templates/forms/portal/progress-bar.html:7
 #, python-format
 msgid ""
 "\n"
@@ -1438,11 +1503,11 @@ msgstr ""
 "%(total_stages)s.\n"
 "        "
 
-#: templates/forms/portal/progress-bar.html:27
+#: templates/forms/portal/progress-bar.html:26
 msgid "not completed"
 msgstr "未完成"
 
-#: templates/forms/portal/progress-bar.html:29
+#: templates/forms/portal/progress-bar.html:28
 msgid "completed"
 msgstr "已完成"
 
@@ -1455,11 +1520,11 @@ msgstr ""
 "\n"
 "        步骤 %(stage_number)s: %(current_step_name)s - "
 
-#: templates/forms/report_base.html:22
+#: templates/forms/report_base.html:24
 msgid "Contact the Department of Justice to report a civil rights violation"
 msgstr "联系司法部举报一起侵犯民事权利的行为"
 
-#: templates/forms/report_base.html:54
+#: templates/forms/report_base.html:56
 #, python-format
 msgid ""
 "\n"
@@ -1478,22 +1543,22 @@ msgstr[1] ""
 "                  发现 %(counter)s 个错误\n"
 "                "
 
-#: templates/forms/report_base.html:84
-#: templates/forms/report_contact_info.html:39
+#: templates/forms/report_base.html:86
+#: templates/forms/report_contact_info.html:38
 msgid "Submit"
 msgstr "提交"
 
-#: templates/forms/report_base.html:86
-#: templates/forms/report_contact_info.html:33
-#: templates/forms/report_contact_info.html:41
+#: templates/forms/report_base.html:88
+#: templates/forms/report_contact_info.html:32
+#: templates/forms/report_contact_info.html:40
 msgid "Next"
 msgstr "下一步"
 
-#: templates/forms/report_base.html:95 templates/forms/report_review.html:34
+#: templates/forms/report_base.html:97 templates/forms/report_review.html:33
 msgid "previous step"
 msgstr "上一步"
 
-#: templates/forms/report_base.html:98 templates/forms/report_review.html:37
+#: templates/forms/report_base.html:100 templates/forms/report_review.html:36
 #: templates/partials/redirect-modal.html:23
 msgid "Back"
 msgstr "返回"
@@ -1506,21 +1571,21 @@ msgstr "地址"
 msgid "None selected"
 msgstr "未选择"
 
-#: templates/forms/report_maintenance.html:30
+#: templates/forms/report_maintenance.html:29
 msgid "This page is currently down for maintenance."
 msgstr "本页当前已关闭进行维护。"
 
-#: templates/forms/report_maintenance.html:31
+#: templates/forms/report_maintenance.html:30
 msgid ""
 "We expect to be back shortly. We recommend checking back to report a civil "
 "rights violation."
 msgstr "我们预计很快就会完成。我们建议您稍后再回来报告民权侵犯事件。"
 
-#: templates/forms/report_review.html:10
+#: templates/forms/report_review.html:9
 msgid "Before you submit your report, please check your responses"
 msgstr "提交报告之前，请检查您的回答"
 
-#: templates/forms/report_review.html:12
+#: templates/forms/report_review.html:11
 msgid ""
 "If you need to make any changes, you can go back and edit the previous "
 "pages. Please make sure your information is accurate. This allows us to "
@@ -1529,7 +1594,7 @@ msgstr ""
 "如果需要进行任何更改，您可以返回并编辑以前的页面。请确保您的信息准确无误。这"
 "可使我们对您的报告迅速作出反应。"
 
-#: templates/forms/report_review.html:14 templates/forms/report_review.html:26
+#: templates/forms/report_review.html:13 templates/forms/report_review.html:25
 msgid "Submit report"
 msgstr "提交报告"
 
@@ -1538,7 +1603,7 @@ msgid "Edit this page"
 msgstr "编辑本页面"
 
 #: templates/forms/widgets/crt_radio_area_option.html:26
-#: templates/vot_resources.html:58
+#: templates/vot_resources.html:57
 msgid "Examples:"
 msgstr "例如："
 
@@ -1564,247 +1629,233 @@ msgstr ""
 "          %(word_limit)s 已达到字数限制\n"
 "        "
 
-#: templates/hate_crime_human_trafficking.html:7
-#: templates/hate_crime_human_trafficking.html:14
+#: templates/hate_crime_human_trafficking.html:6
+#: templates/hate_crime_human_trafficking.html:13
 msgid ""
 "Civil Rights Division - Department of Justice - Get help for hate crimes and "
 "human trafficking"
 msgstr "民权司 - 司法部 - 获取仇恨犯罪和人口贩运方面的帮助"
 
-#: templates/hate_crime_human_trafficking.html:25
+#: templates/hate_crime_human_trafficking.html:24
 msgid "Get help"
 msgstr "请立刻求助！"
 
-#: templates/hate_crime_human_trafficking.html:29
+#: templates/hate_crime_human_trafficking.html:28
 msgid "Report a hate crime"
 msgstr "举报仇恨犯罪"
 
-#: templates/hate_crime_human_trafficking.html:32
+#: templates/hate_crime_human_trafficking.html:31
 msgid "Report human trafficking"
 msgstr "举报人口贩运"
 
-#: templates/hate_crime_human_trafficking.html:39
+#: templates/hate_crime_human_trafficking.html:38
 msgid "Get help for hate crimes and human trafficking"
 msgstr "获取仇恨犯罪和人口贩运方面的帮助"
 
-#: templates/hate_crime_human_trafficking.html:44
+#: templates/hate_crime_human_trafficking.html:43
 msgid "Where to report a hate crime"
 msgstr "哪里可以举报仇恨犯罪"
 
-#: templates/hate_crime_human_trafficking.html:46
-msgid ""
-"A hate crime is violence or threats of violence based on race, color, "
-"national origin, religion, gender, sexual orientation, gender identity, or "
-"disability."
-msgstr ""
-"仇恨犯罪是基于种族、肤色、国籍、宗教、性别、性取向、性别认同或残疾的暴力行为"
-"或暴力威胁。"
-
-#: templates/hate_crime_human_trafficking.html:50
+#: templates/hate_crime_human_trafficking.html:49
 msgid "In cases of emergency, contact 911"
 msgstr "紧急情况，请拨打911"
 
-#: templates/hate_crime_human_trafficking.html:55
+#: templates/hate_crime_human_trafficking.html:54
 msgid "Otherwise, contact the FBI online"
 msgstr "否则，请线上联系联邦调"
 
-#: templates/hate_crime_human_trafficking.html:60
+#: templates/hate_crime_human_trafficking.html:59
 msgid "Or a local field office by phone"
 msgstr "查局或者致电当地的分局"
 
-#: templates/hate_crime_human_trafficking.html:66
+#: templates/hate_crime_human_trafficking.html:65
 msgid "Where to report human trafficking"
 msgstr "在哪里举报人口贩运"
 
-#: templates/hate_crime_human_trafficking.html:68
+#: templates/hate_crime_human_trafficking.html:67
 msgid ""
 "Human trafficking includes being forced or coerced to do work, or forced or "
 "coerced to engage in sex acts for something of value."
 msgstr ""
 "人口贩运包括被强迫或胁迫做工，或是被强迫或胁迫从事性行为以换取有价值的东西。"
 
-#: templates/hate_crime_human_trafficking.html:72 templates/landing.html:257
-msgid "Get help from the National Human Trafficking Hotline"
-msgstr "向国家人口贩运专线寻求帮助"
-
-#: templates/hce_resources.html:7 templates/hce_resources.html:14
+#: templates/hce_resources.html:6 templates/hce_resources.html:13
 #, fuzzy
 #| msgid "Civil Rights Division - Department of Justice - Privacy Policy"
 msgid "Civil Rights Division - Department of Justice - Get resources"
 msgstr "民权司 - 司法部 - 私隐政策"
 
-#: templates/hce_resources.html:25
+#: templates/hce_resources.html:24
 msgid "Housing Section Resources"
 msgstr ""
 
-#: templates/hce_resources.html:29 templates/hce_resources.html:56
+#: templates/hce_resources.html:28 templates/hce_resources.html:55
 msgid "Credit"
 msgstr "信用"
 
-#: templates/hce_resources.html:32 templates/hce_resources.html:76
+#: templates/hce_resources.html:31 templates/hce_resources.html:75
 msgid "Disability"
 msgstr "残疾"
 
-#: templates/hce_resources.html:35 templates/hce_resources.html:85
+#: templates/hce_resources.html:34 templates/hce_resources.html:84
 msgid "Housing"
 msgstr "房屋"
 
-#: templates/hce_resources.html:38
+#: templates/hce_resources.html:37
 msgid "Find an attorney"
 msgstr "查找律师"
 
-#: templates/hce_resources.html:41
+#: templates/hce_resources.html:40
 msgid "Enforcement of state laws"
 msgstr "州法律执行机构"
 
-#: templates/hce_resources.html:44
+#: templates/hce_resources.html:43
 msgid "General assistance"
 msgstr "般援助"
 
-#: templates/hce_resources.html:51
+#: templates/hce_resources.html:50
 msgid "Housing section resources"
 msgstr "消费者金融保护局"
 
-#: templates/hce_resources.html:59
+#: templates/hce_resources.html:58
 msgid "Consumer Financial Protection Bureau"
 msgstr "消费者金融保护局"
 
-#: templates/hce_resources.html:60
+#: templates/hce_resources.html:59
 msgid "Submit a complaint about a financial product or service."
 msgstr "提交有关财务产品或服务的投诉。"
 
-#: templates/hce_resources.html:66
+#: templates/hce_resources.html:65
 msgid "Credit Bureaus"
 msgstr "信贷局"
 
-#: templates/hce_resources.html:67
+#: templates/hce_resources.html:66
 msgid "Find information about credit history or credit scores."
 msgstr "查找有关信用记录或信用评分的信息。"
 
-#: templates/hce_resources.html:79
+#: templates/hce_resources.html:78
 msgid "Fair Housing Accessibility First"
 msgstr "公平住房无障碍第一倡议"
 
-#: templates/hce_resources.html:80
+#: templates/hce_resources.html:79
 msgid ""
 "Information about physical accessibility requirements in multifamily housing."
 msgstr "有关多户住宅中身体辅助功能要求的信息。"
 
-#: templates/hce_resources.html:88
+#: templates/hce_resources.html:87
 msgid "U.S. Department of Housing and Urban Development"
 msgstr "美国住房和城市发展部"
 
-#: templates/hce_resources.html:89
+#: templates/hce_resources.html:88
 msgid "Submit a complaint about discrimination in housing."
 msgstr "提交关于住房歧视的投诉。"
 
-#: templates/hce_resources.html:96
+#: templates/hce_resources.html:95
 msgid "Homelessness Resources"
 msgstr "无家可归者的资源"
 
-#: templates/hce_resources.html:97
+#: templates/hce_resources.html:96
 msgid "Information on housing assistance."
 msgstr "住房援助的信息。"
 
-#: templates/hce_resources.html:101
+#: templates/hce_resources.html:100
 msgid "Office of Public &amp; Indian Housing"
 msgstr "公共和印第安住房办公室"
 
-#: templates/hce_resources.html:102
+#: templates/hce_resources.html:101
 msgid ""
 "Information on public housing authorities, rental assistance, and housing "
 "counseling."
 msgstr "公共住房当局、租赁援助和住房咨询的信息。"
 
-#: templates/hce_resources.html:103
+#: templates/hce_resources.html:102
 msgid ""
 "(for inquiries on public housing authorities and housing choice voucher "
 "programs)"
 msgstr "（用于公共住房当局和住房选择券项目的查询）"
 
-#: templates/hce_resources.html:107
-#| msgid "Office of Inspector General"
+#: templates/hce_resources.html:106
 msgid "Office of Inspector General (OIG)"
 msgstr "督察长办公室 (OIG)"
 
-#: templates/hce_resources.html:108
+#: templates/hce_resources.html:107
 msgid "Report fraud, waste, or abuse in HUD-funded programs."
 msgstr "报告 HUD 资助的项目中存在的欺诈、浪费或滥用行为。"
 
-#: templates/hce_resources.html:110
+#: templates/hce_resources.html:109
 msgid "(202) 708-4829 Facsimile"
 msgstr "传真：(202) 708-4829"
 
-#: templates/hce_resources.html:111
+#: templates/hce_resources.html:110
 msgid "Email: hotline@hudoig.gov"
 msgstr "电子邮件：hotline@hudoig.gov"
 
-#: templates/hce_resources.html:115
+#: templates/hce_resources.html:114
 msgid "Fair Housing Initiatives Program Agencies"
 msgstr "公平住房倡议计划机构"
 
-#: templates/hce_resources.html:116
+#: templates/hce_resources.html:115
 msgid ""
 "Information about organizations that assist people who believe they have "
 "been victims of housing discrimination."
 msgstr "帮助那些认为他们是住房歧视受害者的援助组织的信息。"
 
-#: templates/hce_resources.html:120
+#: templates/hce_resources.html:119
 msgid "Fair Housing Assistance Program Agencies"
 msgstr "公平住房援助方案机构"
 
-#: templates/hce_resources.html:121
+#: templates/hce_resources.html:120
 msgid ""
 "State and local agencies responsible for receiving reports of discrimination."
 msgstr "负责接收歧视报告的州和地方机构。"
 
-#: templates/hce_resources.html:125
+#: templates/hce_resources.html:124
 msgid "Rent and Utility Payment Assistance"
 msgstr "租金和公用事业付款援助"
 
-#: templates/hce_resources.html:126
+#: templates/hce_resources.html:125
 msgid "Information on rental assistance programs in your area."
 msgstr "您所在地区里租赁援助项目的信息。"
 
-#: templates/hce_resources.html:130
+#: templates/hce_resources.html:129
 msgid "Find an Attorney"
 msgstr "查找律师"
 
-#: templates/hce_resources.html:133
+#: templates/hce_resources.html:132
 msgid "American Bar Association"
 msgstr "美国律师协会"
 
-#: templates/hce_resources.html:140
+#: templates/hce_resources.html:139
 msgid "Legal Services Corporation (or Legal Aid Offices)"
 msgstr "法律服务公司（或法律援助办事处）"
 
-#: templates/hce_resources.html:141
+#: templates/hce_resources.html:140
 msgid ""
 "Information on non-profit organizations providing legal help to people with "
 "limited income. Visit <a class='external-link--blue external-link--popup' "
 "href='https://www.lsc.gov/find-legal-aid'>www.lsc.gov/find-legal-aid</a>"
 msgstr ""
 "向收入有限的人提供法律援助的非营利组织的信息。<a aria-label=\"www.lsc.gov/"
-"find-legal-aid\" class=\"external-link--blue external-link--popup\" href="
-"\"https://www.lsc.gov/find-legal-aid\">www.lsc.gov/find-legal-aid</a>"
+"find-legal-aid\" class=\"external-link--blue external-link--popup\" "
+"href=\"https://www.lsc.gov/find-legal-aid\">www.lsc.gov/find-legal-aid</a>"
 
-#: templates/hce_resources.html:145
+#: templates/hce_resources.html:144
 msgid "Enforcement of State Laws"
 msgstr "州法律执行机构"
 
-#: templates/hce_resources.html:148
+#: templates/hce_resources.html:147
 msgid "State Attorneys General"
 msgstr "州检察长"
 
-#: templates/hce_resources.html:149
+#: templates/hce_resources.html:148
 msgid "Find contact information for your state attorney general."
 msgstr "查找州检察长的联络信息。"
 
-#: templates/hce_resources.html:153
+#: templates/hce_resources.html:152
 msgid "General Assistance"
 msgstr "般援助"
 
-#: templates/hce_resources.html:157
+#: templates/hce_resources.html:156
 msgid ""
 "Assistance with questions about federal agencies, government programs, "
 "services, and more."
@@ -1830,8 +1881,8 @@ msgstr "举报一起违法行为"
 msgid "Already submitted?"
 msgstr "已经提交了？"
 
-#: templates/landing.html:60 templates/partials/footer.html:9
-#: views_public.py:180 views_public.py:259 views_public.py:277
+#: templates/landing.html:60 templates/partials/footer.html:8
+#: views_public.py:201 views_public.py:305 views_public.py:323
 msgid "Contact"
 msgstr "联系"
 
@@ -1855,7 +1906,7 @@ msgid ""
 "submit a report using our online form."
 msgstr "如果您认为您或他人的民事权利受到侵犯，请使用我们的在线表格提交报告。"
 
-#: templates/landing.html:101 templates/landing.html:354
+#: templates/landing.html:101 templates/landing.html:298
 msgid "Start a report"
 msgstr "开始报告"
 
@@ -1863,38 +1914,38 @@ msgstr "开始报告"
 msgid "Learn your rights"
 msgstr "了解您的权利"
 
-#: templates/landing.html:115
+#: templates/landing.html:114
 msgid ""
 "If you are in danger, contact <a href=\"tel:911\" aria-label=\"9 1 1\">911</"
 "a>"
 msgstr "如果你身处危险，请拨打<a href=\"tel:911\" aria-label=\"9 1 1\">911</a>"
 
-#: templates/landing.html:126
+#: templates/landing.html:125
 msgid ""
 "If you are reporting misconduct by law enforcement or believe you have "
-"experienced a hate crime, please <a aria-label=\"contact the FBI\" class="
-"\"external-link--white\" href=\"https://www.fbi.gov/contact-us\">contact the "
-"FBI</a>."
+"experienced a hate crime, please <a aria-label=\"contact the FBI\" "
+"class=\"external-link--white\" href=\"https://www.fbi.gov/contact-"
+"us\">contact the FBI</a>."
 msgstr ""
-"如果您要举报执法部门的不当行为或认为自己经历过仇恨犯罪，<a aria-label="
-"\"contact the FBI\" class=\"external-link--white\" href=\"https://www.fbi."
-"gov/contact-us\">请联系联邦调查局（FBI）</a>。"
+"如果您要举报执法部门的不当行为或认为自己经历过仇恨犯罪，<a aria-"
+"label=\"contact the FBI\" class=\"external-link--white\" href=\"https://www."
+"fbi.gov/contact-us\">请联系联邦调查局（FBI）</a>。"
 
-#: templates/landing.html:140
+#: templates/landing.html:139
 msgid "We protect your rights through:"
 msgstr "我们通过以下方式保护您的权力："
 
-#: templates/landing.html:143
+#: templates/landing.html:142
 msgid "Enforcement"
 msgstr "执法"
 
-#: templates/landing.html:145
+#: templates/landing.html:144
 msgid ""
 "We sue or prosecute individuals and organizations who violate civil rights "
 "laws."
 msgstr "我们起诉或控告违反民权法的个人和组织。"
 
-#: templates/landing.html:148
+#: templates/landing.html:147
 #, python-format
 msgid ""
 "\n"
@@ -1908,38 +1959,38 @@ msgstr ""
 "权利的行为来帮助我们完成这项工作.\n"
 "                "
 
-#: templates/landing.html:154
+#: templates/landing.html:153
 msgid "Education"
 msgstr "教育"
 
-#: templates/landing.html:156
+#: templates/landing.html:155
 msgid "We help the public understand how to comply with these laws."
 msgstr "我们帮助公众了解如何遵守这些法律。"
 
-#: templates/landing.html:157
+#: templates/landing.html:156
 msgid "We do this through public speaking, technical assistance, and more."
 msgstr "我们通过公开演讲、技术援助等方式做到这一点。"
 
-#: templates/landing.html:160
+#: templates/landing.html:159
 msgid "Coordination"
 msgstr "协调"
 
-#: templates/landing.html:162
+#: templates/landing.html:161
 msgid ""
 "We help the entire federal government work together to enforce these laws."
 msgstr "我们帮助整个联邦政府共同执行这些法律。"
 
-#: templates/landing.html:163
+#: templates/landing.html:162
 msgid ""
 "Our teams work with other agencies to promote a consistent approach to civil "
 "rights laws."
 msgstr "我们的团队与其他机构合作，促进对民权法采取一致的做法。"
 
-#: templates/landing.html:175
+#: templates/landing.html:174
 msgid "Understanding your rights"
 msgstr "了解您的权力"
 
-#: templates/landing.html:178
+#: templates/landing.html:177
 msgid ""
 "Civil rights laws can protect you from unlawful discrimination, harassment, "
 "or abuse in a variety of settings like <span class=\"crt-landing--"
@@ -1950,13 +2001,14 @@ msgstr ""
 "landing--rights_text crt-landing--rights_categories\">住所、工作场所、学校、"
 "投票站、企业、医疗保健机构、公共场所</span>等。"
 
-#: templates/landing.html:181
+#: templates/landing.html:180
 msgid ""
 "If you have been <span class=\"crt-landing--rights_categories\">mistreated "
 "by law enforcement</span> (including while incarcerated), believe you have "
 "been a victim of a <span class=\"crt-landing--rights_categories\">hate "
-"crime</span>, or a victim of <span class=\"crt-landing--rights_categories"
-"\">human trafficking</span>, we can help get you to the right place."
+"crime</span>, or a victim of <span class=\"crt-landing--"
+"rights_categories\">human trafficking</span>, we can help get you to the "
+"right place."
 msgstr ""
 "如果您被<span class=\"crt-landing--rights_categories\">执法部门的不当对待</"
 "span>（包括在监禁期间）、相信自己是<span class=\"crt-landing--"
@@ -1964,23 +2016,11 @@ msgstr ""
 "landing--rights_categories\">人口贩卖</span>的受害者，我们可以帮助您找到适当"
 "的机构联络。"
 
-#: templates/landing.html:197
+#: templates/landing.html:196
 msgid "Choose from this list to see example civil rights violations:"
 msgstr "从该列表中进行选择，以查看侵犯公民权利的示例："
 
-#: templates/landing.html:238
-msgid "Examples"
-msgstr "例子"
-
-#: templates/landing.html:254
-msgid "Get help for hate crimes"
-msgstr "为寻求仇恨犯罪的帮助"
-
-#: templates/landing.html:257
-msgid "Were you forced to work against your will?"
-msgstr "是否有人违背您的意愿强迫您工作？"
-
-#: templates/landing.html:264
+#: templates/landing.html:208
 msgid ""
 "If you think you’ve experienced a similar situation, learn <a href=\"#crt-"
 "landing--reporting\">how to report a civil rights violation</a>."
@@ -1988,15 +2028,15 @@ msgstr ""
 "如果您认为自己经历过类似的情况，请了解<a href=\"#crt-landing--reporting\">如"
 "何举报侵犯公民权利的行为</a>。"
 
-#: templates/landing.html:274
+#: templates/landing.html:218
 msgid "Protected by civil rights laws"
 msgstr "受到民权法的保护"
 
-#: templates/landing.html:276
+#: templates/landing.html:220
 msgid "These are the most common characteristics that are legally protected."
 msgstr "这些是受法律保护的最常见特征。"
 
-#: templates/landing.html:279
+#: templates/landing.html:223
 msgid ""
 "Disability <span class=\"crt-landing--protected\">including temporary or in "
 "recovery</span>"
@@ -2004,51 +2044,51 @@ msgstr ""
 "残疾，<span class=\"crt-landing--protected\">包括暂时的或正在恢复中的残疾</"
 "span>"
 
-#: templates/landing.html:281
+#: templates/landing.html:225
 msgid "Sex, gender identity, and sexual orientation"
 msgstr "性别、性别认同和性取向"
 
-#: templates/landing.html:282
+#: templates/landing.html:226
 msgid "Immigration/citizenship status"
 msgstr "移民/公民身份"
 
-#: templates/landing.html:283
+#: templates/landing.html:227
 msgid ""
-"Language and national origin <span class=\"crt-landing--protected"
-"\">including ancestry and ethnicity</span>"
+"Language and national origin <span class=\"crt-landing--"
+"protected\">including ancestry and ethnicity</span>"
 msgstr ""
 "语言和原籍国，<span class=\"crt-landing--protected\">包括祖先和种族</span>"
 
-#: templates/landing.html:284
+#: templates/landing.html:228
 msgid ""
-"Family, marital, or parental status <span class=\"crt-landing--protected"
-"\">including pregnancy</span>"
+"Family, marital, or parental status <span class=\"crt-landing--"
+"protected\">including pregnancy</span>"
 msgstr ""
 "家庭、婚姻或父母状况，<span class=\"crt-landing--protected\">包括怀孕</span>"
 
-#: templates/landing.html:286
+#: templates/landing.html:230
 msgid "Genetic identification"
 msgstr "基因识别信息"
 
-#: templates/landing.html:287
+#: templates/landing.html:231
 msgid "Servicemember status"
 msgstr "服役人员状态"
 
-#: templates/landing.html:301
+#: templates/landing.html:245
 msgid "How to report a civil rights violation"
 msgstr "如何举报违反民权的行为"
 
-#: templates/landing.html:306
+#: templates/landing.html:250
 msgid ""
 "If you believe that you or someone else experienced unlawful discrimination, "
 "you can report a civil rights violation."
 msgstr "如果您认为您或他人遭受非法歧视，可以举报侵犯民事权利的行为。"
 
-#: templates/landing.html:315
+#: templates/landing.html:259
 msgid "Report using our online form."
 msgstr "使用我们的在线表格进行举报。"
 
-#: templates/landing.html:316
+#: templates/landing.html:260
 msgid ""
 "By completing the online form, you can provide the details we need to "
 "understand what happened. You will receive a confirmation number and your "
@@ -2057,11 +2097,11 @@ msgstr ""
 "通过填写在线表格，您可以提供我们需要了解的详细信息。您将收到一个确认号码，您"
 "的报告将立即发送给我们的工作人员进行审核。"
 
-#: templates/landing.html:324
+#: templates/landing.html:268
 msgid "We review your report."
 msgstr "我们对您的报告进行审查。"
 
-#: templates/landing.html:325
+#: templates/landing.html:269
 msgid ""
 "Teams that specialize in handling your type of issue will review it. If it "
 "needs to be forwarded to another team or agency, we will try to connect your "
@@ -2070,11 +2110,11 @@ msgstr ""
 "专门处理此类问题的团队将对其进行审查。如果需要转发给其他团队或机构，我们将尝"
 "试将您的报告转至相应的团体。"
 
-#: templates/landing.html:333
+#: templates/landing.html:277
 msgid "We determine next steps and get back to you."
 msgstr "我们会决定下一步，然后再与您联系。"
 
-#: templates/landing.html:334
+#: templates/landing.html:278
 msgid ""
 "Possible outcomes include: following up for more information, starting a "
 "mediation or investigation, directing you to another organization for "
@@ -2083,28 +2123,28 @@ msgstr ""
 "可能的结果包括：跟进了解更多信息、开始调解或调查、介绍您到另一个组织寻求进一"
 "步帮助，或通知您我们无法提供帮助。"
 
-#: templates/landing.html:353
+#: templates/landing.html:297
 msgid "Have you or someone you know experienced a civil rights violation?"
 msgstr "您或您认识的人是否有过侵犯公民权利的经历？"
 
-#: templates/landing.html:359
+#: templates/landing.html:303
 msgid ""
-"If you cannot access the online form, you can <a href=\"#phone-footer"
-"\">call</a> to report a violation or report a violation by <a href="
-"\"#address-footer\">mail</a>."
+"If you cannot access the online form, you can <a href=\"#phone-"
+"footer\">call</a> to report a violation or report a violation by <a "
+"href=\"#address-footer\">mail</a>."
 msgstr ""
-"如果您无法访问在线表格，可以<a href=\"#phone-footer\">打电话</a>或<a href="
-"\"#address-footer\">通过邮件</a>报告违规行为。"
+"如果您无法访问在线表格，可以<a href=\"#phone-footer\">打电话</a>或<a "
+"href=\"#address-footer\">通过邮件</a>报告违规行为。"
 
-#: templates/landing.html:369
+#: templates/landing.html:313
 msgid "Already submitted a report?"
 msgstr "已经提交了报告？"
 
-#: templates/landing.html:372
+#: templates/landing.html:316
 msgid "Here's what to expect."
 msgstr "这里是后续流程。"
 
-#: templates/landing.html:376
+#: templates/landing.html:320
 msgid ""
 "<strong>Thank you for your report.</strong> We carefully read each one to "
 "determine if we have the authority to help. We do our best to let you know "
@@ -2115,20 +2155,20 @@ msgstr ""
 "供帮助。我们会尽最大努力让您了解我们的审查结果。但是，我们可能无法向您提供进"
 "度更新，因为："
 
-#: templates/landing.html:378
+#: templates/landing.html:322
 msgid ""
 "We're actively working on an investigation or case related to your report."
 msgstr "我们正在积极调查与您的报告有关的案件。"
 
-#: templates/landing.html:379
+#: templates/landing.html:323
 msgid "We're receiving and actively reviewing many reports at the same time."
 msgstr "我们同时收到很多需要积极极审查的大量请求。"
 
-#: templates/landing.html:386
+#: templates/landing.html:330
 msgid "Need urgent legal help?"
 msgstr "需要紧急法律援助？"
 
-#: templates/landing.html:388
+#: templates/landing.html:332
 msgid ""
 "Due to the amount of reports we receive, it can take several weeks for us to "
 "respond to your issue. Local legal aid offices or lawyers in your area may "
@@ -2137,58 +2177,58 @@ msgstr ""
 "鉴于我们收到的报告量，我们可能会需要几个星期才能对您的问题作出回应。您所在地"
 "区的当地法律援助办公室或律师可能可以迅速回应或帮助您解决问题"
 
-#: templates/landing.html:389
+#: templates/landing.html:333
 #, fuzzy
 #| msgid ""
 #| "Contact Legal Services Corporation at <a aria-label=\"www.lsc.gov/find-"
-#| "legal-aid\" class=\"external-link--blue external-link--popup\" href="
-#| "\"https://www.lsc.gov/find-legal-aid\">lsc.gov/find-legal-aid</a>."
+#| "legal-aid\" class=\"external-link--blue external-link--popup\" "
+#| "href=\"https://www.lsc.gov/find-legal-aid\">lsc.gov/find-legal-aid</a>."
 msgid ""
 "Contact Legal Services Corporation to help you find a legal aid lawyer in "
 "your area at <a aria-label=\"www.lsc.gov/find-legal-aid\" class=\"external-"
-"link--blue external-link--popup\" href=\"https://www.lsc.gov/find-legal-aid"
-"\">lsc.gov/find-legal-aid</a>."
+"link--blue external-link--popup\" href=\"https://www.lsc.gov/find-legal-"
+"aid\">lsc.gov/find-legal-aid</a>."
 msgstr ""
-"联系法律服务公司 <a aria-label=\"www.lsc.gov/find-legal-aid\" class="
-"\"external-link--blue external-link--popup\" href=\"https://www.lsc.gov/find-"
-"legal-aid\">lsc.gov/find-legal-aid</a>。"
+"联系法律服务公司 <a aria-label=\"www.lsc.gov/find-legal-aid\" "
+"class=\"external-link--blue external-link--popup\" href=\"https://www.lsc."
+"gov/find-legal-aid\">lsc.gov/find-legal-aid</a>。"
 
-#: templates/landing.html:390
+#: templates/landing.html:334
 msgid ""
 "Or visit <a class=\"external-link--blue external-link--popup american-bar-"
 "link\" href=\"https://www.americanbar.org/groups/legal_services/flh-home/"
-"\">www.americanbar.org/groups/legal_services/flh-home</a> or call <a href="
-"\"tel:800-285-2221\">(800) 285-2221</a> to find a lawyer through the "
+"\">www.americanbar.org/groups/legal_services/flh-home</a> or call <a "
+"href=\"tel:800-285-2221\">(800) 285-2221</a> to find a lawyer through the "
 "American Bar Association."
 msgstr ""
 "还可以访问 <a class=\"external-link--blue external-link--popup american-bar-"
 "link\" href=\"https://www.americanbar.org/groups/legal_services/flh-home/"
-"\">www.americanbar.org/groups/legal_services/flh-home</a>，或者致电<a href="
-"\"tel:800-285-2221\">(800) 285-2221</a>，通过美国律师协会寻找律师。"
+"\">www.americanbar.org/groups/legal_services/flh-home</a>，或者致电<a "
+"href=\"tel:800-285-2221\">(800) 285-2221</a>，通过美国律师协会寻找律师。"
 
-#: templates/landing.html:404
+#: templates/landing.html:348
 msgid "Image attributions"
 msgstr "图像来源"
 
-#: templates/partials/banner/usa_banner_content.html:7
+#: templates/partials/banner/usa_banner_content.html:6
 msgid "Official websites use .gov"
 msgstr "官方网站使用.gov"
 
-#: templates/partials/banner/usa_banner_content.html:8
+#: templates/partials/banner/usa_banner_content.html:7
 msgid ""
 "A <strong>.gov</strong> website belongs to an official government "
 "organization in the United States."
 msgstr "以<strong>.gov</strong> 的网站为美国正式的政府机构。"
 
-#: templates/partials/banner/usa_banner_content.html:16
+#: templates/partials/banner/usa_banner_content.html:15
 msgid "Secure .gov websites use HTTPS"
 msgstr "安全的.gov 网站使用 HTTPS"
 
-#: templates/partials/banner/usa_banner_content.html:18
+#: templates/partials/banner/usa_banner_content.html:17
 msgid "A <strong>lock</strong> ("
 msgstr "<strong>锁</strong>图案（"
 
-#: templates/partials/banner/usa_banner_content.html:20
+#: templates/partials/banner/usa_banner_content.html:19
 msgid ""
 ") or <strong>https://</strong> means you’ve safely connected to the .gov "
 "website. Share sensitive information only on official, secure websites."
@@ -2196,12 +2236,12 @@ msgstr ""
 "）或<strong>https://</strong> 表示您已安全 连接到.gov 网站。请仅在官方和安全"
 "的网 站上分享敏感的信息。"
 
-#: templates/partials/banner/usa_banner_header.html:9
+#: templates/partials/banner/usa_banner_header.html:8
 msgid "An official website of the United States government"
 msgstr "美国政府的官方网站"
 
-#: templates/partials/banner/usa_banner_header.html:10
-#: templates/partials/banner/usa_banner_header.html:13
+#: templates/partials/banner/usa_banner_header.html:9
+#: templates/partials/banner/usa_banner_header.html:12
 msgid "Here’s how you know"
 msgstr "通过以下方式辨识"
 
@@ -2229,6 +2269,18 @@ msgstr "不，我不想提供联系方式"
 msgid "Yes, I'd like to add it"
 msgstr "好，我想添加联系方式"
 
+#: templates/partials/example-accordion.html:18
+msgid "Examples"
+msgstr "例子"
+
+#: templates/partials/example-accordion.html:40
+msgid "Note"
+msgstr ""
+
+#: templates/partials/example-accordion.html:51
+msgid "Learn More"
+msgstr ""
+
 #: templates/partials/footer.html:47
 msgid "Availability of Language Assistance Services"
 msgstr "提供语言援助服务"
@@ -2253,15 +2305,15 @@ msgstr "《信息自由法》（FOIA）"
 msgid "Accessibility"
 msgstr "便利措施"
 
-#: templates/partials/footer.html:91
+#: templates/partials/footer.html:94
 msgid "Office of Inspector General"
 msgstr "监察长办公室"
 
-#: templates/partials/footer.html:94
+#: templates/partials/footer.html:97
 msgid "Budget and performance"
 msgstr "预算和业绩"
 
-#: templates/partials/footer.html:97
+#: templates/partials/footer.html:100
 msgid "Legal policies and Disclaimers"
 msgstr "法律政策和免责声明"
 
@@ -2280,7 +2332,7 @@ msgid "Get help NOW!"
 msgstr "请立刻求助！"
 
 #: templates/partials/important_message_voting.html:8
-#: templates/vot_resources.html:46
+#: templates/vot_resources.html:45
 msgid "Report voting issues"
 msgstr "举报投票问题"
 
@@ -2288,9 +2340,46 @@ msgstr "举报投票问题"
 msgid "including threats against voters and election fraud."
 msgstr "包括对投票者的威胁和选举舞弊"
 
-#: templates/partials/menu_language_selection.html:36
+#: templates/partials/menu_language_selection.html:35
 msgid "More Language Assistance Services"
 msgstr "更多的语言协助服务"
+
+#: templates/partials/omb-modal.html:13
+msgid ""
+"According to the Paperwork Reduction Act of 1995, no persons are required to "
+"respond to a collection of information unless such collection displays a "
+"valid OMB control number."
+msgstr ""
+
+#: templates/partials/omb-modal.html:16
+msgid ""
+"Public reporting burden for this collection of information is estimated to "
+"average 2 minutes per response, including time for reviewing instructions, "
+"searching existing data sources, gathering and maintaining the data needed, "
+"and completing and reviewing the collection of information."
+msgstr ""
+
+#: templates/partials/omb-modal.html:19
+msgid ""
+"The personal description question is estimated to take 10 minutes for the "
+"response, time for reviewing instructions, searching existing data sources, "
+"gathering and maintaining the data needed, and completing and reviewing the "
+"collection of information. The obligation to respond to this collection is "
+"voluntary."
+msgstr ""
+
+#: templates/partials/omb-modal.html:22
+msgid ""
+"Send comments regarding the burden estimate or any other aspect of this "
+"collection of information, including suggestions for reducing this burden, "
+"to:"
+msgstr ""
+
+#: templates/partials/omb-modal.html:33
+#, fuzzy
+#| msgid "Start a report"
+msgid "Return to filing a report"
+msgstr "开始报告"
 
 #: templates/partials/policy.html:9
 msgid "Privacy Policy"
@@ -2367,7 +2456,7 @@ msgstr ""
 msgid "Continue"
 msgstr "接上页"
 
-#: templates/partials/unsupported-browser-modal.html:10
+#: templates/partials/unsupported-browser-modal.html:9
 msgid ""
 "\n"
 "          <strong>NOTICE: Your mobile browser is not compatible with this "
@@ -2378,12 +2467,12 @@ msgstr ""
 "<strong>提示：您移动设备上的浏览器和此表不兼容</strong>，您可能会在提交表格时"
 "遇到问题。          "
 
-#: templates/partials/unsupported-browser-modal.html:15
+#: templates/partials/unsupported-browser-modal.html:14
 msgid ""
 "\n"
 "          Please consider downloading the latest version of Google Chrome, "
-"Mozilla Firefox, Safari, or Microsoft Edge. <a id=\"ub_contact\" href="
-"\"#contact-crt\">You can also contact us by phone or mail here.</a>\n"
+"Mozilla Firefox, Safari, or Microsoft Edge. <a id=\"ub_contact\" "
+"href=\"#contact-crt\">You can also contact us by phone or mail here.</a>\n"
 "          "
 msgstr ""
 "\n"
@@ -2392,23 +2481,23 @@ msgstr ""
 "或邮件和我们联络。</a>\n"
 "          "
 
-#: templates/privacy.html:7 templates/privacy.html:13
+#: templates/privacy.html:6 templates/privacy.html:12
 msgid "Civil Rights Division - Department of Justice - Privacy Policy"
 msgstr "民权司 - 司法部 - 私隐政策"
 
-#: templates/privacy.html:23 templates/privacy.html:36
+#: templates/privacy.html:22 templates/privacy.html:35
 msgid "Privacy Act Statement"
 msgstr "隐私法案声明"
 
-#: templates/privacy.html:27
+#: templates/privacy.html:26
 msgid "Your information"
 msgstr "您的信息"
 
-#: templates/privacy.html:30
+#: templates/privacy.html:29
 msgid "Our Statutes"
 msgstr "我们的法规"
 
-#: templates/privacy.html:39
+#: templates/privacy.html:38
 msgid ""
 "The information you provide through this form will help the Department of "
 "Justice’s Civil Rights Division (“us,” “we”) enforce the federal civil "
@@ -2417,7 +2506,7 @@ msgstr ""
 "您通过本表格提供的信息将有助于司法部民权司（“我们”）在其职权范围内执行联邦民"
 "权法规。"
 
-#: templates/privacy.html:42
+#: templates/privacy.html:41
 msgid ""
 "In addition to our enforcement efforts, we may use the information you "
 "provide on this form for certain routine purposes. These include sharing "
@@ -2426,7 +2515,7 @@ msgstr ""
 "除了我们的执法工作外，我们可能会将您在此表格中提供的信息用于某些例行用途。其"
 "中包括与以下人员共享："
 
-#: templates/privacy.html:44
+#: templates/privacy.html:43
 msgid ""
 "\n"
 "                    <li>\n"
@@ -2476,16 +2565,16 @@ msgstr ""
 "                    </li>\n"
 "                    "
 
-#: templates/privacy.html:67
+#: templates/privacy.html:66
 msgid ""
 "For a complete list of routine agency uses, please consult the following:"
 msgstr "有关机构例行使用的完整列表，请参考以下内容："
 
-#: templates/privacy.html:76
+#: templates/privacy.html:75
 msgid "You should also know that:"
 msgstr "此外，您还应了解："
 
-#: templates/privacy.html:78
+#: templates/privacy.html:77
 msgid ""
 "\n"
 "                    <li>Any information you provide to us through this form "
@@ -2511,17 +2600,17 @@ msgstr ""
 "                    </li>\n"
 "                    "
 
-#: templates/privacy.html:87 templates/privacy.html:148
+#: templates/privacy.html:86 templates/privacy.html:147
 msgid "Return to top"
 msgstr "返回顶部"
 
-#: templates/privacy.html:90
+#: templates/privacy.html:89
 msgid ""
 "We are authorized to collect this information pursuant to the following "
 "statutes:"
 msgstr "我们有权根据以下法规收集这些信息："
 
-#: templates/privacy.html:92
+#: templates/privacy.html:91
 msgid ""
 "\n"
 "                    <li>Official Misconduct, 18 U.S.C. §§ 241, 242</li>\n"
@@ -2691,7 +2780,7 @@ msgstr ""
 "                    <li>1870、1957、1960 和 1964 年《民权法案》</li>\n"
 "                    "
 
-#: templates/privacy.html:144
+#: templates/privacy.html:143
 msgid ""
 "\n"
 "                The full list of routine uses for this correspondence can be "
@@ -2708,35 +2797,35 @@ msgstr ""
 "(被 82 FR 24147 撤销)；82 Fed. Reg. 24147 (5-25-2017)。\n"
 "                "
 
-#: templates/vot_resources.html:7 templates/vot_resources.html:14
+#: templates/vot_resources.html:6 templates/vot_resources.html:13
 #, fuzzy
 #| msgid "Civil Rights Division - Department of Justice - Privacy Policy"
 msgid "Civil Rights Division - Department of Justice - Voting resources"
 msgstr "民权司 - 司法部 - 私隐政策"
 
-#: templates/vot_resources.html:25
+#: templates/vot_resources.html:24
 msgid "How do I..."
 msgstr "我如何……"
 
-#: templates/vot_resources.html:29 templates/vot_resources.html:51
+#: templates/vot_resources.html:28 templates/vot_resources.html:50
 msgid "Report a possible civil rights violation"
 msgstr "举报可能侵犯民权的行为"
 
-#: templates/vot_resources.html:32 templates/vot_resources.html:69
+#: templates/vot_resources.html:31 templates/vot_resources.html:68
 msgid "Report a possible federal criminal civil rights violation"
 msgstr "举报可能侵犯民权的联邦刑事犯罪"
 
-#: templates/vot_resources.html:35 templates/vot_resources.html:85
+#: templates/vot_resources.html:34 templates/vot_resources.html:84
 msgid ""
 "Find the election laws, voting hours, or polling place locations in your "
 "state"
 msgstr "查找您所在州的选举法、投票时间或选举地点"
 
-#: templates/vot_resources.html:39 templates/vot_resources.html:93
+#: templates/vot_resources.html:38 templates/vot_resources.html:92
 msgid "Learn about your voting rights"
 msgstr "了解您的投票权利"
 
-#: templates/vot_resources.html:54
+#: templates/vot_resources.html:53
 msgid ""
 "To report civil rights violations, go to <a class='link--blue' href='https://"
 "civilrights.justice.gov/report/'>civilrights.justice.gov/report</a>"
@@ -2744,25 +2833,25 @@ msgstr ""
 "举报可能侵犯民权的行为, 请前往<a class='link--blue' href='https://"
 "civilrights.justice.gov/report/'>civilrights.justice.gov/report</a>"
 
-#: templates/vot_resources.html:61
+#: templates/vot_resources.html:60
 msgid ""
 "Discrimination on the basis of race, color, or membership in a language "
 "minority group while voting or attempting to vote"
 msgstr "在他人投票或试图投票时基于种族、肤色或少数语言群体成员的歧视"
 
-#: templates/vot_resources.html:62
+#: templates/vot_resources.html:61
 msgid "Voter registration issues"
 msgstr "选民登记问题"
 
-#: templates/vot_resources.html:63
+#: templates/vot_resources.html:62
 msgid "Lack of accessibility while voting"
 msgstr "投票时缺乏可访问性无障碍设施"
 
-#: templates/vot_resources.html:64
+#: templates/vot_resources.html:63
 msgid "Absentee voting issues for uniformed services or overseas voters"
 msgstr "现役军人或海外选民的缺席投票问题"
 
-#: templates/vot_resources.html:73
+#: templates/vot_resources.html:72
 msgid ""
 "All complaints related to violence, threats of violence, or intimidation at "
 "a polling place should be reported first to local police authorities by "
@@ -2771,11 +2860,11 @@ msgstr ""
 "所有与在投票站使用暴力、暴力威胁或恐吓有关的举报，都应先拨打911向地方警察当局"
 "报告"
 
-#: templates/vot_resources.html:75
+#: templates/vot_resources.html:74
 msgid "911"
 msgstr "911"
 
-#: templates/vot_resources.html:78
+#: templates/vot_resources.html:77
 msgid ""
 "After alerting local law enforcement to such emergencies by calling <a "
 "class='external-link--blue' href='tel:911'>911</a>, the public should "
@@ -2784,7 +2873,7 @@ msgstr ""
 "拨打<a class='external-link--blue' href='tel:911'>911</a>向地方执法部门报告紧"
 "急情况后，公众应和司法部联系"
 
-#: templates/vot_resources.html:80
+#: templates/vot_resources.html:79
 msgid ""
 "Election-crime complaints should be directed to your local <a "
 "class='external-link--blue' href='https://www.justice.gov/usao/find-your-"
@@ -2797,7 +2886,7 @@ msgstr ""
 "官办公室</a>或者<a class='external-link--blue' href='https://www.fbi.gov/"
 "contact-us'>联邦调查局地方分局</a>"
 
-#: templates/vot_resources.html:88
+#: templates/vot_resources.html:87
 msgid ""
 "Go to <a class='external-link--blue' href='https://usa.gov/election-"
 "office'>usa.gov/election-office</a> to find your state election website"
@@ -2805,7 +2894,7 @@ msgstr ""
 "查找您所在州的选举办公室网站, 请访问<a class='external-link--blue' "
 "href='https://usa.gov/election-office'>usa.gov/election-office</a>"
 
-#: templates/vot_resources.html:97
+#: templates/vot_resources.html:96
 msgid ""
 "Find additional information about voting rights laws at <a class='link--"
 "blue' href='https://justice.gov/crt/voting-section'>www.justice.gov/crt/"
@@ -2814,7 +2903,7 @@ msgstr ""
 "了解更多的联邦投票权法律, 请访问<a class='link--blue' href='https://justice."
 "gov/crt/voting-section'>www.justice.gov/crt/voting-section</a>"
 
-#: templates/vot_resources.html:99
+#: templates/vot_resources.html:98
 msgid ""
 "Learn about federal laws that protect voters with disabilities at <a "
 "class='link--blue' href='https://ada.gov'>ada.gov</a>."
@@ -2822,7 +2911,7 @@ msgstr ""
 "了解联邦法律中保护残障投票者的法律, 请访问<a class='link--blue' "
 "href='https://ada.gov'>ada.gov</a>"
 
-#: templates/vot_resources.html:102
+#: templates/vot_resources.html:101
 msgid ""
 "Download the Justice Department's new <a class='link--blue' href='https://"
 "www.justice.gov/file/1517936/download'>Know Your Voting Rights</a> guide."
@@ -2830,75 +2919,75 @@ msgstr ""
 "下载司法部新的<a class='link--blue' href='https://www.justice.gov/"
 "file/1517936/download'> “了解您的投票权” </a>指南"
 
-#: validators.py:106
+#: validators.py:127
 msgid "Enter a valid email address."
 msgstr "输入一个有效的电子邮件地址"
 
-#: views_public.py:181 views_public.py:260 views_public.py:278
-#: views_public.py:313
+#: views_public.py:202 views_public.py:306 views_public.py:324
+#: views_public.py:359
 msgid "Primary concern"
 msgstr "主要顾虑"
 
-#: views_public.py:182 views_public.py:261 views_public.py:262
-#: views_public.py:263 views_public.py:264 views_public.py:265
-#: views_public.py:266
+#: views_public.py:203 views_public.py:307 views_public.py:308
+#: views_public.py:309 views_public.py:310 views_public.py:311
+#: views_public.py:312
 msgid "Location"
 msgstr "地点"
 
-#: views_public.py:183 views_public.py:267 views_public.py:285
+#: views_public.py:204 views_public.py:313 views_public.py:331
 msgid "Personal characteristics"
 msgstr "个人特征"
 
-#: views_public.py:184 views_public.py:268 views_public.py:286
+#: views_public.py:205 views_public.py:314 views_public.py:332
 msgid "Date"
 msgstr "日期"
 
-#: views_public.py:185 views_public.py:269 views_public.py:287
+#: views_public.py:206 views_public.py:315 views_public.py:333
 msgid "Personal description"
 msgstr "个人描述"
 
-#: views_public.py:186 views_public.py:270 views_public.py:318
+#: views_public.py:207 views_public.py:316 views_public.py:364
 msgid "Review"
 msgstr "检查"
 
-#: views_public.py:279 views_public.py:280 views_public.py:281
-#: views_public.py:282 views_public.py:283 views_public.py:284
+#: views_public.py:325 views_public.py:326 views_public.py:327
+#: views_public.py:328 views_public.py:329 views_public.py:330
 msgid "Location details"
 msgstr "地点详情"
 
-#: views_public.py:288
+#: views_public.py:334
 msgid "Review your report"
 msgstr "检查您的报告"
 
-#: views_public.py:304
+#: views_public.py:350
 msgid "word remaining"
 msgstr "剩余字数"
 
-#: views_public.py:305
+#: views_public.py:351
 msgid " words remaining"
 msgstr " 剩余字数"
 
-#: views_public.py:306
+#: views_public.py:352
 msgid " word limit reached"
 msgstr " 已达到字数限制"
 
-#: views_public.py:316
+#: views_public.py:362
 msgid "Please select if any that apply to your situation (optional)"
 msgstr "请选择任何适用于您的情况（可选）"
 
-#: views_public.py:401
+#: views_public.py:447
 msgid "404 | Page not found"
 msgstr "404 | 未找到该页面"
 
-#: views_public.py:402
+#: views_public.py:448
 msgid "We can't find the page you are looking for"
 msgstr "我们找不到您要找的页面"
 
-#: views_public.py:461
+#: views_public.py:507
 msgid "Your browser couldn't create a secure cookie"
 msgstr "您的浏览器无法创建安全的 cookie"
 
-#: views_public.py:462
+#: views_public.py:508
 msgid ""
 "We use security cookies to protect your information from attackers. Make "
 "sure you allow cookies for this site. Having the page open for long periods "

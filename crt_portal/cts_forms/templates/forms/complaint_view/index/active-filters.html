@@ -1,7 +1,8 @@
 {% load field_formatting %}
 
 <div id="active-filters" data-active-filters>
-{% for key, value in filters.items %}
+{% with chip_filters=filters|prepare_filters_for_chips %}
+{% for key, value in chip_filters.items %}
 {% for item in value %}
 {% if key == "assigned_section" %}
 {% else %}
@@ -20,4 +21,5 @@
 {% endif %}
 {% endfor %}
 {% endfor %}
+{% endwith %}
 </div>

@@ -9,15 +9,10 @@ from cts_forms.tests.integration_util import console, features, admin_models, el
 @features.login_as_superuser_with_feature('separate-referrals-workflow')
 @reporting.capture_report('contact_complainant_modal.pdf')
 def test_contact_complainant_modal(page, *, report):
-    page.goto("/form/view")
+    page.goto("/form/view/?contact_first_name=Testing&contact_last_name=Tester")
 
     assert page.is_visible("#filters-form")
 
-    page.fill("input[name='contact_first_name']", "Testing")
-    page.fill("input[name='contact_last_name']", "Tester")
-    page.locator('label').filter(has_text="Closed").click()
-    with page.expect_navigation():
-        page.evaluate("document.getElementById('apply-filters-button').click()")
     with page.expect_navigation():
         page.evaluate("document.querySelector('.td-link').click()")
 

@@ -56,7 +56,7 @@ jobs:
       # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
       - restore_cache:
           keys:
-            - node-v4-{{ .Branch }}-{{ checksum "package-lock.json" }}
+            - node-v4-{{ .Branch }}-{{ checksum "package-lock.json" }}-{{ checksum "gulpfile.js" }}
       #      - node-v4-{{ .Branch }}-
       #      - node-v4-
       - run:
@@ -66,12 +66,11 @@ jobs:
           name: Node install, generate CSS
           command: |
             npm ci
-            node node_modules/gulp/bin/gulp build-css
-            node node_modules/gulp/bin/gulp build-js
+            node node_modules/gulp/bin/gulp build
       - save_cache:
           paths:
             - /home/circleci/code/node_modules/
-          key: node-v4-{{ .Branch }}-{{ checksum "package-lock.json" }}
+          key: node-v4-{{ .Branch }}-{{ checksum "package-lock.json" }}-{{ checksum "gulpfile.js" }}
       - restore_cache:
           keys:
             - pip-packages-v4-{{ .Branch }}-{{ checksum "Pipfile.lock" }}

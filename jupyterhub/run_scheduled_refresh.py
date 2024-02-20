@@ -16,14 +16,32 @@ SCHEDULES_PATH = os.path.join(NOTEBOOK_DIR, 'schedules.json')
 
 
 def main():
-    schedules = _read()
-    results = _execute_all(schedules)
-    _write(results)
+    manager = TableContentsManager()
+    schedules = _read(manager)
+    results = _execute_all(schedules, manager)
+    _write(results, manager)
 
 
-def _read():
-    with open(SCHEDULES_PATH, 'r') as f:
-        return json.load(f)
+def _read(manager):
+    schedules = json.loads(manager.get('schedules.json').get('content'))
+
+    notebooks = [
+        notebook.get('path')
+        for notebook
+        in manager.get('/assignments/intake-dashboard').get('content', [])
+    ]
+    missing_from_schedules = [
+        found
+        for found in notebooks
+        if not any(known.get('path') == found for known in schedules)
+    ]
+    return [
+        *schedules,
+        *[
+            {'path': path, 'interval': {'hours': 1}}
+            for path in missing_from_schedules
+        ]
+    ]
 
 
 def _any_to_json(unknown):
@@ -32,9 +50,18 @@ def _any_to_json(unknown):
     return str(unknown)
 
 
-def _write(schedules):
+def _write(schedules, manager):
+    jsonified = json.dumps(schedules, default=_any_to_json, indent=2, sort_keys=True)
     with open(SCHEDULES_PATH, 'w') as f:
-        json.dump(schedules, f, default=_any_to_json, indent=2, sort_keys=True)
+        f.write(jsonified)
+
+    model = {
+        'writable': True,
+        'content': jsonified,
+        'type': 'file',
+        'format': '',
+    }
+    manager.save(model, 'schedules.json')
 
 
 def _parse_json_date(container, key) -> Optional[datetime.datetime]:
@@ -64,8 +91,7 @@ def _should_execute(schedule):
     return last_executed + duration < datetime.datetime.now()
 
 
-def _execute_one(schedule) -> Dict:
-    manager = TableContentsManager()
+def _execute_one(schedule, manager) -> Dict:
     path = schedule.get('path')
     try:
         source_code = manager.get(path)
@@ -82,23 +108,28 @@ def _execute_one(schedule) -> Dict:
 
     kernel = content.get('metadata', {}).get('kernelspec', {}).get('name', 'python3')
     processor = ExecutePreprocessor(timeout=600, kernel_name=kernel)
-    metadata = {'metadata': {'path': os.path.dirname(path)}}
+    # Run relative to the jupyterhub/ directory
+    # (Any imports, files, etc must exist on disk):
+    metadata = {'metadata': {'path': os.path.dirname(os.path.realpath(__file__))}}
     notebook = nbformat.from_dict(content)
     if not isinstance(notebook, nbformat.NotebookNode):
         logging.error(f'Failed to execute {path}: Invalid notebook')
         return schedule
-    result, _ = processor.preprocess(notebook, metadata)
+    try:
+        result, _ = processor.preprocess(notebook, metadata)
 
-    source_code['content'] = result
-    manager.save(source_code, path)
+        source_code['content'] = result
+        manager.save(source_code, path)
+    except Exception as e:
+        logging.error(f'Failed to execute {path}: {e}')
 
     schedule_updates = {'last_executed': datetime.datetime.now().isoformat()}
     return copy.deepcopy(schedule) | schedule_updates
 
 
-def _execute_all(schedules) -> List[Dict]:
+def _execute_all(schedules, manager) -> List[Dict]:
     return [
-        _execute_one(schedule)
+        _execute_one(schedule, manager)
         if _should_execute(schedule)
         else schedule
         for schedule in schedules

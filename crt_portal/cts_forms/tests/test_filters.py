@@ -78,6 +78,9 @@ class ReportFilterTests(TestCase):
         test_data['violation_summary'] = 'motorcycle'
         Report.objects.create(**test_data)
 
+        test_data['violation_summary'] = '#hashtag'
+        Report.objects.create(**test_data)
+
     def test_no_filters(self):
         """Returns all reports when no filters provided"""
         reports, _ = report_filter(QueryDict(''))
@@ -104,7 +107,7 @@ class ReportFilterTests(TestCase):
         self.assertEqual(reports.count(), 1)
         # Since non numeric characters are stripped, it should return all results.
         reports, _ = report_filter(QueryDict('contact_phone=Hello'))
-        self.assertEqual(reports.count(), 11)
+        self.assertEqual(reports.count(), 12)
 
     def test_or_search_for_violation_summary(self):
         """
@@ -118,6 +121,12 @@ class ReportFilterTests(TestCase):
         self.assertEqual(reports.count(), 5)
         for report in reports:
             self.assertEqual('boat' in report.violation_summary or 'hovercraft' in report.violation_summary, True)
+
+    def test_hashtag_exact(self):
+        reports, _ = report_filter(QueryDict('violation_summary=^#hashtag$'))
+        self.assertEqual(reports.count(), 1)
+        for report in reports:
+            self.assertIn('#hashtag', report.violation_summary)
 
     def test_and_search(self):
         # "boat AND hovercraft" is functionally the same as "boat hovercraft"
@@ -172,7 +181,7 @@ class ReportFilterTests(TestCase):
         # This one is a little counter-intuitive, because one result will have "truck"
         # and "boat" in it. Why? Because the search query translates to "all entries
         # without 'boat'", and "all entries with truck, regardless of whether it has 'boat".
-        self.assertEqual(reports.count(), 6)
+        self.assertEqual(reports.count(), 7)
         for report in reports:
             self.assertEqual('truck' in report.violation_summary or 'boat' not in report.violation_summary, True)
 
@@ -559,13 +568,41 @@ class SimilarityFilterTests(TestCase):
         reports = filter_by_similar(
             Report.objects.all().order_by('location_name'),
             'location_name',
-            'fake location'
+            query='fake location',
+            soundslike=5,
+            lookslike=5,
         )
 
         self.assertEqual([result.location_name for result in reports],
                          ['fake location', 'fayk lokayshun', 'flake loctaion'])
 
+    def test_icontains(self):
+        reports = filter_by_similar(
+            Report.objects.all().order_by('location_name'),
+            'location_name',
+            query='flake',
+            soundslike=0,
+            lookslike=0,
+        )
+
+        self.assertEqual([result.location_name for result in reports],
+                         ['flake loctaion'])
+
     def test_matches_via_querydict(self):
+        reports, _ = report_filter(QueryDict('location_name=fake%20location&location_name_1=5&location_name_2=5'))
+        reports = reports.order_by('location_name')
+
+        self.assertEqual([result.location_name for result in reports],
+                         ['fake location', 'fayk lokayshun', 'flake loctaion'])
+
+    def test_backwards_compat_supports_no_0(self):
+        reports, _ = report_filter(QueryDict('location_name=fake%20location'))
+        reports = reports.order_by('location_name')
+
+        self.assertEqual([result.location_name for result in reports],
+                         ['fake location'])
+
+    def test_backwards_compat_supports_tilde(self):
         reports, _ = report_filter(QueryDict('location_name=~fake%20location'))
         reports = reports.order_by('location_name')
 
@@ -575,11 +612,11 @@ class SimilarityFilterTests(TestCase):
     def test_exact_match_when_feature_disabled(self):
         self.Feature.objects.update_or_create(name='fuzzy-location-name',
                                               defaults={'enabled': False})
-        reports, _ = report_filter(QueryDict('location_name=~fake%20location'))
+        reports, _ = report_filter(QueryDict('location_name=fake%20location'))
         reports = reports.order_by('location_name')
 
         self.assertEqual([result.location_name for result in reports],
-                         [])
+                         ['fake location'])
 
     def test_exact_match_still_works(self):
         reports, _ = report_filter(QueryDict('location_name=fake%20location'))
