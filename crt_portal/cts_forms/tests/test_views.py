@@ -939,7 +939,7 @@ class CRT_Saved_Search_Action_Tests(TestCase):
     def test_view_update_saved_search_actions_authenticated(self):
         """Authenticated will return 200 and display update saved search action page."""
         self.client.force_login(self.superuser)
-        url = reverse('crt_forms:saved-search-actions', kwargs={'id': self.ADMsavedSearch.pk} )
+        url = reverse('crt_forms:saved-search-actions', kwargs={'id': self.ADMsavedSearch.pk})
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
         self.assertTrue('Update saved search' in str(response.content))
