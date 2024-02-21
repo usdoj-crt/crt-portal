@@ -7,6 +7,7 @@ import os
 
 from jupyter_server.services.contents.checkpoints import Checkpoints
 from jupyter_server.services.contents.manager import ContentsManager
+from nbformat import from_dict
 from psycopg2 import sql
 import psycopg2
 
@@ -147,6 +148,10 @@ class TableContentsManager(ContentsManager):
             return None
 
         file = _make_file([*fields, 'id'], result, content=content)
+
+        if type == 'notebook' or file['type'] == 'notebook':
+            file['content'] = from_dict(file['content'])
+
         if not content or file['type'] != 'directory':
             return file
 
@@ -168,6 +173,7 @@ class TableContentsManager(ContentsManager):
             _make_file([*fields, 'id'], row, content=False)
             for row in result
         ]
+
         return file
 
     def save(self, model, path):
