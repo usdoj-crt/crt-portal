@@ -1,3 +1,4 @@
+import base64
 import contextlib
 from datetime import datetime
 import logging
@@ -121,6 +122,9 @@ class TableContentsManager(ContentsManager):
     """
 
     checkpoints_class = NoopCheckpoints
+    files_handler_params = {
+        'path': '/'
+    }
 
     def get(self, path, content=True, type=None, format=None):
         fields = FILE_FIELDS.copy()
@@ -169,6 +173,9 @@ class TableContentsManager(ContentsManager):
     def save(self, model, path):
         self.run_pre_save_hooks(model=model, path=path)
         fields = FILE_FIELDS.copy()
+        if model['format'] == 'base64':
+            model['content'] = base64.b64decode(model['content']).decode('utf-8')
+            model['format'] = 'text'
         if model['type'] == 'notebook':
             model.setdefault('format', 'json')
             model.setdefault('mimetype', 'application/json')
