@@ -2670,7 +2670,7 @@ class SavedSearchActions(ModelForm):
 
     class Meta:
         model = SavedSearch
-        fields = ['name', 'query', 'section', 'shared']
+        fields = ['name', 'query', 'section', 'description', 'shared']
 
     def is_locked(self):
         return self.instance.auto_close or self.instance.override_section_assignment

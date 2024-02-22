@@ -1105,7 +1105,7 @@ class SavedSearchView(LoginRequiredMixin, FormView):
 
     def get(self, request):
         section_filter = request.GET.getlist('section_filter', [])
-        filters = {'section__in': section_filter, 'shared': True} if section_filter else {}
+        filters = {'section__in': section_filter, 'shared': True} if section_filter else {'shared': True}
         saved_searches = SavedSearch.objects.filter(**filters).all()
         section_args = get_section_args(section_filter)
         saved_search_view = request.GET.get('saved_search_view', 'all')

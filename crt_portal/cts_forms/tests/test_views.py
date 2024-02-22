@@ -884,11 +884,13 @@ class CRT_Saved_Search_Tests(TestCase):
             name="ADM Saved Search",
             query="status=closed&grouping=default",
             section="ADM",
+            shared=True
         )
         self.CRMsavedSearch = SavedSearch.objects.create(
             name="CRM Saved Search",
             query="status=open&grouping=default",
             section="CRM",
+            shared=True
         )
         self.url = reverse('crt_forms:saved-searches')
 
