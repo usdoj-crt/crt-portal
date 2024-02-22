@@ -10,7 +10,9 @@
   {% csrf_token %}
   <fieldset name="saved-search-actions" class="usa-fieldset usa-prose">
     <legend class="usa-sr-only">Saved search actions</legend>
-    <input type="hidden" value="{{ section_filter }}" name="section_filter" id="section_filter" />
+    {% if section_filter %}
+      <input type="hidden" value="{{ section_filter }}" name="section_filter" id="section_filter" />
+    {% endif %}
     <div class="margin-bottom-2 crt-dropdown crt-dropdown__shrink-to-contents">
       <label for="id_name" class="intake-label">
         {{ form.fields.name.label }}
