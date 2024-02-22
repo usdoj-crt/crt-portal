@@ -658,11 +658,12 @@ def serialize_data(report, request, report_id):
 
 
 def get_section_args(section_filters):
-    section_args = ''
-    for section_filter in section_filters:
-        logging.info(section_filter)
-        section_args += f'&section_filter={section_filter}'
-    return section_args
+    if not section_filters:
+        return []
+    return ''.join([
+        f'&section_filter={section_filter}'
+        for section_filter in section_filters
+    ])
 
 
 @login_required
@@ -701,13 +702,6 @@ def unsubscribe_view(request):
                          messages.SUCCESS,
                          mark_safe("You have been unsubscribed from all portal notifications"))
     return redirect(reverse('crt_forms:crt-forms-index'))
-
-
-def get_section_args(section_filters):
-    return ''.join([
-        f'&section_filter={section_filter}'
-        for section_filter in section_filters
-    ])
 
 
 class ProfileView(LoginRequiredMixin, FormView):
@@ -1127,7 +1121,7 @@ class SavedSearchView(LoginRequiredMixin, FormView):
 
     def post(self, request):
         section_filter = request.GET.getlist('section_filter', [])
-        filters = {'section__in': section_filter, 'shared': True} if section_filter else {}
+        filters = {'section__in': section_filter, 'shared': True} if section_filter else {'shared': True}
         saved_searches = SavedSearch.objects.filter(**filters).all()
         section_args = get_section_args(section_filter)
         saved_search_view = request.GET.get('saved_search_view', 'all')
@@ -1215,7 +1209,7 @@ class SavedSearchActionView(LoginRequiredMixin, View):
         saved_search.save()
         messages.add_message(request, messages.SUCCESS, form.success_message(id))
         url = reverse('crt_forms:saved-searches')
-        section_filter = request.POST.get('section_filter')
+        section_filter = request.POST.get('section_filter', [])
         section_args = get_section_args(section_filter)
         return redirect(f"{url}?{section_filter}")
 

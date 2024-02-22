@@ -36,7 +36,7 @@
       {{ form.section }}
     </div>
     <div class="margin-bottom-2 crt-checkbox">
-      <label for="id_shared" class="intake-label">
+      <label class="intake-label margin-top-3">
         {{ form.fields.shared.label }}
       </label>
       {{ form.shared }}
@@ -49,11 +49,13 @@
     </div>
   </fieldset>
 </form>
+<div class="margin-top-3">
 <form id="saved-search-delete" class="usa-form" method="post" action="/form/saved-searches/actions/{{form.instance.pk}}/" novalidate>
   {% csrf_token %}
   <input type="hidden" value="true" name="delete" id="delete" />
-  <button class="usa-button--secondary usa-button margin-top-3" type="submit" name='type'>Delete saved search</button>
+  <button class="usa-button--secondary usa-button" type="submit" name='type'>Delete</button>
 </form>
+</div>
 <hr/>
 
 {% endblock %}

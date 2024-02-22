@@ -2670,7 +2670,7 @@ class SavedSearchActions(ModelForm):
 
     class Meta:
         model = SavedSearch
-        fields = ['name', 'query', 'section']
+        fields = ['name', 'query', 'section', 'shared']
 
     def is_locked(self):
         return self.instance.auto_close or self.instance.override_section_assignment
@@ -2704,14 +2704,14 @@ class SavedSearchActions(ModelForm):
 
         self.fields['description'] = CharField(
             label='Description',
-            widget=TextInput(
+            widget=Textarea(
                 attrs={
-                    'class': 'usa-input',
-                    'name': 'description',
-                    'placeholder': 'Description',
-                    'aria-label': 'Description',
+                    'rows': 2,
+                    'class': 'usa-textarea',
+                    'aria-label': 'Description'
                 },
             ),
+            max_length=7000,
             required=False,
             disabled=self.is_locked()
         )
@@ -2736,8 +2736,7 @@ class SavedSearchActions(ModelForm):
             widget=CheckboxInput(attrs={
                 'class': 'usa-checkbox__input',
                 'aria-label': 'Share',
-            }),
-            disabled=self.is_locked()
+            })
         )
 
     def success_message(self, id=None, delete=False):
