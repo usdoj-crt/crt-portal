@@ -52,6 +52,7 @@ nbconvert = "*"  # For running Jupyter ipynb files.
 nbformat = "*"  # For running Jupyter ipynb files.
 pypdf = "*"
 weasyprint = "*"
+beautifulsoup4 = "*"
 # The following are needed for refreshing Jupyter notebooks:
 jupyter_client = "*"
 jupysql = "*"
