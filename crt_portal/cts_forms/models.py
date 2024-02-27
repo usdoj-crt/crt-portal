@@ -75,7 +75,6 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     intake_filters = models.TextField(max_length=500, blank=True)
     section = models.TextField(choices=SECTION_CHOICES, null=True, blank=True, default=None)
-    saved_searches = models.ForeignKey(SavedSearch, on_delete=models.SET_NULL, null=True, blank=True, help_text="The user who created this saved search.")
 
     def __str__(self):
         return str(self.user)
