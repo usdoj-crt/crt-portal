@@ -934,6 +934,22 @@ class DispositionGuideView(LoginRequiredMixin, View):
 
 class DispositionActionsView(LoginRequiredMixin, FormView):
     """ CRT view to update report disposition"""
+    EMPTY_CHOICE = 'Multiple'
+    def get_report_values(self, record_query, keys):
+        """
+        Given a record query and a list of keys, determine if a key has a
+        singular value within that query. Used to set initial fields
+        for bulk update forms.
+        """
+        # make sure the queryset does not order by anything, otherwise
+        # we will have difficulty getting distinct results.
+        query = record_query.order_by()
+        for key in keys:
+            values = query.values_list(key, flat=True).distinct()
+            if values.count() == 1:
+                yield key, values[0]
+            else:
+                yield key, self.EMPTY_CHOICE
 
     def get(self, request):
         return_url_args = request.GET.get('next', '')
@@ -949,7 +965,11 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
             requested_query = reconstruct_query(query_string)
         else:
             requested_query = Report.objects.filter(pk__in=ids)
-
+                # set initial values if applicable
+        report_fields = {}
+        keys = ['assigned_section', 'retention_schedule']
+        for key, initial_value in self.get_report_values(requested_query, keys):
+            report_fields[key] = initial_value
         bulk_disposition_form = BulkDispositionForm(requested_query, user=request.user)
         all_ids_count = requested_query.count()
         ids_count = len(ids)
@@ -964,6 +984,7 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
             'ids_count': ids_count,
             'show_warning': ids_count > 15,
             'all_ids_count': all_ids_count,
+            'report_fields': report_fields,
             'bulk_actions_form': bulk_disposition_form,
             'query_string': query_string,
         }
@@ -981,14 +1002,43 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
             requested_query = Report.objects.filter(pk__in=ids)
 
         bulk_disposition_form = BulkDispositionForm(requested_query, request.POST, user=request.user)
-        number = bulk_disposition_form.update(requested_query, request.user)
-        plural = 's have' if number > 1 else ' has'
-        message = f'{number} record{plural} been approved for deletion'
-        logging.info(message)
-        messages.add_message(request, messages.SUCCESS, message)
 
-        url = reverse('crt_forms:disposition')
-        return redirect(f"{url}{return_url_args}")
+        if bulk_disposition_form.is_valid():
+            number = bulk_disposition_form.update(requested_query, request.user)
+            plural = 's have' if number > 1 else ' has'
+            message = f'{number} record{plural} been approved for deletion'
+            logging.info(message)
+            messages.add_message(request, messages.SUCCESS, message)
+
+            url = reverse('crt_forms:disposition')
+            return redirect(f"{url}{return_url_args}")
+        else:
+            for key in bulk_disposition_form.errors:
+                errors = '; '.join(bulk_disposition_form.errors[key])
+                if key == '__all__':
+                    target = ':'
+                else:
+                    target = f' {key}:'
+                error_message = f'Could not bulk update{target} {errors}'
+                messages.add_message(request, messages.ERROR, error_message)
+
+            all_ids_count = requested_query.count()
+            ids_count = len(ids)
+
+            # further refine selected_all to ensure < 15 items don't show up.
+            selected_all = selected_all and all_ids_count != ids_count
+
+            output = {
+                'return_url_args': return_url_args,
+                'selected_all': 'all' if selected_all else '',
+                'ids': ','.join(ids),
+                'ids_count': ids_count,
+                'show_warning': ids_count > 15,
+                'all_ids_count': all_ids_count,
+                'bulk_actions_form': bulk_disposition_form,
+                'query_string': query_string,
+            }
+            return render(request, 'forms/complaint_view/disposition/actions/index.html', output)
 
 
 class ActionsView(LoginRequiredMixin, FormView):
