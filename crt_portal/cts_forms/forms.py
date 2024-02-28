@@ -1389,6 +1389,7 @@ class Filters(ModelForm):
         }),
     )
     proform_choices = PRIMARY_COMPLAINT_PROFORM_CHOICES_VOTING if is_voting_mode() else PRIMARY_COMPLAINT_PROFORM_CHOICES
+
     primary_complaint = MultipleChoiceField(
         required=False,
         label='Primary issue',
@@ -1397,6 +1398,7 @@ class Filters(ModelForm):
             'name': 'primary_issue',
         }),
     )
+
     reported_reason = MultipleChoiceField(
         required=False,
         label='Reported reason',
@@ -1405,6 +1407,7 @@ class Filters(ModelForm):
             'name': 'reported_reason',
         }),
     )
+
     commercial_or_public_place = MultipleChoiceField(
         required=False,
         label='Relevant details',
@@ -1413,6 +1416,52 @@ class Filters(ModelForm):
             'name': 'relevant_details',
         }),
     )
+
+    public_or_private_employer = MultipleChoiceField(
+        required=False,
+        label='Employer Type',
+        choices=PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES,
+        widget=UsaCheckboxSelectMultiple(attrs={
+            'name': 'public_or_private_employer',
+        }),
+    )
+
+    employer_size = MultipleChoiceField(
+        required=False,
+        label='Employer Size',
+        choices=EMPLOYER_SIZE_CHOICES,
+        widget=UsaCheckboxSelectMultiple(attrs={
+            'name': 'employer_size',
+        }),
+    )
+
+    public_or_private_school = MultipleChoiceField(
+        required=False,
+        label='School type',
+        choices=PUBLIC_OR_PRIVATE_SCHOOL_CHOICES,
+        widget=UsaCheckboxSelectMultiple(attrs={
+            'name': 'public_or_private_school',
+        }),
+    )
+
+    inside_correctional_facility = MultipleChoiceField(
+        required=False,
+        label='Inside correctional facility',
+        choices=CORRECTIONAL_FACILITY_LOCATION_CHOICES,
+        widget=UsaCheckboxSelectMultiple(attrs={
+            'name': 'inside_correctional_facility',
+        }),
+    )
+
+    correctional_facility_type = MultipleChoiceField(
+        required=False,
+        label='Prison type',
+        choices=CORRECTIONAL_FACILITY_LOCATION_TYPE_CHOICES,
+        widget=UsaCheckboxSelectMultiple(attrs={
+            'name': 'correctional_facility_type',
+        }),
+    )
+
     hate_crime = MultipleChoiceField(
         required=False,
         label='Hate crime',
@@ -1451,14 +1500,6 @@ class Filters(ModelForm):
         choices=((True, 'Yes'),),
         widget=UsaCheckboxSelectMultiple(attrs={
             'name': 'referred'
-        }),
-    )
-    correctional_facility_type = MultipleChoiceField(
-        required=False,
-        label='Prison type',
-        choices=CORRECTIONAL_FACILITY_LOCATION_TYPE_CHOICES,
-        widget=UsaCheckboxSelectMultiple(attrs={
-            'name': 'correctional_facility_type',
         }),
     )
     dj_number = CharField(
@@ -1504,13 +1545,17 @@ class Filters(ModelForm):
             'primary_complaint',
             'contact_phone',
             'commercial_or_public_place',
+            'public_or_private_employer',
+            'employer_size',
+            'public_or_private_school',
+            'inside_correctional_facility',
+            'correctional_facility_type',
             'hate_crime',
             'servicemember',
             'intake_format',
             'contact_email',
             'referred',
             'language',
-            'correctional_facility_type',
             'dj_number',
             'tags',
             'litigation_hold',
@@ -1577,7 +1622,7 @@ class Filters(ModelForm):
             },
         }
 
-    @property
+    @ property
     def get_section_filters(self):
         """
         Return set of sections received as query parameters which are also valid section choices
@@ -1663,7 +1708,7 @@ class ComplaintActions(LitigationHoldLock, ModelForm, ActivityStreamUpdater):
             return False
         return old != new
 
-    @cached_property
+    @ cached_property
     def changed_data(self):
         return [
             field_name
@@ -2534,7 +2579,7 @@ class ReportEditForm(LitigationHoldLock, ProForm, ActivityStreamUpdater):
             self.fields['summary'].initial = summary.note
             self.fields['summary_id'].initial = summary.pk
 
-    @cached_property
+    @ cached_property
     def changed_data(self):
         changed_data = super().changed_data
 
