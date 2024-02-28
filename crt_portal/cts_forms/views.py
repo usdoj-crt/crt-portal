@@ -19,7 +19,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied, SuspiciousOperation
 from django.core.paginator import Paginator
-from django.db.models import F
+from django.db.models import F, Min
 from django.http import Http404, HttpResponse, QueryDict
 from django.shortcuts import get_object_or_404, redirect, render, reverse
 from django.utils.html import mark_safe
@@ -40,7 +40,7 @@ from .forms import (
 )
 from .mail import mail_to_complainant
 from .model_variables import HATE_CRIMES_TRAFFICKING_MODEL_CHOICES, SECTION_CHOICES
-from .models import CommentAndSummary, Profile, Report, ReportAttachment, ReportsData, SavedSearch, Trends, EmailReportCount, Campaign, User, \
+from .models import CommentAndSummary, Profile, Report, ReportAttachment, ReportDispositionBatch, ReportsData, RetentionSchedule, SavedSearch, Trends, EmailReportCount, Campaign, User, \
     RoutingSection, RoutingStepOneContact, RepeatWriterInfo
 from .page_through import pagination
 from .sorts import activity_sort, report_sort
@@ -935,7 +935,8 @@ class DispositionGuideView(LoginRequiredMixin, View):
 class DispositionActionsView(LoginRequiredMixin, FormView):
     """ CRT view to update report disposition"""
     EMPTY_CHOICE = 'Multiple'
-    def get_report_values(self, record_query, keys):
+
+    def get_shared_report_values(self, record_query, keys):
         """
         Given a record query and a list of keys, determine if a key has a
         singular value within that query. Used to set initial fields
@@ -947,9 +948,18 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
         for key in keys:
             values = query.values_list(key, flat=True).distinct()
             if values.count() == 1:
-                yield key, values[0]
+                if key == 'retention_schedule':
+                    yield key, RetentionSchedule.objects.get(retention_years=values[0]).name
+                else:
+                    yield key, values[0]
             else:
                 yield key, self.EMPTY_CHOICE
+
+    def get_report_date_range(self, record_query):
+        query = record_query.order_by()
+        intake_date = query.values_list('create_date', flat=True).order_by('create_date').first().strftime('%m/%d/%y')
+        close_date = query.values_list('closed_date', flat=True).order_by('closed_date').last().strftime('%m/%d/%y')
+        return f'{intake_date} - {close_date}'
 
     def get(self, request):
         return_url_args = request.GET.get('next', '')
@@ -960,31 +970,52 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
         # select all button and 2. we have more records in the query
         # than the ids passed in
         selected_all = request.GET.get('all', '') == 'all'
-
+        uuid = request.GET.get('uuid', '')
+        if uuid:
+            disposition_batch = ReportDispositionBatch.objects.get(uuid=uuid)
+        else:
+            disposition_batch = ReportDispositionBatch()
         if selected_all:
             requested_query = reconstruct_query(query_string)
         else:
             requested_query = Report.objects.filter(pk__in=ids)
-                # set initial values if applicable
-        report_fields = {}
-        keys = ['assigned_section', 'retention_schedule']
-        for key, initial_value in self.get_report_values(requested_query, keys):
-            report_fields[key] = initial_value
-        bulk_disposition_form = BulkDispositionForm(requested_query, user=request.user)
+
+        requested_reports = requested_query.annotate(email_count=F('email_report_count__email_count'))
+        per_page = request.GET.get('per_page', request.COOKIES.get('complaint_view_per_page', 15))
+        page = request.GET.get('page', 1)
+
+        paginator = Paginator(requested_reports, per_page)
+        requested_reports, page_format = pagination(paginator, page, per_page)
+
+        page_args = f'?per_page={per_page}'
+
+        all_args_encoded = urllib.parse.quote(f'{page_args}&page={page}')
+
+        paginated_offset = page_format['page_range_start'] - 1
+        data = get_report_data(requested_reports, all_args_encoded, paginated_offset)
+        shared_report_fields = {}
+        keys = ['assigned_section', 'retention_schedule', 'status']
+        for key, value in self.get_shared_report_values(requested_query, keys):
+            shared_report_fields[key] = value
+        shared_report_fields['date_range'] = self.get_report_date_range(requested_query)
+        bulk_disposition_form = BulkDispositionForm(requested_query, user=request.user, instance=disposition_batch)
         all_ids_count = requested_query.count()
         ids_count = len(ids)
 
         # further refine selected_all to ensure < 15 items don't show up.
         selected_all = selected_all and all_ids_count != ids_count
 
+        if selected_all:
+            ids_count = all_ids_count
+
         output = {
+            'uuid': disposition_batch.uuid,
             'return_url_args': return_url_args,
             'selected_all': 'all' if selected_all else '',
             'ids': ','.join(ids),
             'ids_count': ids_count,
-            'show_warning': ids_count > 15,
-            'all_ids_count': all_ids_count,
-            'report_fields': report_fields,
+            'shared_report_fields': shared_report_fields,
+            'data': data,
             'bulk_actions_form': bulk_disposition_form,
             'query_string': query_string,
         }
@@ -995,13 +1026,34 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
         confirm_all = request.POST.get('confirm_all', '') == 'confirm_all'
         ids = request.POST.get('ids', '').split(',')
         query_string = request.POST.get('query_string', return_url_args)
-
+        uuid = request.GET.get('uuid', '')
+        if uuid:
+            disposition_batch = ReportDispositionBatch.objects.get(uuid=uuid)
+        else:
+            disposition_batch = ReportDispositionBatch()
         if confirm_all:
             requested_query = reconstruct_query(query_string)
         else:
             requested_query = Report.objects.filter(pk__in=ids)
+        requested_reports = requested_query.annotate(email_count=F('email_report_count__email_count'))
 
-        bulk_disposition_form = BulkDispositionForm(requested_query, request.POST, user=request.user)
+        per_page = request.GET.get('per_page', request.COOKIES.get('complaint_view_per_page', 15))
+        page = request.GET.get('page', 1)
+
+        paginator = Paginator(requested_reports, per_page)
+        requested_reports, page_format = pagination(paginator, page, per_page)
+
+        page_args = f'?per_page={per_page}'
+
+        all_args_encoded = urllib.parse.quote(f'{page_args}&page={page}')
+
+        paginated_offset = page_format['page_range_start'] - 1
+        data = get_report_data(requested_reports, all_args_encoded, paginated_offset)
+        shared_report_fields = {}
+        keys = ['assigned_section', 'retention_schedule']
+        for key, value in self.get_shared_report_values(requested_query, keys):
+            shared_report_fields[key] = value
+        bulk_disposition_form = BulkDispositionForm(requested_query, request.POST, user=request.user, instance=disposition_batch)
 
         if bulk_disposition_form.is_valid():
             number = bulk_disposition_form.update(requested_query, request.user)
@@ -1025,16 +1077,18 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
             all_ids_count = requested_query.count()
             ids_count = len(ids)
 
-            # further refine selected_all to ensure < 15 items don't show up.
             selected_all = selected_all and all_ids_count != ids_count
+            if selected_all:
+                ids_count = all_ids_count
 
             output = {
+                'uuid': disposition_batch.uuid,
                 'return_url_args': return_url_args,
                 'selected_all': 'all' if selected_all else '',
                 'ids': ','.join(ids),
-                'ids_count': ids_count,
-                'show_warning': ids_count > 15,
-                'all_ids_count': all_ids_count,
+                'ids_count': all_ids_count,
+                'shared_report_fields': shared_report_fields,
+                'data': data,
                 'bulk_actions_form': bulk_disposition_form,
                 'query_string': query_string,
             }

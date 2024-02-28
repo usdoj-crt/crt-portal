@@ -124,6 +124,18 @@
   }
 }
 
+.disposition-actions-card {
+  .title-icon {
+    display: none;
+  }
+}
+
+.report-list {
+  .title {
+    display: none;
+  }
+}
+
 .crt-related-reports-card {
   max-height: 450px;
   overflow-y: scroll;

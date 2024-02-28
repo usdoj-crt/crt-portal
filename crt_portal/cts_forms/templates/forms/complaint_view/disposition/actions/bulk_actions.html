@@ -4,7 +4,7 @@
 
 {% block title %}Approve {{ ids_count }} records for deletion{% endblock %}
 
-{% block extra_classes %}crt-actions-card{% endblock %}
+{% block extra_classes %}disposition-actions-card crt-actions-card{% endblock %}
 
 {% block card_content %}
   {% if ids_count %}
@@ -15,6 +15,7 @@
       <input type="hidden" value="{{ ids }}" name="ids" id="ids" />
       <input type="hidden" value="{{ selected_all }}" name="all" id="all" />
       <input type="hidden" value="{{ query_string }}" name="query_string" id="query_string" />
+      <input type="hidden" value="{{ uuid }}" name="uuid" id="uuid" />
 
         <p><i>This form documents the destruction of federal records in accordance with the Federal Records Act of 1950, as amended (44 U.S.C., Chapters 29, 31, and 33)</i></p>
         <h2>Primary Information</h2>
@@ -33,7 +34,7 @@
           </tr>
           <tr>
             <th>Section</th>
-            <td>{{ report_fields.assigned_section }}</td>
+            <td>{{ shared_report_fields.assigned_section }}</td>
           </tr>
           <tr>
             <th>Location</th>
@@ -53,18 +54,18 @@
           <tr>
             <th>Retention Assignment</th>
             <td>
-              {{ report_fields.retention_schedule }}
+              {{ shared_report_fields.retention_schedule }}
             </td>
           </tr>
           <tr>
             <th>Records Batch Number</th>
             <td>
-              XXX
+              {{ uuid }}
             </td>
           </tr>
           <tr>
             <th>Date Range</th>
-            <td>XXX</td>
+            <td>{{ shared_report_fields.date_range }}</td>
           </tr>
           <tr>
             <th>Location</th>
@@ -87,13 +88,13 @@
           <tr>
             <th>Destruction Method</th>
             <td>
-              XXX
+              --
             </td>
           </tr>
           <tr>
             <th>Proposed Disposal Date</th>
             <td>
-             expiration_date
+              {{ shared_report_fields.expiration_date }}
             </td>
           </tr>
         </table>
@@ -121,38 +122,6 @@
           >
             Approve Deletion of {{ ids_count }} record{{ ids_count|pluralize:"s" }}
           </button>
-
-          {% if selected_all %}
-              <button class="usa-button button--warning display-flex align-center"
-                      {% if bulk_actions_form.retention_schedule.initial == 1 %}disabled{% endif %}
-                      id="show_warning_section"
-              >
-              Approve Deletion of {{ all_ids_count }} record{{ all_ids_count|pluralize:"s" }}
-              </button>
-        {% endif %}
-      </div>
-
-      {% if show_warning or selected_all %}
-        <div id="warning_section" hidden>
-          <p>
-            Are you sure you want to update
-            <span id="warning_count_all">{{ all_ids_count }}</span>
-            <span id="warning_count_partial">{{ ids_count }}</span>
-            records?
-          </p>
-          <button class="usa-button button--warning display-flex align-center"
-                  id="confirm_button"
-                  name="confirm_all"
-                  value="confirm_all"
-                  type="submit">
-            Yes
-          </button>
-          <button class="usa-button"
-                  id="cancel_warning_section">
-            No
-          </button>
-        </div>
-      {% endif %}
     </form>
   {% else %}
     <p>No records were selected.</p>
