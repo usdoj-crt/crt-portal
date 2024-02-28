@@ -2695,6 +2695,7 @@ class SavedSearchFilter(Form):
 
 
 class SavedSearchActions(ModelForm):
+    FAIL_MESSAGE = "Failed to update saved search."
 
     def field_changed(self, field):
         # if both are Falsy, nothing actually changed (None ~= "")
@@ -2715,7 +2716,10 @@ class SavedSearchActions(ModelForm):
 
     class Meta:
         model = SavedSearch
-        fields = ['name', 'query', 'section']
+        fields = ['name', 'query', 'section', 'description', 'shared']
+
+    def is_locked(self):
+        return self.instance.auto_close or self.instance.override_section_assignment
 
     def __init__(self, *args, user=None, **kwargs):
         self.user = user
@@ -2727,7 +2731,8 @@ class SavedSearchActions(ModelForm):
                 attrs={'class': 'usa-select crt-dropdown__data'},
             ),
             choices=SECTION_CHOICES_WITHOUT_LABELS,
-            required=False
+            required=False,
+            disabled=self.is_locked()
         )
         self.fields['name'] = CharField(
             label='Name',
@@ -2740,6 +2745,21 @@ class SavedSearchActions(ModelForm):
                 },
             ),
             required=True,
+            disabled=self.is_locked()
+        )
+
+        self.fields['description'] = CharField(
+            label='Description',
+            widget=Textarea(
+                attrs={
+                    'rows': 2,
+                    'class': 'usa-textarea',
+                    'aria-label': 'Description'
+                },
+            ),
+            max_length=7000,
+            required=False,
+            disabled=self.is_locked()
         )
 
         self.fields['query'] = CharField(
@@ -2752,11 +2772,24 @@ class SavedSearchActions(ModelForm):
                     'aria-label': 'Query',
                 },
             ),
-            required=True
+            required=True,
+            disabled=self.is_locked()
         )
 
-    def success_message(self, id=None):
+        self.fields['shared'] = BooleanField(
+            label='Share',
+            required=False,
+            widget=CheckboxInput(attrs={
+                'class': 'usa-checkbox__input',
+                'aria-label': 'Share',
+            })
+        )
+
+    def success_message(self, id=None, delete=False):
         """Prepare update success message for rendering in template"""
+        if delete:
+            return "Successfully deleted saved search."
+
         def get_label(field):
             field = self.fields[field]
             # Some fields can't support the extra context label, and store it

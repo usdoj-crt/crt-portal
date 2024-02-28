@@ -1,0 +1,90 @@
+<div class="crt-xscroll">
+    <table class="usa-table crt-table sort-table">
+      <thead>
+        <tr>
+          <th></th>
+          <th>
+            Name
+          </th>
+          <th>
+            Section
+          </th>
+          <th>
+            Created By
+          </th>
+          <th></th>
+        </tr>
+      </thead>
+      {% if saved_searches %}
+      <tbody>
+        {% for saved_search in saved_searches %}
+        <tr>
+          <td>
+            <a data-id="{{ saved_search.id }}" aria-expanded="false" aria-label="Expand details for saved search {{saved_search.id}}" role="button" aria-controls="tr-additional-{{ saved_search.id }}" class="td-toggle display-flex" href="#">
+              <img aria-hidden="true" src="{% static "img/intake-icons/ic_chevron-right.svg" %}" class="icon">
+            </a>
+          </td>
+          <td>
+            <a
+              data-ga-event-name="saved search link: {{ saved_search.name }}"
+              href="/form/view/?{{ saved_search.query }}"
+              >{{ saved_search.name }}</a
+            >
+          </td>
+          <td>
+            {{ saved_search.section }}
+          </td>
+          <td>
+            {{ saved_search.created_by }}
+          </td>
+          <td>
+            <form
+              class="usa-form"
+              method="get"
+              action="/form/saved-searches/actions/{{ saved_search.pk }}/"
+              novalidate
+            >
+              {% if section_filter %}
+                <input type="hidden" value="{{ section_filter }}" name="section_filter" id="section_filter" />
+              {% endif %}
+              {% if saved_search.auto_close or saved_search.override_section_assignment %}
+                <button class="usa-button usa-tooltip usa-button--unstyled"  disabled="disabled" data-position="top" title="Search must be edited in the admin panel." type="submit" id="edit-button">
+                  Edit
+                </button>
+              {% else %}
+                <button class="usa-button usa-button--unstyled" type="submit" id="edit-button">
+                  Edit
+                </button>
+              {% endif %}
+            </form>
+          </td>
+        </tr>
+        {# this row is hidden by default #}
+        <tr class="tr-quickview" id="tr-additional-{{ saved_search.id }}" hidden>
+          <td class="quickview">
+            <span class="usa-sr-only">Details for saved search {{ saved_search.id }}</span>
+          </td>
+          {# All screen readers don't yet read the headers attribute correctly, so we've added a redundant aria-label #}
+          {# https://a11ysupport.io/tech/html/headers_attribute #}
+          <td aria-label="Query" headers="crt-table-query-header" class="quickview" colspan="1">
+            <label aria-hidden="true" for="tr-quickview-query-{{ saved_search.id }}" class="td-quickview">
+              Query
+            </label>
+            <div tabindex="0" role="textbox" aria-readonly="true" id="tr-quickview-query-{{ saved_search.id }}" class="td-summary">
+                {{ saved_search.query }}
+            </div>
+          </td>
+          <td aria-label="Description" headers="crt-table-description-header" class="quickview" colspan="3">
+            <label aria-hidden="true" for="tr-quickview-description-{{ saved_search.id }}" class="td-quickview">
+              Description
+            </label>
+            <div tabindex="0" role="textbox" aria-readonly="true" id="tr-quickview-description-{{ saved_search.id }}" class="td-summary word-break">
+              {{ saved_search.description|default:"-" }}
+            </div>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+      {% endif %}
+    </table>
+</div>
