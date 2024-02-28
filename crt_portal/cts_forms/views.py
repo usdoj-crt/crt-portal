@@ -1163,14 +1163,11 @@ class SavedSearchActionView(LoginRequiredMixin, View):
         section_args = get_section_args(section_filter)
         url = reverse('crt_forms:saved-searches')
         delete = request.POST.get('delete', False)
-        new_search = id == None
-        if new_search:
+        if not id:
             saved_search = SavedSearch()
             saved_search.created_by = request.user
         else:
             saved_search = get_object_or_404(SavedSearch, pk=id)
-
-
         form = SavedSearchActions(request.POST, instance=saved_search)
         if delete:
             saved_search.delete()
@@ -1201,7 +1198,7 @@ class SavedSearchActionView(LoginRequiredMixin, View):
             messages.add_message(request,
                                  messages.ERROR,
                                  mark_safe(fail_message))
-            if new_search:
+            if not id:
                 return render(request, 'forms/complaint_view/saved_searches/actions/new.html', output)
             return render(request, 'forms/complaint_view/saved_searches/actions/update.html', output)
         saved_search = form.save(commit=False)
