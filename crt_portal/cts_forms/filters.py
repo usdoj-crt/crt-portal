@@ -67,14 +67,20 @@ filter_options = {
     'primary_complaint': '__in',  # aka "Primary issue"
     'dj_number': 'dj_number',
     'reported_reason': 'reported_reason',
-    'commercial_or_public_place': '__in',  # aka "Relevant details"
+
+    # "Relevant details":
+    'commercial_or_public_place': '__in',
+    'public_or_private_employer': '__in',
+    'employer_size': '__in',
+    'public_or_private_school': '__in',
+    'inside_correctional_facility': '__in',
+    'correctional_facility_type': '__in',
 
     'servicemember': 'eq',
     'intake_format': '__in',
     'referred': 'eq',  # aka "Secondary review"
     'language': '__in',  # aka "Report language"
     'hate_crime': 'eq',
-    'correctional_facility_type': '__in',  # aka "Prison type"
 
     'violation_summary': 'violation_summary',  # aka "Personal description"
     'summary': 'summary',  # aka "CRT summary"

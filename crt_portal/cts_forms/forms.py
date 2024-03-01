@@ -1389,6 +1389,7 @@ class Filters(ModelForm):
         }),
     )
     proform_choices = PRIMARY_COMPLAINT_PROFORM_CHOICES_VOTING if is_voting_mode() else PRIMARY_COMPLAINT_PROFORM_CHOICES
+
     primary_complaint = MultipleChoiceField(
         required=False,
         label='Primary issue',
@@ -1397,6 +1398,7 @@ class Filters(ModelForm):
             'name': 'primary_issue',
         }),
     )
+
     reported_reason = MultipleChoiceField(
         required=False,
         label='Reported reason',
@@ -1405,6 +1407,7 @@ class Filters(ModelForm):
             'name': 'reported_reason',
         }),
     )
+
     commercial_or_public_place = MultipleChoiceField(
         required=False,
         label='Relevant details',
@@ -1413,6 +1416,52 @@ class Filters(ModelForm):
             'name': 'relevant_details',
         }),
     )
+
+    public_or_private_employer = MultipleChoiceField(
+        required=False,
+        label='Employer Type',
+        choices=PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES,
+        widget=UsaCheckboxSelectMultiple(attrs={
+            'name': 'public_or_private_employer',
+        }),
+    )
+
+    employer_size = MultipleChoiceField(
+        required=False,
+        label='Employer Size',
+        choices=EMPLOYER_SIZE_CHOICES,
+        widget=UsaCheckboxSelectMultiple(attrs={
+            'name': 'employer_size',
+        }),
+    )
+
+    public_or_private_school = MultipleChoiceField(
+        required=False,
+        label='School type',
+        choices=PUBLIC_OR_PRIVATE_SCHOOL_CHOICES,
+        widget=UsaCheckboxSelectMultiple(attrs={
+            'name': 'public_or_private_school',
+        }),
+    )
+
+    inside_correctional_facility = MultipleChoiceField(
+        required=False,
+        label='Inside correctional facility',
+        choices=CORRECTIONAL_FACILITY_LOCATION_CHOICES,
+        widget=UsaCheckboxSelectMultiple(attrs={
+            'name': 'inside_correctional_facility',
+        }),
+    )
+
+    correctional_facility_type = MultipleChoiceField(
+        required=False,
+        label='Prison type',
+        choices=CORRECTIONAL_FACILITY_LOCATION_TYPE_CHOICES,
+        widget=UsaCheckboxSelectMultiple(attrs={
+            'name': 'correctional_facility_type',
+        }),
+    )
+
     hate_crime = MultipleChoiceField(
         required=False,
         label='Hate crime',
@@ -1451,14 +1500,6 @@ class Filters(ModelForm):
         choices=((True, 'Yes'),),
         widget=UsaCheckboxSelectMultiple(attrs={
             'name': 'referred'
-        }),
-    )
-    correctional_facility_type = MultipleChoiceField(
-        required=False,
-        label='Prison type',
-        choices=CORRECTIONAL_FACILITY_LOCATION_TYPE_CHOICES,
-        widget=UsaCheckboxSelectMultiple(attrs={
-            'name': 'correctional_facility_type',
         }),
     )
     dj_number = CharField(
@@ -1504,13 +1545,17 @@ class Filters(ModelForm):
             'primary_complaint',
             'contact_phone',
             'commercial_or_public_place',
+            'public_or_private_employer',
+            'employer_size',
+            'public_or_private_school',
+            'inside_correctional_facility',
+            'correctional_facility_type',
             'hate_crime',
             'servicemember',
             'intake_format',
             'contact_email',
             'referred',
             'language',
-            'correctional_facility_type',
             'dj_number',
             'tags',
             'litigation_hold',
@@ -1577,7 +1622,7 @@ class Filters(ModelForm):
             },
         }
 
-    @property
+    @ property
     def get_section_filters(self):
         """
         Return set of sections received as query parameters which are also valid section choices
@@ -1663,7 +1708,7 @@ class ComplaintActions(LitigationHoldLock, ModelForm, ActivityStreamUpdater):
             return False
         return old != new
 
-    @cached_property
+    @ cached_property
     def changed_data(self):
         return [
             field_name
@@ -2595,7 +2640,7 @@ class ReportEditForm(LitigationHoldLock, ProForm, ActivityStreamUpdater):
             self.fields['summary'].initial = summary.note
             self.fields['summary_id'].initial = summary.pk
 
-    @cached_property
+    @ cached_property
     def changed_data(self):
         changed_data = super().changed_data
 
@@ -2711,6 +2756,7 @@ class SavedSearchFilter(Form):
 
 
 class SavedSearchActions(ModelForm):
+    FAIL_MESSAGE = "Failed to update saved search."
 
     def field_changed(self, field):
         # if both are Falsy, nothing actually changed (None ~= "")
@@ -2731,7 +2777,10 @@ class SavedSearchActions(ModelForm):
 
     class Meta:
         model = SavedSearch
-        fields = ['name', 'query', 'section']
+        fields = ['name', 'query', 'section', 'description', 'shared']
+
+    def is_locked(self):
+        return self.instance.auto_close or self.instance.override_section_assignment
 
     def __init__(self, *args, user=None, **kwargs):
         self.user = user
@@ -2743,7 +2792,8 @@ class SavedSearchActions(ModelForm):
                 attrs={'class': 'usa-select crt-dropdown__data'},
             ),
             choices=SECTION_CHOICES_WITHOUT_LABELS,
-            required=False
+            required=False,
+            disabled=self.is_locked()
         )
         self.fields['name'] = CharField(
             label='Name',
@@ -2756,6 +2806,21 @@ class SavedSearchActions(ModelForm):
                 },
             ),
             required=True,
+            disabled=self.is_locked()
+        )
+
+        self.fields['description'] = CharField(
+            label='Description',
+            widget=Textarea(
+                attrs={
+                    'rows': 2,
+                    'class': 'usa-textarea',
+                    'aria-label': 'Description'
+                },
+            ),
+            max_length=7000,
+            required=False,
+            disabled=self.is_locked()
         )
 
         self.fields['query'] = CharField(
@@ -2768,11 +2833,24 @@ class SavedSearchActions(ModelForm):
                     'aria-label': 'Query',
                 },
             ),
-            required=True
+            required=True,
+            disabled=self.is_locked()
         )
 
-    def success_message(self, id=None):
+        self.fields['shared'] = BooleanField(
+            label='Share',
+            required=False,
+            widget=CheckboxInput(attrs={
+                'class': 'usa-checkbox__input',
+                'aria-label': 'Share',
+            })
+        )
+
+    def success_message(self, id=None, delete=False):
         """Prepare update success message for rendering in template"""
+        if delete:
+            return "Successfully deleted saved search."
+
         def get_label(field):
             field = self.fields[field]
             # Some fields can't support the extra context label, and store it

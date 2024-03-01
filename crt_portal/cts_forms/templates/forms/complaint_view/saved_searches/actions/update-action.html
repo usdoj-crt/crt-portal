@@ -10,12 +10,20 @@
   {% csrf_token %}
   <fieldset name="saved-search-actions" class="usa-fieldset usa-prose">
     <legend class="usa-sr-only">Saved search actions</legend>
-    <input type="hidden" value="{{ section_filter }}" name="section_filter" id="section_filter" />
+    {% if section_filter %}
+      <input type="hidden" value="{{ section_filter }}" name="section_filter" id="section_filter" />
+    {% endif %}
     <div class="margin-bottom-2 crt-dropdown crt-dropdown__shrink-to-contents">
       <label for="id_name" class="intake-label">
         {{ form.fields.name.label }}
       </label>
       {{ form.name }}
+    </div>
+    <div class="margin-bottom-2 crt-dropdown crt-dropdown__shrink-to-contents">
+      <label for="id_name" class="intake-label">
+        {{ form.fields.description.label }}
+      </label>
+      {{ form.description }}
     </div>
     <div class="margin-bottom-2 crt-dropdown crt-dropdown__shrink-to-contents">
       <label for="id_query" class="intake-label">
@@ -29,12 +37,27 @@
       </label>
       {{ form.section }}
     </div>
+    <div class="margin-bottom-2 crt-checkbox">
+      <label class="intake-label margin-top-3">
+        {{ form.fields.shared.label }}
+      </label>
+      {{ form.shared }}
+      {# empty label for the checkbox to render using the ::before selector #}
+      <label for="id_shared" class="usa-checkbox__label crt-checkbox__label"></label>
+    </div>
     <div class="intake-section apply-discard">
       <button class="usa-button" type="submit" name='type'>Apply changes</button>
       <button type="button" class="discard outline-button outline-button--blue">Discard changes</button>
     </div>
-    <hr/>
   </fieldset>
 </form>
+<div class="margin-top-3">
+<form id="saved-search-delete" class="usa-form" method="post" action="/form/saved-searches/actions/{{form.instance.pk}}/" novalidate>
+  {% csrf_token %}
+  <input type="hidden" value="true" name="delete" id="delete" />
+  <button class="usa-button--secondary usa-button" type="submit" name='type'>Delete</button>
+</form>
+</div>
+<hr/>
 
 {% endblock %}

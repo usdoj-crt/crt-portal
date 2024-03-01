@@ -425,13 +425,13 @@ hr {
 
     .multicheckboxes-container {
       @include u-border(1px, $theme-color-primary-darker);
-      height: 13rem; // just enough to accommodate 5 checkboxes
       overflow-y: scroll;
       position: relative;
+      padding: 0.5rem;
+      margin-bottom: 0.5rem;
 
       > div,ul {
         padding: 0;
-        margin: 0.5rem;
 
         .crt-checkbox__label::before {
           width: 1rem;

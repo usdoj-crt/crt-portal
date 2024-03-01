@@ -21,6 +21,8 @@ def get_user_section():
 
 def add_nonce_to_html(html):
     current_request = CrequestMiddleware.get_request()
+    if not current_request or not hasattr(current_request, 'csp_nonce'):
+        return html
     nonce = str(current_request.csp_nonce)
     soup = BeautifulSoup(html, 'html.parser')
 
