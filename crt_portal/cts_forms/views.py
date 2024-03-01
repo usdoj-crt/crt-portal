@@ -957,24 +957,28 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
 
     def get_report_date_range(self, record_query):
         query = record_query.order_by()
-        intake_date = query.values_list('create_date', flat=True).order_by('create_date').first().strftime('%m/%d/%y')
-        close_date = query.values_list('closed_date', flat=True).order_by('closed_date').last().strftime('%m/%d/%y')
+        intake_date = query.values_list('create_date', flat=True).order_by('create_date').first().strftime('%m/%d/%Y')
+        close_date = query.values_list('closed_date', flat=True).order_by('closed_date').last().strftime('%m/%d/%Y')
         return f'{intake_date} - {close_date}'
+
+    def get_proposed_disposal_date(self, record_query):
+        query = record_query.order_by()
+        close_date = query.values_list('closed_date', flat=True).order_by('closed_date').last()
+        retention_schedule = query.values_list('retention_schedule', flat=True).distinct()
+        return datetime(close_date.year + retention_schedule[0] + 1, 1, 2).date().strftime('%m/%d/%Y')
 
     def get(self, request):
         return_url_args = request.GET.get('next', '')
         return_url_args = urllib.parse.unquote(return_url_args)
         query_string = return_url_args
         ids = request.GET.getlist('id')
-        # The select all option only applies if 1. user hits the
-        # select all button and 2. we have more records in the query
-        # than the ids passed in
         selected_all = request.GET.get('all', '') == 'all'
         uuid = request.GET.get('uuid', '')
         if uuid:
             disposition_batch = ReportDispositionBatch.objects.get(uuid=uuid)
         else:
             disposition_batch = ReportDispositionBatch()
+            disposition_batch.create_date = datetime.today()
         if selected_all:
             requested_query = reconstruct_query(query_string)
         else:
@@ -998,6 +1002,7 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
         for key, value in self.get_shared_report_values(requested_query, keys):
             shared_report_fields[key] = value
         shared_report_fields['date_range'] = self.get_report_date_range(requested_query)
+        shared_report_fields['proposed_disposal_date'] = self.get_proposed_disposal_date(requested_query)
         bulk_disposition_form = BulkDispositionForm(requested_query, user=request.user, instance=disposition_batch)
         all_ids_count = requested_query.count()
         ids_count = len(ids)
@@ -1025,12 +1030,14 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
         return_url_args = request.POST.get('next', '')
         confirm_all = request.POST.get('confirm_all', '') == 'confirm_all'
         ids = request.POST.get('ids', '').split(',')
+        selected_all = request.GET.get('all', '') == 'all'
         query_string = request.POST.get('query_string', return_url_args)
         uuid = request.GET.get('uuid', '')
         if uuid:
             disposition_batch = ReportDispositionBatch.objects.get(uuid=uuid)
         else:
             disposition_batch = ReportDispositionBatch()
+            disposition_batch.create_date = datetime.today()
         if confirm_all:
             requested_query = reconstruct_query(query_string)
         else:
@@ -1053,6 +1060,8 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
         keys = ['assigned_section', 'retention_schedule']
         for key, value in self.get_shared_report_values(requested_query, keys):
             shared_report_fields[key] = value
+        shared_report_fields['date_range'] = self.get_report_date_range(requested_query)
+        shared_report_fields['proposed_disposal_date'] = self.get_proposed_disposal_date(requested_query)
         bulk_disposition_form = BulkDispositionForm(requested_query, request.POST, user=request.user, instance=disposition_batch)
 
         if bulk_disposition_form.is_valid():

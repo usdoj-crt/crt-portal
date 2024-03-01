@@ -18,7 +18,6 @@
 </div>
 </div>
 <div class="grid-col-auto">
-<div class="intake-table">
   <div class="crt-xscroll">
     <table class="usa-table crt-table sort-table">
       <thead>
@@ -54,11 +53,6 @@
         </tbody>
       {% endif %}
     </table>
-  </div>
-  </div>
-  <div class="margin-bottom-5">
-    {% include "forms/complaint_view/disposition/actions/filter-controls.html" %}
-    {% include "forms/snippets/pagination.html" with page_format=page_format page_args=page_args placement="bottom" %}
   </div>
 </div>
   {% if not data %}

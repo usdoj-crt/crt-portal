@@ -61,8 +61,8 @@ from .question_text import (CONTACT_QUESTIONS, DATE_QUESTIONS,
                             SUMMARY_HELPTEXT, SUMMARY_QUESTION,
                             WORKPLACE_QUESTIONS, HATE_CRIME_HELP_TEXT,
                             HATE_CRIME_QUESTION)
-from .widgets import (ComplaintSelect, CrtMultiSelect,
-                      CrtPrimaryIssueRadioGroup, DjNumberWidget, FuzzyFilterField, UsaCheckboxSelectMultiple, UsaTagSelectMultiple,
+from .widgets import (CRTDateField, ComplaintSelect, CrtMultiSelect,
+                      CrtPrimaryIssueRadioGroup, CrtTextInput, DjNumberWidget, FuzzyFilterField, UsaCheckboxSelectMultiple, UsaTagSelectMultiple,
                       UsaRadioSelect, DataAttributesSelect, CrtDateInput, add_empty_choice)
 from utils.voting_mode import is_voting_mode
 from utils import activity
@@ -1985,19 +1985,83 @@ class PrintActions(Form):
 
 class BulkDispositionForm(ModelForm, ActivityStreamUpdater):
 
-    disposed_by = TextInput(attrs={
-        'class': 'usa-input',
-        'field_label': 'Approving Official',
-    })
+    def field_changed(self, field):
+        # if both are Falsy, nothing actually changed (None ~= "")
+        old = self.initial.get(field, None)
+        new = self.cleaned_data.get(field, None)
+        if not old and not new:
+            return False
+        return old != new
+
+    @cached_property
+    def changed_data(self):
+        return [
+            field_name
+            for field_name
+            in super().changed_data
+            if self.field_changed(field_name)
+        ]
 
     class Meta:
         model = ReportDispositionBatch
-        fields = ['disposed_by', 'disposed_count']
+        fields = ['disposed_by', 'disposed_count', 'create_date', 'proposed_disposal_date']
+
+    def setup_disposed_by(self, user):
+        initial = f'{user.first_name} {user.last_name}'
+        self.fields['disposed_by'] = CharField(
+            label='Approving Official',
+            widget=CrtTextInput(
+                attrs={
+                    'class': 'usa-input',
+                    'name': 'disposed_by',
+                    'placeholder': 'Approving Official',
+                    'aria_label': 'Approving Official',
+                    'value': initial,
+                    'label': 'Approving Official',
+                },
+            ),
+            required=True,
+            initial=user,
+        )
+
+    def setup_create_date(self):
+        initial = self.instance.create_date
+        self.fields['create_date'] = CharField(
+            required=True,
+            label="Date",
+            initial=initial,
+            widget=CrtTextInput(attrs={
+                'class': 'usa-input date',
+                'name': 'create_date',
+                'placeholder': 'mm/dd/yyyy',
+                'aria_label': 'Date',
+                'value': initial.strftime('%m/%d/%Y'),
+                'label': 'Date',
+            }),
+        )
+
+    def clean_disposed_by(self):
+        if 'disposed_by' not in self.changed_data:
+            return ''
+        name = self.cleaned_data['disposed_by'].split(' ')
+        user = User.objects.filter(first_name=name[0], last_name=name[1]).first()
+        if user:
+            return user
+        return ''
+
+    def clean_create_date(self):
+        if 'create_date' not in self.changed_data:
+            return ''
+        create_date = self.cleaned_data['create_date'].split('/')
+        if create_date:
+            return datetime(int(create_date[2]), int(create_date[0]), int(create_date[1]))
+        return ''
 
     def __init__(self, query, *args, user=None, **kwargs):
         self.user = user
         ModelForm.__init__(self, *args, **kwargs)
-        self.fields['disposed_by'].initial = user
+        self.setup_disposed_by(user)
+        self.setup_create_date()
 
     def update(self, reports, user):
         """
@@ -2007,10 +2071,35 @@ class BulkDispositionForm(ModelForm, ActivityStreamUpdater):
         reports = Report.objects.filter(pk__in=report_ids)
 
         # TO DO: add logic to approve report for deletion
-        # for report in reports:
-        # expiration_date = datetime(report.closed_date.year + report.retention_schedule.retention_years + 1, 1, 1).date()
+
         # add_activity(user, 'Disposition:', f'Approved for deletion on {expiration_date}', report, True)
         return reports.count()
+
+    def success_message(self, id=None):
+        """Prepare update success message for rendering in template"""
+        def get_label(field):
+            field = self.fields[field]
+            # Some fields can't support the extra context label, and store it
+            # on their attributes
+            if attrs_label := field.widget.attrs.get('field_label', None):
+                return attrs_label
+            # Most standard fields will have a direct label.
+            if hasattr(field.widget, 'label'):
+                return field.widget.label
+            return field.label
+        uuid = self.cleaned_data['uuid']
+        if not id:
+            return f"Successfully batched reports for disposal: {uuid}."
+        updated_fields = [get_label(field) for field in self.changed_data]
+        if len(updated_fields) == 1:
+            return f"Successfully updated {updated_fields[0]} in disposal batch {uuid}."
+        fields = ', '.join(updated_fields[:-1])
+        fields += f', and {updated_fields[-1]}'
+        return f"Successfully updated {fields} in disposal batch {uuid}."
+
+    def save(self, commit=True):
+        disposition_batch = super().save(commit)
+        return disposition_batch
 
 
 class BulkActionsForm(LitigationHoldLock, Form, ActivityStreamUpdater):

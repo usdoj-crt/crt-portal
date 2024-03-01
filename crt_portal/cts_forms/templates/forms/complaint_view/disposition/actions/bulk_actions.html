@@ -8,7 +8,7 @@
 
 {% block card_content %}
   {% if ids_count %}
-    <form class="usa-form" method="post" novalidate>
+    <form class="usa-form" method="post" action="/form/disposition/actions" novalidate>
       {% csrf_token %}
 
       <input type="hidden" value="{{ return_url_args }}" name="next" id="next" />
@@ -45,7 +45,7 @@
           <tr>
             <th>Phone</th>
             <td>
-              444-444-4444
+              202-514-3847
             </td>
           </tr>
         </table>
@@ -94,34 +94,36 @@
           <tr>
             <th>Proposed Disposal Date</th>
             <td>
-              {{ shared_report_fields.expiration_date }}
+              <input type="hidden" value="{{ shared_report_fields.proposed_disposal_date }}" name="proposed_disposal_date" id="proposed_disposal_date" />
+              {{ shared_report_fields.proposed_disposal_date }}
             </td>
           </tr>
         </table>
-        <div class="margin-bottom-2 crt-dropdown crt-dropdown__shrink-to-contents">
-            <label for="id_assigned_section" class="intake-label">
-              Approving Official
+        <div class="margin-bottom-2 crt-dropdown">
+            <label for="id_disposed_by" class="intake-label">
+              {{ bulk_actions_form.disposed_by.label }}
             </label>
             {{ bulk_actions_form.disposed_by }}
         </div>
         <div class="margin-bottom-2 crt-dropdown">
-            <label for="id_retention_schedule" class="intake-label">
-             Date
-            </label>
-
+          <label for="id_create_date" class="intake-label">
+            {{ bulk_actions_form.create_date.label }}
+          </label>
+          {{ bulk_actions_form.create_date }}
         </div>
-        {% if bulk_actions_form.retention_schedule.initial == 1 %}
+        {% if shared_report_fields.retention_schedule == 'Multiple' %}
           <p>The selected reports have multiple retention schedules.</p>
           <p>All reports must have the same retention schedule to be batched.</p>
         {% endif %}
-          <button class="usa-button{% if show_warning %} button--warning display-flex align-center{% endif %}"
-                  {% if show_warning %}id="show_warning_section_partial"{% endif %}
-                  {% if bulk_actions_form.retention_schedule.initial == 1 %}disabled{% endif %}
-                  type="submit"
-                  name="selected_ids"
-          >
-            Approve Deletion of {{ ids_count }} record{{ ids_count|pluralize:"s" }}
-          </button>
+        <input type="hidden" value="{{ ids_count }}" name="disposed_count" id="disposed_count" />
+        <button class="usa-button{% if show_warning %} button--warning display-flex align-center{% endif %}"
+                {% if show_warning %}id="show_warning_section_partial"{% endif %}
+                {% if bulk_actions_form.retention_schedule.initial == 1 %}disabled{% endif %}
+                type="submit"
+                name="selected_ids"
+        >
+          Approve Deletion of {{ ids_count }} record{{ ids_count|pluralize:"s" }}
+        </button>
     </form>
   {% else %}
     <p>No records were selected.</p>

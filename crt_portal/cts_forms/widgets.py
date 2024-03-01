@@ -18,6 +18,11 @@ class UsaRadioSelect(ChoiceWidget):
     option_template_name = 'forms/widgets/usa_radio_option.html'
 
 
+class CrtTextInput(TextInput):
+    input_type = 'text'
+    template_name = 'django/forms/widgets/input.html'
+
+
 class CrtPrimaryIssueRadioGroup(ChoiceWidget):
     input_type = 'radio'
     template_name = 'forms/widgets/multiple_inputs.html'
