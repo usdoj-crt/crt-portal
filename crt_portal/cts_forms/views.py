@@ -40,7 +40,7 @@ from .forms import (
 )
 from .mail import mail_to_complainant
 from .model_variables import HATE_CRIMES_TRAFFICKING_MODEL_CHOICES, SECTION_CHOICES
-from .models import CommentAndSummary, Profile, Report, ReportAttachment, ReportDispositionBatch, ReportsData, RetentionSchedule, SavedSearch, Trends, EmailReportCount, Campaign, User, \
+from .models import CommentAndSummary, Profile, Report, ReportAttachment, ReportDisposition, ReportDispositionBatch, ReportsData, RetentionSchedule, SavedSearch, Trends, EmailReportCount, Campaign, User, \
     RoutingSection, RoutingStepOneContact, RepeatWriterInfo
 from .page_through import pagination
 from .sorts import activity_sort, report_sort
@@ -373,7 +373,11 @@ def get_view_data(request, report_query, query_filters, disposition_status=None)
     sort_expr, sorts = report_sort(request.GET.getlist('sort'))
 
     requested_reports = requested_reports.order_by(*sort_expr)
-
+    if disposition_status:
+        requested_ids = list(requested_reports.values_list('public_id', flat=True))
+        for id in requested_ids:
+            if ReportDisposition.objects.filter(public_id=id).count() >= 1:
+                requested_reports = requested_reports.exclude(public_id=id)
     paginator = Paginator(requested_reports, per_page)
     requested_reports, page_format = pagination(paginator, page, per_page)
 
@@ -1068,11 +1072,11 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
 
         if bulk_disposition_form.is_valid():
             number = bulk_disposition_form.update(requested_query, request.user)
+            batch = bulk_disposition_form.save(commit=False)
+            batch.save()
             plural = 's have' if number > 1 else ' has'
             message = f'{number} record{plural} been approved for deletion'
-            logging.info(message)
             messages.add_message(request, messages.SUCCESS, message)
-
             url = reverse('crt_forms:disposition')
             return redirect(f"{url}{return_url_args}")
         else:

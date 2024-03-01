@@ -50,7 +50,7 @@ from .model_variables import (ACTION_CHOICES, CLOSED_STATUS, COMMERCIAL_OR_PUBLI
                               VIOLATION_SUMMARY_ERROR, WHERE_ERRORS,
                               HATE_CRIME_CHOICES, GROUPING, RETENTION_SCHEDULE_CHOICES)
 from .models import (CommentAndSummary,
-                     ProtectedClass, Report, ReportDispositionBatch, ResponseTemplate, Profile, ReportAttachment, Campaign, RetentionSchedule, SavedSearch, get_system_user, Tag)
+                     ProtectedClass, Report, ReportDisposition, ReportDispositionBatch, ResponseTemplate, Profile, ReportAttachment, Campaign, RetentionSchedule, SavedSearch, get_system_user, Tag)
 from .phone_regex import phone_validation_regex
 from .question_group import QuestionGroup
 from .question_text import (CONTACT_QUESTIONS, DATE_QUESTIONS,
@@ -2070,17 +2070,17 @@ class BulkDispositionForm(ModelForm, ActivityStreamUpdater):
         )
 
     def setup_create_date(self):
-        initial = self.instance.create_date
+        initial = self.instance.create_date.strftime('%m/%d/%Y')
         self.fields['create_date'] = CharField(
             required=True,
             label="Date",
             initial=initial,
             widget=CrtTextInput(attrs={
-                'class': 'usa-input date',
+                'class': 'usa-input',
                 'name': 'create_date',
                 'placeholder': 'mm/dd/yyyy',
                 'aria_label': 'Date',
-                'value': initial.strftime('%m/%d/%Y'),
+                'value': initial,
                 'label': 'Date',
             }),
         )
@@ -2114,10 +2114,13 @@ class BulkDispositionForm(ModelForm, ActivityStreamUpdater):
         """
         report_ids = reports.values_list('pk', flat=True)
         reports = Report.objects.filter(pk__in=report_ids)
-
-        # TO DO: add logic to approve report for deletion
-
-        # add_activity(user, 'Disposition:', f'Approved for deletion on {expiration_date}', report, True)
+        proposed_disposal_date = self.cleaned_data['proposed_disposal_date']
+        for report in reports:
+            ReportDisposition(
+                    schedule=report.retention_schedule,
+                    batch=self.instance,
+                    public_id=report.public_id)
+            add_activity(user, 'Disposition:', f'Approved for deletion on {proposed_disposal_date}', report, True)
         return reports.count()
 
     def success_message(self, id=None):
