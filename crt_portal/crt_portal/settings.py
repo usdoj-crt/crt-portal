@@ -325,6 +325,7 @@ if environment in ['PRODUCTION', 'STAGE']:
             '^voting-resources',
             '^oauth2_provider/token/',
             '^oauth2_provider/userinfo/',
+            '^static/'
         ],
     }
 
