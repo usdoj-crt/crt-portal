@@ -25,10 +25,8 @@ class CrtTextInput(TextInput):
     template_name = 'django/forms/widgets/input.html'
 
     def format_value(self, value):
-        logging.info(type(value))
         if type(value) == datetime.datetime:
             value = value.strftime('%m/%d/%Y')
-            logging.info(value)
 
 
 class CrtPrimaryIssueRadioGroup(ChoiceWidget):

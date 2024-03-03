@@ -2052,7 +2052,7 @@ class BulkDispositionForm(ModelForm, ActivityStreamUpdater):
         fields = ['disposed_by', 'disposed_count', 'create_date', 'proposed_disposal_date']
 
     def setup_disposed_by(self, user):
-        initial = f'{user.first_name} {user.last_name}'
+        value = f'{user.first_name} {user.last_name}' if user.first_name and user.last_name else ''
         self.fields['disposed_by'] = CharField(
             label='Approving Official',
             widget=CrtTextInput(
@@ -2061,7 +2061,7 @@ class BulkDispositionForm(ModelForm, ActivityStreamUpdater):
                     'name': 'disposed_by',
                     'placeholder': 'Approving Official',
                     'aria_label': 'Approving Official',
-                    'value': initial,
+                    'value': value,
                     'label': 'Approving Official',
                 },
             ),
@@ -2108,18 +2108,15 @@ class BulkDispositionForm(ModelForm, ActivityStreamUpdater):
         self.setup_disposed_by(user)
         self.setup_create_date()
 
-    def update(self, reports, user):
+    def update(self, reports, user, batch):
         """
         Bulk update given reports and update activity log for each report
         """
         report_ids = reports.values_list('pk', flat=True)
         reports = Report.objects.filter(pk__in=report_ids)
-        proposed_disposal_date = self.cleaned_data['proposed_disposal_date']
+        proposed_disposal_date = self.cleaned_data['proposed_disposal_date'].strftime('%m/%d/%Y')
+        batch.add_records_to_batch(reports)
         for report in reports:
-            ReportDisposition(
-                    schedule=report.retention_schedule,
-                    batch=self.instance,
-                    public_id=report.public_id)
             add_activity(user, 'Disposition:', f'Approved for deletion on {proposed_disposal_date}', report, True)
         return reports.count()
 
