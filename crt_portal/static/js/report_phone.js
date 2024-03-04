@@ -15,14 +15,22 @@
       nationalMode: true
     });
 
-    function handleChange() {
-      showValidity(input, telInputApi);
+    function setHiddenValue() {
       inputWithCountry.value = telInputApi.getNumber();
     }
-    input.addEventListener('change', handleChange);
-    input.addEventListener('keyup', handleChange);
+
+    input.addEventListener('change', setHiddenValue);
+    input.addEventListener('keyup', setHiddenValue);
+    input.addEventListener('focusout', () => showValidity(input, telInputApi));
 
     document.querySelector('.iti__search-input').setAttribute('title', 'Search for a country');
+
+    // The country dropdown is not accessible currently, so we're hiding it from
+    // screen readers. We should revisit this when the dropdown is accessible:
+    //
+    // https://github.com/jackocnr/intl-tel-input/issues/1536
+    document.querySelector('.iti__selected-flag').setAttribute('tabindex', '-1');
+    document.querySelector('.iti__flag-container').setAttribute('tabindex', '-1');
   }
 
   document.addEventListener('DOMContentLoaded', function() {
@@ -30,7 +38,7 @@
   });
 
   function isValid(input, telInputApi) {
-    if (!input.value) return null;
+    if (!input.value) return true;
     const country = telInputApi.getSelectedCountryData() || {};
     if (country.iso2 === 'us' && telInputApi.getNumber().length !== 12) return false;
     if (!telInputApi.isValidNumber()) return false;

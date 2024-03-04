@@ -16,6 +16,7 @@ import nbconvert
 import nbformat
 import pytz
 
+from utils.request_utils import add_nonce_to_html
 from cts_forms.models import RoutingSection
 
 
@@ -266,7 +267,7 @@ class AnalyticsFile(models.Model):
         exporter.exclude_output_stdin = True
         exporter.exclude_raw = True
         html, _ = exporter.from_notebook_node(self.as_notebook())
-        return html
+        return add_nonce_to_html(html)
 
 
 class DashboardGroup(models.Model):

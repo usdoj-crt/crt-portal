@@ -1,0 +1,17 @@
+<form
+  id="filters-form"
+  method="GET"
+  action="/form/saved-searches"
+  novalidate
+>
+  <div class="display-flex flex-justify flex-align-center">
+    <div class="flex-4">
+      {% include 'forms/complaint_view/saved_searches/filters/section.html' %}
+    </div>
+      <div class="text-right flex-3">
+      <button class="usa-button" type="submit" id="submit-button">
+        Apply section filter
+      </button>
+      </div>
+  </div>
+</form>
