@@ -8,6 +8,9 @@ class State(models.Model):
 
     See https://census.gov/cgi-bin/geo/shapefiles/index.php for more information.
     """
+
+    LOAD_FROM = 'states.csv'
+
     name = models.CharField(max_length=255)
     statefp = models.IntegerField()
     stusps = models.CharField(max_length=2)
@@ -25,6 +28,9 @@ class County(models.Model):
 
     See https://census.gov/cgi-bin/geo/shapefiles/index.php for more information.
     """
+
+    LOAD_FROM = 'counties.csv'
+
     name = models.CharField(max_length=255)
     statefp = models.IntegerField()
     intptlat = models.FloatField()
@@ -32,3 +38,6 @@ class County(models.Model):
 
     def __str__(self):
         return self.name
+
+
+LOADABLE = [State, County]
