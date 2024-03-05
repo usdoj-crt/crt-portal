@@ -180,8 +180,8 @@ jobs:
           name: E2E tests
           command: pipenv run pytest crt_portal/cts_forms/tests/integration/*.py --base-url=https://crt-portal-django-stage.app.cloud.gov
 
-  # owasp scans on live sties
-  # These must be run as "machine" because "image" doesn't support mounting volumes.
+  # owasp scans on live sites
+  # NOTE: These don't use docker or the circleci base image because, as of writing, circleci docker-in-docker doesn't support mounting volumes.
   owasp-scan-dev:
     machine:
       image: ubuntu-2204:2024.01.1
@@ -194,8 +194,8 @@ jobs:
             docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-stable:latest zap-baseline.py \
             -t https://crt-portal-django-dev.app.cloud.gov/report/ -c .circleci/zap.conf --autooff -z "-config rules.cookie.ignorelist=django_language"
   owasp-scan-stage:
-    docker:
-      - image: cimg/base:2024.02
+    machine:
+      image: ubuntu-2204:2024.01.1
     working_directory: ~/code
     steps:
       - checkout
@@ -205,8 +205,8 @@ jobs:
             docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-stable:latest zap-baseline.py \
             -t https://crt-portal-django-stage.app.cloud.gov/report/ -c .circleci/zap.conf --autooff -z "-config rules.cookie.ignorelist=django_language"
   owasp-scan-prod:
-    docker:
-      - image: cimg/base:2024.02
+    machine:
+      image: ubuntu-2204:2024.01.1
     working_directory: ~/code
     steps:
       - checkout
@@ -608,58 +608,61 @@ commands:
 workflows:
   build-test-deploy:
     jobs:
-      # - build_and_test
+      - build_and_test
 
-      - owasp-scan-dev
+      - owasp-scan-dev:
+          filters:
+            branches:
+              only: /^release.*/
 
-  #       - owasp-scan-stage:
-  #           filters:
-  #             branches:
-  #               only: master
+      - owasp-scan-stage:
+          filters:
+            branches:
+              only: master
 
-  #       - owasp-scan-prod:
-  #           requires:
-  #             - deploy-prod
-  #           filters:
-  #             branches:
-  #               only: master
+      - owasp-scan-prod:
+          requires:
+            - deploy-prod
+          filters:
+            branches:
+              only: master
 
-  #       - deploy-dev:
-  #           requires:
-  #             - build_and_test
-  #           filters:
-  #             branches:
-  #               only: develop
+      - deploy-dev:
+          requires:
+            - build_and_test
+          filters:
+            branches:
+              only: develop
 
-  #       - deploy-stage:
-  #           requires:
-  #             - owasp-scan-dev
-  #             - build_and_test
-  #           filters:
-  #             branches:
-  #               only: /^release.*/
+      - deploy-stage:
+          requires:
+            - owasp-scan-dev
+            - build_and_test
+          filters:
+            branches:
+              only: /^release.*/
 
-  #       - deploy-prod:
-  #           requires:
-  #             - owasp-scan-stage
-  #             - build_and_test
-  #           filters:
-  #             branches:
-  #               only: master
+      - deploy-prod:
+          requires:
+            - owasp-scan-stage
+            - build_and_test
+          filters:
+            branches:
+              only: master
 
-  #       - e2e-test-dev:
-  #           requires:
-  #             - deploy-dev
-  #           filters:
-  #             branches:
-  #               only: develop
+      - e2e-test-dev:
+          requires:
+            - deploy-dev
+          filters:
+            branches:
+              only: develop
 
-  #       - e2e-test-stage:
-  #           requires:
-  #             - deploy-stage
-  #           filters:
-  #             branches:
-  #               only: /^release.*/
+      - e2e-test-stage:
+          requires:
+            - deploy-stage
+          filters:
+            branches:
+              only: /^release.*/
 
   # Scheduled maintenance jobs for portal
   # Dev scheduled jobs
