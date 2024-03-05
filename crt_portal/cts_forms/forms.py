@@ -2051,8 +2051,9 @@ class BulkDispositionForm(ModelForm, ActivityStreamUpdater):
         model = ReportDispositionBatch
         fields = ['disposed_by', 'disposed_count', 'create_date', 'proposed_disposal_date']
 
-    def setup_disposed_by(self, user):
-        value = f'{user.first_name} {user.last_name}' if user.first_name and user.last_name else ''
+    def setup_disposed_by(self):
+        disposed_by = self.user
+        value = f'{disposed_by.first_name} {disposed_by.last_name}' if disposed_by.first_name and disposed_by.last_name else ''
         self.fields['disposed_by'] = CharField(
             label='Approving Official',
             widget=CrtTextInput(
@@ -2066,81 +2067,60 @@ class BulkDispositionForm(ModelForm, ActivityStreamUpdater):
                 },
             ),
             required=True,
-            initial=user,
+            initial=disposed_by,
         )
 
     def setup_create_date(self):
-        initial = self.instance.create_date.strftime('%m/%d/%Y')
+        create_date = datetime.today()
         self.fields['create_date'] = CharField(
             required=True,
             label="Date",
-            initial=initial,
+            initial=create_date,
             widget=CrtTextInput(attrs={
                 'class': 'usa-input',
                 'name': 'create_date',
                 'placeholder': 'mm/dd/yyyy',
                 'aria_label': 'Date',
-                'value': initial,
+                'value': create_date.strftime('%m/%d/%Y'),
                 'label': 'Date',
             }),
         )
 
     def clean_disposed_by(self):
-        if 'disposed_by' not in self.changed_data:
+        user = None
+        if 'disposed_by' not in self.cleaned_data:
             return ''
         name = self.cleaned_data['disposed_by'].split(' ')
-        user = User.objects.filter(first_name=name[0], last_name=name[1]).first()
+        if len(name) == 2:
+            user = User.objects.filter(first_name=name[0], last_name=name[1]).first()
         if user:
             return user
         return ''
 
     def clean_create_date(self):
-        if 'create_date' not in self.changed_data:
+        if 'create_date' not in self.cleaned_data:
             return ''
         create_date = self.cleaned_data['create_date'].split('/')
         if create_date:
             return datetime(int(create_date[2]), int(create_date[0]), int(create_date[1]))
         return ''
 
-    def __init__(self, query, *args, user=None, **kwargs):
+    def __init__(self, *args, user=None, **kwargs):
         self.user = user
         ModelForm.__init__(self, *args, **kwargs)
-        self.setup_disposed_by(user)
+        self.setup_disposed_by()
         self.setup_create_date()
 
-    def update(self, reports, user, batch):
+    def update_reports(self, reports, user, batch):
         """
         Bulk update given reports and update activity log for each report
         """
-        report_ids = reports.values_list('pk', flat=True)
-        reports = Report.objects.filter(pk__in=report_ids)
-        proposed_disposal_date = self.cleaned_data['proposed_disposal_date'].strftime('%m/%d/%Y')
-        batch.add_records_to_batch(reports)
+        proposed_disposal_date = batch.proposed_disposal_date.strftime('%m/%d/%Y')
+        logging.info(user)
+        batch.add_records_to_batch(reports, user)
         for report in reports:
-            add_activity(user, 'Disposition:', f'Approved for deletion on {proposed_disposal_date}', report, True)
+            add_activity(user, 'Disposition:', f'Approved for disposal on {proposed_disposal_date}', report, True)
         return reports.count()
-
-    def success_message(self, id=None):
-        """Prepare update success message for rendering in template"""
-        def get_label(field):
-            field = self.fields[field]
-            # Some fields can't support the extra context label, and store it
-            # on their attributes
-            if attrs_label := field.widget.attrs.get('field_label', None):
-                return attrs_label
-            # Most standard fields will have a direct label.
-            if hasattr(field.widget, 'label'):
-                return field.widget.label
-            return field.label
-        uuid = self.cleaned_data['uuid']
-        if not id:
-            return f"Successfully batched reports for disposal: {uuid}."
-        updated_fields = [get_label(field) for field in self.changed_data]
-        if len(updated_fields) == 1:
-            return f"Successfully updated {updated_fields[0]} in disposal batch {uuid}."
-        fields = ', '.join(updated_fields[:-1])
-        fields += f', and {updated_fields[-1]}'
-        return f"Successfully updated {fields} in disposal batch {uuid}."
 
     def save(self, commit=True):
         disposition_batch = super().save(commit)

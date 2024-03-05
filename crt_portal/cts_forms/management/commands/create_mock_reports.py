@@ -8,7 +8,7 @@ from datetime import datetime
 from pytz import timezone
 import random
 from cts_forms.signals import salt
-from cts_forms.models import EmailReportCount, ProtectedClass, Campaign, ResponseTemplate, CommentAndSummary, Tag
+from cts_forms.models import EmailReportCount, ProtectedClass, Campaign, ResponseTemplate, CommentAndSummary, Tag, RetentionSchedule
 from cts_forms.model_variables import PROTECTED_MODEL_CHOICES, DISTRICT_CHOICES, STATUTE_CHOICES
 from cts_forms.forms import add_activity
 from django.contrib.auth.models import User
@@ -81,10 +81,13 @@ class Command(BaseCommand):  # pragma: no cover
             UTC = timezone('UTC')
             date = random_date()
             report.save()
-            report.create_date = date
+            report.create_date = UTC.localize(datetime(2020, 1, 1))
             salt_chars = salt()
             report.public_id = f'{report.pk}-{salt_chars}'
             title = random_form_letters[i].get('title')
+            report.retention_schedule = RetentionSchedule.objects.get(name='1 Year')
+            report.status = 'closed'
+            report.closed_date = UTC.localize(datetime(2021, 1, 1))
 
             dj_number_chance = random.randint(1, 100)  # nosec
             if dj_number_chance > 90:
