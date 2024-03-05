@@ -182,8 +182,8 @@ jobs:
 
 # owasp scans on live sties
   owasp-scan-dev:
-    machine:
-      image: ubuntu-2004:202201-02
+    docker:
+      - image: cimg/base:2024.02
     working_directory: ~/code
     steps:
       - checkout
@@ -193,8 +193,8 @@ jobs:
               docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-stable:latest zap-baseline.py \
               -t https://crt-portal-django-dev.app.cloud.gov/report/ -c .circleci/zap.conf --autooff -z "-config rules.cookie.ignorelist=django_language"
   owasp-scan-stage:
-    machine:
-      image: ubuntu-2004:202201-02
+    docker:
+      - image: cimg/base:2024.02
     working_directory: ~/code
     steps:
       - checkout
@@ -204,8 +204,8 @@ jobs:
               docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-stable:latest zap-baseline.py \
               -t https://crt-portal-django-stage.app.cloud.gov/report/ -c .circleci/zap.conf --autooff -z "-config rules.cookie.ignorelist=django_language"
   owasp-scan-prod:
-    machine:
-      image: ubuntu-2004:202201-02
+    docker:
+      - image: cimg/base:2024.02
     working_directory: ~/code
     steps:
       - checkout
@@ -412,7 +412,7 @@ jobs:
     docker:
       # Use CircleCI convenience base image since we only need
       # CloudFoundry CLI
-      - image: cimg/base:2020.01
+      - image: cimg/base:2024.02
         environment:
           - CF_SPACE: prod
     steps:
@@ -448,7 +448,7 @@ jobs:
     docker:
       # Use CircleCI convenience base image since we only need
       # CloudFoundry CLI
-      - image: cimg/base:2020.01
+      - image: cimg/base:2024.02
         environment:
           - CF_SPACE: staging
     steps:
@@ -488,7 +488,7 @@ jobs:
     docker:
       # Use CircleCI convenience base image since we only need
       # CloudFoundry CLI
-      - image: cimg/base:2020.01
+      - image: cimg/base:2024.02
         environment:
           - CF_SPACE: dev
     steps:
@@ -525,7 +525,7 @@ jobs:
     docker:
       # Use CircleCI convenience base image since we only need
       # CloudFoundry CLI
-      - image: cimg/base:2020.01
+      - image: cimg/base:2024.02
         environment:
           - CF_SPACE: dev
     steps:
@@ -543,7 +543,7 @@ jobs:
     docker:
       # Use CircleCI convenience base image since we only need
       # CloudFoundry CLI
-      - image: cimg/base:2020.01
+      - image: cimg/base:2024.02
         environment:
           - CF_SPACE: staging
     steps:
@@ -561,7 +561,7 @@ jobs:
     docker:
       # Use CircleCI convenience base image since we only need
       # CloudFoundry CLI
-      - image: cimg/base:2020.01
+      - image: cimg/base:2024.02
         environment:
           - CF_SPACE: prod
     steps:
