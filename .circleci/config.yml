@@ -38,7 +38,7 @@ jobs:
     working_directory: ~/code
     docker:
       # CircleCI Python images available at: https://hub.docker.com/r/cimg/python/
-      - image: cimg/python:3.12.1-browsers
+      - image: cimg/python:3.12.2-browsers
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
@@ -155,7 +155,7 @@ jobs:
     working_directory: ~/code
     docker:
       # CircleCI Python images available at: https://hub.docker.com/r/cimg/python/
-      - image: cimg/python:3.12.1-browsers
+      - image: cimg/python:3.12.2-browsers
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
     steps:
@@ -170,7 +170,7 @@ jobs:
     working_directory: ~/code
     docker:
       # CircleCI Python images available at: https://hub.docker.com/r/cimg/python/
-      - image: cimg/python:3.12.1-browsers
+      - image: cimg/python:3.12.2-browsers
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
     steps:
@@ -180,49 +180,50 @@ jobs:
           name: E2E tests
           command: pipenv run pytest crt_portal/cts_forms/tests/integration/*.py --base-url=https://crt-portal-django-stage.app.cloud.gov
 
-# owasp scans on live sties
+  # owasp scans on live sites
+  # NOTE: These don't use docker or the circleci base image because, as of writing, circleci docker-in-docker doesn't support mounting volumes.
   owasp-scan-dev:
     machine:
-      image: ubuntu-2004:202201-02
+      image: ubuntu-2204:2024.01.1
     working_directory: ~/code
     steps:
       - checkout
       - run:
-            name: Pull owasp zap docker image and run scan
-            command: |
-              docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-stable:latest zap-baseline.py \
-              -t https://crt-portal-django-dev.app.cloud.gov/report/ -c .circleci/zap.conf --autooff -z "-config rules.cookie.ignorelist=django_language"
+          name: Pull owasp zap docker image and run scan
+          command: |
+            docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-stable:latest zap-baseline.py \
+            -t https://crt-portal-django-dev.app.cloud.gov/report/ -c .circleci/zap.conf --autooff -z "-config rules.cookie.ignorelist=django_language"
 
   owasp-scan-stage:
     machine:
-      image: ubuntu-2004:202201-02
+      image: ubuntu-2204:2024.01.1
     working_directory: ~/code
     steps:
       - checkout
       - run:
-            name: Pull owasp zap docker image and run scan
-            command: |
-              docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-stable:latest zap-baseline.py \
-              -t https://crt-portal-django-stage.app.cloud.gov/report/ -c .circleci/zap.conf --autooff -z "-config rules.cookie.ignorelist=django_language"
+          name: Pull owasp zap docker image and run scan
+          command: |
+            docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-stable:latest zap-baseline.py \
+            -t https://crt-portal-django-stage.app.cloud.gov/report/ -c .circleci/zap.conf --autooff -z "-config rules.cookie.ignorelist=django_language"
 
   owasp-scan-prod:
     machine:
-      image: ubuntu-2004:202201-02
+      image: ubuntu-2204:2024.01.1
     working_directory: ~/code
     steps:
       - checkout
       - run:
-            name: Pull owasp zap docker image and run scan
-            command: |
-              docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-stable:latest zap-baseline.py \
-              -t https://civilrights.justice.gov/report/ -c .circleci/zap.conf --autooff -z "-config rules.cookie.ignorelist=django_language"
+          name: Pull owasp zap docker image and run scan
+          command: |
+            docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-stable:latest zap-baseline.py \
+            -t https://civilrights.justice.gov/report/ -c .circleci/zap.conf --autooff -z "-config rules.cookie.ignorelist=django_language"
 
-# deployments
+  # deployments
   deploy-dev:
     working_directory: ~/code
     docker:
       # standard docker python image
-      - image: python:3.12.1
+      - image: python:3.12.2
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
@@ -289,7 +290,7 @@ jobs:
   deploy-stage:
     working_directory: ~/code
     docker:
-      - image: python:3.12.1
+      - image: python:3.12.2
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
@@ -306,7 +307,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-      # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
+          # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
           key: deps-v4-{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "package.json" }}
       - run:
           name: Node install
@@ -330,9 +331,9 @@ jobs:
       - save_cache: # cache Python and Node dependencies using checksum of Pipfile and package.json as the cache-key
           key: deps-v4-{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "package.json" }}
           paths:
-            - ".venv"
-            - "/usr/local/bin"
-            - "/usr/local/lib/python3.12/site-packages"
+            - '.venv'
+            - '/usr/local/bin'
+            - '/usr/local/lib/python3.12/site-packages'
       - run:
           name: Login to cloud.gov
           command: cf8 login -u ${CRT_USERNAME_STAGE} -p ${CRT_PASSWORD_STAGE} -o doj-crtportal -s ${CF_SPACE}
@@ -352,7 +353,7 @@ jobs:
     working_directory: ~/code
     docker:
       # CircleCI Python images available at: https://hub.docker.com/r/cimg/python/
-      - image: python:3.12.1
+      - image: python:3.12.2
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
@@ -369,7 +370,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-      # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
+          # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
           key: deps-v4-{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "package.json" }}
       - run:
           name: Node install
@@ -393,9 +394,9 @@ jobs:
       - save_cache: # cache Python and Node dependencies using checksum of Pipfile and package.json as the cache-key
           key: deps-v4-{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "package.json" }}
           paths:
-            - ".venv"
-            - "/usr/local/bin"
-            - "/usr/local/lib/python3.12/site-packages"
+            - '.venv'
+            - '/usr/local/bin'
+            - '/usr/local/lib/python3.12/site-packages'
       - run:
           name: Login to cloud.gov
           command: cf8 login -u ${CRT_USERNAME_PROD} -p ${CRT_PASSWORD_PROD} -o doj-crtportal -s ${CF_SPACE}
@@ -415,7 +416,7 @@ jobs:
     docker:
       # Use CircleCI convenience base image since we only need
       # CloudFoundry CLI
-      - image: cimg/base:2020.01
+      - image: cimg/base:2024.02
         environment:
           - CF_SPACE: prod
     steps:
@@ -451,7 +452,7 @@ jobs:
     docker:
       # Use CircleCI convenience base image since we only need
       # CloudFoundry CLI
-      - image: cimg/base:2020.01
+      - image: cimg/base:2024.02
         environment:
           - CF_SPACE: staging
     steps:
@@ -491,7 +492,7 @@ jobs:
     docker:
       # Use CircleCI convenience base image since we only need
       # CloudFoundry CLI
-      - image: cimg/base:2020.01
+      - image: cimg/base:2024.02
         environment:
           - CF_SPACE: dev
     steps:
@@ -528,7 +529,7 @@ jobs:
     docker:
       # Use CircleCI convenience base image since we only need
       # CloudFoundry CLI
-      - image: cimg/base:2020.01
+      - image: cimg/base:2024.02
         environment:
           - CF_SPACE: dev
     steps:
@@ -546,7 +547,7 @@ jobs:
     docker:
       # Use CircleCI convenience base image since we only need
       # CloudFoundry CLI
-      - image: cimg/base:2020.01
+      - image: cimg/base:2024.02
         environment:
           - CF_SPACE: staging
     steps:
@@ -564,7 +565,7 @@ jobs:
     docker:
       # Use CircleCI convenience base image since we only need
       # CloudFoundry CLI
-      - image: cimg/base:2020.01
+      - image: cimg/base:2024.02
         environment:
           - CF_SPACE: prod
     steps:
@@ -578,17 +579,16 @@ jobs:
           name: run scheduled notebooks
           command: cf ssh crt-portal-jupyter  -c 'export LD_LIBRARY_PATH="$HOME/deps/0/lib:$HOME/deps/1/lib:$HOME/deps/2/lib" && export PATH="$PATH:$HOME/deps/2/python/bin/" && cd /home/vcap/app && python run_scheduled_refresh.py'
 
-
 commands:
   acquire-lock:
-    description: "Make sure nothing else is deploying."
+    description: 'Make sure nothing else is deploying.'
     parameters:
       app:
         type: enum
-        enum: ["clamav-rest", "crt-portal-django"]
+        enum: ['clamav-rest', 'crt-portal-django']
     steps:
       - run:
-          name: "Wait for other deployments to finish"
+          name: 'Wait for other deployments to finish'
           no_output_timeout: 2h
           command: |
             . env-helpers.sh << parameters.app >>
@@ -599,10 +599,10 @@ commands:
     parameters:
       app:
         type: enum
-        enum: ["clamav-rest", "crt-portal-django"]
+        enum: ['clamav-rest', 'crt-portal-django']
     steps:
       - run:
-          name: "Let other deployments start"
+          name: 'Let other deployments start'
           command: |
             . env-helpers.sh << parameters.app >>
             serving="$(cf_increment_env CCI_SERVING_TICKET)"
@@ -674,7 +674,7 @@ workflows:
       - dev-maintenance-tasks #run on dev
     triggers:
       - schedule:
-          cron: "0 0 * * *" # run past 8pm every night EST
+          cron: '0 0 * * *' # run past 8pm every night EST
           filters:
             branches:
               only: develop
@@ -684,7 +684,7 @@ workflows:
       - dev-jupyter-tasks
     triggers:
       - schedule:
-          cron: "0 0,6,12,18 * * *" # run four times per day
+          cron: '0 0,6,12,18 * * *' # run four times per day
           filters:
             branches:
               only: develop
@@ -695,7 +695,7 @@ workflows:
       - staging-maintenance-tasks #run on stage
     triggers:
       - schedule:
-          cron: "0 4 * * *" # run past midnight every night EST
+          cron: '0 4 * * *' # run past midnight every night EST
           filters:
             branches:
               only: /^release.*/
@@ -705,7 +705,7 @@ workflows:
       - staging-jupyter-tasks
     triggers:
       - schedule:
-          cron: "0 1,7,13,19 * * *" # run four times per day
+          cron: '0 1,7,13,19 * * *' # run four times per day
           filters:
             branches:
               only: /^release.*/
@@ -716,7 +716,7 @@ workflows:
       - prod-maintenance-tasks #run on prod
     triggers:
       - schedule:
-          cron: "0 5 * * *" # run at 1am every night EST
+          cron: '0 5 * * *' # run at 1am every night EST
           filters:
             branches:
               only: master
@@ -726,7 +726,7 @@ workflows:
       - prod-jupyter-tasks
     triggers:
       - schedule:
-          cron: "0 2,8,14,20 * * *" # run four times per day
+          cron: '0 2,8,14,20 * * *' # run four times per day
           filters:
             branches:
               only: master
