@@ -193,6 +193,7 @@ jobs:
           command: |
             docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-stable:latest zap-baseline.py \
             -t https://crt-portal-django-dev.app.cloud.gov/report/ -c .circleci/zap.conf --autooff -z "-config rules.cookie.ignorelist=django_language"
+
   owasp-scan-stage:
     machine:
       image: ubuntu-2204:2024.01.1
@@ -204,6 +205,7 @@ jobs:
           command: |
             docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-stable:latest zap-baseline.py \
             -t https://crt-portal-django-stage.app.cloud.gov/report/ -c .circleci/zap.conf --autooff -z "-config rules.cookie.ignorelist=django_language"
+
   owasp-scan-prod:
     machine:
       image: ubuntu-2204:2024.01.1
@@ -215,6 +217,7 @@ jobs:
           command: |
             docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-stable:latest zap-baseline.py \
             -t https://civilrights.justice.gov/report/ -c .circleci/zap.conf --autooff -z "-config rules.cookie.ignorelist=django_language"
+
   # deployments
   deploy-dev:
     working_directory: ~/code
