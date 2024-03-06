@@ -1,6 +1,5 @@
 """Form widgets"""
 import datetime
-import logging
 from django.forms import MultiValueField, CharField, IntegerField
 from django.forms.widgets import ChoiceWidget, TextInput, NumberInput, Select, SelectMultiple, DateInput, MultiWidget
 
@@ -25,7 +24,7 @@ class CrtTextInput(TextInput):
     template_name = 'django/forms/widgets/input.html'
 
     def format_value(self, value):
-        if type(value) == datetime.datetime:
+        if type(value) is datetime.datetime:
             value = value.strftime('%m/%d/%Y')
 
 

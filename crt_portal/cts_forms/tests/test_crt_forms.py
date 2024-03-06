@@ -21,7 +21,7 @@ from django.utils.http import urlencode
 from datetime import datetime
 from cts_forms.mail import render_complainant_mail, render_agency_mail
 
-from ..forms import BulkActionsForm, BulkDispositionForm, ComplaintActions, ComplaintOutreach, ContactEditForm, Filters, ReportEditForm
+from ..forms import BulkActionsForm, ComplaintActions, ComplaintOutreach, ContactEditForm, Filters, ReportEditForm
 from ..model_variables import CLOSED_STATUS, PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES, NEW_STATUS
 from ..models import CommentAndSummary, NotificationPreference, ReferralContact, Report, ReportDispositionBatch, ResponseTemplate, EmailReportCount, RetentionSchedule, SavedSearch
 from .factories import ReportFactory

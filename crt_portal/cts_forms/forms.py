@@ -50,7 +50,7 @@ from .model_variables import (ACTION_CHOICES, CLOSED_STATUS, COMMERCIAL_OR_PUBLI
                               VIOLATION_SUMMARY_ERROR, WHERE_ERRORS,
                               HATE_CRIME_CHOICES, GROUPING, RETENTION_SCHEDULE_CHOICES)
 from .models import (CommentAndSummary,
-                     ProtectedClass, Report, ReportDisposition, ReportDispositionBatch, ResponseTemplate, Profile, ReportAttachment, Campaign, RetentionSchedule, SavedSearch, get_system_user, Tag)
+                     ProtectedClass, Report, ReportDispositionBatch, ResponseTemplate, Profile, ReportAttachment, Campaign, RetentionSchedule, SavedSearch, get_system_user, Tag)
 from .phone_regex import phone_validation_regex
 from .question_group import QuestionGroup
 from .question_text import (CONTACT_QUESTIONS, DATE_QUESTIONS,
@@ -61,7 +61,7 @@ from .question_text import (CONTACT_QUESTIONS, DATE_QUESTIONS,
                             SUMMARY_HELPTEXT, SUMMARY_QUESTION,
                             WORKPLACE_QUESTIONS, HATE_CRIME_HELP_TEXT,
                             HATE_CRIME_QUESTION)
-from .widgets import (CRTDateField, ComplaintSelect, CrtMultiSelect,
+from .widgets import (ComplaintSelect, CrtMultiSelect,
                       CrtPrimaryIssueRadioGroup, CrtTextInput, DjNumberWidget, FuzzyFilterField, UsaCheckboxSelectMultiple, UsaTagSelectMultiple,
                       UsaRadioSelect, DataAttributesSelect, CrtDateInput, add_empty_choice)
 from utils.voting_mode import is_voting_mode
