@@ -664,6 +664,7 @@ def get_section_args(section_filters):
         for section_filter in section_filters
     ])
 
+
 def get_batch_view_data():
     data = []
     disposition_batches = ReportDispositionBatch.objects.all()
@@ -677,6 +678,7 @@ def get_batch_view_data():
             'retention_schedule': retention_schedule if len(retention_schedule) else '',
         })
     return data
+
 
 @login_required
 def disposition_view(request):
