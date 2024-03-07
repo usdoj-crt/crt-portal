@@ -5,6 +5,7 @@
 {% block extra_classes %}crt-actions-card report-list{% endblock %}
 
 {% block card_content %}
+<div>
 <h2>Selected reports for disposal</h2>
 <div id="active-filters" class="disposition-batch-list margin-top-2">
 <div class="filter-tag">
@@ -54,6 +55,10 @@
       {% endif %}
     </table>
   </div>
+</div>
+</div>
+<div>
+  {% include "forms/snippets/pagination.html" with page_format=page_format page_args=page_args placement="bottom" %}
 </div>
   {% if not data %}
   <div class="crt-portal-card table-message">
