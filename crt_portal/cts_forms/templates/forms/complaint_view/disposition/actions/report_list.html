@@ -2,11 +2,12 @@
 
 {% load i18n %}
 
+{% block title %}Selected reports for disposal{% endblock %}
+
 {% block extra_classes %}crt-actions-card report-list{% endblock %}
 
 {% block card_content %}
 <div>
-<h2>Selected reports for disposal</h2>
 <div id="active-filters" class="disposition-batch-list margin-top-2">
 <div class="filter-tag">
    <span>Retention schedule: {{ shared_report_fields.retention_schedule }}</span>
@@ -20,7 +21,7 @@
 </div>
 <div class="grid-col-auto">
   <div class="crt-xscroll">
-    <table class="usa-table crt-table sort-table">
+    <table class="usa-table crt-table sort-table disposition-action-table">
       <thead>
         <tr>
           <th>
@@ -40,7 +41,7 @@
       {% if data %}
         <tbody>
           {% for datum in data %}
-            <tr>
+            <tr class="stripe">
               <td><a class="td-link display-block" href="{{datum.url}}">{{ datum.report.public_id }}</a></td>
               <td><a class="td-link display-block" href="{{datum.url}}">{{ datum.report.assigned_section }}</a></td>
               <td><a class="td-link display-block" href="{{datum.url}}">{{ datum.report.location_name|default:"-" }}</a></td>

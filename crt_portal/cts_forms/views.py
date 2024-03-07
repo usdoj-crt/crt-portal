@@ -40,7 +40,7 @@ from .forms import (
 )
 from .mail import mail_to_complainant
 from .model_variables import HATE_CRIMES_TRAFFICKING_MODEL_CHOICES, SECTION_CHOICES
-from .models import CommentAndSummary, Profile, Report, ReportAttachment, ReportDispositionBatch, ReportsData, RetentionSchedule, SavedSearch, Trends, EmailReportCount, Campaign, User, \
+from .models import CommentAndSummary, Profile, Report, ReportAttachment, ReportDisposition, ReportDispositionBatch, ReportsData, RetentionSchedule, SavedSearch, Trends, EmailReportCount, Campaign, User, \
     RoutingSection, RoutingStepOneContact, RepeatWriterInfo
 from .page_through import pagination
 from .sorts import activity_sort, report_sort
@@ -664,12 +664,33 @@ def get_section_args(section_filters):
         for section_filter in section_filters
     ])
 
+def get_batch_view_data():
+    data = []
+    disposition_batches = ReportDispositionBatch.objects.all()
+    for batch in disposition_batches:
+        reports = ReportDisposition.objects.filter(batch=batch)
+        retention_schedule = reports.values_list('schedule', flat=True).distinct()
+        if len(retention_schedule):
+            retention_schedule = RetentionSchedule.objects.filter(pk=retention_schedule[0]).first().name
+        data.append({
+            'batch': batch,
+            'retention_schedule': retention_schedule if len(retention_schedule) else '',
+        })
+    return data
 
 @login_required
 def disposition_view(request):
     disposition_status = request.GET.get('disposition_status', 'past')
-    report_query, query_filters = report_filter(QueryDict('status=closed&retention_schedule=1%20Year&retention_schedule=3%20Year&retention_schedule=10%20Year&retention_schedule=Permanent&disposition_status=' + disposition_status))
     profile_form = get_profile_form(request)
+    if disposition_status == 'batches':
+        final_data = {
+            'disposition_status': disposition_status,
+        }
+        final_data.update({
+            'data': get_batch_view_data(),
+        })
+        return render(request, 'forms/complaint_view/disposition/index.html', final_data)
+    report_query, query_filters = report_filter(QueryDict('status=closed&retention_schedule=1%20Year&retention_schedule=3%20Year&retention_schedule=10%20Year&retention_schedule=Permanent&disposition_status=' + disposition_status))
     final_data = get_view_data(request, report_query, query_filters, disposition_status)
     can_approve_disposition = request.user.has_perm('cts_forms.approve_disposition') if request.user else False
     final_data.update({
@@ -967,7 +988,7 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
         query = record_query.order_by()
         close_date = query.values_list('closed_date', flat=True).order_by('closed_date').last()
         retention_schedule = query.values_list('retention_schedule', flat=True).distinct()
-        return datetime(close_date.year + retention_schedule[0] + 1, 1, 2).date().strftime('%m/%d/%Y')
+        return datetime(close_date.year + retention_schedule[0] + 1, 1, 1).date().strftime('%m/%d/%Y')
 
     def get_report_data(self, requested_reports):
         data = []
@@ -1081,7 +1102,7 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
             batch.save()
             bulk_disposition_form.update_reports(requested_query, request.user, batch)
             plural = 's have' if batch.disposed_count > 1 else ' has'
-            message = f'{batch.disposed_count} record{plural} been approved for disposal'
+            message = f'{batch.disposed_count} record{plural} been approved for disposal. The records unit will review your request and approve or deny your deletion request. Follow status updates in ‘Disposals’'
             messages.add_message(request, messages.SUCCESS, message)
             url = reverse('crt_forms:disposition')
             return redirect(f"{url}{return_url_args}")

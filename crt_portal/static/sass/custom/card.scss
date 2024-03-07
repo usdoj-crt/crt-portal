@@ -132,7 +132,9 @@
 
 .report-list {
   .title {
-    display: none;
+    .title-icon {
+      display: none;
+    }
   }
 }
 
