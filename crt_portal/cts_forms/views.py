@@ -788,6 +788,7 @@ class PrintView(LoginRequiredMixin, View):
 
         return_url_args = request.POST.get('modal_next', '')
         print_all = request.POST.get('type', None) == 'print_all'
+        return_url = request.POST.get('return_url', 'crt_forms:crt-forms-index')
         if print_all:
             reports = reconstruct_query(return_url_args)
         else:
@@ -807,7 +808,7 @@ class PrintView(LoginRequiredMixin, View):
         if id:
             url = preserve_filter_parameters(report, request.POST)
         else:
-            url = reverse('crt_forms:crt-forms-index')
+            url = reverse(return_url)
             url = f"{url}{return_url_args}"
         return redirect(url)
 
@@ -1031,6 +1032,7 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
         bulk_disposition_form = BulkDispositionForm(user=request.user, instance=batch)
 
         output = {
+            'action': request.GET.get('action', ''),
             'uuid': batch.uuid,
             'return_url_args': f'?{filter_args}',
             'selected_all': 'all' if selected_all else '',
@@ -1046,6 +1048,9 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
             'page_args': f'?next={next_args}&{selected_report_args}',
             'per_page': 15,
             'disposition_status': disposition_status,
+            'print_ids': list(map(int, ids)),
+            'print_options': PrintActions(),
+            'print_reports': requested_query,
         }
         return render(request, 'forms/complaint_view/disposition/actions/index.html', output)
 
@@ -1114,6 +1119,7 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
             next_args = urllib.parse.quote(f'{filter_args}')
 
             output = {
+                'action': request.GET.get('action', ''),
                 'uuid': batch.uuid,
                 'return_url_args': f'?{filter_args}',
                 'selected_all': 'all' if selected_all else '',
@@ -1129,6 +1135,9 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
                 'page_args': f'?next={next_args}&{selected_report_args}',
                 'per_page': 15,
                 'disposition_status': disposition_status,
+                'print_ids': list(map(int, ids)),
+                'print_options': PrintActions(),
+                'print_reports': requested_query,
             }
             return render(request, 'forms/complaint_view/disposition/actions/index.html', output)
 

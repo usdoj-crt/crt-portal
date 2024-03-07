@@ -43,7 +43,7 @@
 {% endblock %}
 
 {% block usa_footer %}
-  {% include 'forms/complaint_view/show/print_report.html' with single_print=False %}
+  {% include 'forms/complaint_view/show/print_report.html' with single_print=False return_url='crt_forms:crt-forms-index' %}
 {% endblock %}
 
 {% block page_js %}
