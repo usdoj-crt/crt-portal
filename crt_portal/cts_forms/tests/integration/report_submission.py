@@ -56,6 +56,7 @@ def test_report_complete_and_valid_submission(page):
     page.fill("input[name='0-contact_email']", "testing@test.com")
 
     page.fill(".iti .iti__tel-input", "555-555-5555")
+    page.wait_for_timeout(500)
 
     # Fill input[name="0-contact_address_line_1"]
     page.fill("input[name='0-contact_address_line_1']", "1 tester street")
@@ -67,7 +68,7 @@ def test_report_complete_and_valid_submission(page):
     page.fill("input[name='0-contact_zip']", "10001")
 
     # Fill input[name="0-servicemember"]
-    page.check("input[name='0-servicemember']")
+    page.check("input[name='0-servicemember'][value='yes']")
 
     # Go to step 2
     next_step()

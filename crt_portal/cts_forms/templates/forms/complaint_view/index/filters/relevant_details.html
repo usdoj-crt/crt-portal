@@ -2,11 +2,38 @@
 
 {% block classes %}relevant-details{% endblock %}
 {% block controls %}relevant_details{% endblock %}
-{% block label %}{{ form.commercial_or_public_place.label }}{% endblock %}
+{% block label %}Relevant Details{% endblock %}
 {% block id %}relevant-details{% endblock %}
 
 {% block content %}
-  <div id="relevant_details-filter" class="multicheckboxes-container">
+  <div class="multicheckboxes-container">
+    <label><strong>Commercial or Public Place</strong>
     {{ form.commercial_or_public_place }}
+    </label>
+  </div>
+  <div class="multicheckboxes-container">
+    <label><strong>Public or Private Employer</strong>
+    {{ form.public_or_private_employer }}
+    </label>
+  </div>
+  <div class="multicheckboxes-container">
+    <label><strong>Employer Size</strong>
+    {{ form.employer_size }}
+    </label>
+  </div>
+  <div class="multicheckboxes-container">
+    <label><strong>Public or Private School</strong>
+    {{ form.public_or_private_school }}
+    </label>
+  </div>
+  <div class="multicheckboxes-container">
+    <label><strong>Happened inside of a Correctional Facility?</strong>
+    {{ form.inside_correctional_facility }}
+    </label>
+  </div>
+  <div class="multicheckboxes-container">
+    <label><strong>Type of Prison or Correctional Facility</strong>
+    {{ form.correctional_facility_type }}
+    </label>
   </div>
 {% endblock %}
