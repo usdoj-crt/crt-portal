@@ -2714,6 +2714,14 @@ class SavedSearchActions(ModelForm):
             if self.field_changed(field_name)
         ]
 
+    def clean_query(self):
+        query = self.cleaned_data.get('query', '')
+        if not query:
+            return ''
+        if query[0] == '?':
+            return query[1:]
+        return query
+
     class Meta:
         model = SavedSearch
         fields = ['name', 'query', 'section', 'description', 'shared']
