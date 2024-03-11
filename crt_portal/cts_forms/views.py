@@ -662,7 +662,7 @@ def get_section_args(section_filters):
         return ''
     section_args = ''
     for section_filter in section_filters:
-        if section_filter is not "":
+        if section_filter != "":
             section_args += f'&section_filter={section_filter}'
     return section_args
 
