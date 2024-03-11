@@ -13,6 +13,7 @@
     {% if section_filter %}
       <input type="hidden" value="{{ section_filter }}" name="section_filter" id="section_filter" />
     {% endif %}
+    <input type="hidden" value="{{ saved_search_view }}" name="saved_search_view" id="saved_search_view" />
     <div class="margin-bottom-2 crt-dropdown crt-dropdown__shrink-to-contents">
       <label for="id_name" class="intake-label">
         {{ form.fields.name.label }}

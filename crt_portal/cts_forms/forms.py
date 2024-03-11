@@ -2731,7 +2731,8 @@ class SavedSearchActions(ModelForm):
 
     def __init__(self, *args, query=None, user=None, **kwargs):
         self.user = user
-        self.query = query
+        if query:
+            self.initial['query'] = query
         ModelForm.__init__(self, *args, **kwargs)
 
         self.fields['section'] = ChoiceField(
@@ -2784,7 +2785,6 @@ class SavedSearchActions(ModelForm):
             required=True,
             disabled=self.is_locked()
         )
-        self.initial['query'] = self.query
 
         self.fields['shared'] = BooleanField(
             label='Share',

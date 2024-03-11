@@ -1188,10 +1188,12 @@ class SavedSearchActionView(LoginRequiredMixin, View):
             _, query_filters = report_filter(QueryDict(query))
             query = get_filter_args(query_filters)
         section_filter = request.GET.get('section_filter', '')
+        saved_search_view = request.GET.get('saved_search_view', 'all')
         saved_search_form = SavedSearchActions(query=query, instance=saved_search)
         output = {
             'form': saved_search_form,
             'section_filter': section_filter,
+            'saved_search_view': f'&saved_search_view={saved_search_view}',
         }
         if id:
             return render(request, 'forms/complaint_view/saved_searches/actions/update.html', output)
@@ -1199,6 +1201,7 @@ class SavedSearchActionView(LoginRequiredMixin, View):
 
     def post(self, request, id=None):
         section_filter = request.POST.get('section_filter', '')
+        saved_search_view = request.POST.get('saved_search_view', 'all')
         url = reverse('crt_forms:saved-searches')
         delete = request.POST.get('delete', False)
         if not id:
@@ -1210,13 +1213,14 @@ class SavedSearchActionView(LoginRequiredMixin, View):
         if delete:
             saved_search.delete()
             messages.add_message(request, messages.SUCCESS, form.success_message(id, delete))
-            return redirect(f"{url}?{section_filter}")
+            return redirect(f"{url}?{section_filter}{saved_search_view}")
 
         if not (form.is_valid() and form.has_changed()):
             output = {
                 'form': form,
                 'section_filter': section_filter,
-                'id': saved_search.pk
+                'id': saved_search.pk,
+                'saved_search_view': f'&saved_search_view={saved_search_view}',
             }
 
             try:
@@ -1243,7 +1247,7 @@ class SavedSearchActionView(LoginRequiredMixin, View):
         saved_search.save()
         messages.add_message(request, messages.SUCCESS, form.success_message(id))
         url = reverse('crt_forms:saved-searches')
-        return redirect(f"{url}?{section_filter}")
+        return redirect(f"{url}?{section_filter}{saved_search_view}")
 
 
 class ReportAttachmentView(LoginRequiredMixin, FormView):
