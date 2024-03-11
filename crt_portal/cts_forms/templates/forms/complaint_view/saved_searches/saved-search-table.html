@@ -1,17 +1,17 @@
+{% load sortable_table_heading %}
+
 <div class="crt-xscroll">
     <table class="usa-table crt-table sort-table">
       <thead>
         <tr>
-          <th></th>
-          <th id="name">
-            Name
+          <th aria-label="Detail toggles">
+            <a aria-expanded="false" role="button" aria-label="Expand all detail rows" class="td-toggle-all display-flex" data-posted='false' href="#">
+              <img alt="" aria-hidden="true" src="{% static "img/intake-icons/ic_chevron-right.svg" %}" class="icon">
+            </a>
           </th>
-          <th>
-            Section
-          </th>
-          <th>
-            Created By
-          </th>
+          {% render_sortable_heading 'Name' sort_state filter_state grouping group_params index %}
+          {% render_sortable_heading 'Section' sort_state filter_state grouping group_params index %}
+          {% render_sortable_heading 'Created by' sort_state filter_state grouping group_params index %}
           <th></th>
         </tr>
       </thead>

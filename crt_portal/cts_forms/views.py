@@ -43,7 +43,7 @@ from .model_variables import HATE_CRIMES_TRAFFICKING_MODEL_CHOICES, SECTION_CHOI
 from .models import CommentAndSummary, Profile, Report, ReportAttachment, ReportsData, SavedSearch, Trends, EmailReportCount, Campaign, User, \
     RoutingSection, RoutingStepOneContact, RepeatWriterInfo
 from .page_through import pagination
-from .sorts import activity_sort, report_sort
+from .sorts import other_sort, report_sort
 
 logger = logging.getLogger(__name__)
 
@@ -186,7 +186,7 @@ def reconstruct_activity_query(next_qp):
     querydict = QueryDict(next_qp)
 
     _, selected_actions, _ = dashboard_filter(querydict)
-    sort_expr, _ = activity_sort(querydict.getlist('sort'))
+    sort_expr, _ = other_sort(querydict.getlist('sort'), 'activity')
     if not selected_actions:
         return selected_actions
     return selected_actions.order_by(*sort_expr)
@@ -507,7 +507,7 @@ def process_activity_filters(request):
     query_filters, selected_actions, _ = dashboard_filter(request.GET)
     per_page = request.GET.get('per_page', 15)
     page = request.GET.get('page', 1)
-    sort_expr, sorts = activity_sort(request.GET.getlist('sort'))
+    sort_expr, sorts = other_sort(request.GET.getlist('sort'), 'activity')
     if selected_actions != []:
         selected_actions = selected_actions.order_by(*sort_expr)
     paginator = Paginator(selected_actions, per_page)
@@ -659,7 +659,7 @@ def serialize_data(report, request, report_id):
 
 def get_section_args(section_filters):
     if not section_filters:
-        return []
+        return ''
     return ''.join([
         f'&section_filter={section_filter}'
         for section_filter in section_filters
@@ -1111,11 +1111,29 @@ class SavedSearchView(LoginRequiredMixin, FormView):
         saved_search_view = request.GET.get('saved_search_view', 'all')
         if saved_search_view == 'my-saved-searches':
             saved_searches = SavedSearch.objects.filter(created_by=request.user.id)
+        per_page = request.GET.get('per_page', request.COOKIES.get('complaint_view_per_page', 15))
+        page = request.GET.get('page', 1)
+        sort_expr, sorts = other_sort(request.GET.getlist('sort'), 'saved_search')
+        saved_searches = saved_searches.order_by(*sort_expr)
+        paginator = Paginator(saved_searches, per_page)
+        saved_searches, page_format = pagination(paginator, page, per_page)
+        sort_state = {}
+        page_args = f'?per_page={per_page}'
+        page_args += f'&saved_search_view={saved_search_view}{section_args}'
+        filter_args = f'&saved_search_view={saved_search_view}{section_args}'
+        page_args += filter_args
+        sort_args, sort_state = get_sort_args(sorts, sort_state)
+        page_args += sort_args
         output = {
             'section_filter': section_args,
             'saved_searches': saved_searches,
             'form': SavedSearchFilter(request.GET),
             'saved_search_view': saved_search_view,
+            'page_format': page_format,
+            'page_args': page_args,
+            'sort_state': sort_state,
+            'filter_state': filter_args,
+            'per_page': per_page,
         }
         return render(request, 'forms/complaint_view/saved_searches/index.html', output)
 
@@ -1127,11 +1145,28 @@ class SavedSearchView(LoginRequiredMixin, FormView):
         saved_search_view = request.GET.get('saved_search_view', 'all')
         if saved_search_view == 'my-saved-searches':
             saved_searches = SavedSearch.objects.filter(created_by=request.user.id)
+        per_page = request.GET.get('per_page', request.COOKIES.get('complaint_view_per_page', 15))
+        page = request.GET.get('page', 1)
+        sort_expr, sorts = other_sort(request.GET.getlist('sort'), 'saved_search')
+        saved_searches = saved_searches.order_by(*sort_expr)
+        paginator = Paginator(saved_searches, per_page)
+        saved_searches, page_format = pagination(paginator, page, per_page)
+        sort_state = {}
+        page_args = f'?per_page={per_page}'
+        filter_args = f'&saved_search_view={saved_search_view}{section_args}'
+        page_args += filter_args
+        sort_args, sort_state = get_sort_args(sorts, sort_state)
+        page_args += sort_args
         output = {
             'section_filter': section_args,
             'saved_searches': saved_searches,
             'form': SavedSearchFilter(request.GET),
             'saved_search_view': saved_search_view,
+            'page_format': page_format,
+            'page_args': page_args,
+            'sort_state': sort_state,
+            'filter_state': filter_args,
+            'per_page': per_page,
         }
         return render(request, 'forms/complaint_view/saved_searches/index.html', output)
 
