@@ -660,10 +660,11 @@ def serialize_data(report, request, report_id):
 def get_section_args(section_filters):
     if not section_filters:
         return ''
-    return ''.join([
-        f'&section_filter={section_filter}'
-        for section_filter in section_filters
-    ])
+    section_args = ''
+    for section_filter in section_filters:
+        if section_filter is not "":
+            section_args += f'&section_filter={section_filter}'
+    return section_args
 
 
 @login_required
@@ -1182,20 +1183,18 @@ class SavedSearchActionView(LoginRequiredMixin, View):
             saved_search = get_object_or_404(SavedSearch, pk=id)
         else:
             saved_search = SavedSearch()
-        section_filter = request.GET.getlist('section_filter', [])
-        section_args = get_section_args(section_filter)
+        section_filter = request.GET.get('section_filter', '')
         saved_search_form = SavedSearchActions(instance=saved_search)
         output = {
             'form': saved_search_form,
-            'section_filter': section_args,
+            'section_filter': section_filter,
         }
         if id:
             return render(request, 'forms/complaint_view/saved_searches/actions/update.html', output)
         return render(request, 'forms/complaint_view/saved_searches/actions/new.html', output)
 
     def post(self, request, id=None):
-        section_filter = request.GET.get('section_filter', [])
-        section_args = get_section_args(section_filter)
+        section_filter = request.POST.get('section_filter', '')
         url = reverse('crt_forms:saved-searches')
         delete = request.POST.get('delete', False)
         if not id:
@@ -1207,13 +1206,12 @@ class SavedSearchActionView(LoginRequiredMixin, View):
         if delete:
             saved_search.delete()
             messages.add_message(request, messages.SUCCESS, form.success_message(id, delete))
-            return redirect(f"{url}?{section_args}")
+            return redirect(f"{url}?{section_filter}")
 
         if not (form.is_valid() and form.has_changed()):
-            section_args = get_section_args(section_filter)
             output = {
                 'form': form,
-                'section_filter': section_args,
+                'section_filter': section_filter,
                 'id': saved_search.pk
             }
 
@@ -1241,8 +1239,6 @@ class SavedSearchActionView(LoginRequiredMixin, View):
         saved_search.save()
         messages.add_message(request, messages.SUCCESS, form.success_message(id))
         url = reverse('crt_forms:saved-searches')
-        section_filter = request.POST.get('section_filter', [])
-        section_args = get_section_args(section_filter)
         return redirect(f"{url}?{section_filter}")
 
 
