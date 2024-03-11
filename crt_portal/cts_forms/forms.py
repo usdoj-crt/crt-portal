@@ -2729,8 +2729,9 @@ class SavedSearchActions(ModelForm):
     def is_locked(self):
         return self.instance.auto_close or self.instance.override_section_assignment
 
-    def __init__(self, *args, user=None, **kwargs):
+    def __init__(self, *args, query=None, user=None, **kwargs):
         self.user = user
+        self.query = query
         ModelForm.__init__(self, *args, **kwargs)
 
         self.fields['section'] = ChoiceField(
@@ -2783,6 +2784,7 @@ class SavedSearchActions(ModelForm):
             required=True,
             disabled=self.is_locked()
         )
+        self.initial['query'] = self.query
 
         self.fields['shared'] = BooleanField(
             label='Share',

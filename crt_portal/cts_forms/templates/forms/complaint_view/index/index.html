@@ -17,6 +17,13 @@
     {% include "forms/complaint_view/index/grouping-select.html" %}
     </span>
     </div>
+    {% if ENABLED_FEATURES.saved_searches %}
+      <div class="display-flex margin-top-2">
+        <span class="save-search margin-left-auto">
+          {% include "forms/complaint_view/index/save-search.html" with filter_state=filter_state %}
+        </span>
+      </div>
+    {% endif %}
     <div class="display-flex margin-top-8">
     <span class="intake-pagination margin-left-auto">
       Showing {{ page_format.page_range_start }} - {{ page_format.page_range_end }} of {{ page_format.count }} records

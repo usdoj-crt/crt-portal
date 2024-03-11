@@ -1183,8 +1183,12 @@ class SavedSearchActionView(LoginRequiredMixin, View):
             saved_search = get_object_or_404(SavedSearch, pk=id)
         else:
             saved_search = SavedSearch()
+        query = request.GET.get('query', None)
+        if query:
+            _, query_filters = report_filter(QueryDict(query))
+            query = get_filter_args(query_filters)
         section_filter = request.GET.get('section_filter', '')
-        saved_search_form = SavedSearchActions(instance=saved_search)
+        saved_search_form = SavedSearchActions(query=query, instance=saved_search)
         output = {
             'form': saved_search_form,
             'section_filter': section_filter,
