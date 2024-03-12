@@ -1,7 +1,7 @@
 {% load sortable_table_heading %}
 
 <div class="crt-xscroll">
-    <table class="usa-table crt-table sort-table">
+    <table class="usa-table crt-table sort-table saved-search-table">
       <thead>
         <tr>
           <th aria-label="Detail toggles">
@@ -66,15 +66,15 @@
           </td>
           {# All screen readers don't yet read the headers attribute correctly, so we've added a redundant aria-label #}
           {# https://a11ysupport.io/tech/html/headers_attribute #}
-          <td aria-label="Query" headers="crt-table-query-header" class="quickview" colspan="1">
+          <td aria-label="Query Filters" headers="crt-table-query-header" class="quickview" colspan="1">
             <label aria-hidden="true" for="tr-quickview-query-{{ saved_search.id }}" class="td-quickview">
-              Query
+              Query filters
             </label>
             <div tabindex="0" role="textbox" aria-readonly="true" id="tr-quickview-query-{{ saved_search.id }}" class="td-summary">
-                {{ saved_search.query }}
+              {% include "forms/complaint_view/saved_searches/filters/query-filters.html" with filters=saved_search.filters %}
             </div>
           </td>
-          <td aria-label="Description" headers="crt-table-description-header" class="quickview" colspan="3">
+          <td aria-label="Description" headers="crt-table-description-header" class="quickview" colspan="4">
             <label aria-hidden="true" for="tr-quickview-description-{{ saved_search.id }}" class="td-quickview">
               Description
             </label>
