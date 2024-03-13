@@ -35,7 +35,7 @@
     </div>
   </div>
   {% if disposition_status == 'batches' %}
-    {% include "forms/complaint_view/disposition/batches_table.html" %}
+    {% include "forms/complaint_view/disposition/batches_table.html" with page_format=page_format sort_state=sort_state disposition_status=disposition_status %}
   {% else %}
     {% include "forms/complaint_view/disposition/complaints_table.html" with page_format=page_format sort_state=sort_state disposition_status=disposition_status %}
   {% endif %}
