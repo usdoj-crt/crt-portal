@@ -674,6 +674,7 @@ def get_batch_data(disposition_batches):
         })
     return data
 
+
 @login_required
 def disposition_view(request):
     disposition_status = request.GET.get('disposition_status', 'past')
