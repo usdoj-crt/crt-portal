@@ -696,7 +696,6 @@ class ReportDispositionBatch(models.Model):
     first_reviewer = models.ForeignKey(User, related_name="reviewed_disposed_report_batch", blank=True, null=True, on_delete=models.PROTECT, help_text="First records team reviewer.")
     second_reviewer = models.ForeignKey(User, related_name="second_reviewed_disposed_report_batch", blank=True, null=True, on_delete=models.PROTECT, help_text="Second records team reviewer.")
     notes = models.TextField(max_length=7000, null=False, blank=True, help_text="Internal notes about batch.")
-    # retention_schedule = models.ForeignKey(RetentionSchedule, related_name="batched_reports", on_delete=models.PROTECT)
 
     def add_records_to_batch(self, queryset, user):
         """Creates a batch of disposed reports."""
