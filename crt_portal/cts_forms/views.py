@@ -664,6 +664,7 @@ def get_section_args(section_filters):
         for section_filter in section_filters
     ])
 
+
 def get_batch_data(disposition_batches):
     data = []
     for batch in disposition_batches:
