@@ -2,25 +2,21 @@
 
 {% load i18n %}
 
-{% block title %}Batch #{{ batch.uuid }}{% endblock %}
+{% block title %}Review Batch #{{ batch.uuid }} for Disposal{% endblock %}
 
 {% block extra_classes %}disposition-actions-card crt-actions-card{% endblock %}
 
 {% block card_content %}
 
-<form class="usa-form" method="post" action="/form/disposition/batch" novalidate>
+<form class="usa-form" method="post" action="/form/disposition/batch/{{batch.uuid}}/" novalidate>
     {% csrf_token %}
-    <input type="hidden" value="{{ batch.uuid }}" name="uuid" id="uuid" />
     <div>
-        <h3>Select reports to approve for disposal</h3>
-        <a class="text-bold" href="#">View Proposed Reports for Disposal</a>
-        <h3>Fill out disposition approval form</h3>
         <h3>Primary Information</h3>
         <table class="usa-table usa-table--borderless complaint-card-table">
             <tr>
                 <th>Section</th>
                 <td>
-                    {{ section }}
+                    {{ shared_report_fields.section }}
                 </td>
             </tr>
             <tr>
@@ -29,18 +25,58 @@
                     {{ batch.proposed_disposal_date|date:"SHORT_DATE_FORMAT" }}
                 </td>
             </tr>
-            <tr></tr>
+            <tr>
+                <th>Retention Schedule</th>
+                <td>
+                    {{ shared_report_fields.retention_schedule }}
+                </td>
+            </tr>
         </table>
         <h3>Disposal Approval</h3>
-        <div class="display-flex align-center">
-            <button class="usa-button">
-                Approve Disposal
-            </button>
-            <button class="usa-button">
-                Reject Disposal
+        <div class="margin-bottom-2 padding-left-2">
+            {{ form.status }}
+        </div>
+        <div class="display-flex flex-align-end flex-justify padding-left-2">
+            <div class="margin-bottom-2 margin-right-2">
+                <label for="id_first_reviewer">
+                {{ form.first_reviewer.label }}
+                </label>
+                {{ form.first_reviewer }}
+            </div>
+            <div class="margin-bottom-2">
+                <label for="id_first_review_date">
+                {{ form.first_review_date.label }}
+                </label>
+                {{ form.first_review_date }}
+            </div>
+        </div>
+        {% if batch.first_reviewer %}
+            <div class="display-flex flex-align-end flex-justify padding-left-2">
+                <div class="margin-bottom-2 margin-right-2">
+                    <label for="id_second_reviewer">
+                    {{ form.second_reviewer.label }}
+                    </label>
+                    {{ form.second_reviewer }}
+                </div>
+                <div class="margin-bottom-2">
+                    <label for="id_second_review_date">
+                    {{ form.second_review_date.label }}
+                    </label>
+                    {{ form.second_review_date }}
+                </div>
+            </div>
+        {% endif %}
+        <div class="margin-bottom-2 crt-textarea padding-left-2">
+            <label for="id_notes">
+              {{ form.notes.label }}
+            </label>
+            {{ form.notes }}
+        </div>
+        <div class="display-flex flex-justify-end">
+            <button class="usa-button" type="submit">
+                Submit
             </button>
         </div>
-        <h3>Track status of reports</h3>
     </div>
 </form>
 {% endblock %}

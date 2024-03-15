@@ -694,8 +694,10 @@ class ReportDispositionBatch(models.Model):
     disposed_count = models.IntegerField(default=0)
     status = models.TextField(choices=BATCH_STATUS_CHOICES, default='ready')
     first_reviewer = models.ForeignKey(User, related_name="reviewed_disposed_report_batch", blank=True, null=True, on_delete=models.PROTECT, help_text="First records team reviewer.")
+    first_review_date = models.DateTimeField(blank=True, null=True, help_text="Date of the first records team review.")
     second_reviewer = models.ForeignKey(User, related_name="second_reviewed_disposed_report_batch", blank=True, null=True, on_delete=models.PROTECT, help_text="Second records team reviewer.")
-    notes = models.TextField(max_length=7000, null=False, blank=True, help_text="Internal notes about batch.")
+    second_review_date = models.DateTimeField(blank=True, null=True, help_text="Date of the second records team review.")
+    notes = models.TextField(max_length=7000, null=True, blank=True, help_text="Internal notes about batch.")
 
     def add_records_to_batch(self, queryset, user):
         """Creates a batch of disposed reports."""

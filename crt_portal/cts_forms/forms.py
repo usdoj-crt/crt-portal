@@ -17,7 +17,7 @@ from django.conf import settings
 from features.models import Feature
 
 from .filters import get_report_filter_from_search
-from .model_variables import (ACTION_CHOICES, CLOSED_STATUS, COMMERCIAL_OR_PUBLIC_ERROR,
+from .model_variables import (ACTION_CHOICES, BATCH_STATUS_CHOICES, CLOSED_STATUS, COMMERCIAL_OR_PUBLIC_ERROR,
                               COMMERCIAL_OR_PUBLIC_PLACE_CHOICES,
                               COMMERCIAL_OR_PUBLIC_PLACE_HELP_TEXT,
                               CONTACT_PHONE_INVALID_MESSAGE,
@@ -2028,6 +2028,171 @@ class PrintActions(Form):
     )
 
 
+class BatchReviewForm(ModelForm, ActivityStreamUpdater):
+
+    def field_changed(self, field):
+        # if both are Falsy, nothing actually changed (None ~= "")
+        old = self.initial.get(field, None)
+        new = self.cleaned_data.get(field, None)
+        if not old and not new:
+            return False
+        return old != new
+
+    @cached_property
+    def changed_data(self):
+        return [
+            field_name
+            for field_name
+            in super().changed_data
+            if self.field_changed(field_name)
+        ]
+
+    notes = CharField(
+        required=False,
+        max_length=7000,
+        widget=Textarea(
+            attrs={
+                'rows': 3,
+                'class': 'usa-textarea',
+                'aria-label': 'Complaint summary'
+            },
+        ),
+    )
+
+    status = TypedChoiceField(
+        choices=(('approved', 'Approved'), ('rejected', 'Rejected')),
+        empty_value=None,
+        widget=UsaRadioSelect,
+        required=False,
+    )
+
+    class Meta:
+        model = ReportDispositionBatch
+        fields = ['first_reviewer', 'first_review_date', 'second_reviewer', 'second_review_date', 'status', 'notes']
+
+    def setup_first_reviewer(self):
+        first_reviewer = self.instance.first_reviewer if self.instance.first_reviewer else self.user
+        value = f'{first_reviewer.first_name} {first_reviewer.last_name}' if first_reviewer.first_name and first_reviewer.last_name else ''
+        self.fields['first_reviewer'] = CharField(
+            label='Primary Authorizing Individual',
+            widget=CrtTextInput(
+                attrs={
+                    'class': 'usa-input',
+                    'name': 'first_reviewer',
+                    'placeholder': 'Primary Authorizing Individual',
+                    'aria_label': 'Primary Authorizing Individual',
+                    'value': value,
+                    'label': 'Primary Authorizing Individual',
+                },
+            ),
+            required=True,
+            initial=first_reviewer,
+            disabled=self.instance.first_reviewer != None
+        )
+
+    def setup_first_review_date(self):
+        first_review_date = self.instance.first_review_date if self.instance.first_review_date else datetime.today()
+        self.fields['first_review_date'] = CharField(
+            required=True,
+            label="Date",
+            initial=first_review_date,
+            widget=CrtTextInput(attrs={
+                'class': 'usa-input',
+                'name': 'first_review_date',
+                'placeholder': 'mm/dd/yyyy',
+                'aria_label': 'Date',
+                'value': first_review_date.strftime('%m/%d/%Y'),
+                'label': 'Date',
+            }),
+            disabled=self.instance.first_review_date != None
+        )
+
+    def setup_second_reviewer(self):
+        second_reviewer = self.instance.second_reviewer if self.instance.second_reviewer else self.user
+        value = f'{second_reviewer.first_name} {second_reviewer.last_name}' if second_reviewer.first_name and second_reviewer.last_name else ''
+        self.fields['second_reviewer'] = CharField(
+            label='Secondary Authorizing Individual',
+            widget=CrtTextInput(
+                attrs={
+                    'class': 'usa-input',
+                    'name': 'second_reviewer',
+                    'placeholder': 'Secondary Authorizing Individual',
+                    'aria_label': 'Secondary Authorizing Individual',
+                    'value': value,
+                    'label': 'Secondary Authorizing Individual',
+                },
+            ),
+            required=self.instance.first_reviewer != None,
+            initial=second_reviewer,
+            disabled=self.instance.second_reviewer != None,
+        )
+
+    def setup_second_review_date(self):
+        second_review_date = self.instance.second_review_date if self.instance.second_review_date else datetime.today()
+        display_value = second_review_date.strftime('%m/%d/%Y')
+        self.fields['second_review_date'] = CharField(
+            required=self.instance.first_review_date != None,
+            label="Date",
+            initial=second_review_date,
+            widget=CrtTextInput(attrs={
+                'class': 'usa-input',
+                'name': 'second_review_date',
+                'placeholder': 'mm/dd/yyyy',
+                'aria_label': 'Date',
+                'value': display_value,
+                'label': 'Date',
+            }),
+            disabled=self.instance.second_review_date != None
+        )
+
+    def clean_first_reviewer(self):
+        user = None
+        if 'first_reviewer' not in self.changed_data:
+            return self.instance.first_reviewer
+        name = self.cleaned_data['first_reviewer'].split(' ')
+        if len(name) == 2:
+            user = User.objects.filter(first_name=name[0], last_name=name[1]).first()
+        return user
+
+    def clean_first_review_date(self):
+        if not self.cleaned_data['first_review_date'] or type(self.instance.first_review_date) is datetime:
+            return self.instance.first_review_date
+        first_review_date = self.cleaned_data['first_review_date'].split('/')
+        if first_review_date:
+            return datetime(int(first_review_date[2]), int(first_review_date[0]), int(first_review_date[1]))
+        return self.instance.first_review_date
+
+    def clean_second_reviewer(self):
+        user = None
+        if 'second_reviewer' not in self.changed_data:
+            return None
+        name = self.cleaned_data['second_reviewer'].split(' ')
+        if len(name) == 2:
+            user = User.objects.filter(first_name=name[0], last_name=name[1]).first()
+        return user
+
+    def clean_second_review_date(self):
+        if 'second_review_date' not in self.changed_data or type(self.instance.first_review_date) is datetime:
+            return self.instance.second_review_date
+        second_review_date = self.cleaned_data['second_review_date'].split('/')
+        if second_review_date:
+            return datetime(int(second_review_date[2]), int(second_review_date[0]), int(second_review_date[1]))
+        return self.instance.second_review_date
+
+    def __init__(self, *args, user=None, **kwargs):
+        self.user = user
+        ModelForm.__init__(self, *args, **kwargs)
+        self.setup_first_reviewer()
+        self.setup_first_review_date()
+        if self.instance.first_reviewer:
+            self.setup_second_reviewer()
+            self.setup_second_review_date()
+
+    def save(self, commit=True):
+        disposition_batch = super().save(commit)
+        return disposition_batch
+
+
 class BulkDispositionForm(ModelForm, ActivityStreamUpdater):
 
     def field_changed(self, field):
@@ -2116,7 +2281,6 @@ class BulkDispositionForm(ModelForm, ActivityStreamUpdater):
         Bulk update given reports and update activity log for each report
         """
         proposed_disposal_date = batch.proposed_disposal_date.strftime('%m/%d/%Y')
-        logging.info(user)
         batch.add_records_to_batch(reports, user)
         for report in reports:
             add_activity(user, 'Disposition:', f'Approved for disposal on {proposed_disposal_date}', report, True)
