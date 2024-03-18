@@ -677,6 +677,7 @@ def get_section_args(section_filters):
         for section_filter in section_filters
     ])
 
+
 def get_batch_data(disposition_batches):
     data = []
     for batch in disposition_batches:
@@ -687,6 +688,7 @@ def get_batch_data(disposition_batches):
             'url': reverse('crt_forms:disposition-batch-actions', kwargs={'id': batch.uuid}),
         })
     return data
+
 
 @login_required
 def disposition_view(request):

@@ -2090,7 +2090,7 @@ class BatchReviewForm(ModelForm, ActivityStreamUpdater):
                 },
             ),
             required=True,
-            disabled=self.instance.first_reviewer != None
+            disabled=self.instance.first_reviewer is not None
         )
 
     def setup_first_review_date(self):
@@ -2106,7 +2106,7 @@ class BatchReviewForm(ModelForm, ActivityStreamUpdater):
                 'value': first_review_date.strftime('%m/%d/%Y'),
                 'label': 'Date',
             }),
-            disabled=self.instance.first_review_date != None
+            disabled=self.instance.first_review_date is not None
         )
 
     def setup_second_reviewer(self):
@@ -2124,15 +2124,15 @@ class BatchReviewForm(ModelForm, ActivityStreamUpdater):
                     'label': 'Secondary Authorizing Individual',
                 },
             ),
-            required=self.instance.first_reviewer != None,
-            disabled=self.instance.second_reviewer != None,
+            required=self.instance.first_reviewer is not None,
+            disabled=self.instance.second_reviewer is not None,
         )
 
     def setup_second_review_date(self):
         second_review_date = self.instance.second_review_date if self.instance.second_review_date else datetime.today()
         display_value = second_review_date.strftime('%m/%d/%Y')
         self.fields['second_review_date'] = CharField(
-            required=self.instance.first_review_date != None,
+            required=self.instance.first_review_date is not None,
             label="Date",
             widget=CrtTextInput(attrs={
                 'class': 'usa-input',
@@ -2142,12 +2142,12 @@ class BatchReviewForm(ModelForm, ActivityStreamUpdater):
                 'value': display_value,
                 'label': 'Date',
             }),
-            disabled=self.instance.second_review_date != None
+            disabled=self.instance.second_review_date is not None
         )
 
     def clean_first_reviewer(self):
         user = self.user.get_username()
-        if 'first_reviewer' not in self.cleaned_data or self.instance.first_reviewer != None:
+        if 'first_reviewer' not in self.cleaned_data or self.instance.first_reviewer is not None:
             return self.instance.first_reviewer
         name = self.cleaned_data['first_reviewer'].split(' ')
         if len(name) == 2:
@@ -2155,14 +2155,14 @@ class BatchReviewForm(ModelForm, ActivityStreamUpdater):
         return user
 
     def clean_first_review_date(self):
-        if self.cleaned_data['first_review_date'] == None or self.instance.first_review_date != None:
+        if self.cleaned_data['first_review_date'] is None or self.instance.first_review_date is not None:
             return self.instance.first_review_date
         first_review_date = self.cleaned_data['first_review_date'].split('/')
         return datetime(int(first_review_date[2]), int(first_review_date[0]), int(first_review_date[1]))
 
     def clean_second_reviewer(self):
         user = self.user.get_username()
-        if 'second_reviewer' not in self.changed_data or self.instance.second_reviewer != None:
+        if 'second_reviewer' not in self.changed_data or self.instance.second_reviewer is not None:
             return self.instance.second_reviewer
         name = self.cleaned_data['second_reviewer'].split(' ')
         if len(name) == 2:
@@ -2170,7 +2170,7 @@ class BatchReviewForm(ModelForm, ActivityStreamUpdater):
         return user
 
     def clean_second_review_date(self):
-        if self.cleaned_data['second_review_date'] == None or self.instance.second_review_date != None:
+        if self.cleaned_data['second_review_date'] is None or self.instance.second_review_date is not None:
             return self.instance.second_review_date
         second_review_date = self.cleaned_data['second_review_date'].split('/')
         return datetime(int(second_review_date[2]), int(second_review_date[0]), int(second_review_date[1]))
