@@ -47,7 +47,7 @@ def extract_csv_from_shapefile(kind: str, to_extract: List[str]):
             for shape in file
         ]
     extracted.sort(key=lambda x: x[to_extract[0]])
-    with open(f'./geocoding/{kind}.csv', 'w') as csvfile:
+    with open(f'./{kind}.csv', 'w') as csvfile:
         writer = csv.DictWriter(csvfile, fieldnames=to_extract)
         writer.writeheader()
         writer.writerows(extracted)
