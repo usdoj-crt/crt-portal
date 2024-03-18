@@ -17,7 +17,7 @@ from django.conf import settings
 from features.models import Feature
 
 from .filters import get_report_filter_from_search
-from .model_variables import (ACTION_CHOICES, BATCH_STATUS_CHOICES, CLOSED_STATUS, COMMERCIAL_OR_PUBLIC_ERROR,
+from .model_variables import (ACTION_CHOICES, CLOSED_STATUS, COMMERCIAL_OR_PUBLIC_ERROR,
                               COMMERCIAL_OR_PUBLIC_PLACE_CHOICES,
                               COMMERCIAL_OR_PUBLIC_PLACE_HELP_TEXT,
                               CONTACT_PHONE_INVALID_MESSAGE,
@@ -2062,7 +2062,11 @@ class BatchReviewForm(ModelForm, ActivityStreamUpdater):
     status = TypedChoiceField(
         choices=(('approved', 'Approved'), ('rejected', 'Rejected')),
         empty_value=None,
-        widget=UsaRadioSelect,
+        widget=UsaRadioSelect(
+            attrs={
+                'class': 'display-flex radio-flex',
+            }
+        ),
         required=False,
     )
 
@@ -2086,7 +2090,6 @@ class BatchReviewForm(ModelForm, ActivityStreamUpdater):
                 },
             ),
             required=True,
-            initial=first_reviewer,
             disabled=self.instance.first_reviewer != None
         )
 
@@ -2095,7 +2098,6 @@ class BatchReviewForm(ModelForm, ActivityStreamUpdater):
         self.fields['first_review_date'] = CharField(
             required=True,
             label="Date",
-            initial=first_review_date,
             widget=CrtTextInput(attrs={
                 'class': 'usa-input',
                 'name': 'first_review_date',
@@ -2123,7 +2125,6 @@ class BatchReviewForm(ModelForm, ActivityStreamUpdater):
                 },
             ),
             required=self.instance.first_reviewer != None,
-            initial=second_reviewer,
             disabled=self.instance.second_reviewer != None,
         )
 
@@ -2133,7 +2134,6 @@ class BatchReviewForm(ModelForm, ActivityStreamUpdater):
         self.fields['second_review_date'] = CharField(
             required=self.instance.first_review_date != None,
             label="Date",
-            initial=second_review_date,
             widget=CrtTextInput(attrs={
                 'class': 'usa-input',
                 'name': 'second_review_date',
@@ -2146,8 +2146,8 @@ class BatchReviewForm(ModelForm, ActivityStreamUpdater):
         )
 
     def clean_first_reviewer(self):
-        user = None
-        if 'first_reviewer' not in self.changed_data:
+        user = self.user.get_username()
+        if 'first_reviewer' not in self.cleaned_data or self.instance.first_reviewer != None:
             return self.instance.first_reviewer
         name = self.cleaned_data['first_reviewer'].split(' ')
         if len(name) == 2:
@@ -2155,29 +2155,25 @@ class BatchReviewForm(ModelForm, ActivityStreamUpdater):
         return user
 
     def clean_first_review_date(self):
-        if not self.cleaned_data['first_review_date'] or type(self.instance.first_review_date) is datetime:
+        if self.cleaned_data['first_review_date'] == None or self.instance.first_review_date != None:
             return self.instance.first_review_date
         first_review_date = self.cleaned_data['first_review_date'].split('/')
-        if first_review_date:
-            return datetime(int(first_review_date[2]), int(first_review_date[0]), int(first_review_date[1]))
-        return self.instance.first_review_date
+        return datetime(int(first_review_date[2]), int(first_review_date[0]), int(first_review_date[1]))
 
     def clean_second_reviewer(self):
-        user = None
-        if 'second_reviewer' not in self.changed_data:
-            return None
+        user = self.user.get_username()
+        if 'second_reviewer' not in self.changed_data or self.instance.second_reviewer != None:
+            return self.instance.second_reviewer
         name = self.cleaned_data['second_reviewer'].split(' ')
         if len(name) == 2:
             user = User.objects.filter(first_name=name[0], last_name=name[1]).first()
         return user
 
     def clean_second_review_date(self):
-        if 'second_review_date' not in self.changed_data or type(self.instance.first_review_date) is datetime:
+        if self.cleaned_data['second_review_date'] == None or self.instance.second_review_date != None:
             return self.instance.second_review_date
         second_review_date = self.cleaned_data['second_review_date'].split('/')
-        if second_review_date:
-            return datetime(int(second_review_date[2]), int(second_review_date[0]), int(second_review_date[1]))
-        return self.instance.second_review_date
+        return datetime(int(second_review_date[2]), int(second_review_date[0]), int(second_review_date[1]))
 
     def __init__(self, *args, user=None, **kwargs):
         self.user = user

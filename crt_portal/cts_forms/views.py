@@ -682,6 +682,7 @@ def get_batch_data(disposition_batches):
     for batch in disposition_batches:
         data.append({
             'batch': batch,
+            'truncated_uuid': f'...{str(batch.uuid)[-6:]}',
             'retention_schedule': RetentionSchedule.objects.get(retention_years=batch.retention_schedule).name if batch.retention_schedule else '',
             'url': reverse('crt_forms:disposition-batch-actions', kwargs={'id': batch.uuid}),
         })
@@ -1191,7 +1192,7 @@ class DispositionBatchActionsView(LoginRequiredMixin, FormView):
         data = get_disposition_report_data(reports)
         first_report = reports.first()
         shared_report_fields = {}
-        shared_report_fields['section'] = first_report.assigned_section
+        shared_report_fields['assigned_section'] = first_report.assigned_section
         shared_report_fields['status'] = first_report.status
         shared_report_fields['retention_schedule'] = first_report.retention_schedule
         form = BatchReviewForm(user=request.user, instance=batch)

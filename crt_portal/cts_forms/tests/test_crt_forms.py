@@ -1375,6 +1375,49 @@ class BulkDispositionFormTests(TestCase):
             pass
 
 
+class BatchActionFormTests(TestCase):
+    def setUp(self):
+        self.test_pass = secrets.token_hex(32)
+        user = User.objects.create_user('DELETE_USER', 'ringo@thebeatles.com', self.test_pass, first_name='Ringo', last_name='Starr')
+        [Report.objects.create(**SAMPLE_REPORT_1) for _ in range(4)]
+        self.batch = ReportDispositionBatch.objects.create(
+            proposed_disposal_date=datetime(datetime.today().year + 1, 1, 1),
+            create_date=datetime.today(),
+            disposed_count=4,
+            disposed_by=user
+        )
+        self.user_reviewer = User.objects.create_user('REVIEWER', 'paul@thebeatles.com', self.test_pass, first_name='Paul', last_name='McCartney')
+        self.second_user_reviewer = User.objects.create_user('SECOND_REVIEWER', 'john@thebeatles.com', self.test_pass, first_name='John', last_name='Lennon')
+
+    def test_approve_batch(self):
+        client = Client()
+        client.login(username='REVIEWER', password=self.test_pass)
+        url = reverse('crt_forms:disposition-batch-actions', kwargs={'id': self.batch.uuid})
+        params = {
+            'status': 'approved',
+            'first_review_date': datetime.today().strftime('%m/%d/%Y'),
+            'first_reviewer': 'Paul McCartney',
+        }
+        response = client.post(url, params, follow=True)
+        content = str(response.content)
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue('has been approved for disposal' in content)
+
+    def test_reject_batch(self):
+        client = Client()
+        client.login(username='SECOND_REVIEWER', password=self.test_pass)
+        url = reverse('crt_forms:disposition-batch-actions', kwargs={'id': self.batch.uuid})
+        params = {
+            'status': 'rejected',
+            'first_review_date': datetime.today().strftime('%m/%d/%Y'),
+            'first_reviewer': 'John Lennon',
+        }
+        response = client.post(url, params, follow=True)
+        content = str(response.content)
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue('has been rejected for disposal' in content)
+
+
 class FiltersFormTests(TestCase):
     def setUp(self):
         self.client = Client()
