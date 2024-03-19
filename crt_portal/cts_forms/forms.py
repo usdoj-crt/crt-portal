@@ -2053,7 +2053,11 @@ class BulkDispositionForm(ModelForm, ActivityStreamUpdater):
 
     def setup_disposed_by(self):
         disposed_by = self.user
-        value = f'{disposed_by.first_name} {disposed_by.last_name}' if disposed_by.first_name and disposed_by.last_name else ''
+        value = (
+            f'{disposed_by.first_name} {disposed_by.last_name}'
+            if disposed_by.first_name and disposed_by.last_name
+            else ''
+        )
         self.fields['disposed_by'] = CharField(
             label='Approving Official',
             widget=CrtTextInput(
@@ -2087,14 +2091,11 @@ class BulkDispositionForm(ModelForm, ActivityStreamUpdater):
         )
 
     def clean_disposed_by(self):
-        user = None
         if 'disposed_by' not in self.cleaned_data:
             return ''
         name = self.cleaned_data['disposed_by'].split(' ')
         if len(name) == 2:
-            user = User.objects.filter(first_name=name[0], last_name=name[1]).first()
-        if user:
-            return user
+            return User.objects.filter(first_name=name[0], last_name=name[1]).first()
         return ''
 
     def clean_create_date(self):

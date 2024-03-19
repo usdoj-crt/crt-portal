@@ -948,13 +948,13 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
         query = record_query.order_by()
         for key in keys:
             values = query.values_list(key, flat=True).distinct()
-            if values.count() == 1:
-                if key == 'retention_schedule':
-                    yield key, RetentionSchedule.objects.get(retention_years=values[0]).name
-                else:
-                    yield key, values[0]
-            else:
+            if values.count() != 1:
                 yield key, self.EMPTY_CHOICE
+                continue
+            if key == 'retention_schedule':
+                yield key, RetentionSchedule.objects.get(retention_years=values[0]).name
+                continue
+            yield key, values[0]
 
     def get_report_date_range(self, record_query):
         query = record_query.order_by()
