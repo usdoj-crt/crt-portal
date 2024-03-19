@@ -17,7 +17,7 @@ from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.core.exceptions import PermissionDenied, SuspiciousOperation
+from django.core.exceptions import PermissionDenied, SuspiciousOperation, BadRequest
 from django.core.paginator import Paginator
 from django.db.models import F
 from django.http import Http404, HttpResponse, QueryDict
@@ -981,10 +981,7 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
         return data
 
     def reconstruct_id_args(self, ids):
-        id_args = ''
-        for id in ids:
-            id_args += f'&id={id}'
-        return id_args
+        return ''.join([f'&id={id}' for id in ids])
 
     def get(self, request, id=None):
         return_url_args = request.GET.get('next', '')
@@ -1000,7 +997,7 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
             selected_report_args = self.reconstruct_id_args(ids)
 
         if requested_query.count() > 500:
-            raise PermissionDenied
+            raise BadRequest
 
         disposition_status = request.GET.get('disposition_status', 'past')
         _, query_filters = report_filter(QueryDict(query_string))
