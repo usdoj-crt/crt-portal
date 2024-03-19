@@ -40,7 +40,7 @@ from .forms import (
 )
 from .mail import mail_to_complainant
 from .model_variables import HATE_CRIMES_TRAFFICKING_MODEL_CHOICES, SECTION_CHOICES
-from .models import CommentAndSummary, Profile, Report, ReportAttachment, ReportsData, SavedSearch, Trends, EmailReportCount, Campaign, User, \
+from .models import CommentAndSummary, Profile, Report, ReportAttachment, ReportDispositionBatch, ReportsData, RetentionSchedule, SavedSearch, Trends, EmailReportCount, Campaign, User, \
     RoutingSection, RoutingStepOneContact, RepeatWriterInfo
 from .page_through import pagination
 from .sorts import activity_sort, report_sort
@@ -373,7 +373,6 @@ def get_view_data(request, report_query, query_filters, disposition_status=None)
     sort_expr, sorts = report_sort(request.GET.getlist('sort'))
 
     requested_reports = requested_reports.order_by(*sort_expr)
-
     paginator = Paginator(requested_reports, per_page)
     requested_reports, page_format = pagination(paginator, page, per_page)
 
@@ -936,61 +935,160 @@ class DispositionGuideView(LoginRequiredMixin, View):
 
 class DispositionActionsView(LoginRequiredMixin, FormView):
     """ CRT view to update report disposition"""
+    EMPTY_CHOICE = 'Multiple'
 
-    def get(self, request):
+    def get_shared_report_values(self, record_query, keys):
+        """
+        Given a record query and a list of keys, determine if a key has a
+        singular value within that query. Used to set initial fields
+        for bulk update forms.
+        """
+        # make sure the queryset does not order by anything, otherwise
+        # we will have difficulty getting distinct results.
+        query = record_query.order_by()
+        for key in keys:
+            values = query.values_list(key, flat=True).distinct()
+            if values.count() != 1:
+                yield key, self.EMPTY_CHOICE
+                continue
+            if key == 'retention_schedule':
+                yield key, RetentionSchedule.objects.get(retention_years=values[0]).name
+                continue
+            yield key, values[0]
+
+    def get_report_date_range(self, record_query):
+        query = record_query.order_by()
+        intake_date = query.values_list('create_date', flat=True).order_by('create_date').first().strftime('%m/%d/%Y')
+        close_date = query.values_list('closed_date', flat=True).order_by('closed_date').last().strftime('%m/%d/%Y')
+        return f'{intake_date} - {close_date}'
+
+    def get_proposed_disposal_date(self, record_query):
+        query = record_query.order_by()
+        close_date = query.values_list('closed_date', flat=True).order_by('closed_date').last()
+        retention_schedule = query.values_list('retention_schedule', flat=True).distinct()
+        return datetime(close_date.year + retention_schedule[0] + 1, 1, 2).date().strftime('%m/%d/%Y')
+
+    def get_report_data(self, requested_reports):
+        data = []
+        for report in requested_reports:
+            if report.retention_schedule and report.closed_date:
+                report.expiration_date = datetime(report.closed_date.year + report.retention_schedule.retention_years + 1, 1, 1).date()
+            url = reverse('crt_forms:crt-forms-show', kwargs={'id': report.pk})
+            data.append({
+                "report": report,
+                "url": url,
+            })
+        return data
+
+    def get(self, request, id=None):
         return_url_args = request.GET.get('next', '')
         return_url_args = urllib.parse.unquote(return_url_args)
         query_string = return_url_args
         ids = request.GET.getlist('id')
-        # The select all option only applies if 1. user hits the
-        # select all button and 2. we have more records in the query
-        # than the ids passed in
         selected_all = request.GET.get('all', '') == 'all'
-
         if selected_all:
             requested_query = reconstruct_query(query_string)
         else:
             requested_query = Report.objects.filter(pk__in=ids)
 
-        bulk_disposition_form = BulkDispositionForm(requested_query, user=request.user)
+        data = self.get_report_data(requested_query)
+        shared_report_fields = {}
+        keys = ['assigned_section', 'retention_schedule', 'status']
+        for key, value in self.get_shared_report_values(requested_query, keys):
+            shared_report_fields[key] = value
+        shared_report_fields['date_range'] = self.get_report_date_range(requested_query)
+        shared_report_fields['proposed_disposal_date'] = self.get_proposed_disposal_date(requested_query)
+        if not id:
+            batch = ReportDispositionBatch()
+        else:
+            batch = get_object_or_404(ReportDispositionBatch, pk=id)
+        bulk_disposition_form = BulkDispositionForm(user=request.user, instance=batch)
         all_ids_count = requested_query.count()
         ids_count = len(ids)
 
-        # further refine selected_all to ensure < 15 items don't show up.
         selected_all = selected_all and all_ids_count != ids_count
 
+        if selected_all:
+            ids_count = all_ids_count
+
         output = {
+            'uuid': batch.uuid,
             'return_url_args': return_url_args,
             'selected_all': 'all' if selected_all else '',
             'ids': ','.join(ids),
-            'ids_count': ids_count,
             'show_warning': ids_count > 15,
-            'all_ids_count': all_ids_count,
-            'bulk_actions_form': bulk_disposition_form,
+            'all_ids_count': ids_count,
+            'shared_report_fields': shared_report_fields,
+            'data': data,
+            'bulk_disposition_form': bulk_disposition_form,
             'query_string': query_string,
+            'id': id,
         }
         return render(request, 'forms/complaint_view/disposition/actions/index.html', output)
 
-    def post(self, request):
+    def post(self, request, id=None):
         return_url_args = request.POST.get('next', '')
         confirm_all = request.POST.get('confirm_all', '') == 'confirm_all'
         ids = request.POST.get('ids', '').split(',')
+        selected_all = request.POST.get('all', '') == 'all'
         query_string = request.POST.get('query_string', return_url_args)
 
         if confirm_all:
             requested_query = reconstruct_query(query_string)
         else:
             requested_query = Report.objects.filter(pk__in=ids)
+        if not id:
+            batch = ReportDispositionBatch()
+        else:
+            batch = get_object_or_404(ReportDispositionBatch, pk=id)
+        bulk_disposition_form = BulkDispositionForm(request.POST, user=request.user, instance=batch)
+        if bulk_disposition_form.is_valid():
+            batch = bulk_disposition_form.save(commit=False)
+            batch.save()
+            bulk_disposition_form.update_reports(requested_query, request.user, batch)
+            plural = 's have' if batch.disposed_count > 1 else ' has'
+            message = f'{batch.disposed_count} record{plural} been approved for disposal'
+            messages.add_message(request, messages.SUCCESS, message)
+            url = reverse('crt_forms:disposition')
+            return redirect(f"{url}{return_url_args}")
+        else:
+            for key in bulk_disposition_form.errors:
+                errors = '; '.join(bulk_disposition_form.errors[key])
+                if key == '__all__':
+                    target = ':'
+                else:
+                    target = f' {key}:'
+                error_message = f'Could not batch reports{target} {errors}'
+                messages.add_message(request, messages.ERROR, error_message)
+            data = self.get_report_data(requested_query)
+            shared_report_fields = {}
+            shared_report_fields['date_range'] = self.get_report_date_range(requested_query)
+            shared_report_fields['proposed_disposal_date'] = self.get_proposed_disposal_date(requested_query)
+            keys = ['assigned_section', 'retention_schedule']
+            for key, value in self.get_shared_report_values(requested_query, keys):
+                shared_report_fields[key] = value
+            shared_report_fields['date_range'] = self.get_report_date_range(requested_query)
+            all_ids_count = requested_query.count()
+            ids_count = len(ids)
 
-        bulk_disposition_form = BulkDispositionForm(requested_query, request.POST, user=request.user)
-        number = bulk_disposition_form.update(requested_query, request.user)
-        plural = 's have' if number > 1 else ' has'
-        message = f'{number} record{plural} been approved for deletion'
-        logging.info(message)
-        messages.add_message(request, messages.SUCCESS, message)
+            selected_all = selected_all and all_ids_count != ids_count
+            if selected_all:
+                ids_count = all_ids_count
 
-        url = reverse('crt_forms:disposition')
-        return redirect(f"{url}{return_url_args}")
+            output = {
+                'uuid': batch.uuid,
+                'return_url_args': return_url_args,
+                'selected_all': 'all' if selected_all else '',
+                'ids': ','.join(ids),
+                'show_warning': ids_count > 15,
+                'all_ids_count': ids_count,
+                'shared_report_fields': shared_report_fields,
+                'data': data,
+                'bulk_disposition_form': bulk_disposition_form,
+                'query_string': query_string,
+                'id': id,
+            }
+            return render(request, 'forms/complaint_view/disposition/actions/index.html', output)
 
 
 class ActionsView(LoginRequiredMixin, FormView):

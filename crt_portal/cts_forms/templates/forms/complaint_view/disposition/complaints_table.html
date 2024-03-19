@@ -23,11 +23,12 @@
             <div class="usa-checkbox td-checkbox">
               <input type="checkbox"
                      name="all"
-                     class="usa-checkbox__input checkbox-input-all"
+                     class="usa-checkbox__input checkbox-input-all disposition-checkbox-all"
                      value="all"
               >
               <label class="usa-checkbox__label crt-checkbox__label checkbox-all" aria-label="Select all records"></label>
             </div>
+            <span id="total_reports" value="{{ page_format.count }}"></span>
           </th>
           {% endif %}
           <th aria-label="Detail toggles">
@@ -159,7 +160,7 @@
         <span id="selection-action-count" class="selection-action-count">1 record</span> selected
       </h2>
       <div class="selection-submit">
-        <button type="submit" id="actions" label="actions" class="usa-button">Actions</button>
+        <button type="submit" id="actions" label="actions" class="usa-button">Batch for Disposal</button>
       </div>
     </div>
   </div>

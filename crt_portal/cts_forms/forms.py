@@ -50,7 +50,7 @@ from .model_variables import (ACTION_CHOICES, CLOSED_STATUS, COMMERCIAL_OR_PUBLI
                               VIOLATION_SUMMARY_ERROR, WHERE_ERRORS,
                               HATE_CRIME_CHOICES, GROUPING, RETENTION_SCHEDULE_CHOICES)
 from .models import (CommentAndSummary,
-                     ProtectedClass, Report, ResponseTemplate, Profile, ReportAttachment, Campaign, RetentionSchedule, SavedSearch, get_system_user, Tag)
+                     ProtectedClass, Report, ReportDispositionBatch, ResponseTemplate, Profile, ReportAttachment, Campaign, RetentionSchedule, SavedSearch, get_system_user, Tag)
 from .phone_regex import phone_validation_regex
 from .question_group import QuestionGroup
 from .question_text import (CONTACT_QUESTIONS, DATE_QUESTIONS,
@@ -62,7 +62,7 @@ from .question_text import (CONTACT_QUESTIONS, DATE_QUESTIONS,
                             WORKPLACE_QUESTIONS, HATE_CRIME_HELP_TEXT,
                             HATE_CRIME_QUESTION)
 from .widgets import (ComplaintSelect, CrtMultiSelect,
-                      CrtPrimaryIssueRadioGroup, DjNumberWidget, FuzzyFilterField, UsaCheckboxSelectMultiple, UsaTagSelectMultiple,
+                      CrtPrimaryIssueRadioGroup, CrtTextInput, DjNumberWidget, FuzzyFilterField, UsaCheckboxSelectMultiple, UsaTagSelectMultiple,
                       UsaRadioSelect, DataAttributesSelect, CrtDateInput, add_empty_choice)
 from utils.voting_mode import is_voting_mode
 from utils import activity
@@ -2028,62 +2028,104 @@ class PrintActions(Form):
     )
 
 
-class BulkDispositionForm(Form, ActivityStreamUpdater):
-    EMPTY_CHOICE = 'Multiple'
-    assigned_section = ChoiceField(
-        label='Section',
-        widget=ComplaintSelect(attrs={
-            'class': 'usa-select crt-dropdown__data',
-            'disabled': 'disabled',
-        }),
-        choices=add_empty_choice(SECTION_CHOICES_WITHOUT_LABELS, default_string=EMPTY_CHOICE),
-        required=False
-    )
-    retention_schedule = MultipleChoiceField(
-        required=False,
-        label='Retention schedule',
-        choices=add_empty_choice(RETENTION_SCHEDULE_CHOICES, default_string=EMPTY_CHOICE),
-        widget=ComplaintSelect(attrs={
-            'class': 'usa-select crt-dropdown__data',
-            'disabled': 'disabled',
-        }),
-    )
+class BulkDispositionForm(ModelForm, ActivityStreamUpdater):
 
-    def get_initial_values(self, record_query, keys):
-        """
-        Given a record query and a list of keys, determine if a key has a
-        singular value within that query. Used to set initial fields
-        for bulk update forms.
-        """
-        # make sure the queryset does not order by anything, otherwise
-        # we will have difficulty getting distinct results.
-        query = record_query.order_by()
-        for key in keys:
-            values = query.values_list(key, flat=True).distinct()
-            if values.count() == 1:
-                yield key, values[0]
+    def field_changed(self, field):
+        # if both are Falsy, nothing actually changed (None ~= "")
+        old = self.initial.get(field, None)
+        new = self.cleaned_data.get(field, None)
+        if not old and not new:
+            return False
+        return old != new
 
-    def __init__(self, query, *args, user=None, **kwargs):
+    @cached_property
+    def changed_data(self):
+        return [
+            field_name
+            for field_name
+            in super().changed_data
+            if self.field_changed(field_name)
+        ]
+
+    class Meta:
+        model = ReportDispositionBatch
+        fields = ['disposed_by', 'disposed_count', 'create_date', 'proposed_disposal_date']
+
+    def setup_disposed_by(self):
+        disposed_by = self.user
+        value = (
+            f'{disposed_by.first_name} {disposed_by.last_name}'
+            if disposed_by.first_name and disposed_by.last_name
+            else ''
+        )
+        self.fields['disposed_by'] = CharField(
+            label='Approving Official',
+            widget=CrtTextInput(
+                attrs={
+                    'class': 'usa-input',
+                    'name': 'disposed_by',
+                    'placeholder': 'Approving Official',
+                    'aria_label': 'Approving Official',
+                    'value': value,
+                    'label': 'Approving Official',
+                },
+            ),
+            required=True,
+            initial=disposed_by,
+        )
+
+    def setup_create_date(self):
+        create_date = datetime.today()
+        self.fields['create_date'] = CharField(
+            required=True,
+            label="Date",
+            initial=create_date,
+            widget=CrtTextInput(attrs={
+                'class': 'usa-input',
+                'name': 'create_date',
+                'placeholder': 'mm/dd/yyyy',
+                'aria_label': 'Date',
+                'value': create_date.strftime('%m/%d/%Y'),
+                'label': 'Date',
+            }),
+        )
+
+    def clean_disposed_by(self):
+        if 'disposed_by' not in self.cleaned_data:
+            return ''
+        name = self.cleaned_data['disposed_by'].split(' ')
+        if len(name) == 2:
+            return User.objects.filter(first_name=name[0], last_name=name[1]).first()
+        return ''
+
+    def clean_create_date(self):
+        if 'create_date' not in self.cleaned_data:
+            return ''
+        create_date = self.cleaned_data['create_date'].split('/')
+        if create_date:
+            return datetime(int(create_date[2]), int(create_date[0]), int(create_date[1]))
+        return ''
+
+    def __init__(self, *args, user=None, **kwargs):
         self.user = user
-        Form.__init__(self, *args, **kwargs)
-        self.queryset = query
-        # set initial values if applicable
-        keys = ['assigned_section', 'retention_schedule']
-        for key, initial_value in self.get_initial_values(query, keys):
-            self.fields[key].initial = initial_value
+        ModelForm.__init__(self, *args, **kwargs)
+        self.setup_disposed_by()
+        self.setup_create_date()
 
-    def update(self, reports, user):
+    def update_reports(self, reports, user, batch):
         """
         Bulk update given reports and update activity log for each report
         """
-        report_ids = reports.values_list('pk', flat=True)
-        reports = Report.objects.filter(pk__in=report_ids)
-
-        # TO DO: add logic to approve report for deletion
-        # for report in reports:
-        # expiration_date = datetime(report.closed_date.year + report.retention_schedule.retention_years + 1, 1, 1).date()
-        # add_activity(user, 'Disposition:', f'Approved for deletion on {expiration_date}', report, True)
+        proposed_disposal_date = batch.proposed_disposal_date.strftime('%m/%d/%Y')
+        logging.info(user)
+        batch.add_records_to_batch(reports, user)
+        for report in reports:
+            add_activity(user, 'Disposition:', f'Approved for disposal on {proposed_disposal_date}', report, True)
         return reports.count()
+
+    def save(self, commit=True):
+        disposition_batch = super().save(commit)
+        return disposition_batch
 
 
 class BulkActionsForm(LitigationHoldLock, Form, ActivityStreamUpdater):

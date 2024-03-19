@@ -419,6 +419,7 @@ class Report(models.Model):
     closed_date = models.DateTimeField(blank=True, null=True, help_text="The Date this report's status was most recently set to \"Closed\"")
     language = models.CharField(default='en', max_length=10, blank=True, null=True)
     viewed = models.BooleanField(default=False)
+    batched_for_disposal = models.BooleanField(default=False)
     # Eventually, these reports will be deleted - but for now, we can use this
     # boolean to hide them from view.
     disposed = models.BooleanField(default=False)
@@ -687,8 +688,26 @@ class ReportDispositionBatch(models.Model):
     """A group of reports that have been disposed of together."""
     uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, unique=True, editable=False)
     disposed_date = models.DateTimeField(auto_now_add=True)
+    create_date = models.DateTimeField(default=datetime.today())
+    proposed_disposal_date = models.DateTimeField(blank=True, null=True)
     disposed_by = models.ForeignKey(User, related_name="disposed_report_batches", on_delete=models.PROTECT)
     disposed_count = models.IntegerField(default=0)
+
+    def add_records_to_batch(self, queryset, user):
+        """Creates a batch of disposed reports."""
+        current_request = CrequestMiddleware.get_request()
+        if not current_request or not user:
+            raise ValueError("Cannot determine the current user for report disposal.")
+
+        queryset.all().update(batched_for_disposal=True)
+        ReportDisposition.objects.bulk_create([
+            ReportDisposition(
+                schedule=report.retention_schedule,
+                batch=self,
+                public_id=report.public_id)
+            for report
+            in queryset.all().select_related('retention_schedule').only('retention_schedule', 'public_id')
+        ])
 
     @classmethod
     def dispose(cls, queryset):

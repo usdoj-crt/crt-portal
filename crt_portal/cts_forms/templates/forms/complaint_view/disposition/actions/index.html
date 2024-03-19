@@ -26,9 +26,12 @@
         </div>
       </div>
 
-      <div class="complaint-page grid-row grid-gap-4">
+      <div class="complaint-page grid-row grid-gap-2">
         <div class="complaint-actions tablet:grid-col-5 grid-offset-1">
           {% include 'forms/complaint_view/disposition/actions/bulk_actions.html' %}
+        </div>
+        <div class="complaint-actions tablet:grid-col-6">
+          {% include 'forms/complaint_view/disposition/actions/report_list.html' %}
         </div>
       </div>
     </div>
@@ -40,5 +43,4 @@
   <script type="text/javascript" src="{% static 'vendor/aria-autocomplete-1.2.3.min.js' %}"></script>
   <script src="{% static 'js/bulk_actions.min.js' %}"></script>
   <script src="{% static 'js/modal.min.js' %}"></script>
-  <script src="{% static 'js/print_report.min.js' %}"></script>
 {% endblock %}

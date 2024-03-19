@@ -1008,7 +1008,7 @@ class CRTDispositionTests(TestCase):
         url = f'{url}?next=%253Fper_page%253D15%2526status%253Dclosed%2526retention_schedule%253D1%2520Year%2526retention_schedule%253D3%2520Year%2526retention_schedule%253D10%2520Year%2526retention_schedule%253DPermanent%2526disposition_status%253Dpast%2526page%253D1&id={self.other_report.id}&id={self.other_report_2.id}'
         self.client.force_login(self.superuser)
         response = self.client.get(url)
-        self.assertIn('deletion', str(response.content))
+        self.assertIn('disposal', str(response.content))
 
 
 class LoginRequiredTests(TestCase):
