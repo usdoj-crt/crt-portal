@@ -694,6 +694,7 @@ def get_batch_data(disposition_batches, all_args_encoded):
         })
     return data
 
+
 def get_batch_view_data(request):
     disposition_batches = ReportDispositionBatch.objects.all()
     per_page = request.GET.get('per_page', request.COOKIES.get('complaint_view_per_page', 15))
@@ -1127,7 +1128,6 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
             bulk_disposition_form.update_reports(requested_query, request.user, batch)
             plural = 's have' if batch.disposed_count > 1 else ' has'
             message = f'{batch.disposed_count} record{plural} been approved for disposal. The records unit will review your request and approve or deny your deletion request. Follow status updates in ‘Report batches for disposal’'
-            logging.info(batch.uuid)
             messages.add_message(request, messages.SUCCESS, message)
             url = reverse('crt_forms:disposition')
             return redirect(f"{url}{return_url_args}")
