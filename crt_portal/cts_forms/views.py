@@ -191,11 +191,9 @@ def reconstruct_activity_query(next_qp):
         return selected_actions
     return selected_actions.order_by(*sort_expr)
 
+
 def reconstruct_id_args(ids):
-    id_args = ''
-    for id in ids:
-        id_args += f'&id={id}'
-    return id_args
+    return ''.join([f'&id={id}' for id in ids])
 
 
 def mark_report_as_viewed(report, user):
@@ -706,12 +704,12 @@ def get_batch_view_data(request):
     paginator = Paginator(disposition_batches, per_page)
     disposition_batches, page_format = pagination(paginator, page, per_page)
     sort_state = {}
-    page_args = f'?per_page={per_page}'
+    page_args = f'?per_page={per_page}&page={page}'
     sort_args, sort_state = get_sort_args(sorts, sort_state)
     page_args += sort_args
-    filter_args = f'&disposition_status=batches'
+    filter_args = '&disposition_status=batches'
     page_args += filter_args
-    all_args_encoded = urllib.parse.quote(f'{page_args}&page={page}')
+    all_args_encoded = urllib.parse.quote(page_args)
     data = get_batch_data(disposition_batches, all_args_encoded)
     return {
         'disposition_status': 'batches',
