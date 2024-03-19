@@ -1,10 +1,6 @@
 {% load sortable_table_heading %}
 
-<form class="usa-form"
-      method="get"
-      action="{% url 'crt_forms:disposition-actions' %}"
-      novalidate
->
+<div class="usa-form">
   <input type="hidden" value="{{ return_url_args }}" name="next" id="next" />
   <div class="crt-xscroll">
     <table class="usa-table crt-table sort-table">
@@ -56,7 +52,7 @@
       {% endif %}
     </table>
   </div>
-</form>
+</div>
 
 {% if not data %}
   <div class="crt-portal-card table-message">
