@@ -20,7 +20,9 @@
       <input type="hidden" value="{{ disposition_status }}" name="disposition_status" id="disposition_status" />
       <div id="bulk_actions_section">
         <p><i>This form documents the destruction of federal records in accordance with the Federal Records Act of 1950, as amended (44 U.S.C., Chapters 29, 31, and 33)</i></p>
-        <h2>Primary Information</h2>
+        <div class="display-flex">
+          <h2>Primary Information</h2><img class="margin-left-2" alt="lock" src="{% static 'img/lock.svg' %}" />
+        </div>
         <table class="usa-table usa-table--borderless complaint-card-table">
           <tr>
             <th>Agency/Locality</th>
@@ -39,7 +41,9 @@
             <td>{{ shared_report_fields.assigned_section }}</td>
           </tr>
         </table>
-        <h2>Records To Be Destroyed</h2>
+        <div class="display-flex">
+          <h2>Records To Be Destroyed</h2><img class="margin-left-2" alt="lock" src="{% static 'img/lock.svg' %}" />
+        </div>
         <table class="usa-table usa-table--borderless complaint-card-table">
           <tr>
             <th>Retention Assignment</th>
@@ -89,17 +93,19 @@
             </td>
           </tr>
         </table>
-        <div class="margin-bottom-2 crt-dropdown">
-            <label for="id_disposed_by" class="intake-label">
-              {{ bulk_disposition_form.disposed_by.label }}
+        <div class="display-flex flex-align-center flex-justify">
+          <div class="margin-bottom-2 margin-right-2">
+              <label for="id_disposed_by">
+                {{ bulk_disposition_form.disposed_by.label }}
+              </label>
+              {{ bulk_disposition_form.disposed_by }}
+          </div>
+          <div class="margin-bottom-2">
+            <label for="id_create_date">
+              {{ bulk_disposition_form.create_date.label }}
             </label>
-            {{ bulk_disposition_form.disposed_by }}
-        </div>
-        <div class="margin-bottom-2 crt-dropdown">
-          <label for="id_create_date" class="intake-label">
-            {{ bulk_disposition_form.create_date.label }}
-          </label>
-          {{ bulk_disposition_form.create_date }}
+            {{ bulk_disposition_form.create_date }}
+          </div>
         </div>
         {% if shared_report_fields.retention_schedule == 'Multiple' or shared_report_fields.proposed_disposal_date == 'Multiple' %}
           <p>The selected reports have multiple retention schedules.</p>

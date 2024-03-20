@@ -1,0 +1,55 @@
+
+  <input type="hidden" value="{{ return_url_args }}" name="next" id="next" />
+  <input type="hidden" value="{{ disposition_status }}" name="disposition_status" id="disposition_status" />
+  <div class="crt-xscroll">
+    <table class="usa-table crt-table sort-table">
+      <thead>
+        <tr>
+          <th>Status</th>
+          <th>UUID</th>
+          <th>Retention Schedule</th>
+          <th>Expiration Date</th>
+        </tr>
+      </thead>
+      {% if data %}
+        <tbody>
+          {% for datum in data %}
+            <tr class="tr--hover{% cycle ' stripe' '' %}">
+              <td>{{ datum.batch.status|default:"—" }}</td>
+              <td>{{ datum.batch.uuid|slice:'::-1'|truncatechars:5|slice:'::-1' }}</td>
+              <td>{{ datum.retention_schedule|default:"—"  }}</td>
+              <td>{{ datum.batch.proposed_disposal_date|date:"SHORT_DATE_FORMAT"|default:"—"  }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      {% endif %}
+    </table>
+  </div>
+
+{% if not data %}
+  <div class="crt-portal-card table-message">
+    <div class="crt-portal-card__content">
+      <div class="grid-container padding-bottom-2">
+        <div class="align-center">
+          <img alt="filter icon" src="{% static 'img/filters.svg' %}" class="margin-top-1" />
+          <p class="margin-bottom-1 margin-top-1" role="status"><b>No batches found</b></p>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}
+
+{% if not page_format.has_next and data %}
+  <div class="crt-portal-card table-message">
+    <div class="crt-portal-card__content">
+      <div class="grid-container padding-bottom-2">
+        <div class="align-center">
+          <p class="margin-bottom-1">
+            <img alt="encouraging coffee icon" src="{% static 'img/coffee.svg' %}" />
+            <b>End of results</b>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}
