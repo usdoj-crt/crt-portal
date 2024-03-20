@@ -671,7 +671,7 @@ def get_batch_data(disposition_batches):
         data.append({
             'batch': batch,
             'retention_schedule': RetentionSchedule.objects.get(retention_years=batch.retention_schedule).name if batch.retention_schedule else '',
-            'url': reverse('crt_forms:disposition')
+            'url': reverse('crt_forms:disposition-batch-actions', kwargs={'id': batch.uuid}),
         })
     return data
 
@@ -1176,6 +1176,23 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
                 'print_reports': requested_query,
             }
             return render(request, 'forms/complaint_view/disposition/actions/index.html', output)
+
+
+class DispositionBatchActionsView(LoginRequiredMixin, FormView):
+    """ Records team view to review disposition batches"""
+
+    def get(self, request, id=None):
+        batch = get_object_or_404(ReportDispositionBatch, pk=id)
+        reports = ReportDisposition.objects.filter(batch=batch)
+        section = Report.objects.filter(public_id=reports.first().public_id).first().assigned_section
+        output = {
+            'batch': batch,
+            'section': section,
+            'reports': reports,
+            'return_url_args': '?disposition_status=batches',
+            'truncated_uuid': f'...{str(batch.uuid)[-6:]}',
+        }
+        return render(request, 'forms/complaint_view/disposition/actions/batch/index.html', output)
 
 
 class ActionsView(LoginRequiredMixin, FormView):
