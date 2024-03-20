@@ -17,7 +17,7 @@ from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.core.exceptions import PermissionDenied, SuspiciousOperation, BadRequest
+from django.core.exceptions import SuspiciousOperation, BadRequest
 from django.core.paginator import Paginator
 from django.db.models import F
 from django.http import Http404, HttpResponse, QueryDict
@@ -1061,7 +1061,7 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
             selected_report_args = self.reconstruct_id_args(ids)
 
         if requested_query.count() > 500:
-            raise PermissionDenied
+            raise BadRequest
 
         if not id:
             batch = ReportDispositionBatch()
@@ -1188,7 +1188,7 @@ class ActionsView(LoginRequiredMixin, FormView):
             requested_query = Report.objects.filter(pk__in=ids)
 
         if requested_query.count() > 500:
-            raise PermissionDenied
+            raise BadRequest
 
         bulk_actions_form = BulkActionsForm(requested_query, request.POST, user=request.user)
 
