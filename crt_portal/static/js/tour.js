@@ -287,12 +287,16 @@
 
   function init() {
     const pathName = window.location.pathname;
-    tours.forEach(tour => {
-      if (localStorage.getItem(tour.localStorageName) != 'yes' && pathName == tour.pagePath) {
+    tours
+      .filter(tour => {
+        if (pathName != tour.pagePath) return false;
+        if (localStorage.getItem(tour.localStorageName) == 'yes') return false;
+        return true;
+      })
+      .forEach(tour => {
         tour.tourName.start();
         localStorage.setItem(tour.localStorageName, 'yes');
-      }
-    });
+      });
   }
 
   window.addEventListener('DOMContentLoaded', init);
