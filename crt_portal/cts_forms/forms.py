@@ -14,6 +14,8 @@ from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 from django.conf import settings
 
+import requests
+
 from features.models import Feature
 
 from .filters import get_report_filter_from_search
@@ -347,6 +349,42 @@ class Contact(ModelForm):
                 'class': 'usa-input',
             }),
         }
+
+    def clean(self):
+        form_data = self.cleaned_data
+        if not hasattr(self, 'request'):
+            return form_data
+
+        client_defeat = self.request.headers.get('X-Captcha-Defeat')
+        server_defeat = settings.RECAPTCHA['DEFEAT_KEY']
+        if server_defeat is not None and client_defeat == server_defeat:
+            return form_data
+
+        try:
+            recaptcha_secret = settings.RECAPTCHA['SECRET_KEY']
+        except KeyError:
+            recaptcha_secret = ''
+        # If we're not configured for recaptcha, don't check it:
+        if not recaptcha_secret:
+            return form_data
+
+        try:
+            result = requests.post('https://www.google.com/recaptcha/api/siteverify', {
+                'secret': recaptcha_secret,
+                'response': self.request.POST.get('g-recaptcha-response'),
+            }, headers={'Accept': 'application/json'}).json()
+        except Exception:
+            # We don't want issues with reaching google to impact form submission
+            logging.exception('Something went wrong while reaching google for recaptcha. Defaulting to allow form submission.')
+            return form_data
+
+        if result and result['success']:
+            return form_data
+
+        errors = result.get('error-codes')
+        logging.error(f'Recaptcha validation failed: {errors}')
+        self.add_error(None, _('Captcha was invalid, please try again.'))
+        return form_data
 
     def __init__(self, *args, **kwargs):
         ModelForm.__init__(self, *args, **kwargs)

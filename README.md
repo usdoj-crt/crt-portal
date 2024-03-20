@@ -123,6 +123,52 @@ WEB_EXTERNAL_HOSTNAME="http://localhost:8000"
 WEB_INTERNAL_HOSTNAME="http://web:8000"
 ```
 
+#### Recaptcha
+
+#### Locally
+
+We use Google's recaptcha to discourage bot users.
+
+If you need to set it up locally, create a new recaptcha v2 project (I'm not a robot checkbox) following Google's current instructions. Make sure to include `localhost` as one of the supported domains, and uncheck `verify hostname`.
+
+This will give you a site key and a secret key. Set the following environment variables to make use of them:
+
+```
+RECAPTCHA_SITE_KEY='etcetcetc'
+RECAPTCHA_SECRET_KEY='etcetcetc'
+RECAPTCHA_DEFEAT_KEY='etcetcetc'
+```
+
+You will need to restart the local development server if it's already running for this to take effect.
+
+##### On CI/CD
+
+The RECAPTCHA_DEFEAT_KEY is used to disable captcha for CI/CD. You'll need to make it up. It should be long.
+
+It must be put into the [CircleCI environment variables](https://app.circleci.com/settings/project/github/usdoj-crt/crt-portal/environment-variables), and it must match the setting for cloud.gov (see "On production")
+
+##### On production
+
+Recaptcha environment variables must be set via cloud.gov (but only once!). To do this, run:
+
+```bash
+cf target -s dev
+cf set-env crt-portal-django RECAPTCHA_SITE_KEY yoursecrethere
+cf set-env crt-portal-django RECAPTCHA_SECRET_KEY yoursecrethere
+cf set-env crt-portal-django RECAPTCHA_DEFEAT_KEY yoursecrethere
+
+cf target -s stage
+cf set-env crt-portal-django RECAPTCHA_SITE_KEY yoursecrethere
+cf set-env crt-portal-django RECAPTCHA_SECRET_KEY yoursecrethere
+cf set-env crt-portal-django RECAPTCHA_DEFEAT_KEY yoursecrethere
+
+cf target -s prod
+cf set-env crt-portal-django RECAPTCHA_SITE_KEY yoursecrethere
+cf set-env crt-portal-django RECAPTCHA_SECRET_KEY yoursecrethere
+cf set-env crt-portal-django RECAPTCHA_DEFEAT_KEY yoursecrethere
+```
+
+
 #### OAuth
 
 Jupyter uses the Portal's auth system to decide who can log in. Because of this, there's a bit of local setup involved.

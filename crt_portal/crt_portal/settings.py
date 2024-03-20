@@ -153,6 +153,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'features.templatetags.feature_context.enabled_features',
+                'cts_forms.templatetags.site_keys.recaptcha_site_key',
             ],
         },
     },
@@ -236,6 +237,12 @@ TMS_PRODUCTION_ENDPOINT = "https://tms.govdelivery.com"
 RESTRICT_EMAIL_RECIPIENTS_TO = os.environ.get('RESTRICT_EMAIL_RECIPIENTS_TO', '').split(';')
 
 EMAIL_AUTORESPONSE_ENABLED = os.environ.get('EMAIL_AUTORESPONSE_ENABLED', False)
+
+RECAPTCHA = {
+    'SITE_KEY': os.environ.get('RECAPTCHA_SITE_KEY'),
+    'SECRET_KEY': os.environ.get('RECAPTCHA_SECRET_KEY'),
+    'DEFEAT_KEY': os.environ.get('RECAPTCHA_DEFEAT_KEY'),
+}
 
 if environment in ['DEVELOP']:
     EMAIL_AUTORESPONSE_ENABLED = True
@@ -391,6 +398,7 @@ allowed_sources = (
     'https://stats.g.doubleclick.net',
     'https://www.googletagmanager.com/',
     'https://cdnjs.cloudflare.com/',
+    'https://www.google.com/',
     *env_csp_sources,
 )
 # headers required for security
@@ -412,6 +420,7 @@ CSP_SCRIPT_SRC = (
     'https://touchpoints.app.cloud.gov',
     'https://www.googletagmanager.com/',
     'https://cdnjs.cloudflare.com/',
+    'https://www.google.com/',
     *env_csp_sources,
 )
 CSP_CONNECT_SRC = (
@@ -424,6 +433,7 @@ CSP_CONNECT_SRC = (
     'https://touchpoints.app.cloud.gov',
     'https://www.googletagmanager.com/',
     'https://cdnjs.cloudflare.com/',
+    'https://www.google.com/',
     *env_csp_sources,
 )
 CSP_IMG_SRC = (

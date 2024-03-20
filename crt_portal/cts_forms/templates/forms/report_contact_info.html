@@ -1,6 +1,13 @@
 {% extends "forms/report_base.html" %}
 {% load i18n %}
 
+{% block page_js %}
+{{ block.super }}
+{% if RECAPTCHA.site_key %}
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+{% endif %}
+{% endblock %}
+
 {% block page_info_card %}
   <div class="crt-portal-card crt-portal-card">
     <div class="crt-portal-card__content crt-portal-card__content--lg padding-bottom-4">
@@ -24,6 +31,15 @@
   <div role="group" aria-labelledby="servicemember-help-text">
     {% include "forms/question_cards/single_form.html" with field=form.servicemember ally_id="servicemember-help-text" %}
   </div>
+
+  {% if RECAPTCHA.site_key %}
+  <div class="crt-portal-card crt-portal-card">
+    <div class="crt-portal-card__content crt-portal-card__content--lg">
+      <p class="help-text"></p>
+      <div class="g-recaptcha" data-sitekey="{{ RECAPTCHA.site_key }}"></div>
+    </div>
+  </div>
+  {% endif %}
 {% endblock %}
 
 {% block submit-button %}
