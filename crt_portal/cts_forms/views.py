@@ -849,6 +849,7 @@ class PrintView(LoginRequiredMixin, View):
 
         return_url_args = request.POST.get('modal_next', '')
         print_all = request.POST.get('type', None) == 'print_all'
+        batch_id = request.POST.get('batch_id', None)
         return_url = request.POST.get('return_url', 'crt_forms:crt-forms-index')
         if print_all:
             reports = reconstruct_query(return_url_args)
@@ -869,7 +870,7 @@ class PrintView(LoginRequiredMixin, View):
         if id:
             url = preserve_filter_parameters(report, request.POST)
         else:
-            url = reverse(return_url)
+            url = reverse(return_url, kwargs={'id': batch_id}) if batch_id else reverse(return_url)
             url = f"{url}{return_url_args}"
         return redirect(url)
 
@@ -1195,6 +1196,7 @@ class DispositionBatchActionsView(LoginRequiredMixin, FormView):
         report_dispo_objects = ReportDisposition.objects.filter(batch=batch)
         report_public_ids = report_dispo_objects.values_list('public_id', flat=True)
         reports = Report.objects.filter(public_id__in=report_public_ids)
+        report_ids = list(reports.values_list('pk', flat=True))
         first_report = reports.first()
         page = request.GET.get('page', 1)
         paginator = Paginator(reports, 15)
@@ -1216,6 +1218,11 @@ class DispositionBatchActionsView(LoginRequiredMixin, FormView):
             'page_args': f'?return_url_args={urllib.parse.quote(return_url_args)}',
             'per_page': 15,
             'form': form,
+            'ids': ','.join([str(id) for id in report_ids]),
+            'ids_count': len(report_ids),
+            'print_ids': list(map(int, report_ids)),
+            'print_options': PrintActions(),
+            'print_reports': reports,
         }
         return render(request, 'forms/complaint_view/disposition/actions/batch/index.html', output)
 
@@ -1247,6 +1254,7 @@ class DispositionBatchActionsView(LoginRequiredMixin, FormView):
             report_dispo_objects = ReportDisposition.objects.filter(batch=batch)
             report_public_ids = report_dispo_objects.values_list('public_id', flat=True)
             reports = Report.objects.filter(public_id__in=report_public_ids)
+            report_ids = list(reports.values_list('pk', flat=True))
             first_report = reports.first()
             page = request.GET.get('page', 1)
             paginator = Paginator(reports, 15)
@@ -1265,6 +1273,11 @@ class DispositionBatchActionsView(LoginRequiredMixin, FormView):
                 'page_args': f'?return_url_args={urllib.parse.quote(return_url_args)}',
                 'per_page': 15,
                 'form': form,
+                'ids': ','.join([str(id) for id in report_ids]),
+                'ids_count': len(report_ids),
+                'print_ids': list(map(int, report_ids)),
+                'print_options': PrintActions(),
+                'print_reports': reports,
             }
             return render(request, 'forms/complaint_view/disposition/actions/batch/index.html', output)
 
