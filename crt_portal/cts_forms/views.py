@@ -1191,6 +1191,7 @@ class DispositionBatchActionsView(LoginRequiredMixin, FormView):
             'section': section,
             'reports': reports,
             'return_url_args': '?disposition_status=batches',
+            'truncated_uuid': f'...{str(batch.uuid)[-6:]}',
         }
         return render(request, 'forms/complaint_view/disposition/actions/batch/index.html', output)
 
