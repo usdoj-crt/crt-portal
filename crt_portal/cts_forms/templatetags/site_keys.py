@@ -5,7 +5,7 @@ def recaptcha_site_key(request):
     """Adds the recaptcha site key to the request context."""
     client_defeat = request.headers.get('X-Captcha-Defeat')
     server_defeat = settings.RECAPTCHA['DEFEAT_KEY']
-    if server_defeat is not None and client_defeat == server_defeat:
+    if server_defeat and client_defeat == server_defeat:
         return {'RECAPTCHA': {'site_key': ''}}
 
     try:
