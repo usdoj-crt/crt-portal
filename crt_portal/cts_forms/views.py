@@ -19,7 +19,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import SuspiciousOperation, BadRequest
 from django.core.paginator import Paginator
-from django.db.models import F
+from django.db.models import F, Subquery, OuterRef
 from django.http import Http404, HttpResponse, QueryDict
 from django.shortcuts import get_object_or_404, redirect, render, reverse
 from django.utils.html import mark_safe
@@ -43,7 +43,7 @@ from .model_variables import HATE_CRIMES_TRAFFICKING_MODEL_CHOICES, SECTION_CHOI
 from .models import CommentAndSummary, Profile, Report, ReportAttachment, ReportDisposition, ReportDispositionBatch, ReportsData, RetentionSchedule, SavedSearch, Trends, EmailReportCount, Campaign, User, \
     RoutingSection, RoutingStepOneContact, RepeatWriterInfo
 from .page_through import pagination
-from .sorts import activity_sort, report_sort
+from .sorts import other_sort, report_sort
 
 logger = logging.getLogger(__name__)
 
@@ -186,7 +186,7 @@ def reconstruct_activity_query(next_qp):
     querydict = QueryDict(next_qp)
 
     _, selected_actions, _ = dashboard_filter(querydict)
-    sort_expr, _ = activity_sort(querydict.getlist('sort'))
+    sort_expr, _ = other_sort(querydict.getlist('sort'), 'activity')
     if not selected_actions:
         return selected_actions
     return selected_actions.order_by(*sort_expr)
@@ -506,7 +506,7 @@ def process_activity_filters(request):
     query_filters, selected_actions, _ = dashboard_filter(request.GET)
     per_page = request.GET.get('per_page', 15)
     page = request.GET.get('page', 1)
-    sort_expr, sorts = activity_sort(request.GET.getlist('sort'))
+    sort_expr, sorts = other_sort(request.GET.getlist('sort'), 'activity')
     if selected_actions != []:
         selected_actions = selected_actions.order_by(*sort_expr)
     paginator = Paginator(selected_actions, per_page)
@@ -665,17 +665,13 @@ def get_section_args(section_filters):
     ])
 
 
-def get_batch_view_data():
+def get_batch_data(disposition_batches):
     data = []
-    disposition_batches = ReportDispositionBatch.objects.all()
     for batch in disposition_batches:
-        reports = ReportDisposition.objects.filter(batch=batch)
-        retention_schedule = reports.values_list('schedule', flat=True).distinct()
-        if len(retention_schedule):
-            retention_schedule = RetentionSchedule.objects.filter(pk=retention_schedule[0]).first().name
         data.append({
             'batch': batch,
-            'retention_schedule': retention_schedule if len(retention_schedule) else '',
+            'retention_schedule': RetentionSchedule.objects.get(retention_years=batch.retention_schedule).name if batch.retention_schedule else '',
+            'url': reverse('crt_forms:disposition')
         })
     return data
 
@@ -685,12 +681,32 @@ def disposition_view(request):
     disposition_status = request.GET.get('disposition_status', 'past')
     profile_form = get_profile_form(request)
     if disposition_status == 'batches':
+        disposition_batches = ReportDispositionBatch.objects.all()
+        per_page = request.GET.get('per_page', request.COOKIES.get('complaint_view_per_page', 15))
+        page = request.GET.get('page', 1)
+        sort_expr, sorts = other_sort(request.GET.getlist('sort'), 'batch')
+        disposition_batches = disposition_batches.annotate(retention_schedule=Subquery(ReportDisposition.objects.filter(batch=OuterRef("pk")).values_list('schedule', flat=True).distinct()))
+        disposition_batches = disposition_batches.order_by(*sort_expr)
+        paginator = Paginator(disposition_batches, per_page)
+        disposition_batches, page_format = pagination(paginator, page, per_page)
+        sort_state = {}
+        page_args = f'?per_page={per_page}'
+        sort_args, sort_state = get_sort_args(sorts, sort_state)
+        page_args += sort_args
+        filter_args = f'&disposition_status={disposition_status}'
+        page_args += filter_args
+        all_args_encoded = urllib.parse.quote(f'{page_args}&page={page}')
+        data = get_batch_data(disposition_batches)
         final_data = {
             'disposition_status': disposition_status,
+            'page_format': page_format,
+            'page_args': page_args,
+            'per_page': per_page,
+            'sort_state': sort_state,
+            'filter_state': filter_args,
+            'return_url_args': all_args_encoded,
+            'data': data,
         }
-        final_data.update({
-            'data': get_batch_view_data(),
-        })
         return render(request, 'forms/complaint_view/disposition/index.html', final_data)
     report_query, query_filters = report_filter(QueryDict('status=closed&retention_schedule=1%20Year&retention_schedule=3%20Year&retention_schedule=10%20Year&retention_schedule=Permanent&disposition_status=' + disposition_status))
     final_data = get_view_data(request, report_query, query_filters, disposition_status)

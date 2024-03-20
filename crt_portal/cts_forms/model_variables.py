@@ -246,6 +246,14 @@ STATUS_CHOICES = (
 )
 
 # CRT views only
+BATCH_STATUS_CHOICES = (
+    ('ready', 'Ready'),
+    ('in_review', 'In Review'),
+    ('approved', 'Approved'),
+    ('rejected', 'Rejected'),
+)
+
+# CRT views only
 SECTION_CHOICES = (
     ('ADM', 'Administrative'),
     ('APP', 'Appellate'),

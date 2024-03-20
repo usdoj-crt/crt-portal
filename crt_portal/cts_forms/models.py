@@ -24,7 +24,7 @@ from django.utils.html import escape
 from utils import sanitize
 
 from .managers import ActiveProtectedClassChoiceManager
-from .model_variables import (CLOSED_STATUS,
+from .model_variables import (BATCH_STATUS_CHOICES, CLOSED_STATUS,
                               COMMERCIAL_OR_PUBLIC_PLACE_CHOICES,
                               CONTACT_PHONE_INVALID_MESSAGE,
                               CORRECTIONAL_FACILITY_LOCATION_CHOICES,
@@ -690,8 +690,12 @@ class ReportDispositionBatch(models.Model):
     disposed_date = models.DateTimeField(auto_now_add=True)
     create_date = models.DateTimeField(default=datetime.today())
     proposed_disposal_date = models.DateTimeField(blank=True, null=True)
-    disposed_by = models.ForeignKey(User, related_name="disposed_report_batches", on_delete=models.PROTECT)
+    disposed_by = models.ForeignKey(User, related_name="disposed_report_batches", on_delete=models.PROTECT, help_text="Intake specialist who created batch.")
     disposed_count = models.IntegerField(default=0)
+    status = models.TextField(choices=BATCH_STATUS_CHOICES, default='ready')
+    first_reviewer = models.ForeignKey(User, related_name="reviewed_disposed_report_batch", blank=True, null=True, on_delete=models.PROTECT, help_text="First records team reviewer.")
+    second_reviewer = models.ForeignKey(User, related_name="second_reviewed_disposed_report_batch", blank=True, null=True, on_delete=models.PROTECT, help_text="Second records team reviewer.")
+    notes = models.TextField(max_length=7000, null=False, blank=True, help_text="Internal notes about batch.")
 
     def add_records_to_batch(self, queryset, user):
         """Creates a batch of disposed reports."""

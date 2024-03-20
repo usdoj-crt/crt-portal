@@ -1,30 +1,62 @@
+{% load sortable_table_heading %}
 
+<form class="usa-form"
+      method="get"
+      action="{% url 'crt_forms:disposition-actions' %}"
+      novalidate
+>
   <input type="hidden" value="{{ return_url_args }}" name="next" id="next" />
-  <input type="hidden" value="{{ disposition_status }}" name="disposition_status" id="disposition_status" />
   <div class="crt-xscroll">
     <table class="usa-table crt-table sort-table">
       <thead>
         <tr>
-          <th>Status</th>
-          <th>UUID</th>
-          <th>Retention Schedule</th>
-          <th>Expiration Date</th>
+          {% render_sortable_heading 'Status' sort_state filter_state grouping group_params index %}
+          {% render_sortable_heading 'Create Date' sort_state filter_state grouping group_params index %}
+          <th>
+            UUID
+          </th>
+          {% render_sortable_heading 'Retention Schedule' sort_state filter_state grouping group_params index %}
+          {% render_sortable_heading 'Proposed Disposal Date' sort_state filter_state grouping group_params index %}
         </tr>
       </thead>
       {% if data %}
         <tbody>
           {% for datum in data %}
             <tr class="tr--hover{% cycle ' stripe' '' %}">
-              <td>{{ datum.batch.status|default:"—" }}</td>
-              <td>{{ datum.batch.uuid|slice:'::-1'|truncatechars:5|slice:'::-1' }}</td>
-              <td>{{ datum.retention_schedule|default:"—"  }}</td>
-              <td>{{ datum.batch.proposed_disposal_date|date:"SHORT_DATE_FORMAT"|default:"—"  }}</td>
+              <td>
+                <a class="td-link display-block" href="{{datum.url}}">
+                  <span class="status-tag status-closed">
+                    {{ datum.batch.status }}
+                  </span>
+                </a>
+              </td>
+              <td>
+                <a class="td-link display-block" href="{{datum.url}}">
+                  {{ datum.batch.create_date|date:"SHORT_DATE_FORMAT"|default:"—"  }}
+                </a>
+              </td>
+              <td>
+                <a class="td-link display-block" href="{{datum.url}}">
+                  {{ datum.batch.uuid|slice:'::-1'|truncatechars:7|slice:'::-1' }}
+                </a>
+              </td>
+              <td class="text-uppercase">
+                <a class="td-link display-block" href="{{datum.url}}">
+                  {{ datum.retention_schedule|default:"—"  }}
+                </a>
+              </td>
+              <td>
+                <a class="td-link display-block" href="{{datum.url}}">
+                  {{ datum.batch.proposed_disposal_date|date:"SHORT_DATE_FORMAT"|default:"—"  }}
+                </a>
+              </td>
             </tr>
           {% endfor %}
         </tbody>
       {% endif %}
     </table>
   </div>
+</form>
 
 {% if not data %}
   <div class="crt-portal-card table-message">
