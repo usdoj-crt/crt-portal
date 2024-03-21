@@ -363,7 +363,7 @@ class Contact(ModelForm):
         try:
             recaptcha_secret = settings.RECAPTCHA['SECRET_KEY']
         except KeyError:
-            recaptcha_secret = ''
+            recaptcha_secret = ''  # nosec
         # If we're not configured for recaptcha, don't check it:
         if not recaptcha_secret:
             return form_data
@@ -372,7 +372,7 @@ class Contact(ModelForm):
             result = requests.post('https://www.google.com/recaptcha/api/siteverify', {
                 'secret': recaptcha_secret,
                 'response': self.request.POST.get('g-recaptcha-response'),
-            }, headers={'Accept': 'application/json'}).json()
+            }, headers={'Accept': 'application/json'}).json()  # nosec
         except Exception:
             # We don't want issues with reaching google to impact form submission
             logging.exception('Something went wrong while reaching google for recaptcha. Defaulting to allow form submission.')

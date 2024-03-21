@@ -157,7 +157,7 @@ cf set-env crt-portal-django RECAPTCHA_SITE_KEY yoursecrethere
 cf set-env crt-portal-django RECAPTCHA_SECRET_KEY yoursecrethere
 cf set-env crt-portal-django RECAPTCHA_DEFEAT_KEY yoursecrethere
 
-cf target -s stage
+cf target -s staging
 cf set-env crt-portal-django RECAPTCHA_SITE_KEY yoursecrethere
 cf set-env crt-portal-django RECAPTCHA_SECRET_KEY yoursecrethere
 cf set-env crt-portal-django RECAPTCHA_DEFEAT_KEY yoursecrethere
@@ -165,7 +165,8 @@ cf set-env crt-portal-django RECAPTCHA_DEFEAT_KEY yoursecrethere
 cf target -s prod
 cf set-env crt-portal-django RECAPTCHA_SITE_KEY yoursecrethere
 cf set-env crt-portal-django RECAPTCHA_SECRET_KEY yoursecrethere
-cf set-env crt-portal-django RECAPTCHA_DEFEAT_KEY yoursecrethere
+
+# Note that prod does not need a defeat key, as we do not run e2e tests against prod.
 ```
 
 
