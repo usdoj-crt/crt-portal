@@ -1,0 +1,46 @@
+{% extends "forms/complaint_view/show/card.html" %}
+
+{% load i18n %}
+
+{% block title %}Batch #{{ truncated_uuid }}{% endblock %}
+
+{% block extra_classes %}disposition-actions-card crt-actions-card{% endblock %}
+
+{% block card_content %}
+
+<form class="usa-form" method="post" action="/form/disposition/batch" novalidate>
+    {% csrf_token %}
+    <input type="hidden" value="{{ batch.uuid }}" name="uuid" id="uuid" />
+    <div>
+        <h3>Select reports to approve for disposal</h3>
+        <a class="text-bold" href="#">View Proposed Reports for Disposal</a>
+        <h3>Fill out disposition approval form</h3>
+        <h3>Primary Information</h3>
+        <table class="usa-table usa-table--borderless complaint-card-table">
+            <tr>
+                <th>Section</th>
+                <td>
+                    {{ section }}
+                </td>
+            </tr>
+            <tr>
+                <th>Proposed Disposal Date</th>
+                <td>
+                    {{ batch.proposed_disposal_date|date:"SHORT_DATE_FORMAT" }}
+                </td>
+            </tr>
+            <tr></tr>
+        </table>
+        <h3>Disposal Approval</h3>
+        <div class="display-flex align-center">
+            <button class="usa-button">
+                Approve Disposal
+            </button>
+            <button class="usa-button">
+                Reject Disposal
+            </button>
+        </div>
+        <h3>Track status of reports</h3>
+    </div>
+</form>
+{% endblock %}

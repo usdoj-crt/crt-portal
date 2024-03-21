@@ -2,62 +2,139 @@
 
 {% load i18n %}
 
-{% block title %}Approve multiple records for deletion{% endblock %}
+{% block title %}Approve {{ all_ids_count }} records for disposal{% endblock %}
 
-{% block extra_classes %}crt-actions-card{% endblock %}
-
-{% block icon %}
-  <img src="{% static "img/intake-icons/ic_check-circle.svg" %}" alt="icon" class="icon" />
-{% endblock %}
+{% block extra_classes %}disposition-actions-card crt-actions-card{% endblock %}
 
 {% block card_content %}
-  {% if ids_count %}
-    <form class="usa-form" method="post" novalidate>
+  {% if all_ids_count %}
+    <form class="usa-form" method="post" action="/form/disposition/actions" novalidate>
       {% csrf_token %}
 
       <input type="hidden" value="{{ return_url_args }}" name="next" id="next" />
       <input type="hidden" value="{{ ids }}" name="ids" id="ids" />
       <input type="hidden" value="{{ selected_all }}" name="all" id="all" />
       <input type="hidden" value="{{ query_string }}" name="query_string" id="query_string" />
-
-        <p>This bulk disposition action form does not currently do anything. In the future it will allow users to approve the deletion of reports.</p>
-        <div class="margin-bottom-2 crt-dropdown crt-dropdown__shrink-to-contents">
-            <label for="id_assigned_section" class="intake-label">
-              {{ bulk_actions_form.assigned_section.label }}
-            </label>
-            {{ bulk_actions_form.assigned_section }}
+      <input type="hidden" value="{{ id }}" name="id" id="id" />
+      <input type="hidden" value="{{ uuid }}" name="uuid" id="uuid" />
+      <input type="hidden" value="{{ disposition_status }}" name="disposition_status" id="disposition_status" />
+      <div id="bulk_actions_section">
+        <p><i>This form documents the destruction of federal records in accordance with the Federal Records Act of 1950, as amended (44 U.S.C., Chapters 29, 31, and 33)</i></p>
+        <div class="display-flex">
+          <h2>Primary Information</h2><img class="margin-left-2" alt="lock" src="{% static 'img/lock.svg' %}" />
         </div>
-        <div class="margin-bottom-2 crt-dropdown">
-            <label for="id_retention_schedule" class="intake-label">
-              {{ bulk_actions_form.retention_schedule.label }}
-            </label>
-            {{ bulk_actions_form.retention_schedule }}
+        <table class="usa-table usa-table--borderless complaint-card-table">
+          <tr>
+            <th>Agency/Locality</th>
+            <td>
+              Department of Justice
+            </td>
+          </tr>
+          <tr>
+            <th>Division</th>
+            <td>
+              Civil Rights
+            </td>
+          </tr>
+          <tr>
+            <th>Section</th>
+            <td>{{ shared_report_fields.assigned_section }}</td>
+          </tr>
+        </table>
+        <div class="display-flex">
+          <h2>Records To Be Destroyed</h2><img class="margin-left-2" alt="lock" src="{% static 'img/lock.svg' %}" />
         </div>
-        <button class="usa-button{% if show_warning %} button--warning display-flex align-center{% endif %}"
-                {% if show_warning %}id="show_warning_section_partial"{% endif %}
-                disabled
-                type="submit"
-                name="selected_ids"
-        >
-          Approve {{ ids_count }} record{{ ids_count|pluralize:"s" }} for deletion
-        </button>
-
+        <table class="usa-table usa-table--borderless complaint-card-table">
+          <tr>
+            <th>Retention Assignment</th>
+            <td>
+              {{ shared_report_fields.retention_schedule }}
+            </td>
+          </tr>
+          <tr>
+            <th>Records Batch Number</th>
+            <td>
+              {{ uuid }}
+            </td>
+          </tr>
+          <tr>
+            <th>Date Range</th>
+            <td>{{ shared_report_fields.date_range }}</td>
+          </tr>
+          <tr>
+            <th>Location</th>
+            <td>
+              US DOJ CRT
+            </td>
+          </tr>
+          <tr>
+            <th>Format</th>
+            <td>
+              Electronic
+            </td>
+          </tr>
+          <tr>
+            <th>Volume</th>
+            <td>
+              {{ all_ids_count }}
+            </td>
+          </tr>
+          <tr>
+            <th>Destruction Method</th>
+            <td>
+              --
+            </td>
+          </tr>
+          <tr>
+            <th>Proposed Disposal Date</th>
+            <td>
+              <input type="hidden" value="{{ shared_report_fields.proposed_disposal_date }}" name="proposed_disposal_date" id="proposed_disposal_date" />
+              {{ shared_report_fields.proposed_disposal_date }}
+            </td>
+          </tr>
+        </table>
+        <div class="display-flex flex-align-center flex-justify">
+          <div class="margin-bottom-2 margin-right-2">
+              <label for="id_disposed_by">
+                {{ bulk_disposition_form.disposed_by.label }}
+              </label>
+              {{ bulk_disposition_form.disposed_by }}
+          </div>
+          <div class="margin-bottom-2">
+            <label for="id_create_date">
+              {{ bulk_disposition_form.create_date.label }}
+            </label>
+            {{ bulk_disposition_form.create_date }}
+          </div>
+        </div>
+        {% if shared_report_fields.retention_schedule == 'Multiple' or shared_report_fields.proposed_disposal_date == 'Multiple' %}
+          <p>The selected reports have multiple retention schedules.</p>
+          <p>All reports must have the same retention schedule and expiration date to be batched.</p>
+        {% endif %}
+        <input type="hidden" value="{{ all_ids_count }}" name="disposed_count" id="disposed_count" />
         {% if selected_all %}
             <button class="usa-button button--warning display-flex align-center"
                     id="show_warning_section"
-                    disabled
             >
-             Approve {{ all_ids_count }} record{{ all_ids_count|pluralize:"s" }} for deletion
+            Approve Disposal of {{ all_ids_count }} record{{ all_ids_count|pluralize:"s" }}
             </button>
+        {% else %}
+          <button class="usa-button{% if show_warning %} button--warning display-flex align-center{% endif %}"
+                {% if show_warning %}id="show_warning_section_partial"{% endif %}
+                {% if shared_report_fields.retention_schedule == 'Multiple' or shared_report_fields.proposed_disposal_date == 'Multiple' %}disabled{% endif %}
+                type="submit"
+                id="submit_report_count"
+                name="selected_ids"
+          >
+            Approve Disposal of {{ all_ids_count }} record{{ all_ids_count|pluralize:"s" }}
+          </button>
         {% endif %}
-      </div>
-
+        </div>
       {% if show_warning or selected_all %}
         <div id="warning_section" hidden>
           <p>
             Are you sure you want to update
             <span id="warning_count_all">{{ all_ids_count }}</span>
-            <span id="warning_count_partial">{{ ids_count }}</span>
             records?
           </p>
           <button class="usa-button button--warning display-flex align-center"
