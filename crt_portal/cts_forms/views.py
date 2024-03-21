@@ -694,6 +694,7 @@ def get_batch_data(disposition_batches, all_args_encoded):
         })
     return data
 
+
 def get_batch_view_data(request):
     disposition_batches = ReportDispositionBatch.objects.all()
     per_page = request.GET.get('per_page', request.COOKIES.get('complaint_view_per_page', 15))
