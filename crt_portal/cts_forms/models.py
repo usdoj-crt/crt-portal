@@ -690,7 +690,7 @@ class ReportDispositionBatch(models.Model):
     disposed_date = models.DateTimeField(auto_now_add=True)
     create_date = models.DateTimeField(blank=True, null=True)
     proposed_disposal_date = models.DateTimeField(blank=True, null=True)
-    disposed_by = models.ForeignKey(User, related_name="disposed_report_batches", on_delete=models.PROTECT, help_text="Intake specialist who created batch.")
+    disposed_by = models.ForeignKey(User, related_name="disposed_report_batches", on_delete=models.PROTECT, blank=True, null=True, help_text="Intake specialist who created batch.")
     disposed_count = models.IntegerField(default=0)
     status = models.TextField(choices=BATCH_STATUS_CHOICES, default='ready')
     first_reviewer = models.ForeignKey(User, related_name="reviewed_disposed_report_batch", blank=True, null=True, on_delete=models.PROTECT, help_text="First records team reviewer.")
