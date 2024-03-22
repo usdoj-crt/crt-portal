@@ -701,8 +701,7 @@ class ReportDispositionBatch(models.Model):
 
     def add_records_to_batch(self, queryset, user):
         """Creates a batch of disposed reports."""
-        current_request = CrequestMiddleware.get_request()
-        if not current_request or not user:
+        if not user:
             raise ValueError("Cannot determine the current user for report disposal.")
 
         queryset.all().update(batched_for_disposal=True)

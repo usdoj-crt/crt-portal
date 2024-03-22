@@ -2110,13 +2110,19 @@ class BatchReviewForm(ModelForm, ActivityStreamUpdater):
     def clean_first_review_date(self):
         if self.cleaned_data['first_review_date'] is None or self.instance.first_review_date is not None:
             return self.instance.first_review_date
-        first_review_date = self.cleaned_data['first_review_date'].split('/')
+        first_review_date = self.cleaned_data['first_review_date']
+        if type(first_review_date) is datetime:
+            return first_review_date
+        first_review_date = first_review_date.split('/')
         return datetime(int(first_review_date[2]), int(first_review_date[0]), int(first_review_date[1]))
 
     def clean_second_review_date(self):
         if self.cleaned_data['second_review_date'] is None or self.instance.second_review_date is not None:
             return self.instance.second_review_date
-        second_review_date = self.cleaned_data['second_review_date'].split('/')
+        second_review_date = self.cleaned_data['second_review_date']
+        if type(second_review_date) is datetime:
+            return second_review_date
+        second_review_date = second_review_date.split('/')
         return datetime(int(second_review_date[2]), int(second_review_date[0]), int(second_review_date[1]))
 
     def __init__(self, *args, user=None, **kwargs):

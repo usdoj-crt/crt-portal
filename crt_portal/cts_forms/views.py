@@ -1194,13 +1194,14 @@ class DispositionBatchActionsView(LoginRequiredMixin, FormView):
         if batch.first_reviewer:
             second_reviewer = batch.second_reviewer if batch.second_reviewer else request.user
             second_display_name = f'{second_reviewer.first_name} {second_reviewer.last_name}' if second_reviewer.first_name and second_reviewer.last_name else second_reviewer.username
+            second_reviewer_pk = second_reviewer.pk
         else:
-            second_reviewer = None
+            second_reviewer_pk = None
             second_display_name = None
         return {
-            'first_reviewer': first_reviewer,
+            'first_reviewer': first_reviewer.pk,
             'first_display_name': first_display_name,
-            'second_reviewer': second_reviewer,
+            'second_reviewer': second_reviewer_pk,
             'second_display_name': second_display_name,
         }
 
@@ -1229,6 +1230,7 @@ class DispositionBatchActionsView(LoginRequiredMixin, FormView):
 
     def post(self, request, id=None):
         batch = get_object_or_404(ReportDispositionBatch, pk=id)
+        logging.info(request.POST)
         form = BatchReviewForm(request.POST, user=request.user, instance=batch)
         return_url_args = '?disposition_status=batches'
         if form.is_valid():
