@@ -40,18 +40,6 @@
             <th>Section</th>
             <td>{{ shared_report_fields.assigned_section }}</td>
           </tr>
-          <tr>
-            <th>Location</th>
-            <td>
-              4CON
-            </td>
-          </tr>
-          <tr>
-            <th>Phone</th>
-            <td>
-              202-514-3847
-            </td>
-          </tr>
         </table>
         <div class="display-flex">
           <h2>Records To Be Destroyed</h2><img class="margin-left-2" alt="lock" src="{% static 'img/lock.svg' %}" />
@@ -107,10 +95,11 @@
         </table>
         <div class="display-flex flex-align-center flex-justify">
           <div class="margin-bottom-2 margin-right-2">
-              <label for="id_disposed_by">
-                {{ bulk_disposition_form.disposed_by.label }}
-              </label>
-              {{ bulk_disposition_form.disposed_by }}
+            <label for="id_display_name">
+              Disposed by
+            </label>
+            <input type="text" id="id_display_name" value="{{ display_name }}" class="usa-input" placeholder="Disposed by">
+            <input type="hidden" value="{{ disposed_by }}" name="disposed_by" id="disposed_by" />
           </div>
           <div class="margin-bottom-2">
             <label for="id_create_date">

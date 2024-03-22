@@ -52,9 +52,6 @@ def other_sort(sort, sort_type):
             sort_exprs.append(F(sort_item[1::]))
         else:
             sort_exprs.append(F(sort_item))
-    if sort_type == 'batch':
-        sort_exprs.extend([F('uuid').desc()])
-    else:
-        sort_exprs.extend([F('id').desc()])
+    sort_exprs.extend([F('pk').desc()])
 
     return sort_exprs, sort
