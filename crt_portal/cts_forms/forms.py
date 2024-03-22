@@ -2074,25 +2074,6 @@ class BatchReviewForm(ModelForm, ActivityStreamUpdater):
         model = ReportDispositionBatch
         fields = ['first_reviewer', 'first_review_date', 'second_reviewer', 'second_review_date', 'status', 'notes']
 
-    def setup_first_reviewer(self):
-        first_reviewer = self.instance.first_reviewer if self.instance.first_reviewer else self.user
-        value = f'{first_reviewer.first_name} {first_reviewer.last_name}' if first_reviewer.first_name and first_reviewer.last_name else ''
-        self.fields['first_reviewer'] = CharField(
-            label='Primary Authorizing Individual',
-            widget=CrtTextInput(
-                attrs={
-                    'class': 'usa-input',
-                    'name': 'first_reviewer',
-                    'placeholder': 'Primary Authorizing Individual',
-                    'aria_label': 'Primary Authorizing Individual',
-                    'value': value,
-                    'label': 'Primary Authorizing Individual',
-                },
-            ),
-            required=True,
-            disabled=self.instance.first_reviewer is not None
-        )
-
     def setup_first_review_date(self):
         first_review_date = self.instance.first_review_date if self.instance.first_review_date else datetime.today()
         self.fields['first_review_date'] = CharField(
@@ -2107,25 +2088,6 @@ class BatchReviewForm(ModelForm, ActivityStreamUpdater):
                 'label': 'Date',
             }),
             disabled=self.instance.first_review_date is not None
-        )
-
-    def setup_second_reviewer(self):
-        second_reviewer = self.instance.second_reviewer if self.instance.second_reviewer else self.user
-        value = f'{second_reviewer.first_name} {second_reviewer.last_name}' if second_reviewer.first_name and second_reviewer.last_name else ''
-        self.fields['second_reviewer'] = CharField(
-            label='Secondary Authorizing Individual',
-            widget=CrtTextInput(
-                attrs={
-                    'class': 'usa-input',
-                    'name': 'second_reviewer',
-                    'placeholder': 'Secondary Authorizing Individual',
-                    'aria_label': 'Secondary Authorizing Individual',
-                    'value': value,
-                    'label': 'Secondary Authorizing Individual',
-                },
-            ),
-            required=self.instance.first_reviewer is not None,
-            disabled=self.instance.second_reviewer is not None,
         )
 
     def setup_second_review_date(self):
@@ -2145,43 +2107,29 @@ class BatchReviewForm(ModelForm, ActivityStreamUpdater):
             disabled=self.instance.second_review_date is not None
         )
 
-    def clean_first_reviewer(self):
-        user = self.user.get_username()
-        if 'first_reviewer' not in self.cleaned_data or self.instance.first_reviewer is not None:
-            return self.instance.first_reviewer
-        name = self.cleaned_data['first_reviewer'].split(' ')
-        if len(name) == 2:
-            user = User.objects.filter(first_name=name[0], last_name=name[1]).first()
-        return user
-
     def clean_first_review_date(self):
         if self.cleaned_data['first_review_date'] is None or self.instance.first_review_date is not None:
             return self.instance.first_review_date
-        first_review_date = self.cleaned_data['first_review_date'].split('/')
+        first_review_date = self.cleaned_data['first_review_date']
+        if type(first_review_date) is datetime:
+            return first_review_date
+        first_review_date = first_review_date.split('/')
         return datetime(int(first_review_date[2]), int(first_review_date[0]), int(first_review_date[1]))
-
-    def clean_second_reviewer(self):
-        user = self.user.get_username()
-        if 'second_reviewer' not in self.changed_data or self.instance.second_reviewer is not None:
-            return self.instance.second_reviewer
-        name = self.cleaned_data['second_reviewer'].split(' ')
-        if len(name) == 2:
-            user = User.objects.filter(first_name=name[0], last_name=name[1]).first()
-        return user
 
     def clean_second_review_date(self):
         if self.cleaned_data['second_review_date'] is None or self.instance.second_review_date is not None:
             return self.instance.second_review_date
-        second_review_date = self.cleaned_data['second_review_date'].split('/')
+        second_review_date = self.cleaned_data['second_review_date']
+        if type(second_review_date) is datetime:
+            return second_review_date
+        second_review_date = second_review_date.split('/')
         return datetime(int(second_review_date[2]), int(second_review_date[0]), int(second_review_date[1]))
 
     def __init__(self, *args, user=None, **kwargs):
         self.user = user
         ModelForm.__init__(self, *args, **kwargs)
-        self.setup_first_reviewer()
         self.setup_first_review_date()
-        if self.instance.first_reviewer:
-            self.setup_second_reviewer()
+        if self.instance.first_review_date:
             self.setup_second_review_date()
 
     def save(self, commit=True):
@@ -2212,25 +2160,6 @@ class BulkDispositionForm(ModelForm, ActivityStreamUpdater):
         model = ReportDispositionBatch
         fields = ['disposed_by', 'disposed_count', 'create_date', 'proposed_disposal_date']
 
-    def setup_disposed_by(self):
-        disposed_by = self.user
-        value = f'{disposed_by.first_name} {disposed_by.last_name}' if disposed_by.first_name and disposed_by.last_name else ''
-        self.fields['disposed_by'] = CharField(
-            label='Approving Official',
-            widget=CrtTextInput(
-                attrs={
-                    'class': 'usa-input',
-                    'name': 'disposed_by',
-                    'placeholder': 'Approving Official',
-                    'aria_label': 'Approving Official',
-                    'value': value,
-                    'label': 'Approving Official',
-                },
-            ),
-            required=True,
-            initial=disposed_by,
-        )
-
     def setup_create_date(self):
         create_date = datetime.today()
         self.fields['create_date'] = CharField(
@@ -2247,17 +2176,6 @@ class BulkDispositionForm(ModelForm, ActivityStreamUpdater):
             }),
         )
 
-    def clean_disposed_by(self):
-        user = None
-        if 'disposed_by' not in self.cleaned_data:
-            return ''
-        name = self.cleaned_data['disposed_by'].split(' ')
-        if len(name) == 2:
-            user = User.objects.filter(first_name=name[0], last_name=name[1]).first()
-        if user:
-            return user
-        return ''
-
     def clean_create_date(self):
         if 'create_date' not in self.cleaned_data:
             return ''
@@ -2269,7 +2187,6 @@ class BulkDispositionForm(ModelForm, ActivityStreamUpdater):
     def __init__(self, *args, user=None, **kwargs):
         self.user = user
         ModelForm.__init__(self, *args, **kwargs)
-        self.setup_disposed_by()
         self.setup_create_date()
 
     def update_reports(self, reports, user, batch):
