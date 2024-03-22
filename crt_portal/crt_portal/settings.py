@@ -106,6 +106,7 @@ INSTALLED_APPS = [
     'shortener.apps.ShortenerConfig',
     'features.apps.FeaturesConfig',
     'analytics.apps.AnalyticsConfig',
+    'geocoding.apps.GeocodingConfig',
 ]
 SITE_ID = 1
 

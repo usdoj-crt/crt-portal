@@ -17,7 +17,7 @@ from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.core.exceptions import PermissionDenied, SuspiciousOperation
+from django.core.exceptions import SuspiciousOperation, BadRequest
 from django.core.paginator import Paginator
 from django.db.models import F, Subquery, OuterRef
 from django.http import Http404, HttpResponse, QueryDict
@@ -678,6 +678,7 @@ def get_section_args(section_filters):
     ])
 
 
+
 def get_batch_data(disposition_batches):
     data = []
     for batch in disposition_batches:
@@ -1002,13 +1003,13 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
         query = record_query.order_by()
         for key in keys:
             values = query.values_list(key, flat=True).distinct()
-            if values.count() == 1:
-                if key == 'retention_schedule':
-                    yield key, RetentionSchedule.objects.get(retention_years=values[0]).name
-                else:
-                    yield key, values[0]
-            else:
+            if values.count() != 1:
                 yield key, self.EMPTY_CHOICE
+                continue
+            if key == 'retention_schedule':
+                yield key, RetentionSchedule.objects.get(retention_years=values[0]).name
+                continue
+            yield key, values[0]
 
     def get_report_date_range(self, record_query):
         query = record_query.order_by()
@@ -1023,10 +1024,7 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
         return datetime(close_date.year + retention_schedule[0] + 1, 1, 1).date().strftime('%m/%d/%Y')
 
     def reconstruct_id_args(self, ids):
-        id_args = ''
-        for id in ids:
-            id_args += f'&id={id}'
-        return id_args
+        return ''.join([f'&id={id}' for id in ids])
 
     def get(self, request, id=None):
         return_url_args = request.GET.get('next', '')
@@ -1042,7 +1040,7 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
             selected_report_args = self.reconstruct_id_args(ids)
 
         if requested_query.count() > 500:
-            raise PermissionDenied
+            raise BadRequest
 
         disposition_status = request.GET.get('disposition_status', 'past')
         _, query_filters = report_filter(QueryDict(query_string))
@@ -1112,7 +1110,7 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
             selected_report_args = self.reconstruct_id_args(ids)
 
         if requested_query.count() > 500:
-            raise PermissionDenied
+            raise BadRequest
 
         if not id:
             batch = ReportDispositionBatch()
@@ -1225,6 +1223,7 @@ class DispositionBatchActionsView(LoginRequiredMixin, FormView):
             'data': data,
             'return_url_args': '?disposition_status=batches',
             'form': form,
+            'truncated_uuid': f'...{str(batch.uuid)[-6:]}',
         })
         return render(request, 'forms/complaint_view/disposition/actions/batch/index.html', output)
 
@@ -1329,7 +1328,7 @@ class ActionsView(LoginRequiredMixin, FormView):
             requested_query = Report.objects.filter(pk__in=ids)
 
         if requested_query.count() > 500:
-            raise PermissionDenied
+            raise BadRequest
 
         bulk_actions_form = BulkActionsForm(requested_query, request.POST, user=request.user)
 
