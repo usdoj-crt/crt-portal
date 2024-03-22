@@ -1198,9 +1198,9 @@ class DispositionBatchActionsView(LoginRequiredMixin, FormView):
             second_reviewer = None
             second_display_name = None
         return {
-            'first_reviewer': first_reviewer.pk,
+            'first_reviewer': first_reviewer,
             'first_display_name': first_display_name,
-            'second_reviewer': second_reviewer.pk,
+            'second_reviewer': second_reviewer,
             'second_display_name': second_display_name,
         }
 
