@@ -107,10 +107,11 @@
         </table>
         <div class="display-flex flex-align-center flex-justify">
           <div class="margin-bottom-2 margin-right-2">
-              <label for="id_disposed_by">
-                {{ bulk_disposition_form.disposed_by.label }}
-              </label>
-              {{ bulk_disposition_form.disposed_by }}
+            <label for="id_display_name">
+              Disposed by
+            </label>
+            <input type="text" id="id_display_name" value="{{ display_name }}" class="usa-input" placeholder="Disposed by">
+            <input type="hidden" value="{{ disposed_by }}" name="disposed_by" id="disposed_by" />
           </div>
           <div class="margin-bottom-2">
             <label for="id_create_date">

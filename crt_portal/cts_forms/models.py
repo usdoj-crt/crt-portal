@@ -688,7 +688,7 @@ class ReportDispositionBatch(models.Model):
     """A group of reports that have been disposed of together."""
     uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, unique=True, editable=False)
     disposed_date = models.DateTimeField(auto_now_add=True)
-    create_date = models.DateTimeField(default=datetime.today())
+    create_date = models.DateTimeField(blank=True, null=True)
     proposed_disposal_date = models.DateTimeField(blank=True, null=True)
     disposed_by = models.ForeignKey(User, related_name="disposed_report_batches", on_delete=models.PROTECT, help_text="Intake specialist who created batch.")
     disposed_count = models.IntegerField(default=0)

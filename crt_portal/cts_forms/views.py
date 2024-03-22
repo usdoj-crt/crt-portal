@@ -1071,10 +1071,12 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
         else:
             batch = get_object_or_404(ReportDispositionBatch, pk=id)
         bulk_disposition_form = BulkDispositionForm(user=request.user, instance=batch)
-
+        display_name = f'{request.user.first_name} {request.user.last_name}' if request.user.first_name and request.user.last_name else request.user.username
         output = {
             'action': request.GET.get('action', ''),
             'uuid': batch.uuid,
+            'display_name': display_name,
+            'disposed_by': request.user.pk,
             'return_url_args': f'?{filter_args}',
             'selected_all': 'all' if selected_all else '',
             'ids': ','.join(ids),
@@ -1158,10 +1160,12 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
             requested_query, page_format = pagination(paginator, page, 15)
             data = get_disposition_report_data(requested_query)
             next_args = urllib.parse.quote(f'{filter_args}')
-
+            display_name = f'{request.user.first_name} {request.user.last_name}' if request.user.first_name and request.user.last_name else request.user.username
             output = {
                 'action': request.GET.get('action', ''),
                 'uuid': batch.uuid,
+                'display_name': display_name,
+                'disposed_by': request.user.pk,
                 'return_url_args': f'?{filter_args}',
                 'selected_all': 'all' if selected_all else '',
                 'ids': ','.join(ids),
@@ -1186,6 +1190,22 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
 class DispositionBatchActionsView(LoginRequiredMixin, FormView):
     """ Records team view to review disposition batches"""
 
+    def get_reviewer_data(self, request, batch):
+        first_reviewer = batch.first_reviewer if batch.first_reviewer else request.user
+        first_display_name = f'{first_reviewer.first_name} {first_reviewer.last_name}' if first_reviewer.first_name and first_reviewer.last_name else first_reviewer.username
+        if batch.first_reviewer:
+            second_reviewer = batch.second_reviewer if batch.second_reviewer else request.user
+            second_display_name = f'{second_reviewer.first_name} {second_reviewer.last_name}' if second_reviewer.first_name and second_reviewer.last_name else second_reviewer.username
+        else:
+            second_reviewer = None
+            second_display_name = None
+        return {
+            'first_reviewer': first_reviewer.pk,
+            'first_display_name': first_display_name,
+            'second_reviewer': second_reviewer.pk,
+            'second_display_name': second_display_name,
+        }
+
     def get(self, request, id=None):
         batch = get_object_or_404(ReportDispositionBatch, pk=id)
         report_dispo_objects = ReportDisposition.objects.filter(batch=batch)
@@ -1198,13 +1218,14 @@ class DispositionBatchActionsView(LoginRequiredMixin, FormView):
         shared_report_fields['status'] = first_report.status
         shared_report_fields['retention_schedule'] = first_report.retention_schedule
         form = BatchReviewForm(user=request.user, instance=batch)
-        output = {
+        output = self.get_reviewer_data(request, batch)
+        output.update({
             'batch': batch,
             'shared_report_fields': shared_report_fields,
             'data': data,
             'return_url_args': '?disposition_status=batches',
             'form': form,
-        }
+        })
         return render(request, 'forms/complaint_view/disposition/actions/batch/index.html', output)
 
     def post(self, request, id=None):
@@ -1222,32 +1243,32 @@ class DispositionBatchActionsView(LoginRequiredMixin, FormView):
                 messages.add_message(request, messages.INFO, message)
             url = reverse('crt_forms:disposition')
             return redirect(f"{url}{return_url_args}")
-        else:
-            for key in form.errors:
-                errors = '; '.join(form.errors[key])
-                if key == '__all__':
-                    target = ':'
-                else:
-                    target = f' {key}:'
-                error_message = f'Could not batch reports{target} {errors}'
-                messages.add_message(request, messages.ERROR, error_message)
-            report_dispo_objects = ReportDisposition.objects.filter(batch=batch)
-            report_public_ids = report_dispo_objects.values_list('public_id', flat=True)
-            reports = Report.objects.filter(public_id__in=report_public_ids)
-            data = get_disposition_report_data(reports)
-            first_report = reports.first()
-            shared_report_fields = {}
-            shared_report_fields['assigned_section'] = first_report.assigned_section
-            shared_report_fields['status'] = first_report.status
-            shared_report_fields['retention_schedule'] = first_report.retention_schedule
-            output = {
-                'batch': batch,
-                'shared_report_fields': shared_report_fields,
-                'data': data,
-                'return_url_args': return_url_args,
-                'form': form,
-            }
-            return render(request, 'forms/complaint_view/disposition/actions/batch/index.html', output)
+        for key in form.errors:
+            errors = '; '.join(form.errors[key])
+            if key == '__all__':
+                target = ':'
+            else:
+                target = f' {key}:'
+            error_message = f'Could not batch reports{target} {errors}'
+            messages.add_message(request, messages.ERROR, error_message)
+        report_dispo_objects = ReportDisposition.objects.filter(batch=batch)
+        report_public_ids = report_dispo_objects.values_list('public_id', flat=True)
+        reports = Report.objects.filter(public_id__in=report_public_ids)
+        data = get_disposition_report_data(reports)
+        first_report = reports.first()
+        shared_report_fields = {}
+        shared_report_fields['assigned_section'] = first_report.assigned_section
+        shared_report_fields['status'] = first_report.status
+        shared_report_fields['retention_schedule'] = first_report.retention_schedule
+        output = self.get_reviewer_data(request, batch)
+        output.update({
+            'batch': batch,
+            'shared_report_fields': shared_report_fields,
+            'data': data,
+            'return_url_args': return_url_args,
+            'form': form,
+        })
+        return render(request, 'forms/complaint_view/disposition/actions/batch/index.html', output)
 
 
 class ActionsView(LoginRequiredMixin, FormView):

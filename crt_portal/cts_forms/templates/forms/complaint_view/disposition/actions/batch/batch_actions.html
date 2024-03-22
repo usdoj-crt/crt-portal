@@ -38,10 +38,11 @@
         </div>
         <div class="display-flex flex-align-end flex-justify padding-left-2">
             <div class="margin-bottom-2 margin-right-2">
-                <label for="id_first_reviewer">
-                {{ form.first_reviewer.label }}
+                <label for="id_first_display_name">
+                    Primary Authorizing Individual
                 </label>
-                {{ form.first_reviewer }}
+                <input type="text" id="id_first_display_name" value="{{ first_display_name }}" class="usa-input" {% if batch.first_reviewer %} disabled {% endif %} placeholder="Primary Authorizing Individual">
+                <input type="hidden" value="{{ first_reviewer }}" name="first_reviewer" id="first_reviewer" />
             </div>
             <div class="margin-bottom-2">
                 <label for="id_first_review_date">
@@ -53,10 +54,11 @@
         {% if batch.first_reviewer %}
             <div class="display-flex flex-align-end flex-justify padding-left-2">
                 <div class="margin-bottom-2 margin-right-2">
-                    <label for="id_second_reviewer">
-                    {{ form.second_reviewer.label }}
+                    <label for="id_second_display_name">
+                        Secondary Authorizing Individual
                     </label>
-                    {{ form.second_reviewer }}
+                <input type="text" id="id_second_display_name" value="{{ second_display_name }}" class="usa-input" {% if batch.second_reviewer %} disabled {% endif %} placeholder="Secondary Authorizing Individual">
+                <input type="hidden" value="{{ second_reviewer }}" name="second_reviewer" id="second_reviewer" />
                 </div>
                 <div class="margin-bottom-2">
                     <label for="id_second_review_date">
