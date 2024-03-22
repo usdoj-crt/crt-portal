@@ -33,7 +33,7 @@ from datetime import datetime
 from .attachments import ALLOWED_FILE_EXTENSIONS
 from .filters import report_filter, dashboard_filter, report_grouping
 from .forms import (
-    BulkActionsForm, BulkDispositionForm, CommentActions, ComplaintActions, ComplaintOutreach,
+    BatchReviewForm, BulkActionsForm, BulkDispositionForm, CommentActions, ComplaintActions, ComplaintOutreach,
     ContactEditForm, Filters, PrintActions, ProfileForm,
     ReportEditForm, ResponseActions, SavedSearchActions, SavedSearchFilter, add_activity,
     AttachmentActions, Review, save_form,
@@ -239,6 +239,19 @@ def get_profile_form(request):
 
     data = {'intake_filters': request.GET.getlist('assigned_section')}
     return ProfileForm(data)
+
+
+def get_disposition_report_data(requested_reports):
+    data = []
+    for report in requested_reports:
+        if report.retention_schedule and report.closed_date:
+            report.expiration_date = datetime(report.closed_date.year + report.retention_schedule.retention_years + 1, 1, 1).date()
+        url = reverse('crt_forms:crt-forms-show', kwargs={'id': report.pk})
+        data.append({
+            "report": report,
+            "url": url,
+        })
+    return data
 
 
 @login_required
@@ -670,6 +683,7 @@ def get_batch_data(disposition_batches):
     for batch in disposition_batches:
         data.append({
             'batch': batch,
+            'truncated_uuid': f'...{str(batch.uuid)[-6:]}',
             'retention_schedule': RetentionSchedule.objects.get(retention_years=batch.retention_schedule).name if batch.retention_schedule else '',
             'url': reverse('crt_forms:disposition-batch-actions', kwargs={'id': batch.uuid}),
         })
@@ -1008,18 +1022,6 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
         retention_schedule = query.values_list('retention_schedule', flat=True).distinct()
         return datetime(close_date.year + retention_schedule[0] + 1, 1, 1).date().strftime('%m/%d/%Y')
 
-    def get_report_data(self, requested_reports):
-        data = []
-        for report in requested_reports:
-            if report.retention_schedule and report.closed_date:
-                report.expiration_date = datetime(report.closed_date.year + report.retention_schedule.retention_years + 1, 1, 1).date()
-            url = reverse('crt_forms:crt-forms-show', kwargs={'id': report.pk})
-            data.append({
-                "report": report,
-                "url": url,
-            })
-        return data
-
     def reconstruct_id_args(self, ids):
         return ''.join([f'&id={id}' for id in ids])
 
@@ -1058,7 +1060,7 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
         page = request.GET.get('page', 1)
         paginator = Paginator(requested_query, 15)
         requested_query, page_format = pagination(paginator, page, 15)
-        data = self.get_report_data(requested_query)
+        data = get_disposition_report_data(requested_query)
         next_args = urllib.parse.quote(f'{filter_args}')
 
         if not id:
@@ -1066,10 +1068,12 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
         else:
             batch = get_object_or_404(ReportDispositionBatch, pk=id)
         bulk_disposition_form = BulkDispositionForm(user=request.user, instance=batch)
-
+        display_name = f'{request.user.first_name} {request.user.last_name}' if request.user.first_name and request.user.last_name else request.user.username
         output = {
             'action': request.GET.get('action', ''),
             'uuid': batch.uuid,
+            'display_name': display_name,
+            'disposed_by': request.user.pk,
             'return_url_args': f'?{filter_args}',
             'selected_all': 'all' if selected_all else '',
             'ids': ','.join(ids),
@@ -1151,12 +1155,14 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
             page = request.GET.get('page', 1)
             paginator = Paginator(requested_query, 15)
             requested_query, page_format = pagination(paginator, page, 15)
-            data = self.get_report_data(requested_query)
+            data = get_disposition_report_data(requested_query)
             next_args = urllib.parse.quote(f'{filter_args}')
-
+            display_name = f'{request.user.first_name} {request.user.last_name}' if request.user.first_name and request.user.last_name else request.user.username
             output = {
                 'action': request.GET.get('action', ''),
                 'uuid': batch.uuid,
+                'display_name': display_name,
+                'disposed_by': request.user.pk,
                 'return_url_args': f'?{filter_args}',
                 'selected_all': 'all' if selected_all else '',
                 'ids': ','.join(ids),
@@ -1181,17 +1187,87 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
 class DispositionBatchActionsView(LoginRequiredMixin, FormView):
     """ Records team view to review disposition batches"""
 
+    def get_reviewer_data(self, request, batch):
+        first_reviewer = batch.first_reviewer if batch.first_reviewer else request.user
+        first_display_name = f'{first_reviewer.first_name} {first_reviewer.last_name}' if first_reviewer.first_name and first_reviewer.last_name else first_reviewer.username
+        if batch.first_reviewer:
+            second_reviewer = batch.second_reviewer if batch.second_reviewer else request.user
+            second_display_name = f'{second_reviewer.first_name} {second_reviewer.last_name}' if second_reviewer.first_name and second_reviewer.last_name else second_reviewer.username
+            second_reviewer_pk = second_reviewer.pk
+        else:
+            second_reviewer_pk = None
+            second_display_name = None
+        return {
+            'first_reviewer': first_reviewer.pk,
+            'first_display_name': first_display_name,
+            'second_reviewer': second_reviewer_pk,
+            'second_display_name': second_display_name,
+        }
+
     def get(self, request, id=None):
         batch = get_object_or_404(ReportDispositionBatch, pk=id)
-        reports = ReportDisposition.objects.filter(batch=batch)
-        section = Report.objects.filter(public_id=reports.first().public_id).first().assigned_section
-        output = {
+        report_dispo_objects = ReportDisposition.objects.filter(batch=batch)
+        report_public_ids = report_dispo_objects.values_list('public_id', flat=True)
+        reports = Report.objects.filter(public_id__in=report_public_ids)
+        data = get_disposition_report_data(reports)
+        first_report = reports.first()
+        shared_report_fields = {}
+        shared_report_fields['assigned_section'] = first_report.assigned_section
+        shared_report_fields['status'] = first_report.status
+        shared_report_fields['retention_schedule'] = first_report.retention_schedule
+        form = BatchReviewForm(user=request.user, instance=batch)
+        output = self.get_reviewer_data(request, batch)
+        output.update({
             'batch': batch,
-            'section': section,
-            'reports': reports,
+            'shared_report_fields': shared_report_fields,
+            'data': data,
             'return_url_args': '?disposition_status=batches',
+            'form': form,
             'truncated_uuid': f'...{str(batch.uuid)[-6:]}',
-        }
+        })
+        return render(request, 'forms/complaint_view/disposition/actions/batch/index.html', output)
+
+    def post(self, request, id=None):
+        batch = get_object_or_404(ReportDispositionBatch, pk=id)
+        logging.info(request.POST)
+        form = BatchReviewForm(request.POST, user=request.user, instance=batch)
+        return_url_args = '?disposition_status=batches'
+        if form.is_valid():
+            batch = form.save(commit=False)
+            batch.save()
+            if batch.status == 'approved':
+                message = f'{batch.uuid} has been approved for disposal.'
+                messages.add_message(request, messages.SUCCESS, message)
+            elif batch.status == 'rejected':
+                message = f'{batch.uuid} has been rejected for disposal.'
+                messages.add_message(request, messages.INFO, message)
+            url = reverse('crt_forms:disposition')
+            return redirect(f"{url}{return_url_args}")
+        for key in form.errors:
+            errors = '; '.join(form.errors[key])
+            if key == '__all__':
+                target = ':'
+            else:
+                target = f' {key}:'
+            error_message = f'Could not batch reports{target} {errors}'
+            messages.add_message(request, messages.ERROR, error_message)
+        report_dispo_objects = ReportDisposition.objects.filter(batch=batch)
+        report_public_ids = report_dispo_objects.values_list('public_id', flat=True)
+        reports = Report.objects.filter(public_id__in=report_public_ids)
+        data = get_disposition_report_data(reports)
+        first_report = reports.first()
+        shared_report_fields = {}
+        shared_report_fields['assigned_section'] = first_report.assigned_section
+        shared_report_fields['status'] = first_report.status
+        shared_report_fields['retention_schedule'] = first_report.retention_schedule
+        output = self.get_reviewer_data(request, batch)
+        output.update({
+            'batch': batch,
+            'shared_report_fields': shared_report_fields,
+            'data': data,
+            'return_url_args': return_url_args,
+            'form': form,
+        })
         return render(request, 'forms/complaint_view/disposition/actions/batch/index.html', output)
 
 

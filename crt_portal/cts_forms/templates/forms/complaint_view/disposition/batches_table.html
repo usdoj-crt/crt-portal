@@ -37,7 +37,7 @@
               </td>
               <td>
                 <a class="td-link display-block" href="{{datum.url}}">
-                  {{ datum.batch.uuid|slice:'::-1'|truncatechars:7|slice:'::-1' }}
+                  {{ datum.truncated_uuid }}
                 </a>
               </td>
               <td class="text-uppercase">
