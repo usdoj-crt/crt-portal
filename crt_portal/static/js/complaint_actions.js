@@ -1,11 +1,16 @@
 (function(root, dom) {
-  function updateRecordCount(index, parentTable) {
+  function updateRecordCount(index, parentTable, selectAllCheckbox) {
     const actionNotificationEls = dom.getElementsByClassName('selection-action-notification');
     const actionNotificationEl = actionNotificationEls[index];
     const countEl = actionNotificationEl.getElementsByClassName('selection-action-count')[0];
     const count = parentTable.querySelectorAll('td input.usa-checkbox__input:checked').length;
+    const totalReports = parentTable.querySelector('#total_reports');
     if (count === 0) {
       actionNotificationEl.setAttribute('hidden', 'hidden');
+    } else if (selectAllCheckbox.checked && totalReports) {
+      const recordsPlural = totalReports.getAttribute('value') === 1 ? ' record' : ' records';
+      countEl.innerText = totalReports.getAttribute('value') + recordsPlural;
+      actionNotificationEl.removeAttribute('hidden');
     } else {
       const recordsPlural = count === 1 ? ' record' : ' records';
       countEl.innerText = count + recordsPlural;
@@ -24,7 +29,7 @@
     });
   }
 
-  function addCheckboxListener(checkbox, index, parentTable) {
+  function addCheckboxListener(checkbox, index, parentTable, selectAllCheckbox) {
     checkbox.addEventListener('click', event => {
       const target = event.target;
       const parent = target.parentNode.parentNode.parentNode;
@@ -36,7 +41,7 @@
           selectAllCheckboxes[index].checked = false;
         }
       }
-      updateRecordCount(index, parentTable);
+      updateRecordCount(index, parentTable, selectAllCheckbox);
     });
   }
 
@@ -45,7 +50,7 @@
     const parentTable = selectAllCheckboxes[index].closest('.usa-table.crt-table');
     const allCheckboxes = parentTable.querySelectorAll('td input.usa-checkbox__input');
     allCheckboxes.forEach(checkbox => {
-      addCheckboxListener(checkbox, index, parentTable);
+      addCheckboxListener(checkbox, index, parentTable, selectAllCheckboxes[index]);
     });
     addCheckAllListener(selectAllCheckboxes[index], allCheckboxes);
   }

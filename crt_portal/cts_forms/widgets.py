@@ -1,4 +1,5 @@
 """Form widgets"""
+import datetime
 from django.forms import MultiValueField, CharField, IntegerField
 from django.forms.widgets import ChoiceWidget, TextInput, NumberInput, Select, SelectMultiple, DateInput, MultiWidget
 
@@ -16,6 +17,15 @@ class UsaRadioSelect(ChoiceWidget):
     input_type = 'radio'
     template_name = 'django/forms/widgets/radio.html'
     option_template_name = 'forms/widgets/usa_radio_option.html'
+
+
+class CrtTextInput(TextInput):
+    input_type = 'text'
+    template_name = 'django/forms/widgets/input.html'
+
+    def format_value(self, value):
+        if type(value) is datetime.datetime:
+            value = value.strftime('%m/%d/%Y')
 
 
 class CrtPrimaryIssueRadioGroup(ChoiceWidget):

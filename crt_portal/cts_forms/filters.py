@@ -262,7 +262,7 @@ def report_filter(querydict):
             for number_block in phone_number_array:
                 qs = qs.filter(contact_phone__icontains=number_block)
         elif field_options == 'disposition_status':
-            qs = qs.filter(closed_date__isnull=False)
+            qs = qs.filter(closed_date__isnull=False, batched_for_disposal=False)
             user_section = get_user_section()
             if user_section:
                 qs = qs.filter(assigned_section=user_section)

@@ -18,6 +18,12 @@ To rename existing models, change the name in model_variables.py PROTECTED_CLASS
 
 You should be able to reorder the form by setting the value in the database or making a data migration to update the protected classes and form_order. Do NOT use the Django admin for this task, you can [use the Django shell](#use-the-django-shell) to help figure out what the migration should be.
 
+## Update the geocoding information
+
+Geocoding info (for use in maps, etc) is extracted from census bureau shapefiles.
+
+See the documentation in update_geocoding.py for details on how to update this geocoding information.
+
 ## Add a new optional form
 
 See example code here: https://github.com/usdoj-crt/crt-portal/pull/209/files

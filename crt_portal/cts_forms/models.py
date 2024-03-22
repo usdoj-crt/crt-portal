@@ -24,7 +24,7 @@ from django.utils.html import escape
 from utils import sanitize
 
 from .managers import ActiveProtectedClassChoiceManager
-from .model_variables import (CLOSED_STATUS,
+from .model_variables import (BATCH_STATUS_CHOICES, CLOSED_STATUS,
                               COMMERCIAL_OR_PUBLIC_PLACE_CHOICES,
                               CONTACT_PHONE_INVALID_MESSAGE,
                               CORRECTIONAL_FACILITY_LOCATION_CHOICES,
@@ -419,6 +419,7 @@ class Report(models.Model):
     closed_date = models.DateTimeField(blank=True, null=True, help_text="The Date this report's status was most recently set to \"Closed\"")
     language = models.CharField(default='en', max_length=10, blank=True, null=True)
     viewed = models.BooleanField(default=False)
+    batched_for_disposal = models.BooleanField(default=False)
     # Eventually, these reports will be deleted - but for now, we can use this
     # boolean to hide them from view.
     disposed = models.BooleanField(default=False)
@@ -687,8 +688,31 @@ class ReportDispositionBatch(models.Model):
     """A group of reports that have been disposed of together."""
     uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, unique=True, editable=False)
     disposed_date = models.DateTimeField(auto_now_add=True)
-    disposed_by = models.ForeignKey(User, related_name="disposed_report_batches", on_delete=models.PROTECT)
+    create_date = models.DateTimeField(blank=True, null=True)
+    proposed_disposal_date = models.DateTimeField(blank=True, null=True)
+    disposed_by = models.ForeignKey(User, related_name="disposed_report_batches", on_delete=models.PROTECT, blank=True, null=True, help_text="Intake specialist who created batch.")
     disposed_count = models.IntegerField(default=0)
+    status = models.TextField(choices=BATCH_STATUS_CHOICES, default='ready')
+    first_reviewer = models.ForeignKey(User, related_name="reviewed_disposed_report_batch", blank=True, null=True, on_delete=models.PROTECT, help_text="First records team reviewer.")
+    first_review_date = models.DateTimeField(blank=True, null=True, help_text="Date of the first records team review.")
+    second_reviewer = models.ForeignKey(User, related_name="second_reviewed_disposed_report_batch", blank=True, null=True, on_delete=models.PROTECT, help_text="Second records team reviewer.")
+    second_review_date = models.DateTimeField(blank=True, null=True, help_text="Date of the second records team review.")
+    notes = models.TextField(max_length=7000, null=True, blank=True, help_text="Internal notes about batch.")
+
+    def add_records_to_batch(self, queryset, user):
+        """Creates a batch of disposed reports."""
+        if not user:
+            raise ValueError("Cannot determine the current user for report disposal.")
+
+        queryset.all().update(batched_for_disposal=True)
+        ReportDisposition.objects.bulk_create([
+            ReportDisposition(
+                schedule=report.retention_schedule,
+                batch=self,
+                public_id=report.public_id)
+            for report
+            in queryset.all().select_related('retention_schedule').only('retention_schedule', 'public_id')
+        ])
 
     @classmethod
     def dispose(cls, queryset):
