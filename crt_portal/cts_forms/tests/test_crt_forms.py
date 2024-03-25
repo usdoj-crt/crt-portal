@@ -1389,8 +1389,8 @@ class BatchActionFormTests(TestCase):
             disposed_by=user
         )
         self.batch.add_records_to_batch(queryset, user)
-        self.user_reviewer = User.objects.create_user('REVIEWER', 'paul@thebeatles.com', self.test_pass, first_name='Paul', last_name='McCartney')
-        self.second_user_reviewer = User.objects.create_user('SECOND_REVIEWER', 'john@thebeatles.com', self.test_pass, first_name='John', last_name='Lennon')
+        self.user_reviewer = User.objects.create_superuser('REVIEWER', 'paul@thebeatles.com', self.test_pass, first_name='Paul', last_name='McCartney')
+        self.second_user_reviewer = User.objects.create_superuser('SECOND_REVIEWER', 'john@thebeatles.com', self.test_pass, first_name='John', last_name='Lennon')
 
     def test_approve_batch(self):
         client = Client()
