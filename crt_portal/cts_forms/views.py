@@ -660,11 +660,11 @@ def serialize_data(report, request, report_id):
 def get_section_args(section_filters):
     if not section_filters:
         return ''
-    section_args = ''
-    for section_filter in section_filters:
-        if section_filter is not "":
-            section_args += f'&section_filter={section_filter}'
-    return section_args
+    return ''.join([
+        f'&section_filter={section_filter}'
+        for section_filter in section_filters
+        if section_filter != ""
+    ])
 
 
 @login_required
@@ -1104,14 +1104,7 @@ class ActionsView(LoginRequiredMixin, FormView):
 
 class SavedSearchView(LoginRequiredMixin, FormView):
 
-    def get(self, request):
-        section_filter = request.GET.getlist('section_filter', [])
-        filters = {'section__in': section_filter, 'shared': True} if section_filter else {'shared': True}
-        saved_searches = SavedSearch.objects.filter(**filters).all()
-        section_args = get_section_args(section_filter)
-        saved_search_view = request.GET.get('saved_search_view', 'all')
-        if saved_search_view == 'my-saved-searches':
-            saved_searches = SavedSearch.objects.filter(created_by=request.user.id)
+    def get_page_args(self, request, saved_search_view, section_args):
         per_page = request.GET.get('per_page', request.COOKIES.get('complaint_view_per_page', 15))
         page = request.GET.get('page', 1)
         sort_expr, sorts = other_sort(request.GET.getlist('sort'), 'saved_search')
@@ -1125,16 +1118,21 @@ class SavedSearchView(LoginRequiredMixin, FormView):
         page_args += filter_args
         sort_args, sort_state = get_sort_args(sorts, sort_state)
         page_args += sort_args
+
+    def get(self, request):
+        section_filter = request.GET.getlist('section_filter', [])
+        filters = {'section__in': section_filter, 'shared': True} if section_filter else {'shared': True}
+        saved_searches = SavedSearch.objects.filter(**filters).all()
+        section_args = get_section_args(section_filter)
+        saved_search_view = request.GET.get('saved_search_view', 'all')
+        if saved_search_view == 'my-saved-searches':
+            saved_searches = SavedSearch.objects.filter(created_by=request.user.id)
         output = {
             'section_filter': section_args,
             'saved_searches': saved_searches,
             'form': SavedSearchFilter(request.GET),
             'saved_search_view': saved_search_view,
-            'page_format': page_format,
-            'page_args': page_args,
-            'sort_state': sort_state,
-            'filter_state': filter_args,
-            'per_page': per_page,
+            **self.get_page_args(request, saved_search_view, section_args)
         }
         return render(request, 'forms/complaint_view/saved_searches/index.html', output)
 
