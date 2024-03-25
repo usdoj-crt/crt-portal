@@ -75,13 +75,11 @@
             </label>
             {{ form.notes }}
         </div>
-        {% if can_review_batch %}
         <div class="display-flex flex-justify-end">
-            <button class="usa-button" type="submit">
+            <button class="usa-button" type="submit" {% if not can_review_batch %} disabled {% endif %}>
                 Submit
             </button>
         </div>
-        {% endif %}
     </div>
 </form>
 {% endblock %}
