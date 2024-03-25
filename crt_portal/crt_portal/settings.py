@@ -392,6 +392,7 @@ allowed_sources = (
     'https://stats.g.doubleclick.net',
     'https://www.googletagmanager.com/',
     'https://cdnjs.cloudflare.com/',
+    '*.tile.openstreetmap.org',  # For loading image tiles in map data
     *env_csp_sources,
 )
 # headers required for security
@@ -413,6 +414,7 @@ CSP_SCRIPT_SRC = (
     'https://touchpoints.app.cloud.gov',
     'https://www.googletagmanager.com/',
     'https://cdnjs.cloudflare.com/',
+    '*.tile.openstreetmap.org',  # For loading image tiles in map data
     *env_csp_sources,
 )
 CSP_CONNECT_SRC = (
@@ -425,15 +427,20 @@ CSP_CONNECT_SRC = (
     'https://touchpoints.app.cloud.gov',
     'https://www.googletagmanager.com/',
     'https://cdnjs.cloudflare.com/',
+    '*.tile.openstreetmap.org',  # For loading image tiles in map data
     *env_csp_sources,
 )
 CSP_IMG_SRC = (
     *allowed_sources,
     'data:',
+    '*.tile.openstreetmap.org',  # For loading image tiles in map data
 )
 CSP_MEDIA_SRC = allowed_sources
 CSP_FRAME_SRC = allowed_sources
-CSP_WORKER_SRC = allowed_sources
+CSP_WORKER_SRC = (
+    *allowed_sources,
+    'blob:'
+)
 CSP_FRAME_ANCESTORS = allowed_sources
 CSP_STYLE_SRC = (
     "'self'",

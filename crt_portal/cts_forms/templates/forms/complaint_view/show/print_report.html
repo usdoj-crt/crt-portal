@@ -12,8 +12,9 @@
   {% if single_print %}
     <input type="hidden" value="{{ index }}" name="index" id="index" />
   {% else %}
-    <input type="hidden" value="{{ ids }}" name="ids" id="ids" />
+  <input type="hidden" value="{{ ids }}" name="ids" id="ids" />
   {% endif %}
+  <input type="hidden" value="{{ batch_id }}" name="batch_id" id="batch_id" />
   <input type="hidden" value="{{ return_url }}" name="return_url" id="return_url" />
   <div id="print_report" hidden>
     <div class="modal-wrapper print-report--modal">
