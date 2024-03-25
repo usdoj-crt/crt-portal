@@ -1421,7 +1421,7 @@ class ActionsView(LoginRequiredMixin, FormView):
 
 class SavedSearchView(LoginRequiredMixin, FormView):
 
-    def get_page_args(self, request, saved_search_view, section_args):
+    def get_page_args(self, request, filter_args, saved_searches):
         per_page = request.GET.get('per_page', request.COOKIES.get('complaint_view_per_page', 15))
         page = request.GET.get('page', 1)
         sort_expr, sorts = other_sort(request.GET.getlist('sort'), 'saved_search')
@@ -1430,11 +1430,16 @@ class SavedSearchView(LoginRequiredMixin, FormView):
         saved_searches, page_format = pagination(paginator, page, per_page)
         sort_state = {}
         page_args = f'?per_page={per_page}'
-        page_args += f'&saved_search_view={saved_search_view}{section_args}'
-        filter_args = f'&saved_search_view={saved_search_view}{section_args}'
         page_args += filter_args
         sort_args, sort_state = get_sort_args(sorts, sort_state)
         page_args += sort_args
+        return {
+            'page_format': page_format,
+            'page_args': page_args,
+            'sort_state': sort_state,
+            'filter_state': filter_args,
+            'per_page': per_page,
+        }
 
     def get(self, request):
         section_filter = request.GET.getlist('section_filter', [])
@@ -1444,12 +1449,13 @@ class SavedSearchView(LoginRequiredMixin, FormView):
         saved_search_view = request.GET.get('saved_search_view', 'all')
         if saved_search_view == 'my-saved-searches':
             saved_searches = SavedSearch.objects.filter(created_by=request.user.id)
+        filter_args = f'&saved_search_view={saved_search_view}{section_args}'
         output = {
             'section_filter': section_args,
             'saved_searches': saved_searches,
             'form': SavedSearchFilter(request.GET),
             'saved_search_view': saved_search_view,
-            **self.get_page_args(request, saved_search_view, section_args)
+            **self.get_page_args(request, filter_args, saved_searches)
         }
         return render(request, 'forms/complaint_view/saved_searches/index.html', output)
 
@@ -1461,12 +1467,13 @@ class SavedSearchView(LoginRequiredMixin, FormView):
         saved_search_view = request.GET.get('saved_search_view', 'all')
         if saved_search_view == 'my-saved-searches':
             saved_searches = SavedSearch.objects.filter(created_by=request.user.id)
+        filter_args = f'&saved_search_view={saved_search_view}{section_args}'
         output = {
             'section_filter': section_args,
             'saved_searches': saved_searches,
             'form': SavedSearchFilter(request.GET),
             'saved_search_view': saved_search_view,
-            **self.get_page_args(request, saved_search_view, section_args)
+            **self.get_page_args(request, filter_args, saved_searches)
         }
         return render(request, 'forms/complaint_view/saved_searches/index.html', output)
 
