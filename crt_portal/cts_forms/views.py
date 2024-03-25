@@ -1461,28 +1461,12 @@ class SavedSearchView(LoginRequiredMixin, FormView):
         saved_search_view = request.GET.get('saved_search_view', 'all')
         if saved_search_view == 'my-saved-searches':
             saved_searches = SavedSearch.objects.filter(created_by=request.user.id)
-        per_page = request.GET.get('per_page', request.COOKIES.get('complaint_view_per_page', 15))
-        page = request.GET.get('page', 1)
-        sort_expr, sorts = other_sort(request.GET.getlist('sort'), 'saved_search')
-        saved_searches = saved_searches.order_by(*sort_expr)
-        paginator = Paginator(saved_searches, per_page)
-        saved_searches, page_format = pagination(paginator, page, per_page)
-        sort_state = {}
-        page_args = f'?per_page={per_page}'
-        filter_args = f'&saved_search_view={saved_search_view}{section_args}'
-        page_args += filter_args
-        sort_args, sort_state = get_sort_args(sorts, sort_state)
-        page_args += sort_args
         output = {
             'section_filter': section_args,
             'saved_searches': saved_searches,
             'form': SavedSearchFilter(request.GET),
             'saved_search_view': saved_search_view,
-            'page_format': page_format,
-            'page_args': page_args,
-            'sort_state': sort_state,
-            'filter_state': filter_args,
-            'per_page': per_page,
+            **self.get_page_args(request, saved_search_view, section_args)
         }
         return render(request, 'forms/complaint_view/saved_searches/index.html', output)
 
