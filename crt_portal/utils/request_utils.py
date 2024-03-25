@@ -19,6 +19,20 @@ def get_user_section():
     return None
 
 
+def fix_mathjax(html):
+    """To avoid requirement of unsafe eval.
+
+    See: https://github.com/mathjax/MathJax/issues/1988#issuecomment-384978927
+    """
+    soup = BeautifulSoup(html, 'html.parser')
+
+    scripts = soup.find_all('script', attrs={'type': 'text/x-mathjax-config'})
+    for script in scripts:
+        script.clear()
+
+    return str(soup)
+
+
 def add_nonce_to_html(html):
     current_request = CrequestMiddleware.get_request()
     if not current_request or not hasattr(current_request, 'csp_nonce'):

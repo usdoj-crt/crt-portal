@@ -895,6 +895,12 @@ form#cts-forms-profile {
   }
 }
 
+.disposition-batch-list {
+  .filter-tag {
+    cursor: auto;
+  }
+}
+
 .filter-tag {
   @extend .outline-button;
   @include icon-dark();

@@ -11,6 +11,8 @@ def _valid_sort_params(sort, type):
         valid_fields = ['timestamp', 'verb', 'description', 'target_object_id']
     elif type == 'saved_search':
         valid_fields = ['created_by', 'section', 'name']
+    elif type == 'batch':
+        valid_fields = ['status', 'retention_schedule', 'proposed_disposal_date', 'create_date']
     else:
         fields = [
             *EmailReportCount._meta.fields,
@@ -52,7 +54,6 @@ def other_sort(sort, sort_type):
             sort_exprs.append(F(sort_item[1::]))
         else:
             sort_exprs.append(F(sort_item))
-
-    sort_exprs.extend([F('id').desc()])
+    sort_exprs.extend([F('pk').desc()])
 
     return sort_exprs, sort

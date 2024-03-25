@@ -3,20 +3,24 @@
   AriaAutocomplete(select, {});
 
   var comment_field = document.getElementById('id_comment');
-  if (!comment_field) {
+  const disposed_by = document.getElementById('id_disposed_by');
+  if (!comment_field && !disposed_by) {
     return; // This is the print view, no actions are shown.
   }
-  comment_field.oninput = function(event) {
-    var buttons = document.querySelectorAll('.complaint-page .usa-button');
-    for (var i = 0; i < buttons.length; i++) {
-      var button = buttons[i];
-      if (event.target.value) {
-        button.removeAttribute('disabled');
-      } else {
-        button.setAttribute('disabled', 'disabled');
+
+  if (comment_field) {
+    comment_field.oninput = function(event) {
+      var buttons = document.querySelectorAll('.complaint-page .usa-button');
+      for (var i = 0; i < buttons.length; i++) {
+        var button = buttons[i];
+        if (event.target.value) {
+          button.removeAttribute('disabled');
+        } else {
+          button.setAttribute('disabled', 'disabled');
+        }
       }
-    }
-  };
+    };
+  }
 
   var actions_section = document.getElementById('bulk_actions_section');
   var warning_section = document.getElementById('warning_section');
@@ -63,23 +67,25 @@
     };
   }
 
-  var assigned_section = document.getElementById('id_assigned_section');
-  var original_statute_value = document.getElementById('id_primary_statute').value;
-  assigned_section.onchange = function(event) {
-    var status = document.getElementById('id_status');
-    status.value = 'new';
-    status.setAttribute('disabled', 'disabled');
-    var primaryStatute = document.getElementById('id_primary_statute');
-    primaryStatute.value = original_statute_value;
-    primaryStatute.setAttribute('disabled', 'disabled');
-    var selectElement = document.getElementById('id_assigned_to');
-    selectElement.value = '';
-    selectElement.setAttribute('disabled', 'disabled');
-    var actualSelectElement = document.getElementById('id_assigned_toaria-autocomplete-1-input');
-    actualSelectElement.value = '';
-    actualSelectElement.setAttribute('disabled', 'disabled');
-  };
+  if (comment_field) {
+    var assigned_section = document.getElementById('id_assigned_section');
+    var original_statute_value = document.getElementById('id_primary_statute').value;
+    assigned_section.onchange = function(event) {
+      var status = document.getElementById('id_status');
+      status.value = 'new';
+      status.setAttribute('disabled', 'disabled');
+      var primaryStatute = document.getElementById('id_primary_statute');
+      primaryStatute.value = original_statute_value;
+      primaryStatute.setAttribute('disabled', 'disabled');
+      var selectElement = document.getElementById('id_assigned_to');
+      selectElement.value = '';
+      selectElement.setAttribute('disabled', 'disabled');
+      var actualSelectElement = document.getElementById('id_assigned_toaria-autocomplete-1-input');
+      actualSelectElement.value = '';
+      actualSelectElement.setAttribute('disabled', 'disabled');
+    };
 
-  // disable "Multiple" selection for section
-  assigned_section.options[0].setAttribute('disabled', 'disabled');
+    // disable "Multiple" selection for section
+    assigned_section.options[0].setAttribute('disabled', 'disabled');
+  }
 })(window, document);

@@ -21,6 +21,7 @@ django-types = "*"
 djangorestframework-types = "*"
 factory-boy = "*"
 tblib = "*"
+pyshp = "*"
 
 [packages]
 django = "==4.2.10"
