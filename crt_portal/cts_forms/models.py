@@ -686,6 +686,11 @@ class Report(models.Model):
 
 class ReportDispositionBatch(models.Model):
     """A group of reports that have been disposed of together."""
+    class Meta:
+        permissions = (
+            ("review_dispositionbatch", "Can approve or reject disposition batches"),
+        )
+
     uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, unique=True, editable=False)
     disposed_date = models.DateTimeField(auto_now_add=True)
     create_date = models.DateTimeField(blank=True, null=True)

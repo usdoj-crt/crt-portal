@@ -1135,6 +1135,8 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
             plural = 's have' if batch.disposed_count > 1 else ' has'
             message = f'{batch.disposed_count} record{plural} been approved for disposal. The records unit will review your request and approve or deny your deletion request. Follow status updates in ‘Report batches for disposal’'
             messages.add_message(request, messages.SUCCESS, message)
+             # log this action for an audit trail.
+            logger.info(f'Batch #{batch.uuid} with {batch.disposed_count} record{plural} has been created by {request.user}')
             url = reverse('crt_forms:disposition')
             return redirect(f"{url}{return_url_args}")
         else:
@@ -1232,7 +1234,8 @@ class DispositionBatchActionsView(LoginRequiredMixin, FormView):
         shared_report_fields['assigned_section'] = first_report.assigned_section
         shared_report_fields['status'] = first_report.status
         shared_report_fields['retention_schedule'] = first_report.retention_schedule
-        form = BatchReviewForm(user=request.user, instance=batch)
+        can_review_batch = request.user.has_perm('cts_forms.review_dispositionbatch') if request.user else False
+        form = BatchReviewForm(user=request.user, can_review_batch=can_review_batch, instance=batch)
         data = get_disposition_report_data(reports)
         output = self.get_reviewer_data(request, batch)
         output.update({
@@ -1250,13 +1253,14 @@ class DispositionBatchActionsView(LoginRequiredMixin, FormView):
             'print_options': PrintActions(),
             'print_reports': reports,
             'truncated_uuid': f'...{str(batch.uuid)[-6:]}',
+            'can_review_batch': can_review_batch,
         })
         return render(request, 'forms/complaint_view/disposition/actions/batch/index.html', output)
 
     def post(self, request, id=None):
         batch = get_object_or_404(ReportDispositionBatch, pk=id)
-        logging.info(request.POST)
-        form = BatchReviewForm(request.POST, user=request.user, instance=batch)
+        can_review_batch = request.user.has_perm('cts_forms.review_dispositionbatch') if request.user else False
+        form = BatchReviewForm(request.POST, user=request.user, can_review_batch=can_review_batch, instance=batch)
         return_url_args = request.POST.get('return_url_args', '')
         return_url_args = urllib.parse.unquote(return_url_args)
         if form.is_valid():
@@ -1268,6 +1272,8 @@ class DispositionBatchActionsView(LoginRequiredMixin, FormView):
             elif batch.status == 'rejected':
                 message = f'{batch.uuid} has been rejected for disposal.'
                 messages.add_message(request, messages.INFO, message)
+             # log this action for an audit trail.
+            logger.info(f'Batch #{batch.uuid} has been {batch.status} by {request.user}')
             url = reverse('crt_forms:disposition')
             return redirect(f"{url}{return_url_args}")
         for key in form.errors:
@@ -1306,6 +1312,8 @@ class DispositionBatchActionsView(LoginRequiredMixin, FormView):
             'print_ids': list(map(int, report_ids)),
             'print_options': PrintActions(),
             'print_reports': reports,
+            'truncated_uuid': f'...{str(batch.uuid)[-6:]}',
+            'can_review_batch': can_review_batch,
         })
         return render(request, 'forms/complaint_view/disposition/actions/batch/index.html', output)
 
