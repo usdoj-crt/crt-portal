@@ -106,6 +106,7 @@ INSTALLED_APPS = [
     'shortener.apps.ShortenerConfig',
     'features.apps.FeaturesConfig',
     'analytics.apps.AnalyticsConfig',
+    'geocoding.apps.GeocodingConfig',
 ]
 SITE_ID = 1
 
@@ -399,6 +400,7 @@ allowed_sources = (
     'https://www.googletagmanager.com/',
     'https://cdnjs.cloudflare.com/',
     'https://www.google.com/',
+    '*.tile.openstreetmap.org',  # For loading image tiles in map data
     *env_csp_sources,
 )
 # headers required for security
@@ -421,6 +423,7 @@ CSP_SCRIPT_SRC = (
     'https://www.googletagmanager.com/',
     'https://cdnjs.cloudflare.com/',
     'https://www.google.com/',
+    '*.tile.openstreetmap.org',  # For loading image tiles in map data
     *env_csp_sources,
 )
 CSP_CONNECT_SRC = (
@@ -434,15 +437,20 @@ CSP_CONNECT_SRC = (
     'https://www.googletagmanager.com/',
     'https://cdnjs.cloudflare.com/',
     'https://www.google.com/',
+    '*.tile.openstreetmap.org',  # For loading image tiles in map data
     *env_csp_sources,
 )
 CSP_IMG_SRC = (
     *allowed_sources,
     'data:',
+    '*.tile.openstreetmap.org',  # For loading image tiles in map data
 )
 CSP_MEDIA_SRC = allowed_sources
 CSP_FRAME_SRC = allowed_sources
-CSP_WORKER_SRC = allowed_sources
+CSP_WORKER_SRC = (
+    *allowed_sources,
+    'blob:'
+)
 CSP_FRAME_ANCESTORS = allowed_sources
 CSP_STYLE_SRC = (
     "'self'",

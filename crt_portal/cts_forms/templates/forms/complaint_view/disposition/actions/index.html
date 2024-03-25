@@ -18,11 +18,6 @@
                 Back to all
               </a>
             </div>
-            {% if not action %}
-            <div class="complaint-actions tablet:grid-col-5 grid-offset-1 margin-top-2">
-              {% include 'forms/complaint_view/disposition/actions/bulk_print.html' with reports=print_reports %}
-            </div>
-            {% endif %}
           </div>
         </div>
         <div id="status-update" class="tablet:grid-col-6 grid-offset-1 padding-left-05">
@@ -30,18 +25,18 @@
         </div>
       </div>
 
-      <div class="complaint-page grid-row grid-gap-2">
-        {% if action == 'print' %}
-        <div class="complaint-actions tablet:grid-col-5 grid-offset-1 margin-top-2">
+      <div class="complaint-page">
+        <div class="complaint-actions display-flex flex-justify-center grid-offset-1 margin-top-2">
           {% include 'forms/complaint_view/disposition/actions/bulk_print.html' with reports=print_reports %}
         </div>
-        {% endif %}
         {% if not action %}
-        <div class="complaint-actions tablet:grid-col-5 grid-offset-1">
-          {% include 'forms/complaint_view/disposition/actions/bulk_actions.html' %}
-        </div>
-        <div class="complaint-actions tablet:grid-col-6">
-          {% include 'forms/complaint_view/disposition/actions/report_list.html' %}
+        <div class="grid-row grid-gap-2">
+          <div class="complaint-actions tablet:grid-col-5 grid-offset-1">
+            {% include 'forms/complaint_view/disposition/actions/bulk_actions.html' %}
+          </div>
+          <div class="complaint-actions tablet:grid-col-6">
+            {% include 'forms/complaint_view/disposition/actions/report_list.html' %}
+          </div>
         </div>
         {% endif %}
       </div>

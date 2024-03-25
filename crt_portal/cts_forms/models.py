@@ -61,7 +61,7 @@ def get_system_user():
 class SavedSearch(models.Model):
     name = models.CharField(max_length=255, null=False, blank=False, help_text="The name of the search as it will appear in lists and dropdowns.")
     description = models.TextField(max_length=1000, null=True, blank=True)
-    query = models.TextField(null=False, blank=False, help_text="The encoded search represented as a URL querystring for the /form/view page.", default='status=new&status=open&no_status=false&grouping=default')
+    query = models.TextField(null=False, blank=False, help_text="The encoded search represented as a URL querystring for the /form/view page.", default='')
     auto_close = models.BooleanField(default=False, null=False, help_text="Whether to automatically close incoming reports that match this search. Only applies to new submissions.")
     auto_close_reason = models.CharField(max_length=255, null=True, blank=True, help_text="The reason to add to the report summary when auto-closing. Will be filled in the following blank: 'Report automatically closed on submission because ____'")
     override_section_assignment = models.BooleanField(default=False, null=False, help_text="Whether to override the section assignment for all reports with this campaign")
@@ -688,19 +688,20 @@ class ReportDispositionBatch(models.Model):
     """A group of reports that have been disposed of together."""
     uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, unique=True, editable=False)
     disposed_date = models.DateTimeField(auto_now_add=True)
-    create_date = models.DateTimeField(default=datetime.today())
+    create_date = models.DateTimeField(blank=True, null=True)
     proposed_disposal_date = models.DateTimeField(blank=True, null=True)
-    disposed_by = models.ForeignKey(User, related_name="disposed_report_batches", on_delete=models.PROTECT, help_text="Intake specialist who created batch.")
+    disposed_by = models.ForeignKey(User, related_name="disposed_report_batches", on_delete=models.PROTECT, blank=True, null=True, help_text="Intake specialist who created batch.")
     disposed_count = models.IntegerField(default=0)
     status = models.TextField(choices=BATCH_STATUS_CHOICES, default='ready')
     first_reviewer = models.ForeignKey(User, related_name="reviewed_disposed_report_batch", blank=True, null=True, on_delete=models.PROTECT, help_text="First records team reviewer.")
+    first_review_date = models.DateTimeField(blank=True, null=True, help_text="Date of the first records team review.")
     second_reviewer = models.ForeignKey(User, related_name="second_reviewed_disposed_report_batch", blank=True, null=True, on_delete=models.PROTECT, help_text="Second records team reviewer.")
-    notes = models.TextField(max_length=7000, null=False, blank=True, help_text="Internal notes about batch.")
+    second_review_date = models.DateTimeField(blank=True, null=True, help_text="Date of the second records team review.")
+    notes = models.TextField(max_length=7000, null=True, blank=True, help_text="Internal notes about batch.")
 
     def add_records_to_batch(self, queryset, user):
         """Creates a batch of disposed reports."""
-        current_request = CrequestMiddleware.get_request()
-        if not current_request or not user:
+        if not user:
             raise ValueError("Cannot determine the current user for report disposal.")
 
         queryset.all().update(batched_for_disposal=True)

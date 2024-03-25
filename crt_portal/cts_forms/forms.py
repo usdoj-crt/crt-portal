@@ -2066,6 +2066,115 @@ class PrintActions(Form):
     )
 
 
+class BatchReviewForm(ModelForm, ActivityStreamUpdater):
+
+    def field_changed(self, field):
+        # if both are Falsy, nothing actually changed (None ~= "")
+        old = self.initial.get(field, None)
+        new = self.cleaned_data.get(field, None)
+        if not old and not new:
+            return False
+        return old != new
+
+    @cached_property
+    def changed_data(self):
+        return [
+            field_name
+            for field_name
+            in super().changed_data
+            if self.field_changed(field_name)
+        ]
+
+    notes = CharField(
+        required=False,
+        max_length=7000,
+        widget=Textarea(
+            attrs={
+                'rows': 3,
+                'class': 'usa-textarea',
+                'aria-label': 'Complaint summary'
+            },
+        ),
+    )
+
+    status = TypedChoiceField(
+        choices=(('approved', 'Approved'), ('rejected', 'Rejected')),
+        empty_value=None,
+        widget=UsaRadioSelect(
+            attrs={
+                'class': 'display-flex radio-flex',
+            }
+        ),
+        required=False,
+    )
+
+    class Meta:
+        model = ReportDispositionBatch
+        fields = ['first_reviewer', 'first_review_date', 'second_reviewer', 'second_review_date', 'status', 'notes']
+
+    def setup_first_review_date(self):
+        first_review_date = self.instance.first_review_date if self.instance.first_review_date else datetime.today()
+        self.fields['first_review_date'] = CharField(
+            required=True,
+            label="Date",
+            widget=CrtTextInput(attrs={
+                'class': 'usa-input',
+                'name': 'first_review_date',
+                'placeholder': 'mm/dd/yyyy',
+                'aria_label': 'Date',
+                'value': first_review_date.strftime('%m/%d/%Y'),
+                'label': 'Date',
+            }),
+            disabled=self.instance.first_review_date is not None
+        )
+
+    def setup_second_review_date(self):
+        second_review_date = self.instance.second_review_date if self.instance.second_review_date else datetime.today()
+        display_value = second_review_date.strftime('%m/%d/%Y')
+        self.fields['second_review_date'] = CharField(
+            required=self.instance.first_review_date is not None,
+            label="Date",
+            widget=CrtTextInput(attrs={
+                'class': 'usa-input',
+                'name': 'second_review_date',
+                'placeholder': 'mm/dd/yyyy',
+                'aria_label': 'Date',
+                'value': display_value,
+                'label': 'Date',
+            }),
+            disabled=self.instance.second_review_date is not None
+        )
+
+    def clean_first_review_date(self):
+        if self.cleaned_data['first_review_date'] is None or self.instance.first_review_date is not None:
+            return self.instance.first_review_date
+        first_review_date = self.cleaned_data['first_review_date']
+        if type(first_review_date) is datetime:
+            return first_review_date
+        first_review_date = first_review_date.split('/')
+        return datetime(int(first_review_date[2]), int(first_review_date[0]), int(first_review_date[1]))
+
+    def clean_second_review_date(self):
+        if self.cleaned_data['second_review_date'] is None or self.instance.second_review_date is not None:
+            return self.instance.second_review_date
+        second_review_date = self.cleaned_data['second_review_date']
+        if type(second_review_date) is datetime:
+            return second_review_date
+        second_review_date = second_review_date.split('/')
+        return datetime(int(second_review_date[2]), int(second_review_date[0]), int(second_review_date[1]))
+
+    def __init__(self, *args, user=None, **kwargs):
+        self.user = user
+        ModelForm.__init__(self, *args, **kwargs)
+        self.setup_first_review_date()
+        if self.instance.first_review_date:
+            self.setup_second_review_date()
+
+    def save(self, commit=True):
+        disposition_batch = super().save(commit)
+        return disposition_batch
+
+
 class BulkDispositionForm(ModelForm, ActivityStreamUpdater):
 
     def field_changed(self, field):
@@ -2089,29 +2198,6 @@ class BulkDispositionForm(ModelForm, ActivityStreamUpdater):
         model = ReportDispositionBatch
         fields = ['disposed_by', 'disposed_count', 'create_date', 'proposed_disposal_date']
 
-    def setup_disposed_by(self):
-        disposed_by = self.user
-        value = (
-            f'{disposed_by.first_name} {disposed_by.last_name}'
-            if disposed_by.first_name and disposed_by.last_name
-            else ''
-        )
-        self.fields['disposed_by'] = CharField(
-            label='Approving Official',
-            widget=CrtTextInput(
-                attrs={
-                    'class': 'usa-input',
-                    'name': 'disposed_by',
-                    'placeholder': 'Approving Official',
-                    'aria_label': 'Approving Official',
-                    'value': value,
-                    'label': 'Approving Official',
-                },
-            ),
-            required=True,
-            initial=disposed_by,
-        )
-
     def setup_create_date(self):
         create_date = datetime.today()
         self.fields['create_date'] = CharField(
@@ -2128,14 +2214,6 @@ class BulkDispositionForm(ModelForm, ActivityStreamUpdater):
             }),
         )
 
-    def clean_disposed_by(self):
-        if 'disposed_by' not in self.cleaned_data:
-            return ''
-        name = self.cleaned_data['disposed_by'].split(' ')
-        if len(name) == 2:
-            return User.objects.filter(first_name=name[0], last_name=name[1]).first()
-        return ''
-
     def clean_create_date(self):
         if 'create_date' not in self.cleaned_data:
             return ''
@@ -2147,7 +2225,6 @@ class BulkDispositionForm(ModelForm, ActivityStreamUpdater):
     def __init__(self, *args, user=None, **kwargs):
         self.user = user
         ModelForm.__init__(self, *args, **kwargs)
-        self.setup_disposed_by()
         self.setup_create_date()
 
     def update_reports(self, reports, user, batch):
@@ -2155,7 +2232,6 @@ class BulkDispositionForm(ModelForm, ActivityStreamUpdater):
         Bulk update given reports and update activity log for each report
         """
         proposed_disposal_date = batch.proposed_disposal_date.strftime('%m/%d/%Y')
-        logging.info(user)
         batch.add_records_to_batch(reports, user)
         for report in reports:
             add_activity(user, 'Disposition:', f'Approved for disposal on {proposed_disposal_date}', report, True)
@@ -2793,6 +2869,14 @@ class SavedSearchActions(ModelForm):
             in super().changed_data
             if self.field_changed(field_name)
         ]
+
+    def clean_query(self):
+        query = self.cleaned_data.get('query', '')
+        if not query:
+            return ''
+        if query[0] == '?':
+            return query[1:]
+        return query
 
     class Meta:
         model = SavedSearch

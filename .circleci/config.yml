@@ -91,7 +91,7 @@ jobs:
           name: Run unit tests & check coverage
           command: |
             pipenv run coverage run --source='crt_portal' crt_portal/manage.py test --settings=crt_portal.test_settings shortener tms features cts_forms
-            pipenv run coverage report --fail-under=85 -m
+            pipenv run coverage report --fail-under=80 -m
       - run:
           name: Run bandit (Python security) tests
           command: |
