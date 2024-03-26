@@ -19,6 +19,10 @@ def test_select_spanish_from_query(page, *, language_code, title):
     assert page.title() == title
     assert page.is_visible(f"button[data-value='{language_code}']")
 
+    with page.expect_navigation():
+        page.click("button[data-value='en']")
+    assert page.title() == 'Contact the Civil Rights Division | Department of Justice'
+
 
 @pytest.mark.only_browser("chromium")
 @console.raise_errors()
