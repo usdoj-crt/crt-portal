@@ -2047,7 +2047,6 @@ class BatchReviewForm(ModelForm, ActivityStreamUpdater):
             if self.field_changed(field_name)
         ]
 
-
     status = TypedChoiceField(
         choices=(('approved', 'Approved'), ('rejected', 'Rejected')),
         empty_value=None,
