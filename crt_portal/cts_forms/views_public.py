@@ -287,7 +287,9 @@ class CRTReportWizard(SessionWizardView):
             # If the form is based on ModelFormSet, add queryset if available
             # and not previous set.
             kwargs.setdefault('queryset', self.get_form_instance(step))
-        return form_class(**kwargs)
+        result = form_class(**kwargs)
+        setattr(result, 'request', self.request)
+        return result
 
     def get_template_names(self):
         return [TEMPLATES[int(self.steps.current)]]

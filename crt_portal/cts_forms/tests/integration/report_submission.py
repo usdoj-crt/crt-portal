@@ -1,10 +1,11 @@
 import pytest
 
-from cts_forms.tests.integration_util import console
+from cts_forms.tests.integration_util import console, compat
 
 
 @pytest.mark.only_browser("chromium")
 @console.raise_errors(ignore='422')
+@compat.defeat_recaptcha
 def test_error_if_form_refreshed(page, base_url):
 
     def next_step():
@@ -37,6 +38,7 @@ def test_error_if_form_refreshed(page, base_url):
     # We don't support data URIs, so this fails:
     'data:image/png;base64,iVBOR'
 ])
+@compat.defeat_recaptcha
 def test_report_complete_and_valid_submission(page):
 
     def next_step():
