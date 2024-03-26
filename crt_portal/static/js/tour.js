@@ -177,7 +177,7 @@
     id: 'fourth-step',
     text: 'Click the link to go to the Report Records table with the saved search filters applied.',
     attachTo: {
-      element: '#name',
+      element: '#name-sort',
       on: 'bottom'
     },
     classes: 'fourth-step',

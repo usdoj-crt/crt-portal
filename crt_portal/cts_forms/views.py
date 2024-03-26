@@ -675,10 +675,11 @@ def serialize_data(report, request, report_id):
 
 def get_section_args(section_filters):
     if not section_filters:
-        return []
+        return ''
     return ''.join([
         f'&section_filter={section_filter}'
         for section_filter in section_filters
+        if section_filter != ""
     ])
 
 
@@ -1420,6 +1421,26 @@ class ActionsView(LoginRequiredMixin, FormView):
 
 class SavedSearchView(LoginRequiredMixin, FormView):
 
+    def get_page_args(self, request, filter_args, saved_searches):
+        per_page = request.GET.get('per_page', request.COOKIES.get('complaint_view_per_page', 15))
+        page = request.GET.get('page', 1)
+        sort_expr, sorts = other_sort(request.GET.getlist('sort'), 'saved_search')
+        saved_searches = saved_searches.order_by(*sort_expr)
+        paginator = Paginator(saved_searches, per_page)
+        saved_searches, page_format = pagination(paginator, page, per_page)
+        sort_state = {}
+        page_args = f'?per_page={per_page}'
+        page_args += filter_args
+        sort_args, sort_state = get_sort_args(sorts, sort_state)
+        page_args += sort_args
+        return {
+            'page_format': page_format,
+            'page_args': page_args,
+            'sort_state': sort_state,
+            'filter_state': filter_args,
+            'per_page': per_page,
+        }
+
     def get(self, request):
         section_filter = request.GET.getlist('section_filter', [])
         filters = {'section__in': section_filter, 'shared': True} if section_filter else {'shared': True}
@@ -1428,11 +1449,13 @@ class SavedSearchView(LoginRequiredMixin, FormView):
         saved_search_view = request.GET.get('saved_search_view', 'all')
         if saved_search_view == 'my-saved-searches':
             saved_searches = SavedSearch.objects.filter(created_by=request.user.id)
+        filter_args = f'&saved_search_view={saved_search_view}{section_args}'
         output = {
             'section_filter': section_args,
             'saved_searches': saved_searches,
             'form': SavedSearchFilter(request.GET),
             'saved_search_view': saved_search_view,
+            **self.get_page_args(request, filter_args, saved_searches)
         }
         return render(request, 'forms/complaint_view/saved_searches/index.html', output)
 
@@ -1444,11 +1467,13 @@ class SavedSearchView(LoginRequiredMixin, FormView):
         saved_search_view = request.GET.get('saved_search_view', 'all')
         if saved_search_view == 'my-saved-searches':
             saved_searches = SavedSearch.objects.filter(created_by=request.user.id)
+        filter_args = f'&saved_search_view={saved_search_view}{section_args}'
         output = {
             'section_filter': section_args,
             'saved_searches': saved_searches,
             'form': SavedSearchFilter(request.GET),
             'saved_search_view': saved_search_view,
+            **self.get_page_args(request, filter_args, saved_searches)
         }
         return render(request, 'forms/complaint_view/saved_searches/index.html', output)
 
@@ -1464,20 +1489,18 @@ class SavedSearchActionView(LoginRequiredMixin, View):
             saved_search = get_object_or_404(SavedSearch, pk=id)
         else:
             saved_search = SavedSearch()
-        section_filter = request.GET.getlist('section_filter', [])
-        section_args = get_section_args(section_filter)
+        section_filter = request.GET.get('section_filter', '')
         saved_search_form = SavedSearchActions(instance=saved_search)
         output = {
             'form': saved_search_form,
-            'section_filter': section_args,
+            'section_filter': section_filter,
         }
         if id:
             return render(request, 'forms/complaint_view/saved_searches/actions/update.html', output)
         return render(request, 'forms/complaint_view/saved_searches/actions/new.html', output)
 
     def post(self, request, id=None):
-        section_filter = request.GET.get('section_filter', [])
-        section_args = get_section_args(section_filter)
+        section_filter = request.POST.get('section_filter', '')
         url = reverse('crt_forms:saved-searches')
         delete = request.POST.get('delete', False)
         if not id:
@@ -1489,13 +1512,12 @@ class SavedSearchActionView(LoginRequiredMixin, View):
         if delete:
             saved_search.delete()
             messages.add_message(request, messages.SUCCESS, form.success_message(id, delete))
-            return redirect(f"{url}?{section_args}")
+            return redirect(f"{url}?{section_filter}")
 
         if not (form.is_valid() and form.has_changed()):
-            section_args = get_section_args(section_filter)
             output = {
                 'form': form,
-                'section_filter': section_args,
+                'section_filter': section_filter,
                 'id': saved_search.pk
             }
 
@@ -1523,8 +1545,6 @@ class SavedSearchActionView(LoginRequiredMixin, View):
         saved_search.save()
         messages.add_message(request, messages.SUCCESS, form.success_message(id))
         url = reverse('crt_forms:saved-searches')
-        section_filter = request.POST.get('section_filter', [])
-        section_args = get_section_args(section_filter)
         return redirect(f"{url}?{section_filter}")
 
 

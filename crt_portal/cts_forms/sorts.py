@@ -9,6 +9,8 @@ SORT_DESC_CHAR = '-'
 def _valid_sort_params(sort, type):
     if type == 'activity':
         valid_fields = ['timestamp', 'verb', 'description', 'target_object_id']
+    elif type == 'saved_search':
+        valid_fields = ['created_by', 'section', 'name']
     elif type == 'batch':
         valid_fields = ['status', 'retention_schedule', 'proposed_disposal_date', 'create_date']
     else:
