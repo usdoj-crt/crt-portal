@@ -2085,18 +2085,6 @@ class BatchReviewForm(ModelForm, ActivityStreamUpdater):
             if self.field_changed(field_name)
         ]
 
-    notes = CharField(
-        required=False,
-        max_length=7000,
-        widget=Textarea(
-            attrs={
-                'rows': 3,
-                'class': 'usa-textarea',
-                'aria-label': 'Complaint summary'
-            },
-        ),
-    )
-
     status = TypedChoiceField(
         choices=(('approved', 'Approved'), ('rejected', 'Rejected')),
         empty_value=None,
@@ -2110,7 +2098,7 @@ class BatchReviewForm(ModelForm, ActivityStreamUpdater):
 
     class Meta:
         model = ReportDispositionBatch
-        fields = ['first_reviewer', 'first_review_date', 'second_reviewer', 'second_review_date', 'status', 'notes']
+        fields = ['first_reviewer', 'first_review_date', 'second_reviewer', 'second_review_date', 'status', 'notes', 'second_review_notes']
 
     def setup_first_review_date(self):
         first_review_date = self.instance.first_review_date if self.instance.first_review_date else datetime.today()
@@ -2145,6 +2133,36 @@ class BatchReviewForm(ModelForm, ActivityStreamUpdater):
             disabled=self.instance.second_review_date is not None or not self.can_review_batch
         )
 
+    def setup_notes(self):
+        self.fields['notes'] = CharField(
+            disabled=not self.can_review_batch or self.instance.notes,
+            required=False,
+            max_length=7000,
+            label='Notes',
+            widget=Textarea(
+                attrs={
+                    'rows': 3,
+                    'class': 'usa-textarea',
+                    'aria-label': 'Notes'
+                },
+            ),
+        )
+
+    def setup_second_review_notes(self):
+        self.fields['second_review_notes'] = CharField(
+            disabled=not self.can_review_batch or self.instance.second_review_notes,
+            required=False,
+            max_length=7000,
+            label='Notes',
+            widget=Textarea(
+                attrs={
+                    'rows': 3,
+                    'class': 'usa-textarea',
+                    'aria-label': 'Notes'
+                },
+            ),
+        )
+
     def clean_first_review_date(self):
         if self.cleaned_data['first_review_date'] is None or self.instance.first_review_date is not None:
             return self.instance.first_review_date
@@ -2170,8 +2188,10 @@ class BatchReviewForm(ModelForm, ActivityStreamUpdater):
         self.fields['notes'].disabled = not self.can_review_batch
         self.fields['status'].disabled = not self.can_review_batch
         self.setup_first_review_date()
+        self.setup_notes()
         if self.instance.first_review_date:
             self.setup_second_review_date()
+            self.setup_second_review_notes()
 
     def save(self, commit=True):
         disposition_batch = super().save(commit)

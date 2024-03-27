@@ -71,10 +71,18 @@
         {% endif %}
         <div class="margin-bottom-2 crt-textarea padding-left-2">
             <label for="id_notes">
-              {{ form.notes.label }}
+            {% if not batch.first_reviewer %} {{ form.notes.label }} {% else %} Primary Authorizing Individual's Notes {% endif %}
             </label>
             {{ form.notes }}
         </div>
+        {% if batch.first_reviewer %}
+            <div class="margin-bottom-2 crt-textarea padding-left-2">
+                <label for="id_second_review_notes">
+                {{ form.second_review_notes.label }}
+                </label>
+                {{ form.second_review_notes }}
+            </div>
+        {% endif %}
         <div class="display-flex flex-justify-end">
             <button class="usa-button" type="submit" {% if not can_review_batch %} disabled {% endif %}>
                 Submit
