@@ -689,7 +689,7 @@ def get_batch_data(disposition_batches, all_args_encoded):
         data.append({
             'batch': batch,
             'truncated_uuid': f'...{str(batch.uuid)[-6:]}',
-            'retention_schedule': RetentionSchedule.objects.get(retention_years=batch.retention_schedule).name if batch.retention_schedule else '',
+            'retention_schedule': RetentionSchedule.objects.get(pk=batch.retention_schedule).name if batch.retention_schedule else '',
             'url': f'{url}?return_url_args={all_args_encoded}',
         })
     return data
@@ -1286,7 +1286,7 @@ class DispositionBatchActionsView(LoginRequiredMixin, FormView):
             messages.add_message(request, messages.ERROR, error_message)
         report_dispo_objects = ReportDisposition.objects.filter(batch=batch)
         report_public_ids = report_dispo_objects.values_list('public_id', flat=True)
-        reports = Report.objects.filter(public_id__in=report_public_ids).order_by('pk')
+        reports = Report.objects.filter(public_id__in=report_public_ids).order_by('create_date')
         report_ids = list(reports.values_list('pk', flat=True))
         first_report = reports.first()
         page = request.GET.get('page', 1)
