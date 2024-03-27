@@ -41,7 +41,7 @@ applications:
   routes:
   - route: crt-portal-jupyter-stage.app.cloud.gov
   memory: 2G
-  disk_quota: 5G
+  disk_quota: 6G
   instances: 1
   env:
     ENV: STAGE

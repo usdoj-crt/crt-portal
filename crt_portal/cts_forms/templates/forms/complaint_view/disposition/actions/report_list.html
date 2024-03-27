@@ -1,0 +1,76 @@
+{% extends "forms/complaint_view/show/card.html" %}
+
+{% load i18n %}
+
+{% block title %}Selected reports for disposal{% endblock %}
+
+{% block extra_classes %}crt-actions-card report-list{% endblock %}
+
+{% block card_content %}
+<div>
+<div id="active-filters" class="disposition-batch-list margin-top-2">
+<div class="filter-tag">
+   <span>Retention schedule: {{ shared_report_fields.retention_schedule }}</span>
+</div>
+<div class="filter-tag">
+    <span>Section: {{ shared_report_fields.assigned_section }}</span>
+</div>
+<div class="filter-tag">
+    <span>Status: {{ shared_report_fields.status }}</span>
+</div>
+</div>
+<div class="grid-col-auto">
+  <div class="crt-xscroll">
+    <table class="usa-table crt-table sort-table disposition-action-table">
+      <thead>
+        <tr>
+          <th>
+            Report ID
+          </th>
+          <th>
+            Expiration
+          </th>
+          <th>
+            Location
+          </th>
+          <th>
+            City/State
+          </th>
+        </tr>
+      </thead>
+      {% if data %}
+        <tbody>
+          {% for datum in data %}
+            <tr class="stripe">
+              <td><a class="td-link display-block" href="{{datum.url}}">{{ datum.report.public_id }}</a></td>
+              <td><a class="td-link display-block" href="{{datum.url}}">{{ datum.report.assigned_section }}</a></td>
+              <td><a class="td-link display-block" href="{{datum.url}}">{{ datum.report.location_name|default:"-" }}</a></td>
+              <td>
+                <a class="td-link display-block" href="{{datum.url}}">
+                  {{ datum.report.location_city_town }}, {{ datum.report.location_state }}
+                </a>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      {% endif %}
+    </table>
+  </div>
+</div>
+</div>
+<div>
+  {% include "forms/snippets/pagination.html" with page_format=page_format page_args=page_args placement="bottom" %}
+</div>
+  {% if not data %}
+  <div class="crt-portal-card table-message">
+    <div class="crt-portal-card__content">
+      <div class="grid-container padding-bottom-2">
+        <div class="align-center">
+          <img alt="filter icon" src="{% static 'img/filters.svg' %}" class="margin-top-1" />
+          <p class="margin-bottom-1 margin-top-1" role="status"><b>No records selected</b></p>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}
+{% endblock %}

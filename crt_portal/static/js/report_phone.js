@@ -33,8 +33,27 @@
     document.querySelector('.iti__flag-container').setAttribute('tabindex', '-1');
   }
 
+  function containsNumbers(str) {
+    return /[1-9]/.test(str);
+  }
+
   document.addEventListener('DOMContentLoaded', function() {
-    document.querySelectorAll('.phone-input').forEach(setupInput);
+    const inputs = document.querySelectorAll('.phone-input');
+    inputs.forEach(setupInput);
+    const observer = new MutationObserver(function(mutations) {
+      mutations.forEach(function(mutation) {
+        if (mutation.type === 'attributes' && containsNumbers(mutation.target.placeholder)) {
+          const placeholder = mutation.target.placeholder;
+          mutation.target.placeholder = placeholder.replace(/\d/g, 0);
+        }
+      });
+    });
+
+    inputs.forEach(input =>
+      observer.observe(input, {
+        attributes: true
+      })
+    );
   });
 
   function isValid(input, telInputApi) {

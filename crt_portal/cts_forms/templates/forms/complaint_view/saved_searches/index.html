@@ -13,9 +13,7 @@
   <div id="status-update" class="grid-col-auto">
     {% include 'partials/messages.html' %}
   </div>
-  {% if saved_search_view == 'all' %}
-    {% include 'forms/complaint_view/saved_searches/filter-controls.html' %}
-  {% endif %}
+  {% include 'forms/complaint_view/saved_searches/filter-controls.html' %}
   <div class="display-flex margin-top-8">
     <span class="intake-pagination margin-left-auto">
       Showing {{ page_format.page_range_start }} - {{ page_format.page_range_end }} of {{ page_format.count }} records

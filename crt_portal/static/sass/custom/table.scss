@@ -59,6 +59,16 @@
   }
 }
 
+.disposition-action-table {
+  thead {
+    tr {
+      th {
+        font-weight: 700!important;
+      }
+    }
+  }
+}
+
 .crt-table {
   @extend .usa-table;
   @include text--body-copy__small();
