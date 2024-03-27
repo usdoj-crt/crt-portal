@@ -1234,7 +1234,7 @@ class DispositionBatchActionsView(LoginRequiredMixin, FormView):
         shared_report_fields['assigned_section'] = first_report.assigned_section
         shared_report_fields['status'] = first_report.status
         shared_report_fields['retention_schedule'] = first_report.retention_schedule
-        can_review_batch = request.user.has_perm('cts_forms.review_dispositionbatch') if request.user else False
+        can_review_batch = request.user.has_perm('cts_forms.review_dispositionbatch')
         form = BatchReviewForm(user=request.user, can_review_batch=can_review_batch, instance=batch)
         data = get_disposition_report_data(reports)
         output = self.get_reviewer_data(request, batch)
@@ -1259,7 +1259,7 @@ class DispositionBatchActionsView(LoginRequiredMixin, FormView):
 
     def post(self, request, id=None):
         batch = get_object_or_404(ReportDispositionBatch, pk=id)
-        can_review_batch = request.user.has_perm('cts_forms.review_dispositionbatch') if request.user else False
+        can_review_batch = request.user.has_perm('cts_forms.review_dispositionbatch')
         form = BatchReviewForm(request.POST, user=request.user, can_review_batch=can_review_batch, instance=batch)
         return_url_args = request.POST.get('return_url_args', '')
         return_url_args = urllib.parse.unquote(return_url_args)
