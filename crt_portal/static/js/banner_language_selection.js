@@ -1,18 +1,21 @@
 (function(root, dom) {
-  var buttons = document.querySelectorAll('.language-selection__button');
-  for (var index in buttons) {
-    var button = buttons[index];
+  const buttons = document.querySelectorAll('.language-selection__button');
+  buttons.forEach(button => {
     button.onclick = function(event) {
       event.preventDefault();
 
-      var language_code = this.getAttribute('data-value');
+      const language_code = this.getAttribute('data-value');
 
-      var language_input_el = document.getElementById('language_input');
+      const language_input_el = document.getElementById('language_input');
 
       language_input_el.setAttribute('value', language_code);
 
-      var form = document.getElementById('language_selection_form');
+      const url = new URL(window.location.href);
+      url.searchParams.set('lang', language_code);
+      window.history.replaceState({}, '', url);
+
+      const form = document.getElementById('language_selection_form');
       form.submit();
     };
-  }
+  });
 })(window, document);
