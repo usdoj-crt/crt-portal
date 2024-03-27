@@ -19,7 +19,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import SuspiciousOperation, BadRequest
 from django.core.paginator import Paginator
-from django.db.models import F, Subquery, OuterRef
+from django.db.models import F, Subquery, OuterRef, Value, CharField, DateField
 from django.http import Http404, HttpResponse, QueryDict
 from django.shortcuts import get_object_or_404, redirect, render, reverse
 from django.utils.html import mark_safe
@@ -28,6 +28,7 @@ from formtools.wizard.views import SessionWizardView
 from analytics.models import AnalyticsFile, get_dashboard_structure_from_db
 from tms.models import TMSEmail
 from datetime import datetime
+from django.db.models.functions import ExtractYear, Cast, Concat
 
 
 from .attachments import ALLOWED_FILE_EXTENSIONS
@@ -1011,13 +1012,21 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
         # make sure the queryset does not order by anything, otherwise
         # we will have difficulty getting distinct results.
         query = record_query.order_by()
+        query = query.annotate(
+            retention_year=F('retention_schedule__retention_years'),
+            expiration_year=F('retention_year') + ExtractYear('closed_date') + 1,
+            expiration_date=Cast(Concat(F('expiration_year'), Value('-01-01'), output_field=CharField()), output_field=DateField())
+        )
         for key in keys:
             values = query.values_list(key, flat=True).distinct()
             if values.count() != 1:
                 yield key, self.EMPTY_CHOICE
                 continue
             if key == 'retention_schedule':
-                yield key, RetentionSchedule.objects.get(retention_years=values[0]).name
+                yield key, RetentionSchedule.objects.get(pk=values[0]).name
+                continue
+            if key == 'expiration_date':
+                yield key, values[0].strftime('%m/%d/%Y')
                 continue
             yield key, values[0]
 
@@ -1026,12 +1035,6 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
         intake_date = query.values_list('create_date', flat=True).order_by('create_date').first().strftime('%m/%d/%Y')
         close_date = query.values_list('closed_date', flat=True).order_by('closed_date').last().strftime('%m/%d/%Y')
         return f'{intake_date} - {close_date}'
-
-    def get_proposed_disposal_date(self, record_query):
-        query = record_query.order_by()
-        close_date = query.values_list('closed_date', flat=True).order_by('closed_date').last()
-        retention_schedule = query.values_list('retention_schedule', flat=True).distinct()
-        return datetime(close_date.year + retention_schedule[0] + 1, 1, 1).date().strftime('%m/%d/%Y')
 
     def reconstruct_id_args(self, ids):
         return ''.join([f'&id={id}' for id in ids])
@@ -1057,11 +1060,10 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
         _, query_filters = report_filter(QueryDict(query_string))
         filter_args = f'{get_filter_args(query_filters)}'
         shared_report_fields = {}
-        keys = ['assigned_section', 'retention_schedule', 'status']
+        keys = ['assigned_section', 'retention_schedule', 'status', 'expiration_date']
         for key, value in self.get_shared_report_values(requested_query, keys):
             shared_report_fields[key] = value
         shared_report_fields['date_range'] = self.get_report_date_range(requested_query)
-        shared_report_fields['proposed_disposal_date'] = self.get_proposed_disposal_date(requested_query)
         all_ids_count = requested_query.count()
         ids_count = len(ids)
 
@@ -1156,8 +1158,7 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
             filter_args = f'{get_filter_args(query_filters)}'
             shared_report_fields = {}
             shared_report_fields['date_range'] = self.get_report_date_range(requested_query)
-            shared_report_fields['proposed_disposal_date'] = self.get_proposed_disposal_date(requested_query)
-            keys = ['assigned_section', 'retention_schedule']
+            keys = ['assigned_section', 'retention_schedule', 'expiration_date']
             for key, value in self.get_shared_report_values(requested_query, keys):
                 shared_report_fields[key] = value
             shared_report_fields['date_range'] = self.get_report_date_range(requested_query)
