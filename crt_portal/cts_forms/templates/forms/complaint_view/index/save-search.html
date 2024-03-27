@@ -1,0 +1,15 @@
+<form
+  id="save-search"
+  method="GET"
+  action="{% url 'crt_forms:saved-search-actions' %}"
+  novalidate
+>
+  <div class="display-flex flex-justify flex-align-center">
+    <input type="hidden" value="{{ filter_state }}" name="query" id="query" />
+    <div class="text-right flex-3">
+      <button class="usa-button" type="submit" id="apply-filters-button">
+        Save search
+      </button>
+    </div>
+  </div>
+</form>
