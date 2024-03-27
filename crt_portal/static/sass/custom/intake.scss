@@ -901,6 +901,12 @@ form#cts-forms-profile {
   }
 }
 
+.saved-search-table {
+  .filter-tag {
+    cursor: auto;
+  }
+}
+
 .filter-tag {
   @extend .outline-button;
   @include icon-dark();

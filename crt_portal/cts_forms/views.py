@@ -1428,12 +1428,16 @@ class SavedSearchView(LoginRequiredMixin, FormView):
         saved_searches = saved_searches.order_by(*sort_expr)
         paginator = Paginator(saved_searches, per_page)
         saved_searches, page_format = pagination(paginator, page, per_page)
+        for saved_search in saved_searches:
+            _, query_filters = report_filter(QueryDict(saved_search.query))
+            saved_search.filters = query_filters
         sort_state = {}
         page_args = f'?per_page={per_page}'
         page_args += filter_args
         sort_args, sort_state = get_sort_args(sorts, sort_state)
         page_args += sort_args
         return {
+            'saved_searches': saved_searches,
             'page_format': page_format,
             'page_args': page_args,
             'sort_state': sort_state,
@@ -1452,7 +1456,6 @@ class SavedSearchView(LoginRequiredMixin, FormView):
         filter_args = f'&saved_search_view={saved_search_view}{section_args}'
         output = {
             'section_filter': section_args,
-            'saved_searches': saved_searches,
             'form': SavedSearchFilter(request.GET),
             'saved_search_view': saved_search_view,
             **self.get_page_args(request, filter_args, saved_searches)
@@ -1470,7 +1473,6 @@ class SavedSearchView(LoginRequiredMixin, FormView):
         filter_args = f'&saved_search_view={saved_search_view}{section_args}'
         output = {
             'section_filter': section_args,
-            'saved_searches': saved_searches,
             'form': SavedSearchFilter(request.GET),
             'saved_search_view': saved_search_view,
             **self.get_page_args(request, filter_args, saved_searches)
@@ -1485,8 +1487,10 @@ class SavedSearchActionView(LoginRequiredMixin, View):
         """
         Get saved search to edit
         """
+        query_filters = []
         if id:
             saved_search = get_object_or_404(SavedSearch, pk=id)
+            _, query_filters = report_filter(QueryDict(saved_search.query))
         else:
             saved_search = SavedSearch()
         query = request.GET.get('query', None)
@@ -1500,6 +1504,7 @@ class SavedSearchActionView(LoginRequiredMixin, View):
             'form': saved_search_form,
             'section_filter': section_filter,
             'saved_search_view': f'&saved_search_view={saved_search_view}',
+            'filters': query_filters,
         }
         if id:
             return render(request, 'forms/complaint_view/saved_searches/actions/update.html', output)

@@ -199,6 +199,14 @@
       }
     }
 
+    &.saved-search-table {
+      td.quickview {
+        &:last-of-type {
+          padding-right: 1rem;
+        }
+      }
+    }
+
     .td-quickview {
       display: block;
       font-weight: bold;
