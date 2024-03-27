@@ -106,6 +106,7 @@ INSTALLED_APPS = [
     'shortener.apps.ShortenerConfig',
     'features.apps.FeaturesConfig',
     'analytics.apps.AnalyticsConfig',
+    'geocoding.apps.GeocodingConfig',
 ]
 SITE_ID = 1
 
@@ -153,6 +154,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'features.templatetags.feature_context.enabled_features',
+                'cts_forms.templatetags.site_keys.recaptcha_site_key',
             ],
         },
     },
@@ -236,6 +238,12 @@ TMS_PRODUCTION_ENDPOINT = "https://tms.govdelivery.com"
 RESTRICT_EMAIL_RECIPIENTS_TO = os.environ.get('RESTRICT_EMAIL_RECIPIENTS_TO', '').split(';')
 
 EMAIL_AUTORESPONSE_ENABLED = os.environ.get('EMAIL_AUTORESPONSE_ENABLED', False)
+
+RECAPTCHA = {
+    'SITE_KEY': os.environ.get('RECAPTCHA_SITE_KEY'),
+    'SECRET_KEY': os.environ.get('RECAPTCHA_SECRET_KEY'),
+    'DEFEAT_KEY': os.environ.get('RECAPTCHA_DEFEAT_KEY'),
+}
 
 if environment in ['DEVELOP']:
     EMAIL_AUTORESPONSE_ENABLED = True
@@ -391,6 +399,8 @@ allowed_sources = (
     'https://stats.g.doubleclick.net',
     'https://www.googletagmanager.com/',
     'https://cdnjs.cloudflare.com/',
+    'https://www.google.com/',
+    '*.tile.openstreetmap.org',  # For loading image tiles in map data
     *env_csp_sources,
 )
 # headers required for security
@@ -412,6 +422,8 @@ CSP_SCRIPT_SRC = (
     'https://touchpoints.app.cloud.gov',
     'https://www.googletagmanager.com/',
     'https://cdnjs.cloudflare.com/',
+    'https://www.google.com/',
+    '*.tile.openstreetmap.org',  # For loading image tiles in map data
     *env_csp_sources,
 )
 CSP_CONNECT_SRC = (
@@ -424,15 +436,21 @@ CSP_CONNECT_SRC = (
     'https://touchpoints.app.cloud.gov',
     'https://www.googletagmanager.com/',
     'https://cdnjs.cloudflare.com/',
+    'https://www.google.com/',
+    '*.tile.openstreetmap.org',  # For loading image tiles in map data
     *env_csp_sources,
 )
 CSP_IMG_SRC = (
     *allowed_sources,
     'data:',
+    '*.tile.openstreetmap.org',  # For loading image tiles in map data
 )
 CSP_MEDIA_SRC = allowed_sources
 CSP_FRAME_SRC = allowed_sources
-CSP_WORKER_SRC = allowed_sources
+CSP_WORKER_SRC = (
+    *allowed_sources,
+    'blob:'
+)
 CSP_FRAME_ANCESTORS = allowed_sources
 CSP_STYLE_SRC = (
     "'self'",

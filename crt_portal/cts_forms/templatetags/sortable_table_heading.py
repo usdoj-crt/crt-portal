@@ -23,6 +23,9 @@ sort_lookup = {
     'created by': 'created_by',
     'name': 'name',
     'section': 'section',
+    'uuid': 'uuid',
+    'create date': 'create_date',
+    'proposed disposal date': 'proposed_disposal_date',
 }
 sortable_props = [
     'status',
@@ -44,6 +47,9 @@ sortable_props = [
     'created_by',
     'name',
     'section',
+    'uuid',
+    'create_date',
+    'proposed_disposal_date',
 ]
 
 

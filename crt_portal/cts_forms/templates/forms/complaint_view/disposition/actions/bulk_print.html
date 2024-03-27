@@ -1,0 +1,20 @@
+
+<span>
+    <a href="#" id="printout_report" class="bulk-print-link display-flex">
+      <img src="{% static "img/intake-icons/ic_printer.svg" %}" alt="printer" class="icon padding-right-1" />
+      Print/save all
+    </a>
+  </span>
+
+  <div class="bulk-print-reports display-none">
+    {% for report in print_reports|slice:":100" %}
+      <div class="bulk-print-report{% if not report.id in print_ids %} bulk-print-report-extra{% endif %}">
+        {% include 'forms/complaint_view/show/header.html' with data=report %}
+        {% include 'forms/complaint_view/show/correspondent_info.html' with data=report disable_edit=True %}
+        {% include 'forms/complaint_view/print/complaint_details.html' with data=report questions=questions %}
+        {% include 'forms/complaint_view/show/description.html' with description=report.violation_summary %}
+        {% include 'forms/complaint_view/print/activities.html' with activity=report.activity %}
+        {% include 'forms/complaint_view/print/summary.html' with summary=report.get_summary %}
+      </div>
+    {% endfor %}
+  </div>

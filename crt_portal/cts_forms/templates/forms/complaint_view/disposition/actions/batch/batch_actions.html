@@ -1,0 +1,85 @@
+{% extends "forms/complaint_view/show/card.html" %}
+
+{% load i18n %}
+
+{% block title %}Review Batch #{{ truncated_uuid }} for Disposal{% endblock %}
+
+{% block extra_classes %}disposition-actions-card crt-actions-card{% endblock %}
+
+{% block card_content %}
+
+<form class="usa-form" method="post" action="/form/disposition/batch/{{batch.uuid}}/" novalidate>
+    <input type="hidden" value="{{ return_url_args }}" name="return_url_args" id="return_url_args" />
+    {% csrf_token %}
+    <div>
+        <h3>Primary Information</h3>
+        <table class="usa-table usa-table--borderless complaint-card-table">
+            <tr>
+                <th>Section</th>
+                <td>
+                    {{ shared_report_fields.assigned_section }}
+                </td>
+            </tr>
+            <tr>
+                <th>Proposed Disposal Date</th>
+                <td>
+                    {{ batch.proposed_disposal_date|date:"SHORT_DATE_FORMAT" }}
+                </td>
+            </tr>
+            <tr>
+                <th>Retention Schedule</th>
+                <td>
+                    {{ shared_report_fields.retention_schedule }}
+                </td>
+            </tr>
+        </table>
+        <h3>Disposal Approval</h3>
+        <div class="margin-bottom-2 padding-left-2">
+            {{ form.status }}
+        </div>
+        <div class="display-flex flex-align-end flex-justify padding-left-2">
+            <div class="margin-bottom-2 margin-right-2">
+                <label for="id_first_display_name">
+                    Primary Authorizing Individual
+                </label>
+                <input type="text" id="id_first_display_name" value="{{ first_display_name }}" class="usa-input" {% if batch.first_reviewer %} disabled {% endif %} placeholder="Primary Authorizing Individual">
+                <input type="hidden" value="{{ first_reviewer }}" name="first_reviewer" id="first_reviewer" />
+            </div>
+            <div class="margin-bottom-2">
+                <label for="id_first_review_date">
+                {{ form.first_review_date.label }}
+                </label>
+                {{ form.first_review_date }}
+            </div>
+        </div>
+        {% if batch.first_reviewer %}
+            <div class="display-flex flex-align-end flex-justify padding-left-2">
+                <div class="margin-bottom-2 margin-right-2">
+                    <label for="id_second_display_name">
+                        Secondary Authorizing Individual
+                    </label>
+                <input type="text" id="id_second_display_name" value="{{ second_display_name }}" class="usa-input" {% if batch.second_reviewer %} disabled {% endif %} placeholder="Secondary Authorizing Individual">
+                <input type="hidden" value="{{ second_reviewer }}" name="second_reviewer" id="second_reviewer" />
+                </div>
+                <div class="margin-bottom-2">
+                    <label for="id_second_review_date">
+                    {{ form.second_review_date.label }}
+                    </label>
+                    {{ form.second_review_date }}
+                </div>
+            </div>
+        {% endif %}
+        <div class="margin-bottom-2 crt-textarea padding-left-2">
+            <label for="id_notes">
+              {{ form.notes.label }}
+            </label>
+            {{ form.notes }}
+        </div>
+        <div class="display-flex flex-justify-end">
+            <button class="usa-button" type="submit">
+                Submit
+            </button>
+        </div>
+    </div>
+</form>
+{% endblock %}

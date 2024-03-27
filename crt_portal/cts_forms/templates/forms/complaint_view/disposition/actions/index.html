@@ -9,7 +9,6 @@
 {% block content %}
   <div class="complaint-show-body">
     <div class="grid-container-widescreen">
-
       <div class="grid-row margin-bottom-1">
         <div class="tablet:grid-col-10 grid-offset-1 padding-left-05">
           <div class="complaint-filter-navigation display-flex flex-row flex-justify">
@@ -26,15 +25,31 @@
         </div>
       </div>
 
-      <div class="complaint-page grid-row grid-gap-4">
-        <div class="complaint-actions tablet:grid-col-5 grid-offset-1">
-          {% include 'forms/complaint_view/disposition/actions/bulk_actions.html' %}
+      <div class="complaint-page">
+        <div class="complaint-actions display-flex flex-justify-center grid-offset-1 margin-top-2">
+          {% include 'forms/complaint_view/disposition/actions/bulk_print.html' with reports=print_reports %}
         </div>
+        {% if not action %}
+        <div class="grid-row grid-gap-2">
+          <div class="complaint-actions tablet:grid-col-5 grid-offset-1">
+            {% include 'forms/complaint_view/disposition/actions/bulk_actions.html' %}
+          </div>
+          <div class="complaint-actions tablet:grid-col-6">
+            {% include 'forms/complaint_view/disposition/actions/report_list.html' %}
+          </div>
+        </div>
+        {% endif %}
       </div>
     </div>
   </div>
 {% endblock %}
-
+{% block usa_footer %}
+  {% if action == 'print' %}
+    {% include 'forms/complaint_view/show/print_report.html' with single_print=False return_url='crt_forms:disposition' return_url_args=page_args %}
+  {% else %}
+    {% include 'forms/complaint_view/show/print_report.html' with single_print=False return_url='crt_forms:disposition-actions' return_url_args=page_args %}
+  {% endif %}
+{% endblock %}
 {% block page_js %}
   {{ block.super }}
   <script type="text/javascript" src="{% static 'vendor/aria-autocomplete-1.2.3.min.js' %}"></script>

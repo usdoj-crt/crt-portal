@@ -14,6 +14,8 @@ from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 from django.conf import settings
 
+import requests
+
 from features.models import Feature
 
 from .filters import get_report_filter_from_search
@@ -50,7 +52,7 @@ from .model_variables import (ACTION_CHOICES, CLOSED_STATUS, COMMERCIAL_OR_PUBLI
                               VIOLATION_SUMMARY_ERROR, WHERE_ERRORS,
                               HATE_CRIME_CHOICES, GROUPING, RETENTION_SCHEDULE_CHOICES)
 from .models import (CommentAndSummary,
-                     ProtectedClass, Report, ResponseTemplate, Profile, ReportAttachment, Campaign, RetentionSchedule, SavedSearch, get_system_user, Tag)
+                     ProtectedClass, Report, ReportDispositionBatch, ResponseTemplate, Profile, ReportAttachment, Campaign, RetentionSchedule, SavedSearch, get_system_user, Tag)
 from .phone_regex import phone_validation_regex
 from .question_group import QuestionGroup
 from .question_text import (CONTACT_QUESTIONS, DATE_QUESTIONS,
@@ -62,7 +64,7 @@ from .question_text import (CONTACT_QUESTIONS, DATE_QUESTIONS,
                             WORKPLACE_QUESTIONS, HATE_CRIME_HELP_TEXT,
                             HATE_CRIME_QUESTION)
 from .widgets import (ComplaintSelect, CrtMultiSelect,
-                      CrtPrimaryIssueRadioGroup, DjNumberWidget, FuzzyFilterField, UsaCheckboxSelectMultiple, UsaTagSelectMultiple,
+                      CrtPrimaryIssueRadioGroup, CrtTextInput, DjNumberWidget, FuzzyFilterField, UsaCheckboxSelectMultiple, UsaTagSelectMultiple,
                       UsaRadioSelect, DataAttributesSelect, CrtDateInput, add_empty_choice)
 from utils.voting_mode import is_voting_mode
 from utils import activity
@@ -347,6 +349,42 @@ class Contact(ModelForm):
                 'class': 'usa-input',
             }),
         }
+
+    def clean(self):
+        form_data = self.cleaned_data
+        if not hasattr(self, 'request'):
+            return form_data
+
+        client_defeat = self.request.headers.get('X-Captcha-Defeat')
+        server_defeat = settings.RECAPTCHA['DEFEAT_KEY']
+        if server_defeat and client_defeat == server_defeat:
+            return form_data
+
+        try:
+            recaptcha_secret = settings.RECAPTCHA['SECRET_KEY']
+        except KeyError:
+            recaptcha_secret = ''  # nosec
+        # If we're not configured for recaptcha, don't check it:
+        if not recaptcha_secret:
+            return form_data
+
+        try:
+            result = requests.post('https://www.google.com/recaptcha/api/siteverify', {
+                'secret': recaptcha_secret,
+                'response': self.request.POST.get('g-recaptcha-response'),
+            }, headers={'Accept': 'application/json'}).json()  # nosec
+        except Exception:
+            # We don't want issues with reaching google to impact form submission
+            logging.exception('Something went wrong while reaching google for recaptcha. Defaulting to allow form submission.')
+            return form_data
+
+        if result and result['success']:
+            return form_data
+
+        errors = result.get('error-codes')
+        logging.error(f'Recaptcha validation failed: {errors}')
+        self.add_error(None, _('Captcha was invalid, please try again.'))
+        return form_data
 
     def __init__(self, *args, **kwargs):
         ModelForm.__init__(self, *args, **kwargs)
@@ -2028,62 +2066,180 @@ class PrintActions(Form):
     )
 
 
-class BulkDispositionForm(Form, ActivityStreamUpdater):
-    EMPTY_CHOICE = 'Multiple'
-    assigned_section = ChoiceField(
-        label='Section',
-        widget=ComplaintSelect(attrs={
-            'class': 'usa-select crt-dropdown__data',
-            'disabled': 'disabled',
-        }),
-        choices=add_empty_choice(SECTION_CHOICES_WITHOUT_LABELS, default_string=EMPTY_CHOICE),
-        required=False
-    )
-    retention_schedule = MultipleChoiceField(
+class BatchReviewForm(ModelForm, ActivityStreamUpdater):
+
+    def field_changed(self, field):
+        # if both are Falsy, nothing actually changed (None ~= "")
+        old = self.initial.get(field, None)
+        new = self.cleaned_data.get(field, None)
+        if not old and not new:
+            return False
+        return old != new
+
+    @cached_property
+    def changed_data(self):
+        return [
+            field_name
+            for field_name
+            in super().changed_data
+            if self.field_changed(field_name)
+        ]
+
+    notes = CharField(
         required=False,
-        label='Retention schedule',
-        choices=add_empty_choice(RETENTION_SCHEDULE_CHOICES, default_string=EMPTY_CHOICE),
-        widget=ComplaintSelect(attrs={
-            'class': 'usa-select crt-dropdown__data',
-            'disabled': 'disabled',
-        }),
+        max_length=7000,
+        widget=Textarea(
+            attrs={
+                'rows': 3,
+                'class': 'usa-textarea',
+                'aria-label': 'Complaint summary'
+            },
+        ),
     )
 
-    def get_initial_values(self, record_query, keys):
-        """
-        Given a record query and a list of keys, determine if a key has a
-        singular value within that query. Used to set initial fields
-        for bulk update forms.
-        """
-        # make sure the queryset does not order by anything, otherwise
-        # we will have difficulty getting distinct results.
-        query = record_query.order_by()
-        for key in keys:
-            values = query.values_list(key, flat=True).distinct()
-            if values.count() == 1:
-                yield key, values[0]
+    status = TypedChoiceField(
+        choices=(('approved', 'Approved'), ('rejected', 'Rejected')),
+        empty_value=None,
+        widget=UsaRadioSelect(
+            attrs={
+                'class': 'display-flex radio-flex',
+            }
+        ),
+        required=False,
+    )
 
-    def __init__(self, query, *args, user=None, **kwargs):
+    class Meta:
+        model = ReportDispositionBatch
+        fields = ['first_reviewer', 'first_review_date', 'second_reviewer', 'second_review_date', 'status', 'notes']
+
+    def setup_first_review_date(self):
+        first_review_date = self.instance.first_review_date if self.instance.first_review_date else datetime.today()
+        self.fields['first_review_date'] = CharField(
+            required=True,
+            label="Date",
+            widget=CrtTextInput(attrs={
+                'class': 'usa-input',
+                'name': 'first_review_date',
+                'placeholder': 'mm/dd/yyyy',
+                'aria_label': 'Date',
+                'value': first_review_date.strftime('%m/%d/%Y'),
+                'label': 'Date',
+            }),
+            disabled=self.instance.first_review_date is not None
+        )
+
+    def setup_second_review_date(self):
+        second_review_date = self.instance.second_review_date if self.instance.second_review_date else datetime.today()
+        display_value = second_review_date.strftime('%m/%d/%Y')
+        self.fields['second_review_date'] = CharField(
+            required=self.instance.first_review_date is not None,
+            label="Date",
+            widget=CrtTextInput(attrs={
+                'class': 'usa-input',
+                'name': 'second_review_date',
+                'placeholder': 'mm/dd/yyyy',
+                'aria_label': 'Date',
+                'value': display_value,
+                'label': 'Date',
+            }),
+            disabled=self.instance.second_review_date is not None
+        )
+
+    def clean_first_review_date(self):
+        if self.cleaned_data['first_review_date'] is None or self.instance.first_review_date is not None:
+            return self.instance.first_review_date
+        first_review_date = self.cleaned_data['first_review_date']
+        if type(first_review_date) is datetime:
+            return first_review_date
+        first_review_date = first_review_date.split('/')
+        return datetime(int(first_review_date[2]), int(first_review_date[0]), int(first_review_date[1]))
+
+    def clean_second_review_date(self):
+        if self.cleaned_data['second_review_date'] is None or self.instance.second_review_date is not None:
+            return self.instance.second_review_date
+        second_review_date = self.cleaned_data['second_review_date']
+        if type(second_review_date) is datetime:
+            return second_review_date
+        second_review_date = second_review_date.split('/')
+        return datetime(int(second_review_date[2]), int(second_review_date[0]), int(second_review_date[1]))
+
+    def __init__(self, *args, user=None, **kwargs):
         self.user = user
-        Form.__init__(self, *args, **kwargs)
-        self.queryset = query
-        # set initial values if applicable
-        keys = ['assigned_section', 'retention_schedule']
-        for key, initial_value in self.get_initial_values(query, keys):
-            self.fields[key].initial = initial_value
+        ModelForm.__init__(self, *args, **kwargs)
+        self.setup_first_review_date()
+        if self.instance.first_review_date:
+            self.setup_second_review_date()
 
-    def update(self, reports, user):
+    def save(self, commit=True):
+        disposition_batch = super().save(commit)
+        return disposition_batch
+
+
+class BulkDispositionForm(ModelForm, ActivityStreamUpdater):
+
+    def field_changed(self, field):
+        # if both are Falsy, nothing actually changed (None ~= "")
+        old = self.initial.get(field, None)
+        new = self.cleaned_data.get(field, None)
+        if not old and not new:
+            return False
+        return old != new
+
+    @cached_property
+    def changed_data(self):
+        return [
+            field_name
+            for field_name
+            in super().changed_data
+            if self.field_changed(field_name)
+        ]
+
+    class Meta:
+        model = ReportDispositionBatch
+        fields = ['disposed_by', 'disposed_count', 'create_date', 'proposed_disposal_date']
+
+    def setup_create_date(self):
+        create_date = datetime.today()
+        self.fields['create_date'] = CharField(
+            required=True,
+            label="Date",
+            initial=create_date,
+            widget=CrtTextInput(attrs={
+                'class': 'usa-input',
+                'name': 'create_date',
+                'placeholder': 'mm/dd/yyyy',
+                'aria_label': 'Date',
+                'value': create_date.strftime('%m/%d/%Y'),
+                'label': 'Date',
+            }),
+        )
+
+    def clean_create_date(self):
+        if 'create_date' not in self.cleaned_data:
+            return ''
+        create_date = self.cleaned_data['create_date'].split('/')
+        if create_date:
+            return datetime(int(create_date[2]), int(create_date[0]), int(create_date[1]))
+        return ''
+
+    def __init__(self, *args, user=None, **kwargs):
+        self.user = user
+        ModelForm.__init__(self, *args, **kwargs)
+        self.setup_create_date()
+
+    def update_reports(self, reports, user, batch):
         """
         Bulk update given reports and update activity log for each report
         """
-        report_ids = reports.values_list('pk', flat=True)
-        reports = Report.objects.filter(pk__in=report_ids)
-
-        # TO DO: add logic to approve report for deletion
-        # for report in reports:
-        # expiration_date = datetime(report.closed_date.year + report.retention_schedule.retention_years + 1, 1, 1).date()
-        # add_activity(user, 'Disposition:', f'Approved for deletion on {expiration_date}', report, True)
+        proposed_disposal_date = batch.proposed_disposal_date.strftime('%m/%d/%Y')
+        batch.add_records_to_batch(reports, user)
+        for report in reports:
+            add_activity(user, 'Disposition:', f'Approved for disposal on {proposed_disposal_date}', report, True)
         return reports.count()
+
+    def save(self, commit=True):
+        disposition_batch = super().save(commit)
+        return disposition_batch
 
 
 class BulkActionsForm(LitigationHoldLock, Form, ActivityStreamUpdater):
