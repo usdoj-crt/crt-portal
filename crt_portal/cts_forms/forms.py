@@ -2147,7 +2147,8 @@ class BatchReviewForm(ModelForm, ActivityStreamUpdater):
         self.user = user
         self.can_review_batch = can_review_batch
         ModelForm.__init__(self, *args, **kwargs)
-        self.fields['status'].disabled = self.can_review_batch is False
+        self.fields['notes'].disabled = not self.can_review_batch
+        self.fields['status'].disabled = not self.can_review_batch
         self.setup_first_review_date()
         self.setup_notes()
         if self.instance.first_review_date:
