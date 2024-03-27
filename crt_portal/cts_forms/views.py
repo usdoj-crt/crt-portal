@@ -1015,7 +1015,7 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
         query = query.annotate(
             retention_year=F('retention_schedule__retention_years'),
             expiration_year=F('retention_year') + ExtractYear('closed_date') + 1,
-            expiration_date=Cast(Concat(F('expiration_year'), Value('-'), Value('01'), Value('-'), Value('01'), output_field=CharField()), output_field=DateField())
+            expiration_date=Cast(Concat(F('expiration_year'), Value('-01-01'), output_field=CharField()), output_field=DateField())
         )
         for key in keys:
             values = query.values_list(key, flat=True).distinct()
