@@ -19,7 +19,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import SuspiciousOperation, BadRequest
 from django.core.paginator import Paginator
-from django.db.models import F, Subquery, OuterRef
+from django.db.models import F, Subquery, OuterRef, Value, CharField, DateField
 from django.http import Http404, HttpResponse, QueryDict
 from django.shortcuts import get_object_or_404, redirect, render, reverse
 from django.utils.html import mark_safe
@@ -29,7 +29,6 @@ from analytics.models import AnalyticsFile, get_dashboard_structure_from_db
 from tms.models import TMSEmail
 from datetime import datetime
 from django.db.models.functions import ExtractYear, Cast, Concat
-from django.db.models import F, Value, CharField, DateField
 
 
 from .attachments import ALLOWED_FILE_EXTENSIONS
