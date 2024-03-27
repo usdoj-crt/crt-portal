@@ -1135,7 +1135,7 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
             plural = 's have' if batch.disposed_count > 1 else ' has'
             message = f'{batch.disposed_count} record{plural} been approved for disposal. The records unit will review your request and approve or deny your deletion request. Follow status updates in ‘Report batches for disposal’'
             messages.add_message(request, messages.SUCCESS, message)
-             # log this action for an audit trail.
+            # log this action for an audit trail.
             logger.info(f'Batch #{batch.uuid} with {batch.disposed_count} record{plural} has been created by {request.user}')
             url = reverse('crt_forms:disposition')
             return redirect(f"{url}{return_url_args}")
@@ -1272,7 +1272,7 @@ class DispositionBatchActionsView(LoginRequiredMixin, FormView):
             elif batch.status == 'rejected':
                 message = f'{batch.uuid} has been rejected for disposal.'
                 messages.add_message(request, messages.INFO, message)
-             # log this action for an audit trail.
+            # log this action for an audit trail.
             logger.info(f'Batch #{batch.uuid} has been {batch.status} by {request.user}')
             url = reverse('crt_forms:disposition')
             return redirect(f"{url}{return_url_args}")
