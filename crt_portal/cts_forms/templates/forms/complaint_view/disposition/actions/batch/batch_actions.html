@@ -42,7 +42,7 @@
                 <label for="id_first_display_name">
                     Primary Authorizing Individual
                 </label>
-                <input type="text" id="id_first_display_name" value="{{ first_display_name }}" class="usa-input" {% if batch.first_reviewer %} disabled {% endif %} placeholder="Primary Authorizing Individual">
+                <input type="text" id="id_first_display_name" value="{{ first_display_name }}" class="usa-input" {% if batch.first_reviewer or not can_review_batch %} disabled {% endif %} placeholder="Primary Authorizing Individual">
                 <input type="hidden" value="{{ first_reviewer }}" name="first_reviewer" id="first_reviewer" />
             </div>
             <div class="margin-bottom-2">
@@ -58,7 +58,7 @@
                     <label for="id_second_display_name">
                         Secondary Authorizing Individual
                     </label>
-                <input type="text" id="id_second_display_name" value="{{ second_display_name }}" class="usa-input" {% if batch.second_reviewer %} disabled {% endif %} placeholder="Secondary Authorizing Individual">
+                <input type="text" id="id_second_display_name" value="{{ second_display_name }}" class="usa-input" {% if batch.second_reviewer or not can_review_batch %} disabled {% endif %} placeholder="Secondary Authorizing Individual">
                 <input type="hidden" value="{{ second_reviewer }}" name="second_reviewer" id="second_reviewer" />
                 </div>
                 <div class="margin-bottom-2">
@@ -76,7 +76,7 @@
             {{ form.notes }}
         </div>
         <div class="display-flex flex-justify-end">
-            <button class="usa-button" type="submit">
+            <button class="usa-button" type="submit" {% if not can_review_batch %} disabled {% endif %}>
                 Submit
             </button>
         </div>

@@ -9,7 +9,7 @@ import urllib.parse
 from unittest import mock
 from botocore.docs.method import types
 
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django.contrib.messages import get_messages
 from django.http import QueryDict
 from django.test import TestCase, override_settings
@@ -1390,7 +1390,10 @@ class BatchActionFormTests(TestCase):
         )
         self.batch.add_records_to_batch(queryset, user)
         self.user_reviewer = User.objects.create_user('REVIEWER', 'paul@thebeatles.com', self.test_pass, first_name='Paul', last_name='McCartney')
+        group = Group.objects.get(name='Records Team')
+        group.user_set.add(self.user_reviewer)
         self.second_user_reviewer = User.objects.create_user('SECOND_REVIEWER', 'john@thebeatles.com', self.test_pass, first_name='John', last_name='Lennon')
+        group.user_set.add(self.second_user_reviewer)
 
     def test_approve_batch(self):
         client = Client()

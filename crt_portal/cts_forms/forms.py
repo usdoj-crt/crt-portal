@@ -2125,7 +2125,7 @@ class BatchReviewForm(ModelForm, ActivityStreamUpdater):
                 'value': first_review_date.strftime('%m/%d/%Y'),
                 'label': 'Date',
             }),
-            disabled=self.instance.first_review_date is not None
+            disabled=self.instance.first_review_date is not None or not self.can_review_batch
         )
 
     def setup_second_review_date(self):
@@ -2142,7 +2142,7 @@ class BatchReviewForm(ModelForm, ActivityStreamUpdater):
                 'value': display_value,
                 'label': 'Date',
             }),
-            disabled=self.instance.second_review_date is not None
+            disabled=self.instance.second_review_date is not None or not self.can_review_batch
         )
 
     def clean_first_review_date(self):
@@ -2163,9 +2163,12 @@ class BatchReviewForm(ModelForm, ActivityStreamUpdater):
         second_review_date = second_review_date.split('/')
         return datetime(int(second_review_date[2]), int(second_review_date[0]), int(second_review_date[1]))
 
-    def __init__(self, *args, user=None, **kwargs):
+    def __init__(self, *args, user=None, can_review_batch=False, **kwargs):
         self.user = user
+        self.can_review_batch = can_review_batch
         ModelForm.__init__(self, *args, **kwargs)
+        self.fields['notes'].disabled = not self.can_review_batch
+        self.fields['status'].disabled = not self.can_review_batch
         self.setup_first_review_date()
         if self.instance.first_review_date:
             self.setup_second_review_date()
