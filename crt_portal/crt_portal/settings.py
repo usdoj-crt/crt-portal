@@ -400,7 +400,9 @@ allowed_sources = (
     'https://www.googletagmanager.com/',
     'https://cdnjs.cloudflare.com/',
     'https://www.google.com/',
-    '*.tile.openstreetmap.org',  # For loading image tiles in map data
+    'a.tile.openstreetmap.org',  # For loading image tiles in map data
+    'b.tile.openstreetmap.org',  # For loading image tiles in map data
+    'c.tile.openstreetmap.org',  # For loading image tiles in map data
     *env_csp_sources,
 )
 # headers required for security
