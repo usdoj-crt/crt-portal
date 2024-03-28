@@ -8,7 +8,7 @@
  <head>
     {% block ga_tagmanager_head %}
       {% environment as env %}
-      {% if env == "PRODUCTION" or env == "STAGE" %}
+      {% if env == "PRODUCTION" %}
        <!-- Google Tag Manager -->
        <script nonce="{{ request.csp_nonce }}">(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -78,7 +78,7 @@
 
     {% block ga_tagmanager_body %}
       {% environment as env %}
-      {% if env == "PRODUCTION" or env == "STAGE" %}
+      {% if env == "PRODUCTION" %}
         <!-- Google Tag Manager (noscript) -->
         <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N6M8JRD"
         height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -152,7 +152,7 @@
 
     {% block analytics %}
     {% environment as env %}
-    {% if env == "PRODUCTION" or env == "STAGE" %}
+    {% if env == "PRODUCTION" %}
       <script async="async" id="_fed_an_ua_tag" src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOJ&amp;sp=find&amp;subagency=crt"></script>
       <script async src="https://www.googletagmanager.com/gtag/js?id=UA-176942176-1"></script>
       <script nonce="{{ request.csp_nonce }}">
