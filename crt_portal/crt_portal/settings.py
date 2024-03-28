@@ -423,7 +423,9 @@ CSP_SCRIPT_SRC = (
     'https://www.googletagmanager.com/',
     'https://cdnjs.cloudflare.com/',
     'https://www.google.com/',
-    '*.tile.openstreetmap.org',  # For loading image tiles in map data
+    'a.tile.openstreetmap.org',  # For loading image tiles in map data
+    'b.tile.openstreetmap.org',  # For loading image tiles in map data
+    'c.tile.openstreetmap.org',  # For loading image tiles in map data
     *env_csp_sources,
 )
 CSP_CONNECT_SRC = (
@@ -437,13 +439,17 @@ CSP_CONNECT_SRC = (
     'https://www.googletagmanager.com/',
     'https://cdnjs.cloudflare.com/',
     'https://www.google.com/',
-    '*.tile.openstreetmap.org',  # For loading image tiles in map data
+    'a.tile.openstreetmap.org',  # For loading image tiles in map data
+    'b.tile.openstreetmap.org',  # For loading image tiles in map data
+    'c.tile.openstreetmap.org',  # For loading image tiles in map data
     *env_csp_sources,
 )
 CSP_IMG_SRC = (
     *allowed_sources,
     'data:',
-    '*.tile.openstreetmap.org',  # For loading image tiles in map data
+    'a.tile.openstreetmap.org',  # For loading image tiles in map data
+    'b.tile.openstreetmap.org',  # For loading image tiles in map data
+    'c.tile.openstreetmap.org',  # For loading image tiles in map data
 )
 CSP_MEDIA_SRC = allowed_sources
 CSP_FRAME_SRC = allowed_sources
