@@ -430,3 +430,359 @@
     height: 4.4rem;
   }
 }
+
+body.intake-bg .dataTables_scrollBody {
+  width: calc(100% - 5px);
+  border-bottom: 0px;
+}
+
+body.intake-bg table.datatable-table.dataTable {
+  @extend .crt-table;
+
+  * {
+    width: auto !important;
+  }
+
+  width: calc(100% - 10px) !important;
+
+  box-shadow: 0 1px 6px 2px rgba(0,0,0,.14);
+  border-radius: 5px 5px;
+  margin-left: 5px !important;
+
+  font-family: Public Sans Web,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
+
+  thead {
+    background-color: #e1e7f1;
+    border-radius: 5px 5px;
+    min-height: 3rem;
+    padding: 1.2rem 2rem 1.2rem 1.3rem;
+
+    font-family: Merriweather Web,Merriweather Web,Tinos,Georgia,Cambria,Times New Roman,Times,serif;
+    color: #162e51;
+
+    tr {
+      background-color: transparent;
+
+      th {
+        text-transform: none;
+        background-color: transparent;
+        text-decoration: underline;
+      }
+    }
+  }
+
+  tbody {
+    tr {
+      height: 4em;
+
+
+      td {
+        padding-top: 2em;
+        padding-bottom: 2em;
+        color: #2e2e2a;
+        height: 100%;
+        padding: 0.5rem 1rem 0.5rem 0.25rem;
+        position: relative;
+        width: 100%;
+        font-weight: 700;
+        border-left: 0px;
+      }
+    }
+
+    tr:hover {
+      box-shadow: 0 1px 6px 2px rgba(0,0,0,.14);
+      transform: scale(1);
+      background-color: inherit;
+    }
+
+    tr.selected {
+      td {
+        box-shadow: inset 0 0 0 9999px #e1e7f1;
+      }
+    }
+  }
+
+  thead>tr>th.sorting_asc:before, thead>tr>th.sorting_desc:after, thead>tr>td.sorting_asc:before, thead>tr>td.sorting_desc:after {
+    opacity: 1;
+    color: #162e51;
+  }
+}
+
+body.intake-bg .dataTables_wrapper .dataTables_info {
+  text-align: right;
+  display: block;
+  width: calc(100% - 10px);
+  padding: 0.5em;
+  background-color: #e1e7f1;
+  font-family: Merriweather Web,Merriweather Web,Tinos,Georgia,Cambria,Times New Roman,Times,serif;
+  color: #162e51;
+  box-shadow: 0 1px 6px 2px rgba(0,0,0,.14);
+  margin-left: 5px;
+  line-height: 2em;
+}
+
+body.intake-bg .dataTables_wrapper .dataTables_paginate {
+  display: block;
+  width: calc(100% - 10px);
+  padding-top: 0;
+  margin-top: 0;
+  padding-bottom: 1em;
+
+  background-color: #e1e7f1;
+  font-family: Merriweather Web,Merriweather Web,Tinos,Georgia,Cambria,Times New Roman,Times,serif;
+  color: #162e51;
+  box-shadow: 0 1px 6px 2px rgba(0,0,0,.14);
+  clip-path: inset(0px -5px -5px -5px);
+  margin-right: 5px;
+}
+
+body.intake-bg .dataTables_wrapper .dataTables_paginate .paginate_button {
+  margin: 0 2px;
+  border: 0px;
+
+  &.previous, &.next {
+    visibility: hidden;
+    width: 0px;
+    height: 0px;
+    padding: 0px;
+  }
+
+  &.previous:after, &.next:after {
+    height: 16px;
+    width: 10px;
+    content: " ";
+    visibility: visible;
+    display: inline-block;
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+
+  &.previous:after {
+    background-image: url('/static/img/intake-icons/ic_chevron-left.svg');
+  }
+
+  &.next:after {
+    background-image: url('/static/img/intake-icons/ic_chevron-right.svg');
+  }
+
+  &.disabled:after {
+    filter: invert(82%) sepia(0%) saturate(31%) hue-rotate(154deg) brightness(88%) contrast(81%);
+  }
+
+  &:not(.previous):not(.next) {
+    background: none;
+    color: #162e51 !important;
+
+    font-family: Public Sans Web,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
+    font-size: 1rem;
+
+    height: 2em;
+    content: " ";
+    visibility: visible;
+    display: inline-block;
+    min-width: 2rem;
+
+    border-radius: 5px;
+    padding: 0 .25rem;
+    height: 1.5rem;
+    line-height: 1.5rem;
+    text-align: center;
+
+    &:hover:not(.current) {
+      background: none;
+      color: inherit !important;
+    }
+
+    &.current {
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-color: #162e51;
+      color: #fff !important;
+
+    }
+  }
+}
+
+body.intake-bg .dataTables_wrapper {
+  width: calc(100% - 10px);
+
+  .dt-buttons {
+    margin-left: 5px;
+    border-radius: 5px 5px 0px 0px;
+    padding: 1.5em;
+  }
+
+  .dataTables_filter {
+    margin-right: 5px;
+    margin-top: 0px;
+    border-radius: 0px 0px 5px 5px;
+    padding-top: 0px;
+    padding-left: 1.5em;
+    padding-right: 1.5em;
+    padding-bottom: 1.5em;
+  }
+
+  .dt-button-collection {
+    padding: 1em;
+    width: fit-content !important;
+
+    button.dt-button {
+      background: none;
+      font-weight: normal;
+      width: auto;
+      display: list-item;
+      padding-left: 2em;
+      line-height: 1.25em;
+
+      &:hover {
+        background: none;
+      }
+
+      &:after {
+        display: none;
+      }
+
+      &.dt-button-active:before {
+        background-image: url(../../img/correct8.svg), linear-gradient(transparent, transparent);
+        background-repeat: no-repeat;
+        background-color: #162e51;
+        box-shadow: 0 0 0 2px #162e51, inset 0 0 0 2px #fff;
+      }
+
+      &:before {
+        content: " ";
+        display: block;
+        left: 0;
+        margin-left: 2px;
+        margin-top: .075rem;
+        position: absolute;
+        height: 1.25rem;
+        width: 1.25rem;
+        border-radius: 2px;
+        background: #fff;
+        box-shadow: 0 0 0 2px #2e2e2a;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .dataTables_filter, .dt-buttons {
+    width: calc(100% - 10px);
+
+    background: white;
+
+    font-family: Public Sans Web,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
+
+    font-size: 1rem;
+    line-height: 1.4;
+
+    input[type="search"], input[type="text"] {
+      border-width: 1px;
+      border-color: #162e51;
+      border-style: solid;
+      border-radius: 3px;
+      max-width: none;
+      padding: .5rem;
+      color: #2e2e2a;
+      display: inline-block;
+      height: 2.5rem;
+      margin-top: .5rem;
+    }
+
+    button {
+      &:hover {
+        border-radius: .25rem !important;
+      }
+
+      color: #162e51;
+      background: unset;
+      background-color: #e1e7f1;
+      font-size: 1rem;
+      line-height: 1;
+      appearance: none;
+      border: 0;
+      border-radius: .25rem;
+      cursor: pointer;
+      display: inline-block;
+      font-weight: 700;
+      margin-right: .5rem;
+      padding: .75rem 1.25rem;
+      text-align: center;
+      text-decoration: none;
+
+      &:hover:not(.disabled) {
+        border: 0;
+        background: unset;
+        background-color: #81aefc;
+        color: #162e51;
+      }
+
+      .dt-button-down-arrow {
+        visibility: hidden;
+
+        &:after {
+          filter: invert(13%) sepia(30%) saturate(2509%) hue-rotate(189deg) brightness(97%) contrast(92%);
+          visibility: visible;
+          content: " ";
+          display: inline-block;
+          height: 10px;
+          width: 16px;
+          background-size: contain;
+          background-repeat: no-repeat;
+          background-image: url('/static/img/intake-icons/ic_chevron-down.svg');
+        }
+      }
+    }
+  }
+
+  div.dtsp-searchPane {
+    border: 1px solid #162e51;
+    border-radius: 5px;
+    padding: 0px 5px 6px 3px;
+
+    div.dtsp-topRow {
+      display: block;
+
+      button {
+        padding: 0;
+        font-size: 2em;
+        color: #666;
+      }
+
+      input.dtsp-paneInputButton.dtsp-search {
+        border-width: 1px;
+        border-color: #162e51;
+        border-style: solid;
+        border-radius: 3px;
+        max-width: none;
+        padding: .5rem;
+        color: #2e2e2a;
+        display: inline-block;
+        height: 2.5rem;
+        margin-top: .5rem;
+      }
+
+      div.dtsp-subRow1 button.dtsp-searchIcon, div.dtsp-subRow1 button.dtsp-searchIcon:hover{
+        font-size: 1.5em;
+        background-image: url(/static/img/search-primary.svg);
+        content-visibility: hidden;
+        background-repeat: no-repeat !important;
+        background-position: center !important;
+        background-size: 0.75em !important;
+        background-color: unset;
+        margin-top: 10px;
+      }
+
+      button.dtsp-paneButton {
+        opacity: 1;
+      }
+    }
+  }
+
+  .dtsp-paneButton.dtsp-collapseButton,
+  .dtsp-collapseAll,
+  .dtsp-showAll
+  {
+    display: none !important;
+  }
+}
