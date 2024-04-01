@@ -14,8 +14,6 @@ Ang numero ng iyong tala ay {{ record_locator }}.
 
 Sinuri ng mga kasapi ng koponan mula sa Sangay sa mga Karapatang Sibil ang impormasyon na iyong isinumite.  Batay sa iyong tala, natiyak ng aming koponan na pinaninindigan mo na mayroong pagtatanging panig sa trabaho batay sa pagkamamamayan, katayuan ng pandarayuhan, o pambansang pinagmulan, o iba pang mga isyu na nauugnay sa trabaho.
 
-[%optional group="SCRA Rights" name="Your First Right"]
-
 Nililimitahan ng batas pederal ang kakayahan ng Sangay sa mga Karapatang Sibil sa paghawak ng isang bagay katulad ng sa iyo.  Sa ilalim ng batas pederal, kami ay:
 
   - Isa-isang sinisiyasat ang mga pahayag ng pagtatanging panig sa trabaho batay sa pagkamamamayan, katayuan ng pandarayuhan, at (para sa maliit na mga tagapag-empleyo) pambansang pinagmulan, at
@@ -23,9 +21,6 @@ Nililimitahan ng batas pederal ang kakayahan ng Sangay sa mga Karapatang Sibil s
 
 Sa kasamaang palad, lumalabas na ang Sangay sa mga Karapatang Sibil ay walang kapangyarihan na hawakan ang isang ulat katulad ng sa iyo.  Kung nais mong talakayin ang isang isyu tungkol sa maaaring pagtatanging panig sa trabaho batay sa iyong pagkamamamayan, katayuan ng pandarayuhan, o pambansang pinagmulan, maaari kang makipag-ugnay sa walang bayad na hotline ng manggagawa sa Seksiyon ng mga Karapatan ng Mandarayuhan at Kawani sa 1-800-255-7688.  Maaaring hindi magbigay ng pangalan ang mga tumatawag at mayroong mga paglilingkod sa wika na magagamit.
 
-[%endoptional]
-
-[%optional group="SCRA Rights" name="Your Second Right"]
 
 Ano pa ang iyong magagawa:
 
@@ -34,8 +29,6 @@ Hindi namin tinutukoy na ang iyong ulat ay kulang sa kahalagahan.  Ibang ahensya
 Nagsama kami ng isang listahan ng mga ahensya ng pederal na maaaring makatulong.  Dapat kang makipag-abot sa naaangkop na ahensya kung nais mong ipagpatuloy pa ito ng higit pa.
 
 NOTA: May mahigpit na mga limitadong oras sa pagsampa ng mga karaingan kaugnay sa pagtatanging panig sa trabaho.  Kung sa palagay mo na ikaw ay pinagtanging panig sa trabaho, dapat kang makipag-ugnay sa naaangkop na ahensya sa lalong madaling panahon.
-
-[%endoptional]
 
 
 AKO AY NAKARANAS NG…
