@@ -3,11 +3,7 @@ from typing import List, Optional, Tuple
 import logging
 from django.forms.models import model_to_dict
 import markdown
-from markdown.treeprocessors import Treeprocessor
-from markdown.extensions import Extension
-# bandit flags ANY import from ElementTree, not just parse-related ones.
-# Element is not a parser and there is no alternative to importing from `xml`.
-from xml.etree.ElementTree import Element  # nosec
+
 from datetime import datetime
 
 from django.conf import settings
@@ -15,7 +11,7 @@ from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from cts_forms.models import Report, ResponseTemplate
 from tms.models import TMSEmail
-from utils.markdown_extensions import RelativeToAbsoluteLinkExtension
+from utils.markdown_extensions import RelativeToAbsoluteLinkExtension, CustomHTMLExtension
 from utils.site_prefix import get_site_prefix
 
 logger = logging.getLogger(__name__)
@@ -34,28 +30,6 @@ def remove_disallowed_recipients(recipient_list):
             if to_address.lower() in [email.lower() for email in restricted_to]
         ]
     return recipient_list
-
-
-class CustomHTMLProcessor(Treeprocessor):
-    # Alter the HTML output to provide inline styles and other custom markup.
-    # For more, see here: https://github.com/Python-Markdown/markdown/wiki/Tutorial-2---Altering-Markdown-Rendering
-    # Why do we use inline styles for HTML emails? Although it doesn't seem
-    # necessary for most modern email clients, this is a backward-compatibility
-    # strategy.
-    # https://www.litmus.com/blog/do-email-marketers-and-designers-still-need-to-inline-css/
-    def run(self, root):
-        for element in root.iter('h1'):
-            element.set('style', 'margin-top: 36px; margin-bottom: 16px; font-size: 22px;color: #162e51;font-family: Merriweather,Merriweather Web,Merriweather Web,Tinos,Georgia,Cambria,Times New Roman,Times,serif;line-height: 1.5;font-weight: 700;')
-            div = Element('div')
-            div.set('style', 'margin-top: 8px; border: 2px solid #162e51; border-radius: 2px; background: #162e51; width: 25px;')
-            element.append(div)
-        for element in root.iter('h2'):
-            element.set('style', 'margin-top: 36px; margin-bottom: 16px; font-size: 20px;color: #162e51;font-family: Merriweather,Merriweather Web,Merriweather Web,Tinos,Georgia,Cambria,Times New Roman,Times,serif;line-height: 1.5;font-weight: 700;')
-
-
-class CustomHTMLExtension(Extension):
-    def extendMarkdown(self, md):
-        md.treeprocessors.register(CustomHTMLProcessor(md), 'custom_html_processor', 15)
 
 
 class Mail(types.SimpleNamespace):

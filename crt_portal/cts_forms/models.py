@@ -22,7 +22,7 @@ from django.utils.functional import cached_property
 from django.utils.html import escape
 
 from utils import sanitize
-from utils.markdown_extensions import get_optionals
+from utils.markdown_extensions import get_optionals, OptionalExtension
 
 from .managers import ActiveProtectedClassChoiceManager
 from .model_variables import (BATCH_STATUS_CHOICES, CLOSED_STATUS,
@@ -968,6 +968,15 @@ class ResponseTemplate(models.Model):
         context = self.available_report_fields(report)
         context.update({**kwargs, 'report': report})
         return escape(template.render(context))
+
+    def render_body_as_markdown(self, report, optionals=None, **kwargs):
+        template = Template(self.body)
+        context = self.available_report_fields(report)
+        context.update({**kwargs, 'report': report})
+        rendered = template.render(context)
+        if self.is_html:
+            return markdown.markdown(rendered, extensions=[OptionalExtension(include=optionals), 'extra', 'sane_lists', 'admonition', 'nl2br'])
+        return rendered.replace('\n', '<br>')
 
     def render_body(self, report, **kwargs):
         template = Template(self.body)
