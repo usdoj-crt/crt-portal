@@ -6,7 +6,7 @@
       novalidate
 >
   <input type="hidden" value="{{ return_url_args }}" name="next" id="next" />
-
+  <input type="hidden" value="{{ disposition_status }}" name="disposition_status" id="disposition_status" />
   <div class="crt-xscroll">
     <table class="usa-table crt-table sort-table">
       {# This "fake" table makes nested headers available to screen readers #}
@@ -23,11 +23,12 @@
             <div class="usa-checkbox td-checkbox">
               <input type="checkbox"
                      name="all"
-                     class="usa-checkbox__input checkbox-input-all"
+                     class="usa-checkbox__input checkbox-input-all disposition-checkbox-all"
                      value="all"
               >
               <label class="usa-checkbox__label crt-checkbox__label checkbox-all" aria-label="Select all records"></label>
             </div>
+            <span id="total_reports" value="{{ page_format.count }}"></span>
           </th>
           {% endif %}
           <th aria-label="Detail toggles">
@@ -159,7 +160,10 @@
         <span id="selection-action-count" class="selection-action-count">1 record</span> selected
       </h2>
       <div class="selection-submit">
-        <button type="submit" id="actions" label="actions" class="usa-button">Actions</button>
+        <button type="submit" id="actions" label="actions" class="usa-button">Batch for Disposal</button>
+        <button data-ga-event-name="complaints bulk print" type="submit" name="action" value="print" id="actions" label="actions" class="usa-button bulk-submit-ga">
+          <span class="usa-tooltip" data-position="right" data-classes="display-inline" title="This may take a while if many reports are selected.">Print</span>
+        </button>
       </div>
     </div>
   </div>

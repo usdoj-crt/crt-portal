@@ -235,6 +235,12 @@ form#cts-forms-profile {
     }
   }
 
+  .radio-flex {
+    div {
+      padding-right: 1em;
+    }
+  }
+
   .usa-checkbox__input,
   .usa-radio__input {
     // Display HTML5 error messages on hidden inputs:

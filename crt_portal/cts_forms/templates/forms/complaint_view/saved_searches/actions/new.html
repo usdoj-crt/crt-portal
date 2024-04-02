@@ -14,7 +14,7 @@
           {% include 'partials/messages.html' %}
         </div>
       </div>
-      <div class="complaint-actions tablet:grid-col-6 grid-offset-1">
+      <div class="complaint-actions tablet:grid-col-9 grid-offset-1">
           {% include 'forms/complaint_view/saved_searches/actions/new-action.html' with title="Add new saved search" icon="img/intake-icons/ic_check-circle.svg" %}
       </div>
     </div>
@@ -23,4 +23,6 @@
 {% block page_js %}
 {{ block.super }}
 <script src="{% static 'js/discard_button.min.js'%}"></script>
+<script src="{% static 'vendor/shepherd.js'%}"></script>
+<script type="module" src="{% static 'js/tour.min.js'%}"></script>
 {%endblock%}

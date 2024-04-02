@@ -59,6 +59,16 @@
   }
 }
 
+.disposition-action-table {
+  thead {
+    tr {
+      th {
+        font-weight: 700!important;
+      }
+    }
+  }
+}
+
 .crt-table {
   @extend .usa-table;
   @include text--body-copy__small();
@@ -186,6 +196,14 @@
       &:last-of-type {
         // Skip the last two columns
         padding-right: calc(150px + 167px + 1rem);
+      }
+    }
+
+    &.saved-search-table {
+      td.quickview {
+        &:last-of-type {
+          padding-right: 1rem;
+        }
       }
     }
 

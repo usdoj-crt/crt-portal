@@ -1,0 +1,16 @@
+{% load field_formatting %}
+<div id="query-filters" class="display-flex flex-wrap">
+  {% for key, value in filters.items %}
+    {% for item in value %}
+        <span class="usa-sr-only">{{key}}: {{item}}</span>
+        <span
+          class="filter-tag"
+          aria-label="Remove filter {{'Report'|get_field_label:key}}: {{item}} from the list"
+          data-filter-name="{{key}}"
+          data-filter-value="{{item}}"
+        >
+          <span>{{ 'Report'|get_field_label:key }}: {{item}}</span>
+        </span>
+    {% endfor %}
+  {% endfor %}
+</div>

@@ -246,6 +246,14 @@ STATUS_CHOICES = (
 )
 
 # CRT views only
+BATCH_STATUS_CHOICES = (
+    ('ready', 'Ready'),
+    ('in_review', 'In Review'),
+    ('approved', 'Approved'),
+    ('rejected', 'Rejected'),
+)
+
+# CRT views only
 SECTION_CHOICES = (
     ('ADM', 'Administrative'),
     ('APP', 'Appellate'),
@@ -708,12 +716,12 @@ ACTION_CHOICES = (
     ('Contacted complainant:', 'Contacted complainant'),
     ('Report viewed:', 'Report viewed'),
     ('Assigned section:', 'Assigned section'),
-    ('Added comment:', 'Added comment'),
+    ('Added comment: ', 'Added comment'),
     ('ICM DJ Number:', 'ICM DJ Number'),
     ('Secondary review:', 'Secondary review'),
     ('Contact state:', 'Contact state'),
     ('District:', 'District'),
-    ('Added summary:', 'Added summary'),
+    ('Added summary: ', 'Added summary'),
     ('Assigned to:', 'Assigned to'),
     ('Report closed and Assignee removed', 'Report closed and Assignee removed'),
     ('Primary classification:', 'Primary classification'),

@@ -1,5 +1,9 @@
 """Compatibility functions for different ways we might run tests."""
 import functools
+import os
+import dotenv
+
+dotenv.load_dotenv()
 
 
 def _hide_toolbar(page):
@@ -15,5 +19,23 @@ def hide_django_debug_toolbar(func):
     @functools.wraps(func)
     def decorator(page, *args, **kwargs):
         page.on('load', _hide_toolbar)
+        return func(page, *args, **kwargs)
+    return decorator
+
+
+def defeat_recaptcha(func):
+    """Disables recaptcha for requests.
+
+    Args:
+        func: The test function to decorate.
+    """
+    @functools.wraps(func)
+    def decorator(page, *args, **kwargs):
+        extra_headers = {
+            'X-Captcha-Defeat': os.environ['RECAPTCHA_DEFEAT_KEY']
+        }
+
+        page.context.set_extra_http_headers(extra_headers)
+
         return func(page, *args, **kwargs)
     return decorator

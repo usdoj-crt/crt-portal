@@ -28,6 +28,7 @@ crt_portal/NO_ZIP.txt
 *.mo
 attachments/
 report-data/
+shapefiles/
 output.csv
 
 jupyterhub/**/.ipynb_checkpoints/

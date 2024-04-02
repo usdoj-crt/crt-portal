@@ -20,6 +20,12 @@ sort_lookup = {
     'retention schedule': 'retention_schedule',
     'closed date': 'closed_date',
     'expiration date': 'expiration_date',
+    'created by': 'created_by',
+    'name': 'name',
+    'section': 'section',
+    'uuid': 'uuid',
+    'create date': 'create_date',
+    'proposed disposal date': 'proposed_disposal_date',
 }
 sortable_props = [
     'status',
@@ -38,6 +44,12 @@ sortable_props = [
     'retention_schedule',
     'closed_date',
     'expiration_date',
+    'created_by',
+    'name',
+    'section',
+    'uuid',
+    'create_date',
+    'proposed_disposal_date',
 ]
 
 

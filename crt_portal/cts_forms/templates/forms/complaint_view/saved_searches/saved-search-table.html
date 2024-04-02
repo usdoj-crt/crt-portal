@@ -1,17 +1,17 @@
+{% load sortable_table_heading %}
+
 <div class="crt-xscroll">
-    <table class="usa-table crt-table sort-table">
+    <table class="usa-table crt-table sort-table saved-search-table">
       <thead>
         <tr>
-          <th></th>
-          <th>
-            Name
+          <th aria-label="Detail toggles">
+            <a aria-expanded="false" role="button" aria-label="Expand all detail rows" class="td-toggle-all display-flex" data-posted='false' href="#">
+              <img alt="" aria-hidden="true" src="{% static "img/intake-icons/ic_chevron-right.svg" %}" class="icon">
+            </a>
           </th>
-          <th>
-            Section
-          </th>
-          <th>
-            Created By
-          </th>
+          {% render_sortable_heading 'Name' sort_state filter_state grouping group_params index %}
+          {% render_sortable_heading 'Section' sort_state filter_state grouping group_params index %}
+          {% render_sortable_heading 'Created by' sort_state filter_state grouping group_params index %}
           <th></th>
         </tr>
       </thead>
@@ -66,15 +66,15 @@
           </td>
           {# All screen readers don't yet read the headers attribute correctly, so we've added a redundant aria-label #}
           {# https://a11ysupport.io/tech/html/headers_attribute #}
-          <td aria-label="Query" headers="crt-table-query-header" class="quickview" colspan="1">
+          <td aria-label="Query Filters" headers="crt-table-query-header" class="quickview" colspan="1">
             <label aria-hidden="true" for="tr-quickview-query-{{ saved_search.id }}" class="td-quickview">
-              Query
+              Query filters
             </label>
             <div tabindex="0" role="textbox" aria-readonly="true" id="tr-quickview-query-{{ saved_search.id }}" class="td-summary">
-                {{ saved_search.query }}
+              {% include "forms/complaint_view/saved_searches/filters/query-filters.html" with filters=saved_search.filters %}
             </div>
           </td>
-          <td aria-label="Description" headers="crt-table-description-header" class="quickview" colspan="3">
+          <td aria-label="Description" headers="crt-table-description-header" class="quickview" colspan="4">
             <label aria-hidden="true" for="tr-quickview-description-{{ saved_search.id }}" class="td-quickview">
               Description
             </label>

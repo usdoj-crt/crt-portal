@@ -13,6 +13,7 @@
     {% if section_filter %}
       <input type="hidden" value="{{ section_filter }}" name="section_filter" id="section_filter" />
     {% endif %}
+    <input type="hidden" value="{{ saved_search_view }}" name="saved_search_view" id="saved_search_view" />
     <div class="margin-bottom-2 crt-dropdown crt-dropdown__shrink-to-contents">
       <label for="id_name" class="intake-label">
         {{ form.fields.name.label }}
@@ -26,8 +27,9 @@
       {{ form.description }}
     </div>
     <div class="margin-bottom-2 crt-dropdown crt-dropdown__shrink-to-contents">
-      <label for="id_query" class="intake-label">
+      <label for="id_query" class="intake-label display-flex flex-align-center">
         {{ form.fields.query.label }}
+        {% include 'partials/help_tooltip.html' with tip="Everything after the '?' in the search's url." %}
       </label>
       {{ form.query }}
     </div>

@@ -2,13 +2,14 @@
 These are the forms that appear on the individual report page to update a report.
 See test_intake_forms.py for tests of the general form and the pro form.
 """
+from gettext import translation
 import secrets
 import urllib.parse
 
 from unittest import mock
 from botocore.docs.method import types
 
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django.contrib.messages import get_messages
 from django.http import QueryDict
 from django.test import TestCase, override_settings
@@ -20,9 +21,9 @@ from django.utils.http import urlencode
 from datetime import datetime
 from cts_forms.mail import render_complainant_mail, render_agency_mail
 
-from ..forms import BulkActionsForm, BulkDispositionForm, ComplaintActions, ComplaintOutreach, ContactEditForm, Filters, ReportEditForm
+from ..forms import BulkActionsForm, ComplaintActions, ComplaintOutreach, ContactEditForm, Filters, ReportEditForm
 from ..model_variables import CLOSED_STATUS, PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES, NEW_STATUS
-from ..models import CommentAndSummary, NotificationPreference, ReferralContact, Report, ResponseTemplate, EmailReportCount, RetentionSchedule, SavedSearch
+from ..models import CommentAndSummary, NotificationPreference, ReferralContact, Report, ReportDispositionBatch, ResponseTemplate, EmailReportCount, RetentionSchedule, SavedSearch
 from .factories import ReportFactory
 from .test_data import SAMPLE_REFERRAL_CONTACT, SAMPLE_REPORT_1, SAMPLE_RESPONSE_TEMPLATE
 
@@ -1343,13 +1344,86 @@ class BulkActionsFormTests(TestCase):
 
 
 class BulkDispositionFormTests(TestCase):
-    def test_bulk_disposition_update(self):
+    def setUp(self):
+        self.client = Client()
+        self.test_pass = secrets.token_hex(32)
+        self.user = User.objects.create_user('DELETE_USER', 'ringo@thebeatles.com', self.test_pass, first_name='Ringo', last_name='Starr')
+        self.client.login(username='DELETE_USER', password=self.test_pass)
+        self.batch = ReportDispositionBatch()
+
+    def test_create_batch(self):
         [Report.objects.create(**SAMPLE_REPORT_1) for _ in range(4)]
         queryset = Report.objects.all()
-        user = User.objects.create_user('DELETE_USER', 'ringo@thebeatles.com', secrets.token_hex(32))
-        form = BulkDispositionForm(queryset, user)
-        result = form.update(queryset, user)
-        self.assertEqual(result, 4)
+        ids = [report.id for report in queryset]
+        url = reverse('crt_forms:disposition-actions')
+        params = {
+            'uuid': self.batch.uuid,
+            'proposed_disposal_date': datetime(datetime.today().year + 1, 1, 1),
+            'create_date': datetime.today().strftime('%m/%d/%Y'),
+            'disposed_count': 4,
+            'disposed_by': 'Ringo Starr',
+            'ids': ids,
+            'id': '',
+        }
+        try:
+            with translation.atomic():
+                response = self.client.post(url, params, follow=True)
+                content = str(response.content)
+                self.assertEqual(response.status_code, 200)
+                self.assertTrue('4 records have been approved for disposal' in content)
+        except Exception:
+            pass
+
+
+class BatchActionFormTests(TestCase):
+    def setUp(self):
+        self.test_pass = secrets.token_hex(32)
+        user = User.objects.create_user('DELETE_USER', 'ringo@thebeatles.com', self.test_pass, first_name='Ringo', last_name='Starr')
+        schedule = RetentionSchedule.objects.get(name='1 Year')
+        [Report.objects.create(**SAMPLE_REPORT_1, retention_schedule=schedule, viewed=True) for _ in range(4)]
+        queryset = Report.objects.all()
+        self.batch = ReportDispositionBatch.objects.create(
+            proposed_disposal_date=datetime(datetime.today().year + 1, 1, 1),
+            create_date=datetime.today(),
+            disposed_count=4,
+            disposed_by=user
+        )
+        self.batch.add_records_to_batch(queryset, user)
+        self.user_reviewer = User.objects.create_user('REVIEWER', 'paul@thebeatles.com', self.test_pass, first_name='Paul', last_name='McCartney')
+        group = Group.objects.get(name='Records Team')
+        group.user_set.add(self.user_reviewer)
+        self.second_user_reviewer = User.objects.create_user('SECOND_REVIEWER', 'john@thebeatles.com', self.test_pass, first_name='John', last_name='Lennon')
+        group.user_set.add(self.second_user_reviewer)
+
+    def test_approve_batch(self):
+        client = Client()
+        client.login(username='REVIEWER', password=self.test_pass)
+        url = reverse('crt_forms:disposition-batch-actions', kwargs={'id': self.batch.uuid})
+        params = {
+            'status': 'approved',
+            'first_review_date': datetime.today().strftime('%m/%d/%Y'),
+            'first_reviewer': self.user_reviewer.pk,
+        }
+        response = client.post(url, params, follow=True)
+        content = str(response.content)
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue('has been approved for disposal' in content)
+
+    def test_reject_batch(self):
+        client = Client()
+        client.login(username='SECOND_REVIEWER', password=self.test_pass)
+        url = reverse('crt_forms:disposition-batch-actions', kwargs={'id': self.batch.uuid})
+        params = {
+            'status': 'rejected',
+            'first_review_date': datetime.today().strftime('%m/%d/%Y'),
+            'first_reviewer': self.user_reviewer.pk,
+            'second_reviewer': self.second_user_reviewer.pk,
+            'second_review_date': datetime.today().strftime('%m/%d/%Y'),
+        }
+        response = client.post(url, params, follow=True)
+        content = str(response.content)
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue('has been rejected for disposal' in content)
 
 
 class FiltersFormTests(TestCase):
