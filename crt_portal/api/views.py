@@ -216,11 +216,15 @@ class ResponseDetail(generics.RetrieveAPIView):
         # If a `?report_id=<pk>` is provided, then render the letter content
         # with the given report details
         report_pk = request.query_params.get('report_id')
-        if report_pk:
-            report = Report.objects.filter(pk=report_pk).first()
-            serialized_data['url'] = serialized_data['url'] + '?report_id=' + report_pk
-            serialized_data['subject'] = template.render_subject(report)
-            serialized_data['body'] = html.unescape(template.render_body(report))
+        if not report_pk:
+            return Response(serialized_data)
+
+        report = Report.objects.filter(pk=report_pk).first()
+        serialized_data['url'] = serialized_data['url'] + '?report_id=' + report_pk
+        serialized_data['subject'] = template.render_subject(report)
+        serialized_data['body'] = html.unescape(template.render_body(report))
+        serialized_data['optionals'] = template.get_optionals()
+
         return Response(serialized_data)
 
 

@@ -33,9 +33,44 @@
     addressee.parentNode.insertBefore(newDeptAddressee, addressee);
   }
 
+  function renderOptionals(container, optionals) {
+    container.innerHTML = '';
+    let checkboxId = 0;
+    Object.entries(optionals).map(([group, options]) => {
+      const fieldset = document.createElement('fieldset');
+      fieldset.classList.add('usa-fieldset');
+      const legend = document.createElement('legend');
+      legend.classList.add('usa-legend');
+      legend.innerText = group;
+      fieldset.appendChild(legend);
+
+      const checkboxes = options.map(option => {
+        const field = document.createElement('div');
+        const label = document.createElement('label');
+        const input = document.createElement('input');
+        field.classList.add('usa-checkbox');
+        input.classList.add('usa-checkbox__input');
+        input.type = 'checkbox';
+        input.name = group;
+        input.value = option.name;
+        input.checked = option.checked === 'yes';
+        input.id = `contact-optionals-${checkboxId++}`;
+        label.htmlFor = input.id;
+        label.classList.add('usa-checkbox__label');
+        field.appendChild(input);
+        field.appendChild(label);
+        label.appendChild(document.createTextNode(option.name));
+        return field;
+      });
+      checkboxes.forEach(checkbox => fieldset.appendChild(checkbox));
+      container.appendChild(fieldset);
+    });
+    container.hidden = Object.keys(optionals).length === 0;
+  }
+
   root.CRT.renderTemplatePreview = function(
     modal,
-    { reportId, responseTemplate, htmlBox, plaintextBox, afterRendered }
+    { reportId, responseTemplate, htmlBox, plaintextBox, optionals, afterRendered }
   ) {
     window
       .fetch(`/api/responses/${responseTemplate}/?report_id=${reportId}`)
@@ -50,6 +85,7 @@
           plaintextBox.hidden = false;
           plaintextBox.innerHTML = data.body || '';
         }
+        renderOptionals(optionals, data.optionals ?? {});
         addReferralAddress(data.referral_contact);
         if (afterRendered) afterRendered(data);
       });

@@ -22,6 +22,7 @@ from django.utils.functional import cached_property
 from django.utils.html import escape
 
 from utils import sanitize
+from utils.markdown_extensions import get_optionals
 
 from .managers import ActiveProtectedClassChoiceManager
 from .model_variables import (BATCH_STATUS_CHOICES, CLOSED_STATUS,
@@ -877,6 +878,9 @@ class ResponseTemplate(models.Model):
         local_tz = pytz.timezone('US/Eastern')
         local_dt = utc_dt.replace(tzinfo=pytz.utc).astimezone(local_tz)
         return local_tz.normalize(local_dt)
+
+    def get_optionals(self):
+        return get_optionals(self.body)
 
     def available_report_fields(self, report: Optional[Report]):
         """
