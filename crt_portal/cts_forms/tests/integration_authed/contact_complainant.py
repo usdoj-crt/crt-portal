@@ -65,6 +65,8 @@ def test_contact_complainant_modal_optionals(page, *, report):
     with page.expect_navigation():
         page.evaluate("document.querySelector('.td-link').click()")
 
+    report_id = page.locator('.details-id h2').text_content().split(':')[1].split('-')[0].strip()
+
     page.locator('button').filter(has_text="Contact complainant").click()
 
     modal = page.locator('#intake_template')
@@ -89,6 +91,30 @@ def test_contact_complainant_modal_optionals(page, *, report):
     modal.locator('#intake_letter_html').filter(has_text='American Bar Association').wait_for()
 
     report.screenshot(page, full_page=True, scroll_to_selector='#intake_letter_html', caption='For example, selecting "How you have helped" and "American Bar" will add those sections to the letter. The content of these templates can be changed by application administrators.')
+
+    with page.expect_navigation():
+        modal.locator('button').filter(has_text="Send").click()
+
+    page.locator('.usa-alert--success').wait_for()
+
+    page.goto(f"/admin/tms/tmsemail/?report={report_id}")
+
+    with page.expect_navigation():
+        page.locator('.field-tms_id a').nth(0).click()
+
+    tms_html_body = page.locator('.field-html_body')
+    assert 'How you have helped:' in tms_html_body.text_content()
+    assert 'American Bar Association' in tms_html_body.text_content()
+    assert 'What you can do' not in tms_html_body.text_content()
+
+    tms_body = page.locator('.field-body')
+    assert 'How you have helped:' in tms_body.text_content()
+    assert 'American Bar Association' in tms_body.text_content()
+    assert 'What you can do' not in tms_body.text_content()
+
+    page.locator('.field-html_body').filter(has_text='American Bar Association').wait_for()
+
+    page.locator('.field-body').filter(has_text='American Bar Association').wait_for()
 
     admin_models.update(
         page,

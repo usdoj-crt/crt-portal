@@ -61,12 +61,7 @@ def render_agency_mail(*, complainant_letter: Mail, report, template, extra_ccs=
 
 
 def render_complainant_mail(*, report, template, action) -> Mail:
-    message = template.render_body(report)
-
-    if template.is_html:
-        content = markdown.markdown(message, extensions=['extra', 'sane_lists', 'admonition', 'nl2br', CustomHTMLExtension()])
-    else:
-        content = message.replace('\n', '<br>')
+    content = template.render_body_as_markdown(report, extensions=[CustomHTMLExtension()])
 
     html_source = 'print.html' if action == 'print' else 'email.html'
     html_message = render_to_string(html_source,
@@ -82,7 +77,7 @@ def render_complainant_mail(*, report, template, action) -> Mail:
 
     return Mail(
         subject=template.render_subject(report),
-        message=template.render_body(report),
+        message=template.render_plaintext(report),
         html_message=html_message,
         recipients=allowed_recipients,
         disallowed_recipients=disallowed_recipients,
