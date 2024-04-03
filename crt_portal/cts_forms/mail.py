@@ -121,16 +121,21 @@ def send_tms(message: Mail, *, report: Optional[Report], purpose: str, dry_run: 
     if not message.subject or not message.message or not message.recipients:
         return [0]
 
-    send_results = send_mail(
-        message.subject,
-        message.message,
-        settings.DEFAULT_FROM_EMAIL,
-        message.recipients,
-        fail_silently=False,
-        html_message=message.html_message
-    )
-    response = send_results if isinstance(send_results, int) else send_results[0]
-    if settings.EMAIL_BACKEND != 'tms.backend.TMSEmailBackend':
+    if message.recipients:
+        send_results = send_mail(
+            message.subject,
+            message.message,
+            settings.DEFAULT_FROM_EMAIL,
+            message.recipients,
+            fail_silently=False,
+            html_message=message.html_message
+        )
+        response = send_results if isinstance(send_results, int) else send_results[0]
+    else:
+        # This should only happen on non-production sites, so use a fake TMS response:
+        send_results = [0]
+        response = {'id': 0, 'status': 'failed', 'created_at': datetime.now().isoformat()}
+    if not message.recipients or settings.EMAIL_BACKEND != 'tms.backend.TMSEmailBackend':
         TMSEmail.create_fake(subject=message.subject,
                              body=message.message,
                              html_body=message.html_message,
@@ -215,7 +220,6 @@ def mail_to_complainant(report, template, purpose=TMSEmail.MANUAL_EMAIL, dry_run
         rendered = render_complainant_mail(report=report, template=template, action='email')
     if not rendered.recipients:
         logger.info(f'{report.contact_email} not in allowed domains, not attempting to deliver email response template #{template.id} to report: {report.id}')
-        return None
 
     send_results = send_tms(rendered, report=report, purpose=purpose, dry_run=dry_run)
     logger.info(f'Sent email response template #{template.id} to report: {report.id}')
