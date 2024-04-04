@@ -65,9 +65,15 @@
     const options = {
       colReorder: true,
       select: true,
+      language: {
+        searchPanes: {
+          clearMessage: 'Clear all filters'
+        }
+      },
       buttons: [
         {
           extend: 'searchPanes',
+          text: 'Filter',
           config: {
             cascadePanes: true
           }
