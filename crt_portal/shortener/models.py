@@ -18,7 +18,7 @@ class ShortenedURL(models.Model):
         return self.destination
 
     @classmethod
-    def urlify(self, text, *, prefix=''):
+    def urlify(cls, text, *, prefix=''):
         text = ''.join([
             c
             if c in string.ascii_letters + string.digits
@@ -32,7 +32,7 @@ class ShortenedURL(models.Model):
         if prefix:
             prefix = f'{prefix}-'
         match = f"{prefix}{text}"
-        while ShortenedURL.objects.filter(shortname=match).exists():
+        while cls.objects.filter(shortname=match).exists():
             suffix += 1
             match = f"{prefix}{text}-{suffix}"
 
