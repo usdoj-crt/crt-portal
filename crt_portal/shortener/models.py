@@ -1,4 +1,6 @@
 from django.db import models
+import string
+import re
 
 
 class ShortenedURL(models.Model):
@@ -14,3 +16,24 @@ class ShortenedURL(models.Model):
 
     def get_absolute_url(self):
         return self.destination
+
+    @classmethod
+    def urlify(self, text, *, prefix=''):
+        text = ''.join([
+            c
+            if c in string.ascii_letters + string.digits
+            else ' '
+            for c in text
+        ]).lower()
+
+        text = re.sub(r'\s+', '-', text).strip('-')
+
+        suffix = 0
+        if prefix:
+            prefix = f'{prefix}-'
+        match = f"{prefix}{text}"
+        while ShortenedURL.objects.filter(shortname=match).exists():
+            suffix += 1
+            match = f"{prefix}{text}-{suffix}"
+
+        return match
