@@ -102,9 +102,9 @@ class SavedSearch(models.Model):
             self.shortened_url.destination = destination
             self.shortened_url.save()
 
-    def save(self):
+    def save(self, *args, **kwargs):
         self._set_short_url()
-        super().save()
+        super().save(*args, **kwargs)
 
 
 class Profile(models.Model):
