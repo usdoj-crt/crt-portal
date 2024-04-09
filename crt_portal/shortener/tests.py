@@ -66,4 +66,4 @@ class UrlifyTest(TestCase):
         self.assertEqual(ShortenedURL.urlify('abc'), 'abc-2')
 
     def test_urlify_with_prefix(self):
-        self.assertEqual(ShortenedURL.urlify('abc', prefix='foo'), 'foo-abc')
+        self.assertEqual(ShortenedURL.urlify('abc', prefix='foo/'), 'foo/abc')

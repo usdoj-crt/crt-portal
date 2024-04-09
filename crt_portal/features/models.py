@@ -27,6 +27,10 @@ class AddFeatureMigration(migrations.RunPython):
 
 
 class Feature(models.Model):
+
+    class Meta:
+        app_label = 'features'
+
     name = models.CharField(max_length=256, unique=True, blank=False, null=False, validators=[FeatureNameValidator], help_text="A unique name for the feature, using only lowercase letters and dashes (-)")
     description = models.TextField(blank=True, null=True, help_text="A description of the feature, if the name isn't sufficient to explain what it is.")
     enabled = models.BooleanField(default=False, help_text="Whether to show this feature in the application.")
