@@ -12,7 +12,7 @@ class Migration(migrations.Migration):
 
     operations = [
         AddFeatureMigration(
-            'email_responses_card',
+            'email-responses-card',
             True,
             description='Show the email responses card on the report detail page.'
         ),

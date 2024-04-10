@@ -8,7 +8,7 @@ from cts_forms.tests.integration_util import console, admin_models, element, rep
 @pytest.mark.only_browser("chromium")
 @console.raise_errors(ignore='404')
 @reporting.capture_report('saved_search.pdf')
-@features.login_as_superuser_with_feature('saved_searches')
+@features.login_as_superuser_with_feature('saved-searches')
 def test_intake_add_search(page, *, report):
     admin_models.delete(
         page,
