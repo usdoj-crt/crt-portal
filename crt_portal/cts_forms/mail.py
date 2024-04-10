@@ -118,7 +118,7 @@ def send_tms(message: Mail, *, report: Optional[Report], purpose: str, dry_run: 
     if dry_run:
         return [0]
 
-    if not message.subject or not message.message or not message.recipients:
+    if not message.subject or not message.message:
         return [0]
 
     if message.recipients:
