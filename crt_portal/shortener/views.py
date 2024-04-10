@@ -17,5 +17,5 @@ def redirect_to_shortened(request, *, path):
 def preview_urlify(request, *, prefix=''):
     name = request.GET.get('name')
     return JsonResponse({
-        'url': ShortenedURL.urlify(name, prefix=prefix)
+        'url': ShortenedURL.urlify(name, prefix=prefix),
     })
