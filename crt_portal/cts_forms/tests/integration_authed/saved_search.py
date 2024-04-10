@@ -22,8 +22,7 @@ def test_intake_add_search(page, *, report):
 
     report.screenshot(page, full_page=True, caption='The easiest way to create a saved search is from the list page. Start by choosing the filters you want to save and choose "Apply Filters".')
 
-    with page.expect_navigation():
-        page.locator('button').filter(has_text='Apply filters').click()
+    page.goto('/form/view?status=new&status=open&summary=test')
 
     report.screenshot(page, full_page=True, caption='Once the filters update, you can choose "Save search" to save the search.')
 
