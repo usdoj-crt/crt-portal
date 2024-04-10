@@ -2,15 +2,14 @@ import uuid
 import pytest
 
 from cts_forms.tests.integration_authed.auth import login_as_superuser
-from cts_forms.tests.integration_util import console, admin_models, element, reporting
+from cts_forms.tests.integration_util import console, admin_models, element, reporting, features
 
 
 @pytest.mark.only_browser("chromium")
 @console.raise_errors(ignore='404')
 @reporting.capture_report('saved_search.pdf')
+@features.login_as_superuser_with_feature('saved-searches')
 def test_intake_add_search(page, *, report):
-    login_as_superuser(page)
-
     admin_models.delete(
         page,
         '/admin/cts_forms/savedsearch',
