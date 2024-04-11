@@ -61,12 +61,7 @@ def render_agency_mail(*, complainant_letter: Mail, report, template, extra_ccs=
 
 
 def render_complainant_mail(*, report, template, action) -> Mail:
-    message = template.render_body(report)
-
-    if template.is_html:
-        content = markdown.markdown(message, extensions=['extra', 'sane_lists', 'admonition', 'nl2br', CustomHTMLExtension()])
-    else:
-        content = message.replace('\n', '<br>')
+    content = template.render_body_as_markdown(report, extensions=[CustomHTMLExtension()])
 
     html_source = 'print.html' if action == 'print' else 'email.html'
     html_message = render_to_string(html_source,
@@ -82,7 +77,7 @@ def render_complainant_mail(*, report, template, action) -> Mail:
 
     return Mail(
         subject=template.render_subject(report),
-        message=template.render_body(report),
+        message=template.render_plaintext(report),
         html_message=html_message,
         recipients=allowed_recipients,
         disallowed_recipients=disallowed_recipients,
@@ -123,19 +118,24 @@ def send_tms(message: Mail, *, report: Optional[Report], purpose: str, dry_run: 
     if dry_run:
         return [0]
 
-    if not message.subject or not message.message or not message.recipients:
+    if not message.subject or not message.message:
         return [0]
 
-    send_results = send_mail(
-        message.subject,
-        message.message,
-        settings.DEFAULT_FROM_EMAIL,
-        message.recipients,
-        fail_silently=False,
-        html_message=message.html_message
-    )
-    response = send_results if isinstance(send_results, int) else send_results[0]
-    if settings.EMAIL_BACKEND != 'tms.backend.TMSEmailBackend':
+    if message.recipients:
+        send_results = send_mail(
+            message.subject,
+            message.message,
+            settings.DEFAULT_FROM_EMAIL,
+            message.recipients,
+            fail_silently=False,
+            html_message=message.html_message
+        )
+        response = send_results if isinstance(send_results, int) else send_results[0]
+    else:
+        # This should only happen on non-production sites, so use a fake TMS response:
+        send_results = [0]
+        response = {'id': 0, 'status': 'failed', 'created_at': datetime.now().isoformat()}
+    if not message.recipients or settings.EMAIL_BACKEND != 'tms.backend.TMSEmailBackend':
         TMSEmail.create_fake(subject=message.subject,
                              body=message.message,
                              html_body=message.html_message,
@@ -220,7 +220,6 @@ def mail_to_complainant(report, template, purpose=TMSEmail.MANUAL_EMAIL, dry_run
         rendered = render_complainant_mail(report=report, template=template, action='email')
     if not rendered.recipients:
         logger.info(f'{report.contact_email} not in allowed domains, not attempting to deliver email response template #{template.id} to report: {report.id}')
-        return None
 
     send_results = send_tms(rendered, report=report, purpose=purpose, dry_run=dry_run)
     logger.info(f'Sent email response template #{template.id} to report: {report.id}')

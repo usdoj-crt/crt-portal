@@ -1,6 +1,10 @@
 import functools
 import pytest
 
+IGNORE = [
+    'Retrying preview',  # Happens when a preview API request is canceled.
+]
+
 
 def _record_error(container, message, ignore=None):
     if message.type != 'error':
@@ -11,6 +15,8 @@ def _record_error(container, message, ignore=None):
 
     if isinstance(ignore, str):
         ignore = [ignore]
+
+    ignore = [*IGNORE, *ignore]
 
     if any(i in message.text for i in ignore):
         return

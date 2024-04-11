@@ -22,7 +22,7 @@ from django.utils.functional import cached_property
 from django.utils.html import escape
 
 from utils import sanitize
-from utils.markdown_extensions import get_optionals, OptionalExtension
+from utils.markdown_extensions import get_optionals, OptionalExtension, OptionalProcessor
 
 from .managers import ActiveProtectedClassChoiceManager
 from .model_variables import (BATCH_STATUS_CHOICES, CLOSED_STATUS,
@@ -874,6 +874,8 @@ class ResponseTemplate(models.Model):
     is_user_created = models.BooleanField('Is user created', default=True,)
     referral_contact = models.ForeignKey(ReferralContact, blank=True, null=True, related_name="response_templates", on_delete=models.SET_NULL)
 
+    optionals = None
+
     def utc_timezone_to_est(self, utc_dt):
         local_tz = pytz.timezone('US/Eastern')
         local_dt = utc_dt.replace(tzinfo=pytz.utc).astimezone(local_tz)
@@ -969,13 +971,17 @@ class ResponseTemplate(models.Model):
         context.update({**kwargs, 'report': report})
         return escape(template.render(context))
 
-    def render_body_as_markdown(self, report, optionals=None, **kwargs):
+    def render_body_as_markdown(self, report, optionals=None, extensions=None, **kwargs):
+        if extensions is None:
+            extensions = []
+        if optionals is None:
+            optionals = self.optionals
         template = Template(self.body)
         context = self.available_report_fields(report)
         context.update({**kwargs, 'report': report})
         rendered = template.render(context)
         if self.is_html:
-            return markdown.markdown(rendered, extensions=[OptionalExtension(include=optionals), 'extra', 'sane_lists', 'admonition', 'nl2br'])
+            return markdown.markdown(rendered, extensions=[OptionalExtension(include=optionals), 'extra', 'sane_lists', 'admonition', 'nl2br', *extensions])
         return rendered.replace('\n', '<br>')
 
     def render_body(self, report, **kwargs):
@@ -983,6 +989,16 @@ class ResponseTemplate(models.Model):
         context = self.available_report_fields(report)
         context.update({**kwargs, 'report': report})
         return escape(template.render(context))
+
+    def render_plaintext(self, report, optionals=None, **kwargs):
+        if optionals is None:
+            optionals = self.optionals
+        template = Template(self.body)
+        context = self.available_report_fields(report)
+        context.update({**kwargs, 'report': report})
+        rendered = template.render(context)
+        optional_processor = OptionalProcessor(include=self.optionals)
+        return escape('\n'.join(optional_processor.run(rendered.split('\n'))))
 
     def render_bulk_subject(self, report, reports, **kwargs):
         template = Template(self.subject)

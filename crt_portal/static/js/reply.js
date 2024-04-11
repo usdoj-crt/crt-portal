@@ -48,7 +48,7 @@
       function rerenderWithOptionals() {
         const userSelections = container.querySelectorAll('input[type="checkbox"]:checked');
         const selectedOptions = Array.from(userSelections)
-          .map(input => [input.name, input.value])
+          .map(input => [input.name.replace('optionals_', ''), input.value])
           .reduce((acc, [name, value]) => {
             if (!acc[name]) acc[name] = [];
             acc[name].push(value);
@@ -65,7 +65,7 @@
         field.classList.add('usa-checkbox');
         input.classList.add('usa-checkbox__input');
         input.type = 'checkbox';
-        input.name = group;
+        input.name = `optionals_${group}`;
         input.value = option.name;
         input.addEventListener('change', () => {
           if (!currentRerender) {
