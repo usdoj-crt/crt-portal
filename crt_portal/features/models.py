@@ -10,6 +10,9 @@ FeatureNameValidator = RegexValidator(r'^[a-z\-]*$', 'Feature may only contain t
 
 class AddFeatureMigration(migrations.RunPython):
     def __init__(self, feature_name, enabled, *, description='', **kwargs):
+        if '_' in feature_name:
+            raise ValueError('Underscores are not allowed in feature names. Use dashes instead.')
+
         def add_feature(apps, schema_editor):
             drop_feature(apps, schema_editor)
             Feature.objects.create(name=feature_name,
@@ -27,6 +30,10 @@ class AddFeatureMigration(migrations.RunPython):
 
 
 class Feature(models.Model):
+
+    class Meta:
+        app_label = 'features'
+
     name = models.CharField(max_length=256, unique=True, blank=False, null=False, validators=[FeatureNameValidator], help_text="A unique name for the feature, using only lowercase letters and dashes (-)")
     description = models.TextField(blank=True, null=True, help_text="A description of the feature, if the name isn't sufficient to explain what it is.")
     enabled = models.BooleanField(default=False, help_text="Whether to show this feature in the application.")

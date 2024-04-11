@@ -14,9 +14,13 @@ def capture_report(path_to_pdf):
     def wrapper(func):
         def decorator(page, *args, **kwargs):
             report = PdfReport(path_to_pdf)
-            result = func(page, *args, report=report, **kwargs)
-            report.save()
-            return result
+            try:
+                return func(page, *args, report=report, **kwargs)
+            except Exception as e:
+                report.screenshot(page, full_page=True, caption=f'An error occurred: {e}')
+                raise
+            finally:
+                report.save()
         return decorator
     return wrapper
 

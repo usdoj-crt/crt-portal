@@ -23,6 +23,8 @@ from django.utils.html import escape
 
 from utils import sanitize
 
+from shortener.models import ShortenedURL
+
 from .managers import ActiveProtectedClassChoiceManager
 from .model_variables import (BATCH_STATUS_CHOICES, CLOSED_STATUS,
                               COMMERCIAL_OR_PUBLIC_PLACE_CHOICES,
@@ -60,6 +62,7 @@ def get_system_user():
 
 class SavedSearch(models.Model):
     name = models.CharField(max_length=255, null=False, blank=False, help_text="The name of the search as it will appear in lists and dropdowns.")
+    shortened_url = models.ForeignKey(ShortenedURL, blank=True, null=True, on_delete=models.SET_NULL)
     description = models.TextField(max_length=1000, null=True, blank=True)
     query = models.TextField(null=False, blank=False, help_text="The encoded search represented as a URL querystring for the /form/view page.", default='')
     auto_close = models.BooleanField(default=False, null=False, help_text="Whether to automatically close incoming reports that match this search. Only applies to new submissions.")
@@ -72,6 +75,36 @@ class SavedSearch(models.Model):
 
     def get_absolute_url(self):
         return f'/form/view?{self.query}'
+
+    def _set_short_url(self):
+        if not self.query or not self.name:
+            return
+
+        shortname = ShortenedURL.urlify(self.name, prefix='search/')
+        destination = self.get_absolute_url()
+
+        if not self.shortened_url:
+            self.shortened_url = ShortenedURL(shortname=shortname,
+                                              destination=destination,
+                                              enabled=True)
+            self.shortened_url.save()
+            return
+
+        if self.shortened_url.shortname != shortname:
+            self.shortened_url.delete()
+            self.shortened_url = ShortenedURL(shortname=shortname,
+                                              destination=destination,
+                                              enabled=True)
+            self.shortened_url.save()
+            return
+
+        if self.shortened_url.destination != destination:
+            self.shortened_url.destination = destination
+            self.shortened_url.save()
+
+    def save(self, *args, **kwargs):
+        self._set_short_url()
+        super().save(*args, **kwargs)
 
 
 class Profile(models.Model):

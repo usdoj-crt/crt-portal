@@ -2928,6 +2928,7 @@ class SavedSearchActions(ModelForm):
                     'name': 'name',
                     'placeholder': 'Name',
                     'aria-label': 'Name',
+                    'data-urlify-source': 'name_to_link',
                 },
             ),
             required=True,
