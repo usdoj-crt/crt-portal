@@ -7,7 +7,7 @@ from types import SimpleNamespace
 
 from .factories import ReportFactory
 
-from cts_forms.models import JudicialDistrict, Report, ReportDispositionBatch, RetentionSchedule, User
+from cts_forms.models import JudicialDistrict, Report, ReportDispositionBatch, RetentionSchedule, User, SavedSearch
 from .test_data import SAMPLE_REPORT_1
 
 
@@ -47,6 +47,37 @@ class ReportSimpleTests(SimpleTestCase):
         report = ReportFactory.build(contact_last_name="", contact_first_name="")
         expected = "Thank you for your report"
         self.assertEqual(report.addressee, expected)
+
+
+class SavedSearchTests(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        SavedSearch.objects.all().delete()
+
+    def test_sets_short_url_on_save(self):
+        search = SavedSearch(name='Test !! Search', query='status=new')
+        search2 = SavedSearch(name='Test !! Search', query='status=open')
+
+        search.save()
+        search2.save()
+
+        self.assertEqual(search.shortened_url.shortname, 'search/test-search')
+        self.assertEqual(search2.shortened_url.shortname, 'search/test-search-1')
+        self.assertEqual(search.shortened_url.destination, '/form/view?status=new')
+        self.assertEqual(search2.shortened_url.destination, '/form/view?status=open')
+        self.assertTrue(search.shortened_url.enabled)
+        self.assertTrue(search2.shortened_url.enabled)
+
+    def test_changes_short_url_when_exists(self):
+        search = SavedSearch(name='Initial', query='status=new')
+        search.save()
+
+        search.name = 'Changed'
+        search.save()
+
+        self.assertEqual(search.shortened_url.shortname, 'search/changed')
+        self.assertEqual(search.shortened_url.destination, '/form/view?status=new')
+        self.assertTrue(search.shortened_url.enabled)
 
 
 class ReportTests(TestCase):

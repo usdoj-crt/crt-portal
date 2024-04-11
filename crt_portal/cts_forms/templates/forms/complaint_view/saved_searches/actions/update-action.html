@@ -1,4 +1,5 @@
 {% extends "forms/complaint_view/show/card.html" %}
+{% load get_env %}
 {% block title %}{{title}}{% endblock %}
 {% block extra_classes %}crt-action-card{% endblock %}
 {% block icon %}
@@ -21,7 +22,13 @@
       {{ form.name }}
     </div>
     <div class="margin-bottom-2 crt-dropdown crt-dropdown__shrink-to-contents">
-      <label for="id_name" class="intake-label">
+      <label class="intake-label">Short Link</label>
+      <a href="{% intake_site_prefix %}/link/{{ form.instance.shortened_url }}" data-urlify-base="{% intake_site_prefix %}/link/" data-urlify-prefix="search/" data-urlify-destination="name_to_link" class="usa-link">
+        {% intake_site_prefix %}/link/{{ form.instance.shortened_url }}
+      </a>
+    </div>
+    <div class="margin-bottom-2 crt-dropdown crt-dropdown__shrink-to-contents">
+      <label for="id_description" class="intake-label">
         {{ form.fields.description.label }}
       </label>
       {{ form.description }}
