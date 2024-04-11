@@ -12,7 +12,7 @@ import weasyprint
 import zipfile
 
 from cts_forms.models import Report, ReportDispositionBatch
-from cts_forms.mail import CustomHTMLExtension
+from utils.markdown_extensions import CustomHTMLExtension
 from tms.models import TMSEmail
 from django.contrib.postgres.aggregates import ArrayAgg
 

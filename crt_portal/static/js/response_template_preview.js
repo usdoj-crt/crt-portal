@@ -8,7 +8,7 @@
   let populateController = new AbortController();
   function populatePreviewContent(form, previewContainer) {
     const formData = Object.fromEntries(new FormData(form));
-    populateController.abort();
+    populateController.abort('Retrying preview');
     populateController = new AbortController();
     window
       .fetch('/api/preview-response/', {

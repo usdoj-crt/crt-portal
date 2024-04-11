@@ -4,6 +4,10 @@ from markdown import Extension
 from markdown.preprocessors import Preprocessor
 from markdown.inlinepatterns import LinkInlineProcessor
 from markdown.inlinepatterns import LINK_RE
+from markdown.treeprocessors import Treeprocessor
+# bandit flags ANY import from ElementTree, not just parse-related ones.
+# Element is not a parser and there is no alternative to importing from `xml`.
+from xml.etree.ElementTree import Element  # nosec
 from urllib.parse import urlparse, urljoin
 
 from .site_prefix import get_site_prefix
@@ -93,14 +97,14 @@ class OptionalProcessor(Preprocessor):
         raw_markdown = '\n'.join(lines)
         optionals = get_optionals(raw_markdown)
 
-        should_remove = [
+        should_remove = sorted([
             (option['start_char'], option['end_char'])
             for group, options in optionals.items()
             for option in options
             if option['name'] not in self.include.get(group, [])
-        ]
+        ], key=lambda startend: -startend[0])
 
-        for start, end in reversed(should_remove):
+        for start, end in should_remove:
             raw_markdown = raw_markdown[:start] + raw_markdown[end:]
 
         raw_markdown = re.sub(_OPTIONAL_START, '', raw_markdown)
@@ -136,3 +140,25 @@ class OptionalExtension(Extension):
 
     def extendMarkdown(self, md):
         md.preprocessors.register(OptionalProcessor(md, include=self.include), 'optional_processor', 1)
+
+
+class CustomHTMLProcessor(Treeprocessor):
+    # Alter the HTML output to provide inline styles and other custom markup.
+    # For more, see here: https://github.com/Python-Markdown/markdown/wiki/Tutorial-2---Altering-Markdown-Rendering
+    # Why do we use inline styles for HTML emails? Although it doesn't seem
+    # necessary for most modern email clients, this is a backward-compatibility
+    # strategy.
+    # https://www.litmus.com/blog/do-email-marketers-and-designers-still-need-to-inline-css/
+    def run(self, root):
+        for element in root.iter('h1'):
+            element.set('style', 'margin-top: 36px; margin-bottom: 16px; font-size: 22px;color: #162e51;font-family: Merriweather,Merriweather Web,Merriweather Web,Tinos,Georgia,Cambria,Times New Roman,Times,serif;line-height: 1.5;font-weight: 700;')
+            div = Element('div')
+            div.set('style', 'margin-top: 8px; border: 2px solid #162e51; border-radius: 2px; background: #162e51; width: 25px;')
+            element.append(div)
+        for element in root.iter('h2'):
+            element.set('style', 'margin-top: 36px; margin-bottom: 16px; font-size: 20px;color: #162e51;font-family: Merriweather,Merriweather Web,Merriweather Web,Tinos,Georgia,Cambria,Times New Roman,Times,serif;line-height: 1.5;font-weight: 700;')
+
+
+class CustomHTMLExtension(Extension):
+    def extendMarkdown(self, md):
+        md.treeprocessors.register(CustomHTMLProcessor(md), 'custom_html_processor', 15)
