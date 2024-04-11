@@ -316,6 +316,36 @@ The following types are standard, but we can invent our own:
 
 ---
 
+#### Optional sections
+
+Optional sections are a custom extension for working with response templates that have paragraphs that might or might not be included in the final response. They look like this:
+
+```
+This content is not optional
+
+[%optional group="The checkbox group" name="The individual checkbox name"]
+
+This content is optional
+
+[%endoptional]
+
+More not optional content
+```
+
+which becomes:
+
+This content is not optional
+
+[%optional group="The checkbox group" name="The individual checkbox name"]
+
+This content is optional
+
+[%endoptional]
+
+More not optional content
+
+Note that the dropdown is just for previewing that this works - in the Contact Complaianant page, these will be checkboxes. Unchecking the boxes will hide the section completely.
+
 #### Footnotes
 
 ```

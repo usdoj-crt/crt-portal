@@ -89,14 +89,12 @@ def get_optionals(raw_markdown: str) -> Dict[str, List[Dict[str, str]]]:
 
 
 class OptionalProcessor(Preprocessor):
-    def __init__(self, *args, include: Optional[Dict[str, List[str]]] = None, **kwargs):
+    def __init__(self, *args, include: Optional[Dict[str, List[str]]] = None, preview=False, **kwargs):
         self.include = include or {}
+        self.preview = preview
         super().__init__(*args, **kwargs)
 
-    def run(self, lines: list[str]) -> list[str]:
-        raw_markdown = '\n'.join(lines)
-        optionals = get_optionals(raw_markdown)
-
+    def _remove(self, raw_markdown, optionals) -> str:
         should_remove = sorted([
             (option['start_char'], option['end_char'])
             for group, options in optionals.items()
@@ -106,6 +104,34 @@ class OptionalProcessor(Preprocessor):
 
         for start, end in should_remove:
             raw_markdown = raw_markdown[:start] + raw_markdown[end:]
+
+        return raw_markdown
+
+    def _preview(self, raw_markdown, optionals) -> str:
+        to_highlight = sorted([
+            (option['start_char'], option['end_char'], option)
+            for group, options in optionals.items()
+            for option in options
+        ], key=lambda startend: -startend[0])
+
+        for start, end, option in to_highlight:
+            # This must be a single line; whitespace throws off the markdown:
+            raw_markdown = (
+                f"{raw_markdown[:start]}\n\n<details><summary>"
+                f"[Optional] {option["group"]}: {option["name"]}</summary>"
+                f"\n\n{option["content"]}\n\n</details>\n\n{raw_markdown[end:]}"
+            )
+
+        return raw_markdown
+
+    def run(self, lines: list[str]) -> list[str]:
+        raw_markdown = '\n'.join(lines)
+        optionals = get_optionals(raw_markdown)
+
+        if self.preview:
+            raw_markdown = self._preview(raw_markdown, optionals)
+        else:
+            raw_markdown = self._remove(raw_markdown, optionals)
 
         raw_markdown = re.sub(_OPTIONAL_START, '', raw_markdown)
         raw_markdown = re.sub(_OPTIONAL_END, '', raw_markdown)
@@ -134,12 +160,13 @@ class OptionalExtension(Extension):
     ```
     """
 
-    def __init__(self, *args, include: Optional[Dict[str, List[str]]] = None, **kwargs):
+    def __init__(self, *args, include: Optional[Dict[str, List[str]]] = None, preview=False, **kwargs):
         self.include = include
+        self.preview = preview
         super().__init__(*args, **kwargs)
 
     def extendMarkdown(self, md):
-        md.preprocessors.register(OptionalProcessor(md, include=self.include), 'optional_processor', 1)
+        md.preprocessors.register(OptionalProcessor(md, include=self.include, preview=self.preview), 'optional_processor', 1)
 
 
 class CustomHTMLProcessor(Treeprocessor):

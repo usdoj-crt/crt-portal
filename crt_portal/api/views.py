@@ -4,7 +4,7 @@ from api.serializers import ReportSerializer, ResponseTemplateSerializer, Relate
 from utils.pdf import convert_html_to_pdf
 from cts_forms.filters import report_filter
 from cts_forms.mail import mail_to_complainant, mail_to_agency, build_letters, build_preview
-from utils.markdown_extensions import CustomHTMLExtension
+from utils.markdown_extensions import CustomHTMLExtension, OptionalExtension
 from cts_forms.models import Report, ResponseTemplate
 from cts_forms.views import mark_report_as_viewed, mark_reports_as_viewed
 from cts_forms.forms import add_activity
@@ -151,7 +151,7 @@ class ResponseTemplatePreviewBase:
         context = self._make_example_context()
         if is_html:
             subbed = str(Template(body).render(context))
-            md = markdown.markdown(subbed, extensions=['extra', 'sane_lists', 'admonition', 'nl2br', CustomHTMLExtension(), *extra_markdown_extensions])
+            md = markdown.markdown(subbed, extensions=[OptionalExtension(preview=True), 'extra', 'sane_lists', 'admonition', 'nl2br', CustomHTMLExtension(), *extra_markdown_extensions])
             return render(request, 'email.html', {'content': md})
 
         return HttpResponse(Template(body.replace('\n', '<br>')).render(context))
