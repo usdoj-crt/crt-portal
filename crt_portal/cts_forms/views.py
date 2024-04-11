@@ -823,6 +823,13 @@ class ResponseView(LoginRequiredMixin, View):
         }[tab]
         template = form.cleaned_data[template_kind]
         button_type = request.POST['type']
+        optionals = {
+            key.replace('optionals_', ''): request.POST.getlist(key)
+            for key in request.POST.keys()
+            if key.startswith('optionals_')
+        }
+        if optionals:
+            template.optionals = optionals
 
         if button_type == 'send':  # We're going to send an email!
             try:

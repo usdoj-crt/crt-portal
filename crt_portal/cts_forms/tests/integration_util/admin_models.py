@@ -93,13 +93,14 @@ def create(page, admin_path, **fields) -> int:
     """Helper to create an admin model.
 
     For example:
-        _create_model(
+        create(
+            page,
             admin_path='/admin/cts_forms/foo',
             title='A Title',
             kind='bar',
         )
 
-    If you encounter an supported input type, you may need to handle it below.
+    If you encounter an unsupported input type, you may need to handle it below.
 
     Returns: The id of the created model.
     """
@@ -113,3 +114,34 @@ def create(page, admin_path, **fields) -> int:
 
     url_with_id = page.locator('.historylink').get_attribute('href')
     return int(url_with_id.strip('/').split('/')[-2])
+
+
+def update(page, admin_path, filters, **fields):
+    """Helper to modify an admin model.
+
+    The supplied filters should only match _one_ object.
+
+    For example:
+        update(
+            page,
+            admin_path='/admin/cts_forms/foo',
+            filters={'title': 'A Title'},
+            title='A Title',
+            kind='bar',
+        )
+
+    If you encounter an unsupported input type, you may need to handle it below.
+    """
+    filterstring = urllib.parse.urlencode(filters, quote_via=urllib.parse.quote)
+    query_page_path = f'{admin_path}/?{filterstring}'
+    with page.expect_navigation():
+        page.goto(query_page_path)
+    if page.locator('.paginator').text_content().strip().startswith('0 '):
+        raise ValueError('No models found to update')
+    with page.expect_navigation():
+        page.click("#result_list a")
+
+    fill_fields(page, selector_format='#id_{}', fields=fields)
+
+    with page.expect_navigation():
+        page.locator('input[type="submit"]').filter(has_text='Save and continue editing').click()
