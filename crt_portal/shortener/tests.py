@@ -67,3 +67,12 @@ class UrlifyTest(TestCase):
 
     def test_urlify_with_prefix(self):
         self.assertEqual(ShortenedURL.urlify('abc', prefix='foo/'), 'foo/abc')
+
+    def test_urlify_route(self):
+        self.client = Client()
+        self.superuser = User.objects.create_superuser('SHORTENER_TEST_USER', 'a@a.com', '')
+        self.client.force_login(self.superuser)
+
+        response = self.client.get('/link/urlify/?name=Hooray%20for%20me')
+
+        self.assertEqual(response.json()['url'], 'hooray-for-me')

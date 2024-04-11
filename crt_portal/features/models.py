@@ -10,6 +10,9 @@ FeatureNameValidator = RegexValidator(r'^[a-z\-]*$', 'Feature may only contain t
 
 class AddFeatureMigration(migrations.RunPython):
     def __init__(self, feature_name, enabled, *, description='', **kwargs):
+        if '_' in feature_name:
+            raise ValueError('Underscores are not allowed in feature names. Use dashes instead.')
+
         def add_feature(apps, schema_editor):
             drop_feature(apps, schema_editor)
             Feature.objects.create(name=feature_name,
