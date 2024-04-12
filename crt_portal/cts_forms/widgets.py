@@ -44,7 +44,7 @@ class FuzzyWidget(MultiWidget):
             TextInput(attrs={
                 'label': 'Search for:',
                 'class': 'usa-input usa-tooltip margin-bottom-2',
-                'title': 'To find similar terms, adjust the sensitivity settings below.',
+                'title': 'Enter the search term. To find similar terms, adjust the sensitivity settings below.',
                 **attrs
             }),
             UsaRadioSelect(
