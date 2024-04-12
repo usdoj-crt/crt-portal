@@ -1,4 +1,3 @@
-import logging
 from django import template
 from django.apps import apps
 from django.core.exceptions import FieldDoesNotExist
