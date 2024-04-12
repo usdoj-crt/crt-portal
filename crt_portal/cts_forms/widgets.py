@@ -1,6 +1,6 @@
 """Form widgets"""
 import datetime
-from django.forms import MultiValueField, CharField, IntegerField, TypedChoiceField
+from django.forms import MultiValueField, CharField, IntegerField
 from django.forms.widgets import ChoiceWidget, TextInput, NumberInput, Select, SelectMultiple, DateInput, MultiWidget
 
 from cts_forms.model_variables import DISTRICT_CHOICES, STATUTE_CHOICES, EMPTY_CHOICE, FUZZY_SEARCH_CHOICES
@@ -48,12 +48,12 @@ class FuzzyWidget(MultiWidget):
                 **attrs
             }),
             UsaRadioSelect(
-               attrs={
-                  'label': 'Looks like sensitivity (most common):',
-                  'tooltip': 'Looks like sensitivity adjusts the edit distance - the number of one-character changes needed to turn one term into another - and returns exact matches for each variation within that distance.',
-                  **attrs
-              },
-              choices=FUZZY_SEARCH_CHOICES,
+                attrs={
+                    'label': 'Looks like sensitivity (most common):',
+                    'tooltip': 'Looks like sensitivity adjusts the edit distance - the number of one-character changes needed to turn one term into another - and returns exact matches for each variation within that distance.',
+                    **attrs
+                },
+                choices=FUZZY_SEARCH_CHOICES,
             ),
             UsaRadioSelect(
                 attrs={
