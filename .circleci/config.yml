@@ -607,10 +607,10 @@ workflows:
     jobs:
       - build_and_test
 
-      - owasp-scan-dev
-          # filters:
-          #   branches:
-          #     only: /^release.*/
+      - owasp-scan-dev:
+          filters:
+            branches:
+              only: /^release.*/
 
       - owasp-scan-stage:
           filters:
