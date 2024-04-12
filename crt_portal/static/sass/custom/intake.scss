@@ -659,6 +659,13 @@ input::-webkit-inner-spin-button {
   min-width: 6rem;
   position: relative;
 
+  .usa-tooltip {
+    .card-table-icon {
+      margin-left: 6px;
+      margin-bottom: -3px;
+    }
+  }
+
   &:focus-within {
     .content {
       outline: initial;

@@ -1,9 +1,9 @@
 """Form widgets"""
 import datetime
-from django.forms import MultiValueField, CharField, IntegerField
+from django.forms import MultiValueField, CharField, IntegerField, TypedChoiceField
 from django.forms.widgets import ChoiceWidget, TextInput, NumberInput, Select, SelectMultiple, DateInput, MultiWidget
 
-from cts_forms.model_variables import DISTRICT_CHOICES, STATUTE_CHOICES, EMPTY_CHOICE
+from cts_forms.model_variables import DISTRICT_CHOICES, STATUTE_CHOICES, EMPTY_CHOICE, FUZZY_SEARCH_CHOICES
 
 
 def add_empty_choice(choices, default_string=EMPTY_CHOICE):
@@ -44,27 +44,25 @@ class FuzzyWidget(MultiWidget):
             TextInput(attrs={
                 'label': 'Search for:',
                 'class': 'usa-input usa-tooltip margin-bottom-2',
-                'title': 'Enter the text to search for. Adjust the sliders below to include typos and/or misspellings.',
+                'title': 'To find similar terms, adjust the sensitivity settings below.',
                 **attrs
             }),
-            NumberInput(attrs={
-                'label': 'Sounds like sensitivity:',
-                'class': 'usa-range usa-tooltip',
-                'type': 'range',
-                'title': 'Slide to the right to include more misspellings. All the way to the left means include no misspellings.',
-                'min': '0',
-                'max': '10',
-                **attrs,
-            }),
-            NumberInput(attrs={
-                'label': 'Looks like sensitivity:',
-                'class': 'usa-range usa-tooltip',
-                'type': 'range',
-                'title': 'Slide to the right to include more typos. All the way to the left means include no typos.',
-                'min': '0',
-                'max': '10',
-                **attrs,
-            }),
+            UsaRadioSelect(
+               attrs={
+                  'label': 'Looks like sensitivity (most common):',
+                  'tooltip': 'Looks like sensitivity adjusts the edit distance - the number of one-character changes needed to turn one term into another - and returns exact matches for each variation within that distance.',
+                  **attrs
+              },
+              choices=FUZZY_SEARCH_CHOICES,
+            ),
+            UsaRadioSelect(
+                attrs={
+                    'label': 'Sounds like sensitivity:',
+                    'tooltip': 'Sounds like sensitivity takes into account the English pronounciation of the search term to include spellings that may be pronounced similarly.',
+                    **attrs
+                },
+                choices=FUZZY_SEARCH_CHOICES,
+            ),
         )
         super().__init__(widgets, attrs)
         self.widgets_names[0] = ''

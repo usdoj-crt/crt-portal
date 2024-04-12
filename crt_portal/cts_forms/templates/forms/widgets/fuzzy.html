@@ -1,7 +1,21 @@
 {% spaceless %}
   {% for widget in widget.subwidgets %}
+    {% if widget.name == 'location_name_1' %}
+      <p class="text-bold border-top margin-top-05 padding-top-2">
+        Refine search:
+      </p>
+    {% endif %}
     <div>
-      <label id="{{widget.name}}_label" for="id_{{widget.name}}">{{widget.attrs.label}}</label>
+      {% if widget.attrs.tooltip != null %}
+      <div class="margin-top-2">
+        <span class="usa-tooltip" data-position="right" data-classes="display-inline" title="{{widget.attrs.tooltip}}">
+          <label id="{{widget.name}}_label" for="id_{{widget.name}}">{{widget.attrs.label}}</label>
+          <img src="/static/img/ic_help-circle-dark.svg?v=1696278647" alt="More info" class="card-table-icon">
+        </span>
+      </div>
+      {% else %}
+        <label id="{{widget.name}}_label" for="id_{{widget.name}}">{{widget.attrs.label}}</label>
+      {% endif %}
       {% include widget.template_name %}
     </div>
   {% endfor %}

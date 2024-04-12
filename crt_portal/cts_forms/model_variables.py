@@ -737,3 +737,10 @@ PRINT_CHOICES = (
     ('activity', 'Activity'),
     ('summary', 'Summary'),
 )
+
+FUZZY_SEARCH_CHOICES = (
+    (8, 'High Inclusivity'),
+    (5, 'Medium Inclusivity'),
+    (2, 'Low Inclusivity'),
+    (0, 'Exact'),
+)

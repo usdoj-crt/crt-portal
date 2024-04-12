@@ -272,6 +272,16 @@
     }
   };
 
+  root.CRT.radioButtonView = function(props) {
+    for (var i = 0; i < props.el.length; i++) {
+      props.el[i].addEventListener('change', function(event) {
+        if (event.target.checked) {
+          root.CRT.filterDataModel[props.name] = event.target.value;
+        }
+      });
+    }
+  };
+
   root.CRT.checkBoxView.getValues = function(el) {
     if (el.checked) {
       root.CRT.filterDataModel[event.target.name].push(el.value);
