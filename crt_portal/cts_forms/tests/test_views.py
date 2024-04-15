@@ -1213,11 +1213,9 @@ class BannerMessageTests(TestCase):
 class PrintableFormTests(TestCase):
     """Makes sure that the printable PDF form is generated correctly."""
 
-    def setUp(self):
-        self.client = Client()
-
     def test_produces_pdf(self):
-        response = self.client.get('/report/printable/', follow=True)
+        client = Client()
+        response = client.get('/report/printable/', follow=True)
         form = pypdf.PdfReader(io.BytesIO(response.content))
         page1 = form.pages[0].extract_text()
 
@@ -1230,7 +1228,8 @@ class PrintableFormTests(TestCase):
         self.assertIn('Are you now or have ever', page1)
 
     def test_localizes_pdf(self):
-        response = self.client.get('/report/printable/?lang=es', follow=True)
+        client = Client()
+        response = client.get('/report/printable/?lang=es', follow=True)
         form = pypdf.PdfReader(io.BytesIO(response.content))
         page1 = form.pages[0].extract_text()
 
