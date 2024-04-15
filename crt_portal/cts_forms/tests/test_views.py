@@ -1229,7 +1229,9 @@ class PrintableFormTests(TestCase):
 
     def test_localizes_pdf(self):
         client = Client()
-        response = client.get('/report/printable/?lang=es', follow=True)
+        response = client.get('/report/printable/',
+                              follow=True,
+                              headers={'Accept-Language': 'es'})
         form = pypdf.PdfReader(io.BytesIO(response.content))
         page1 = form.pages[0].extract_text()
 
