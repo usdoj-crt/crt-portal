@@ -1516,10 +1516,10 @@ class SavedSearchActionView(LoginRequiredMixin, View):
         section_filter = request.GET.get('section_filter', '')
         saved_search_view = request.GET.get('saved_search_view', 'all')
         name = request.GET.get('name', None)
-        if name:
-            saved_search_form = SavedSearchActions(request.GET, instance=saved_search)
-        else:
-            saved_search_form = SavedSearchActions(query=query, instance=saved_search)
+        saved_search_form = SavedSearchActions(
+            request.GET if name else query,
+            instance=saved_search
+        )
         output = {
             'form': saved_search_form,
             'section_filter': section_filter,
