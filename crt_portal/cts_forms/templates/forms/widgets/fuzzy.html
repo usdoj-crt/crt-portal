@@ -6,15 +6,15 @@
       </p>
     {% endif %}
     <div>
-      {% if widget.attrs.tooltip != null %}
-      <div class="margin-top-2">
-        <span class="usa-tooltip" data-position="right" data-classes="display-inline" title="{{widget.attrs.tooltip}}">
-          <label id="{{widget.name}}_label" for="id_{{widget.name}}">{{widget.attrs.label}}</label>
-          <img src="/static/img/ic_help-circle-dark.svg?v=1696278647" alt="More info" class="card-table-icon">
-        </span>
-      </div>
-      {% else %}
+      {% if widget.attrs.tooltip == null %}
         <label id="{{widget.name}}_label" for="id_{{widget.name}}">{{widget.attrs.label}}</label>
+      {% else %}
+        <div class="margin-top-2">
+          <label class="display-inline" id="{{widget.name}}_label" for="id_{{widget.name}}">
+            {{widget.attrs.label}}
+            {% include 'partials/help_tooltip.html' with tip="{{widget.attrs.tooltip}}" %}
+          </label>
+        </div>
       {% endif %}
       {% include widget.template_name %}
     </div>
