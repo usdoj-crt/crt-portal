@@ -118,7 +118,7 @@ def result_to_html_table(result: ResultSet, table_name, **kwargs) -> str:
         <table
             data-rows="{rows_encoded}"
             {extra_data}
-            class="datatable-table">
+            class="crt-table datatable-table">
             <thead>{columns}</thead>
         </table>
     '''

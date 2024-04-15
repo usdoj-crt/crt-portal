@@ -3,7 +3,8 @@ from django.utils.html import mark_safe
 from api.serializers import ReportSerializer, ResponseTemplateSerializer, RelatedReportSerializer
 from utils.pdf import convert_html_to_pdf
 from cts_forms.filters import report_filter
-from cts_forms.mail import CustomHTMLExtension, mail_to_complainant, mail_to_agency, build_letters, build_preview
+from cts_forms.mail import mail_to_complainant, mail_to_agency, build_letters, build_preview
+from utils.markdown_extensions import CustomHTMLExtension
 from cts_forms.models import Report, ResponseTemplate
 from cts_forms.views import mark_report_as_viewed, mark_reports_as_viewed
 from cts_forms.forms import add_activity
@@ -21,10 +22,10 @@ from rest_framework.reverse import reverse
 from rest_framework.views import APIView
 import frontmatter
 import base64
-import html
 import json
 import markdown
 import os
+from urllib.parse import unquote
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
@@ -216,11 +217,19 @@ class ResponseDetail(generics.RetrieveAPIView):
         # If a `?report_id=<pk>` is provided, then render the letter content
         # with the given report details
         report_pk = request.query_params.get('report_id')
-        if report_pk:
-            report = Report.objects.filter(pk=report_pk).first()
-            serialized_data['url'] = serialized_data['url'] + '?report_id=' + report_pk
-            serialized_data['subject'] = template.render_subject(report)
-            serialized_data['body'] = html.unescape(template.render_body(report))
+        if not report_pk:
+            return Response(serialized_data)
+
+        optionals = request.query_params.get('optionals')
+        if optionals:
+            optionals = json.loads(unquote(optionals))
+
+        report = Report.objects.filter(pk=report_pk).first()
+        serialized_data['url'] = serialized_data['url'] + '?report_id=' + report_pk
+        serialized_data['subject'] = template.render_subject(report)
+        serialized_data['body'] = template.render_body_as_markdown(report, optionals=optionals)
+        serialized_data['optionals'] = template.get_optionals()
+
         return Response(serialized_data)
 
 

@@ -1285,6 +1285,16 @@ ul.messages {
   margin-bottom: 2rem;
 }
 
+fieldset[name="saved-search-actions"] {
+  .usa-link,.usa-checkbox__label {
+    width: 100%;
+  }
+
+  .usa-tooltip {
+    display: inline-block;
+  }
+}
+
 /* Match combo box input styling with other filters */
 .crt-combo-box-filter {
   width: 15rem; /* Hard code width to fix situation where input would expand when an item is selected */

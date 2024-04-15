@@ -170,7 +170,7 @@ def show_location_form_condition(wizard):
 def send_autoresponse_mail(report):
     # Guaranteed to find only one email template, or set to None. If the letter template
     # template in the report's language is not found, default to sending the English letter
-    template = ResponseTemplate.objects.filter(title='CRT Auto response', language=report.language).first() or ResponseTemplate.objects.filter(title='CRT Auto response', language='en').first()
+    template = ResponseTemplate.objects.filter(title__startswith='CRT Auto response', language=report.language).first() or ResponseTemplate.objects.filter(title='CRT Auto response', language='en').first()
 
     # Skip automated response if complainant doesn't provide an email
     # or if the auto response template doesn't exist

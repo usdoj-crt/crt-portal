@@ -52,3 +52,27 @@ class ShortenedURLAdminTests(TestCase):
         self.assertEqual(urls[0].shortname, 'google-changed')
         self.assertEqual(urls[0].destination, '/form/view')
         self.assertEqual(urls[0].enabled, True)
+
+
+class UrlifyTest(TestCase):
+    def test_urlify_replaces_chars(self):
+        self.assertEqual(ShortenedURL.urlify('a B_C-d!@#e'), 'a-b-c-d-e')
+
+    def test_urlify_identifies_duplicates(self):
+        ShortenedURL.objects.create(shortname='abc').save()
+        self.assertEqual(ShortenedURL.urlify('abc'), 'abc-1')
+
+        ShortenedURL.objects.create(shortname='abc-1').save()
+        self.assertEqual(ShortenedURL.urlify('abc'), 'abc-2')
+
+    def test_urlify_with_prefix(self):
+        self.assertEqual(ShortenedURL.urlify('abc', prefix='foo/'), 'foo/abc')
+
+    def test_urlify_route(self):
+        self.client = Client()
+        self.superuser = User.objects.create_superuser('SHORTENER_TEST_USER', 'a@a.com', '')
+        self.client.force_login(self.superuser)
+
+        response = self.client.get('/link/urlify/?name=Hooray%20for%20me')
+
+        self.assertEqual(response.json()['url'], 'hooray-for-me')
