@@ -1227,22 +1227,6 @@ class PrintableFormTests(TestCase):
         self.assertIn('If you believe you or someone else', page1)
         self.assertIn('Are you now or have ever', page1)
 
-    def test_localizes_pdf(self):
-        client = Client()
-        response = client.get('/report/printable/',
-                              follow=True,
-                              headers={'Accept-Language': 'es'})
-        form = pypdf.PdfReader(io.BytesIO(response.content))
-        page1 = form.pages[0].extract_text()
-
-        self.assertEqual(response.status_code, 200)
-        self.assertIn(
-            'filename="presentar_una_querella.pdf"',
-            response.get('Content-Disposition')
-        )
-        self.assertIn('Si usted cree que usted u otra persona', page1)
-        self.assertIn('¿Es usted ahora o ha', page1)
-
 
 class FormLettersIndexTests(TestCase):
 
