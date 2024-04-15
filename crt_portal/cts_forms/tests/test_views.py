@@ -6,6 +6,7 @@ import io
 import json
 import secrets
 from datetime import date, timedelta
+import pypdf
 
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
@@ -1207,6 +1208,39 @@ class BannerMessageTests(TestCase):
         response = self.client.get('/')
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'banner <strong>test</strong>')
+
+
+class PrintableFormTests(TestCase):
+    """Makes sure that the printable PDF form is generated correctly."""
+
+    def setUp(self):
+        self.client = Client()
+
+    def test_produces_pdf(self):
+        response = self.client.get('/report/printable/', follow=True)
+        form = pypdf.PdfReader(io.BytesIO(response.content))
+        page1 = form.pages[0].extract_text()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(
+            'filename="file_a_complaint.pdf"',
+            response.get('Content-Disposition')
+        )
+        self.assertIn('If you believe you or someone else', page1)
+        self.assertIn('Are you now or have ever', page1)
+
+    def test_localizes_pdf(self):
+        response = self.client.get('/report/printable/?lang=es', follow=True)
+        form = pypdf.PdfReader(io.BytesIO(response.content))
+        page1 = form.pages[0].extract_text()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(
+            'filename="presentar_una_querella.pdf"',
+            response.get('Content-Disposition')
+        )
+        self.assertIn('Si usted cree que usted u otra persona', page1)
+        self.assertIn('¿Es usted ahora o ha', page1)
 
 
 class FormLettersIndexTests(TestCase):

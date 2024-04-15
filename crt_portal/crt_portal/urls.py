@@ -29,7 +29,8 @@ from cts_forms.views_public import (
     show_election_form_condition,
     show_location_form_condition,
     show_police_form_condition,
-    show_workplace_form_condition
+    show_workplace_form_condition,
+    printable_form_view
 )
 from django.conf import settings
 from django.conf.urls.static import static
@@ -73,6 +74,7 @@ urlpatterns = auth + [
     path('form/', include('cts_forms.urls')),
     path('link/', include('shortener.urls')),
     path('analytics/', include('analytics.urls')),
+    path('report/printable/', printable_form_view, name='printable-form'),
     path('report/', CRTReportWizard.as_view(
         [
             Contact,

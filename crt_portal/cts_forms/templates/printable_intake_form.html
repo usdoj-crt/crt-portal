@@ -1,0 +1,665 @@
+{% load commercial_public_space_view %}
+{% load correctional_facility_view %}
+{% load employer_info_view %}
+{% load primary_complaint_view %}
+{% load i18n %}
+{% get_available_languages as LANGUAGES %}
+{% get_language_info_list for LANGUAGES as languages %}
+{% block content %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Public+Sans:ital@0;1&display=swap" rel="stylesheet"/>
+    <style>
+      .on-new-page {
+        page-break-before: always;
+      }
+
+      @page {
+        margin-top: 2in;
+
+        @top-center {
+          content: element(header);
+        }
+        @bottom-left {
+          content: "Page " counter(page);
+        }
+        @bottom-right {
+          white-space: pre;
+          content: 'OMB No. 1190-0020' '\A' 'Expires 08/31/2026';
+        }
+      }
+      header { position: running(header); }
+    </style>
+  </head>
+  <body>
+
+    <header>
+      <img src="{% static "img/logo-img.png" %}" alt="" />
+
+      <h1>
+        <small>{% trans "U.S. Department of Justice" %}</small>
+        {%trans "Civil Rights Division" %}
+      </h1>
+
+      <h2>{% trans "Report a possible civil rights violation" %}</h2>
+    </header>
+
+    <main>
+      <section>
+        <p>
+          {% trans "If you believe you or someone else has experienced a civil rights violation, please tell us what happened." %}
+          {% trans "Before starting, you can also <a href=\"#instructions\">read the instructions for this form</a> (page 8) and what to expect after submission" %}
+        </p>
+        <p>
+          <em>
+            {% trans "You are not required to provide your name or contact information. If you want to remain anonymous, leave this section blank. If you choose to provide your contact information, we will only use it to respond to your submission." %}
+          </em>
+        </p>
+      </section>
+
+      <section>
+        <h3>
+          <span class="section-number">1</span>
+          {% trans "Contact" %}
+        </h3>
+
+        <div class="visual-row">
+          <label>
+            {% trans "First name" %}
+            <input type="text"/>
+          </label>
+
+          <label>
+            {% trans "Last name" %}
+            <input type="text"/>
+          </label>
+        </div>
+
+        <div class="visual-row">
+          <label>
+            {% trans "Email address" %}
+            <input type="text"/>
+          </label>
+
+          <label>
+            {% trans "Phone number" %}
+            <input type="text"/>
+          </label>
+        </div>
+
+        <div class="visual-row">
+          <label>
+            {% trans "Mailing address 1" %}
+            <input type="text"/>
+          </label>
+        </div>
+
+        <div class="visual-row">
+          <label>
+            {% trans "Mailing address 2" %}
+            <input type="text"/>
+          </label>
+        </div>
+
+        <div class="visual-row">
+          <label>
+            {% trans "City" %}
+            <input type="text"/>
+          </label>
+
+          <label>
+            {% trans "State" %}
+            <input type="text"/>
+          </label>
+        </div>
+
+        <div class="visual-row">
+          <label>
+            {% trans "Zip code" %}
+            <input type="text"/>
+          </label>
+        </div>
+
+        <h4>{% trans "Are you now or have ever been an active duty service member?" %}</h4>
+        <small><em>{% trans "If you’re reporting on behalf of someone else, please select their status." %}</em></small>
+
+        <div class="visual-row">
+          <label>
+            {% trans "Yes" %}
+            <input type="radio" value=""/>
+          </label>
+          <label>
+            {% trans "No" %}
+            <input type="radio" value=""/>
+          </label>
+        </div>
+      </section>
+
+      <section class="on-new-page">
+        <h3>
+          <span class="section-number">2</span>
+          {% trans "Primary concern" %}
+        </h3>
+
+        <p>
+          {% trans "What is your primary reason for contacting the Civil Rights Division?" %}
+        </p>
+
+        <p>
+          <small><em>
+            {% trans "Select the reason that best describes your concern. Each reason lists examples of civil rights violations that may relate to your incident. In another section of this report, you will be able to describe your concern in your own words." %}
+            </em></small>
+        </p>
+
+        <p>
+          <small><em>
+            {% trans "Note: Some primary concerns have follow-up questions. If you select one of these, we ask that you also answer the follow-up question presented below the specific primary reason." %}
+          </em></small>
+        </p>
+
+        <section>
+          <label>
+            {% trans "Workplace discrimination or other employment-related problem" %}
+            <input type="radio" value=""/>
+          </label>
+          <p>
+            {% trans "Examples:" %}
+            <ul>
+              <li>
+                {% trans "Fired, not hired, or demoted for reasons unrelated to job performance or qualifications" %}
+              </li>
+
+              <li>
+                {% trans "Retaliated against for reporting discrimination" %}
+              </li>
+
+              <li>
+                {% trans "Inappropriately asked to provide immigration documentation" %}
+              </li>
+
+              <li>
+                {% trans "Denied reemployment or fired based on military service" %}
+              </li>
+
+              <li>
+                {% trans "Denied an accommodation for a disability, including not being allowed to have a service animal \<strong\>in the workplace\</strong\>" %}
+              </li>
+            </ul>
+          </p>
+
+          <h4>{% trans "Was this a public or private employer?" %}</h4>
+          <div class="visual-row">
+            <label>
+              {% trans "Public employer" %}
+              <input type="radio" value=""/>
+            </label>
+
+            <label>
+              {% trans "Private employer" %}
+              <input type="radio" value=""/>
+            </label>
+
+            <label>
+              {% trans "I'm not sure" %}
+              <input type="radio" value=""/>
+            </label>
+          </div>
+
+          <h4>{% trans "How large is this employer?" %}</h4>
+          <div class="visual-row">
+            <label>
+              {% trans "Fewer than 15 employees" %}
+              <input type="radio" value=""/>
+            </label>
+
+            <label>
+              {% trans "15 or more employees" %}
+              <input type="radio" value=""/>
+            </label>
+
+            <label>
+              {% trans "I'm not sure" %}
+              <input type="radio" value=""/>
+            </label>
+          </div>
+        </section>
+
+        <section>
+          <label>
+            {% trans "Housing discrimination or harassment" %}
+            <input type="radio" value=""/>
+          </label>
+          <p>
+            {% trans "Examples:" %}
+            <ul>
+              <li>
+                {% trans "Denied housing, a permit, or a loan based on personal characteristics like race, sex, and/or having children under 18 years old" %}
+              </li>
+              <li>
+                {% trans "Harassment by a landlord or another tenant, including sexual harassment" %}
+              </li>
+              <li>
+                {% trans "Challenges with terminating a lease due to military status change" %}
+              </li>
+              <li>
+                {% trans "Denied an accommodation for a disability, including not being allowed to have a service or assistance animal <strong>in public housing</strong>" %}
+              </li>
+            </ul>
+          </p>
+        </section>
+
+        <section>
+          <label>
+            {% trans "Mistreated by police, correctional staff, or inmates" %}
+            <input type="radio" value=""/>
+          </label>
+          <p>
+            {% trans "Examples:" %}
+            <ul>
+              <li>
+                {% trans "Police brutality or use of excessive force, including patterns of police misconduct" %}
+              </li>
+              <li>
+                {% trans "Searched and arrested under false pretenses, including racial or other discriminatory profiling" %}
+              </li>
+              <li>
+                {% trans "Denied rights while arrested or incarcerated" %}
+              </li>
+              <li>
+                {% trans "Denied access to safe living conditions or accommodations for a disability, language barrier, or religious practice while incarcerated" %}
+              </li>
+            </ul>
+          </p>
+
+          <h4>{% trans "Did this happen while in custody or incarcerated?" %}</h4>
+          <div class="visual-row">
+            <label>
+              {% trans "Yes" %}
+              <input type="radio" value=""/>
+            </label>
+            <label>
+              {% trans "No" %}
+              <input type="radio" value=""/>
+            </label>
+          </div>
+        </section>
+
+        <section>
+          <label>
+            {% trans "Discrimination at a school, educational program or service, or related to receiving education" %}
+            <input type="radio" value=""/>
+          </label>
+          <p>
+            {% trans "Examples:" %}
+            <ul>
+              <li>
+                {% trans "Harassment based on race, sex, national origin, disability, or religion" %}
+              </li>
+              <li>
+                {% trans "Denied admission or segregated in an education program or activity" %}
+              </li>
+              <li>
+                {% trans "Denied educational accommodations for a disability or language barrier" %}
+              </li>
+            </ul>
+          </p>
+
+          <h4>{% trans "Discrimination at a school, educational program or service, or related to receiving education" %}</h4>
+          <div class="visual-row">
+            <label>
+              {% trans "Public school or educational program" %}
+              <input type="radio" value=""/>
+            </label>
+
+            <label>
+              {% trans "Private school or educational program" %}
+              <input type="radio" value=""/>
+            </label>
+
+            <label>
+              {% trans "I'm not sure" %}
+              <input type="radio" value=""/>
+            </label>
+          </div>
+        </section>
+        </section>
+
+        <section>
+          <label>
+            {% trans "Voting rights or ability to vote affected" %}
+            <input type="radio" value=""/>
+          </label>
+          <p>
+            {% trans "Examples:" %}
+            <ul>
+              <li>
+                {% trans "Obstacles to registering to vote, obtaining or submitting a ballot, having your ballot counted, or entering a polling place to vote" %}
+              </li>
+              <li>
+                {% trans "Denied adequate voting assistance or accommodations for a disability at a polling place" %}
+              </li>
+              <li>
+                {% trans "Restricted or prevented from participating in an election, including voting, becoming a candidate, or being elected for office" %}
+              </li>
+            </ul>
+          </p>
+        </section>
+
+        <section>
+          <label>
+            {% trans "Discriminated against in a commercial location or public place" %}
+            <small><em>{% trans "This could include a store, restaurant, bar, hotel, place of worship, library, medical facility, bank, courthouse, government building, public park or street, as well as online." %}</em></small>
+            <input type="radio" value=""/>
+          </label>
+          <p>
+            {% trans "Examples:" %}
+            <ul>
+              <li>
+                {% trans "A physical or online location that does not provide disability accommodations" %}
+              </li>
+              <li>
+                {% trans "Denied service or entry because of a perceived personal characteristic like race, sex, or religion" %}
+              </li>
+              <li>
+                {% trans "Denied an accommodation for a disability, including not being allowed to have a service animal <strong>in a commercial or public location</strong>" %}
+              </li>
+            </ul>
+          </p>
+
+          <label>
+            {% trans "Place of worship or about a place of worship" %}
+            <small><em>{% trans "Church, synagogue, temple, religious community center" %}</em></small>
+            <input type="radio" value=""/>
+          </label>
+
+          <label>
+            {% trans "Commercial or retail building" %}
+            <small><em>{% trans "Store, restaurant, bar, hotel, theater" %}</em></small>
+            <input type="radio" value=""/>
+          </label>
+
+          <label>
+            {% trans "Healthcare facility" %}
+            <small><em>{% trans "Hospital or clinic (including inpatient and outpatient programs), reproductive care clinic, state developmental institution, nursing home" %}</em></small>
+            <input type="radio" value=""/>
+          </label>
+
+          <label>
+            {% trans "Financial institution" %}
+            <small><em>{% trans "Bank, credit union, loan services" %}</em></small>
+            <input type="radio" value=""/>
+          </label>
+
+          <label>
+            {% trans "Public space" %}
+            <small><em>{% trans "Park, sidewalk, street, other public buildings (courthouse, DMV, city library)" %}</em></small>
+            <input type="radio" value=""/>
+          </label>
+
+          <label>
+            {% trans "Other" %}
+            <input type="radio" value=""/>
+          </label>
+
+          <small>{% trans "Please describe \"Other reason\"" %}</small>
+          <input type="text" value=""/>
+
+        </section>
+
+        <section>
+          <label>
+            {% trans "Something else happened" %}
+            <input type="radio" value=""/>
+          </label>
+          <p>
+            <em>{% trans "The examples above reflect some but not all of the civil rights violations that we address. Select this option if you don’t see an example that applies to your situation. You will be able to tell us more later." %}</em>
+          </p>
+        </section>
+      </section>
+
+      <section class="on-new-page">
+        <h3>
+          <span class="section-number">3</span>
+          {% trans "Location details" %}
+        </h3>
+
+        <label>
+          {% trans "Organization name" %}
+          <small><em>{% trans "Examples: Name of business, school, intersection, prison, polling place, website, etc." %}</em></small>
+          <input type="text"/>
+        </label>
+
+        <label>
+          {% trans "Street address 1" %}
+          <input type="text"/>
+        </label>
+
+        <label>
+          {% trans "Street address 2" %}
+          <input type="text"/>
+        </label>
+
+        <div class="visual-row">
+          <label>
+            {% trans "City" %}
+            <input type="text"/>
+          </label>
+
+          <label>
+            {% trans "State" %}
+            <input type="text"/>
+          </label>
+        </div>
+      </section>
+
+      <section>
+        <h3>
+          <span class="section-number">4</span>
+          {% trans "Date" %}
+        </h3>
+
+        <h4>{% trans "When did this happen?" %}</h4>
+        <small><em>{% trans "It is important for us to know how recently this incident happened so we can take the appropriate action. If this happened over a period of time or is still happening, please provide the most recent date." %}</em></small>
+
+        <label>
+          {% trans "Date" %}
+          <input type="text"/>
+        </label>
+      </section>
+
+      <section class="on-new-page">
+        <h3>
+          <span class="section-number">5</span>
+          {% trans "Personal characteristics" %}
+        </h3>
+
+        <h4>{% trans "Do you believe any of these personal characteristics influenced why you were treated this way?" %}</h4>
+        <small><em>{% trans "There are federal and state laws that protect people from discrimination based on their personal characteristics. Here is a list of the most common characteristics that are legally protected. Select any that apply to your incident." %}</em></small>
+
+        <label>
+          {% trans "Age" %}
+          <input type="checkbox"/>
+        </label>
+
+        <label>
+          {% trans "Disability" %}
+          <input type="checkbox"/>
+        </label>
+
+        <label>
+          {% trans "Family, marital, or parental status" %}
+          <input type="checkbox"/>
+        </label>
+
+        <label>
+          {% trans "Gender identity (including gender stereotypes)" %}
+          <input type="checkbox"/>
+        </label>
+
+        <label>
+          {% trans "Genetic information (including family medical history)" %}
+          <input type="checkbox"/>
+        </label>
+
+        <label>
+          {% trans "Immigration/citizenship status (choosing this will not share your status)" %}
+          <input type="checkbox"/>
+        </label>
+
+        <label>
+          {% trans "Language" %}
+          <input type="checkbox"/>
+        </label>
+
+        <label>
+          {% trans "National origin (including ancestry and ethnicity)" %}
+          <input type="checkbox"/>
+        </label>
+
+        <label>
+          {% trans "Pregnancy" %}
+          <input type="checkbox"/>
+        </label>
+
+        <label>
+          {% trans "Race/color" %}
+          <input type="checkbox"/>
+        </label>
+
+        <label>
+          {% trans "Religion" %}
+          <input type="checkbox"/>
+        </label>
+
+        <label>
+          {% trans "Sex" %}
+          <input type="checkbox"/>
+        </label>
+
+        <label>
+          {% trans "Sexual orientation" %}
+          <input type="checkbox"/>
+        </label>
+
+        <label>
+          {% trans "None of these apply to me" %}
+          <input type="checkbox"/>
+        </label>
+
+        <label>
+          {% trans "Other" %}
+          <input type="radio" value=""/>
+        </label>
+
+        <small>{% trans "Please describe \"Other reason\"" %}</small>
+        <input type="text" value=""/>
+      </section>
+
+      <section class="on-new-page">
+        <h3>
+          <span class="section-number">6</span>
+          {% trans "Personal description" %}
+        </h3>
+
+        <h4>{% trans "In your own words, describe what happened" %}</h4>
+        <small><em>
+            {% trans "Please share details like:" %}
+            <ul>
+              <li>{% trans "Time" %}</li>
+              <li>{% trans "Names of people involved including witnesses if there are any" %}</li>
+              <li>{% trans "Any supporting materials (please list and describe them)" %}</li>
+            </ul>
+        </em></small>
+        <textarea></textarea>
+
+        {% trans "You may attach further details as extra pages, if necessary" %}
+      </section>
+
+      <section class="on-new-page">
+        <h3>{% trans "Instructions" %}</h3>
+
+        <p>
+          {% trans "The purpose of this form is to assist you in filing a report with the Civil Rights Division. You are not required to use this form; a letter with the same information is sufficient, however, please ensure you are including the same information." %}
+        </p>
+
+        <p>
+          <strong>{% trans "Step 1: You can complete and submit this form." %}</strong>{% trans "By completing this form, you can provide the details we need to understand what happened. You can mail a printed copy of this form via postal service to the division or you can email an electronic copy. Once we receive your report, it is immediately sent to our staff for review." %}
+        </p>
+
+        <p>
+          <strong>{% trans "Step 2: We will review your report." %}</strong>{% trans "Teams that specialize in handling your type of issue will review it. If it needs to be forwarded to another team or agency, we will try to connect your complaint to the right group." %}
+        </p>
+
+        <p>
+          <strong>{% trans "Step 3: We will determine next steps and get back to you." %}</strong>
+          {% trans "Possible outcomes include: following up for more information, starting a mediation or investigation, directing you to another organization for further help, or informing you that we cannot help." %}
+        </p>
+
+        <div class="address-blocks">
+          <pre>
+<strong>{% trans "To mail a printed copy of the form:" %}</strong>
+U.S. Department of Justice
+Civil Rights Division
+950 Pennsylvania Avenue, NW
+Washington, D.C. 20530-0001
+          </pre>
+
+          <span class="centered">
+            <pre>
+<strong>{% trans "To reach us by phone:" %}</strong>
+(202) 514-3847
+1-855-856-1247 (toll-free)
+Telephone Device for the Deaf
+(TTY) (202) 514-0716
+            </pre>
+          </span>
+        </div>
+
+        <h3>{% trans "Privacy policy" %}</h3>
+
+        <p><small>
+          {% blocktrans %}
+            The purpose of this form is to allow the public to submit civil rights complaints to the Department of Justice, thereby allowing us to enforce over thirty <a href="{{privacy_policy_url}}#our-statutes">civil rights statutes</a> within our authority. These statutes authorize us to collect this information.  You should know that any information you provide through this form is voluntary, yet failure to provide some of the information might limit the Department’s ability to pursue your claim. We may use this information for certain routine uses, including sharing this information under certain circumstances with:
+            {% endblocktrans %}
+        </small></p>
+        <ul>
+          <li>{% trans "contractors who work with us, if they need it to perform a contract;" %}</li>
+          <li>{% trans "a court, magistrate, or administrative tribunal, as well as opposing counsel during settlement negotiations and/or litigation;" %}</li>
+          <li>{% trans "Members of Congress;" %}</li>
+          <li>{% trans "Federal, state, or local law enforcement agencies." %}</li>
+        </ul>
+
+        <p>
+          {% with privacy_policy_url="https://civilrights.justice.gov/privacy-policy" %}
+          {% blocktrans %}You can find our complete <a href="{{privacy_policy_url}}">Privacy Policy here</a>.{% endblocktrans %}
+          {% endwith %}
+        </p>
+
+        <p>
+          {% trans "According to the Paperwork Reduction Act of 1995, no persons are required to respond to a collection of information unless such collection displays a valid OMB control number." %}
+        </p>
+        <p>
+          {% trans "Public reporting burden for this collection of information is estimated to average 2 minutes per response, including time for reviewing instructions, searching existing data sources, gathering and maintaining the data needed, and completing and reviewing the collection of information." %}
+        </p>
+        <p>
+          {% trans "The personal description question is estimated to take 10 minutes for the response, time for reviewing instructions, searching existing data sources, gathering and maintaining the data needed, and completing and reviewing the collection of information. The obligation to respond to this collection is voluntary." %}
+        </p>
+        <p>
+          {% trans "Send comments regarding the burden estimate or any other aspect of this collection of information, including suggestions for reducing this burden, to:" %}
+        </p>
+        <p>
+          U.S. Department of Justice<br/>
+          Civil Rights Division<br/>
+          950 Pennsylvania Avenue, NW<br/>
+          Washington, D.C. 20530-0001<br/>
+        </p>
+    </main>
+    <footer></footer>
+  </body>
+</html>
+{% endblock %}
