@@ -7,6 +7,28 @@
 {% endblock %}
 
 {% block card_content %}
+{% if form.shared.initial %}
+  <div id="warning_section" class="usa-alert usa-alert--warning">
+    <div class="display-flex flex-align-center flex-justify padding-2">
+      <img width="30" height="30" src="{% static 'img/alerts/warning.svg' %}" alt="warning" class="icon" />
+      <div class="margin-left-2 line-height-sans-5">
+        <span class="text-bold">This is a shared saved search so editing it might impact other users. Create a duplicate
+          version of this search by clicking</span>
+        <form id="save-search" method="GET" class="display-inline" action="{% url 'crt_forms:saved-search-actions' %}"
+          novalidate>
+          <input type="hidden" value="{{ form.query.initial }}" name="query" id="query" />
+          <input type="hidden" value="{{ form.description.initial }}" name="description" id="description" />
+          <input type="hidden" value="{{ form.name.initial }}" name="name" id="name" />
+          <input type="hidden" value="{{ form.section.initial }}" name="section" id="section" />
+          <button class="usa-button usa-button--unstyled text-bold" type="submit" id="apply-filters-button">
+            here
+          </button>
+        </form>
+        <span>.</span>
+      </div>
+    </div>
+  </div>
+{% endif %}
 <form id="saved-search-actions" class="usa-form" method="post" action="/form/saved-searches/actions/{{form.instance.pk}}/" novalidate>
   {% csrf_token %}
   <fieldset name="saved-search-actions" class="usa-fieldset usa-prose">
