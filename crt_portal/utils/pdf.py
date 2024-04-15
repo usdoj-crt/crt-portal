@@ -14,6 +14,7 @@ import pypdf
 import weasyprint
 import zipfile
 
+from cts_forms import model_variables, question_text
 from cts_forms.models import Report, ReportDispositionBatch
 from utils.markdown_extensions import CustomHTMLExtension
 from tms.models import TMSEmail
@@ -161,7 +162,12 @@ def convert_report_to_pdf(report: Report) -> io.BytesIO:
 
 def build_intake_form_pdf() -> io.BytesIO:
     try:
-        content = convert_html_to_pdf(render_to_string('printable_intake_form.html'))
+        content = convert_html_to_pdf(
+            render_to_string('printable_intake_form.html', {
+                'variables': model_variables,
+                'questions': question_text,
+            })
+        )
     except FailedToGeneratePDF as error:
         logging.exception(error)
         return HttpResponse("We're sorry, but something went wrong retrieving this form.", status=500)
