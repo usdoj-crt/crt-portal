@@ -118,8 +118,8 @@ class OptionalProcessor(Preprocessor):
             # This must be a single line; whitespace throws off the markdown:
             raw_markdown = (
                 f"{raw_markdown[:start]}\n\n<details><summary>"
-                f"[Optional] {option["group"]}: {option["name"]}</summary>"
-                f"\n\n{option["content"]}\n\n</details>\n\n{raw_markdown[end:]}"
+                f"[Optional] {option['group']}: {option['name']}</summary>"
+                f"\n\n{option['content']}\n\n</details>\n\n{raw_markdown[end:]}"
             )
 
         return raw_markdown
