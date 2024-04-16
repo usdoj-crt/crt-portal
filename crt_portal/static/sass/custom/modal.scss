@@ -196,6 +196,14 @@ body.is-modal {
     &::-webkit-scrollbar { /* Chrome, Opera, Safari */
       display: none;
     }
+
+    .usa-fieldset {
+      margin-top: 1rem;
+
+      &:first-of-type {
+        margin-top: 0;
+      }
+    }
   }
 
   .modal-step {

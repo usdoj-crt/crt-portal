@@ -33,22 +33,107 @@
     addressee.parentNode.insertBefore(newDeptAddressee, addressee);
   }
 
+  function renderOptionals(container, optionals, rerender) {
+    container.innerHTML = '';
+    let checkboxId = 0;
+    let currentRerender = null;
+    Object.entries(optionals).map(([group, options]) => {
+      const fieldset = document.createElement('fieldset');
+      fieldset.classList.add('usa-fieldset');
+      const legend = document.createElement('legend');
+      legend.classList.add('usa-legend');
+      legend.innerText = group;
+      fieldset.appendChild(legend);
+
+      function rerenderWithOptionals() {
+        const userSelections = container.querySelectorAll('input[type="checkbox"]:checked');
+        const selectedOptions = Array.from(userSelections)
+          .map(input => [input.name.replace('optionals_', ''), input.value])
+          .reduce((acc, [name, value]) => {
+            if (!acc[name]) acc[name] = [];
+            acc[name].push(value);
+            return acc;
+          }, {});
+        const serializedOptions = encodeURIComponent(JSON.stringify(selectedOptions));
+        return rerender(serializedOptions);
+      }
+
+      const checkboxes = options.map(option => {
+        const field = document.createElement('div');
+        const label = document.createElement('label');
+        const input = document.createElement('input');
+        field.classList.add('usa-checkbox');
+        input.classList.add('usa-checkbox__input');
+        input.type = 'checkbox';
+        input.name = `optionals_${group}`;
+        input.value = option.name;
+        input.addEventListener('change', () => {
+          if (!currentRerender) {
+            currentRerender = rerenderWithOptionals();
+          } else {
+            currentRerender = currentRerender.then(() => rerenderWithOptionals());
+          }
+        });
+        input.id = `contact-optionals-${checkboxId++}`;
+        label.htmlFor = input.id;
+        label.classList.add('usa-checkbox__label');
+        field.appendChild(input);
+        field.appendChild(label);
+        label.appendChild(document.createTextNode(option.name));
+        return field;
+      });
+      checkboxes.forEach(checkbox => fieldset.appendChild(checkbox));
+      container.appendChild(fieldset);
+    });
+    container.hidden = Object.keys(optionals).length === 0;
+  }
+
+  let currentResponseTemplate = null;
+
   root.CRT.renderTemplatePreview = function(
     modal,
-    { reportId, responseTemplate, htmlBox, plaintextBox, afterRendered }
+    {
+      reportId,
+      responseTemplate,
+      htmlBox,
+      plaintextBox,
+      optionals,
+      afterRendered,
+      selectedOptionals
+    }
   ) {
-    window
-      .fetch(`/api/responses/${responseTemplate}/?report_id=${reportId}`)
+    const params = new URLSearchParams();
+    params.append('report_id', reportId);
+    if (selectedOptionals) {
+      params.append('optionals', selectedOptionals);
+    }
+    return window
+      .fetch(`/api/responses/${responseTemplate}/?${params.toString()}`)
       .then(response => response.json())
       .then(data => {
         if (data.is_html) {
           plaintextBox.hidden = true;
           htmlBox.hidden = false;
-          htmlBox.innerHTML = marked.parse(data.body || '');
+          htmlBox.innerHTML = data.body ?? '';
         } else {
           htmlBox.hidden = true;
           plaintextBox.hidden = false;
-          plaintextBox.innerHTML = data.body || '';
+          plaintextBox.innerHTML = data.body.replaceAll('<br>', '\n') ?? '';
+        }
+        if (responseTemplate !== currentResponseTemplate) {
+          function rerender(chosenOptionals) {
+            return root.CRT.renderTemplatePreview(modal, {
+              reportId,
+              responseTemplate,
+              htmlBox,
+              plaintextBox,
+              optionals,
+              afterRendered,
+              selectedOptionals: chosenOptionals
+            });
+          }
+          renderOptionals(optionals, data.optionals ?? {}, rerender);
+          currentResponseTemplate = responseTemplate;
         }
         addReferralAddress(data.referral_contact);
         if (afterRendered) afterRendered(data);

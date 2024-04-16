@@ -54,6 +54,7 @@
   var print = modal.querySelector('#intake_print');
   var letter = modal.querySelector('#intake_letter');
   var letter_html = modal.querySelector('#intake_letter_html');
+  const optionals = modal.querySelector('.optionals');
   var send_email = modal.querySelector('#intake_send');
 
   var email_enabled = modal.querySelector('#intake_send').dataset.emailEnabled === 'True';
@@ -87,6 +88,7 @@
         responseTemplate: event.target.value,
         htmlBox: letter_html,
         plaintextBox: letter,
+        optionals: optionals,
         afterRendered: data => {
           description.innerHTML = data.subject || '[Select response letter]';
         }

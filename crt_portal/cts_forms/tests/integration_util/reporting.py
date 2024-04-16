@@ -14,9 +14,13 @@ def capture_report(path_to_pdf):
     def wrapper(func):
         def decorator(page, *args, **kwargs):
             report = PdfReport(path_to_pdf)
-            result = func(page, *args, report=report, **kwargs)
-            report.save()
-            return result
+            try:
+                return func(page, *args, report=report, **kwargs)
+            except Exception as e:
+                report.screenshot(page, full_page=True, caption=f'An error occurred: {e}')
+                raise
+            finally:
+                report.save()
         return decorator
     return wrapper
 
@@ -28,7 +32,7 @@ class PdfReport:
         self.path_to_pdf = f'e2e-screenshots/{path_to_pdf}'
         self.screenshots = []
 
-    def screenshot(self, page, caption='', **kwargs):
+    def screenshot(self, page, caption='', scroll_to_selector='', **kwargs):
         if page.evaluate('() => document.body.classList.contains("is-modal")'):
             target = next(
                 modal
@@ -39,6 +43,9 @@ class PdfReport:
             kwargs.pop('full_page', None)
         else:
             target = page
+
+        if scroll_to_selector:
+            target.locator(scroll_to_selector).scroll_into_view_if_needed()
 
         self.screenshots.append({
             'file': target.screenshot(**kwargs),
