@@ -739,6 +739,13 @@ PRINT_CHOICES = (
     ('summary', 'Summary'),
 )
 
+FUZZY_SEARCH_CHOICES = (
+    (8, 'High Inclusivity'),
+    (5, 'Medium Inclusivity'),
+    (2, 'Low Inclusivity'),
+    (0, 'Exact'),
+)
+
 PRIMARY_COMPLAINT_EXTRA_QUESTIONS = {
     'workplace': [
         (
