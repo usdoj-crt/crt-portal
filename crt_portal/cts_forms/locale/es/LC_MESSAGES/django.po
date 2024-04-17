@@ -1812,11 +1812,11 @@ msgstr "O llamando a alguna de sus oficinas locales"
 msgid  "Not every act of a hate crime involves a crime. <a class='external-link--blue' href='https://www.justice.gov/hatecrimes/learn-about-hate-crimes'>Acts of prejudice</a> that are not crimes, and do not involve violence, threats, or property damage, are referred to as bias incidents or hate incidents. Some of these incidents, particularly those that occur in schools, workplaces, residences, or in other public spaces, may violate federal civil rights laws. You can report hate incidents to the Civil Rights Division using <a href='https://civilrights.justice.gov/'>this reporting portal</a>"
 msgstr "No todos los actos de un delito de odio conllevan un delito en sí. <a class='external-link--blue' href='https://www.justice.gov/hatecrimes/learn-about-hate-crimes'>Los actos de prejuicio</a> que no son delitos y no involucran violencia, amenazas o daños materiales se denominan incidentes de sesgo o incidentes de odio. Algunos de estos incidentes, en particular aquellos que ocurren en las escuelas, los lugares de trabajo, las viviendas o en otros lugares públicos, pueden infringir las leyes federales de derechos civiles. Usted puede informar a la División de Derechos Civiles de incidentes de odio mediante <a href='https://civilrights.justice.gov/'>este portal de informes</a>"
 
-#: templates/hate_crime_human_trafficking.html:70
+#: templates/hate_crime_human_trafficking.html:68
 msgid "Where to report human trafficking"
 msgstr "Dónde denunciar la trata de personas"
 
-#: templates/hate_crime_human_trafficking.html:72
+#: templates/hate_crime_human_trafficking.html:70
 msgid ""
 "Human trafficking includes being forced or coerced to do work, or forced or "
 "coerced to engage in sex acts for something of value."
