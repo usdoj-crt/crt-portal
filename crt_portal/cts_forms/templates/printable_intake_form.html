@@ -1,4 +1,5 @@
 {% load commercial_public_space_view %}
+{% load get_dict_item %}
 {% load correctional_facility_view %}
 {% load employer_info_view %}
 {% load primary_complaint_view %}
@@ -57,7 +58,7 @@
         </p>
         <p>
           <em>
-            {% trans "You are not required to provide your name or contact information. If you want to remain anonymous, leave this section blank. If you choose to provide your contact information, we will only use it to respond to your submission." %}
+            {{ questions.CONTACT_QUESTIONS.contact_help_text }}
           </em>
         </p>
       </section>
@@ -68,75 +69,23 @@
           {% trans "Contact" %}
         </h3>
 
-        <div class="visual-row">
-          <label>
-            {% trans "First name" %}
-            <input type="text"/>
-          </label>
+        {% for name, label in questions.PRINTABLE_CONTACT_QUESTIONS %}
+        <label>
+          {{ label }}
+          <input name="{{name}}" type="text"/>
+        </label>
+        {% endfor %}
 
-          <label>
-            {% trans "Last name" %}
-            <input type="text"/>
-          </label>
-        </div>
-
-        <div class="visual-row">
-          <label>
-            {% trans "Email address" %}
-            <input type="text"/>
-          </label>
-
-          <label>
-            {% trans "Phone number" %}
-            <input type="text"/>
-          </label>
-        </div>
-
-        <div class="visual-row">
-          <label>
-            {% trans "Mailing address 1" %}
-            <input type="text"/>
-          </label>
-        </div>
-
-        <div class="visual-row">
-          <label>
-            {% trans "Mailing address 2" %}
-            <input type="text"/>
-          </label>
-        </div>
-
-        <div class="visual-row">
-          <label>
-            {% trans "City" %}
-            <input type="text"/>
-          </label>
-
-          <label>
-            {% trans "State" %}
-            <input type="text"/>
-          </label>
-        </div>
-
-        <div class="visual-row">
-          <label>
-            {% trans "Zip code" %}
-            <input type="text"/>
-          </label>
-        </div>
-
-        <h4>{% trans "Are you now or have ever been an active duty service member?" %}</h4>
+        <h4>{{ questions.SERVICEMEMBER_QUESTION }}</h4>
         <small><em>{% trans "If you’re reporting on behalf of someone else, please select their status." %}</em></small>
 
         <div class="visual-row">
+          {% for value, label in variables.SERVICEMEMBER_CHOICES %}
           <label>
-            {% trans "Yes" %}
-            <input type="radio" value=""/>
+            {{ label }}
+            <input type="radio" name="servicemember" value="{{ value }}"/>
           </label>
-          <label>
-            {% trans "No" %}
-            <input type="radio" value=""/>
-          </label>
+          {% endfor %}
         </div>
       </section>
 
@@ -147,7 +96,7 @@
         </h3>
 
         <p>
-          {% trans "What is your primary reason for contacting the Civil Rights Division?" %}
+          {{ questions.PRIMARY_REASON_QUESTION }}
         </p>
 
         <p>
@@ -162,264 +111,45 @@
           </em></small>
         </p>
 
+        {% for complaint, complaint_label in variables.PRIMARY_COMPLAINT_CHOICES %}
         <section>
           <label>
-            {% trans "Workplace discrimination or other employment-related problem" %}
-            <input type="radio" value=""/>
+            {{ complaint_label }}
+            <input type="radio" value="{{ complaint }}"/>
           </label>
+
+          {% with helptext=variables.PRIMARY_COMPLAINT_CHOICES_TO_HELPTEXT|get_dict_item:complaint %}
+          {% if helptext %}
+          <small><em>{{helptext}}</small></em>
+          {% endif %}
+          {% endwith %}
+
+          {% with examples=variables.PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES|get_dict_item:complaint %}
+          {% if examples %}
           <p>
             {% trans "Examples:" %}
             <ul>
-              <li>
-                {% trans "Fired, not hired, or demoted for reasons unrelated to job performance or qualifications" %}
-              </li>
-
-              <li>
-                {% trans "Retaliated against for reporting discrimination" %}
-              </li>
-
-              <li>
-                {% trans "Inappropriately asked to provide immigration documentation" %}
-              </li>
-
-              <li>
-                {% trans "Denied reemployment or fired based on military service" %}
-              </li>
-
-              <li>
-                {% trans "Denied an accommodation for a disability, including not being allowed to have a service animal \<strong\>in the workplace\</strong\>" %}
-              </li>
+              {% for example in examples %}
+              <li>{{ example | safe }}</li>
+              {% endfor %}
             </ul>
           </p>
+          {% endif %}
+          {% endwith %}
 
-          <h4>{% trans "Was this a public or private employer?" %}</h4>
+          {% for extra_name, extra_label, extra_choices in variables.PRIMARY_COMPLAINT_EXTRA_QUESTIONS|get_dict_item:complaint %}
+          <h4>{{extra_label}}</h4>
           <div class="visual-row">
+            {% for extra_choice_value, extra_choice_label in extra_choices %}
             <label>
-              {% trans "Public employer" %}
-              <input type="radio" value=""/>
+              {{extra_choice_label}}
+              <input type="radio" name="{{extra_name}}" value="{{extra_choice_value}}"/>
             </label>
-
-            <label>
-              {% trans "Private employer" %}
-              <input type="radio" value=""/>
-            </label>
-
-            <label>
-              {% trans "I'm not sure" %}
-              <input type="radio" value=""/>
-            </label>
+            {% endfor %}
           </div>
-
-          <h4>{% trans "How large is this employer?" %}</h4>
-          <div class="visual-row">
-            <label>
-              {% trans "Fewer than 15 employees" %}
-              <input type="radio" value=""/>
-            </label>
-
-            <label>
-              {% trans "15 or more employees" %}
-              <input type="radio" value=""/>
-            </label>
-
-            <label>
-              {% trans "I'm not sure" %}
-              <input type="radio" value=""/>
-            </label>
-          </div>
+          {% endfor %}
         </section>
-
-        <section>
-          <label>
-            {% trans "Housing discrimination or harassment" %}
-            <input type="radio" value=""/>
-          </label>
-          <p>
-            {% trans "Examples:" %}
-            <ul>
-              <li>
-                {% trans "Denied housing, a permit, or a loan based on personal characteristics like race, sex, and/or having children under 18 years old" %}
-              </li>
-              <li>
-                {% trans "Harassment by a landlord or another tenant, including sexual harassment" %}
-              </li>
-              <li>
-                {% trans "Challenges with terminating a lease due to military status change" %}
-              </li>
-              <li>
-                {% trans "Denied an accommodation for a disability, including not being allowed to have a service or assistance animal <strong>in public housing</strong>" %}
-              </li>
-            </ul>
-          </p>
-        </section>
-
-        <section>
-          <label>
-            {% trans "Mistreated by police, correctional staff, or inmates" %}
-            <input type="radio" value=""/>
-          </label>
-          <p>
-            {% trans "Examples:" %}
-            <ul>
-              <li>
-                {% trans "Police brutality or use of excessive force, including patterns of police misconduct" %}
-              </li>
-              <li>
-                {% trans "Searched and arrested under false pretenses, including racial or other discriminatory profiling" %}
-              </li>
-              <li>
-                {% trans "Denied rights while arrested or incarcerated" %}
-              </li>
-              <li>
-                {% trans "Denied access to safe living conditions or accommodations for a disability, language barrier, or religious practice while incarcerated" %}
-              </li>
-            </ul>
-          </p>
-
-          <h4>{% trans "Did this happen while in custody or incarcerated?" %}</h4>
-          <div class="visual-row">
-            <label>
-              {% trans "Yes" %}
-              <input type="radio" value=""/>
-            </label>
-            <label>
-              {% trans "No" %}
-              <input type="radio" value=""/>
-            </label>
-          </div>
-        </section>
-
-        <section>
-          <label>
-            {% trans "Discrimination at a school, educational program or service, or related to receiving education" %}
-            <input type="radio" value=""/>
-          </label>
-          <p>
-            {% trans "Examples:" %}
-            <ul>
-              <li>
-                {% trans "Harassment based on race, sex, national origin, disability, or religion" %}
-              </li>
-              <li>
-                {% trans "Denied admission or segregated in an education program or activity" %}
-              </li>
-              <li>
-                {% trans "Denied educational accommodations for a disability or language barrier" %}
-              </li>
-            </ul>
-          </p>
-
-          <h4>{% trans "Discrimination at a school, educational program or service, or related to receiving education" %}</h4>
-          <div class="visual-row">
-            <label>
-              {% trans "Public school or educational program" %}
-              <input type="radio" value=""/>
-            </label>
-
-            <label>
-              {% trans "Private school or educational program" %}
-              <input type="radio" value=""/>
-            </label>
-
-            <label>
-              {% trans "I'm not sure" %}
-              <input type="radio" value=""/>
-            </label>
-          </div>
-        </section>
-        </section>
-
-        <section>
-          <label>
-            {% trans "Voting rights or ability to vote affected" %}
-            <input type="radio" value=""/>
-          </label>
-          <p>
-            {% trans "Examples:" %}
-            <ul>
-              <li>
-                {% trans "Obstacles to registering to vote, obtaining or submitting a ballot, having your ballot counted, or entering a polling place to vote" %}
-              </li>
-              <li>
-                {% trans "Denied adequate voting assistance or accommodations for a disability at a polling place" %}
-              </li>
-              <li>
-                {% trans "Restricted or prevented from participating in an election, including voting, becoming a candidate, or being elected for office" %}
-              </li>
-            </ul>
-          </p>
-        </section>
-
-        <section>
-          <label>
-            {% trans "Discriminated against in a commercial location or public place" %}
-            <small><em>{% trans "This could include a store, restaurant, bar, hotel, place of worship, library, medical facility, bank, courthouse, government building, public park or street, as well as online." %}</em></small>
-            <input type="radio" value=""/>
-          </label>
-          <p>
-            {% trans "Examples:" %}
-            <ul>
-              <li>
-                {% trans "A physical or online location that does not provide disability accommodations" %}
-              </li>
-              <li>
-                {% trans "Denied service or entry because of a perceived personal characteristic like race, sex, or religion" %}
-              </li>
-              <li>
-                {% trans "Denied an accommodation for a disability, including not being allowed to have a service animal <strong>in a commercial or public location</strong>" %}
-              </li>
-            </ul>
-          </p>
-
-          <label>
-            {% trans "Place of worship or about a place of worship" %}
-            <small><em>{% trans "Church, synagogue, temple, religious community center" %}</em></small>
-            <input type="radio" value=""/>
-          </label>
-
-          <label>
-            {% trans "Commercial or retail building" %}
-            <small><em>{% trans "Store, restaurant, bar, hotel, theater" %}</em></small>
-            <input type="radio" value=""/>
-          </label>
-
-          <label>
-            {% trans "Healthcare facility" %}
-            <small><em>{% trans "Hospital or clinic (including inpatient and outpatient programs), reproductive care clinic, state developmental institution, nursing home" %}</em></small>
-            <input type="radio" value=""/>
-          </label>
-
-          <label>
-            {% trans "Financial institution" %}
-            <small><em>{% trans "Bank, credit union, loan services" %}</em></small>
-            <input type="radio" value=""/>
-          </label>
-
-          <label>
-            {% trans "Public space" %}
-            <small><em>{% trans "Park, sidewalk, street, other public buildings (courthouse, DMV, city library)" %}</em></small>
-            <input type="radio" value=""/>
-          </label>
-
-          <label>
-            {% trans "Other" %}
-            <input type="radio" value=""/>
-          </label>
-
-          <small>{% trans "Please describe \"Other reason\"" %}</small>
-          <input type="text" value=""/>
-
-        </section>
-
-        <section>
-          <label>
-            {% trans "Something else happened" %}
-            <input type="radio" value=""/>
-          </label>
-          <p>
-            <em>{% trans "The examples above reflect some but not all of the civil rights violations that we address. Select this option if you don’t see an example that applies to your situation. You will be able to tell us more later." %}</em>
-          </p>
-        </section>
+        {% endfor %}
       </section>
 
       <section class="on-new-page">
@@ -428,33 +158,17 @@
           {% trans "Location details" %}
         </h3>
 
-        <label>
-          {% trans "Organization name" %}
-          <small><em>{% trans "Examples: Name of business, school, intersection, prison, polling place, website, etc." %}</em></small>
-          <input type="text"/>
-        </label>
+        {% for name, label, helptext in questions.PRINTABLE_LOCATION_QUESTIONS %}
 
         <label>
-          {% trans "Street address 1" %}
-          <input type="text"/>
+          {{ label }}
+          {% if helptext %}
+          <small><em>{{helptext}}</em></small>
+          {% endif %}
+          <input type="text" value="{{name}}"/>
         </label>
 
-        <label>
-          {% trans "Street address 2" %}
-          <input type="text"/>
-        </label>
-
-        <div class="visual-row">
-          <label>
-            {% trans "City" %}
-            <input type="text"/>
-          </label>
-
-          <label>
-            {% trans "State" %}
-            <input type="text"/>
-          </label>
-        </div>
+        {% endfor %}
       </section>
 
       <section>
@@ -463,12 +177,12 @@
           {% trans "Date" %}
         </h3>
 
-        <h4>{% trans "When did this happen?" %}</h4>
+        <h4>{{ questions.DATE_QUESTIONS.date_title }} </h4>
         <small><em>{% trans "It is important for us to know how recently this incident happened so we can take the appropriate action. If this happened over a period of time or is still happening, please provide the most recent date." %}</em></small>
 
         <label>
           {% trans "Date" %}
-          <input type="text"/>
+          <input type="text" name="last_incident"/>
         </label>
       </section>
 
@@ -478,83 +192,15 @@
           {% trans "Personal characteristics" %}
         </h3>
 
-        <h4>{% trans "Do you believe any of these personal characteristics influenced why you were treated this way?" %}</h4>
+        <h4>{{ questions.PROTECTED_CLASS_QUESTION }}</h4>
         <small><em>{% trans "There are federal and state laws that protect people from discrimination based on their personal characteristics. Here is a list of the most common characteristics that are legally protected. Select any that apply to your incident." %}</em></small>
 
+        {% for order, value, label in variables.PROTECTED_CLASS_FIELDS %}
         <label>
-          {% trans "Age" %}
-          <input type="checkbox"/>
+          {{ label }}
+          <input type="checkbox" name="protected_class" value="{{value}}"/>
         </label>
-
-        <label>
-          {% trans "Disability" %}
-          <input type="checkbox"/>
-        </label>
-
-        <label>
-          {% trans "Family, marital, or parental status" %}
-          <input type="checkbox"/>
-        </label>
-
-        <label>
-          {% trans "Gender identity (including gender stereotypes)" %}
-          <input type="checkbox"/>
-        </label>
-
-        <label>
-          {% trans "Genetic information (including family medical history)" %}
-          <input type="checkbox"/>
-        </label>
-
-        <label>
-          {% trans "Immigration/citizenship status (choosing this will not share your status)" %}
-          <input type="checkbox"/>
-        </label>
-
-        <label>
-          {% trans "Language" %}
-          <input type="checkbox"/>
-        </label>
-
-        <label>
-          {% trans "National origin (including ancestry and ethnicity)" %}
-          <input type="checkbox"/>
-        </label>
-
-        <label>
-          {% trans "Pregnancy" %}
-          <input type="checkbox"/>
-        </label>
-
-        <label>
-          {% trans "Race/color" %}
-          <input type="checkbox"/>
-        </label>
-
-        <label>
-          {% trans "Religion" %}
-          <input type="checkbox"/>
-        </label>
-
-        <label>
-          {% trans "Sex" %}
-          <input type="checkbox"/>
-        </label>
-
-        <label>
-          {% trans "Sexual orientation" %}
-          <input type="checkbox"/>
-        </label>
-
-        <label>
-          {% trans "None of these apply to me" %}
-          <input type="checkbox"/>
-        </label>
-
-        <label>
-          {% trans "Other" %}
-          <input type="radio" value=""/>
-        </label>
+        {% endfor %}
 
         <small>{% trans "Please describe \"Other reason\"" %}</small>
         <input type="text" value=""/>
