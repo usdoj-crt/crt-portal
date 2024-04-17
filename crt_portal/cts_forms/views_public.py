@@ -40,6 +40,7 @@ from .models import Report, ResponseTemplate, EmailReportCount, Campaign
 from .forms import save_form, Review
 from .mail import mail_to_complainant
 from utils.voting_mode import is_voting_mode
+from utils import pdf
 
 
 logger = logging.getLogger(__name__)
@@ -419,6 +420,10 @@ class CRTReportWizard(SessionWizardView):
                 'ordered_step_names': self.ORDERED_STEP_NAMES
             },
         )
+
+
+def printable_form_view(request):
+    return pdf.build_intake_form_pdf()
 
 
 # Error pages start here #

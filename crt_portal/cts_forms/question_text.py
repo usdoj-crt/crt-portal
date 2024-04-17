@@ -1,20 +1,28 @@
+import collections
 from django.utils.translation import gettext_lazy as _
 
 # contact
-CONTACT_QUESTIONS = {
-    'contact_title': _('Contact information'),
-    'contact_help_text': _('You are not required to provide your name or contact information. If you want to remain anonymous, leave this section blank. If you choose to provide your contact information, we will only use it to respond to your submission.'),
-    'contact_name_title': _('Your name'),
-    'contact_first_name': _('First name'),
-    'contact_last_name': _('Last name'),
-    'contact_email': _('Email address'),
-    'contact_phone': _('Phone number'),
-    'contact_address_line_1': _('Mailing address 1'),
-    'contact_address_line_2': _('Mailing address 2'),
-    'contact_city': _('City'),
-    'contact_zip': _('Zip code'),
-    'contact_state': _('State'),
-}
+CONTACT_QUESTIONS = collections.OrderedDict([
+    ('contact_title', _('Contact information')),
+    ('contact_help_text', _('You are not required to provide your name or contact information. If you want to remain anonymous, leave this section blank. If you choose to provide your contact information, we will only use it to respond to your submission.')),
+    ('contact_name_title', _('Your name')),
+    ('contact_first_name', _('First name')),
+    ('contact_last_name', _('Last name')),
+    ('contact_email', _('Email address')),
+    ('contact_phone', _('Phone number')),
+    ('contact_address_line_1', _('Mailing address 1')),
+    ('contact_address_line_2', _('Mailing address 2')),
+    ('contact_city', _('City')),
+    ('contact_zip', _('Zip code')),
+    ('contact_state', _('State')),
+])
+
+PRINTABLE_CONTACT_QUESTIONS = [
+    (name, label)
+    for name, label in CONTACT_QUESTIONS.items()
+    if name not in ['contact_title', 'contact_help_text', 'contact_name_title']
+]
+
 SERVICEMEMBER_QUESTION = _('Are you now or have ever been an active duty service member?')
 
 # primary concern
@@ -25,14 +33,30 @@ HATE_CRIME_QUESTION = _('Does your situation involve physical harm or threats of
 HATE_CRIME_HELP_TEXT = _('To be considered a hate crime, the physical harm or threats of violence must be based on race, color, national origin, religion, gender, sexual orientation, gender identity, or disability.')
 
 # Location
-LOCATION_QUESTIONS = {
-    'location_title': _('Where did this happen?'),
-    'location_name': _('Organization name'),
-    'location_address_line_1': _('Street address 1'),
-    'location_address_line_2': _('Street address 2'),
-    'location_city_town': _('City/town'),
-    'location_state': _('State'),
-}
+LOCATION_QUESTIONS = collections.OrderedDict([
+    ('location_title', _('Where did this happen?')),
+    ('location_name', _('Organization name')),
+    ('location_address_line_1', _('Street address 1')),
+    ('location_address_line_2', _('Street address 2')),
+    ('location_city_town', _('City/town')),
+    ('location_state', _('State')),
+])
+
+LOCATION_HELPTEXT = collections.OrderedDict([
+    ('location_title', None),
+    ('location_name', _("Examples: Name of business, school, intersection, prison, polling place, website, etc.")),
+    ('location_address_line_1', None),
+    ('location_address_line_2', None),
+    ('location_city_town', None),
+    ('location_state', None),
+])
+
+PRINTABLE_LOCATION_QUESTIONS = [
+    (name, label, LOCATION_HELPTEXT.get(name)) for name, label
+    in LOCATION_QUESTIONS.items()
+    if name not in ['location_title']
+]
+
 ELECTION_QUESTION = _('What kind of election or voting activity was this related to?')
 WORKPLACE_QUESTIONS = {
     'public_or_private_employer': _('Was this a public or private employer?'),

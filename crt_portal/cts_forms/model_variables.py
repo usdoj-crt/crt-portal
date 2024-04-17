@@ -1,6 +1,7 @@
 """Setting the variables that can be reused in models and forms for readability and reuse"""
 
 from django.utils.translation import gettext_lazy as _
+from cts_forms import question_text
 
 # Translators: This is used as a an empty selection default for drop down menus
 EMPTY_CHOICE = _('- Select -')
@@ -737,3 +738,48 @@ PRINT_CHOICES = (
     ('activity', 'Activity'),
     ('summary', 'Summary'),
 )
+
+PRIMARY_COMPLAINT_EXTRA_QUESTIONS = {
+    'workplace': [
+        (
+            'public_or_private_employer',
+            question_text.WORKPLACE_QUESTIONS['public_or_private_employer'],
+            PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES,
+        ),
+        (
+            'employer_size',
+            question_text.WORKPLACE_QUESTIONS['employer_size'],
+            EMPLOYER_SIZE_CHOICES,
+        )
+    ],
+    'housing': [],
+    'education': [
+        (
+            'public_or_private_school',
+            question_text.EDUCATION_QUESTION,
+            PUBLIC_OR_PRIVATE_SCHOOL_CHOICES,
+        )
+    ],
+    'police': [
+        (
+            'inside_correctional_facility',
+            question_text.POLICE_QUESTIONS['inside_correctional_facility'],
+            CORRECTIONAL_FACILITY_LOCATION_CHOICES,
+        ),
+        (
+            'correctional_facility_type',
+            question_text.POLICE_QUESTIONS['correctional_facility_type'],
+            CORRECTIONAL_FACILITY_LOCATION_TYPE_CHOICES,
+        )
+    ],
+    'voting': [],
+    'commercial_or_public': [
+        (
+            'commercial_or_public_place',
+            question_text.PUBLIC_QUESTION,
+            COMMERCIAL_OR_PUBLIC_PLACE_CHOICES,
+        )
+    ],
+    'something_else': [],
+
+}

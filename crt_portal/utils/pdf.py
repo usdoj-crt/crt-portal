@@ -1,4 +1,5 @@
 from typing import Any
+
 from collections.abc import Callable
 import io
 import logging
@@ -6,11 +7,14 @@ import logging
 from django.forms.models import model_to_dict
 from django.http import HttpResponse
 from django.template.loader import render_to_string
+from django.utils.translation import gettext_lazy as _
+from django.utils.http import content_disposition_header
 import markdown
 import pypdf
 import weasyprint
 import zipfile
 
+from cts_forms import model_variables, question_text
 from cts_forms.models import Report, ReportDispositionBatch
 from utils.markdown_extensions import CustomHTMLExtension
 from tms.models import TMSEmail
@@ -154,6 +158,24 @@ def convert_report_to_pdf(report: Report) -> io.BytesIO:
     }
     html = render_to_string('referral_info.html', data)
     return convert_html_to_pdf(html)
+
+
+def build_intake_form_pdf() -> io.BytesIO:
+    try:
+        content = convert_html_to_pdf(
+            render_to_string('printable_intake_form.html', {
+                'variables': model_variables,
+                'questions': question_text,
+            })
+        )
+    except FailedToGeneratePDF as error:
+        logging.exception(error)
+        return HttpResponse("We're sorry, but something went wrong retrieving this form.", status=500)
+
+    filename = _("File a complaint").replace(" ", "_").lower() + ".pdf"
+    return HttpResponse(content.getvalue(),
+                        content_type="application/pdf",
+                        headers={'Content-Disposition': content_disposition_header(as_attachment=False, filename=filename)})
 
 
 def admin_export_pdf(queryset, *,
