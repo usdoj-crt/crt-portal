@@ -278,7 +278,7 @@ msgstr ""
 msgid "Were you forced to work against your will?"
 msgstr "Quý vị có bị ép buộc phải làm việc trái ý mình không?"
 
-#: model_variables.py:76 templates/hate_crime_human_trafficking.html:77
+#: model_variables.py:76 templates/hate_crime_human_trafficking.html:74
 msgid "Get help from the National Human Trafficking Hotline"
 msgstr "Nhận sự giúp đỡ từ Đường Dây Nóng Chống Buôn Người Toàn Quốc"
 

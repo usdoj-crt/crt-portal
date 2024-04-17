@@ -262,7 +262,7 @@ msgstr ""
 msgid "Were you forced to work against your will?"
 msgstr "귀하의 의지에 반하여 일하도록 강요 받았습니까?"
 
-#: model_variables.py:76 templates/hate_crime_human_trafficking.html:77
+#: model_variables.py:76 templates/hate_crime_human_trafficking.html:74
 msgid "Get help from the National Human Trafficking Hotline"
 msgstr "전국 인신매매 핫라인에서 도움을 받으세요"
 
