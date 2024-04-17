@@ -251,7 +251,7 @@ msgstr ""
 msgid "Were you forced to work against your will?"
 msgstr "是否有人違反您的意願強迫您工作？"
 
-#: model_variables.py:76 templates/hate_crime_human_trafficking.html:74
+#: model_variables.py:76 templates/hate_crime_human_trafficking.html:77
 msgid "Get help from the National Human Trafficking Hotline"
 msgstr "向國家人口販運專綫尋求幫助"
 
@@ -1684,21 +1684,8 @@ msgid "Or a local field office by phone"
 msgstr "或者致電當地的分局"
 
 #: templates/hate_crime_human_trafficking.html:63
-msgid  ""
-"Not every act of a hate crime involves a crime. "
-"<a class='external-link--blue' href='https://www.justice.gov/hatecrimes/learn-about-hate-crimes'>Acts of prejudice</a> "
-"that are not crimes, and do not involve violence, threats, or property damage, "
-"are referred to as bias incidents or hate incidents. "
-"Some of these incidents, particularly those that occur "
-"in schools, workplaces, residences, or in other public spaces, "
-"may violate federal civil rights laws. "
-"You can report hate incidents to the Civil Rights Division using "
-"<a href='https://civilrights.justice.gov/'>this reporting portal</a>."
-msgstr ""
-"並非每一項涉仇恨罪案的行爲都涉及犯罪。"
-"<a class='external-link--blue' href='https://www.justice.gov/hatecrimes/learn-about-hate-crimes'>成見</a>，"
-"如非犯罪，不涉及暴力、威脅或財產損失，稱之爲偏見事件或仇恨事件。其中某些事件，尤其是發生在學校、工作場所、住所和其它公共場所，可能違反聯邦民權法。"
-"您可以通過<a href='https://civilrights.justice.gov/'>此舉報網站</a>向民權司舉報仇恨事件。"
+msgid "Not every act of a hate crime involves a crime. <a class='external-link--blue' href='https://www.justice.gov/hatecrimes/learn-about-hate-crimes'>Acts of prejudice</a> that are not crimes, and do not involve violence, threats, or property damage, are referred to as bias incidents or hate incidents. Some of these incidents, particularly those that occur in schools, workplaces, residences, or in other public spaces, may violate federal civil rights laws. You can report hate incidents to the Civil Rights Division using <a href='https://civilrights.justice.gov/'>this reporting portal</a>"
+msgstr "並非每一項涉仇恨罪案的行爲都涉及犯罪。<a class='external-link--blue' href='https://www.justice.gov/hatecrimes/learn-about-hate-crimes'>成見</a>, 如非犯罪，不涉及暴力、威脅或財產損失，稱之爲偏見事件或仇恨事件。其中某些事件，尤其是發生在學校、工作場所、住所和其它公共場所，可能違反聯邦民權法。您可以通過<a href='https://civilrights.justice.gov/'>此舉報網站</a>向民權司舉報仇恨事件。"
 
 #: templates/hate_crime_human_trafficking.html:68
 msgid "Where to report human trafficking"

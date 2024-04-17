@@ -262,7 +262,7 @@ msgstr ""
 msgid "Were you forced to work against your will?"
 msgstr "귀하의 의지에 반하여 일하도록 강요 받았습니까?"
 
-#: model_variables.py:76 templates/hate_crime_human_trafficking.html:74
+#: model_variables.py:76 templates/hate_crime_human_trafficking.html:77
 msgid "Get help from the National Human Trafficking Hotline"
 msgstr "전국 인신매매 핫라인에서 도움을 받으세요"
 
@@ -1711,7 +1711,7 @@ msgid "Get help for hate crimes and human trafficking"
 msgstr "증오범죄나 인신매매에 대한 도움을 받으세요"
 
 #: templates/hate_crime_human_trafficking.html:43
-msgid "Where to report hate crimes or hate incidents"
+msgid "Where to report hate crimes and hate incidents"
 msgstr "증오범죄나 증오 사건을 접수 받는 곳"
 
 #: templates/hate_crime_human_trafficking.html:49
@@ -1727,20 +1727,8 @@ msgid "Or a local field office by phone"
 msgstr "FBI 지부에 전화하세요"
 
 #: templates/hate_crime_human_trafficking.html:63
-msgid  ""
-"Not every act of a hate crime involves a crime. "
-"<a class='external-link--blue' href='https://www.justice.gov/hatecrimes/learn-about-hate-crimes'>Acts of prejudice</a> "
-"that are not crimes, and do not involve violence, threats, or property damage, "
-"are referred to as bias incidents or hate incidents. "
-"Some of these incidents, particularly those that occur "
-"in schools, workplaces, residences, or in other public spaces, "
-"may violate federal civil rights laws. "
-"You can report hate incidents to the Civil Rights Division using "
-"<a href='https://civilrights.justice.gov/'>this reporting portal</a>."
-msgstr ""
-"증오범죄의 모든 행위가 범죄와 관련된 것은 아닙니다. 범죄가 아니고 폭력, 위협 또는 재산 피해를 수반하지 않는 "
-"<a class='external-link--blue' href='https://www.justice.gov/hatecrimes/learn-about-hate-crimes'>편견적 행위</a> "
-"를 편견 사건 또는 증오 사건이라고 합니다. 이러한 사건 중 일부, 특히 학교, 직장, 거주지 또는 기타 공공 장소에서 발생하는 사건은 연방 민권법 위반에 해당될 수 있습니다.  이런 증오 사건을 민권 담당국 (Civil Rights Division)에 신고하시려면 <a href='https://civilrights.justice.gov/'>여기 신고 포털</a>을 이용하십시요."
+msgid "Not every act of a hate crime involves a crime. <a class='external-link--blue' href='https://www.justice.gov/hatecrimes/learn-about-hate-crimes'>Acts of prejudice</a> that are not crimes, and do not involve violence, threats, or property damage, are referred to as bias incidents or hate incidents. Some of these incidents, particularly those that occur in schools, workplaces, residences, or in other public spaces, may violate federal civil rights laws. You can report hate incidents to the Civil Rights Division using <a href='https://civilrights.justice.gov/'>this reporting portal</a>"
+msgstr "증오범죄의 모든 행위가 범죄와 관련된 것은 아닙니다. 범죄가 아니고 폭력, 위협 또는 재산 피해를 수반하지 않는 <a class='external-link--blue' href='https://www.justice.gov/hatecrimes/learn-about-hate-crimes'>편견적 행위</a>를 편견 사건 또는 증오 사건이라고 합니다. 이러한 사건 중 일부, 특히 학교, 직장, 거주지 또는 기타 공공 장소에서 발생하는 사건은 연방 민권법 위반에 해당될 수 있습니다.  이런 증오 사건을 민권 담당국 (Civil Rights Division)에 신고하시려면 <a href='https://civilrights.justice.gov/'>여기 신고 포털</a>을 이용하십시요"
 
 #: templates/hate_crime_human_trafficking.html:68
 msgid "Where to report human trafficking"

@@ -278,7 +278,7 @@ msgstr ""
 msgid "Were you forced to work against your will?"
 msgstr "Quý vị có bị ép buộc phải làm việc trái ý mình không?"
 
-#: model_variables.py:76 templates/hate_crime_human_trafficking.html:74
+#: model_variables.py:76 templates/hate_crime_human_trafficking.html:77
 msgid "Get help from the National Human Trafficking Hotline"
 msgstr "Nhận sự giúp đỡ từ Đường Dây Nóng Chống Buôn Người Toàn Quốc"
 
@@ -1798,24 +1798,8 @@ msgid "Or a local field office by phone"
 msgstr "Hoặc văn phòng địa phương qua điện thoại"
 
 #: templates/hate_crime_human_trafficking.html:63
-msgid  ""
-"Not every act of a hate crime involves a crime. "
-"<a class='external-link--blue' href='https://www.justice.gov/hatecrimes/learn-about-hate-crimes'>Acts of prejudice</a> "
-"that are not crimes, and do not involve violence, threats, or property damage, "
-"are referred to as bias incidents or hate incidents. "
-"Some of these incidents, particularly those that occur "
-"in schools, workplaces, residences, or in other public spaces, "
-"may violate federal civil rights laws. "
-"You can report hate incidents to the Civil Rights Division using "
-"<a href='https://civilrights.justice.gov/'>this reporting portal</a>."
-msgstr ""
-"Không phải mọi hành động của tội phạm do thù ghét đều có tính chất tội ác. "
-"<a class='external-link--blue' href='https://www.justice.gov/hatecrimes/learn-about-hate-crimes'>Các hành động mang tính định kiến</a> "
-"mà không phải là tội phạm và không liên quan đến bạo lực, đe dọa, hoặc thiệt hại tài sản, "
-"được gọi là sự cố thiên vị hoặc sự cố do thù ghét. Một vài sự cố trong số này, "
-"đặc biệt là những sự cố xảy ra trong trường học, nơi làm việc, nhà ở, hoặc trong các không gian công cộng khác, có thể vi phạm luật dân quyền liên bang. "
-"Quý vị có thể trình báo các sự cố do thù ghét cho Ban Dân Quyền bằng cách sử dụng "
-"<a href='https://civilrights.justice.gov/'>cổng thông tin báo cáo này</a>."
+msgid "Not every act of a hate crime involves a crime. <a class='external-link--blue' href='https://www.justice.gov/hatecrimes/learn-about-hate-crimes'>Acts of prejudice</a> that are not crimes, and do not involve violence, threats, or property damage, are referred to as bias incidents or hate incidents. Some of these incidents, particularly those that occur in schools, workplaces, residences, or in other public spaces, may violate federal civil rights laws. You can report hate incidents to the Civil Rights Division using <a href='https://civilrights.justice.gov/'>this reporting portal</a>"
+msgstr "Không phải mọi hành động của tội phạm do thù ghét đều có tính chất tội ác. <a class='external-link--blue' href='https://www.justice.gov/hatecrimes/learn-about-hate-crimes'>Các hành động mang tính định kiến</a> mà không phải là tội phạm và không liên quan đến bạo lực, đe dọa, hoặc thiệt hại tài sản, được gọi là sự cố thiên vị hoặc sự cố do thù ghét. Một vài sự cố trong số này, đặc biệt là những sự cố xảy ra trong trường học, nơi làm việc, nhà ở, hoặc trong các không gian công cộng khác, có thể vi phạm luật dân quyền liên bang. Quý vị có thể trình báo các sự cố do thù ghét cho Ban Dân Quyền bằng cách sử dụng <a href='https://civilrights.justice.gov/'>cổng thông tin báo cáo này</a>."
 
 #: templates/hate_crime_human_trafficking.html:68
 msgid "Where to report human trafficking"

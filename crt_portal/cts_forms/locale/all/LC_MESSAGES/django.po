@@ -237,7 +237,7 @@ msgstr ""
 msgid "Were you forced to work against your will?"
 msgstr ""
 
-#: model_variables.py:76 templates/hate_crime_human_trafficking.html:74
+#: model_variables.py:76 templates/hate_crime_human_trafficking.html:77
 msgid "Get help from the National Human Trafficking Hotline"
 msgstr ""
 
@@ -1566,16 +1566,7 @@ msgid "Or a local field office by phone"
 msgstr ""
 
 #: templates/hate_crime_human_trafficking.html:63
-msgid  ""
-"Not every act of a hate crime involves a crime. "
-"<a class='external-link--blue' href='https://www.justice.gov/hatecrimes/learn-about-hate-crimes'>Acts of prejudice</a> "
-"that are not crimes, and do not involve violence, threats, or property damage, "
-"are referred to as bias incidents or hate incidents. "
-"Some of these incidents, particularly those that occur "
-"in schools, workplaces, residences, or in other public spaces, "
-"may violate federal civil rights laws. "
-"You can report hate incidents to the Civil Rights Division using "
-"<a href='https://civilrights.justice.gov/'>this reporting portal</a>."
+msgid  "Not every act of a hate crime involves a crime. <a class='external-link--blue' href='https://www.justice.gov/hatecrimes/learn-about-hate-crimes'>Acts of prejudice</a> that are not crimes, and do not involve violence, threats, or property damage, are referred to as bias incidents or hate incidents. Some of these incidents, particularly those that occur in schools, workplaces, residences, or in other public spaces, may violate federal civil rights laws. You can report hate incidents to the Civil Rights Division using <a href='https://civilrights.justice.gov/'>this reporting portal</a>"
 msgstr ""
 
 #: templates/hate_crime_human_trafficking.html:68
