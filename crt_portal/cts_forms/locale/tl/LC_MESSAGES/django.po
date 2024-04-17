@@ -284,7 +284,7 @@ msgstr ""
 msgid "Were you forced to work against your will?"
 msgstr "Pinilit ka bang magtrabaho ng laban sa iyong kalooban?"
 
-#: model_variables.py:76 templates/hate_crime_human_trafficking.html:71
+#: model_variables.py:76 templates/hate_crime_human_trafficking.html:74
 msgid "Get help from the National Human Trafficking Hotline"
 msgstr ""
 "Humingi ng tulong mula sa Pambansang Hotline sa Panlilinlang ng mga Tao"
@@ -1803,8 +1803,8 @@ msgid "Get help"
 msgstr "Humingi ng tulong NGAYON!"
 
 #: templates/hate_crime_human_trafficking.html:28
-msgid "Report a hate crime"
-msgstr "Mag-ulat ng isang krimen sa pagkapoot"
+msgid "Report a hate crime or hate incident"
+msgstr "Iulat ang isang krimen sa pagkapoot o insidente ng poot"
 
 #: templates/hate_crime_human_trafficking.html:31
 msgid "Report human trafficking"
@@ -1816,8 +1816,8 @@ msgstr ""
 "Humingi ng tulong para sa mga krimen sa pagkapoot at panlilinlang ng mga tao"
 
 #: templates/hate_crime_human_trafficking.html:43
-msgid "Where to report a hate crime"
-msgstr "Saan iuulat ang isang krimen sa pagkapoot"
+msgid "Where to report hate crimes and hate incidents"
+msgstr "Saan iuulat ang mga krimen sa pagkapoot at mga pangyayari ng poot"
 
 #: templates/hate_crime_human_trafficking.html:49
 msgid "In cases of emergency, contact 911"
@@ -1831,11 +1831,31 @@ msgstr "Kung hindi man, makipag-ugnay sa FBI sa online"
 msgid "Or a local field office by phone"
 msgstr "O sa isang lokal na tanggapan ng FBI sa pamamagitan ng telepono"
 
-#: templates/hate_crime_human_trafficking.html:65
+#: templates/hate_crime_human_trafficking.html:63
+msgid  ""
+"Not every act of a hate crime involves a crime. "
+"<a class='external-link--blue' href='https://www.justice.gov/hatecrimes/learn-about-hate-crimes'>Acts of prejudice</a> "
+"that are not crimes, and do not involve violence, threats, or property damage, "
+"are referred to as bias incidents or hate incidents. "
+"Some of these incidents, particularly those that occur "
+"in schools, workplaces, residences, or in other public spaces, "
+"may violate federal civil rights laws. "
+"You can report hate incidents to the Civil Rights Division using "
+"<a href='https://civilrights.justice.gov/'>this reporting portal</a>."
+msgstr ""
+"Hindi bawat gawa ng isang krimen sa pagkapoot ay nagsasangkot sa isang krimen. "
+"Ang <a class='external-link--blue' href='https://www.justice.gov/hatecrimes/learn-about-hate-crimes'>mga gawa ng pinsala</a> "
+"na hindi mga krimen, at hindi nagsasangkot ng karahasan, mga banta, o pinsala sa ari-arian, ay tinutukoy bilang mga pangyayaring may pagkiling o mga pangyayari ng poot. "
+"Ilan sa mga pangyayaring ito, lalo na ang mga nangyayari sa mga paaralan, mga lugar ng trabaho, mga tirahan, o sa iba pang pampublikong mga lugar, "
+"ay maaaring lumabag sa pederal na mga batas sa mga karapatang sibil. "
+"Maaari mong iulat ang mga pangyayari ng poot sa Dibisyon ng Mga Karapatang Sibil gamit ang "
+"<a href='https://civilrights.justice.gov/'>itong portal sa pag-uulat</a>."
+
+#: templates/hate_crime_human_trafficking.html:68
 msgid "Where to report human trafficking"
 msgstr "Biktima ng panlilinlang ng mga tao"
 
-#: templates/hate_crime_human_trafficking.html:67
+#: templates/hate_crime_human_trafficking.html:70
 msgid ""
 "Human trafficking includes being forced or coerced to do work, or forced or "
 "coerced to engage in sex acts for something of value."
