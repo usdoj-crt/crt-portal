@@ -401,6 +401,10 @@ hr {
       button {
         width: 100%;
       }
+
+      .help-text.icon-only {
+        display: inline-block;
+      }
     }
 
     .crt-dropdown:last-of-type {
