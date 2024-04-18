@@ -237,7 +237,7 @@ msgstr ""
 msgid "Were you forced to work against your will?"
 msgstr ""
 
-#: model_variables.py:76 templates/hate_crime_human_trafficking.html:71
+#: model_variables.py:76 templates/hate_crime_human_trafficking.html:74
 msgid "Get help from the National Human Trafficking Hotline"
 msgstr ""
 
@@ -1538,7 +1538,7 @@ msgid "Get help"
 msgstr ""
 
 #: templates/hate_crime_human_trafficking.html:28
-msgid "Report a hate crime"
+msgid "Report a hate crime or hate incident"
 msgstr ""
 
 #: templates/hate_crime_human_trafficking.html:31
@@ -1550,7 +1550,7 @@ msgid "Get help for hate crimes and human trafficking"
 msgstr ""
 
 #: templates/hate_crime_human_trafficking.html:43
-msgid "Where to report a hate crime"
+msgid "Where to report hate crimes and hate incidents"
 msgstr ""
 
 #: templates/hate_crime_human_trafficking.html:49
@@ -1565,11 +1565,15 @@ msgstr ""
 msgid "Or a local field office by phone"
 msgstr ""
 
-#: templates/hate_crime_human_trafficking.html:65
+#: templates/hate_crime_human_trafficking.html:63
+msgid  "Not every act of a hate crime involves a crime. <a class='external-link--blue' href='https://www.justice.gov/hatecrimes/learn-about-hate-crimes'>Acts of prejudice</a> that are not crimes, and do not involve violence, threats, or property damage, are referred to as bias incidents or hate incidents. Some of these incidents, particularly those that occur in schools, workplaces, residences, or in other public spaces, may violate federal civil rights laws. You can report hate incidents to the Civil Rights Division using <a href='https://civilrights.justice.gov/'>this reporting portal</a>"
+msgstr ""
+
+#: templates/hate_crime_human_trafficking.html:68
 msgid "Where to report human trafficking"
 msgstr ""
 
-#: templates/hate_crime_human_trafficking.html:67
+#: templates/hate_crime_human_trafficking.html:70
 msgid ""
 "Human trafficking includes being forced or coerced to do work, or forced or "
 "coerced to engage in sex acts for something of value."
