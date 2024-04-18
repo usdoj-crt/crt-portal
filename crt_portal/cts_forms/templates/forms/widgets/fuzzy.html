@@ -12,7 +12,7 @@
         <div class="margin-top-2">
           <label class="display-inline" id="{{widget.name}}_label" for="id_{{widget.name}}">
             {{widget.attrs.label}}
-            {% include 'partials/help_tooltip.html' with tip="{{widget.attrs.tooltip}}" %}
+            {% include 'partials/help_tooltip.html' with tip=widget.attrs.tooltip %}
           </label>
         </div>
       {% endif %}
