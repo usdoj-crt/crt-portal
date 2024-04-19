@@ -292,6 +292,10 @@ msgid ""
 "election fraud, visit <a href=\"https://tips.fbi.gov\">tips.fbi.gov</a> or "
 "call 800-CALL-FBI"
 msgstr ""
+"Để trình báo một mối đe dọa đối với cử tri, "
+"những mối đe dọa đối với các quan chức bầu cử, "
+"hoặc gian lận bầu cử, hãy truy cập vào trang <a href=\"https://tips.fbi.gov\">tips.fbi.gov</a> "
+"hoặc gọi 800-CALL-FBI"
 
 #: model_variables.py:90 templates/hate_crime_human_trafficking.html:45
 msgid ""
@@ -1570,6 +1574,10 @@ msgstr ""
 msgid "Email"
 msgstr "Email"
 
+#: templates/partials/footer.html:18
+msgid "Send Printed Report Form (<a target=\"_blank\" href=\"https://www.ada.gov/assets/pdfs/file-a-complaint.pdf\">Regular Format</a> | <a target=\"_blank\" href=\"https://www.ada.gov/assets/pdfs/file-a-complaint-lg.pdf\">Large Format</a>) To:"
+msgstr "Gửi Mẫu In Báo Cáo (<a target=\"_blank\" href=\"https://www.ada.gov/assets/pdfs/file-a-complaint.pdf\">Định Dạng Thường</a> | <a target=\"_blank\" href=\"https://www.ada.gov/assets/pdfs/file-a-complaint-lg.pdf\">Định Dạng Lớn</a>) đến:"
+
 #: templates/forms/errors.html:52 templates/forms/report_maintenance.html:46
 #: templates/partials/footer.html:32
 msgid "(toll-free)"
@@ -1799,7 +1807,7 @@ msgstr "Hoặc văn phòng địa phương qua điện thoại"
 
 #: templates/hate_crime_human_trafficking.html:63
 msgid "Not every act of a hate crime involves a crime. <a class='external-link--blue' href='https://www.justice.gov/hatecrimes/learn-about-hate-crimes'>Acts of prejudice</a> that are not crimes, and do not involve violence, threats, or property damage, are referred to as bias incidents or hate incidents. Some of these incidents, particularly those that occur in schools, workplaces, residences, or in other public spaces, may violate federal civil rights laws. You can report hate incidents to the Civil Rights Division using <a href='https://civilrights.justice.gov/'>this reporting portal</a>"
-msgstr "Không phải mọi hành động của tội phạm do thù ghét đều có tính chất tội ác. <a class='external-link--blue' href='https://www.justice.gov/hatecrimes/learn-about-hate-crimes'>Các hành động mang tính định kiến</a> mà không phải là tội phạm và không liên quan đến bạo lực, đe dọa, hoặc thiệt hại tài sản, được gọi là sự cố thiên vị hoặc sự cố do thù ghét. Một vài sự cố trong số này, đặc biệt là những sự cố xảy ra trong trường học, nơi làm việc, nhà ở, hoặc trong các không gian công cộng khác, có thể vi phạm luật dân quyền liên bang. Quý vị có thể trình báo các sự cố do thù ghét cho Ban Dân Quyền bằng cách sử dụng <a href='https://civilrights.justice.gov/'>cổng thông tin báo cáo này</a>."
+msgstr "Không phải mọi hành động của tội phạm do thù ghét đều có tính chất tội ác. <a class='external-link--blue' href='https://www.justice.gov/hatecrimes/learn-about-hate-crimes'>Các hành động mang tính định kiến</a> mà không phải là tội phạm và không liên quan đến bạo lực, đe dọa, hoặc thiệt hại tài sản, được gọi là sự cố thiên vị hoặc sự cố do thù ghét. Một vài sự cố trong số này, đặc biệt là những sự cố xảy ra trong trường học, nơi làm việc, nhà ở, hoặc trong các không gian công cộng khác, có thể vi phạm luật dân quyền liên bang. Quý vị có thể trình báo các sự cố do thù ghét cho Ban Dân Quyền bằng cách sử dụng <a href='https://civilrights.justice.gov/'>cổng thông tin báo cáo này</a>"
 
 #: templates/hate_crime_human_trafficking.html:68
 msgid "Where to report human trafficking"
@@ -2378,20 +2386,15 @@ msgstr ""
 "đỡ quý vị về mối quan ngại của quý vị"
 
 #: templates/landing.html:333
-#, fuzzy
-#| msgid ""
-#| "Contact Legal Services Corporation at <a aria-label=\"www.lsc.gov/find-"
-#| "legal-aid\" class=\"external-link--blue external-link--popup\" "
-#| "href=\"https://www.lsc.gov/find-legal-aid\">lsc.gov/find-legal-aid</a>."
 msgid ""
 "Contact Legal Services Corporation to help you find a legal aid lawyer in "
 "your area at <a aria-label=\"www.lsc.gov/find-legal-aid\" class=\"external-"
 "link--blue external-link--popup\" href=\"https://www.lsc.gov/find-legal-"
 "aid\">lsc.gov/find-legal-aid</a>."
 msgstr ""
-"Liên hệ với Legal Services Corporation tại <a aria-label=\"www.lsc.gov/find-"
+"Liên hệ với Công ty Dịch vụ Pháp lý (Legal Services Corporation) tại <a aria-label=\"www.lsc.gov/find-"
 "legal-aid\" class=\"external-link--blue external-link--popup\" "
-"href=\"https://www.lsc.gov/find-legal-aid\">lsc.gov/find-legal-aid</a>."
+"href=\"https://www.lsc.gov/find-legal-aid\">lsc.gov/find-legal-aid</a> để họ giúp quý vị tìm một luật sư trợ giúp pháp lý tại khu vực của quý vị."
 
 #: templates/landing.html:334
 msgid ""
@@ -2483,11 +2486,11 @@ msgstr "Các ví dụ"
 
 #: templates/partials/example-accordion.html:40
 msgid "Note"
-msgstr ""
+msgstr "Ghi chú"
 
 #: templates/partials/example-accordion.html:51
 msgid "Learn More"
-msgstr ""
+msgstr "Tìm hiểu thêm"
 
 #: templates/partials/footer.html:47
 msgid "Availability of Language Assistance Services"
