@@ -261,7 +261,7 @@ msgid ""
 "To report a threat against voters, threats against election officials, or "
 "election fraud, visit <a href=\"https://tips.fbi.gov\">tips.fbi.gov</a> or "
 "call 800-CALL-FBI"
-msgstr ""
+msgstr "举报对选民的威胁、对选举官员的威胁、或选举欺诈行为，请访问<a href=\"https://tips.fbi.gov\">tips.fbi.gov</a>或致电 800-225-5324"
 
 #: model_variables.py:90 templates/hate_crime_human_trafficking.html:45
 msgid ""
@@ -1450,6 +1450,10 @@ msgstr "如果您需要立即与我们取得联系，可以通过以下方式联
 msgid "Email"
 msgstr "电子邮件"
 
+#: templates/partials/footer.html:18
+msgid "Send Printed Report Form (<a target=\"_blank\" href=\"https://www.ada.gov/assets/pdfs/file-a-complaint.pdf\">Regular Format</a> | <a target=\"_blank\" href=\"https://www.ada.gov/assets/pdfs/file-a-complaint-lg.pdf\">Large Format</a>) To:"
+msgstr "将打印的举报表格 (<a target=\"_blank\" href=\"https://www.ada.gov/assets/pdfs/file-a-complaint.pdf\">普通格式</a> | <a target=\"_blank\" href=\"https://www.ada.gov/assets/pdfs/file-a-complaint-lg.pdf\">大型格式</a>) 发送至："
+
 #: templates/forms/errors.html:52 templates/forms/report_maintenance.html:46
 #: templates/partials/footer.html:32
 msgid "(toll-free)"
@@ -2182,18 +2186,13 @@ msgstr ""
 "区的当地法律援助办公室或律师可能可以迅速回应或帮助您解决问题"
 
 #: templates/landing.html:333
-#, fuzzy
-#| msgid ""
-#| "Contact Legal Services Corporation at <a aria-label=\"www.lsc.gov/find-"
-#| "legal-aid\" class=\"external-link--blue external-link--popup\" "
-#| "href=\"https://www.lsc.gov/find-legal-aid\">lsc.gov/find-legal-aid</a>."
 msgid ""
 "Contact Legal Services Corporation to help you find a legal aid lawyer in "
 "your area at <a aria-label=\"www.lsc.gov/find-legal-aid\" class=\"external-"
 "link--blue external-link--popup\" href=\"https://www.lsc.gov/find-legal-"
 "aid\">lsc.gov/find-legal-aid</a>."
 msgstr ""
-"联系法律服务公司 <a aria-label=\"www.lsc.gov/find-legal-aid\" "
+"通过法律服务公司的网站寻找您所在地区的法律援助律师 <a aria-label=\"www.lsc.gov/find-legal-aid\" "
 "class=\"external-link--blue external-link--popup\" href=\"https://www.lsc."
 "gov/find-legal-aid\">lsc.gov/find-legal-aid</a>。"
 
@@ -2279,11 +2278,11 @@ msgstr "例子"
 
 #: templates/partials/example-accordion.html:40
 msgid "Note"
-msgstr ""
+msgstr "备注"
 
 #: templates/partials/example-accordion.html:51
 msgid "Learn More"
-msgstr ""
+msgstr "认识更多"
 
 #: templates/partials/footer.html:47
 msgid "Availability of Language Assistance Services"

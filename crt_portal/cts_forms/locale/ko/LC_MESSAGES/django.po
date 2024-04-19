@@ -275,7 +275,7 @@ msgid ""
 "To report a threat against voters, threats against election officials, or "
 "election fraud, visit <a href=\"https://tips.fbi.gov\">tips.fbi.gov</a> or "
 "call 800-CALL-FBI"
-msgstr ""
+msgstr "유권자 협박, 선거관리인 위협 또는 부정 선거에 대한 신고는  <a href=\"https://tips.fbi.gov\">tips.fbi.gov</a> 를 방문하시거나 800-CALL-FBI로 전화 주십시요."
 
 #: model_variables.py:90 templates/hate_crime_human_trafficking.html:45
 msgid ""
@@ -1505,6 +1505,10 @@ msgstr ""
 msgid "Email"
 msgstr "이메일"
 
+#: templates/partials/footer.html:18
+msgid "Send Printed Report Form (<a target=\"_blank\" href=\"https://www.ada.gov/assets/pdfs/file-a-complaint.pdf\">Regular Format</a> | <a target=\"_blank\" href=\"https://www.ada.gov/assets/pdfs/file-a-complaint-lg.pdf\">Large Format</a>) To:"
+msgstr "출력된 보고서 양식 (<a target=\"_blank\" href=\"https://www.ada.gov/assets/pdfs/file-a-complaint.pdf\">일반 형식</a> | <a target=\"_blank\" href=\"https://www.ada.gov/assets/pdfs/file-a-complaint-lg.pdf\">대형 형식</a>)을 보내실 곳:"
+
 #: templates/forms/errors.html:52 templates/forms/report_maintenance.html:46
 #: templates/partials/footer.html:32
 msgid "(toll-free)"
@@ -2258,20 +2262,15 @@ msgstr ""
 "게 응답해 드릴 수도 있고 도움을 드릴 수도 있습니다."
 
 #: templates/landing.html:333
-#, fuzzy
-#| msgid ""
-#| "Contact Legal Services Corporation at <a aria-label=\"www.lsc.gov/find-"
-#| "legal-aid\" class=\"external-link--blue external-link--popup\" "
-#| "href=\"https://www.lsc.gov/find-legal-aid\">lsc.gov/find-legal-aid</a>"
 msgid ""
 "Contact Legal Services Corporation to help you find a legal aid lawyer in "
 "your area at <a aria-label=\"www.lsc.gov/find-legal-aid\" class=\"external-"
 "link--blue external-link--popup\" href=\"https://www.lsc.gov/find-legal-"
 "aid\">lsc.gov/find-legal-aid</a>."
 msgstr ""
-"법률서비스 법인 <a aria-label=\"www.lsc.gov/find-legal-aid\" "
+"귀하의 거주 지역내 법적 자문 변호사를 찾는 데 도움을 받으시려면Legal Services Corporation의 웹사이트 <a aria-label=\"www.lsc.gov/find-legal-aid\" "
 "class=\"external-link--blue external-link--popup\" href=\"https://www.lsc."
-"gov/find-legal-aid\">lsc.gov/find-legal-aid</a>."
+"gov/find-legal-aid\">lsc.gov/find-legal-aid</a>를 방문해 주십시요."
 
 #: templates/landing.html:334
 msgid ""
@@ -2361,11 +2360,11 @@ msgstr "예"
 
 #: templates/partials/example-accordion.html:40
 msgid "Note"
-msgstr ""
+msgstr "참고"
 
 #: templates/partials/example-accordion.html:51
 msgid "Learn More"
-msgstr ""
+msgstr "추가 정보"
 
 #: templates/partials/footer.html:47
 msgid "Availability of Language Assistance Services"

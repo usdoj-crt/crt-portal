@@ -298,6 +298,9 @@ msgid ""
 "election fraud, visit <a href=\"https://tips.fbi.gov\">tips.fbi.gov</a> or "
 "call 800-CALL-FBI"
 msgstr ""
+"Para declarar una amenaza contra votantes, amenazas contra funcionarios electorales o "
+"un incidente de fraude electoral, vaya a <a href=\"https://tips.fbi.gov\">tips.fbi.gov</a> o "
+"llame al 800-CALL-FBI"
 
 #: model_variables.py:90 templates/hate_crime_human_trafficking.html:45
 msgid ""
@@ -1582,6 +1585,10 @@ msgstr ""
 msgid "Email"
 msgstr ""
 
+#: templates/partials/footer.html:18
+msgid "Send Printed Report Form (<a target=\"_blank\" href=\"https://www.ada.gov/assets/pdfs/file-a-complaint.pdf\">Regular Format</a> | <a target=\"_blank\" href=\"https://www.ada.gov/assets/pdfs/file-a-complaint-lg.pdf\">Large Format</a>) To:"
+msgstr "Envíe el formulario de declaración impreso (<a target=\"_blank\" href=\"https://www.ada.gov/assets/pdfs/file-a-complaint.pdf\">Formato normal</a> | <a target=\"_blank\" href=\"https://www.ada.gov/assets/pdfs/file-a-complaint-lg.pdf\">Formato con letra grande</a>)"
+
 #: templates/forms/errors.html:52 templates/forms/report_maintenance.html:46
 #: templates/partials/footer.html:32
 msgid "(toll-free)"
@@ -2490,11 +2497,11 @@ msgstr "Ejemplos"
 
 #: templates/partials/example-accordion.html:40
 msgid "Note"
-msgstr ""
+msgstr "Nota"
 
 #: templates/partials/example-accordion.html:51
 msgid "Learn More"
-msgstr ""
+msgstr "Aprenda más"
 
 #: templates/partials/footer.html:47
 msgid "Availability of Language Assistance Services"

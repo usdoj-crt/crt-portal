@@ -264,7 +264,7 @@ msgid ""
 "To report a threat against voters, threats against election officials, or "
 "election fraud, visit <a href=\"https://tips.fbi.gov\">tips.fbi.gov</a> or "
 "call 800-CALL-FBI"
-msgstr ""
+msgstr "舉報對選民的威脅、對選舉官員的威脅、或選舉欺詐行爲，請訪問<a href=\"https://tips.fbi.gov\">tips.fbi.gov</a>或致電800-225-5324"
 
 #: model_variables.py:90 templates/hate_crime_human_trafficking.html:45
 msgid ""
@@ -1462,6 +1462,10 @@ msgstr "如果您需要立即與我們聯絡，您可以透過下列方式與我
 msgid "Email"
 msgstr "電子郵件"
 
+#: templates/partials/footer.html:18
+msgid "Send Printed Report Form (<a target=\"_blank\" href=\"https://www.ada.gov/assets/pdfs/file-a-complaint.pdf\">Regular Format</a> | <a target=\"_blank\" href=\"https://www.ada.gov/assets/pdfs/file-a-complaint-lg.pdf\">Large Format</a>) To:"
+msgstr "將打印的舉報表格 (<a target=\"_blank\" href=\"https://www.ada.gov/assets/pdfs/file-a-complaint.pdf\">普通格式</a> | <a target=\"_blank\" href=\"https://www.ada.gov/assets/pdfs/file-a-complaint-lg.pdf\">大型格式</a>)發送至:"
+
 #: templates/forms/errors.html:52 templates/forms/report_maintenance.html:46
 #: templates/partials/footer.html:32
 msgid "(toll-free)"
@@ -2199,20 +2203,17 @@ msgstr ""
 "辦公室或律師可能可以迅速作出回覆或協助您處理您所擔憂的問題"
 
 #: templates/landing.html:333
-#, fuzzy
-#| msgid ""
-#| "Contact Legal Services Corporation at <a aria-label=\"www.lsc.gov/find-"
-#| "legal-aid\" class=\"external-link--blue external-link--popup\" "
-#| "href=\"https://www.lsc.gov/find-legal-aid\">lsc.gov/find-legal-aid</a>."
 msgid ""
 "Contact Legal Services Corporation to help you find a legal aid lawyer in "
 "your area at <a aria-label=\"www.lsc.gov/find-legal-aid\" class=\"external-"
 "link--blue external-link--popup\" href=\"https://www.lsc.gov/find-legal-"
 "aid\">lsc.gov/find-legal-aid</a>."
 msgstr ""
-"請瀏覽 <a aria-label=\"www.lsc.gov/find-legal-aid\" class=\"external-link--"
+"通過法律服務法人的網站尋找您所在地區的法律援助律師 (<a aria-label=\"www.lsc.gov/find-legal-aid\" class=\"external-link--"
 "blue external-link--popup\" href=\"https://www.lsc.gov/find-legal-aid\">lsc."
-"gov/find-legal-aid</a>。"
+"gov/find-legal-aid</a>)。"
+
+
 
 #: templates/landing.html:334
 msgid ""
@@ -2296,11 +2297,11 @@ msgstr "例子"
 
 #: templates/partials/example-accordion.html:40
 msgid "Note"
-msgstr ""
+msgstr "備注"
 
 #: templates/partials/example-accordion.html:51
 msgid "Learn More"
-msgstr ""
+msgstr "認識更多"
 
 #: templates/partials/footer.html:47
 msgid "Availability of Language Assistance Services"
