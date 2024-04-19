@@ -6,87 +6,61 @@
 {% load i18n %}
 {% get_available_languages as LANGUAGES %}
 {% get_language_info_list for LANGUAGES as languages %}
-{% block content %}
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Public+Sans:ital@0;1&display=swap" rel="stylesheet"/>
-    <style>
-      .on-new-page {
-        page-break-before: always;
-      }
-
-      @page {
-        margin-top: 2in;
-
-        @top-center {
-          content: element(header);
-        }
-        @bottom-left {
-          content: "Page " counter(page);
-        }
-        @bottom-right {
-          white-space: pre;
-          content: 'OMB No. 1190-0020' '\A' 'Expires 08/31/2026';
-        }
-      }
-      header { position: running(header); }
-    </style>
   </head>
   <body>
 
     <header>
-      <img src="{% static "img/logo-img.png" %}" alt="" />
-
-      <h1>
+      <img src="{% static_embed "img/doj-logo-footer.png" %}" alt="" />
+      <div class="h1" role="heading" aria-level="1"><!-- PDF has trouble with h1 + css -->
         <small>{% trans "U.S. Department of Justice" %}</small>
-        {%trans "Civil Rights Division" %}
-      </h1>
+        <span>{%trans "Civil Rights Division" %}</span>
+      </div>
 
-      <h2>{% trans "Report a possible civil rights violation" %}</h2>
+      <div class="h2" role="heading" aria-level="2">{% trans "Report a possible civil rights violation" %}</div>
     </header>
 
     <main>
       <section>
         <p>
           {% trans "If you believe you or someone else has experienced a civil rights violation, please tell us what happened." %}
-          {% trans "Before starting, you can also <a href=\"#instructions\">read the instructions for this form</a> (page 8) and what to expect after submission" %}
+          {% trans "Before starting, you can also <a href=\"#instructions\">read the instructions for this form</a> (at the end) and what to expect after submission." %}
         </p>
         <p>
-          <em>
+          <small><em>
             {{ questions.CONTACT_QUESTIONS.contact_help_text }}
-          </em>
+          </em></small>
         </p>
       </section>
 
       <section>
-        <h3>
+        <h3 class="contact">
           <span class="section-number">1</span>
           {% trans "Contact" %}
         </h3>
 
-        {% for name, label in questions.PRINTABLE_CONTACT_QUESTIONS %}
-        <label>
-          {{ label }}
-          <input name="{{name}}" type="text"/>
-        </label>
-        {% endfor %}
-
-        <h4>{{ questions.SERVICEMEMBER_QUESTION }}</h4>
-        <small><em>{% trans "If you’re reporting on behalf of someone else, please select their status." %}</em></small>
-
-        <div class="visual-row">
-          {% for value, label in variables.SERVICEMEMBER_CHOICES %}
-          <label>
-            {{ label }}
-            <input type="radio" name="servicemember" value="{{ value }}"/>
+        <fieldset>
+          {% for name, label in questions.PRINTABLE_CONTACT_QUESTIONS %}
+          <label for="input-{{name}}">
+            <span>{{ label }}</span>
+            <input id="input-{{name}}" name="{{name}}" type="text"/>
           </label>
           {% endfor %}
-        </div>
+        </fieldset>
+        <h4>{{ questions.SERVICEMEMBER_QUESTION }}</h4>
+        <p><small><em>{% trans "If you’re reporting on behalf of someone else, please select their status." %}</em></small></p>
+
+        <fieldset id="fieldset-servicemember">
+          {% for value, label in variables.SERVICEMEMBER_CHOICES %}
+          <label for="input-servicemember-{{value}}" class="radio">
+            <span>{{ label }}</span>
+            <input id="input-servicemember-{{value}}" type="radio" name="servicemember" value="{{ value }}"/>
+          </label>
+          {% endfor %}
+        </fieldset>
       </section>
 
       <section class="on-new-page">
@@ -112,63 +86,82 @@
         </p>
 
         {% for complaint, complaint_label in variables.PRIMARY_COMPLAINT_CHOICES %}
-        <section>
-          <label>
-            {{ complaint_label }}
-            <input type="radio" value="{{ complaint }}"/>
+        <section class="primary-complaint">
+          <label for="input-primary_complaint-{{ complaint }}" data-role="heading" aria-level="4" class="radio">
+            <span>{{ complaint_label }}</span>
+            <input id="input-primary_complaint-{{ complaint }}" type="radio" name="primary_complaint" value="{{ complaint }}"/>
           </label>
 
           {% with helptext=variables.PRIMARY_COMPLAINT_CHOICES_TO_HELPTEXT|get_dict_item:complaint %}
           {% if helptext %}
-          <small><em>{{helptext}}</small></em>
+          <p class="helptext"><small><em>{{helptext}}</small></em></p>
           {% endif %}
           {% endwith %}
 
           {% with examples=variables.PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES|get_dict_item:complaint %}
           {% if examples %}
-          <p>
-            {% trans "Examples:" %}
+          <p class="examples">
+            <small>{% trans "Examples:" %}</small>
             <ul>
               {% for example in examples %}
-              <li>{{ example | safe }}</li>
+              <li><span><small>{{ example | safe }}</small></span></li>
               {% endfor %}
             </ul>
           </p>
           {% endif %}
           {% endwith %}
 
-          {% for extra_name, extra_label, extra_choices in variables.PRIMARY_COMPLAINT_EXTRA_QUESTIONS|get_dict_item:complaint %}
-          <h4>{{extra_label}}</h4>
-          <div class="visual-row">
+          {% for extra_name, extra_label, extra_choices, extra_help_text in variables.PRIMARY_COMPLAINT_EXTRA_QUESTIONS|get_dict_item:complaint %}
+          <h5>{{extra_label}}</h5>
+          {% with all_helptext=extra_help_text|get_dict_item:"__all__" %}
+          {% if all_helptext %}
+          <p class="helptext"><small><em>{{all_helptext}}</em></small></p>
+          {% endif %}
+          {% endwith %}
+          <fieldset id="fieldset-{{extra_name}}">
             {% for extra_choice_value, extra_choice_label in extra_choices %}
-            <label>
-              {{extra_choice_label}}
-              <input type="radio" name="{{extra_name}}" value="{{extra_choice_value}}"/>
+            <label for="input-{{extra_name}}-{{extra_choice_value}}" class="radio">
+              <span>{{extra_choice_label}}
+                {% with value_help_text=extra_help_text|get_dict_item:extra_choice_value %}
+                {% if value_help_text %}
+                <p><small><em>{{value_help_text}}</em></small></p>
+                {% endif %}
+                {% endwith %}
+              </span>
+              <input id="input-{{extra_name}}-{{extra_choice_value}}" type="radio" name="{{extra_name}}" value="{{extra_choice_value}}"/>
             </label>
+
+            {% if extra_choice_label == "Other" %}
+            <label for="input-other_{{extra_name}}">
+              <small>{% trans "Please describe \"Other reason\"" %}</small>
+              <input id="input-other_{{extra_name}}" type="text" name="other_{{extra_name}}" value=""/>
+            </label>
+            {% endif %}
+
             {% endfor %}
-          </div>
+          </fieldset>
           {% endfor %}
         </section>
         {% endfor %}
       </section>
 
-      <section class="on-new-page">
+      <section class="location-details on-new-page">
         <h3>
           <span class="section-number">3</span>
           {% trans "Location details" %}
         </h3>
 
-        {% for name, label, helptext in questions.PRINTABLE_LOCATION_QUESTIONS %}
-
-        <label>
-          {{ label }}
-          {% if helptext %}
-          <small><em>{{helptext}}</em></small>
-          {% endif %}
-          <input type="text" value="{{name}}"/>
-        </label>
-
-        {% endfor %}
+        <fieldset id="fieldset-location">
+          {% for name, label, helptext in questions.PRINTABLE_LOCATION_QUESTIONS %}
+          <label for="input-{{name}}">
+            {% if helptext %}
+            <p class="helptext"><small><em>{{helptext}}</em></small></p>
+            {% endif %}
+            <span>{{ label }}</span>
+            <input id="input-{{name}}" name="{{name}}" type="text"/>
+          </label>
+          {% endfor %}
+        </fieldset>
       </section>
 
       <section>
@@ -178,12 +171,14 @@
         </h3>
 
         <h4>{{ questions.DATE_QUESTIONS.date_title }} </h4>
-        <small><em>{% trans "It is important for us to know how recently this incident happened so we can take the appropriate action. If this happened over a period of time or is still happening, please provide the most recent date." %}</em></small>
+        <p><small><em>{% trans "It is important for us to know how recently this incident happened so we can take the appropriate action. If this happened over a period of time or is still happening, please provide the most recent date." %}</em></small></p>
 
-        <label>
-          {% trans "Date" %}
-          <input type="text" name="last_incident"/>
-        </label>
+        <fieldset id="fieldset-last_incident">
+          <label for="input-last_incident">
+            <span>{% trans "Date" %}</span>
+            <input id="input-last_incident" type="text" name="last_incident"/>
+          </label>
+        </fieldset>
       </section>
 
       <section class="on-new-page">
@@ -193,40 +188,46 @@
         </h3>
 
         <h4>{{ questions.PROTECTED_CLASS_QUESTION }}</h4>
-        <small><em>{% trans "There are federal and state laws that protect people from discrimination based on their personal characteristics. Here is a list of the most common characteristics that are legally protected. Select any that apply to your incident." %}</em></small>
+        <p><small><em>{% trans "There are federal and state laws that protect people from discrimination based on their personal characteristics. Here is a list of the most common characteristics that are legally protected. Select any that apply to your incident." %}</em></small></p>
 
-        {% for order, value, label in variables.PROTECTED_CLASS_FIELDS %}
-        <label>
-          {{ label }}
-          <input type="checkbox" name="protected_class" value="{{value}}"/>
-        </label>
-        {% endfor %}
-
-        <small>{% trans "Please describe \"Other reason\"" %}</small>
-        <input type="text" value=""/>
+        <fieldset class="column">
+          {% for order, value, label in variables.PROTECTED_CLASS_FIELDS %}
+          <label class="checkbox" for="input-protected_class-{{forloop.counter}}">
+            <span>{{ label }}</span>
+            <input id="input-protected_class-{{forloop.counter}}" type="checkbox" name="protected_class_{{forloop.counter}}" value="{{value}}"/>
+          </label>
+          {% endfor %}
+          <label for="input-other_class">
+            <span><small>{% trans "Please describe \"Other reason\"" %}</small></span>
+            <input id="input-other_class" type="text" name="other_class" value=""/>
+          </label>
+        </fieldset>
       </section>
 
-      <section class="on-new-page">
+      <section class="personal-description on-new-page">
         <h3>
           <span class="section-number">6</span>
           {% trans "Personal description" %}
         </h3>
 
         <h4>{% trans "In your own words, describe what happened" %}</h4>
-        <small><em>
+        <p><small><em>
             {% trans "Please share details like:" %}
             <ul>
-              <li>{% trans "Time" %}</li>
-              <li>{% trans "Names of people involved including witnesses if there are any" %}</li>
-              <li>{% trans "Any supporting materials (please list and describe them)" %}</li>
+              <li><span>{% trans "Time" %}</span></li>
+              <li><span>{% trans "Names of people involved including witnesses if there are any" %}</span></li>
+              <li><span>{% trans "Any supporting materials (please list and describe them)" %}</span></li>
             </ul>
-        </em></small>
-        <textarea></textarea>
+        </em></small></p>
+        <fieldset>
+          <textarea name="violation_summary"></textarea>
+        <fieldset>
 
-        {% trans "You may attach further details as extra pages, if necessary" %}
+        <p><em>{% trans "You may attach further details as extra pages, if necessary" %}</p></em>
       </section>
 
-      <section class="on-new-page">
+      <section class="instructions on-new-page">
+        {% with privacy_policy_url="https://civilrights.justice.gov/privacy-policy" %}
         <h3>{% trans "Instructions" %}</h3>
 
         <p>
@@ -255,15 +256,13 @@ Civil Rights Division
 Washington, D.C. 20530-0001
           </pre>
 
-          <span class="centered">
-            <pre>
+          <pre>
 <strong>{% trans "To reach us by phone:" %}</strong>
 (202) 514-3847
 1-855-856-1247 (toll-free)
 Telephone Device for the Deaf
 (TTY) (202) 514-0716
-            </pre>
-          </span>
+          </pre>
         </div>
 
         <h3>{% trans "Privacy policy" %}</h3>
@@ -272,40 +271,28 @@ Telephone Device for the Deaf
           {% blocktrans %}
             The purpose of this form is to allow the public to submit civil rights complaints to the Department of Justice, thereby allowing us to enforce over thirty <a href="{{privacy_policy_url}}#our-statutes">civil rights statutes</a> within our authority. These statutes authorize us to collect this information.  You should know that any information you provide through this form is voluntary, yet failure to provide some of the information might limit the Department’s ability to pursue your claim. We may use this information for certain routine uses, including sharing this information under certain circumstances with:
             {% endblocktrans %}
-        </small></p>
+        </p>
         <ul>
-          <li>{% trans "contractors who work with us, if they need it to perform a contract;" %}</li>
-          <li>{% trans "a court, magistrate, or administrative tribunal, as well as opposing counsel during settlement negotiations and/or litigation;" %}</li>
-          <li>{% trans "Members of Congress;" %}</li>
-          <li>{% trans "Federal, state, or local law enforcement agencies." %}</li>
+          <li><span>{% trans "contractors who work with us, if they need it to perform a contract;" %}</span></li>
+          <li><span>{% trans "a court, magistrate, or administrative tribunal, as well as opposing counsel during settlement negotiations and/or litigation;" %}</span></li>
+          <li><span>{% trans "Members of Congress;" %}</span></li>
+          <li><span>{% trans "Federal, state, or local law enforcement agencies." %}</span></li>
         </ul>
 
         <p>
-          {% with privacy_policy_url="https://civilrights.justice.gov/privacy-policy" %}
           {% blocktrans %}You can find our complete <a href="{{privacy_policy_url}}">Privacy Policy here</a>.{% endblocktrans %}
           {% endwith %}
         </p>
 
         <p>
           {% trans "According to the Paperwork Reduction Act of 1995, no persons are required to respond to a collection of information unless such collection displays a valid OMB control number." %}
-        </p>
-        <p>
           {% trans "Public reporting burden for this collection of information is estimated to average 2 minutes per response, including time for reviewing instructions, searching existing data sources, gathering and maintaining the data needed, and completing and reviewing the collection of information." %}
-        </p>
-        <p>
           {% trans "The personal description question is estimated to take 10 minutes for the response, time for reviewing instructions, searching existing data sources, gathering and maintaining the data needed, and completing and reviewing the collection of information. The obligation to respond to this collection is voluntary." %}
-        </p>
-        <p>
           {% trans "Send comments regarding the burden estimate or any other aspect of this collection of information, including suggestions for reducing this burden, to:" %}
-        </p>
-        <p>
-          U.S. Department of Justice<br/>
-          Civil Rights Division<br/>
-          950 Pennsylvania Avenue, NW<br/>
-          Washington, D.C. 20530-0001<br/>
-        </p>
+          U.S. Department of Justice, Civil Rights Division 950 Pennsylvania Avenue, NW, Washington, D.C. 20530-0001
+        </small>
+      </section>
     </main>
     <footer></footer>
   </body>
 </html>
-{% endblock %}

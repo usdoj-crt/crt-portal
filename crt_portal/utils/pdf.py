@@ -3,7 +3,9 @@ from typing import Any
 from collections.abc import Callable
 import io
 import logging
+import os
 
+from django.conf import settings
 from django.forms.models import model_to_dict
 from django.http import HttpResponse
 from django.template.loader import render_to_string
@@ -32,7 +34,7 @@ _LEFT_ALIGN = weasyprint.CSS(string="""
 """)
 
 
-def convert_html_to_pdf(source_html: str, stylesheets=[]) -> io.BytesIO:
+def convert_html_to_pdf(source_html: str, stylesheets=[], **write_options) -> io.BytesIO:
     stylesheets = stylesheets + [_LEFT_ALIGN]
     out = io.BytesIO()
     try:
@@ -42,6 +44,7 @@ def convert_html_to_pdf(source_html: str, stylesheets=[]) -> io.BytesIO:
         ).write_pdf(
             target=out,
             stylesheets=stylesheets,
+            **write_options,
         )
     except Exception as error:
         raise FailedToGeneratePDF(f'Could not convert HTML\n\n{source_html}\n\n to pdf: {error}') from error
@@ -166,7 +169,12 @@ def build_intake_form_pdf() -> io.BytesIO:
             render_to_string('printable_intake_form.html', {
                 'variables': model_variables,
                 'questions': question_text,
-            })
+            }),
+            stylesheets=[
+                os.path.join(settings.BASE_DIR, 'cts_forms', 'templates', 'local_fonts.css'),
+                os.path.join(settings.BASE_DIR, 'cts_forms', 'templates', 'printable_intake_form.css'),
+            ],
+            pdf_forms=True,
         )
     except FailedToGeneratePDF as error:
         logging.exception(error)
