@@ -13,8 +13,8 @@ CONTACT_QUESTIONS = collections.OrderedDict([
     ('contact_address_line_1', _('Mailing address 1')),
     ('contact_address_line_2', _('Mailing address 2')),
     ('contact_city', _('City')),
-    ('contact_zip', _('Zip code')),
     ('contact_state', _('State')),
+    ('contact_zip', _('Zip code')),
 ])
 
 PRINTABLE_CONTACT_QUESTIONS = [

@@ -1,0 +1,369 @@
+:root {
+  --footer-text: 12px;
+  --h1-text: 24px;
+  --h1-small-text: 10px;
+  --h2-text: 18px;
+  --h3-text: 20px;
+  --section-number: 22px;
+  --section-number-text: 16px;
+  --default-text: 16px;
+  --small-text: 13px;
+  --label-text: 15px;
+  --text-input-height: 38px;
+  --radio-size: 22px;
+
+  --small-spacing: 0.125in;
+  --medium-spacing: 0.25in;
+  --large-spacing: 0.5in;
+
+  --small-spacing-negative: -0.125in;
+  --medium-spacing-negative: -0.25in;
+  --large-spacing-negative: -0.5in;
+
+  --instructions-text: 13px;
+  --instructions-small: 10px;
+}
+
+@page {
+  color: #162e51;
+  size: letter;
+  background-color: rgb(233, 238, 245);
+  margin-top: 1in; /* Includes space for the repeated header */
+  margin-left: var(--large-spacing);
+  margin-right: var(--large-spacing);
+  font-family: 'Public Sans';
+
+  font-size: var(--footer-text);
+
+  @top-left {
+    content: element(header);
+  }
+  @bottom-left {
+    content: 'Page ' counter(page);
+  }
+  @bottom-right {
+    white-space: pre;
+    content: 'OMB No. 1190-0020' '\A' 'Expires 08/31/2026';
+  }
+}
+
+.on-new-page {
+  page-break-before: always;
+}
+
+body {
+  color: #162e51;
+  font-size: var(--default-text);
+  font-family: 'Public Sans';
+}
+
+.h1,
+.h2,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  padding: 0;
+}
+
+h1,
+h2 {
+  font-family:
+    Merriweather,
+    Tinos,
+    Georgia,
+    Cambria,
+    Times New Roman,
+    Times,
+    serif;
+}
+
+header {
+  position: running(header);
+  display: flex;
+  width: 7.5in;
+}
+
+header img {
+  width: var(--large-spacing);
+  height: var(--large-spacing);
+  padding-right: 0.1in;
+}
+
+header div.h1 {
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+header div.h1 small {
+  font-size: var(--h1-small-text);
+  display: inline;
+}
+
+header div.h1 span {
+  font-size: var(--h1-text);
+  display: inline;
+}
+
+header div.h2 {
+  display: flex;
+  font-size: var(--h2-text);
+  padding-bottom: 5px;
+  font-weight: normal;
+  width: fit-content;
+  align-items: flex-end;
+}
+
+main {
+  line-height: 1.5;
+}
+
+main .section-number {
+  color: white;
+  background-color: #162e51;
+  border-radius: 999px;
+  display: inline-block;
+  width: var(--section-number);
+  height: var(--section-number);
+  text-align: center;
+  line-height: var(--section-number);
+  margin-right: 3px;
+  font-size: var(--section-number-text);
+}
+
+main h3 {
+  font-size: var(--h3-text);
+  margin-bottom: var(--small-spacing);
+}
+
+main small {
+  font-size: var(--small-text);
+}
+
+label {
+  display: flex;
+  flex-direction: column-reverse;
+  font-size: var(--label-text);
+  margin-bottom: var(--small-spacing);
+}
+
+input[type='text'] {
+  border: 0px;
+  border-bottom: 1.5px solid #162e51;
+  padding: 0px;
+  height: var(--text-input-height);
+  background-color: white;
+  width: 7in;
+}
+
+input[type='radio'],
+input[type='checkbox'] {
+  width: var(--radio-size);
+  height: var(--radio-size);
+  margin-right: 0.1in;
+}
+
+fieldset {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  width: 100%;
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+
+fieldset.column {
+  display: block;
+  line-height: 1;
+}
+
+fieldset.column > label {
+  clear: both;
+  padding: 0;
+  width: 100%;
+}
+
+fieldset.column > label > span {
+  margin-left: var(--small-spacing);
+}
+
+fieldset.column > label > input {
+  margin: 0;
+}
+
+label.radio,
+label.checkbox {
+  flex-direction: row-reverse;
+  flex-justify: space-between;
+  justify-content: flex-end;
+  flex-grow: 1;
+  align-items: center;
+}
+
+label span {
+  display: flex;
+  flex-direction: column;
+}
+
+label span p {
+  margin: 0;
+}
+
+#input-contact_first_name,
+#input-contact_email,
+#input-contact_city,
+label[for='input-location_city_town'],
+#input-location_city_town {
+  width: 3.25in;
+  margin-right: var(--large-spacing);
+}
+
+#input-contact_last_name,
+#input-contact_phone,
+#input-contact_state,
+label[for='input-location_state'],
+#input-location_state {
+  width: 3.25in;
+}
+
+#input-contact_zip {
+  width: 2in;
+}
+
+#input-other_commercial_or_public_place,
+label[for='input-other_commercial_or_public_place'] {
+  width: 5in;
+}
+label[for='input-other_commercial_or_public_place'] {
+  margin-left: var(--large-spacing);
+}
+
+#input-other_class,
+label[for='input-other_class'] {
+  width: 5in;
+}
+label[for='input-other_class'] {
+  margin-left: var(--large-spacing);
+}
+label[for='input-other_class'] > span {
+  display: block;
+  margin-left: 0 !important;
+  width: 5in;
+}
+
+
+#input-location_city_town,
+#input-location_state {
+  width: 3.25in;
+  margin-right: var(--large-spacing);
+}
+
+#input-last_incident {
+  width: 2in;
+}
+
+#fieldset-servicemember > label,
+#fieldset-inside_correctional_facility > label {
+  flex-grow: 0;
+  flex-basis: 25%;
+}
+
+#fieldset-public_or_private_school > label {
+  flex-grow: 0;
+  flex-basis: 50%;
+}
+
+#fieldset-commercial_or_public_place > label {
+  flex-grow: 0;
+  flex-basis: 100%;
+}
+
+section.primary-complaint {
+  border: 1px solid #162e51;
+  padding-top: var(--small-spacing);
+  padding-bottom: 0;
+  padding-left: var(--large-spacing);
+  padding-right: var(--large-spacing);
+  margin-top: var(--small-spacing);
+  border-radius: 5px;
+  background-color: white;
+  page-break-inside: avoid;
+}
+
+section.primary-complaint > label {
+  flex-grow: 1;
+  font-weight: bold;
+}
+
+section.primary-complaint > label input {
+  margin-left: -0.375in;
+}
+
+section.primary-complaint > p.helptext,
+section.location-details p.helptext {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+p.examples {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+label[aria-level='4'] {
+  margin-bottom: 0 !important;
+}
+
+textarea {
+  width: 7.25in;
+  height: 6.5in;
+}
+
+p {
+  margin-bottom: var(--small-spacing);
+  margin-top: var(--small-spacing);
+}
+
+h5 {
+  font-size: var(--label-text);
+  font-weight: bold;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+ul {
+  padding-left: var(--small-spacing);
+  list-style-position: outside;
+  margin: 0;
+}
+
+ul li span {
+  margin-left: var(--small-spacing);
+  display: inline-block;
+  width: 100%;
+}
+
+section.instructions {
+  font-size: var(--instructions-text);
+}
+section.instructions small {
+  font-size: var(--instructions-small);
+}
+section.instructions p {
+  margin-bottom: 0;
+}
+
+.address-blocks {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+.address-blocks pre {
+  font-family: inherit;
+}

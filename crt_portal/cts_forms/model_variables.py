@@ -392,9 +392,16 @@ COMMERCIAL_OR_PUBLIC_PLACE_HELP_TEXT = {
     'other': ''
 }
 
+PUBLIC_OR_PRIVATE_EMPLOYER_HELP_TEXT = {
+    'public_employer': _('Public employers include organizations funded by the government like the military, post office, fire department, courthouse, DMV, or public school. This could be at the local or state level.'),
+    'private_employer': _('Private employers are business or non-profits not funded by the government such as retail stores, banks, or restaurants.')
+}
+
+EDUCATION_QUESTION_HELP_TEXT = _('Includes schools, educational programs, or educational activities, like training programs, sports teams, clubs, or other school-sponsored activities')
+
 CORRECTIONAL_FACILITY_LOCATION_CHOICES = (
-    ('outside', _('No')),
-    ('inside', _('Yes'))
+    ('inside', _('Yes')),
+    ('outside', _('No'))
 )
 CORRECTIONAL_FACILITY_LOCATION_DICT = dict(CORRECTIONAL_FACILITY_LOCATION_CHOICES)
 
@@ -752,11 +759,13 @@ PRIMARY_COMPLAINT_EXTRA_QUESTIONS = {
             'public_or_private_employer',
             question_text.WORKPLACE_QUESTIONS['public_or_private_employer'],
             PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES,
+            PUBLIC_OR_PRIVATE_EMPLOYER_HELP_TEXT,
         ),
         (
             'employer_size',
             question_text.WORKPLACE_QUESTIONS['employer_size'],
             EMPLOYER_SIZE_CHOICES,
+            {},
         )
     ],
     'housing': [],
@@ -765,6 +774,7 @@ PRIMARY_COMPLAINT_EXTRA_QUESTIONS = {
             'public_or_private_school',
             question_text.EDUCATION_QUESTION,
             PUBLIC_OR_PRIVATE_SCHOOL_CHOICES,
+            {'__all__': EDUCATION_QUESTION_HELP_TEXT},
         )
     ],
     'police': [
@@ -772,11 +782,13 @@ PRIMARY_COMPLAINT_EXTRA_QUESTIONS = {
             'inside_correctional_facility',
             question_text.POLICE_QUESTIONS['inside_correctional_facility'],
             CORRECTIONAL_FACILITY_LOCATION_CHOICES,
+            {},
         ),
         (
             'correctional_facility_type',
             question_text.POLICE_QUESTIONS['correctional_facility_type'],
             CORRECTIONAL_FACILITY_LOCATION_TYPE_CHOICES,
+            {},
         )
     ],
     'voting': [],
@@ -785,6 +797,7 @@ PRIMARY_COMPLAINT_EXTRA_QUESTIONS = {
             'commercial_or_public_place',
             question_text.PUBLIC_QUESTION,
             COMMERCIAL_OR_PUBLIC_PLACE_CHOICES,
+            COMMERCIAL_OR_PUBLIC_PLACE_HELP_TEXT,
         )
     ],
     'something_else': [],
