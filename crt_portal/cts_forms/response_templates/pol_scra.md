@@ -157,11 +157,11 @@ Section 3919 of the SCRA provides that a servicemember’s application for a sta
 
 You can find additional information regarding rights and protections under the SCRA at the Department of Justice’s Servicemember and Veterans Initiative website, [www.servicemembers.gov](http://www.servicemembers.gov).       
 
-#**How can you get help** 
+#**How can you get help?** 
 
 If you believe your rights under the SCRA have been violated, please contact your local military legal assistance office.  You can find office locations at [http://legalassistance.law.af.mil/.](http://legalassistance.law.af.mil/) 
 
-[%optional group="How You Can Get Help" name="Documents?"]
+[%optional group="How Can You Get Help?" name="Documents?"]
 
 If you are not eligible for military legal assistance services and would like DOJ to evaluate your claim, please submit your dates of military service, your military orders, and any other documents about your claim to [servicemembers@usdoj.gov](mailto:servicemembers@usdoj.gov). 
 <br/>
