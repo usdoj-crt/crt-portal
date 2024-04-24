@@ -1,0 +1,22 @@
+<fieldset>
+  <h3>Schedule</h3>
+  {% for schedule in schedules %}
+    <label>
+      {{ schedule.name }}
+      <input type="radio" name="retention_schedule" value="{{schedule.pk}}">
+    </label>
+  {% endfor %}
+</fieldset>
+
+<fieldset>
+  <h3>Expiration</h3>
+  {% for expiration in expirations %}
+    {% with expiration_formatted=expiration|date:"SHORT_DATE_FORMAT" %}
+    <label>
+      {{ expiration_formatted }}
+      <input type="radio" name="expiration_date" value="{{expiration_formatted}}">
+    </label>
+    {% endwith %}
+  {% endfor %}
+</fieldset>
+

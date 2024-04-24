@@ -734,10 +734,31 @@ def disposition_view(request):
     report_query, query_filters = report_filter(QueryDict('status=closed&retention_schedule=1%20Year&retention_schedule=3%20Year&retention_schedule=10%20Year&retention_schedule=Permanent&disposition_status=' + disposition_status))
     final_data = get_view_data(request, report_query, query_filters, disposition_status)
     can_approve_disposition = request.user.has_perm('cts_forms.approve_disposition') if request.user else False
+
+    schedules = (
+        RetentionSchedule.objects.all()
+        .filter(retention_years__gt=0)
+        .exclude(is_retired=True)
+        .order_by('retention_years')
+    )
+
+    expirations = (
+        report_query.annotate(
+            retention_year=F('retention_schedule__retention_years'),
+            expiration_year=F('retention_year') + ExtractYear('closed_date') + 1,
+            expiration_date=Cast(Concat(F('expiration_year'), Value('-01-01'), output_field=CharField()), output_field=DateField())
+        )
+        .order_by()
+        .values_list('expiration_date', flat=True)
+        .distinct()
+    )
+
     final_data.update({
         'profile_form': profile_form,
         'disposition_status': disposition_status,
         'can_approve_disposition': can_approve_disposition,
+        'schedules': schedules,
+        'expirations': expirations,
     })
     return render(request, 'forms/complaint_view/disposition/index.html', final_data)
 
