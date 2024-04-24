@@ -18,8 +18,8 @@ We will give you information about protections under the Servicemembers Civil Re
 
 Section 3937 of the SCRA limits the amount of interest that can be charged on certain financial obligations that were incurred prior to military service to no more than 6 percent per year, including service charges, renewal charges, fees or any other charges, except bona fide insurance. 
 
-- The 6 percent interest cap applies to financial obligations held by a servicemember, or a servicemember and a spouse, jointly. 
-- In order to have the interest rate on a financial obligation capped at 6 percent per year **during the period of a servicemember’s active military service**, a servicemember must provide the creditor with a copy of his or her military orders (or “other appropriate indicator of military service,” such as a letter from a commanding officer) and a written notice. 
+- The 6 percent interest cap applies to financial obligations held by a servicemember, or a servicemember and a spouse jointly. 
+- In order to have the interest rate on a financial obligation capped at 6 percent per year **during the period of a servicemember’s active military service**, a servicemember must provide the creditor with a copy of his or her military orders (or a letter from a commanding officer) and a written notice. 
 - This written notice must be provided to creditor within 180 days of the end of the servicemember’s military service.
 - In response to a properly made request for a 6 percent interest rate benefit (cap) under the SCRA, a creditor must forgive – not defer – interest greater than 6 percent per year. 
 - The creditor must forgive this interest retroactively, back to the first day of SCRA eligibility. 
@@ -120,8 +120,8 @@ Section 3932(b)(1) of the SCRA allows servicemembers to apply to the court for a
 
 Section 3956 of the SCRA permits servicemembers to terminate certain consumer contracts at any time after receiving military orders to relocate for a period of not less than 90 days to a location that does not support the contract.
 
-- Covered contracts include: cell phones, cable, internet-services, fitness centers, and home security systems
-- Such contracts must be **entered into before receiving military relocation orders**
+- Covered contracts include: cell phones, cable, internet-services, fitness centers, and home security systems.
+- Such contracts must be **entered into before receiving military relocation orders.**
 - Service providers are prohibited from imposing early termination fees or charges for reinstating service beyond usual and customary charges for installation or acquisition of customer equipment.
 <br/>
 [%endoptional]
