@@ -112,7 +112,7 @@ Servicemembers and their spouses can learn more about license portability [on th
 
 Section 3932(b)(1) of the SCRA allows servicemembers to apply to the court for a 90-day stay of proceeding (including child custody proceedings). 
 
-- This section requires that the application include proof that military service “materially affect[s] the servicemember’s ability to appear,” the date the servicemember will be available to appear, and a letter from a commanding officer confirming that the servicemember is not authorized for leave to appear at the proceeding.  50 U.S.C. § 3932(b)(2).
+- This section requires that the application include proof that military service “materially affect[s] the servicemember’s ability to appear,” the date the servicemember will be available to appear, and a letter from a commanding officer confirming that the servicemember is not authorized for leave to appear at the proceeding.
 <br/>
 [%endoptional]
 
