@@ -250,6 +250,17 @@
     props.el.addEventListener('paste', dispatchChange);
   };
 
+  root.CRT.selectRadio = function(radioButtonEls, filterName) {
+    const valueToSet = root.CRT.filterDataModel[filterName];
+    if (!valueToSet) return false;
+
+    const buttonsToCheck = [...radioButtonEls].filter(el => valueToSet.includes(el.value));
+    if (!buttonsToCheck.length) return false;
+
+    buttonsToCheck.forEach(el => (el.checked = true));
+    return true;
+  };
+
   root.CRT.multiSelectView.getValues = function(select) {
     var options = toArray((select && select.options) || []);
 
@@ -280,6 +291,16 @@
         }
       })
     );
+  };
+
+  root.CRT.submitView = function(props) {
+    props.el.forEach(el => {
+      el.addEventListener('click', function(event) {
+        event.preventDefault();
+        root.CRT.filterDataModel[props.name] = el.value;
+        root.CRT.formView.doSearch(root.CRT.formEl);
+      });
+    });
   };
 
   root.CRT.checkBoxView.getValues = function(el) {
