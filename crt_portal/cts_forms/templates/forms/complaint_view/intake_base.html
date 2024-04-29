@@ -32,6 +32,9 @@
 <script src="{% static 'js/dropdown.min.js' %}"></script>
 <script src="{% static 'js/usa_tag_select.min.js' %}"></script>
 <script src="{% static 'js/short_link.min.js' %}"></script>
+{% if ENABLED_FEATURES.nav_updates %}
+    <script src="{% static 'js/side_nav_slider.min.js' %}"></script>
+{% endif %}
 {%endblock%}
 {# no google analytics on backend #}
 {% block analytics %}{% endblock %}

@@ -1,0 +1,29 @@
+{% load multiselect_summary %}
+{% block content %}
+<form id="cts-forms-profile" class="usa-form" method="post" action="{% url 'crt_forms:cts-forms-profile' %}" novalidate>
+  {% csrf_token %}
+  <div class="crt-dropdown" data-crt-dropdown>
+    <button
+      class="crt-dropdown__title crt-section_dropdown display-flex align-start flex-align-start"
+      aria-controls="assigned-section"
+      aria-expanded="false"
+      type="button"
+      data-crt-dropdown-control
+    >
+    <svg class="expand-icon" fill="#ffbe2e" aria-hidden="true" focusable="false" role="img">
+        <use xlink:href="{% static 'img/sprite.svg' %}#expand_more"></use>
+    </svg>
+      <span id="assigned-section-label" class="label">{{ form.get_section_filters|multiselect_summary:"View sections" }}</span>
+    </button>
+    <div class="content" id="assigned-section" hidden>
+      <label for="id_{{profile_form.fields.intake_filters.widget.attrs.name}}">
+        <span class="usa-sr-only">{{profile_form.intake_filters.label}}</span>
+      </label>
+      {{ profile_form.intake_filters }}
+      <button class="usa-button margin-top-2" type="submit">
+        Update view
+      </button>
+    </div>
+  </div>
+</form>
+{% endblock %}

@@ -1,3 +1,6 @@
+{% if ENABLED_FEATURES.nav_updates %}
+ {% include 'forms/complaint_view/side_nav.html' with page="report_records" %}
+{% else %}
 <header class="intake-header">
   <div class="title">
     {% include 'forms/complaint_view/header_title.html' with page="report_records" %}
@@ -9,6 +12,7 @@
     </a>
   </div>
 </header>
+{% endif %}
 {% if progress_bar %}
 <div class="intake-header--progress-bar">
   <div class="grid-container">
