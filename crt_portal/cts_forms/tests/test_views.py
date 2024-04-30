@@ -1005,6 +1005,26 @@ class CRTDispositionTests(TestCase):
         self.assertIn('3 Year', str(response.content))
         self.assertIn('10 Year', str(response.content))
 
+    def test_filter_by_schedule(self):
+        """Should only return two reports, with three year and ten year"""
+        url = f'{self.url}?disposition_status=other&retention_schedule=10%20Year'
+        self.client.force_login(self.superuser)
+        response = self.client.get(url)
+        reports = response.context['data_dict']
+        report_len = len(reports)
+        self.assertEqual(report_len, 1)
+        self.assertIn('10 Year', str(response.content))
+
+    def test_filter_by_expiration(self):
+        """Should only return two reports, with three year and ten year"""
+        url = f'{self.url}?disposition_status=other&expiration_date=2028-01-01'
+        self.client.force_login(self.superuser)
+        response = self.client.get(url)
+        reports = response.context['data_dict']
+        report_len = len(reports)
+        self.assertEqual(report_len, 1)
+        self.assertIn('10 Year', str(response.content))
+
     def test_disposition_bulk_action(self):
         url = reverse('crt_forms:disposition-actions')
         url = f'{url}?next=%253Fper_page%253D15%2526status%253Dclosed%2526retention_schedule%253D1%2520Year%2526retention_schedule%253D3%2520Year%2526retention_schedule%253D10%2520Year%2526retention_schedule%253DPermanent%2526disposition_status%253Dpast%2526page%253D1&id={self.other_report.id}&id={self.other_report_2.id}'
