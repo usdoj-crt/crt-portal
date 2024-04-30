@@ -31,12 +31,15 @@
         {% include 'forms/complaint_view/index/filters/per_page.html' with per_page=page_format.per_page %}
       </span>
     </div>
+    {% if disposition_status == 'batches' %}
+    {% else %}
     <div class="intake-table-chipbar">
       {% include "forms/complaint_view/disposition/chipbar.html" with disposition_status=disposition_status %}
       <div class="controls">
       {% include "forms/complaint_view/disposition/filter-controls.html" with filters=filters form=form %}
       </div>
     </div>
+    {% endif %}
   </form>
 </div>
   <div class="scrollable-table">
