@@ -1,5 +1,5 @@
 {% if ENABLED_FEATURES.nav_updates %}
- {% include 'forms/complaint_view/side_nav.html' with page="report_records" %}
+ {% include 'forms/complaint_view/side_nav.html' with page="report_records" section_filter=True %}
 {% else %}
   <header class="intake-header grid-row">
     {% include 'forms/complaint_view/header_title.html' with page="report_records" %}

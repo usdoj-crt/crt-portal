@@ -1,8 +1,9 @@
 {% if ENABLED_FEATURES.nav_updates %}
- {% include 'forms/complaint_view/side_nav.html' with page='data_dashboard' %}
+ {% include 'forms/complaint_view/side_nav.html' with page='data_dashboard' section_filter=False %}
 {% else %}
 <header class="intake-header">
   <div class="title">
     {% include 'forms/complaint_view/header_title.html' with page='data_dashboard' %}
   </div>
 </header>
+{% endif %}

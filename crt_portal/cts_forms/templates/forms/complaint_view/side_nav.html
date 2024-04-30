@@ -8,13 +8,17 @@
     <h1 class="title-copy intake-section-title">
       CRT Reporting Portal
     </h1>
+    {% if section_filter %}
     <span>SECTION</span>
     {% include 'forms/complaint_view/index/filters/side_nav_section_filter.html' %}
+    {% endif %}
     <span>RECORD MANAGEMENT</span>
     <a class="add-record display-flex flex-align-center" href="/form/new/" label="create record" name="Create record">
-        <svg class="icon plus-icon padding-right-05" fill="#FFBE2E" aria-hidden="true" focusable="false" role="img">
+        <span class="usa-tooltip" data-position="right" data-classes="display-inline" title="Add new record">
+        <svg class="icon plus-icon" fill="#FFBE2E" aria-hidden="true" focusable="false" role="img">
             <use xlink:href="{% static 'img/sprite.svg' %}#add"></use>
         </svg>
+        </span>
         <span>New record</span>
     </a>
     {% include 'forms/complaint_view/side_nav_options.html' with page=page %}

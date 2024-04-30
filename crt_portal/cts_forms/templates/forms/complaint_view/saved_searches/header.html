@@ -1,5 +1,5 @@
 {% if ENABLED_FEATURES.nav_updates %}
- {% include 'forms/complaint_view/side_nav.html' with page='saved_searches' %}
+ {% include 'forms/complaint_view/side_nav.html' with page='saved_searches' section_filter=False %}
 {% else %}
 <header class="intake-header">
     <div class="title">
