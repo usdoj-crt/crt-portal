@@ -13,7 +13,8 @@
 
     const perPageEl = dom.getElementsByName('per_page');
     const clearAllEl = dom.querySelector('[data-clear-filters]');
-    const expirationDateEls = dom.getElementsByName('expiration_date');
+    const selectExpirationDateEl = dom.querySelector('select[name="expiration_date"]');
+    const radioExpirationDateEls = dom.querySelectorAll('input[name="expiration_date"]');
     const retentionScheduleEls = dom.getElementsByName('retention_schedule');
     const dispositionStatusEls = dom.getElementsByName('disposition_status');
 
@@ -31,12 +32,28 @@
       name: 'disposition_status'
     });
 
-    root.CRT.radioButtonView({
-      el: expirationDateEls,
-      name: 'expiration_date'
-    });
-    const hasExpiration = root.CRT.selectRadio(expirationDateEls, 'expiration_date');
-    if (!hasExpiration) {
+    if (selectExpirationDateEl) {
+      root.CRT.textInputView({
+        el: selectExpirationDateEl,
+        name: 'expiration_date'
+      });
+      root.CRT.selectOption(selectExpirationDateEl, 'expiration_date');
+    } else if (radioExpirationDateEls.length) {
+      root.CRT.radioButtonView({
+        el: radioExpirationDateEls,
+        name: 'expiration_date'
+      });
+      root.CRT.selectRadio(radioExpirationDateEls, 'expiration_date');
+    } else if (root.CRT.filterDataModel['expiration_date']) {
+      const selectedExpirationLabel = dom.createElement('label');
+      const ymd = root.CRT.filterDataModel['expiration_date'][0];
+      const [year, month, day] = ymd.split('-');
+      const mdy = `${month}/${day}/${year}`;
+      selectedExpirationLabel.innerHTML = `
+        ${mdy}
+        <input type="radio" name="expiration_date" value="${ymd}" checked>
+      `;
+      dom.querySelector('.no-expiration').replaceWith(selectedExpirationLabel);
     }
 
     root.CRT.radioButtonView({

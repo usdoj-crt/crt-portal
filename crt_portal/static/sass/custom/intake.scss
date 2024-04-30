@@ -1007,6 +1007,12 @@ ul.table-tabs {
       input[type="radio"] {
         display: none;
       }
+
+      select {
+        font-size: 0.75em;
+        height: 3em;
+        margin-top: 0;
+      }
     }
   }
 }

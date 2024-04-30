@@ -397,7 +397,9 @@ def get_view_data(request, report_query, query_filters, disposition_status=None)
     # make sure the links for this page have the same paging, sorting, filtering etc.
     if disposition_status:
         page_args = f'?per_page={per_page}'
-        filter_args = f'{get_filter_args(query_filters)}&disposition_status={disposition_status}'
+        filter_args = get_filter_args(query_filters)
+        if '&disposition_status=' not in filter_args:
+            filter_args += f'disposition_status={disposition_status}'
     else:
         page_args = f'?per_page={per_page}&grouping=default'
         filter_args = get_filter_args(query_filters)
@@ -726,12 +728,27 @@ def get_batch_view_data(request):
 
 @login_required
 def disposition_view(request):
-    disposition_status = request.GET.get('disposition_status', 'past')
+    params = request.GET.copy()
+    if not params.get('disposition_status'):
+        params['disposition_status'] = 'past'
+    disposition_status = params.get('disposition_status')
     profile_form = get_profile_form(request)
     if disposition_status == 'batches':
         final_data = get_batch_view_data(request)
         return render(request, 'forms/complaint_view/disposition/index.html', final_data)
-    report_query, query_filters = report_filter(QueryDict('status=closed&retention_schedule=1%20Year&retention_schedule=3%20Year&retention_schedule=10%20Year&retention_schedule=Permanent&disposition_status=' + disposition_status))
+
+    report_query, query_filters = report_filter(params)
+
+    # Records without these values should _never_ show on the disposition page,
+    # regardless of user-selected filters:
+    report_query = report_query.filter(
+        status='closed',
+        retention_schedule__retention_years__gt=0,
+    ).exclude(
+        retention_schedule__is_retired=True,
+        retention_schedule__isnull=True,
+    )
+
     final_data = get_view_data(request, report_query, query_filters, disposition_status)
     can_approve_disposition = request.user.has_perm('cts_forms.approve_disposition') if request.user else False
 

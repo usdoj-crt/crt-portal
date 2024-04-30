@@ -261,6 +261,17 @@
     return true;
   };
 
+  root.CRT.selectOption = function(selectEl, filterName) {
+    const valueToSet = root.CRT.filterDataModel[filterName];
+    if (!valueToSet) return false;
+
+    const optionToSelect = [...selectEl.options].find(el => valueToSet.includes(el.value));
+    if (!optionToSelect) return false;
+
+    optionToSelect.selected = true;
+    return true;
+  };
+
   root.CRT.multiSelectView.getValues = function(select) {
     var options = toArray((select && select.options) || []);
 
@@ -316,7 +327,7 @@
   root.CRT.buildMultiValue = function(target, newValue) {
     const fieldName = target
       .getAttribute('id')
-      .replace(/^id_/, '')
+      ?.replace(/^id_/, '')
       .replace(/_[0-9]+$/, '');
 
     if (fieldName !== 'dj_number') return newValue;

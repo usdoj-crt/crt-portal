@@ -87,6 +87,7 @@ filter_options = {
     'location_name': 'fuzzy',
     'other_class': '__search',  # not in filter controls?
     'disposition_status': 'disposition_status',
+    'expiration_date': 'expiration_date',
     # this is not a db query filter, not needed here, duplicate tag fix, removed from the filter tag list
     # 'per_page': '__pass',  # adding so a filter tag will show up in /form/view.  No filtering will actually happen.
 }
@@ -194,7 +195,7 @@ def report_filter(querydict):
             kwargs[f'{field}__search'] = querydict.getlist(field)[0]
         elif field_options == '__icontains':
             kwargs[f'{field}__icontains'] = querydict.getlist(field)[0]
-        elif 'date' in field:
+        elif 'date' in field and field_options != 'expiration_date':
             # filters by a start date or an end date expects yyyy-mm-dd
             field_name = _get_date_field_from_param(field)
             encodedDate = querydict.getlist(field)[0]
@@ -261,24 +262,30 @@ def report_filter(querydict):
             phone_number_array = ''.join(c if c.isdigit() else ' ' for c in querydict.getlist(field)[0]).split()
             for number_block in phone_number_array:
                 qs = qs.filter(contact_phone__icontains=number_block)
-        elif field_options == 'disposition_status':
+        elif field_options in ['disposition_status', 'expiration_date']:
             qs = qs.filter(~Q(retention_schedule__retention_years=0), closed_date__isnull=False, batched_for_disposal=False)
             user_section = get_user_section()
             if user_section:
                 qs = qs.filter(assigned_section=user_section)
-            disposition_status = querydict.getlist(field)[0]
-            today = datetime.today().date()
             qs = qs.annotate(retention_year=F('retention_schedule__retention_years'),
                              expiration_year=F('retention_year') + ExtractYear('closed_date') + 1,
                              expiration_date=Cast(Concat(F('expiration_year'), Value('-'), Value('01'), Value('-'), Value('01'), output_field=CharField()), output_field=DateField()),
                              eligible_date=ExpressionWrapper(F('expiration_date') - timedelta(days=30), output_field=DateField()))
-            if disposition_status == 'past':
-                kwargs['expiration_date__lt'] = today
-            if disposition_status == 'eligible':
-                kwargs['expiration_date__gte'] = today
-                kwargs['eligible_date__lte'] = today
-            if disposition_status == 'other':
-                kwargs['eligible_date__gt'] = today
+            if field_options == 'expiration_date':
+                expiration_date = querydict.getlist(field)[0]
+                expiration_datetime = change_datetime_to_end_of_day(datetime.strptime(expiration_date, '%Y-%m-%d'), field)
+                kwargs['expiration_date'] = expiration_datetime
+
+            if field_options == 'disposition_status' and 'expiration_date' not in querydict:
+                today = datetime.today().date()
+                disposition_status = querydict.getlist(field)[0]
+                if disposition_status == 'past':
+                    kwargs['expiration_date__lt'] = today
+                if disposition_status == 'eligible':
+                    kwargs['expiration_date__gte'] = today
+                    kwargs['eligible_date__lte'] = today
+                if disposition_status == 'other':
+                    kwargs['eligible_date__gt'] = today
 
     # Check to see if there are multiple values in report_reason search and run distinct if so.  If not, run a regular
     # much faster search.
