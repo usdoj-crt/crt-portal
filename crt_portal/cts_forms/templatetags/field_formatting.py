@@ -87,11 +87,25 @@ def _prepare_fuzzy_for_chip(key, filters):
     sounds_like_value = filters.pop(f'{key}_1', [''])[0]
     suffix = []
     if sounds_like_value and sounds_like_value != '0':
-        suffix.append('other pronunciations')
+        level = ''
+        if sounds_like_value == 2:
+            level = 'low'
+        if sounds_like_value == 5:
+            level = 'medium'
+        if sounds_like_value == 8:
+            level = 'high'
+        suffix.append(f'{level} sounds like inclusivity')
 
     looks_like_value = filters.pop(f'{key}_2', [''])[0]
     if looks_like_value and looks_like_value != '0':
-        suffix.append('typos')
+        level = ''
+        if looks_like_value == 2:
+            level = 'low'
+        if looks_like_value == 5:
+            level = 'medium'
+        if looks_like_value == 8:
+            level = 'high'
+        suffix.append(f'{level} looks like inclusivity')
 
     if not suffix:
         suffix.append('exact match')

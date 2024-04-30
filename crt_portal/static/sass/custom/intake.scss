@@ -401,6 +401,10 @@ hr {
       button {
         width: 100%;
       }
+
+      .help-text.icon-only {
+        display: inline-block;
+      }
     }
 
     .crt-dropdown:last-of-type {
@@ -658,6 +662,13 @@ input::-webkit-inner-spin-button {
   min-height: 2.5rem;
   min-width: 6rem;
   position: relative;
+
+  .usa-tooltip {
+    .card-table-icon {
+      margin-left: 6px;
+      margin-bottom: -3px;
+    }
+  }
 
   &:focus-within {
     .content {

@@ -284,7 +284,7 @@ msgstr ""
 msgid "Were you forced to work against your will?"
 msgstr "¿Le obligaron a trabajar en contra de su voluntad?"
 
-#: model_variables.py:76 templates/hate_crime_human_trafficking.html:71
+#: model_variables.py:76 templates/hate_crime_human_trafficking.html:74
 msgid "Get help from the National Human Trafficking Hotline"
 msgstr "Consiga ayuda de la Línea Directa Nacional contra la Trata de Personas"
 
@@ -298,6 +298,9 @@ msgid ""
 "election fraud, visit <a href=\"https://tips.fbi.gov\">tips.fbi.gov</a> or "
 "call 800-CALL-FBI"
 msgstr ""
+"Para declarar una amenaza contra votantes, amenazas contra funcionarios electorales o "
+"un incidente de fraude electoral, vaya a <a href=\"https://tips.fbi.gov\">tips.fbi.gov</a> o "
+"llame al 800-CALL-FBI"
 
 #: model_variables.py:90 templates/hate_crime_human_trafficking.html:45
 msgid ""
@@ -1582,6 +1585,10 @@ msgstr ""
 msgid "Email"
 msgstr ""
 
+#: templates/partials/footer.html:18
+msgid "Send Printed Report Form (<a target=\"_blank\" href=\"https://www.ada.gov/assets/pdfs/file-a-complaint.pdf\">Regular Format</a> | <a target=\"_blank\" href=\"https://www.ada.gov/assets/pdfs/file-a-complaint-lg.pdf\">Large Format</a>) To:"
+msgstr "Envíe el formulario de declaración impreso (<a target=\"_blank\" href=\"https://www.ada.gov/assets/pdfs/file-a-complaint.pdf\">Formato normal</a> | <a target=\"_blank\" href=\"https://www.ada.gov/assets/pdfs/file-a-complaint-lg.pdf\">Formato con letra grande</a>)"
+
 #: templates/forms/errors.html:52 templates/forms/report_maintenance.html:46
 #: templates/partials/footer.html:32
 msgid "(toll-free)"
@@ -1781,8 +1788,8 @@ msgid "Get help"
 msgstr "¡Consiga ayuda AHORA!"
 
 #: templates/hate_crime_human_trafficking.html:28
-msgid "Report a hate crime"
-msgstr "Denunciar un delito de odio"
+msgid "Report a hate crime or hate incident"
+msgstr "Infórmenos de un delito de odio o un incidente de odio"
 
 #: templates/hate_crime_human_trafficking.html:31
 msgid "Report human trafficking"
@@ -1793,8 +1800,8 @@ msgid "Get help for hate crimes and human trafficking"
 msgstr "Consiga ayuda con delitos de odio y la trata de personas"
 
 #: templates/hate_crime_human_trafficking.html:43
-msgid "Where to report a hate crime"
-msgstr "Dónde denunciar un delito de odio"
+msgid "Where to report hate crimes and hate incidents"
+msgstr "Dónde debe declarar delitos de odio e incidentes de odio"
 
 #: templates/hate_crime_human_trafficking.html:49
 msgid "In cases of emergency, contact 911"
@@ -1808,11 +1815,15 @@ msgstr "De lo contrario, puede comunicarse con el FBI en línea"
 msgid "Or a local field office by phone"
 msgstr "O llamando a alguna de sus oficinas locales"
 
-#: templates/hate_crime_human_trafficking.html:65
+#: templates/hate_crime_human_trafficking.html:63
+msgid  "Not every act of a hate crime involves a crime. <a class='external-link--blue' href='https://www.justice.gov/hatecrimes/learn-about-hate-crimes'>Acts of prejudice</a> that are not crimes, and do not involve violence, threats, or property damage, are referred to as bias incidents or hate incidents. Some of these incidents, particularly those that occur in schools, workplaces, residences, or in other public spaces, may violate federal civil rights laws. You can report hate incidents to the Civil Rights Division using <a href='https://civilrights.justice.gov/'>this reporting portal</a>"
+msgstr "No todos los actos de un delito de odio conllevan un delito en sí. <a class='external-link--blue' href='https://www.justice.gov/hatecrimes/learn-about-hate-crimes'>Los actos de prejuicio</a> que no son delitos y no involucran violencia, amenazas o daños materiales se denominan incidentes de sesgo o incidentes de odio. Algunos de estos incidentes, en particular aquellos que ocurren en las escuelas, los lugares de trabajo, las viviendas o en otros lugares públicos, pueden infringir las leyes federales de derechos civiles. Usted puede informar a la División de Derechos Civiles de incidentes de odio mediante <a href='https://civilrights.justice.gov/'>este portal de informes</a>"
+
+#: templates/hate_crime_human_trafficking.html:68
 msgid "Where to report human trafficking"
 msgstr "Dónde denunciar la trata de personas"
 
-#: templates/hate_crime_human_trafficking.html:67
+#: templates/hate_crime_human_trafficking.html:70
 msgid ""
 "Human trafficking includes being forced or coerced to do work, or forced or "
 "coerced to engage in sex acts for something of value."
@@ -2486,11 +2497,11 @@ msgstr "Ejemplos"
 
 #: templates/partials/example-accordion.html:40
 msgid "Note"
-msgstr ""
+msgstr "Nota"
 
 #: templates/partials/example-accordion.html:51
 msgid "Learn More"
-msgstr ""
+msgstr "Aprenda más"
 
 #: templates/partials/footer.html:47
 msgid "Availability of Language Assistance Services"

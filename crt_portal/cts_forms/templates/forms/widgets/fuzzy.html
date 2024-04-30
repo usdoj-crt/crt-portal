@@ -1,7 +1,21 @@
 {% spaceless %}
   {% for widget in widget.subwidgets %}
+    {% if widget.name == 'location_name_1' %}
+      <p class="text-bold border-top margin-top-05 padding-top-2">
+        Refine search:
+      </p>
+    {% endif %}
     <div>
-      <label id="{{widget.name}}_label" for="id_{{widget.name}}">{{widget.attrs.label}}</label>
+      {% if widget.attrs.tooltip == null %}
+        <label id="{{widget.name}}_label" for="id_{{widget.name}}">{{widget.attrs.label}}</label>
+      {% else %}
+        <div class="margin-top-2">
+          <label class="display-inline" id="{{widget.name}}_label" for="id_{{widget.name}}">
+            {{widget.attrs.label}}
+            {% include 'partials/help_tooltip.html' with tip=widget.attrs.tooltip %}
+          </label>
+        </div>
+      {% endif %}
       {% include widget.template_name %}
     </div>
   {% endfor %}

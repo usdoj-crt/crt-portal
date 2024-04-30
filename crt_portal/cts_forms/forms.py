@@ -22,6 +22,8 @@ from .filters import get_report_filter_from_search
 from .model_variables import (ACTION_CHOICES, CLOSED_STATUS, COMMERCIAL_OR_PUBLIC_ERROR,
                               COMMERCIAL_OR_PUBLIC_PLACE_CHOICES,
                               COMMERCIAL_OR_PUBLIC_PLACE_HELP_TEXT,
+                              PUBLIC_OR_PRIVATE_EMPLOYER_HELP_TEXT,
+                              EDUCATION_QUESTION_HELP_TEXT,
                               CONTACT_PHONE_INVALID_MESSAGE,
                               CORRECTIONAL_FACILITY_LOCATION_CHOICES,
                               CORRECTIONAL_FACILITY_LOCATION_TYPE_CHOICES,
@@ -613,10 +615,7 @@ class WorkplaceLocation(LocationForm):
         self.fields['public_or_private_employer'] = TypedChoiceField(
             choices=PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES,
             widget=UsaRadioSelect(attrs={
-                'help_text': {
-                    'public_employer': _('Public employers include organizations funded by the government like the military, post office, fire department, courthouse, DMV, or public school. This could be at the local or state level.'),
-                    'private_employer': _('Private employers are business or non-profits not funded by the government such as retail stores, banks, or restaurants.')
-                }
+                'help_text': PUBLIC_OR_PRIVATE_EMPLOYER_HELP_TEXT
             }),
             required=True,
             error_messages={
@@ -728,7 +727,7 @@ class EducationLocation(LocationForm):
                 self,
                 ('public_or_private_school',),
                 group_name=EDUCATION_QUESTION,
-                help_text=_('Includes schools, educational programs, or educational activities, like training programs, sports teams, clubs, or other school-sponsored activities'),
+                help_text=EDUCATION_QUESTION_HELP_TEXT,
                 optional=False,
             ),
         ] + self.question_groups
