@@ -11,6 +11,7 @@ from django.db import models
 from django.apps import apps
 from django.db.migrations import RunSQL
 from django.db.migrations.operations import special
+from django.db.models.functions import Lower
 from nbconvert.preprocessors.execute import ExecutePreprocessor
 import nbconvert
 import nbformat
@@ -294,6 +295,18 @@ def get_dashboard_structure_from_json():
     config = os.path.join(NOTEBOOK_DIR, 'dashboards.json')
     with open(config, 'r') as f:
         return json.load(f)
+
+
+def get_intake_notebooks():
+    """Returns all AnalyticsFiles under assignments/intake-dashboard"""
+    return (
+        AnalyticsFile.objects
+        .filter(path__startswith='assignments/intake-dashboard')
+        .exclude(path__startswith="assignments/intake-dashboard/draft_")
+        .filter(type='notebook')
+        .order_by(Lower('name'))
+        .values('name', 'last_modified')
+    )
 
 
 def get_dashboard_structure_from_db(include_content=True):
