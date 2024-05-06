@@ -119,7 +119,7 @@ jobs:
       - run:
           name: save a sample of reports as an artifact
           command: |
-            PGPASSWORD="$POSTGRES_PASSWORD" -h localhost -p 5432 pg_dump -d circle_test -U root --no-owner --no-privileges > example.sql
+            PGPASSWORD="$POSTGRES_PASSWORD" pg_dump -h localhost -p 5432 pg_dump -d circle_test -U root --no-owner --no-privileges > example.sql
       - store_artifacts:
           path: example.sql
           destination: example.sql
