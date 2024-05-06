@@ -117,6 +117,10 @@ jobs:
           command: |
             pipenv run crt_portal/manage.py create_mock_reports 100
       - run:
+          name: save a sample of reports as an artifact
+          command: |
+            PGPASSWORD="$POSTGRES_PASSWORD" pg_dump -d circle_test -U root --no-owner --no-privileges > reports.sql
+      - run:
           name: run server for tests
           environment:
             DEBUG: true
