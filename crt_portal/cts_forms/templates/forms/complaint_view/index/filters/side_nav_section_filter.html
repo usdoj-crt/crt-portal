@@ -10,9 +10,9 @@
       type="button"
       data-crt-dropdown-control
     >
-    <svg class="expand-icon" fill="#ffbe2e" aria-hidden="true" focusable="false" role="img">
-        <use xlink:href="{% static 'img/sprite.svg' %}#expand_more"></use>
-    </svg>
+      <svg xmlns="http://www.w3.org/2000/svg" id="expand_more" viewBox="0 0 24 24" class="expand-icon" fill="#ffbe2e" aria-hidden="true" focusable="false" role="img">
+        <path d="M16.59 8.59 12 13.17 7.41 8.59 6 10l6 6 6-6z"/>
+      </svg>
       <span id="assigned-section-label" class="label">{{ form.get_section_filters|multiselect_summary:"View sections" }}</span>
     </button>
     <div class="content" id="assigned-section" hidden>
