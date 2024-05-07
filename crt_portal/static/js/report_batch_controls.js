@@ -11,7 +11,7 @@
     const note = id + ': [Reason]\n';
     if (reportBatchControl.classList.contains('removed')) {
       notesField.value += note;
-      return
+      return;
     }
     const notesFieldVal = notesField.value;
     const input = regexEscape(id);
