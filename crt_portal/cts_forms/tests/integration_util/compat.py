@@ -23,8 +23,8 @@ def hide_django_debug_toolbar(func):
     return decorator
 
 
-def defeat_recaptcha(func):
-    """Disables recaptcha for requests.
+def defeat_challenge(func):
+    """Disables challenge for requests.
 
     Args:
         func: The test function to decorate.
@@ -32,7 +32,7 @@ def defeat_recaptcha(func):
     @functools.wraps(func)
     def decorator(page, *args, **kwargs):
         extra_headers = {
-            'X-Captcha-Defeat': os.environ['RECAPTCHA_DEFEAT_KEY']
+            'X-Challenge-Defeat': os.environ['CHALLENGE_DEFEAT_KEY']
         }
 
         page.context.set_extra_http_headers(extra_headers)
