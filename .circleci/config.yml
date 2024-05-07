@@ -117,6 +117,14 @@ jobs:
           command: |
             pipenv run crt_portal/manage.py create_mock_reports 100
       - run:
+          name: save a sample of reports as an artifact
+          command: |
+            PGPASSWORD="$POSTGRES_PASSWORD" pg_dump -h localhost -p 5432 -d circle_test -U root --no-owner --no-privileges -t '(geocoding_|cts_forms_|tms_|shortener_)*' -t django_content_type -t actstream_action > example.sql
+
+      - store_artifacts:
+          path: example.sql
+          destination: example.sql
+      - run:
           name: run server for tests
           environment:
             DEBUG: true
