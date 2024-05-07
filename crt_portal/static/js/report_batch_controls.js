@@ -11,13 +11,13 @@
     const note = id + ': [Reason]\n';
     if (reportBatchControl.classList.contains('removed')) {
       notesField.value += note;
-    } else {
-      const notesFieldVal = notesField.value;
-      const input = regexEscape(id);
-      const regex = new RegExp(input + '.*\\n');
-      const newVal = notesFieldVal.replace(regex, '');
-      notesField.value = newVal;
+      return
     }
+    const notesFieldVal = notesField.value;
+    const input = regexEscape(id);
+    const regex = new RegExp(input + '.*\\n');
+    const newVal = notesFieldVal.replace(regex, '');
+    notesField.value = newVal;
   }
   function listenForClick(reportBatchControl) {
     reportBatchControl.addEventListener('click', e => updateBatchReports(e, reportBatchControl));
