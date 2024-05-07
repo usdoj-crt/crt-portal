@@ -967,6 +967,12 @@ ul.table-tabs {
     flex-direction: row;
     height: 3.5em;
 
+    .no-expiration {
+      font-size: 0.75em;
+      font-weight: normal;
+      font-style: italic;
+    }
+
     fieldset {
       border: 0;
       margin: 0;
