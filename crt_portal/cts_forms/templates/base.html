@@ -110,10 +110,16 @@
       </div>
     {% endif %}
 
+    {% if ENABLED_FEATURES.nav_updates %}
+      <div class="main-wrapper">
+    {% endif %}
     {% block page_header %}{% endblock %}
     <main id="main-content" {% block main_class %}{% endblock %}>
       {% block content %} {% endblock %}
     </main>
+    {% if ENABLED_FEATURES.nav_updates %}
+      </div>
+    {% endif %}
 
     {% block usa_footer %}
     <footer class="usa-footer usa-footer--slim">

@@ -1,3 +1,6 @@
+{% if ENABLED_FEATURES.nav_updates %}
+ {% include 'forms/complaint_view/side_nav.html' with page="report_records" section_filter=section_filter %}
+{% else %}
 <header class="intake-header">
   <div class="title">
     {% include 'forms/complaint_view/header_title.html' with page="report_records" %}
@@ -15,4 +18,5 @@
     {% include 'forms/portal/progress-bar.html' %}
   </div>
 </div>
+{% endif %}
 {% endif %}

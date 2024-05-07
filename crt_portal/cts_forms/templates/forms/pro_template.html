@@ -8,7 +8,15 @@
 {% endblock %}
 
 {% block page_header %}
-  {% include 'forms/complaint_view/intake_header.html' with title_text="CRT Public Complaint Intake" progress_bar=True%}
+{% if ENABLED_FEATURES.nav_updates %}
+<div class="intake-header--progress-bar">
+  <div class="grid-container">
+    {% include 'forms/portal/progress-bar.html' %}
+  </div>
+</div>
+<div class="main-wrapper intake-form">
+{% endif %}
+  {% include 'forms/complaint_view/intake_header.html' with title_text="CRT Public Complaint Intake" section_filter=False %}
 {% endblock %}
 
 {% block form_questions %}
@@ -103,7 +111,9 @@
 </div>
 
 {% endblock %}
-
+{% if ENABLED_FEATURES.nav_updates %}
+</div>
+{% endif %}
 {% block page_js %}
 {{ super }}
 <script nonce="{{request.csp_nonce}}">
@@ -124,4 +134,7 @@
 <script src="{% static 'js/progress-bar.min.js' %}"></script>
 <script src="{% static 'vendor/intlTelInput.min.js' %}"></script>
 <script src="{% static 'js/report_phone.min.js' %}"></script>
+{% if ENABLED_FEATURES.nav_updates %}
+    <script src="{% static 'js/side_nav_slider.min.js' %}"></script>
+{% endif %}
 {% endblock %}
