@@ -61,10 +61,27 @@
     });
   }
 
+  function getDefaultOrder(table) {
+    const datasetOrder = getData(table, 'default_order');
+    if (datasetOrder) return datasetOrder;
+
+    const firstSumColumn = [...table.querySelectorAll('thead th')]
+      .map(th => th.innerText)
+      // We rely on index here, because name changes case.
+      .findIndex(text => text.toLowerCase().includes('(sum)'));
+
+    if (firstSumColumn) {
+      return [[firstSumColumn, 'desc']];
+    }
+
+    return [];
+  }
+
   function getOptions(table) {
     const options = {
       colReorder: true,
       select: true,
+      order: getDefaultOrder(table),
       language: {
         searchPanes: {
           clearMessage: 'Clear all filters'
