@@ -3,8 +3,8 @@
 
 {% block page_js %}
 {{ block.super }}
-{% if RECAPTCHA.site_key %}
-<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+{% if CHALLENGE.site_key %}
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 {% endif %}
 {% endblock %}
 
@@ -32,11 +32,11 @@
     {% include "forms/question_cards/single_form.html" with field=form.servicemember ally_id="servicemember-help-text" %}
   </div>
 
-  {% if RECAPTCHA.site_key %}
+  {% if CHALLENGE.site_key %}
   <div class="crt-portal-card crt-portal-card">
     <div class="crt-portal-card__content crt-portal-card__content--lg">
       <p class="help-text"></p>
-      <div class="g-recaptcha" data-sitekey="{{ RECAPTCHA.site_key }}"></div>
+      <div class="cf-turnstile" data-sitekey="{{CHALLENGE.site_key}}"></div>
     </div>
   </div>
   {% endif %}
