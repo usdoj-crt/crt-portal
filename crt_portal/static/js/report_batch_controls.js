@@ -1,5 +1,6 @@
 (function(root, dom) {
   const notesField = dom.querySelector('#id_notes');
+  const rejectedReportIdsInput = dom.querySelector('#rejected_report_ids');
   function regexEscape(str) {
     return str.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
   }
@@ -10,6 +11,7 @@
     const id = reportBatchControl.getAttribute('id');
     const note = id + ': [Reason]\n';
     if (reportBatchControl.classList.contains('removed')) {
+      rejectedReportIdsInput.value += id + ',';
       notesField.value += note;
       return;
     }
