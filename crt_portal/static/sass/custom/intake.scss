@@ -1183,6 +1183,14 @@ form#cts-forms-profile {
 .intake-table {
   border-radius: 5px;
   box-shadow: 0 1px 6px 2px rgba(0, 0, 0, 0.14);
+
+  .actions {
+    text-align: right;
+
+    padding-bottom: 1em;
+    padding-right: 1em;
+    padding-top: 1em;
+  }
 }
 
 .intake-table-header {
@@ -1190,7 +1198,7 @@ form#cts-forms-profile {
 
   align-items: center;
   display: flex;
-  border-radius: 5px 5px;
+  border-radius: 5px 0px;
   min-height: 3rem;
   padding-bottom: 1.2rem;
   padding-left: 1.3rem;

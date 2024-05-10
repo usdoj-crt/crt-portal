@@ -40,9 +40,8 @@ from .forms import (
     AttachmentActions, Review, save_form,
 )
 from .mail import mail_to_complainant
-from .model_variables import HATE_CRIMES_TRAFFICKING_MODEL_CHOICES
-from .models import CommentAndSummary, Profile, Report, ReportAttachment, ReportDisposition, ReportDispositionBatch, ReportsData, RetentionSchedule, SavedSearch, Trends, EmailReportCount, Campaign, User, \
-    RoutingSection, RoutingStepOneContact, RepeatWriterInfo
+from .model_variables import HATE_CRIMES_TRAFFICKING_MODEL_CHOICES, NOTIFICATION_PREFERENCE_CHOICES
+from .models import CommentAndSummary, Profile, Report, ReportAttachment, ReportDisposition, ReportDispositionBatch, ReportsData, RetentionSchedule, SavedSearch, Trends, EmailReportCount, Campaign, User, NotificationPreference, RoutingSection, RoutingStepOneContact, RepeatWriterInfo
 from .page_through import pagination
 from .sorts import other_sort, report_sort
 
@@ -764,6 +763,56 @@ def unsubscribe_view(request):
                          messages.SUCCESS,
                          mark_safe("You have been unsubscribed from all portal notifications"))
     return redirect(reverse('crt_forms:crt-forms-index'))
+
+
+@login_required
+def notification_view(request):
+    if request.method == 'GET':
+        return _notification_get(request)
+    return _notification_change(request)
+
+
+def _notification_get(request):
+    if hasattr(request.user, 'notification_preference'):
+        preferences = request.user.notification_preference
+    else:
+        preferences = NotificationPreference(user=request.user)
+    return render(request, 'forms/complaint_view/notifications/index.html', {
+        'preferences': preferences,
+        'choices': NOTIFICATION_PREFERENCE_CHOICES,
+    })
+
+
+def _notification_change(request):
+    preference = NotificationPreference.objects.get_or_create(user=request.user)[0]
+
+    changes = request.POST
+    changed = False
+    for key in changes:
+        if key == 'csrfmiddlewaretoken':
+            continue
+
+        if not hasattr(preference, key):
+            raise BadRequest(f"Not a valid notification setting: {key}")
+
+        value = changes.getlist(key)[0] == 'individual'
+        if getattr(preference, key) == value:
+            continue
+
+        setattr(preference, key, value)
+        changed = True
+
+    if not changed:
+        messages.add_message(request,
+                             messages.WARNING,
+                             mark_safe("No changes were made"))
+        return redirect(reverse('crt_forms:crt-forms-notifications'))
+
+    preference.save()
+    messages.add_message(request,
+                         messages.SUCCESS,
+                         mark_safe("Your preferences have been saved"))
+    return redirect(reverse('crt_forms:crt-forms-notifications'))
 
 
 class ProfileView(LoginRequiredMixin, FormView):

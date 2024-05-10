@@ -1,0 +1,18 @@
+{% load notification_preference_helpers %}
+{% load get_dict_item %}
+
+<tr>
+  <td>
+    {{title}}
+  </td>
+  <td>
+    {% for choice_value, choice_display in choices|get_dict_item:key %}
+    {% with existing_value=preferences|get_preference_value:key %}
+      <input id="{{key}}-{{choice_value}}" class="usa-radio__input" type="radio" name="{{key}}" {% if choice_value == existing_value %}checked="checked" {% endif %}value="{{choice_value}}"/>
+    <label for="{{key}}-{{choice_value}}" class="usa-radio__label display-flex flex-column">
+      {{choice_display}}
+    </label>
+    {% endwith %}
+    {% endfor %}
+  </td>
+</tr>

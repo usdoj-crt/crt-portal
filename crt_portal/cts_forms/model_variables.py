@@ -803,3 +803,10 @@ PRIMARY_COMPLAINT_EXTRA_QUESTIONS = {
     'something_else': [],
 
 }
+
+NOTIFICATION_PREFERENCE_CHOICES = {
+    'assigned_to': [
+        ('individual', 'Individual'),
+        ('none', 'None'),
+    ]
+}
