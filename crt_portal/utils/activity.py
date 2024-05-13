@@ -32,7 +32,7 @@ def _handle_notify_assigned_to(*, user, verb, description, target):
     if not hasattr(report.assigned_to, 'notification_preference'):
         logging.info(f'Not notifying assignee (no notification preference) (report {report.id})')
         return
-    if not report.assigned_to.notification_preference.assigned_to:
+    if report.assigned_to.notification_preference.assigned_to == 'none':
         logging.info(f'Not notifying assignee (opted out of notification) (report {report.id})')
         return
     if not report.assigned_to.email:
@@ -62,7 +62,7 @@ def _handle_bulk_notify_assigned_to(*, user, verb, description, targets):
     if not hasattr(first_report.assigned_to, 'notification_preference'):
         logging.info(f'Not notifying assignee (no notification preference) ({count} reports)')
         return
-    if not first_report.assigned_to.notification_preference.assigned_to:
+    if first_report.assigned_to.notification_preference.assigned_to == 'none':
         logging.info(f'Not notifying assignee (opted out of notification) ({count} reports)')
         return
     if not first_report.assigned_to.email:
