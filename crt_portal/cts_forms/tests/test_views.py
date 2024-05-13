@@ -995,14 +995,35 @@ class CRTDispositionTests(TestCase):
         self.assertIn('1 Year', str(response.content))
 
     def test_other_scheduled_reports(self):
-        """Should only return two reports"""
+        """Should only return two reports, with three year and ten year"""
         url = f'{self.url}?disposition_status=other'
         self.client.force_login(self.superuser)
         response = self.client.get(url)
         reports = response.context['data_dict']
         report_len = len(reports)
         self.assertEqual(report_len, 2)
-        self.assertIn('Permanent', str(response.content))
+        self.assertIn('3 Year', str(response.content))
+        self.assertIn('10 Year', str(response.content))
+
+    def test_filter_by_schedule(self):
+        """Should only return two reports, with three year and ten year"""
+        url = f'{self.url}?disposition_status=other&retention_schedule=10%20Year'
+        self.client.force_login(self.superuser)
+        response = self.client.get(url)
+        reports = response.context['data_dict']
+        report_len = len(reports)
+        self.assertEqual(report_len, 1)
+        self.assertIn('10 Year', str(response.content))
+
+    def test_filter_by_expiration(self):
+        """Should only return two reports, with three year and ten year"""
+        url = f'{self.url}?disposition_status=other&expiration_date=2028-01-01'
+        self.client.force_login(self.superuser)
+        response = self.client.get(url)
+        reports = response.context['data_dict']
+        report_len = len(reports)
+        self.assertEqual(report_len, 1)
+        self.assertIn('10 Year', str(response.content))
 
     def test_disposition_bulk_action(self):
         url = reverse('crt_forms:disposition-actions')
