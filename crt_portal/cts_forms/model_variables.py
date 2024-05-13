@@ -246,6 +246,13 @@ STATUS_CHOICES = (
     (CLOSED_STATUS, 'Closed'),
 )
 
+NOTIFICATION_CADENCE_CHOICES = (
+    ('none', 'None'),
+    ('individual', 'Individual'),
+    ('daily', 'Daily Digest'),
+    ('weekly', 'Weekly Digest'),
+)
+
 # CRT views only
 BATCH_STATUS_CHOICES = (
     ('ready', 'Ready'),

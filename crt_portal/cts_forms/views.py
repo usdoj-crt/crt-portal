@@ -795,7 +795,7 @@ def _notification_change(request):
         if not hasattr(preference, key):
             raise BadRequest(f"Not a valid notification setting: {key}")
 
-        value = changes.getlist(key)[0] == 'individual'
+        value = changes.getlist(key)[0]
         if getattr(preference, key) == value:
             continue
 

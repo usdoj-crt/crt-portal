@@ -395,11 +395,11 @@ class NotificationPreferencesTests(TestCase):
         )
         NotificationPreference.objects.create(
             user=self.users.subscribed,
-            assigned_to=True,
+            assigned_to='individual',
         )
         NotificationPreference.objects.create(
             user=self.users.unsubscribed,
-            assigned_to=False,
+            assigned_to='none',
         )
 
     def test_unsubscribe_unsubscribes(self):
@@ -416,7 +416,7 @@ class NotificationPreferencesTests(TestCase):
         self.assertIn('You have been unsubscribed from all portal notifications',
                       [m.message for m in get_messages(response.wsgi_request)])
         user.refresh_from_db()
-        self.assertFalse(user.notification_preference.assigned_to)
+        self.assertEqual(user.notification_preference.assigned_to, 'none')
 
     def test_unsubscribe_safe_for_no_prefs(self):
         """The comment shows up in the report's activity log"""
@@ -448,7 +448,7 @@ class NotificationPreferencesTests(TestCase):
         self.assertIn('You are not subscribed to notifications',
                       [m.message for m in get_messages(response.wsgi_request)])
         user.refresh_from_db()
-        self.assertFalse(user.notification_preference.assigned_to)
+        self.assertEqual(user.notification_preference.assigned_to, 'none')
 
 
 class CommentActionTests(TestCase):
