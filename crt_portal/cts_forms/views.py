@@ -751,7 +751,7 @@ def unsubscribe_view(request):
         return redirect(reverse('crt_forms:crt-forms-index'))
     preferences = request.user.notification_preference
 
-    if not preferences.assigned_to:
+    if preferences.assigned_to == 'none':
         messages.add_message(request,
                              messages.ERROR,
                              mark_safe("You are not subscribed to notifications"))
