@@ -757,7 +757,7 @@ def unsubscribe_view(request):
                              mark_safe("You are not subscribed to notifications"))
         return redirect(reverse('crt_forms:crt-forms-index'))
 
-    preferences.assigned_to = False
+    preferences.assigned_to = 'none'
     preferences.save()
     messages.add_message(request,
                          messages.SUCCESS,
