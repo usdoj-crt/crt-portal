@@ -23,54 +23,55 @@ def send_action(user, *, verb, description, target, send_notification=False, is_
         )
 
 
-def _get_assigned_to_frequency(*, reports, user) -> Optional[str]:
+def _get_frequency(preference_name, *, reports, user, recipient) -> Optional[str]:
     if not reports:
-        logging.warning('Not notifying assignee (no target report given)')
+        logging.warning(f'Not notifying {preference_name} (no target report given)')
         return 'none'
 
     suffix = f'({len(reports)} reports)' if reports else f'(report {reports[0].id})'
 
-    if not reports[0].assigned_to:
-        logging.info(f'Not notifying assignee (no assignee) {suffix}')
+    if not recipient:
+        logging.info(f'Not notifying {preference_name} (no recipient) {suffix}')
         return 'none'
-    if not hasattr(reports[0].assigned_to, 'notification_preference'):
-        logging.info(f'Not notifying assignee (no notification preference) {suffix}')
+    if not hasattr(recipient, 'notification_preference'):
+        logging.info(f'Not notifying {preference_name} (no notification preference) {suffix}')
         return 'none'
 
-    preference = reports[0].assigned_to.notification_preference.assigned_to == 'none'
+    preference = getattr(recipient.notification_preference, preference_name)
     if preference == 'none':
-        logging.info(f'Not notifying assignee (opted out of notification) {suffix}')
+        logging.info(f'Not notifying {preference_name} (opted out of notification) {suffix}')
         return 'none'
-    if not reports[0].assigned_to.email:
-        logging.warning(f'Not notifying assignee (User {reports[0].assigned_to.id} is opted in, but has no email address)')
+    if not recipient.email:
+        logging.warning(f'Not notifying {preference_name} (User {recipient.id} is opted in, but has no email address)')
         return 'none'
 
     return preference
 
 
-def _handle_notify_assigned_to(*, user, verb, description, target):
+def _handle_notify(preference_name, *, user, verb, description, target):
     reports = None
     if isinstance(target, Report):
         reports = [target]
     elif target and isinstance(target[0], Report):
         reports = target
 
-    frequency = _get_assigned_to_frequency(reports=reports, user=user)
+    recipient = _get_recipient(preference_name, reports)
+    frequency = _get_frequency(preference_name, reports=reports, user=user, recipient=recipient)
     if frequency == 'none':
         return
 
     if frequency == 'individual':
-        _notify_individual(user=user, reports=reports, verb=verb, description=description, target=target)
+        _notify_individual(user=user, reports=reports, verb=verb, description=description, target=target, template_title=preference_name, recipient=recipient)
         return
 
     raise NotImplementedError(f'Unsupported frequency: {frequency}')
 
 
-def _notify_individual(user, *, reports, verb, description, target):
+def _notify_individual(user, *, reports, verb, description, target, template_title, recipient):
     if len(reports) == 1:
-        notify(template_title='assigned_to',
+        notify(template_title=template_title,
                report=reports[0],
-               recipients=[reports[0].assigned_to.email],
+               recipients=[recipient.email],
                actstream={
                    'user': user,
                    'verb': verb,
@@ -79,16 +80,21 @@ def _notify_individual(user, *, reports, verb, description, target):
                })
         return
 
-    bulk_notify(template_title='assigned_to_bulk',
+    bulk_notify(template_title=f'{template_title}_bulk',
                 report=reports[0],
                 reports=reports,
-                recipients=[reports[0].assigned_to.email],
+                recipients=[recipient.email],
                 actstream={
                     'user': user,
                     'verb': verb,
                     'description': description,
-                    'targets': target,
-                })
+                    'targets': target})
+
+
+def _get_recipient(preference_name, reports):
+    if preference_name == 'assigned_to' and reports:
+        return reports[0].assigned_to
+    return None
 
 
 def handle_notify(*, user, verb, description, target):
@@ -100,4 +106,4 @@ def handle_notify(*, user, verb, description, target):
     }
     verb = kwargs.get('verb', None)
     if verb == 'Assigned to:':
-        return _handle_notify_assigned_to(**kwargs)
+        return _handle_notify('assigned_to', **kwargs)
