@@ -37,7 +37,9 @@
             </a>
           </th>
           {% render_sortable_heading 'Status' sort_state filter_state grouping group_params index %}
-          {% render_sortable_heading 'Section' sort_state filter_state grouping group_params index %}
+          <th scope="col">
+            <span>Section</span>
+          </th>
           {% render_sortable_heading 'Retention Schedule' sort_state filter_state grouping group_params index %}
           {% render_sortable_heading 'Expiration Date' sort_state filter_state grouping group_params index %}
           {% render_sortable_heading 'Closed Date' sort_state filter_state grouping group_params index %}
