@@ -937,6 +937,10 @@ ul.table-tabs {
   }
 }
 
+label.flex-column span.usa-tooltip {
+  width: fit-content;
+}
+
 .scrollable-table-footer {
   height: 3.5em;
   margin-bottom: 0;
