@@ -751,13 +751,13 @@ def unsubscribe_view(request):
         return redirect(reverse('crt_forms:crt-forms-index'))
     preferences = request.user.notification_preference
 
-    if not preferences.assigned_to:
+    if preferences.assigned_to == 'none':
         messages.add_message(request,
                              messages.ERROR,
                              mark_safe("You are not subscribed to notifications"))
         return redirect(reverse('crt_forms:crt-forms-index'))
 
-    preferences.assigned_to = False
+    preferences.assigned_to = 'none'
     preferences.save()
     messages.add_message(request,
                          messages.SUCCESS,
@@ -795,7 +795,7 @@ def _notification_change(request):
         if not hasattr(preference, key):
             raise BadRequest(f"Not a valid notification setting: {key}")
 
-        value = changes.getlist(key)[0] == 'individual'
+        value = changes.getlist(key)[0]
         if getattr(preference, key) == value:
             continue
 

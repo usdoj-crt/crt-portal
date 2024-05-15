@@ -91,7 +91,7 @@ class NotificationManagementTests(TestCase):
         self.client.login(username='DELETE_USER', password='')  # nosec
         NotificationPreference.objects.all().delete()
         self.preference = NotificationPreference.objects.get_or_create(user=self.user)[0]
-        self.preference.assigned_to = True
+        self.preference.assigned_to = 'individual'
         self.preference.save()
 
     def test_renders(self):
