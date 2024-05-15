@@ -123,48 +123,50 @@ WEB_EXTERNAL_HOSTNAME="http://localhost:8000"
 WEB_INTERNAL_HOSTNAME="http://web:8000"
 ```
 
-#### Recaptcha
+#### Challenge ("Captcha" / Turnstile)
 
 #### Locally
 
-We use Google's recaptcha to discourage bot users.
+We use Cloudflare Turnstile to discourage bot users.
 
-If you need to set it up locally, create a new recaptcha v2 project (I'm not a robot checkbox) following Google's current instructions. Make sure to include `localhost` as one of the supported domains, and uncheck `verify hostname`.
+If you need to set it up locally, create a new turnstile challenge / secret key following Cloudflare's current instructions. Make sure to include `localhost` as one of the supported domains, and uncheck `verify hostname`.
 
 This will give you a site key and a secret key. Set the following environment variables to make use of them:
 
 ```
-RECAPTCHA_SITE_KEY='etcetcetc'
-RECAPTCHA_SECRET_KEY='etcetcetc'
-RECAPTCHA_DEFEAT_KEY='etcetcetc'
+CHALLENGE_SITE_KEY='etcetcetc'
+CHALLENGE_SECRET_KEY='etcetcetc'
+CHALLENGE_DEFEAT_KEY='etcetcetc'
 ```
 
 You will need to restart the local development server if it's already running for this to take effect.
 
+Note that cloudflare provides [special site and secret keys](https://developers.cloudflare.com/turnstile/troubleshooting/testing/) for testing turnstile. To iterate on these quickly, it's probably faster to modify settings.py than to modify .env and restart the server.
+
 ##### On CI/CD
 
-The RECAPTCHA_DEFEAT_KEY is used to disable captcha for CI/CD. You'll need to make it up. It should be long.
+The CHALLENGE_DEFEAT_KEY is used to disable captcha for CI/CD. You'll need to make it up. It should be long.
 
 It must be put into the [CircleCI environment variables](https://app.circleci.com/settings/project/github/usdoj-crt/crt-portal/environment-variables), and it must match the setting for cloud.gov (see "On production")
 
 ##### On production
 
-Recaptcha environment variables must be set via cloud.gov (but only once!). To do this, run:
+Challenge environment variables must be set via cloud.gov (but only once!). To do this, run:
 
 ```bash
 cf target -s dev
-cf set-env crt-portal-django RECAPTCHA_SITE_KEY yoursecrethere
-cf set-env crt-portal-django RECAPTCHA_SECRET_KEY yoursecrethere
-cf set-env crt-portal-django RECAPTCHA_DEFEAT_KEY yoursecrethere
+cf set-env crt-portal-django CHALLENGE_SITE_KEY yoursecrethere
+cf set-env crt-portal-django CHALLENGE_SECRET_KEY yoursecrethere
+cf set-env crt-portal-django CHALLENGE_DEFEAT_KEY yoursecrethere
 
 cf target -s staging
-cf set-env crt-portal-django RECAPTCHA_SITE_KEY yoursecrethere
-cf set-env crt-portal-django RECAPTCHA_SECRET_KEY yoursecrethere
-cf set-env crt-portal-django RECAPTCHA_DEFEAT_KEY yoursecrethere
+cf set-env crt-portal-django CHALLENGE_SITE_KEY yoursecrethere
+cf set-env crt-portal-django CHALLENGE_SECRET_KEY yoursecrethere
+cf set-env crt-portal-django CHALLENGE_DEFEAT_KEY yoursecrethere
 
 cf target -s prod
-cf set-env crt-portal-django RECAPTCHA_SITE_KEY yoursecrethere
-cf set-env crt-portal-django RECAPTCHA_SECRET_KEY yoursecrethere
+cf set-env crt-portal-django CHALLENGE_SITE_KEY yoursecrethere
+cf set-env crt-portal-django CHALLENGE_SECRET_KEY yoursecrethere
 
 # Note that prod does not need a defeat key, as we do not run e2e tests against prod.
 ```

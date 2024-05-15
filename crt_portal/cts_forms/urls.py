@@ -2,7 +2,7 @@ from django.urls import path
 
 from .views import (ActionsView, SavedSearchActionView, SavedSearchView, data_piecemeal_view, index_view, data_view, dashboard_view, dashboard_activity_log_view, disposition_view, RoutingGuideView, DispositionGuideView, DispositionActionsView, DispositionBatchActionsView, ShowView, ProFormView,
                     SaveCommentView, TrendView, ResponseView, SearchHelperView,
-                    PrintView, ProfileView, ReportAttachmentView, ReportDataView, DataExport, RemoveReportAttachmentView, unsubscribe_view)
+                    PrintView, ProfileView, ReportAttachmentView, ReportDataView, DataExport, RemoveReportAttachmentView, unsubscribe_view, notification_view)
 from .forms import ProForm
 
 app_name = 'crt_forms'
@@ -38,4 +38,5 @@ urlpatterns = [
     path('disposition/actions', DispositionActionsView.as_view(), name='disposition-actions'),
     path('disposition/batch/<uuid:id>/', DispositionBatchActionsView.as_view(), name='disposition-batch-actions'),
     path('notifications/unsubscribe', unsubscribe_view, name='crt-forms-notifications-unsubscribe'),
+    path('notifications/', notification_view, name='crt-forms-notifications'),
 ]

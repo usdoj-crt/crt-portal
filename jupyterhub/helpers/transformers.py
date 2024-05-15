@@ -98,25 +98,28 @@ def column_to_html(table_name, key) -> str:
     return f'<th{filter_arg}>{display}</th>'
 
 
+def _encode_data(data):
+    return base64.b64encode(
+        json.dumps(data, separators=[',', ':']).encode('utf-8')
+    ).decode('utf-8')
+
+
 def result_to_html_table(result: ResultSet, table_name, **kwargs) -> str:
     columns = ''.join([
         column_to_html(table_name, key)
         for key in result.keys
     ])
 
-    rows = json.dumps([
-        *result.DataFrame().astype(str).to_numpy().tolist(),
-    ], separators=(',', ':'))
-    rows_encoded = base64.b64encode(rows.encode('utf-8')).decode('utf-8')
+    rows = _encode_data([*result.DataFrame().astype(str).to_numpy().tolist()])
 
     extra_data = '\n'.join([
-        f'data-{key}={value}'
+        f'data-{key}={_encode_data(value)}'
         for key, value in kwargs.items()
     ])
 
     return f'''
         <table
-            data-rows="{rows_encoded}"
+            data-rows="{rows}"
             {extra_data}
             class="crt-table datatable-table">
             <thead>{columns}</thead>

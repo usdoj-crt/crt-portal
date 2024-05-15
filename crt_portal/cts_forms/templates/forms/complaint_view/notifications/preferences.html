@@ -1,0 +1,17 @@
+<div class="crt-xscroll">
+  <table class="notifications crt-table">
+    <thead>
+      <tr>
+        <th>
+          Type
+        </th>
+        <th>
+          Notification Cadence
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+    {% include 'forms/complaint_view/notifications/preference.html' with preferences=preferences choices=choices title="Complaint assignments" key="assigned_to" %}
+    </tbody>
+  </table>
+</div>

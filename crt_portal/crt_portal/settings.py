@@ -155,7 +155,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'features.templatetags.feature_context.enabled_features',
-                'cts_forms.templatetags.site_keys.recaptcha_site_key',
+                'cts_forms.templatetags.site_keys.challenge_site_key',
             ],
         },
     },
@@ -240,10 +240,10 @@ RESTRICT_EMAIL_RECIPIENTS_TO = os.environ.get('RESTRICT_EMAIL_RECIPIENTS_TO', ''
 
 EMAIL_AUTORESPONSE_ENABLED = os.environ.get('EMAIL_AUTORESPONSE_ENABLED', False)
 
-RECAPTCHA = {
-    'SITE_KEY': os.environ.get('RECAPTCHA_SITE_KEY'),
-    'SECRET_KEY': os.environ.get('RECAPTCHA_SECRET_KEY'),
-    'DEFEAT_KEY': os.environ.get('RECAPTCHA_DEFEAT_KEY'),
+CHALLENGE = {
+    'SITE_KEY': os.environ.get('CHALLENGE_SITE_KEY'),
+    'SECRET_KEY': os.environ.get('CHALLENGE_SECRET_KEY'),
+    'DEFEAT_KEY': os.environ.get('CHALLENGE_DEFEAT_KEY'),
 }
 
 if environment in ['DEVELOP']:
@@ -400,6 +400,7 @@ allowed_sources = (
     'https://stats.g.doubleclick.net',
     'https://www.googletagmanager.com/',
     'https://cdnjs.cloudflare.com/',
+    'https://challenges.cloudflare.com/',
     'https://www.google.com/',
     'a.tile.openstreetmap.org',  # For loading image tiles in map data
     'b.tile.openstreetmap.org',  # For loading image tiles in map data
@@ -425,6 +426,7 @@ CSP_SCRIPT_SRC = (
     'https://touchpoints.app.cloud.gov',
     'https://www.googletagmanager.com/',
     'https://cdnjs.cloudflare.com/',
+    'https://challenges.cloudflare.com/',
     'https://www.google.com/',
     'a.tile.openstreetmap.org',  # For loading image tiles in map data
     'b.tile.openstreetmap.org',  # For loading image tiles in map data
@@ -441,6 +443,7 @@ CSP_CONNECT_SRC = (
     'https://touchpoints.app.cloud.gov',
     'https://www.googletagmanager.com/',
     'https://cdnjs.cloudflare.com/',
+    'https://challenges.cloudflare.com/',
     'https://www.google.com/',
     'a.tile.openstreetmap.org',  # For loading image tiles in map data
     'b.tile.openstreetmap.org',  # For loading image tiles in map data

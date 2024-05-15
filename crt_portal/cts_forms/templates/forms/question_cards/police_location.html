@@ -22,12 +22,12 @@
   {% endwith %}
 
   <script nonce="{{request.csp_nonce}}">
-    var toggleWrapperEl = document.querySelector('[data-toggle="toggle"]');
-    var toggleControls = Array.prototype.slice.call(
+    const toggleWrapperEl = document.querySelector('[data-toggle="toggle"]');
+    const toggleControls = Array.prototype.slice.call(
       toggleWrapperEl.querySelectorAll('[name$="-inside_correctional_facility"]')
     );
-    var toggleShowEl = toggleControls[toggleControls.length - 1];
-    var toggleableEl = document.querySelector('.other-class-option');
+    const toggleShowEl = toggleControls.find(control => control.value === 'inside');
+    const toggleableEl = document.querySelector('.other-class-option');
 
     if (!toggleShowEl.checked) {
       toggleableEl.classList.add('display-none');

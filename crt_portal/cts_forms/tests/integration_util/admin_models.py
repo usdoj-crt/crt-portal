@@ -1,6 +1,8 @@
 """Contains utilties for creating models using the admin panel for testing."""
 import urllib.parse
 
+from cts_forms.tests.integration_util import element
+
 
 def delete(page, admin_path, **filters):
     filterstring = urllib.parse.urlencode(filters, quote_via=urllib.parse.quote)
@@ -116,6 +118,50 @@ def create(page, admin_path, **fields) -> int:
     return int(url_with_id.strip('/').split('/')[-2])
 
 
+def _go_to_model(page, admin_path, filters):
+    filterstring = urllib.parse.urlencode(filters, quote_via=urllib.parse.quote)
+    query_page_path = f'{admin_path}/?{filterstring}'
+    with page.expect_navigation():
+        page.goto(query_page_path)
+    if page.locator('.paginator').text_content().strip().startswith('0 '):
+        raise ValueError('No models found to update')
+    with page.expect_navigation():
+        page.locator("#result_list tbody tr th a").first.click()
+
+
+def read(page, admin_path, filters, fields):
+    """Helper to retrieve the values of an admin model.
+
+    The supplied filters should only match _one_ object. If they don't the first one will be chosen.
+
+    For example:
+        read(
+            page,
+            admin_path='/admin/cts_forms/foo',
+            filters={'title': 'A Title'},
+            fields=['title', 'kind'],
+        )
+
+    If you encounter an unsupported input type, you may need to handle it below.
+    """
+    _go_to_model(page, admin_path, filters)
+    return {
+        field: _read_field(page, field)
+        for field in fields
+    }
+
+
+def _read_field(page, field):
+    container = page.locator(f'.field-{field}')
+    if container.evaluate("el => el.querySelector('.readonly')"):
+        return element.normalize_text(container.locator('.readonly'))
+
+    if container.evaluate("el => el.querySelector('input')"):
+        return container.locator('input').value
+
+    return element.normalize_text(container)
+
+
 def update(page, admin_path, filters, **fields):
     """Helper to modify an admin model.
 
@@ -132,14 +178,7 @@ def update(page, admin_path, filters, **fields):
 
     If you encounter an unsupported input type, you may need to handle it below.
     """
-    filterstring = urllib.parse.urlencode(filters, quote_via=urllib.parse.quote)
-    query_page_path = f'{admin_path}/?{filterstring}'
-    with page.expect_navigation():
-        page.goto(query_page_path)
-    if page.locator('.paginator').text_content().strip().startswith('0 '):
-        raise ValueError('No models found to update')
-    with page.expect_navigation():
-        page.click("#result_list a")
+    _go_to_model(page, admin_path, filters)
 
     fill_fields(page, selector_format='#id_{}', fields=fields)
 
