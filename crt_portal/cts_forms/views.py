@@ -1189,6 +1189,7 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
         display_name = f'{request.user.first_name} {request.user.last_name}' if request.user.first_name and request.user.last_name else request.user.username
         output = {
             'action': request.GET.get('action', ''),
+            'rejected_batch_uuid': rejected_batch_uuid,
             'uuid': uuid,
             'display_name': display_name,
             'disposed_by': request.user.pk,
@@ -1218,6 +1219,7 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
         ids = request.POST.get('ids', '').split(',')
         selected_all = request.POST.get('all', '') == 'all'
         query_string = request.POST.get('query_string', return_url_args)
+        rejected_batch_uuid = request.GET.get('rejected_batch_uuid', None)
         uuid = request.POST.get('uuid', None)
         if confirm_all:
             requested_query = reconstruct_query(query_string)
@@ -1235,6 +1237,10 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
             batch = get_object_or_404(ReportDispositionBatch, pk=uuid)
         bulk_disposition_form = BulkDispositionForm(request.POST, user=request.user, instance=batch)
         if bulk_disposition_form.is_valid():
+            if rejected_batch_uuid:
+                rejected_batch = get_object_or_404(ReportDispositionBatch, pk=rejected_batch_uuid)
+                rejected_batch.status = 'archived'
+                rejected_batch.save()
             batch = bulk_disposition_form.save(commit=False)
             batch.save()
             bulk_disposition_form.update_reports(requested_query, request.user, batch)
@@ -1371,9 +1377,13 @@ class DispositionBatchActionsView(LoginRequiredMixin, FormView):
         if form.is_valid():
             rejected_report_ids = request.POST.get('rejected_report_ids', '').split(',')
             rejected_report_dispo_objects = ReportDisposition.objects.filter(public_id__in=rejected_report_ids)
-            for report in rejected_report_dispo_objects:
-                report.rejected = True
+            for report_dispo_object in rejected_report_dispo_objects:
+                report = Report.objects.filter(public_id=report_dispo_object.public_id).first()
+                report.batched_for_disposal = False
+                report.rejected_for_disposal = True
                 report.save()
+                report_dispo_object.rejected = True
+                report_dispo_object.save()
             batch = form.save(commit=False)
             batch.save()
             if batch.status == 'approved':

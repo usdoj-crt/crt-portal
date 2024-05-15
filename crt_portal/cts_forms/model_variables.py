@@ -259,6 +259,7 @@ BATCH_STATUS_CHOICES = (
     ('in_review', 'In Review'),
     ('approved', 'Approved'),
     ('rejected', 'Rejected'),
+    ('archived', 'Archived'),
 )
 
 # CRT views only

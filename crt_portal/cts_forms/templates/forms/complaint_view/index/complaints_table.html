@@ -69,9 +69,15 @@
               </td>
               <td>
                 <a class="td-link display-block" href="{{datum.url}}">
+                  {% if datum.report.rejected_for_disposal %}
+                  <span class="status-tag status-rejected">
+                    rejected
+                  </span>
+                  {% else %}
                   <span class="status-tag status-{{ datum.report.status }}">
                     {{ datum.report.status }}
                   </span>
+                  {% endif %}
                 </a>
               </td>
               <td>
