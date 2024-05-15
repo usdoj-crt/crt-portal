@@ -4,6 +4,8 @@
 {% include 'forms/complaint_view/disposition/header.html' with profile_form=profile_form %}
 {% endblock %}
 
+{% block main_class %} class="margin-top-5 margin-bottom-0"{% endblock %}
+
 {% block content %}
 <div class="intake-content">
   <div id="status-update" class="grid-col-auto">
@@ -15,38 +17,38 @@
 
 </form>
 <div class="grid-col-auto">
-<div class="intake-table">
+<div class="intake-table flat">
   <form
     id="sort-page-form"
     method="GET"
     action="/form/disposition"
     novalidate
   >
-    <div class="intake-table-header">
+    <div class="intake-table-tabbed-header">
       {% include 'forms/complaint_view/disposition/tabs.html' with disposition_status=disposition_status %}
-      <span class="intake-pagination margin-left-auto">
-        Showing {{ page_format.page_range_start }} - {{ page_format.page_range_end }} of {{ page_format.count }} records
+      <span class="intake-pagination">
+        {{ page_format.page_range_start }} to {{ page_format.page_range_end }} of {{ page_format.count }} records
         {% include 'forms/complaint_view/index/filters/per_page.html' with per_page=page_format.per_page %}
       </span>
     </div>
     <div class="intake-table-chipbar">
-      <div class="grid-col-auto">
-        {% include "forms/complaint_view/disposition/chipbar.html" with disposition_status=disposition_status %}
-      </div>
-      <div class="grid-col-auto">
-        {% include "forms/complaint_view/disposition/filter-controls.html" with filters=filters form=form %}
+      {% include "forms/complaint_view/disposition/chipbar.html" with disposition_status=disposition_status %}
+      <div class="controls">
+      {% include "forms/complaint_view/disposition/filter-controls.html" with filters=filters form=form %}
       </div>
     </div>
   </form>
 </div>
+  <div class="scrollable-table">
   {% if disposition_status == 'batches' %}
     {% include "forms/complaint_view/disposition/batches_table.html" with page_format=page_format sort_state=sort_state disposition_status=disposition_status %}
   {% else %}
     {% include "forms/complaint_view/disposition/complaints_table.html" with page_format=page_format sort_state=sort_state disposition_status=disposition_status %}
   {% endif %}
-  <div class="margin-bottom-5">
-    {% include "forms/snippets/pagination.html" with page_format=page_format page_args=page_args placement="bottom" %}
   </div>
+  </div>
+  <div class="scrollable-table-footer">
+    {% include "forms/snippets/pagination.html" with page_format=page_format page_args=page_args placement="bottom" %}
   </div>
 </div>
 

@@ -1,32 +1,30 @@
-<div class="title">
-    <ul class="usa-nav__primary usa-accordion display-flex flex-row">
-      <li class="usa-nav__primary-item past-disposition" data-ga-event-name="nav item past disposition">
-        <span class="usa-tooltip" data-position="right" data-classes="display-inline" title="Reports that are past their expiration date">
-        <button type="submit" name="disposition_status" value="past" class="{% if disposition_status == 'past' %} selected {% endif %}">
-          Past disposition
-        </button>
-        </span>
-      </li>
-      <li class="usa-nav__primary-item eligible-expiration" data-ga-event-name="nav item eligible for disposition">
-        <span class="usa-tooltip" data-position="right" data-classes="display-inline" title="Reports that are within 30 days of or on their expiration date">
-        <button type="submit" name="disposition_status" value="eligible" class="{% if disposition_status == 'eligible' %} selected {% endif %}">
-          Eligible for disposition
-        </button>
-        </span>
-      </li>
-      <li class="usa-nav__primary-item other-scheduled" data-ga-event-name="nav item other scheduled reports">
-        <span class="usa-tooltip" data-position="right" data-classes="display-inline" title="Reports that have expiration dates more than 30 days in the future">
-        <button type="submit" name="disposition_status" value="other" class="{% if disposition_status == 'other' %} selected {% endif %}">
-          Other scheduled reports
-        </button>
-        </span>
-      </li>
-      <li class="usa-nav__primary-item batched-reports" data-ga-event-name="nav item report batches for disposal">
-        <span class="usa-tooltip" data-position="right" data-classes="display-inline" title="Batches of reports awaiting final records unit approval">
-        <button type="submit" name="disposition_status" value="batches" class="{% if disposition_status == 'batches' %} selected {% endif %}">
-          Report batches for disposal
-        </button>
-        </span>
-      </li>
-    </ul>
-  </div>
+<ul class="table-tabs">
+  <li class="past-disposition" data-ga-event-name="nav item past disposition">
+    <button type="submit" name="disposition_status" value="past" class="{% if disposition_status == 'past' %} selected {% endif %}">
+      <span class="usa-tooltip" data-position="right" data-classes="display-inline" title="Reports that are past their expiration date">
+      Past disposition
+      </span>
+    </button>
+  </li>
+  <li class="eligible-expiration" data-ga-event-name="nav item eligible for disposition">
+    <button type="submit" name="disposition_status" value="eligible" class="{% if disposition_status == 'eligible' %} selected {% endif %}">
+      <span class="usa-tooltip" data-position="right" data-classes="display-inline" title="Reports that are within 30 days of or on their expiration date">
+      Eligible for disposition
+      </span>
+    </button>
+  </li>
+  <li class="other-scheduled" data-ga-event-name="nav item other scheduled reports">
+    <button type="submit" name="disposition_status" value="other" class="{% if disposition_status == 'other' %} selected {% endif %}">
+      <span class="usa-tooltip" data-position="right" data-classes="display-inline" title="Reports that have expiration dates more than 30 days in the future">
+      Other scheduled reports
+      </span>
+    </button>
+  </li>
+  <li class="batched-reports" data-ga-event-name="nav item report batches for disposal">
+    <button type="submit" name="disposition_status" value="batches" class="{% if disposition_status == 'batches' %} selected {% endif %}">
+      <span class="usa-tooltip" data-position="right" data-classes="display-inline" title="Batches of reports awaiting final records unit approval">
+      Report batches for disposal
+      </span>
+    </button>
+  </li>
+</ul>

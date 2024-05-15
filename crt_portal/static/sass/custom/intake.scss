@@ -886,6 +886,131 @@ input::-webkit-inner-spin-button {
   background-position: right 0.75rem center; // Restore legacy position
 }
 
+ul.table-tabs {
+  color: black;
+
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+
+  margin: 0;
+  padding: 0;
+  gap: 0.5em;
+
+  li {
+    flex-grow: 0;
+    flex-basis: 20%;
+    height: 3em;
+    list-style: none;
+  }
+
+  button {
+    font-size: 0.8em;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    background-color: #C6D5E7;
+    color: black;
+    border: 0;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    font-weight: normal;
+
+    span.usa-tooltip__body {
+      font-weight: normal;
+    }
+
+    &.selected {
+      background-color: white;
+      font-weight: bold;
+    }
+  }
+}
+
+.scrollable-table {
+  height: calc(100vh - 8.5em);  // Footer plus chipbar
+  overflow-y: scroll;
+
+  thead {
+    height: 5em;
+    overflow: scroll;
+  }
+}
+
+.scrollable-table-footer {
+  height: 3.5em;
+  margin-bottom: 0;
+  background-color: white;
+}
+
+.intake-table-chipbar {
+  background-color: white;
+
+  height: 5em;
+
+  padding-top: 1em;
+  padding-bottom: 1em;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  .controls {
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+  }
+
+  .chipbar {
+    display: flex;
+    flex-direction: row;
+    height: 3.5em;
+
+    fieldset {
+      border: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 0.5em;
+      font-weight: bold;
+
+      &:first-of-type {
+        border-right: 2px solid #979797;
+        padding-right: 1em;
+        margin-left: 1em;
+      }
+
+      h3 {
+        text-transform: uppercase;
+        margin: 0;
+        font-size: 0.75em;
+      }
+
+      label {
+        font-size: 0.75em;
+        padding-top: 0.75em;
+        padding-bottom: 0.75em;
+        padding-left: 1.25em;
+        padding-right: 1.25em;
+        color: #162e51;
+        background-color: #e1e7f1;
+        border-radius: 5px;
+
+        &:has(input:checked) {
+          background-color: #162e51;
+          color: white;
+        }
+      }
+
+      input[type="radio"] {
+        display: none;
+      }
+    }
+  }
+}
+
 .crt-dropdown {
   align-items: center;
   background: color('white');
@@ -1190,6 +1315,16 @@ form#cts-forms-profile {
     padding-bottom: 1em;
     padding-right: 1em;
     padding-top: 1em;
+  }
+
+  .intake-table-tabbed-header {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+  }
+
+  &.flat {
+    box-shadow: unset;
   }
 }
 
