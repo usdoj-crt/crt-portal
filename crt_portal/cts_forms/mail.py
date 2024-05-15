@@ -140,7 +140,7 @@ def send_tms(message: Mail, *, report: Optional[Report], purpose: str, dry_run: 
                              body=message.message,
                              html_body=message.html_message,
                              report=report,
-                             recipient=message.recipients,
+                             recipient=message.recipients + message.disallowed_recipients,
                              purpose=purpose
                              ).save()
     else:

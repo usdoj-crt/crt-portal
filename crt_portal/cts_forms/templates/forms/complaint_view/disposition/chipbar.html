@@ -1,0 +1,36 @@
+<div class="chipbar">
+  <fieldset>
+    <h3>Schedule</h3>
+    {% for schedule in schedules %}
+      <label>
+        {{ schedule.name }}
+        <input type="radio" name="retention_schedule" value="{{schedule.name}}">
+      </label>
+    {% endfor %}
+  </fieldset>
+
+  <fieldset>
+    <h3>Expiration</h3>
+    {% if expirations|length == 0 %}
+      <p class="no-expiration">No expiration dates available</p>
+    {% elif expirations|length > 7 %}
+      <select class="usa-select" name="expiration_date">
+        <option value="" selected disabled hidden>Select a date</option>
+        {% for expiration in expirations %}
+        {% with expiration_formatted=expiration|date:"SHORT_DATE_FORMAT" %}
+        <option value="{{expiration|date:'Y-m-d'}}">{{expiration_formatted}}</option>
+        {% endwith %}
+        {% endfor %}
+      </select>
+    {% else %}
+      {% for expiration in expirations %}
+        {% with expiration_formatted=expiration|date:"SHORT_DATE_FORMAT" %}
+        <label>
+          {{ expiration_formatted }}
+          <input type="radio" name="expiration_date" value="{{expiration|date:'Y-m-d'}}">
+        </label>
+        {% endwith %}
+      {% endfor %}
+    {% endif %}
+  </fieldset>
+</div>

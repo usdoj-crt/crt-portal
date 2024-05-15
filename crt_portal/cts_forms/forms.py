@@ -357,35 +357,35 @@ class Contact(ModelForm):
         if not hasattr(self, 'request'):
             return form_data
 
-        client_defeat = self.request.headers.get('X-Captcha-Defeat')
-        server_defeat = settings.RECAPTCHA['DEFEAT_KEY']
+        client_defeat = self.request.headers.get('X-Challenge-Defeat')
+        server_defeat = settings.CHALLENGE['DEFEAT_KEY']
         if server_defeat and client_defeat == server_defeat:
             return form_data
 
         try:
-            recaptcha_secret = settings.RECAPTCHA['SECRET_KEY']
+            challenge_secret = settings.CHALLENGE['SECRET_KEY']
         except KeyError:
-            recaptcha_secret = ''  # nosec
-        # If we're not configured for recaptcha, don't check it:
-        if not recaptcha_secret:
+            challenge_secret = ''  # nosec
+        # If we're not configured for challenge, don't check it:
+        if not challenge_secret:
             return form_data
 
         try:
-            result = requests.post('https://www.google.com/recaptcha/api/siteverify', {
-                'secret': recaptcha_secret,
-                'response': self.request.POST.get('g-recaptcha-response'),
+            result = requests.post('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+                'secret': challenge_secret,
+                'response': self.request.POST.get('cf-turnstile-response'),
             }, headers={'Accept': 'application/json'}).json()  # nosec
         except Exception:
-            # We don't want issues with reaching google to impact form submission
-            logging.exception('Something went wrong while reaching google for recaptcha. Defaulting to allow form submission.')
+            # We don't want issues validating the challenge to stop submission:
+            logging.exception('Something went wrong while validating the challenge. Defaulting to allow form submission.')
             return form_data
 
         if result and result['success']:
             return form_data
 
         errors = result.get('error-codes')
-        logging.error(f'Recaptcha validation failed: {errors}')
-        self.add_error(None, _('Captcha was invalid, please try again.'))
+        logging.error(f'Challenge validation failed: {errors}')
+        self.add_error(None, _('Challenge was invalid, please try again.'))
         return form_data
 
     def __init__(self, *args, **kwargs):
@@ -2595,7 +2595,7 @@ class BulkActionsForm(LitigationHoldLock, Form, ActivityStreamUpdater):
         for act in activities:
             add_activity(act['user'], act['verb'], act['description'], act['report'], True)
         if 'assigned_to' in updated_data:
-            activity.handle_bulk_notify(user, 'Assigned to:', f"Assigned to: Updated to {updated_data['assigned_to']}", reports)
+            activity.handle_notify(user=user, verb='Assigned to:', description=f"Assigned to: Updated to {updated_data['assigned_to']}", target=reports)
         return updated_number or len(reports)  # sometimes only a comment is added
 
 
