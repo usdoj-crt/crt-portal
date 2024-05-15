@@ -1,3 +1,4 @@
+from typing import List, Union
 import functools
 
 from cts_forms.tests.integration_authed.auth import get_test_credentials, login_as_superuser
@@ -25,7 +26,7 @@ def _toggle_as_superuser(feature_name: str, enabled: bool):
 
 def toggle_feature_for_user(*,
                             page,
-                            feature_name: str,
+                            feature_name: Union[str, List[str]],
                             username: str,
                             enable: bool):
     """Toggles a feature for a user.

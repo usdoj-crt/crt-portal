@@ -1,0 +1,38 @@
+{% extends "forms/complaint_view/intake_base.html" %}
+
+{% block page_header %}
+{% include 'forms/complaint_view/notifications/header.html' %}
+{% endblock %}
+
+{% block content %}
+<div class="intake-content">
+  <div>
+      <h2 class="intake-section-title padding-bottom-2">Notification Management</h2>
+      <div class="margin-bottom-2">Customize your preferences for type and frequency of notifications.</div>
+  </div>
+  <div id="status-update" class="grid-col-auto">
+    {% include 'partials/messages.html' %}
+  </div>
+  <div class="crt-portal-card grid-col-auto margin-top-3">
+    <div class="intake-table">
+      <div class="intake-table-header flex-justify">
+        <h3 class="intake-section-title">Notifications</h3>
+      </div>
+      <form method="POST" action="/form/notifications/" novalidate>
+      {% csrf_token %}
+      {% include 'forms/complaint_view/notifications/preferences.html' with preferences=preferences choices=choices %}
+
+      <div class="actions">
+        <button class="save-preferences usa-button" type="submit">Save preferences</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block page_js %}
+{{ block.super }}
+<script src="{% static 'js/ga_util.min.js' %}"></script>
+<script src="{% static 'vendor/js.cookie.min.js' %}"></script>
+<script src="{% static 'vendor/shepherd.js'%}"></script>
+<script type="module" src="{% static 'js/tour.min.js'%}"></script>
+{% endblock %}

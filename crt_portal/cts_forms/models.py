@@ -36,6 +36,7 @@ from .model_variables import (BATCH_STATUS_CHOICES, CLOSED_STATUS,
                               EMPLOYER_SIZE_CHOICES, HATE_CRIME_CHOICES,
                               HATE_CRIMES_TRAFFICKING_MODEL_CHOICES,
                               INTAKE_FORMAT_CHOICES, PRIMARY_COMPLAINT_CHOICES,
+                              NOTIFICATION_CADENCE_CHOICES,
                               PROTECTED_MODEL_CHOICES,
                               PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES,
                               PUBLIC_OR_PRIVATE_SCHOOL_CHOICES,
@@ -119,7 +120,7 @@ class Profile(models.Model):
 
 class NotificationPreference(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='notification_preference')
-    assigned_to = models.BooleanField('Assigned to a report', default=False)
+    assigned_to = models.CharField('Assigned to a report', choices=NOTIFICATION_CADENCE_CHOICES, default='none')
 
     def __str__(self):
         return str(self.user)

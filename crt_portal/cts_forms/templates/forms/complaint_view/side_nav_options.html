@@ -31,5 +31,12 @@
         </a>
       </li>
       {% endif %}
+      {% if ENABLED_FEATURES.notification_management %}
+      <li class="usa-nav__primary-item" data-ga-event-name="notifications nav item">
+        <a class="crt-landing--menu_link reporting-header {% if page == 'notifications' %} selected {% endif %}" href="/form/notifications">
+          Notifications
+        </a>
+      </li>
+      {% endif %}
     </ul>
   </div>
