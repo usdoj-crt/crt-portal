@@ -455,7 +455,6 @@ class Report(models.Model):
     language = models.CharField(default='en', max_length=10, blank=True, null=True)
     viewed = models.BooleanField(default=False)
     batched_for_disposal = models.BooleanField(default=False)
-    rejected_for_disposal = models.BooleanField(default=False)
     # Eventually, these reports will be deleted - but for now, we can use this
     # boolean to hide them from view.
     disposed = models.BooleanField(default=False)
@@ -685,13 +684,14 @@ class Report(models.Model):
     def related_reports_display(self):
         """Return set of related reports grouped by STATUS for template rendering"""
         reports = self.related_reports
-        display = {'new': [], 'open': [], 'closed': []}
+        display = {'new': [], 'open': [], 'closed': [], 'rejected': []}
         for report in reports:
             display[report.status].append(report)
 
         return (('new', display['new']),
                 ('open', display['open']),
                 ('closed', display['closed']),
+                ('rejected', display['rejected']),
                 )
 
     @cached_property

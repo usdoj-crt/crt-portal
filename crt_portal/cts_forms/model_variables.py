@@ -240,10 +240,12 @@ PROTECTED_CLASS_ERROR = _('Please make a selection to continue. If none of these
 NEW_STATUS = 'new'
 OPEN_STATUS = 'open'
 CLOSED_STATUS = 'closed'
+REJECTED_STATUS = 'rejected'
 STATUS_CHOICES = (
     (NEW_STATUS, 'New'),
     (OPEN_STATUS, 'Open'),
     (CLOSED_STATUS, 'Closed'),
+    (REJECTED_STATUS, 'Rejected'),
 )
 
 NOTIFICATION_CADENCE_CHOICES = (
@@ -254,12 +256,17 @@ NOTIFICATION_CADENCE_CHOICES = (
 )
 
 # CRT views only
+READY_STATUS = 'ready'
+APPROVED_STATUS = 'approved'
+IN_REVIEW_STATUS = 'in_review'
+REJECTED_STATUS = 'rejected'
+ARCHIVED_STATUS = 'archived'
 BATCH_STATUS_CHOICES = (
-    ('ready', 'Ready'),
-    ('in_review', 'In Review'),
-    ('approved', 'Approved'),
-    ('rejected', 'Rejected'),
-    ('archived', 'Archived'),
+    (READY_STATUS, 'Ready'),
+    (IN_REVIEW_STATUS, 'In Review'),
+    (APPROVED_STATUS, 'Approved'),
+    (REJECTED_STATUS, 'Rejected'),
+    (ARCHIVED_STATUS, 'Archived'),
 )
 
 # CRT views only

@@ -744,7 +744,7 @@ def disposition_view(request):
     # Records without these values should _never_ show on the disposition page,
     # regardless of user-selected filters:
     report_query = report_query.filter(
-        status='closed',
+        status__in=['closed', 'rejected'],
         retention_schedule__retention_years__gt=0,
     ).exclude(
         retention_schedule__is_retired=True,
@@ -1114,8 +1114,11 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
         )
         for key in keys:
             values = query.values_list(key, flat=True).distinct()
-            if values.count() != 1:
+            if values.count() != 1 and key != 'status':
                 yield key, self.EMPTY_CHOICE
+                continue
+            if key == 'status':
+                yield key, values
                 continue
             if key == 'retention_schedule':
                 yield key, RetentionSchedule.objects.get(pk=values[0]).name
@@ -1219,7 +1222,7 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
         ids = request.POST.get('ids', '').split(',')
         selected_all = request.POST.get('all', '') == 'all'
         query_string = request.POST.get('query_string', return_url_args)
-        rejected_batch_uuid = request.GET.get('rejected_batch_uuid', None)
+        rejected_batch_uuid = request.POST.get('rejected_batch_uuid')
         uuid = request.POST.get('uuid', None)
         if confirm_all:
             requested_query = reconstruct_query(query_string)
@@ -1237,7 +1240,7 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
             batch = get_object_or_404(ReportDispositionBatch, pk=uuid)
         bulk_disposition_form = BulkDispositionForm(request.POST, user=request.user, instance=batch)
         if bulk_disposition_form.is_valid():
-            if rejected_batch_uuid:
+            if rejected_batch_uuid != 'None':
                 rejected_batch = get_object_or_404(ReportDispositionBatch, pk=rejected_batch_uuid)
                 rejected_batch.status = 'archived'
                 rejected_batch.save()
@@ -1267,7 +1270,7 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
             filter_args = f'{get_filter_args(query_filters)}'
             shared_report_fields = {}
             shared_report_fields['date_range'] = self.get_report_date_range(requested_query)
-            keys = ['assigned_section', 'retention_schedule', 'expiration_date']
+            keys = ['assigned_section', 'retention_schedule', 'expiration_date', 'status']
             for key, value in self.get_shared_report_values(requested_query, keys):
                 shared_report_fields[key] = value
             shared_report_fields['date_range'] = self.get_report_date_range(requested_query)
@@ -1334,6 +1337,8 @@ class DispositionBatchActionsView(LoginRequiredMixin, FormView):
         report_dispo_objects = ReportDisposition.objects.filter(batch=batch)
         report_public_ids = report_dispo_objects.values_list('public_id', flat=True)
         reports = Report.objects.filter(public_id__in=report_public_ids).order_by('pk')
+        shared_report_fields = {}
+        shared_report_fields['status'] = reports.order_by('status').values_list('status', flat=True).distinct('status')
         report_ids = list(reports.values_list('pk', flat=True))
         first_report = reports.first()
         page = request.GET.get('page', 1)
@@ -1341,9 +1346,7 @@ class DispositionBatchActionsView(LoginRequiredMixin, FormView):
         reports, page_format = pagination(paginator, page, 15)
         return_url_args = request.GET.get('return_url_args', '')
         return_url_args = urllib.parse.unquote(return_url_args)
-        shared_report_fields = {}
         shared_report_fields['assigned_section'] = first_report.assigned_section
-        shared_report_fields['status'] = first_report.status
         shared_report_fields['retention_schedule'] = first_report.retention_schedule
         can_review_batch = request.user.has_perm('cts_forms.review_dispositionbatch')
         form = BatchReviewForm(user=request.user, can_review_batch=can_review_batch, instance=batch)
@@ -1380,7 +1383,7 @@ class DispositionBatchActionsView(LoginRequiredMixin, FormView):
             for report_dispo_object in rejected_report_dispo_objects:
                 report = Report.objects.filter(public_id=report_dispo_object.public_id).first()
                 report.batched_for_disposal = False
-                report.rejected_for_disposal = True
+                report.status = 'rejected'
                 report.save()
                 report_dispo_object.rejected = True
                 report_dispo_object.save()
@@ -1407,15 +1410,15 @@ class DispositionBatchActionsView(LoginRequiredMixin, FormView):
         report_dispo_objects = ReportDisposition.objects.filter(batch=batch)
         report_public_ids = report_dispo_objects.values_list('public_id', flat=True)
         reports = Report.objects.filter(public_id__in=report_public_ids).order_by('create_date')
+        shared_report_fields = {}
+        shared_report_fields['status'] = reports.values_list('status', flat=True).distinct()
         report_ids = list(reports.values_list('pk', flat=True))
         first_report = reports.first()
         page = request.GET.get('page', 1)
         paginator = Paginator(reports, 15)
         reports, page_format = pagination(paginator, page, 15)
         data = get_disposition_report_data(reports)
-        shared_report_fields = {}
         shared_report_fields['assigned_section'] = first_report.assigned_section
-        shared_report_fields['status'] = first_report.status
         shared_report_fields['retention_schedule'] = first_report.retention_schedule
         output = self.get_reviewer_data(request, batch)
         output.update({

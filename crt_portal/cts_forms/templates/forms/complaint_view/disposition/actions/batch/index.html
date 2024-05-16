@@ -28,7 +28,7 @@
             {% include 'forms/complaint_view/disposition/actions/batch/batch_actions.html' %}
             </div>
             <div class="complaint-actions tablet:grid-col-6">
-                {% include 'forms/complaint_view/disposition/actions/report_list.html' %}
+                {% include 'forms/complaint_view/disposition/actions/report_list.html' with batch=True %}
             </div>
         </div>
       </div>
