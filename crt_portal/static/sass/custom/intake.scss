@@ -1008,6 +1008,10 @@ label.flex-column span.usa-tooltip {
         background-color: #e1e7f1;
         border-radius: 5px;
 
+        &.status {
+          text-transform: uppercase;
+        }
+
         &:has(input:checked) {
           background-color: #162e51;
           color: white;
