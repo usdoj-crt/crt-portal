@@ -9,7 +9,7 @@ from datetime import datetime
 from django.conf import settings
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
-from cts_forms.models import Report, ResponseTemplate
+from cts_forms.models import Report, ResponseTemplate, ScheduledNotification
 from tms.models import TMSEmail
 from utils.markdown_extensions import RelativeToAbsoluteLinkExtension, CustomHTMLExtension
 from utils.site_prefix import get_site_prefix
@@ -114,6 +114,41 @@ def _render_notification_mail(*,
                 subject=f'[CRT Portal] {subject}')
 
 
+def _render_assigned_to_digest(notification):
+    report_id = notification['report']['id']
+    return f'[Report {report_id}](/form/view/{report_id})'
+
+
+def _render_scheduled_notification_mail(scheduled: ScheduledNotification) -> Mail:
+    extensions = ['extra', 'sane_lists', 'admonition', 'nl2br', CustomHTMLExtension(), RelativeToAbsoluteLinkExtension(for_intake=True)]
+
+    assigned_to_items = list(set([
+        markdown.markdown(_render_assigned_to_digest(assignment), extensions=extensions)
+        for assignment in scheduled.notifications['assigned_to']
+    ]))
+
+    assigned_to = ''.join([
+        f'<li>{assignment}</li>'
+        for assignment in assigned_to_items
+    ])
+
+    html_message = render_to_string('scheduled_notification.html', {
+        'assigned_to': assigned_to,
+        'unsubscribe_link': '/'.join([get_site_prefix(for_intake=True), 'form/notifications/unsubscribe'])
+    })
+
+    recipients = [scheduled.recipient.email]
+
+    allowed_recipients = remove_disallowed_recipients(recipients)
+    disallowed_recipients = list(set(recipients) - set(allowed_recipients))
+
+    return Mail(message=html_message,
+                html_message=html_message,
+                recipients=allowed_recipients,
+                disallowed_recipients=disallowed_recipients,
+                subject=f'[CRT Portal] {scheduled.frequency} notification digest')
+
+
 def send_tms(message: Mail, *, report: Optional[Report], purpose: str, dry_run: bool) -> List[int]:
     if dry_run:
         return [0]
@@ -156,6 +191,22 @@ def send_tms(message: Mail, *, report: Optional[Report], purpose: str, dry_run: 
                  ).save()
 
     return send_results
+
+
+def notify_scheduled(scheduled: ScheduledNotification):
+    """Sends a set of scheduled notifications as a digest."""
+    if not scheduled.recipient.email:
+        logger.info(f'Not sending digest notification (no email address for {scheduled.recipient})')
+        return
+
+    message = _render_scheduled_notification_mail(scheduled)
+
+    logger.info(f'Digest Notification sent to {message.recipients}')
+
+    send_tms(message,
+             report=None,
+             purpose=TMSEmail.NOTIFICATION,
+             dry_run=False)
 
 
 def notify(template_title: str,

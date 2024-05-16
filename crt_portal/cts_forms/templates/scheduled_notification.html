@@ -1,0 +1,16 @@
+{% extends "notification.html" %}
+{% block notification_content %}
+  This is a {{ frequency }} digest of events concerning you from the CRT Reporting Portal, which takes in reports from the public at <a href="https://civilrights.justice.gov">civilrights.justice.gov</a>.
+  <p>You have been assigned to the following reports:</p>
+  <ul>
+    {{assigned_to | safe}}
+  </ul>
+
+After reviewing the link above, you can:
+
+<ol>
+  <li>Respond to the public through the Portal User Interface</li>
+  <li>Change the status of the report (close the report)</li>
+  <li>Assign it to another user and more</li>
+</ol>
+{% endblock %}

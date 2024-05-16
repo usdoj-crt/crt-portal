@@ -1,7 +1,7 @@
 import pytest
 
 from cts_forms.tests.integration_authed.auth import login_as_superuser, get_test_credentials
-from cts_forms.tests.integration_util import console, reporting, admin_models
+from cts_forms.tests.integration_util import console, reporting, admin_models, element
 
 
 @pytest.mark.only_browser("chromium")
@@ -48,13 +48,13 @@ def _set_assignee(page, username):
         page.locator('button[value="actions"]').click()
 
 
-def _set_user_email(page, username, email):
+def _set_user(page, username, email, preference):
     admin_models.update(page,
                         admin_path='/admin/auth/user',
                         filters={'username': username},
                         **{
                             'email': email,
-                            'notification_preference-0-assigned_to': 'individual',
+                            'notification_preference-0-assigned_to': preference,
                         })
 
 
@@ -62,7 +62,7 @@ def _get_email_content(page):
     return admin_models.read(
         page,
         admin_path='/admin/tms/tmsemail',
-        filters={'report': '1', 'recipient__contains': 'test@example.com'},
+        filters={'recipient__contains': 'notifications_test@example.com'},
         fields=['subject', 'body'],
     )
 
@@ -70,19 +70,35 @@ def _get_email_content(page):
 def test_assigned_to(page):
     login_as_superuser(page)
     username, _ = get_test_credentials()
-    _set_user_email(page, username, '')
 
+    _set_user(page, username, '', 'individual')
     page.goto('/form/view/1')
     _set_assignee(page, '')
     _set_assignee(page, username)
     assert page.locator('.usa-alert--success').filter(has_text=f'{username} will not be notified because they do not have an email address listed').is_visible()
 
-    _set_user_email(page, username, 'test@example.com')
+    _set_user(page, username, 'notifications_test@example.com', 'individual')
     page.goto('/form/view/1')
     _set_assignee(page, '')
     _set_assignee(page, username)
-
     assert page.locator('.usa-alert--success').filter(has_text=f'{username} will be notified').is_visible()
     sent = _get_email_content(page)
     assert 'You have been assigned [Report 1](/form/view/1)' in sent['body']
     assert sent['subject'] == '[CRT Portal] Assigned: Report 1'
+
+    _set_user(page, username, 'notifications_test@example.com', 'weekly')
+    page.goto('/form/view/1')
+    _set_assignee(page, '')
+    _set_assignee(page, username)
+    assert page.locator('.usa-alert--success').filter(has_text=f'{username} will be notified').is_visible()
+    admin_models.update(
+        page,
+        admin_path='/admin/cts_forms/schedulednotification',
+        filters={'recipient__username': username},
+        scheduled_for_0='2020-01-01',
+    )
+    page.goto('/admin/cts_forms/schedulednotification/send_scheduled_notifications/')
+    assert 'Sent notification' in element.normalize_text(page.locator('body'))
+    sent = _get_email_content(page)
+    assert 'You have been assigned to the following reports:' in sent['body']
+    assert sent['subject'] == '[CRT Portal] weekly notification digest'

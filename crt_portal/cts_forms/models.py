@@ -3,7 +3,7 @@ from typing import Optional
 import logging
 import time
 import uuid
-from datetime import datetime
+from datetime import datetime, timedelta
 from babel.dates import format_date
 
 import markdown
@@ -124,6 +124,53 @@ class NotificationPreference(models.Model):
 
     def __str__(self):
         return str(self.user)
+
+
+class ScheduledNotification(models.Model):
+    recipient = models.ForeignKey(User, on_delete=models.CASCADE, related_name='notification_digests')
+    # An example "notifications":
+    # {
+    #   'assigned_to': [
+    #     {
+    #       'report': {
+    #         'id': 1,
+    #       }
+    #     }
+    #   ],
+    # }
+    notifications = models.JSONField()
+    frequency = models.CharField(max_length=100, choices=NOTIFICATION_CADENCE_CHOICES)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    scheduled_for = models.DateTimeField()
+    was_sent = models.BooleanField(default=False)
+
+    @classmethod
+    def find_for(cls, recipient: User, frequency: str):
+        if frequency == 'daily':
+            scheduled_for = datetime.now() + timedelta(days=1)
+        elif frequency == 'weekly':
+            scheduled_for = datetime.now() + timedelta(days=7)
+        else:
+            raise ValueError(f'Invalid frequency: {frequency}')
+
+        scheduled, created = cls.objects.get_or_create(
+            recipient=recipient,
+            frequency=frequency,
+            was_sent=False,
+            defaults={
+                'notifications': {'assigned_to': []},
+                'scheduled_for': scheduled_for,
+            },
+        )
+        return scheduled
+
+    @classmethod
+    def find_ready_to_send(cls):
+        return cls.objects.filter(
+            scheduled_for__lte=datetime.now(),
+            was_sent=False,
+        )
 
 
 class CommentAndSummary(models.Model):

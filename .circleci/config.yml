@@ -449,6 +449,9 @@ jobs:
       - run:
           name: generate repeat_writer_info
           command: cf run-task crt-portal-django  -c "python crt_portal/manage.py generate_repeat_writer_info" --name generate-repeat-writer-info -m 512M -k 7G
+      - run:
+          name: send scheduled notifications
+          command: cf run-task crt-portal-django  -c "python crt_portal/manage.py send_scheduled_notifications" --name send-scheduled-notifications -m 512M -k 7G
 
   staging-maintenance-tasks:
     docker:
@@ -489,6 +492,9 @@ jobs:
       - run:
           name: generate repeat_writer_info
           command: cf run-task crt-portal-django  -c "python crt_portal/manage.py generate_repeat_writer_info" --name generate-repeat-writer-info -m 512M -k 5G
+      - run:
+          name: send scheduled notifications
+          command: cf run-task crt-portal-django  -c "python crt_portal/manage.py send_scheduled_notifications" --name send-scheduled-notifications -m 512M -k 7G
 
   dev-maintenance-tasks:
     docker:
@@ -526,6 +532,9 @@ jobs:
       # - run:
       #     name: generate yearly reports command
       #     command: cf run-task crt-portal-django  -c "python crt_portal/manage.py generate_yearly_reports" --name generate-yearly-reports -m 512M -k 5G
+      - run:
+          name: send scheduled notifications
+          command: cf run-task crt-portal-django  -c "python crt_portal/manage.py send_scheduled_notifications" --name send-scheduled-notifications -m 512M -k 7G
 
   dev-jupyter-tasks:
     docker:
