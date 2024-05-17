@@ -1,5 +1,6 @@
 """Form widgets"""
 import datetime
+import logging
 from django.forms import MultiValueField, CharField, IntegerField
 from django.forms.widgets import ChoiceWidget, TextInput, NumberInput, Select, SelectMultiple, DateInput, MultiWidget
 
@@ -74,6 +75,8 @@ class FuzzyWidget(MultiWidget):
         if len(raw) != 3:
             return ['', 0, 0]
         value, sound, look = raw
+        sound = 0 if sound == '' else sound
+        look = 0 if look == '' else look
         try:
             return [value, int(sound), int(look)]
         except ValueError:
