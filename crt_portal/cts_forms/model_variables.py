@@ -814,6 +814,8 @@ PRIMARY_COMPLAINT_EXTRA_QUESTIONS = {
 NOTIFICATION_PREFERENCE_CHOICES = {
     'assigned_to': [
         ('individual', 'Individual'),
+        ('daily', 'Daily Digest'),
+        ('weekly', 'Weekly Digest'),
         ('none', 'None'),
     ]
 }
