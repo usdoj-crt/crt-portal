@@ -788,6 +788,7 @@ class ReportDisposition(models.Model):
     schedule = models.ForeignKey(RetentionSchedule, related_name="disposed_reports", on_delete=models.PROTECT)
     batch = models.ForeignKey(ReportDispositionBatch, related_name="disposed_reports", on_delete=models.PROTECT)
     public_id = models.CharField(max_length=100, null=False, blank=False, help_text="The record locator for the disposed report")
+    rejected = models.BooleanField(default=False)
 
 
 class ReportAttachment(models.Model):

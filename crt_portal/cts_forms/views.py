@@ -714,7 +714,9 @@ def get_batch_view_data(request):
     page_args += filter_args
     all_args_encoded = urllib.parse.quote(page_args)
     data = get_batch_data(disposition_batches, all_args_encoded)
+    can_approve_disposition = request.user.has_perm('cts_forms.approve_disposition') if request.user else False
     return {
+        'can_approve_disposition': can_approve_disposition,
         'disposition_status': 'batches',
         'page_format': page_format,
         'page_args': page_args,
@@ -1133,10 +1135,18 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
         return ''.join([f'&id={id}' for id in ids])
 
     def get(self, request, id=None):
+        rejected_batch_uuid = request.GET.get('rejected_batch_uuid', None)
+        if rejected_batch_uuid:
+            batch = get_object_or_404(ReportDispositionBatch, pk=rejected_batch_uuid)
+            report_dispo_objects = ReportDisposition.objects.filter(batch=batch).filter(rejected=False)
+            report_public_ids = report_dispo_objects.values_list('public_id', flat=True)
+            reports = Report.objects.filter(public_id__in=report_public_ids).order_by('pk')
+            ids = list(map(str, reports.values_list('pk', flat=True)))
+        else:
+            ids = request.GET.getlist('id')
         return_url_args = request.GET.get('next', '')
         return_url_args = urllib.parse.unquote(return_url_args)
         query_string = return_url_args
-        ids = request.GET.getlist('id')
         selected_all = request.GET.get('all', '') == 'all'
         uuid = request.GET.get('uuid', None)
         if selected_all:
@@ -1359,14 +1369,19 @@ class DispositionBatchActionsView(LoginRequiredMixin, FormView):
         return_url_args = request.POST.get('return_url_args', '')
         return_url_args = urllib.parse.unquote(return_url_args)
         if form.is_valid():
+            rejected_report_ids = request.POST.get('rejected_report_ids', '').split(',')
+            rejected_report_dispo_objects = ReportDisposition.objects.filter(public_id__in=rejected_report_ids)
+            for report in rejected_report_dispo_objects:
+                report.rejected = True
+                report.save()
             batch = form.save(commit=False)
             batch.save()
             if batch.status == 'approved':
-                message = f'{batch.uuid} has been approved for disposal.'
+                message = f'Batch #{batch.uuid} has been approved for disposal.'
                 messages.add_message(request, messages.SUCCESS, message)
             elif batch.status == 'rejected':
-                message = f'{batch.uuid} has been rejected for disposal.'
-                messages.add_message(request, messages.INFO, message)
+                message = f'Batch #{batch.uuid} has been rejected for disposal.'
+                messages.add_message(request, messages.ERROR, message)
             # log this action for an audit trail.
             logger.info(f'Batch #{batch.uuid} has been {batch.status} by {request.user}')
             url = reverse('crt_forms:disposition')

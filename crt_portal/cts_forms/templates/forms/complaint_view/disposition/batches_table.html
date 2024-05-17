@@ -1,11 +1,17 @@
 {% load sortable_table_heading %}
 
-<div class="usa-form">
+<form class="usa-form"
+      method="get"
+      action="{% url 'crt_forms:disposition-actions' %}"
+      novalidate
+>
   <input type="hidden" value="{{ return_url_args }}" name="next" id="next" />
   <div class="crt-xscroll">
     <table class="usa-table crt-table sort-table">
       <thead>
         <tr>
+          <th class="checkbox-input-all">
+          </th>
           {% render_sortable_heading 'Status' sort_state filter_state grouping group_params index %}
           {% render_sortable_heading 'Create Date' sort_state filter_state grouping group_params index %}
           <th>
@@ -19,6 +25,19 @@
         <tbody>
           {% for datum in data %}
             <tr class="tr--hover{% cycle ' stripe' '' %}">
+              {% if can_approve_disposition %}
+              <td>
+                <div class="usa-checkbox td-checkbox">
+                  <input type="checkbox"
+                         name="rejected_batch_uuid"
+                         class="usa-checkbox__input"
+                         value="{{ datum.batch.uuid }}"
+                         id="checkbox-{{ datum.batch.uuid }}"
+                  >
+                  <label class="usa-checkbox__label crt-checkbox__label" for="checkbox-{{ datum.batch.uuid }}" aria-label="Select batch {{ datum.batch.uuid }}"></label>
+                </div>
+              </td>
+              {% endif %}
               <td>
                 <a class="td-link display-block" href="{{datum.url}}">
                   <span class="status-tag status-closed">
@@ -52,7 +71,21 @@
       {% endif %}
     </table>
   </div>
-</div>
+  <div class="selection-action-notification" hidden>
+    <div class="display-flex flex-align-center">
+      <div>
+        <img src="{% static 'img/ic_successconfirmation-white.svg' %}" alt="action available on selection" class="icon">
+      </div>
+      <h2>
+        <span hidden id="selection-action-count" class="selection-action-count"></span>
+        Create new batch without rejected records
+      </h2>
+      <div class="selection-submit">
+        <button type="submit" id="actions" label="actions" class="usa-button">Create new batch</button>
+      </div>
+    </div>
+  </div>
+</form>
 
 {% if not data %}
   <div class="crt-portal-card table-message">
