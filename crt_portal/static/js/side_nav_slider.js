@@ -4,7 +4,6 @@
   function toggleMenu() {
     const sideNav = document.querySelector('.side-nav');
     sideNav.classList.toggle('open');
-    mainWrapper.classList.toggle('side-nav-open');
   }
   function setUpSideNav() {
     mainWrapper.classList.add('display-flex');
