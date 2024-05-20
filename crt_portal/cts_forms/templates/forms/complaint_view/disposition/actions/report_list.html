@@ -15,11 +15,9 @@
 <div class="filter-tag">
     <span>Section: {{ shared_report_fields.assigned_section }}</span>
 </div>
-{% for status in shared_report_fields.status %}
 <div class="filter-tag">
-    <span>Status: {{ status }}</span>
+  <span>Status: {{ shared_report_fields.status }}</span>
 </div>
-{% endfor %}
 </div>
 <div class="grid-col-auto">
   <div class="crt-xscroll">

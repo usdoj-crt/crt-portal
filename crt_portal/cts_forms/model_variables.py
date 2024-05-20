@@ -240,12 +240,18 @@ PROTECTED_CLASS_ERROR = _('Please make a selection to continue. If none of these
 NEW_STATUS = 'new'
 OPEN_STATUS = 'open'
 CLOSED_STATUS = 'closed'
-REJECTED_STATUS = 'rejected'
 STATUS_CHOICES = (
     (NEW_STATUS, 'New'),
     (OPEN_STATUS, 'Open'),
     (CLOSED_STATUS, 'Closed'),
-    (REJECTED_STATUS, 'Rejected'),
+)
+
+# CRT views only
+REPORT_DISPOSITION_REJECTED_STATUS = 'rejected'
+REPORT_DISPOSITION_APPROVED_STATUS = 'approved'
+REPORT_DISPOSITION_STATUS_CHOICES = (
+    (REPORT_DISPOSITION_REJECTED_STATUS, 'Rejected'),
+    (REPORT_DISPOSITION_APPROVED_STATUS, 'Approved'),
 )
 
 NOTIFICATION_CADENCE_CHOICES = (
@@ -256,17 +262,17 @@ NOTIFICATION_CADENCE_CHOICES = (
 )
 
 # CRT views only
-READY_STATUS = 'ready'
-APPROVED_STATUS = 'approved'
-IN_REVIEW_STATUS = 'in_review'
-REJECTED_STATUS = 'rejected'
-ARCHIVED_STATUS = 'archived'
+BATCH_READY_STATUS = 'ready'
+BATCH_APPROVED_STATUS = 'approved'
+BATCH_IN_REVIEW_STATUS = 'in_review'
+BATCH_REJECTED_STATUS = 'rejected'
+BATCH_ARCHIVED_STATUS = 'archived'
 BATCH_STATUS_CHOICES = (
-    (READY_STATUS, 'Ready'),
-    (IN_REVIEW_STATUS, 'In Review'),
-    (APPROVED_STATUS, 'Approved'),
-    (REJECTED_STATUS, 'Rejected'),
-    (ARCHIVED_STATUS, 'Archived'),
+    (BATCH_READY_STATUS, 'Ready'),
+    (BATCH_IN_REVIEW_STATUS, 'In Review'),
+    (BATCH_APPROVED_STATUS, 'Approved'),
+    (BATCH_REJECTED_STATUS, 'Rejected'),
+    (BATCH_ARCHIVED_STATUS, 'Archived'),
 )
 
 # CRT views only

@@ -36,7 +36,9 @@
               <img alt="" aria-hidden="true" src="{% static "img/intake-icons/ic_chevron-right.svg" %}" class="icon">
             </a>
           </th>
-          {% render_sortable_heading 'Status' sort_state filter_state grouping group_params index %}
+          <th scope="col">
+            <span>Status</span>
+          </th>
           <th scope="col">
             <span>Section</span>
           </th>
@@ -72,9 +74,15 @@
               </td>
               <td>
                 <a class="td-link display-block" href="view/{{datum.url}}">
-                  <span class="status-tag status-{{ datum.report.status }}">
-                    {{ datum.report.status }}
-                  </span>
+                  {% if datum.report.report_disposition_status == 'rejected' %}
+                    <span class="status-tag status-{{ datum.report.status }}">
+                      {{ datum.report.report_disposition_status }}
+                    </span>
+                  {% else %}
+                    <span class="status-tag status-{{ datum.report.status }}">
+                      {{ datum.report.status }}
+                    </span>
+                  {% endif %}
                 </a>
               </td>
               <td><a class="td-link display-block" href="view/{{datum.url}}">{{ datum.report.assigned_section }}</a></td>
