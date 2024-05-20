@@ -1,7 +1,6 @@
 (function(root, dom) {
   let notesField = dom.querySelector('#id_notes');
   if (notesField.disabled) {
-    console.log('hit');
     notesField = dom.querySelector('#id_second_review_notes');
   }
   const rejectedReportIdsInput = dom.querySelector('#rejected_report_ids');
