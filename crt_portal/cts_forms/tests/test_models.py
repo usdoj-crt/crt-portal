@@ -102,7 +102,7 @@ class ScheduledNotificationTests(TestCase):
         )
 
         scheduled = ScheduledNotification.find_for(self.test_user, 'weekly')
-        self.assertEqual(scheduled.notifications, {'assigned_to': []})
+        self.assertEqual(scheduled.notifications, {})
         self.assertEqual(scheduled.frequency, 'weekly')
         self.assertEqual(scheduled.recipient, self.test_user)
         self.assertFalse(scheduled.was_sent)

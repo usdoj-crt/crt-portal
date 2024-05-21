@@ -28,6 +28,7 @@ from .model_variables import (ACTION_CHOICES, CLOSED_STATUS, COMMERCIAL_OR_PUBLI
                               CORRECTIONAL_FACILITY_LOCATION_CHOICES,
                               CORRECTIONAL_FACILITY_LOCATION_TYPE_CHOICES,
                               DATE_ERRORS, DISTRICT_CHOICES,
+                              NOTIFICATION_PREFERENCE_CHOICES,
                               EMPLOYER_SIZE_CHOICES, EMPLOYER_SIZE_ERROR,
                               INCIDENT_DATE_HELPTEXT,
                               INTAKE_FORMAT_CHOICES,
@@ -54,7 +55,7 @@ from .model_variables import (ACTION_CHOICES, CLOSED_STATUS, COMMERCIAL_OR_PUBLI
                               VIOLATION_SUMMARY_ERROR, WHERE_ERRORS,
                               HATE_CRIME_CHOICES, GROUPING, RETENTION_SCHEDULE_CHOICES)
 from .models import (CommentAndSummary,
-                     ProtectedClass, Report, ReportDispositionBatch, ResponseTemplate, Profile, ReportAttachment, Campaign, RetentionSchedule, SavedSearch, get_system_user, Tag)
+                     ProtectedClass, Report, ReportDispositionBatch, ResponseTemplate, Profile, ReportAttachment, Campaign, RetentionSchedule, SavedSearch, get_system_user, Tag, NotificationPreference, ReportDelayedProcessingInfo)
 from .phone_regex import phone_validation_regex
 from .question_group import QuestionGroup
 from .question_text import (CONTACT_QUESTIONS, DATE_QUESTIONS,
@@ -251,6 +252,7 @@ def save_form(form_data_dict, **kwargs):
         report.intake_format = kwargs.get('intake_format')
     maybe_auto_reroute(report)
     report.save()
+    ReportDelayedProcessingInfo(report=report).save()
     maybe_auto_close(report)
     # adding this back for the save page results
     form_data_dict['protected_class'] = m2m_protected_class.values()
@@ -2910,6 +2912,22 @@ class SavedSearchActions(ModelForm):
     def __init__(self, *args, query=None, user=None, **kwargs):
         self.user = user
         ModelForm.__init__(self, *args, **kwargs)
+
+        if self.instance and self.instance.id is not None:
+            self.saved_search_field = f'saved_search_{self.instance.id}'
+        else:
+            self.saved_search_field = 'saved_search_new'
+
+        self.fields[self.saved_search_field] = ChoiceField(
+            label='Notification preference',
+            choices=NOTIFICATION_PREFERENCE_CHOICES['saved_search'],
+            widget=ComplaintSelect(
+                attrs={'class': 'crt-dropdown__data'},
+            ),
+            required=False,
+            disabled=False,
+        )
+
         self.fields['section'] = ChoiceField(
             widget=ComplaintSelect(
                 label='Section',
@@ -2979,6 +2997,8 @@ class SavedSearchActions(ModelForm):
             return "Successfully deleted saved search."
 
         def get_label(field):
+            if field.startswith('saved_search_'):
+                return 'Notification Preference'
             field = self.fields[field]
             # Some fields can't support the extra context label, and store it
             # on their attributes
@@ -3000,4 +3020,16 @@ class SavedSearchActions(ModelForm):
 
     def save(self, commit=True):
         saved_search = super().save(commit)
+
+        if hasattr(self.user, 'notification_preference'):
+            notification_preference = self.user.notification_preference
+        else:
+            notification_preference = NotificationPreference(user=self.user)
+
+        search_field = f'saved_search_{saved_search.id}'
+        setattr(notification_preference,
+                search_field,
+                self.cleaned_data[self.saved_search_field])
+        notification_preference.save()
+
         return saved_search

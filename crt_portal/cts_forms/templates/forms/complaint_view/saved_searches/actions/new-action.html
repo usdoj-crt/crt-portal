@@ -56,6 +56,9 @@
       {# empty label for the checkbox to render using the ::before selector #}
       <label for="id_shared" class="usa-checkbox__label crt-checkbox__label"></label>
     </div>
+
+    {% include 'forms/complaint_view/notifications/preference.html' with preferences=notification_preferences choices=notification_choices title="Notifications" key=form.saved_search_field %}
+
     <div class="intake-section apply-discard">
       <button class="usa-button" type="submit" name='type'>Add</button>
       <button type="button" class="discard outline-button outline-button--blue">Discard</button>

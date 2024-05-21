@@ -114,26 +114,47 @@ def _render_notification_mail(*,
                 subject=f'[CRT Portal] {subject}')
 
 
-def _render_assigned_to_digest(notification):
+def _render_digest(kind, notification):
     report_id = notification['report']['id']
     return f'[Report {report_id}](/form/view/{report_id})'
 
 
-def _render_scheduled_notification_mail(scheduled: ScheduledNotification) -> Mail:
+def _render_digests(kind, scheduled):
     extensions = ['extra', 'sane_lists', 'admonition', 'nl2br', CustomHTMLExtension(), RelativeToAbsoluteLinkExtension(for_intake=True)]
-
-    assigned_to_items = list(set([
-        markdown.markdown(_render_assigned_to_digest(assignment), extensions=extensions)
-        for assignment in scheduled.notifications['assigned_to']
+    items = list(set([
+        markdown.markdown(_render_digest(notification), extensions=extensions)
+        for notification in scheduled.notifications[kind]
     ]))
 
-    assigned_to = ''.join([
-        f'<li>{assignment}</li>'
-        for assignment in assigned_to_items
-    ])
+    search_name = scheduled.notifications[kind][0]['search_name']
+
+    if kind == 'assigned_to':
+        title = 'You have been assigned to the following reports:'
+    elif kind.startswith('saved_search_'):
+        search_id = kind.split('_')[-1]
+        title = f'The following reports match your saved search "[{search_name}](/form/saved-searches/actions/{search_id})":'
+
+    return {
+        'title': markdown.markdown(title, extensions=extensions),
+        'content': ''.join([
+            f'<li>{item}</li>'
+            for item in items
+        ])
+    }
+
+
+def _render_scheduled_notification_mail(scheduled: ScheduledNotification) -> Mail:
+    saved_search_groups = [key for key
+                           in scheduled.notifications
+                           if key.startswith('saved_search_')]
+
+    digests = [
+        _render_digests(kind, scheduled)
+        for kind in ['assigned_to', *saved_search_groups]
+    ]
 
     html_message = render_to_string('scheduled_notification.html', {
-        'assigned_to': assigned_to,
+        'digests': digests,
         'unsubscribe_link': '/'.join([get_site_prefix(for_intake=True), 'form/notifications/unsubscribe'])
     })
 

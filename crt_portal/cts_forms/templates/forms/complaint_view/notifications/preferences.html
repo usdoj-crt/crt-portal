@@ -12,6 +12,10 @@
     </thead>
     <tbody>
     {% include 'forms/complaint_view/notifications/preference.html' with preferences=preferences choices=choices title="Complaint assignments" key="assigned_to" %}
+
+    {% for search_id in preferences.saved_searches %}
+    {% include 'forms/complaint_view/notifications/preference.html' with preferences=preferences choices=choices title="Complaint assignments" key="saved_search_"|add:search_id %}
+    {% endfor %}
     </tbody>
   </table>
 </div>
