@@ -5,15 +5,34 @@
     const countEl = actionNotificationEl.getElementsByClassName('selection-action-count')[0];
     const count = parentTable.querySelectorAll('td input.usa-checkbox__input:checked').length;
     const totalReports = parentTable.querySelector('#total_reports');
+    const btns = actionNotificationEl.querySelectorAll('#actions');
+    const selectionWarning = actionNotificationEl.querySelector('.selection-warning');
     if (count === 0) {
       actionNotificationEl.setAttribute('hidden', 'hidden');
     } else if (selectAllCheckbox.checked && totalReports) {
       const recordsPlural = totalReports.getAttribute('value') === 1 ? ' record' : ' records';
       countEl.innerText = totalReports.getAttribute('value') + recordsPlural;
+      if (totalReports.getAttribute('value') > 500) {
+        btns.forEach(btn => {
+          btn.setAttribute('hidden', 'hidden');
+        });
+        selectionWarning.removeAttribute('hidden');
+      } else {
+        btns.forEach(btn => {
+          btn.removeAttribute('hidden');
+        });
+        selectionWarning.setAttribute('hidden', 'hidden');
+      }
       actionNotificationEl.removeAttribute('hidden');
     } else {
       const recordsPlural = count === 1 ? ' record' : ' records';
       countEl.innerText = count + recordsPlural;
+      if (totalReports) {
+        btns.forEach(btn => {
+          btn.removeAttribute('hidden');
+        });
+        selectionWarning.setAttribute('hidden', 'hidden');
+      }
       actionNotificationEl.removeAttribute('hidden');
     }
   }
