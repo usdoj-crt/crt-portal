@@ -10,8 +10,10 @@
     <table class="usa-table crt-table sort-table">
       <thead>
         <tr>
+          {% if can_approve_disposition %}
           <th class="checkbox-input-all">
           </th>
+          {% endif %}
           {% render_sortable_heading 'Status' sort_state filter_state grouping group_params index %}
           {% render_sortable_heading 'Create Date' sort_state filter_state grouping group_params index %}
           <th>
@@ -26,6 +28,7 @@
           {% for datum in data %}
             <tr class="tr--hover{% cycle ' stripe' '' %}">
               {% if can_approve_disposition %}
+              {% if datum.batch.status == 'rejected' %}
               <td>
                 <div class="usa-checkbox td-checkbox">
                   <input type="checkbox"
@@ -37,6 +40,9 @@
                   <label class="usa-checkbox__label crt-checkbox__label" for="checkbox-{{ datum.batch.uuid }}" aria-label="Select batch {{ datum.batch.uuid }}"></label>
                 </div>
               </td>
+              {% else %}
+                <td></td>
+              {% endif %}
               {% endif %}
               <td>
                 <a class="td-link display-block" href="{{datum.url}}">
