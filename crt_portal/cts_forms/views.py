@@ -1659,9 +1659,7 @@ class SavedSearchActionView(LoginRequiredMixin, View):
             if not id:
                 return render(request, 'forms/complaint_view/saved_searches/actions/new.html', output)
             return render(request, 'forms/complaint_view/saved_searches/actions/update.html', output)
-        saved_search = form.save(commit=False)
-
-        saved_search.save()
+        saved_search = form.save()
         messages.add_message(request, messages.SUCCESS, form.success_message(id))
         url = reverse('crt_forms:saved-searches')
         return redirect(f"{url}?{section_filter}{saved_search_view}")

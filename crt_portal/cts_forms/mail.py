@@ -114,32 +114,32 @@ def _render_notification_mail(*,
                 subject=f'[CRT Portal] {subject}')
 
 
-def _render_digest(kind, notification):
+def _render_digest(notification):
     report_id = notification['report']['id']
     return f'[Report {report_id}](/form/view/{report_id})'
 
 
 def _render_digests(kind, scheduled):
     extensions = ['extra', 'sane_lists', 'admonition', 'nl2br', CustomHTMLExtension(), RelativeToAbsoluteLinkExtension(for_intake=True)]
-    items = list(set([
-        markdown.markdown(_render_digest(notification), extensions=extensions)
-        for notification in scheduled.notifications[kind]
-    ]))
-
-    search_name = scheduled.notifications[kind][0]['search_name']
+    if kind == 'assigned_to':
+        items = list(set([
+            markdown.markdown(_render_digest(notification), extensions=extensions)
+            for notification in scheduled.notifications[kind]
+        ]))
+    else:
+        items = None
 
     if kind == 'assigned_to':
         title = 'You have been assigned to the following reports:'
     elif kind.startswith('saved_search_'):
+        search_name = scheduled.notifications[kind]['name']
+        new_reports = scheduled.notifications[kind]['new_reports']
         search_id = kind.split('_')[-1]
-        title = f'The following reports match your saved search "[{search_name}](/form/saved-searches/actions/{search_id})":'
+        title = f'There are {new_reports} new reports matching your search "[{search_name}](/form/saved-searches/actions/{search_id})"'
 
     return {
         'title': markdown.markdown(title, extensions=extensions),
-        'content': ''.join([
-            f'<li>{item}</li>'
-            for item in items
-        ])
+        'items': items
     }
 
 

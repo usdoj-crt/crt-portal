@@ -2,12 +2,20 @@
 {% block notification_content %}
   This is a {{ frequency }} digest of events concerning you from the CRT Reporting Portal, which takes in reports from the public at <a href="https://civilrights.justice.gov">civilrights.justice.gov</a>.
 
-{% for digest in digests %}
-<p>{{digest.title | safe }}</p>
 <ul>
-  {{digest.content | safe}}
-</ul>
+{% for digest in digests %}
+  <li>{{digest.title | safe }}</li>
+
+  {% if digest.items %}
+  <ul>
+    {% for item in digest.items %}
+    <li>{{item | safe}}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+
 {% endfor %}
+</ul>
 
 After reviewing the link(s) above, you can:
 
