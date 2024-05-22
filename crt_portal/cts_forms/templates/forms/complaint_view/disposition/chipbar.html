@@ -1,4 +1,15 @@
 <div class="chipbar">
+  {% if disposition_status == 'batches' %}
+  <fieldset>
+    <h3>Status</h3>
+    {% for status in statuses %}
+      <label class="status">
+        {{ status }}
+        <input type="radio" name="status" value="{{status}}">
+      </label>
+    {% endfor %}
+  </fieldset>
+  {% else %}
   <fieldset>
     <h3>Schedule</h3>
     {% for schedule in schedules %}
@@ -33,4 +44,5 @@
       {% endfor %}
     {% endif %}
   </fieldset>
+  {% endif %}
 </div>

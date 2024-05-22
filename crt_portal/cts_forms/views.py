@@ -40,7 +40,7 @@ from .forms import (
     AttachmentActions, Review, save_form,
 )
 from .mail import mail_to_complainant
-from .model_variables import HATE_CRIMES_TRAFFICKING_MODEL_CHOICES, NOTIFICATION_PREFERENCE_CHOICES
+from .model_variables import BATCH_STATUS_CHOICES, HATE_CRIMES_TRAFFICKING_MODEL_CHOICES, NOTIFICATION_PREFERENCE_CHOICES
 from .models import CommentAndSummary, Profile, Report, ReportAttachment, ReportDisposition, ReportDispositionBatch, ReportsData, RetentionSchedule, SavedSearch, Trends, EmailReportCount, Campaign, User, NotificationPreference, RoutingSection, RoutingStepOneContact, RepeatWriterInfo
 from .page_through import pagination
 from .sorts import other_sort, report_sort
@@ -699,11 +699,15 @@ def get_batch_data(disposition_batches, all_args_encoded):
 
 def get_batch_view_data(request):
     disposition_batches = ReportDispositionBatch.objects.all()
+    status_filter = request.GET.get('status', None)
+    if status_filter:
+        disposition_batches = disposition_batches.filter(status=status_filter)
     per_page = request.GET.get('per_page', request.COOKIES.get('complaint_view_per_page', 15))
     page = request.GET.get('page', 1)
     sort_expr, sorts = other_sort(request.GET.getlist('sort'), 'batch')
     disposition_batches = disposition_batches.annotate(retention_schedule=Subquery(ReportDisposition.objects.filter(batch=OuterRef("pk")).values_list('schedule', flat=True).distinct()))
     disposition_batches = disposition_batches.order_by(*sort_expr)
+    statuses = map(lambda choice: choice[1].lower(), BATCH_STATUS_CHOICES)
     paginator = Paginator(disposition_batches, per_page)
     disposition_batches, page_format = pagination(paginator, page, per_page)
     sort_state = {}
@@ -725,6 +729,7 @@ def get_batch_view_data(request):
         'filter_state': filter_args,
         'return_url_args': all_args_encoded,
         'data': data,
+        'statuses': statuses,
     }
 
 
@@ -738,7 +743,8 @@ def disposition_view(request):
     if disposition_status == 'batches':
         final_data = get_batch_view_data(request)
         return render(request, 'forms/complaint_view/disposition/index.html', final_data)
-
+    if params.get('status'):
+        params.pop('status')
     report_query, query_filters = report_filter(params)
 
     # Records without these values should _never_ show on the disposition page,
