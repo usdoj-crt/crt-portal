@@ -18,7 +18,7 @@
       </span>
       <thead>
         <tr>
-          {% if can_approve_disposition %}
+          {% if can_approve_disposition and disposition_status != 'other' %}
           <th aria-label="Bulk Action Selection">
             <div class="usa-checkbox td-checkbox">
               <input type="checkbox"
@@ -54,7 +54,7 @@
         <tbody>
           {% for datum in data_dict %}
             <tr class="tr-status-{{ datum.report.status }} tr--hover{% cycle ' stripe' '' %}">
-              {% if can_approve_disposition %}
+              {% if can_approve_disposition and disposition_status != 'other' %}
               <td>
                 <div class="usa-checkbox td-checkbox">
                   <input type="checkbox"
@@ -175,6 +175,7 @@
           <span class="usa-tooltip" data-position="right" data-classes="display-inline" title="This may take a while if many reports are selected.">Print</span>
         </button>
       </div>
+      <p class="selection-warning" hidden>Maximum records for bulk change is capped at 500. Please update your selection.</p>
     </div>
   </div>
 </form>
