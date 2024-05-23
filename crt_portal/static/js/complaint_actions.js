@@ -8,32 +8,25 @@
     const btns = actionNotificationEl.querySelectorAll('#actions');
     const selectionWarning = actionNotificationEl.querySelector('.selection-warning');
     if (count === 0) {
-      actionNotificationEl.setAttribute('hidden', 'hidden');
+      actionNotificationEl.hidden = true;
     } else if (selectAllCheckbox.checked && totalReports) {
       const recordsPlural = totalReports.getAttribute('value') === 1 ? ' record' : ' records';
       countEl.innerText = totalReports.getAttribute('value') + recordsPlural;
-      if (totalReports.getAttribute('value') > 500) {
-        btns.forEach(btn => {
-          btn.setAttribute('hidden', 'hidden');
-        });
-        selectionWarning.removeAttribute('hidden');
-      } else {
-        btns.forEach(btn => {
-          btn.removeAttribute('hidden');
-        });
-        selectionWarning.setAttribute('hidden', 'hidden');
-      }
-      actionNotificationEl.removeAttribute('hidden');
+      btns.forEach(btn => {
+        btn.hidden = totalReports.getAttribute('value') > 500;
+      });
+      selectionWarning.hidden = !(totalReports.getAttribute('value') > 500);
+      actionNotificationEl.hidden = false;
     } else {
       const recordsPlural = count === 1 ? ' record' : ' records';
       countEl.innerText = count + recordsPlural;
       if (totalReports) {
         btns.forEach(btn => {
-          btn.removeAttribute('hidden');
+          btn.hidden = false;
         });
-        selectionWarning.setAttribute('hidden', 'hidden');
+        selectionWarning.hidden = true;
       }
-      actionNotificationEl.removeAttribute('hidden');
+      actionNotificationEl.hidden = false;
     }
   }
 
