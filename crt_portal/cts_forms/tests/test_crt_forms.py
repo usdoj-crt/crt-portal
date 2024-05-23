@@ -411,12 +411,12 @@ class NotificationPreferencesTests(TestCase):
         response = self.client.get(self.unsubscribe)
 
         self.assertRedirects(response,
-                             reverse('crt_forms:crt-forms-index'),
+                             '/form/notifications/',
                              fetch_redirect_response=True)
         self.assertIn('You have been unsubscribed from all portal notifications',
                       [m.message for m in get_messages(response.wsgi_request)])
         user.refresh_from_db()
-        self.assertEqual(user.notification_preference.assigned_to, 'none')
+        self.assertFalse(hasattr(user, 'notification_preference'))
 
     def test_unsubscribe_safe_for_no_prefs(self):
         """The comment shows up in the report's activity log"""
@@ -427,7 +427,7 @@ class NotificationPreferencesTests(TestCase):
         response = self.client.get(self.unsubscribe)
 
         self.assertRedirects(response,
-                             reverse('crt_forms:crt-forms-index'),
+                             '/form/notifications/',
                              fetch_redirect_response=True)
         self.assertIn('You are not subscribed to notifications',
                       [m.message for m in get_messages(response.wsgi_request)])
@@ -443,12 +443,12 @@ class NotificationPreferencesTests(TestCase):
         response = self.client.get(self.unsubscribe)
 
         self.assertRedirects(response,
-                             reverse('crt_forms:crt-forms-index'),
+                             '/form/notifications/',
                              fetch_redirect_response=True)
-        self.assertIn('You are not subscribed to notifications',
+        self.assertIn('You have been unsubscribed from all portal notifications',
                       [m.message for m in get_messages(response.wsgi_request)])
         user.refresh_from_db()
-        self.assertEqual(user.notification_preference.assigned_to, 'none')
+        self.assertFalse(hasattr(user, 'notification_preference'))
 
 
 class CommentActionTests(TestCase):
