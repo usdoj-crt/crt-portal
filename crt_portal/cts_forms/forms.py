@@ -2354,6 +2354,7 @@ class BulkActionsForm(LitigationHoldLock, Form, ActivityStreamUpdater):
         required=False,
         initial='',
     )
+    tags = TagsField()
 
     def get_initial_values(self, record_query, keys):
         """
@@ -2411,7 +2412,7 @@ class BulkActionsForm(LitigationHoldLock, Form, ActivityStreamUpdater):
         self.setup_litigation_hold(query)
 
         # set initial values if applicable
-        keys = ['assigned_section', 'status', 'primary_statute', 'dj_number', 'retention_schedule', 'referred', 'district']
+        keys = ['assigned_section', 'status', 'primary_statute', 'dj_number', 'retention_schedule', 'referred', 'district', 'tags']
         for key, initial_value in self.get_initial_values(query, keys):
             self.fields[key].initial = initial_value
         if not self.fields['dj_number'].initial:
@@ -2450,7 +2451,7 @@ class BulkActionsForm(LitigationHoldLock, Form, ActivityStreamUpdater):
         updates = {field: self.cleaned_data[field] for field in self.changed_data}
         # do not allow any fields to be unset. this may happen if the
         # user selects "Multiple".
-        for key in ['assigned_section', 'status', 'primary_statute', 'dj_number', 'retention_schedule', 'referred', 'litigation_hold']:
+        for key in ['assigned_section', 'status', 'primary_statute', 'dj_number', 'retention_schedule', 'referred', 'litigation_hold', 'tags']:
             if key in updates and updates[key] in [None, '']:
                 updates.pop(key)
         # if section is changed, override assignee, status, retention schedule, secondary review
@@ -2489,6 +2490,10 @@ class BulkActionsForm(LitigationHoldLock, Form, ActivityStreamUpdater):
         for (key, value) in labels.items():
             what = value.lower()
             item = updates[key]
+            if key == 'tags':
+                item = ''
+                for tag in updates[key]:
+                    item += tag.name
             string = custom_strings.get(what, default_string)
             description = string.format(**{'what': what, 'item': item or "''"})
             descriptions.append(description)
@@ -2517,7 +2522,7 @@ class BulkActionsForm(LitigationHoldLock, Form, ActivityStreamUpdater):
             # rename primary statute if applicable
             if field == 'primary_statute':
                 name = 'Primary classification'
-            if field in ['summary', 'comment']:
+            if field in ['summary', 'comment', 'tags']:
                 continue
             initial = getattr(report, field, None)
 
@@ -2538,6 +2543,7 @@ class BulkActionsForm(LitigationHoldLock, Form, ActivityStreamUpdater):
         updated_data = self.get_updates()
         comment_string = updated_data.pop('comment', None)
         summary_string = updated_data.pop('summary', None)
+        tags = updated_data.pop('tags', None)
 
         # rebuild the reports queryset w/o sorts and annotations to avoid error on update
         report_ids = reports.values_list('pk', flat=True)
@@ -2552,6 +2558,12 @@ class BulkActionsForm(LitigationHoldLock, Form, ActivityStreamUpdater):
                 'verb': v,
                 'description': d
             } for (v, d) in self.get_actions(report)])
+
+        if tags:
+            for report in reports:
+                for tag in tags:
+                    report.tags.add(tag)
+                    activities.append({'user': user, 'report': report, 'verb': 'Added tag: ', 'description': tag.name})
 
         if comment_string:
             kwargs = {

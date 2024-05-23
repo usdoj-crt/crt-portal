@@ -101,6 +101,12 @@
 .crt-actions-card {
   margin-top: 1rem !important;
 
+  .usa-combo-box {
+    button {
+      margin-top: 0 !important;
+    }
+  }
+
   button {
     margin-top: 1rem !important;
   }
