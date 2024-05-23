@@ -2491,9 +2491,8 @@ class BulkActionsForm(LitigationHoldLock, Form, ActivityStreamUpdater):
             what = value.lower()
             item = updates[key]
             if key == 'tags':
-                item = ''
-                for tag in updates[key]:
-                    item += tag.name
+                tags = map(lambda tag: tag.name, item)
+                item = ' '.join(tags)
             string = custom_strings.get(what, default_string)
             description = string.format(**{'what': what, 'item': item or "''"})
             descriptions.append(description)
