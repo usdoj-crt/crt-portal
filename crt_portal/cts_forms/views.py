@@ -40,7 +40,7 @@ from .forms import (
     AttachmentActions, Review, save_form,
 )
 from .mail import mail_to_complainant
-from .model_variables import HATE_CRIMES_TRAFFICKING_MODEL_CHOICES, NOTIFICATION_PREFERENCE_CHOICES
+from .model_variables import BATCH_STATUS_CHOICES, HATE_CRIMES_TRAFFICKING_MODEL_CHOICES, NOTIFICATION_PREFERENCE_CHOICES
 from .models import CommentAndSummary, Profile, Report, ReportAttachment, ReportDisposition, ReportDispositionBatch, ReportsData, RetentionSchedule, SavedSearch, Trends, EmailReportCount, Campaign, User, NotificationPreference, RoutingSection, RoutingStepOneContact, RepeatWriterInfo
 from .page_through import pagination
 from .sorts import other_sort, report_sort
@@ -699,11 +699,15 @@ def get_batch_data(disposition_batches, all_args_encoded):
 
 def get_batch_view_data(request):
     disposition_batches = ReportDispositionBatch.objects.all()
+    status_filter = request.GET.get('status', None)
+    if status_filter:
+        disposition_batches = disposition_batches.filter(status=status_filter)
     per_page = request.GET.get('per_page', request.COOKIES.get('complaint_view_per_page', 15))
     page = request.GET.get('page', 1)
     sort_expr, sorts = other_sort(request.GET.getlist('sort'), 'batch')
     disposition_batches = disposition_batches.annotate(retention_schedule=Subquery(ReportDisposition.objects.filter(batch=OuterRef("pk")).values_list('schedule', flat=True).distinct()))
     disposition_batches = disposition_batches.order_by(*sort_expr)
+    statuses = map(lambda choice: choice[1].lower(), BATCH_STATUS_CHOICES)
     paginator = Paginator(disposition_batches, per_page)
     disposition_batches, page_format = pagination(paginator, page, per_page)
     sort_state = {}
@@ -714,7 +718,9 @@ def get_batch_view_data(request):
     page_args += filter_args
     all_args_encoded = urllib.parse.quote(page_args)
     data = get_batch_data(disposition_batches, all_args_encoded)
+    can_approve_disposition = request.user.has_perm('cts_forms.approve_disposition') if request.user else False
     return {
+        'can_approve_disposition': can_approve_disposition,
         'disposition_status': 'batches',
         'page_format': page_format,
         'page_args': page_args,
@@ -723,6 +729,7 @@ def get_batch_view_data(request):
         'filter_state': filter_args,
         'return_url_args': all_args_encoded,
         'data': data,
+        'statuses': statuses,
     }
 
 
@@ -736,7 +743,8 @@ def disposition_view(request):
     if disposition_status == 'batches':
         final_data = get_batch_view_data(request)
         return render(request, 'forms/complaint_view/disposition/index.html', final_data)
-
+    if params.get('status'):
+        params.pop('status')
     report_query, query_filters = report_filter(params)
 
     # Records without these values should _never_ show on the disposition page,
@@ -1125,10 +1133,18 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
         return ''.join([f'&id={id}' for id in ids])
 
     def get(self, request, id=None):
+        rejected_batch_uuid = request.GET.get('rejected_batch_uuid', None)
+        if rejected_batch_uuid:
+            batch = get_object_or_404(ReportDispositionBatch, pk=rejected_batch_uuid)
+            report_dispo_objects = ReportDisposition.objects.filter(batch=batch).filter(rejected=False)
+            report_public_ids = report_dispo_objects.values_list('public_id', flat=True)
+            reports = Report.objects.filter(public_id__in=report_public_ids).order_by('pk')
+            ids = list(map(str, reports.values_list('pk', flat=True)))
+        else:
+            ids = request.GET.getlist('id')
         return_url_args = request.GET.get('next', '')
         return_url_args = urllib.parse.unquote(return_url_args)
         query_string = return_url_args
-        ids = request.GET.getlist('id')
         selected_all = request.GET.get('all', '') == 'all'
         uuid = request.GET.get('uuid', None)
         if selected_all:
@@ -1171,6 +1187,7 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
         display_name = f'{request.user.first_name} {request.user.last_name}' if request.user.first_name and request.user.last_name else request.user.username
         output = {
             'action': request.GET.get('action', ''),
+            'rejected_batch_uuid': rejected_batch_uuid,
             'uuid': uuid,
             'display_name': display_name,
             'disposed_by': request.user.pk,
@@ -1200,6 +1217,7 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
         ids = request.POST.get('ids', '').split(',')
         selected_all = request.POST.get('all', '') == 'all'
         query_string = request.POST.get('query_string', return_url_args)
+        rejected_batch_uuid = request.POST.get('rejected_batch_uuid')
         uuid = request.POST.get('uuid', None)
         if confirm_all:
             requested_query = reconstruct_query(query_string)
@@ -1217,6 +1235,10 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
             batch = get_object_or_404(ReportDispositionBatch, pk=uuid)
         bulk_disposition_form = BulkDispositionForm(request.POST, user=request.user, instance=batch)
         if bulk_disposition_form.is_valid():
+            if rejected_batch_uuid != 'None':
+                rejected_batch = get_object_or_404(ReportDispositionBatch, pk=rejected_batch_uuid)
+                rejected_batch.status = 'archived'
+                rejected_batch.save()
             batch = bulk_disposition_form.save(commit=False)
             batch.save()
             bulk_disposition_form.update_reports(requested_query, request.user, batch)
@@ -1351,14 +1373,23 @@ class DispositionBatchActionsView(LoginRequiredMixin, FormView):
         return_url_args = request.POST.get('return_url_args', '')
         return_url_args = urllib.parse.unquote(return_url_args)
         if form.is_valid():
+            rejected_report_ids = request.POST.get('rejected_report_ids', '').split(',')
+            rejected_report_dispo_objects = ReportDisposition.objects.filter(public_id__in=rejected_report_ids)
+            for report_dispo_object in rejected_report_dispo_objects:
+                report = Report.objects.filter(public_id=report_dispo_object.public_id).first()
+                report.batched_for_disposal = False
+                report.report_disposition_status = 'rejected'
+                report.save()
+                report_dispo_object.rejected = True
+                report_dispo_object.save()
             batch = form.save(commit=False)
             batch.save()
             if batch.status == 'approved':
-                message = f'{batch.uuid} has been approved for disposal.'
+                message = f'Batch #{batch.uuid} has been approved for disposal.'
                 messages.add_message(request, messages.SUCCESS, message)
             elif batch.status == 'rejected':
-                message = f'{batch.uuid} has been rejected for disposal.'
-                messages.add_message(request, messages.INFO, message)
+                message = f'Batch #{batch.uuid} has been rejected for disposal.'
+                messages.add_message(request, messages.ERROR, message)
             # log this action for an audit trail.
             logger.info(f'Batch #{batch.uuid} has been {batch.status} by {request.user}')
             url = reverse('crt_forms:disposition')

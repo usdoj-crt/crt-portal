@@ -156,13 +156,13 @@ hr {
 }
 
 .main-wrapper.display-flex {
-  &.side-nav-open {
-    #main-content {
-      max-width: 75%;
-    }
-  }
   #main-content {
-    max-width: 95%;
+    max-width: 90%;
+    margin-left: 10%;
+    @media print {
+      max-width: 100%;
+      margin-left: 0;
+    }
   }
   &.intake-form {
     #main-content {
@@ -182,7 +182,13 @@ hr {
     min-width: 7em;
     width: 7em;
     transition: width 0.2s ease;
-    z-index: 1;
+    z-index: 2;
+    position: fixed;
+    height: 100vh;
+    top: 0;
+    @media print {
+      display: none;
+    }
     form#cts-forms-profile .crt-dropdown {
       margin-top: 0.5em;
       margin-bottom: 0;
@@ -227,6 +233,10 @@ hr {
         max-width: 16em;
         left: auto;
         align-items: flex-start;
+        max-height: 90vh;
+        padding-right: 2em;
+        overflow-y: scroll;
+        scrollbar-color: white white;
         span {
           display: block;
         }
@@ -496,7 +506,7 @@ hr {
   position: sticky;
   width: 100%;
   top: 0;
-  z-index: 99;
+  z-index: 1;
 
   + main {
     @include u-margin-top(3);
@@ -1007,6 +1017,10 @@ label.flex-column span.usa-tooltip {
         color: #162e51;
         background-color: #e1e7f1;
         border-radius: 5px;
+
+        &.status {
+          text-transform: uppercase;
+        }
 
         &:has(input:checked) {
           background-color: #162e51;
