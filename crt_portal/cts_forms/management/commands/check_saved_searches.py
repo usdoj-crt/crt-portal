@@ -1,3 +1,4 @@
+import functools
 import traceback
 from django.core.management.base import BaseCommand
 from datetime import datetime
@@ -6,16 +7,21 @@ from cts_forms.models import SavedSearch, ScheduledNotification, NotificationPre
 from cts_forms.filters import get_report_filter_from_search
 
 
-def _maybe_schedule_for(preference: NotificationPreference, search: SavedSearch):
+@functools.cache
+def _get_new_reports(search, last_checked):
     queryset, _ = get_report_filter_from_search(search)
-    last_checked = datetime.fromisoformat(preference.saved_searches_last_checked[str(search.id)])
-    new_reports = queryset.filter(create_date__gt=last_checked).count()
+    return queryset.filter(create_date__gt=last_checked).count()
 
-    if not new_reports:
-        return
 
+def _maybe_schedule_for(preference: NotificationPreference, search: SavedSearch):
     frequency = preference.saved_searches.get(str(search.pk), 'none')
     if frequency == 'none':
+        return
+
+    last_checked = datetime.fromisoformat(preference.saved_searches_last_checked[str(search.id)])
+    new_reports = _get_new_reports(search, last_checked)
+
+    if not new_reports:
         return
 
     key = f'saved_search_{search.pk}'
@@ -32,10 +38,11 @@ def _maybe_schedule_for(preference: NotificationPreference, search: SavedSearch)
 def _process_preference(preference: NotificationPreference):
     search_ids = preference.saved_searches.keys()
     searches = SavedSearch.objects.filter(id__in=search_ids).all()
+    now = datetime.now().isoformat()
 
     for search in searches:
         _maybe_schedule_for(preference, search)
-        preference.saved_searches_last_checked[str(search.id)] = datetime.now()
+        preference.saved_searches_last_checked[str(search.id)] = now
     preference.save()
 
 

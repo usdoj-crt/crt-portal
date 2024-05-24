@@ -815,7 +815,14 @@ def _notification_get(request):
         preferences = request.user.notification_preference
     else:
         preferences = NotificationPreference(user=request.user)
+    search_ids = [int(k) for k in preferences.saved_searches.keys()]
+    search_names = {
+        str(pk): name
+        for pk, name
+        in SavedSearch.objects.filter(id__in=search_ids).values_list('id', 'name')
+    }
     return render(request, 'forms/complaint_view/notifications/index.html', {
+        'search_names': search_names,
         'preferences': preferences,
         'choices': NOTIFICATION_PREFERENCE_CHOICES,
     })

@@ -1,3 +1,5 @@
+{% load get_dict_item %}
+
 <div class="crt-xscroll">
   <table class="notifications crt-table">
     <thead>
@@ -14,7 +16,9 @@
     {% include 'forms/complaint_view/notifications/preference.html' with preferences=preferences choices=choices title="Complaint assignments" key="assigned_to" %}
 
     {% for search_id in preferences.saved_searches %}
-    {% include 'forms/complaint_view/notifications/preference.html' with preferences=preferences choices=choices title="Complaint assignments" key="saved_search_"|add:search_id %}
+    {% with search_name=search_names|get_dict_item:search_id %}
+    {% include 'forms/complaint_view/notifications/preference.html' with preferences=preferences choices=choices title="Saved Search "|add:search_name key="saved_search_"|add:search_id %}
+    {% endwith %}
     {% endfor %}
     </tbody>
   </table>
