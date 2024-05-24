@@ -67,7 +67,9 @@ def _get_email_content(page):
     )
 
 
-def test_assigned_to(page):
+@pytest.mark.only_browser("chromium")
+@console.raise_errors(ignore='404')
+def test_notifications_send(page):
     login_as_superuser(page)
     username, _ = get_test_credentials()
 
@@ -91,14 +93,38 @@ def test_assigned_to(page):
     _set_assignee(page, '')
     _set_assignee(page, username)
     assert page.locator('.usa-alert--success').filter(has_text=f'{username} will be notified').is_visible()
+
+    admin_models.delete(page,
+                        '/admin/cts_forms/savedsearch',
+                        name__contains='Test search for notifications')
+    page.goto('/form/saved-searches/actions/new')
+    page.locator('#id_name').fill('Test search for notifications')
+    page.locator('#id_query').fill('violation_summary=test_for_search_notifications')
+    page.locator('label').filter(has_text='Weekly Digest').click()
+    with page.expect_navigation():
+        page.locator('button').filter(has_text='Add').click()
+
+    admin_models.create_report(
+        page,
+        crt_reciept_month='02',
+        crt_reciept_day='01',
+        crt_reciept_year='2020',
+        intake_format_2='phone',
+        primary_complaint='something_else',
+        violation_summary='test_for_search_notifications',
+    )
+
     admin_models.update(
         page,
         admin_path='/admin/cts_forms/schedulednotification',
         filters={'recipient__username': username},
         scheduled_for_0='2020-01-01',
     )
+    page.goto('/admin/cts_forms/schedulednotification/check_saved_searches/')
     page.goto('/admin/cts_forms/schedulednotification/send_scheduled_notifications/')
     assert 'Sent notification' in element.normalize_text(page.locator('body'))
     sent = _get_email_content(page)
     assert 'You have been assigned to the following reports:' in sent['body']
     assert sent['subject'] == '[CRT Portal] weekly notification digest'
+
+    assert 'new reports matching your search' in sent['body']

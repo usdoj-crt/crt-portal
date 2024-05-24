@@ -296,9 +296,16 @@ class ScheduledNotificationAdmin(CrtModelAdmin):
             output = buf.getvalue()
         return HttpResponse(output)
 
+    def check_saved_searches(self, request: HttpRequest):
+        with io.StringIO() as buf, redirect_stdout(buf), redirect_stderr(buf):
+            call_command('check_saved_searches')
+            output = buf.getvalue()
+        return HttpResponse(output)
+
     def get_urls(self):
         return [
-            path(r'send_scheduled_notifications/', self.admin_site.admin_view(self.send_scheduled_notifications), name='send_scheduled_notifications')
+            path(r'send_scheduled_notifications/', self.admin_site.admin_view(self.send_scheduled_notifications), name='send_scheduled_notifications'),
+            path(r'check_saved_searches/', self.admin_site.admin_view(self.check_saved_searches), name='check_saved_searches'),
         ] + super().get_urls()
 
 

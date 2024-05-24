@@ -122,6 +122,25 @@ class NotificationPreference(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='notification_preference')
     assigned_to = models.CharField('Assigned to a report', choices=NOTIFICATION_CADENCE_CHOICES, default='none')
 
+    saved_searches = models.JSONField(default=dict, blank=True, help_text="Contains the notification cadence for each saved search. The key is the saved search ID, and the value is the cadence.")
+    saved_searches_last_checked = models.JSONField(default=dict, blank=True, help_text="The last time each search was checked for new reports.")
+
+    def __getattr__(self, name):
+        if name == 'saved_search_new':
+            return 'none'
+        if name.startswith('saved_search_'):
+            return self.saved_searches.get(name.split('_')[-1], 'none')
+        raise AttributeError(name)
+
+    def __setattr__(self, name, value):
+        if name == 'saved_search_new':
+            return
+        if name.startswith('saved_search_'):
+            search_id = name.split('_')[-1]
+            self.saved_searches[search_id] = value
+            return
+        super().__setattr__(name, value)
+
     def __str__(self):
         return str(self.user)
 
@@ -137,6 +156,10 @@ class ScheduledNotification(models.Model):
     #       }
     #     }
     #   ],
+    #   'saved_search_1': {  # Where '1' is the ID of a SavedSearch object
+    #     'name': 'Test search',
+    #     'new_reports': 100,
+    #   }
     # }
     notifications = models.JSONField()
     frequency = models.CharField(max_length=100, choices=NOTIFICATION_CADENCE_CHOICES)
@@ -159,7 +182,7 @@ class ScheduledNotification(models.Model):
             frequency=frequency,
             was_sent=False,
             defaults={
-                'notifications': {'assigned_to': []},
+                'notifications': {},
                 'scheduled_for': scheduled_for,
             },
         )

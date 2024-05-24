@@ -794,21 +794,13 @@ def unsubscribe_view(request):
         messages.add_message(request,
                              messages.ERROR,
                              mark_safe("You are not subscribed to notifications"))
-        return redirect(reverse('crt_forms:crt-forms-index'))
-    preferences = request.user.notification_preference
+        return redirect(reverse('crt_forms:crt-forms-notifications'))
 
-    if preferences.assigned_to == 'none':
-        messages.add_message(request,
-                             messages.ERROR,
-                             mark_safe("You are not subscribed to notifications"))
-        return redirect(reverse('crt_forms:crt-forms-index'))
-
-    preferences.assigned_to = 'none'
-    preferences.save()
+    request.user.notification_preference.delete()
     messages.add_message(request,
                          messages.SUCCESS,
                          mark_safe("You have been unsubscribed from all portal notifications"))
-    return redirect(reverse('crt_forms:crt-forms-index'))
+    return redirect(reverse('crt_forms:crt-forms-notifications'))
 
 
 @login_required
@@ -823,7 +815,14 @@ def _notification_get(request):
         preferences = request.user.notification_preference
     else:
         preferences = NotificationPreference(user=request.user)
+    search_ids = [int(k) for k in preferences.saved_searches.keys()]
+    search_names = {
+        str(pk): name
+        for pk, name
+        in SavedSearch.objects.filter(id__in=search_ids).values_list('id', 'name')
+    }
     return render(request, 'forms/complaint_view/notifications/index.html', {
+        'search_names': search_names,
         'preferences': preferences,
         'choices': NOTIFICATION_PREFERENCE_CHOICES,
     })
@@ -1634,14 +1633,22 @@ class SavedSearchActionView(LoginRequiredMixin, View):
         saved_search_view = request.GET.get('saved_search_view', 'all')
         name = request.GET.get('name', None)
         if name:
-            saved_search_form = SavedSearchActions(request.GET, instance=saved_search)
+            saved_search_form = SavedSearchActions(request.GET, instance=saved_search, user=request.user)
         else:
-            saved_search_form = SavedSearchActions(query=query, instance=saved_search)
+            saved_search_form = SavedSearchActions(query=query, instance=saved_search, user=request.user)
+
+        if hasattr(request.user, 'notification_preference'):
+            notification_preferences = request.user.notification_preference
+        else:
+            notification_preferences = NotificationPreference(user=request.user)
+
         output = {
             'form': saved_search_form,
             'section_filter': section_filter,
             'saved_search_view': f'&saved_search_view={saved_search_view}',
             'filters': query_filters,
+            'notification_choices': NOTIFICATION_PREFERENCE_CHOICES,
+            'notification_preferences': notification_preferences,
         }
         if id:
             return render(request, 'forms/complaint_view/saved_searches/actions/update.html', output)
@@ -1657,7 +1664,7 @@ class SavedSearchActionView(LoginRequiredMixin, View):
             saved_search.created_by = request.user
         else:
             saved_search = get_object_or_404(SavedSearch, pk=id)
-        form = SavedSearchActions(request.POST, instance=saved_search)
+        form = SavedSearchActions(request.POST, instance=saved_search, user=request.user)
         if delete:
             saved_search.delete()
             messages.add_message(request, messages.SUCCESS, form.success_message(id, delete))
@@ -1690,9 +1697,7 @@ class SavedSearchActionView(LoginRequiredMixin, View):
             if not id:
                 return render(request, 'forms/complaint_view/saved_searches/actions/new.html', output)
             return render(request, 'forms/complaint_view/saved_searches/actions/update.html', output)
-        saved_search = form.save(commit=False)
-
-        saved_search.save()
+        saved_search = form.save()
         messages.add_message(request, messages.SUCCESS, form.success_message(id))
         url = reverse('crt_forms:saved-searches')
         return redirect(f"{url}?{section_filter}{saved_search_view}")

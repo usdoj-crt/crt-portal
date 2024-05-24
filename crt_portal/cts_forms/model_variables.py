@@ -1,5 +1,6 @@
 """Setting the variables that can be reused in models and forms for readability and reuse"""
 
+import collections
 from django.utils.translation import gettext_lazy as _
 from cts_forms import question_text
 
@@ -825,9 +826,18 @@ PRIMARY_COMPLAINT_EXTRA_QUESTIONS = {
 
 }
 
-NOTIFICATION_PREFERENCE_CHOICES = {
+# Individual notifications may be too much; we only want to enable those where we won't exceed our TMS budget.
+NOTIFICATION_PREFERENCE_CHOICES = collections.defaultdict(lambda: [
+    ('daily', 'Daily Digest'),
+    ('weekly', 'Weekly Digest'),
+    ('none', 'None'),
+])
+
+NOTIFICATION_PREFERENCE_CHOICES.update({
     'assigned_to': [
         ('individual', 'Individual'),
+        ('daily', 'Daily Digest'),
+        ('weekly', 'Weekly Digest'),
         ('none', 'None'),
     ]
-}
+})
