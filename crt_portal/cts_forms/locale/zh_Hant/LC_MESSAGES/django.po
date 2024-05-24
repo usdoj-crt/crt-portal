@@ -1,30 +1,38 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-05 20:44+0000\n"
+"POT-Creation-Date: 2024-05-24 14:33-0400\n"
 "Language: Chinese Traditional\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
+#: crt_portal/cts_forms/forms.py:388
+msgid "Challenge was invalid, please try again."
+msgstr ""
+
 #. Translators: this is the default- blank options for a drop-down menu where a user chooses a state
-#: forms.py:367 forms.py:2384
+#: crt_portal/cts_forms/forms.py:407 crt_portal/cts_forms/forms.py:2608
 msgid " - Select - "
 msgstr " - 選擇 - "
 
 #. Translators: This is help text for the question asking if someone is a service member
-#: forms.py:379
+#: crt_portal/cts_forms/forms.py:419
+#: crt_portal/cts_forms/templates/printable_intake_form.html:62
 msgid ""
 "If you’re reporting on behalf of someone else, please select their status."
 msgstr "如果您是代表他人舉報，請選擇其身分。"
 
-#: forms.py:396 templates/forms/report_contact_info.html:8
+#: crt_portal/cts_forms/forms.py:436
+#: crt_portal/cts_forms/templates/forms/report_contact_info.html:15
+#: crt_portal/cts_forms/templates/printable_intake_form.html:37
 msgid ""
 "If you believe you or someone else has experienced a civil rights violation, "
 "please tell us what happened."
 msgstr "如果您認為自己或其他人的民權曾受到侵犯，請告訴我們事發經過。"
 
-#: forms.py:424
+#: crt_portal/cts_forms/forms.py:464
+#: crt_portal/cts_forms/templates/printable_intake_form.html:86
 msgid ""
 "Select the reason that best describes your concern. Each reason lists "
 "examples of civil rights violations that may relate to your incident. In "
@@ -34,17 +42,17 @@ msgstr ""
 "請選擇最能描述您擔憂問題的理由。每項理由均列有可能與您事件有關的民權侵犯例"
 "子。在本報告的另一個部分，您將可使用您自己的話語來描述您擔憂的問題。"
 
-#: forms.py:482
+#: crt_portal/cts_forms/forms.py:522 crt_portal/cts_forms/question_text.py:47
 msgid ""
 "Examples: Name of business, school, intersection, prison, polling place, "
 "website, etc."
 msgstr "例子：公司、學校、十字路口、監獄、投票所、網站等的名稱。"
 
-#: forms.py:504 question_text.py:29
+#: crt_portal/cts_forms/forms.py:544 crt_portal/cts_forms/question_text.py:37
 msgid "Where did this happen?"
 msgstr "此事件是發生在什麼地點？"
 
-#: forms.py:516
+#: crt_portal/cts_forms/forms.py:556
 msgid ""
 "Please tell us the city, state, and name of the location where this incident "
 "took place. This ensures your report is reviewed by the right people within "
@@ -53,41 +61,17 @@ msgstr ""
 "請告訴我們此事件發生的城市、州及地點名稱。這可確保您的報告由民權科的適當人員"
 "進行審查。"
 
-#: forms.py:579
-msgid ""
-"Public employers include organizations funded by the government like the "
-"military, post office, fire department, courthouse, DMV, or public school. "
-"This could be at the local or state level."
-msgstr ""
-"公家機關雇主包括由政府提供資金的組織，如軍隊、郵局、消防隊、法院、機動車輛管"
-"理局 (Department of Motor Vehicles, DMV) 或公立學校。其中可能包括地方組織或州"
-"政府組織。"
-
-#: forms.py:580
-msgid ""
-"Private employers are business or non-profits not funded by the government "
-"such as retail stores, banks, or restaurants."
-msgstr ""
-"私人雇主包括不是由政府提供資金的企業或非營利組織，如零售商店、銀行或餐廳。"
-
 #. Translators: describe the "other" option for commercial or public place question
-#: forms.py:626
+#: crt_portal/cts_forms/forms.py:663
 msgid "Please describe"
 msgstr "請說明"
 
-#: forms.py:693
-msgid ""
-"Includes schools, educational programs, or educational activities, like "
-"training programs, sports teams, clubs, or other school-sponsored activities"
-msgstr ""
-"包括學校、教育計畫或教育活動（如培訓計畫）、體育隊、俱樂部或由學校贊助的其他"
-"活動"
-
-#: forms.py:704
+#: crt_portal/cts_forms/forms.py:741
 msgid "Please select the type of school or educational program."
 msgstr "請選擇學校或教育計畫的類型。"
 
-#: forms.py:727
+#: crt_portal/cts_forms/forms.py:764
+#: crt_portal/cts_forms/templates/printable_intake_form.html:199
 msgid ""
 "There are federal and state laws that protect people from discrimination "
 "based on their personal characteristics. Here is a list of the most common "
@@ -98,11 +82,12 @@ msgstr ""
 "的最常見特徵清單。請選擇適用於您事件的所有選項。"
 
 #. Translators: This is to explain an "other" choice for personal characteristics
-#: forms.py:732
+#: crt_portal/cts_forms/forms.py:769
 msgid "Please describe \"Other reason\""
 msgstr "請說明「其他理由」"
 
-#: forms.py:920
+#: crt_portal/cts_forms/forms.py:957
+#: crt_portal/cts_forms/templates/printable_intake_form.html:182
 msgid ""
 "It is important for us to know how recently this incident happened so we can "
 "take the appropriate action. If this happened over a period of time or is "
@@ -111,100 +96,111 @@ msgstr ""
 "讓我們知道此事件是在最近多久發生非常重要，這樣我們才能採取適當行動。如果此事"
 "件是發生在一段時間或者現在仍持續發生，請提供最近一次發生的日期。"
 
-#: forms.py:1249
+#: crt_portal/cts_forms/forms.py:1286
 msgid "Assigned to"
 msgstr "指定給"
 
-#: forms.py:1276
+#: crt_portal/cts_forms/forms.py:1313
 msgid "Campaign"
 msgstr ""
 
-#: forms.py:1299
+#: crt_portal/cts_forms/forms.py:1336
 msgid "Incident state"
 msgstr ""
 
-#: forms.py:1307
+#: crt_portal/cts_forms/forms.py:1344
 #, fuzzy
 #| msgid "District of Columbia"
 msgid "District number"
 msgstr "哥倫比亞特區"
 
-#: forms.py:1317
+#: crt_portal/cts_forms/forms.py:1354
 msgid "Primary classification"
 msgstr "主要分類"
 
-#: forms.py:1327
+#: crt_portal/cts_forms/forms.py:1364
 msgid "Records per page"
 msgstr ""
 
-#: forms.py:1338
+#: crt_portal/cts_forms/forms.py:1375
 msgid "Grouping"
 msgstr ""
 
-#: forms.py:1575
+#: crt_portal/cts_forms/forms.py:1658
 msgid "Create date cannot be in the future."
 msgstr "建立日期不得是未來日期。"
 
-#: forms.py:1947
+#: crt_portal/cts_forms/forms.py:2030
 msgid "Comment cannot be empty"
 msgstr "意見欄位不得空白"
 
 #. Translators: This is used as a an empty selection default for drop down menus
-#: model_variables.py:6
+#: crt_portal/cts_forms/model_variables.py:7
 msgid "- Select -"
 msgstr "- 選擇 -"
 
-#: model_variables.py:9 model_variables.py:201 model_variables.py:388
+#: crt_portal/cts_forms/model_variables.py:10
+#: crt_portal/cts_forms/model_variables.py:202
+#: crt_portal/cts_forms/model_variables.py:424
 msgid "Yes"
 msgstr "是"
 
-#: model_variables.py:10 model_variables.py:202 model_variables.py:387
+#: crt_portal/cts_forms/model_variables.py:11
+#: crt_portal/cts_forms/model_variables.py:203
+#: crt_portal/cts_forms/model_variables.py:425
 msgid "No"
 msgstr "否"
 
-#: model_variables.py:13
+#: crt_portal/cts_forms/model_variables.py:14
 msgid "Please select a status as an active duty service member."
 msgstr "請以現役軍人的身分選擇身份。"
 
-#: model_variables.py:17 model_variables.py:29
+#: crt_portal/cts_forms/model_variables.py:18
+#: crt_portal/cts_forms/model_variables.py:30
 msgid "Workplace discrimination or other employment-related problem"
 msgstr "職場歧視或其他就业相關問題"
 
-#: model_variables.py:18 model_variables.py:30
+#: crt_portal/cts_forms/model_variables.py:19
+#: crt_portal/cts_forms/model_variables.py:31
 msgid "Housing discrimination or harassment"
 msgstr "住房歧視或騷擾"
 
-#: model_variables.py:19 model_variables.py:31
+#: crt_portal/cts_forms/model_variables.py:20
+#: crt_portal/cts_forms/model_variables.py:32
 msgid ""
 "Discrimination at a school, educational program or service, or related to "
 "receiving education"
 msgstr "在學校、教育計畫或教育服務中或在接受教育的過程中受到歧視"
 
-#: model_variables.py:20 model_variables.py:32
+#: crt_portal/cts_forms/model_variables.py:21
+#: crt_portal/cts_forms/model_variables.py:33
 msgid "Mistreated by police, correctional staff, or inmates"
 msgstr "受到警察、懲教機構的工作人員或同獄犯人的不當對待"
 
-#: model_variables.py:21 model_variables.py:28
+#: crt_portal/cts_forms/model_variables.py:22
+#: crt_portal/cts_forms/model_variables.py:29
 msgid "Voting rights or ability to vote affected"
 msgstr "投票權或投票能力受到影響"
 
-#: model_variables.py:22 model_variables.py:33
+#: crt_portal/cts_forms/model_variables.py:23
+#: crt_portal/cts_forms/model_variables.py:34
 msgid "Discriminated against in a commercial location or public place"
 msgstr "在商業場所或公共場所受到歧視"
 
-#: model_variables.py:23 model_variables.py:34
+#: crt_portal/cts_forms/model_variables.py:24
+#: crt_portal/cts_forms/model_variables.py:35
 msgid "Something else happened"
 msgstr "發生其他事情"
 
-#: model_variables.py:59
+#: crt_portal/cts_forms/model_variables.py:60
 msgid "Victim of a hate crime"
 msgstr "仇恨犯罪的受害者"
 
-#: model_variables.py:60
+#: crt_portal/cts_forms/model_variables.py:61
 msgid "Victim of human trafficking"
 msgstr "人口販賣的受害者"
 
-#: model_variables.py:65
+#: crt_portal/cts_forms/model_variables.py:66
 msgid ""
 "This could include a store, restaurant, bar, hotel, place of worship, "
 "library, medical facility, bank, courthouse, government building, public "
@@ -213,7 +209,7 @@ msgstr ""
 "其中可能包括商店、餐廳、酒吧、飯店、禮拜場所、圖書館、醫療設施、銀行、法院、"
 "政府建物、公共公園或街道及網路。"
 
-#: model_variables.py:66
+#: crt_portal/cts_forms/model_variables.py:67
 msgid ""
 "The examples above reflect some but not all of the civil rights violations "
 "that we address. Select this option if you don’t see an example that applies "
@@ -222,11 +218,11 @@ msgstr ""
 "上述例子反映了我們所處理的部分民權侵犯案件，但並未涵蓋所有案例。如果您沒有看"
 "到適用於您狀況的例子，請選擇此選項。您將可在後面部分向我們進一步說明。"
 
-#: model_variables.py:67
+#: crt_portal/cts_forms/model_variables.py:68
 msgid "(Including while in prison)"
 msgstr "（包括在坐牢期間）"
 
-#: model_variables.py:70
+#: crt_portal/cts_forms/model_variables.py:71
 msgid ""
 "To potentially be a hate crime, the situation must include physical harm, or "
 "attempts to cause harm with a dangerous weapon, because of race, color, "
@@ -238,7 +234,7 @@ msgstr ""
 "別認同或殘障等理由而造成身體傷害或意圖使用危險武器造成傷害。基於種族、膚色、"
 "宗教或原國籍等理由而威脅使用武力或威脅造成身體傷害也可能屬於仇恨犯罪。"
 
-#: model_variables.py:71
+#: crt_portal/cts_forms/model_variables.py:72
 msgid ""
 "Human trafficking is when someone is forced into labor or sex work for "
 "profit. This can happen in many types of work that include, for example: "
@@ -247,26 +243,30 @@ msgstr ""
 "人口販賣是指有人遭到強迫勞動或從事性工作以換取利益。人口販賣可能會發生於許多"
 "類型的工作，例子包括：農業、家政、餐廳、清潔服務及性工作。"
 
-#: model_variables.py:75
+#: crt_portal/cts_forms/model_variables.py:76
 msgid "Were you forced to work against your will?"
 msgstr "是否有人違反您的意願強迫您工作？"
 
-#: model_variables.py:76 templates/hate_crime_human_trafficking.html:74
+#: crt_portal/cts_forms/model_variables.py:77
+#: crt_portal/cts_forms/templates/hate_crime_human_trafficking.html:74
 msgid "Get help from the National Human Trafficking Hotline"
 msgstr "向國家人口販運專綫尋求幫助"
 
-#: model_variables.py:80
+#: crt_portal/cts_forms/model_variables.py:81
 msgid "Get help for hate crimes"
 msgstr "為尋求仇恨犯罪的幫助"
 
-#: model_variables.py:86
+#: crt_portal/cts_forms/model_variables.py:87
 msgid ""
 "To report a threat against voters, threats against election officials, or "
 "election fraud, visit <a href=\"https://tips.fbi.gov\">tips.fbi.gov</a> or "
 "call 800-CALL-FBI"
-msgstr "舉報對選民的威脅、對選舉官員的威脅、或選舉欺詐行爲，請訪問<a href=\"https://tips.fbi.gov\">tips.fbi.gov</a>或致電800-225-5324"
+msgstr ""
+"舉報對選民的威脅、對選舉官員的威脅、或選舉欺詐行爲，請訪問<a href=\"https://"
+"tips.fbi.gov\">tips.fbi.gov</a>或致電800-225-5324"
 
-#: model_variables.py:90 templates/hate_crime_human_trafficking.html:45
+#: crt_portal/cts_forms/model_variables.py:91
+#: crt_portal/cts_forms/templates/hate_crime_human_trafficking.html:45
 msgid ""
 "A hate crime is violence or threats of violence based on race, color, "
 "national origin, religion, gender, sexual orientation, gender identity, or "
@@ -275,25 +275,30 @@ msgstr ""
 "仇恨犯罪是基於種族、膚色、國籍、宗教、性別、性取向、性别認同或殘疾的暴力行爲"
 "或暴力威脅。"
 
-#: model_variables.py:100 model_variables.py:142
+#: crt_portal/cts_forms/model_variables.py:101
+#: crt_portal/cts_forms/model_variables.py:143
 msgid ""
 "Fired, not hired, or demoted for reasons unrelated to job performance or "
 "qualifications"
 msgstr "因為與工作表現或工作資格無關的理由而遭到解雇、沒有獲得雇用或遭到降職"
 
-#: model_variables.py:101 model_variables.py:143
+#: crt_portal/cts_forms/model_variables.py:102
+#: crt_portal/cts_forms/model_variables.py:144
 msgid "Retaliated against for reporting discrimination"
 msgstr "因為舉報歧視事件而遭到報復"
 
-#: model_variables.py:102 model_variables.py:144
+#: crt_portal/cts_forms/model_variables.py:103
+#: crt_portal/cts_forms/model_variables.py:145
 msgid "Inappropriately asked to provide immigration documentation"
 msgstr "以不當的理由被要求提供移民證明文件"
 
-#: model_variables.py:103 model_variables.py:145
+#: crt_portal/cts_forms/model_variables.py:104
+#: crt_portal/cts_forms/model_variables.py:146
 msgid "Denied reemployment or fired based on military service"
 msgstr "由於服兵役而遭到拒絕復職或遭到解雇"
 
-#: model_variables.py:104 model_variables.py:146
+#: crt_portal/cts_forms/model_variables.py:105
+#: crt_portal/cts_forms/model_variables.py:147
 msgid ""
 "Denied an accommodation for a disability, including not being allowed to "
 "have a service animal <strong>in the workplace</strong>"
@@ -301,7 +306,8 @@ msgstr ""
 "遭到拒絕無法使用殘障便利設施，包括無法攜帶服務性動物至<strong>工作場所</"
 "strong>"
 
-#: model_variables.py:107 model_variables.py:149
+#: crt_portal/cts_forms/model_variables.py:108
+#: crt_portal/cts_forms/model_variables.py:150
 msgid ""
 "Denied housing, a permit, or a loan based on personal characteristics like "
 "race, sex, and/or having children under 18 years old"
@@ -309,15 +315,18 @@ msgstr ""
 "由於種族、性別和／或擁有未滿 18 歲的子女等個人特徵而使住房、許可或貸款遭到拒"
 "絕"
 
-#: model_variables.py:108 model_variables.py:150
+#: crt_portal/cts_forms/model_variables.py:109
+#: crt_portal/cts_forms/model_variables.py:151
 msgid "Harassment by a landlord or another tenant, including sexual harassment"
 msgstr "受到房東或其他房客的騷擾，包括性騷擾"
 
-#: model_variables.py:109 model_variables.py:151
+#: crt_portal/cts_forms/model_variables.py:110
+#: crt_portal/cts_forms/model_variables.py:152
 msgid "Challenges with terminating a lease due to military status change"
 msgstr "因兵役身分改變而要終止租約时受到阻碍"
 
-#: model_variables.py:110 model_variables.py:152
+#: crt_portal/cts_forms/model_variables.py:111
+#: crt_portal/cts_forms/model_variables.py:153
 msgid ""
 "Denied an accommodation for a disability, including not being allowed to "
 "have a service or assistance animal <strong>in public housing</strong>"
@@ -325,19 +334,23 @@ msgstr ""
 "遭到拒絕無法使用殘障便利設施，包括無法攜帶服務性動物或輔助性動物至<strong>國"
 "民住宅</strong>"
 
-#: model_variables.py:113 model_variables.py:155
+#: crt_portal/cts_forms/model_variables.py:114
+#: crt_portal/cts_forms/model_variables.py:156
 msgid "Harassment based on race, sex, national origin, disability, or religion"
 msgstr "由於種族、性別、原國籍、殘障或宗教等理由而受到騷擾"
 
-#: model_variables.py:114 model_variables.py:156
+#: crt_portal/cts_forms/model_variables.py:115
+#: crt_portal/cts_forms/model_variables.py:157
 msgid "Denied admission or segregated in an education program or activity"
 msgstr "遭到拒絕無法參加教育計畫或教育活動，或者在教育計畫或教育活動中遭到隔離"
 
-#: model_variables.py:115 model_variables.py:157
+#: crt_portal/cts_forms/model_variables.py:116
+#: crt_portal/cts_forms/model_variables.py:158
 msgid "Denied educational accommodations for a disability or language barrier"
 msgstr "在接受教育時遭到拒絕無法使用殘障或語言障礙所需的便利設施"
 
-#: model_variables.py:118 model_variables.py:137
+#: crt_portal/cts_forms/model_variables.py:119
+#: crt_portal/cts_forms/model_variables.py:138
 msgid ""
 "Obstacles to registering to vote, obtaining or submitting a ballot, having "
 "your ballot counted, or entering a polling place to vote"
@@ -345,36 +358,42 @@ msgstr ""
 "受到阻礙無法註冊投票、無法取得或無法提交選票、無法使您的選票成為有效票或無法"
 "進入投票所投票"
 
-#: model_variables.py:119 model_variables.py:138
+#: crt_portal/cts_forms/model_variables.py:120
+#: crt_portal/cts_forms/model_variables.py:139
 msgid ""
 "Denied adequate voting assistance or accommodations for a disability at a "
 "polling place"
 msgstr "在投票所遭到拒絕無法獲得投票協助或無法使用殘障便利設施"
 
-#: model_variables.py:120 model_variables.py:139
+#: crt_portal/cts_forms/model_variables.py:121
+#: crt_portal/cts_forms/model_variables.py:140
 msgid ""
 "Restricted or prevented from participating in an election, including voting, "
 "becoming a candidate, or being elected for office"
 msgstr ""
 "在參與選舉時受到限制或無法參與選舉，其中包括投票、成為候選人或獲選成為官員"
 
-#: model_variables.py:123 model_variables.py:160
+#: crt_portal/cts_forms/model_variables.py:124
+#: crt_portal/cts_forms/model_variables.py:161
 msgid ""
 "Police brutality or use of excessive force, including patterns of police "
 "misconduct"
 msgstr "警察暴行或警察過度使用武力，其中包括警察違紀事件"
 
-#: model_variables.py:124 model_variables.py:161
+#: crt_portal/cts_forms/model_variables.py:125
+#: crt_portal/cts_forms/model_variables.py:162
 msgid ""
 "Searched and arrested under false pretenses, including racial or other "
 "discriminatory profiling"
 msgstr "以虛假的理由遭到搜索和逮捕，其中包括種族或其他屬於歧視性質的理由"
 
-#: model_variables.py:125 model_variables.py:162
+#: crt_portal/cts_forms/model_variables.py:126
+#: crt_portal/cts_forms/model_variables.py:163
 msgid "Denied rights while arrested or incarcerated"
 msgstr "在遭到逮捕或監禁的期間權利遭到剝奪"
 
-#: model_variables.py:126 model_variables.py:163
+#: crt_portal/cts_forms/model_variables.py:127
+#: crt_portal/cts_forms/model_variables.py:164
 msgid ""
 "Denied access to safe living conditions or accommodations for a disability, "
 "language barrier, or religious practice while incarcerated"
@@ -382,18 +401,21 @@ msgstr ""
 "在遭到監禁的期間，無法獲得安全的居住環境或無法獲得殘障、語言障礙或宗教習俗方"
 "面的便利設施"
 
-#: model_variables.py:129 model_variables.py:166
+#: crt_portal/cts_forms/model_variables.py:130
+#: crt_portal/cts_forms/model_variables.py:167
 msgid ""
 "A physical or online location that does not provide disability accommodations"
 msgstr "沒有提供殘障便利設施的實體場所或網站"
 
-#: model_variables.py:130 model_variables.py:167
+#: crt_portal/cts_forms/model_variables.py:131
+#: crt_portal/cts_forms/model_variables.py:168
 msgid ""
 "Denied service or entry because of a perceived personal characteristic like "
 "race, sex, or religion"
 msgstr "由於種族、性別或宗教等外在個人特徵而遭到拒絕無法獲得服務或遭到拒絕進入"
 
-#: model_variables.py:131 model_variables.py:168
+#: crt_portal/cts_forms/model_variables.py:132
+#: crt_portal/cts_forms/model_variables.py:169
 msgid ""
 "Denied an accommodation for a disability, including not being allowed to "
 "have a service animal <strong>in a commercial or public location</strong>"
@@ -401,13 +423,13 @@ msgstr ""
 "遭到拒絕無法使用殘障便利設施，包括無法攜帶服務性動物至<strong>商業或公共場所"
 "</strong>"
 
-#: model_variables.py:174
+#: crt_portal/cts_forms/model_variables.py:175
 msgid ""
 "Physical attack causing injury, or an attempt to cause injury with a "
 "dangerous weapon, because of the above characteristics"
 msgstr "由於上述特徵而遭到導致受傷或意圖使用危險武器導致受傷的人身攻擊"
 
-#: model_variables.py:175
+#: crt_portal/cts_forms/model_variables.py:176
 msgid ""
 "Attacks, threats of violence, or destruction of property at place of worship "
 "(ie: shooting, arson, bombing, smashing windows, writing slurs)"
@@ -415,14 +437,14 @@ msgstr ""
 "在禮拜場所遭到攻擊、暴力威脅或財物受損（例如：槍擊、縱火、放置炸彈、打破窗"
 "戶、寫髒話）"
 
-#: model_variables.py:178
+#: crt_portal/cts_forms/model_variables.py:179
 msgid ""
 "Coerced into working through threats of harm or deportation, psychological "
 "manipulation, debt manipulation, document confiscation, or confinement"
 msgstr ""
 "由於受到傷害或驅逐出境的威脅、心理操縱、債務操縱、文件沒收或監禁而被迫工作"
 
-#: model_variables.py:179
+#: crt_portal/cts_forms/model_variables.py:180
 msgid ""
 "Forced into sex work for profit through physical abuse or assault, sexual "
 "abuse or assault, other threats of harm, or confinement"
@@ -430,25 +452,29 @@ msgstr ""
 "由於受到身體虐待或人身侵犯、性虐待或性侵害、其他傷害威脅或監禁而被迫從事性工"
 "作以換取利益"
 
-#: model_variables.py:184 model_variables.py:394
+#: crt_portal/cts_forms/model_variables.py:185
+#: crt_portal/cts_forms/model_variables.py:431
 msgid "Federal"
 msgstr "聯邦"
 
-#: model_variables.py:185
+#: crt_portal/cts_forms/model_variables.py:186
 msgid "State or local"
 msgstr "州或地方"
 
 #. Translators: Both state, federal and local elections
-#: model_variables.py:187
+#: crt_portal/cts_forms/model_variables.py:188
 msgid "Both"
 msgstr "兩者"
 
-#: model_variables.py:188 model_variables.py:396 model_variables.py:411
-#: model_variables.py:419 model_variables.py:436
+#: crt_portal/cts_forms/model_variables.py:189
+#: crt_portal/cts_forms/model_variables.py:433
+#: crt_portal/cts_forms/model_variables.py:448
+#: crt_portal/cts_forms/model_variables.py:456
+#: crt_portal/cts_forms/model_variables.py:473
 msgid "I'm not sure"
 msgstr "我不確定"
 
-#: model_variables.py:194
+#: crt_portal/cts_forms/model_variables.py:195
 msgid ""
 "Physical harm or threats of violence based on race, color, national origin, "
 "religion, gender, sexual orientation, gender identity, or disability"
@@ -456,7 +482,7 @@ msgstr ""
 "基於種族、膚色、原國籍、宗教、性別、性取向、性別認同或殘障等理由而受到身體傷"
 "害或暴力威脅"
 
-#: model_variables.py:195
+#: crt_portal/cts_forms/model_variables.py:196
 msgid ""
 "Threatened, forced, and held against your will for the purposes of "
 "performing work or commercial sex acts. This could include threats of "
@@ -466,11 +492,12 @@ msgstr ""
 "受到威脅、脅迫並在違反您意願的情況下迫使您工作或從事性交易。其中可能包括威脅"
 "造成身體傷害、扣留答應給予的薪資或根據虛假的工作合約扣留您"
 
-#: model_variables.py:209 templates/landing.html:229
+#: crt_portal/cts_forms/model_variables.py:210
+#: crt_portal/cts_forms/templates/landing.html:229
 msgid "Age"
 msgstr "年齡"
 
-#: model_variables.py:210
+#: crt_portal/cts_forms/model_variables.py:211
 msgid ""
 "Disability (including temporary or recovered and including HIV and drug "
 "addiction)"
@@ -478,60 +505,62 @@ msgstr ""
 "殘障（包括暫時性或已康復的情況且包括人類免疫缺乏病毒 [Human Immunodeficiency "
 "Virus, HIV] 和藥物成癮）"
 
-#: model_variables.py:211
+#: crt_portal/cts_forms/model_variables.py:212
 msgid "Family, marital, or parental status"
 msgstr "家庭狀況、婚姻狀態或是否擁有子女"
 
-#: model_variables.py:212
+#: crt_portal/cts_forms/model_variables.py:213
 msgid "Gender identity (including gender stereotypes)"
 msgstr "性別認同（包括性別刻板印象）"
 
-#: model_variables.py:213
+#: crt_portal/cts_forms/model_variables.py:214
 msgid "Genetic information (including family medical history)"
 msgstr "基因資訊（包括家族病史）"
 
-#: model_variables.py:214
+#: crt_portal/cts_forms/model_variables.py:215
 msgid ""
 "Immigration/citizenship status (choosing this will not share your status)"
 msgstr "移民／公民身分（選擇此項目將不會使您的身分遭到公開）"
 
-#: model_variables.py:215
+#: crt_portal/cts_forms/model_variables.py:216
 msgid "Language"
 msgstr "語言"
 
-#: model_variables.py:216
+#: crt_portal/cts_forms/model_variables.py:217
 msgid "National origin (including ancestry and ethnicity)"
 msgstr "原國籍（包括祖籍和族裔）"
 
-#: model_variables.py:217
+#: crt_portal/cts_forms/model_variables.py:218
 msgid "Pregnancy"
 msgstr "懷孕"
 
-#: model_variables.py:218 templates/landing.html:222
+#: crt_portal/cts_forms/model_variables.py:219
+#: crt_portal/cts_forms/templates/landing.html:222
 msgid "Race/color"
 msgstr "種族／膚色"
 
-#: model_variables.py:219 templates/landing.html:224
+#: crt_portal/cts_forms/model_variables.py:220
+#: crt_portal/cts_forms/templates/landing.html:224
 msgid "Religion"
 msgstr "宗教"
 
-#: model_variables.py:220
+#: crt_portal/cts_forms/model_variables.py:221
 msgid "Sex"
 msgstr "性別"
 
-#: model_variables.py:221
+#: crt_portal/cts_forms/model_variables.py:222
 msgid "Sexual orientation"
 msgstr "性取向"
 
-#: model_variables.py:222
+#: crt_portal/cts_forms/model_variables.py:223
 msgid "None of these apply to me"
 msgstr "以上所有項目都不適用於我"
 
-#: model_variables.py:223
+#: crt_portal/cts_forms/model_variables.py:224
 msgid "Other reason"
 msgstr "其他理由"
 
-#: model_variables.py:236
+#: crt_portal/cts_forms/model_variables.py:237
 msgid ""
 "Please make a selection to continue. If none of these apply to your "
 "situation, please select “None of these apply to me” or \"Other reason\"and "
@@ -540,57 +569,60 @@ msgstr ""
 "請選擇一個選項以繼續進行。如果以上所有選項都不適用於您的狀況，請選擇「以上所"
 "有項目都不適用於我」或「其他理由」並加以說明。"
 
-#: model_variables.py:359
+#: crt_portal/cts_forms/model_variables.py:389
 msgid "Place of worship or about a place of worship"
 msgstr "禮拜場所或與禮拜場所有關"
 
-#: model_variables.py:360
+#: crt_portal/cts_forms/model_variables.py:390
 msgid "Commercial or retail building"
 msgstr "商用建物或零售商店建物"
 
-#: model_variables.py:361 model_variables.py:372
+#: crt_portal/cts_forms/model_variables.py:391
+#: crt_portal/cts_forms/model_variables.py:402
 msgid "Healthcare facility"
 msgstr "醫療保健設施"
 
-#: model_variables.py:362 model_variables.py:373
+#: crt_portal/cts_forms/model_variables.py:392
+#: crt_portal/cts_forms/model_variables.py:403
 msgid "Financial institution"
 msgstr "金融機構"
 
-#: model_variables.py:363
+#: crt_portal/cts_forms/model_variables.py:393
 msgid "Public space"
 msgstr "公共場所"
 
-#: model_variables.py:364 templatetags/commercial_public_space_view.py:17
+#: crt_portal/cts_forms/model_variables.py:394
+#: crt_portal/cts_forms/templatetags/commercial_public_space_view.py:17
 msgid "Other"
 msgstr "其他"
 
-#: model_variables.py:367
+#: crt_portal/cts_forms/model_variables.py:397
 msgid ""
 "Please select the type of location. If none of these apply to your "
 "situation, please select \"Other\"."
 msgstr "請選擇地點類型。如果以上所有選項都不適用於您的狀況，請選擇「其他」。"
 
-#: model_variables.py:370
+#: crt_portal/cts_forms/model_variables.py:400
 msgid "Place of worship"
 msgstr "禮拜場所"
 
-#: model_variables.py:371
+#: crt_portal/cts_forms/model_variables.py:401
 msgid "Commercial"
 msgstr "商業場所"
 
-#: model_variables.py:374
+#: crt_portal/cts_forms/model_variables.py:404
 msgid "Public outdoor space"
 msgstr "戶外公共場所"
 
-#: model_variables.py:378
+#: crt_portal/cts_forms/model_variables.py:408
 msgid "Church, synagogue, temple, religious community center"
 msgstr "教堂、猶太教堂、寺廟、宗教社區中心"
 
-#: model_variables.py:379
+#: crt_portal/cts_forms/model_variables.py:409
 msgid "Store, restaurant, bar, hotel, theater"
 msgstr "商店、餐廳、酒吧、飯店、電影院"
 
-#: model_variables.py:380
+#: crt_portal/cts_forms/model_variables.py:410
 msgid ""
 "Hospital or clinic (including inpatient and outpatient programs), "
 "reproductive care clinic, state developmental institution, nursing home"
@@ -598,409 +630,434 @@ msgstr ""
 "醫院或診所（包括住院和門診計畫）、生殖護理診所、州政府發展障礙人士收容機構、"
 "療養院"
 
-#: model_variables.py:381
+#: crt_portal/cts_forms/model_variables.py:411
 msgid "Bank, credit union, loan services"
 msgstr "銀行、信用合作社、貸款服務"
 
-#: model_variables.py:382
+#: crt_portal/cts_forms/model_variables.py:412
 msgid ""
 "Park, sidewalk, street, other public buildings (courthouse, DMV, city "
 "library)"
 msgstr "公園、人行道、街道、其他公共建物（法院、DMV、市立圖書館）"
 
-#: model_variables.py:393
+#: crt_portal/cts_forms/model_variables.py:417
+msgid ""
+"Public employers include organizations funded by the government like the "
+"military, post office, fire department, courthouse, DMV, or public school. "
+"This could be at the local or state level."
+msgstr ""
+"公家機關雇主包括由政府提供資金的組織，如軍隊、郵局、消防隊、法院、機動車輛管"
+"理局 (Department of Motor Vehicles, DMV) 或公立學校。其中可能包括地方組織或州"
+"政府組織。"
+
+#: crt_portal/cts_forms/model_variables.py:418
+msgid ""
+"Private employers are business or non-profits not funded by the government "
+"such as retail stores, banks, or restaurants."
+msgstr ""
+"私人雇主包括不是由政府提供資金的企業或非營利組織，如零售商店、銀行或餐廳。"
+
+#: crt_portal/cts_forms/model_variables.py:421
+msgid ""
+"Includes schools, educational programs, or educational activities, like "
+"training programs, sports teams, clubs, or other school-sponsored activities"
+msgstr ""
+"包括學校、教育計畫或教育活動（如培訓計畫）、體育隊、俱樂部或由學校贊助的其他"
+"活動"
+
+#: crt_portal/cts_forms/model_variables.py:430
 msgid "State/local"
 msgstr "州／地方"
 
-#: model_variables.py:395
+#: crt_portal/cts_forms/model_variables.py:432
 msgid "Private"
 msgstr "私人"
 
-#: model_variables.py:401
+#: crt_portal/cts_forms/model_variables.py:438
 msgid "Outside of prison"
 msgstr "監獄外"
 
-#: model_variables.py:403
+#: crt_portal/cts_forms/model_variables.py:440
 msgid "Prison (Federal)"
 msgstr "監獄（聯邦）"
 
-#: model_variables.py:404
+#: crt_portal/cts_forms/model_variables.py:441
 msgid "Prison (Private)"
 msgstr "監獄（私人經營）"
 
-#: model_variables.py:405
+#: crt_portal/cts_forms/model_variables.py:442
 msgid "Prison (I'm not sure)"
 msgstr "監獄（我不確定）"
 
-#: model_variables.py:409
+#: crt_portal/cts_forms/model_variables.py:446
 msgid "Public employer"
 msgstr "公家機關雇主"
 
-#: model_variables.py:410
+#: crt_portal/cts_forms/model_variables.py:447
 msgid "Private employer"
 msgstr "私人雇主"
 
-#: model_variables.py:414
+#: crt_portal/cts_forms/model_variables.py:451
 msgid "Please select what type of employer this is."
 msgstr "請選擇該雇主是屬於什麼類型。"
 
-#: model_variables.py:417
+#: crt_portal/cts_forms/model_variables.py:454
 msgid "Fewer than 15 employees"
 msgstr "少於 15 名員工"
 
-#: model_variables.py:418
+#: crt_portal/cts_forms/model_variables.py:455
 msgid "15 or more employees"
 msgstr "15 名員工以上"
 
-#: model_variables.py:422
+#: crt_portal/cts_forms/model_variables.py:459
 msgid "Please select how large the employer is."
 msgstr "請選擇雇主的組織規模。"
 
-#: model_variables.py:434
+#: crt_portal/cts_forms/model_variables.py:471
 msgid "Public school or educational program"
 msgstr "公立學校或教育計畫"
 
-#: model_variables.py:435
+#: crt_portal/cts_forms/model_variables.py:472
 msgid "Private school or educational program"
 msgstr "私立學校或教育計畫"
 
-#: model_variables.py:441
+#: crt_portal/cts_forms/model_variables.py:478
 #, fuzzy
 #| msgid "Year"
 msgid "1 Year"
 msgstr "年份"
 
-#: model_variables.py:442
+#: crt_portal/cts_forms/model_variables.py:479
 #, fuzzy
 #| msgid "Year"
 msgid "3 Year"
 msgstr "年份"
 
-#: model_variables.py:443
+#: crt_portal/cts_forms/model_variables.py:480
 #, fuzzy
 #| msgid "Year"
 msgid "10 Year"
 msgstr "年份"
 
-#: model_variables.py:444
+#: crt_portal/cts_forms/model_variables.py:481
 msgid "Permanent"
 msgstr ""
 
-#: model_variables.py:448
+#: crt_portal/cts_forms/model_variables.py:485
 msgid "Alabama"
 msgstr "阿拉巴馬州"
 
-#: model_variables.py:449
+#: crt_portal/cts_forms/model_variables.py:486
 msgid "Alaska"
 msgstr "阿拉斯加州"
 
-#: model_variables.py:450
+#: crt_portal/cts_forms/model_variables.py:487
 msgid "Arizona"
 msgstr "亞利桑那州"
 
-#: model_variables.py:451
+#: crt_portal/cts_forms/model_variables.py:488
 msgid "Arkansas"
 msgstr "阿肯色州"
 
-#: model_variables.py:452
+#: crt_portal/cts_forms/model_variables.py:489
 msgid "California"
 msgstr "加州"
 
-#: model_variables.py:453
+#: crt_portal/cts_forms/model_variables.py:490
 msgid "Colorado"
 msgstr "科羅拉多州"
 
-#: model_variables.py:454
+#: crt_portal/cts_forms/model_variables.py:491
 msgid "Connecticut"
 msgstr "康乃狄克州"
 
-#: model_variables.py:455
+#: crt_portal/cts_forms/model_variables.py:492
 msgid "Delaware"
 msgstr "特拉華州"
 
-#: model_variables.py:456
+#: crt_portal/cts_forms/model_variables.py:493
 msgid "District of Columbia"
 msgstr "哥倫比亞特區"
 
-#: model_variables.py:457
+#: crt_portal/cts_forms/model_variables.py:494
 msgid "Florida"
 msgstr "佛羅里達州"
 
-#: model_variables.py:458
+#: crt_portal/cts_forms/model_variables.py:495
 msgid "Georgia"
 msgstr "喬治亞州"
 
-#: model_variables.py:459
+#: crt_portal/cts_forms/model_variables.py:496
 msgid "Hawaii"
 msgstr "夏威夷州"
 
-#: model_variables.py:460
+#: crt_portal/cts_forms/model_variables.py:497
 msgid "Idaho"
 msgstr "愛達荷州"
 
-#: model_variables.py:461
+#: crt_portal/cts_forms/model_variables.py:498
 msgid "Illinois"
 msgstr "伊利諾州"
 
-#: model_variables.py:462
+#: crt_portal/cts_forms/model_variables.py:499
 msgid "Indiana"
 msgstr "印第安納州"
 
-#: model_variables.py:463
+#: crt_portal/cts_forms/model_variables.py:500
 msgid "Iowa"
 msgstr "愛荷華州"
 
-#: model_variables.py:464
+#: crt_portal/cts_forms/model_variables.py:501
 msgid "Kansas"
 msgstr "堪薩斯州"
 
-#: model_variables.py:465
+#: crt_portal/cts_forms/model_variables.py:502
 msgid "Kentucky"
 msgstr "肯塔基州"
 
-#: model_variables.py:466
+#: crt_portal/cts_forms/model_variables.py:503
 msgid "Louisiana"
 msgstr "路易斯安那州"
 
-#: model_variables.py:467
+#: crt_portal/cts_forms/model_variables.py:504
 msgid "Maine"
 msgstr "緬因州"
 
-#: model_variables.py:468
+#: crt_portal/cts_forms/model_variables.py:505
 msgid "Maryland"
 msgstr "馬里蘭州"
 
-#: model_variables.py:469
+#: crt_portal/cts_forms/model_variables.py:506
 msgid "Massachusetts"
 msgstr "麻州"
 
-#: model_variables.py:470
+#: crt_portal/cts_forms/model_variables.py:507
 msgid "Michigan"
 msgstr "密西根州"
 
-#: model_variables.py:471
+#: crt_portal/cts_forms/model_variables.py:508
 msgid "Minnesota"
 msgstr "明尼蘇達州"
 
-#: model_variables.py:472
+#: crt_portal/cts_forms/model_variables.py:509
 msgid "Mississippi"
 msgstr "密西西比州"
 
-#: model_variables.py:473
+#: crt_portal/cts_forms/model_variables.py:510
 msgid "Missouri"
 msgstr "密蘇里州"
 
-#: model_variables.py:474
+#: crt_portal/cts_forms/model_variables.py:511
 msgid "Montana"
 msgstr "蒙大拿州"
 
-#: model_variables.py:475
+#: crt_portal/cts_forms/model_variables.py:512
 msgid "Nebraska"
 msgstr "內布拉斯加州"
 
-#: model_variables.py:476
+#: crt_portal/cts_forms/model_variables.py:513
 msgid "Nevada"
 msgstr "內華達州"
 
-#: model_variables.py:477
+#: crt_portal/cts_forms/model_variables.py:514
 msgid "New Hampshire"
 msgstr "新罕布什爾州"
 
-#: model_variables.py:478
+#: crt_portal/cts_forms/model_variables.py:515
 msgid "New Jersey"
 msgstr "紐澤西州"
 
-#: model_variables.py:479
+#: crt_portal/cts_forms/model_variables.py:516
 msgid "New Mexico"
 msgstr "新墨西哥州"
 
-#: model_variables.py:480
+#: crt_portal/cts_forms/model_variables.py:517
 msgid "New York"
 msgstr "紐約州"
 
-#: model_variables.py:481
+#: crt_portal/cts_forms/model_variables.py:518
 msgid "North Carolina"
 msgstr "北卡羅萊納州"
 
-#: model_variables.py:482
+#: crt_portal/cts_forms/model_variables.py:519
 msgid "North Dakota"
 msgstr "北達科他州"
 
-#: model_variables.py:483
+#: crt_portal/cts_forms/model_variables.py:520
 msgid "Ohio"
 msgstr "俄亥俄州"
 
-#: model_variables.py:484
+#: crt_portal/cts_forms/model_variables.py:521
 msgid "Oklahoma"
 msgstr "奧克拉荷馬州"
 
-#: model_variables.py:485
+#: crt_portal/cts_forms/model_variables.py:522
 msgid "Oregon"
 msgstr "俄勒岡州"
 
-#: model_variables.py:486
+#: crt_portal/cts_forms/model_variables.py:523
 msgid "Pennsylvania"
 msgstr "賓州"
 
-#: model_variables.py:487
+#: crt_portal/cts_forms/model_variables.py:524
 msgid "Rhode Island"
 msgstr "羅得島州"
 
-#: model_variables.py:488
+#: crt_portal/cts_forms/model_variables.py:525
 msgid "South Carolina"
 msgstr "南卡羅萊納州"
 
-#: model_variables.py:489
+#: crt_portal/cts_forms/model_variables.py:526
 msgid "South Dakota"
 msgstr "南達科他州"
 
-#: model_variables.py:490
+#: crt_portal/cts_forms/model_variables.py:527
 msgid "Tennessee"
 msgstr "田納西州"
 
-#: model_variables.py:491
+#: crt_portal/cts_forms/model_variables.py:528
 msgid "Texas"
 msgstr "德州"
 
-#: model_variables.py:492
+#: crt_portal/cts_forms/model_variables.py:529
 msgid "Utah"
 msgstr "猶他州"
 
-#: model_variables.py:493
+#: crt_portal/cts_forms/model_variables.py:530
 msgid "Vermont"
 msgstr "佛蒙特州"
 
-#: model_variables.py:494
+#: crt_portal/cts_forms/model_variables.py:531
 msgid "Virginia"
 msgstr "維吉尼亞州"
 
-#: model_variables.py:495
+#: crt_portal/cts_forms/model_variables.py:532
 msgid "Washington"
 msgstr "華盛頓州"
 
-#: model_variables.py:496
+#: crt_portal/cts_forms/model_variables.py:533
 msgid "West Virginia"
 msgstr "西維吉尼亞州"
 
-#: model_variables.py:497
+#: crt_portal/cts_forms/model_variables.py:534
 msgid "Wisconsin"
 msgstr "威斯康辛州"
 
-#: model_variables.py:498
+#: crt_portal/cts_forms/model_variables.py:535
 msgid "Wyoming"
 msgstr "懷俄明州"
 
-#: model_variables.py:499
+#: crt_portal/cts_forms/model_variables.py:536
 msgid "American Samoa"
 msgstr "美屬薩摩亞"
 
-#: model_variables.py:500
+#: crt_portal/cts_forms/model_variables.py:537
 msgid "Guam"
 msgstr "關島"
 
-#: model_variables.py:501
+#: crt_portal/cts_forms/model_variables.py:538
 msgid "Northern Mariana Islands"
 msgstr "北馬利安納群島邦"
 
-#: model_variables.py:502
+#: crt_portal/cts_forms/model_variables.py:539
 msgid "Puerto Rico"
 msgstr "波多黎各"
 
-#: model_variables.py:503
+#: crt_portal/cts_forms/model_variables.py:540
 msgid "Virgin Islands"
 msgstr "維爾京群島"
 
-#: model_variables.py:504
+#: crt_portal/cts_forms/model_variables.py:541
 msgid "Armed Forces Africa"
 msgstr "非洲武裝部隊"
 
-#: model_variables.py:505
+#: crt_portal/cts_forms/model_variables.py:542
 msgid "Armed Forces Americas"
 msgstr "美國武裝部隊"
 
-#: model_variables.py:506
+#: crt_portal/cts_forms/model_variables.py:543
 msgid "Armed Forces Canada"
 msgstr "加拿大武裝部隊"
 
-#: model_variables.py:507
+#: crt_portal/cts_forms/model_variables.py:544
 msgid "Armed Forces Europe"
 msgstr "歐洲武裝部隊"
 
-#: model_variables.py:508
+#: crt_portal/cts_forms/model_variables.py:545
 msgid "Armed Forces Middle East"
 msgstr "中東武裝部隊"
 
-#: model_variables.py:509
+#: crt_portal/cts_forms/model_variables.py:546
 msgid "Armed Forces Pacific"
 msgstr "太平洋地區武裝部隊"
 
-#: model_variables.py:512
+#: crt_portal/cts_forms/model_variables.py:549
 msgid "Please provide description to continue"
 msgstr "請提供說明以繼續進行"
 
-#: model_variables.py:513
+#: crt_portal/cts_forms/model_variables.py:550
 msgid "Please select a primary reason to continue."
 msgstr "請選擇一項主要理由以繼續進行。"
 
-#: model_variables.py:517
+#: crt_portal/cts_forms/model_variables.py:554
 msgid "Please enter the name of the location where this took place."
 msgstr "請輸入此事件發生的地點名稱。"
 
-#: model_variables.py:518
+#: crt_portal/cts_forms/model_variables.py:555
 msgid "Please enter the city or town where this took place."
 msgstr "請輸入此事件發生的城市或城鎮。"
 
-#: model_variables.py:519
+#: crt_portal/cts_forms/model_variables.py:556
 msgid "Please select the state where this took place."
 msgstr "請選擇此事件發生的州。"
 
-#: model_variables.py:523
+#: crt_portal/cts_forms/model_variables.py:560
 msgid "Please select where this occurred"
 msgstr "請選擇此事件發生的地點"
 
-#: model_variables.py:524
+#: crt_portal/cts_forms/model_variables.py:561
 msgid "Please select the type of location"
 msgstr "請選擇地點類型"
 
-#: model_variables.py:536
+#: crt_portal/cts_forms/model_variables.py:573
 msgid "You must enter a month and year. Please use the format MM/DD/YYYY."
 msgstr "您必須輸入月份和年份。請使用月月／日日／年年年年的格式。"
 
-#: model_variables.py:539
+#: crt_portal/cts_forms/model_variables.py:576
 msgid "Please enter a month."
 msgstr "請輸入月份。"
 
-#: model_variables.py:540
+#: crt_portal/cts_forms/model_variables.py:577
 msgid "Please enter a valid month. Month must be between 1 and 12."
 msgstr "請輸入有效的月份。月份必須介於 1 至 12 之間。"
 
-#: model_variables.py:542
+#: crt_portal/cts_forms/model_variables.py:579
 msgid ""
 "Please enter a valid day of the month. Day must be between 1 and the last "
 "day of the month."
 msgstr "請輸入有效的日期。日期必須介於一個月的 1 號至一個月的最後一天。"
 
-#: model_variables.py:543
+#: crt_portal/cts_forms/model_variables.py:580
 msgid "Please enter a year."
 msgstr "請輸入年份。"
 
-#: model_variables.py:544
+#: crt_portal/cts_forms/model_variables.py:581
 msgid "Date can not be in the future."
 msgstr "日期不得是未來日期。"
 
-#: model_variables.py:545
+#: crt_portal/cts_forms/model_variables.py:582
 msgid "Please enter a year after 1900."
 msgstr "請輸入 1900 之後的年份。"
 
-#: model_variables.py:547
+#: crt_portal/cts_forms/model_variables.py:584
 msgid "Please enter a valid date. Use format MM/DD/YYYY."
 msgstr "請輸入有效的日期。請使用月月／日日／年年年年的格式。"
 
-#: model_variables.py:551
+#: crt_portal/cts_forms/model_variables.py:588
 msgid "Please select the type of election or voting activity."
 msgstr "請選擇選舉或投票活動的類型。"
 
-#: model_variables.py:702
+#: crt_portal/cts_forms/model_variables.py:739
 msgid ""
 "If you submit a phone number, please make sure to include between 7 and 15 "
 "digits. The characters \"+\", \")\", \"(\", \"-\", and \".\" are allowed. "
@@ -1009,11 +1066,11 @@ msgstr ""
 "如果您提交電話號碼，請確認該電話號碼包含 7 位數至 15 位數。可使用「+」、"
 "「)」、「(」、「-」及「.」等字元。如輸入國際電話號碼，請包含國碼。"
 
-#: question_text.py:5
+#: crt_portal/cts_forms/question_text.py:6
 msgid "Contact information"
 msgstr "聯絡資訊"
 
-#: question_text.py:6
+#: crt_portal/cts_forms/question_text.py:7
 msgid ""
 "You are not required to provide your name or contact information. If you "
 "want to remain anonymous, leave this section blank. If you choose to provide "
@@ -1022,63 +1079,65 @@ msgstr ""
 "您不一定要提供您的姓名或聯絡資訊。如果您想保持匿名，請將此欄位留白。如果您選"
 "擇提供您的聯絡資訊，我們將只會使用您的聯絡資訊來回覆您所提交的報告。"
 
-#: question_text.py:7 templates/forms/report_data.html:12
+#: crt_portal/cts_forms/question_text.py:8
+#: crt_portal/cts_forms/templates/forms/report_data.html:12
 msgid "Your name"
 msgstr "您的姓名"
 
-#: question_text.py:8
+#: crt_portal/cts_forms/question_text.py:9
 msgid "First name"
 msgstr "名字"
 
-#: question_text.py:9
+#: crt_portal/cts_forms/question_text.py:10
 msgid "Last name"
 msgstr "姓氏"
 
-#: question_text.py:10
+#: crt_portal/cts_forms/question_text.py:11
 msgid "Email address"
 msgstr "電子郵件地址"
 
-#: question_text.py:11
+#: crt_portal/cts_forms/question_text.py:12
 msgid "Phone number"
 msgstr "電話號碼"
 
-#: question_text.py:12
+#: crt_portal/cts_forms/question_text.py:13
 msgid "Mailing address 1"
 msgstr "通訊地址 1"
 
-#: question_text.py:13
+#: crt_portal/cts_forms/question_text.py:14
 msgid "Mailing address 2"
 msgstr "通訊地址 2"
 
-#: question_text.py:14
+#: crt_portal/cts_forms/question_text.py:15
 msgid "City"
 msgstr "城市"
 
-#: question_text.py:15
-msgid "Zip code"
-msgstr "郵遞區號"
-
-#: question_text.py:16 question_text.py:34
+#: crt_portal/cts_forms/question_text.py:16
+#: crt_portal/cts_forms/question_text.py:42
 msgid "State"
 msgstr "州"
 
-#: question_text.py:18
+#: crt_portal/cts_forms/question_text.py:17
+msgid "Zip code"
+msgstr "郵遞區號"
+
+#: crt_portal/cts_forms/question_text.py:26
 msgid "Are you now or have ever been an active duty service member?"
 msgstr "您目前是現役軍人或者曾是軍人？"
 
-#: question_text.py:21
+#: crt_portal/cts_forms/question_text.py:29
 msgid "What is your primary reason for contacting the Civil Rights Division?"
 msgstr "您與民權司聯絡的主要理由是什麼？"
 
-#: question_text.py:23
+#: crt_portal/cts_forms/question_text.py:31
 msgid "Primary Issue"
 msgstr "主要問題"
 
-#: question_text.py:24
+#: crt_portal/cts_forms/question_text.py:32
 msgid "Does your situation involve physical harm or threats of violence?"
 msgstr "您的狀況是否涉及身體傷害或暴力威脅？"
 
-#: question_text.py:25
+#: crt_portal/cts_forms/question_text.py:33
 msgid ""
 "To be considered a hate crime, the physical harm or threats of violence must "
 "be based on race, color, national origin, religion, gender, sexual "
@@ -1087,97 +1146,102 @@ msgstr ""
 "身體傷害或暴力威脅必須是基於種族、膚色、原國籍、宗教、性別、性取向、性別認同"
 "或殘障等理由才可視為是仇恨犯罪。"
 
-#: question_text.py:30
+#: crt_portal/cts_forms/question_text.py:38
 msgid "Organization name"
 msgstr "機構名稱"
 
-#: question_text.py:31
+#: crt_portal/cts_forms/question_text.py:39
 msgid "Street address 1"
 msgstr "街道地址 1"
 
-#: question_text.py:32
+#: crt_portal/cts_forms/question_text.py:40
 msgid "Street address 2"
 msgstr "街道地址 2"
 
-#: question_text.py:33
+#: crt_portal/cts_forms/question_text.py:41
 msgid "City/town"
 msgstr "城市／城鎮"
 
-#: question_text.py:36
+#: crt_portal/cts_forms/question_text.py:60
 msgid "What kind of election or voting activity was this related to?"
 msgstr "此事件是與什麼類型的選舉或投票活動有關？"
 
-#: question_text.py:38
+#: crt_portal/cts_forms/question_text.py:62
 msgid "Was this a public or private employer?"
 msgstr "該雇主是政府雇主或私人雇主？"
 
-#: question_text.py:39
+#: crt_portal/cts_forms/question_text.py:63
 msgid "How large is this employer?"
 msgstr "該雇主的組織規模有多大？"
 
-#: question_text.py:41
+#: crt_portal/cts_forms/question_text.py:65
 msgid ""
 "Please choose the type of location that best describes where the incident "
 "happened"
 msgstr "請選擇最能描述事件發生地點的地點類型"
 
-#: question_text.py:43
+#: crt_portal/cts_forms/question_text.py:67
 msgid "Did this happen while in custody or incarcerated?"
 msgstr "此事件是發生於您遭到拘留或監禁的期間嗎？"
 
-#: question_text.py:44
+#: crt_portal/cts_forms/question_text.py:68
 msgid "What type of prison or correctional facility?"
 msgstr "是什麼類型的監獄或懲教設施？"
 
-#: question_text.py:46
+#: crt_portal/cts_forms/question_text.py:70
 msgid ""
 "Did this happen at a public or a private school, educational program or "
 "activity?"
 msgstr "此事件是發生於公立或私立學校、教育計畫或活動嗎？"
 
-#: question_text.py:49
+#: crt_portal/cts_forms/question_text.py:73
 msgid ""
 "Do you believe any of these personal characteristics influenced why you were "
 "treated this way?"
 msgstr "您是否認為您會受到此待遇是由於受到任何這些個人特徵的影響？"
 
-#: question_text.py:52
+#: crt_portal/cts_forms/question_text.py:76
 msgid "When did this happen?"
 msgstr "此事件是發生在什麼時候？"
 
-#: question_text.py:53
+#: crt_portal/cts_forms/question_text.py:77
 msgid "Month"
 msgstr "月份"
 
-#: question_text.py:54
+#: crt_portal/cts_forms/question_text.py:78
 msgid "Day"
 msgstr "日期"
 
-#: question_text.py:55
+#: crt_portal/cts_forms/question_text.py:79
 msgid "Year"
 msgstr "年份"
 
-#: question_text.py:59
+#: crt_portal/cts_forms/question_text.py:83
+#: crt_portal/cts_forms/templates/printable_intake_form.html:221
 msgid "In your own words, describe what happened"
 msgstr "請使用您自己的話語描述事發經過"
 
-#: question_text.py:61
+#: crt_portal/cts_forms/question_text.py:85
+#: crt_portal/cts_forms/templates/printable_intake_form.html:223
 msgid "Please share details like:"
 msgstr "請告訴我們諸如以下細節："
 
-#: question_text.py:63
+#: crt_portal/cts_forms/question_text.py:87
+#: crt_portal/cts_forms/templates/printable_intake_form.html:225
 msgid "Time"
 msgstr "時間"
 
-#: question_text.py:64
+#: crt_portal/cts_forms/question_text.py:88
+#: crt_portal/cts_forms/templates/printable_intake_form.html:226
 msgid "Names of people involved including witnesses if there are any"
 msgstr "涉及的人士姓名，包括目擊證人（如有）"
 
-#: question_text.py:65
+#: crt_portal/cts_forms/question_text.py:89
+#: crt_portal/cts_forms/templates/printable_intake_form.html:227
 msgid "Any supporting materials (please list and describe them)"
 msgstr "任何佐證資料（請列出並加以說明）"
 
-#: question_text.py:66
+#: crt_portal/cts_forms/question_text.py:90
 msgid ""
 "While you <strong>cannot</strong> submit these materials through this site, "
 "we may request copies of these from you at a later date. If you provide "
@@ -1188,12 +1252,14 @@ msgstr ""
 "這些材料的副 本。如果您提供這些材料的詳細信息, 我們 就能知道哪些材料對您的報"
 "告最有幫助。"
 
-#: templates/base.html:42 templates/base.html:67
-#: templates/forms/report_base.html:10 templates/forms/report_base.html:13
+#: crt_portal/cts_forms/templates/base.html:42
+#: crt_portal/cts_forms/templates/base.html:67
+#: crt_portal/cts_forms/templates/forms/report_base.html:10
+#: crt_portal/cts_forms/templates/forms/report_base.html:13
 msgid "Contact the Civil Rights Division | Department of Justice"
 msgstr "與民權科 | 司法部聯絡"
 
-#: templates/base.html:55
+#: crt_portal/cts_forms/templates/base.html:55
 msgid ""
 "Have you or someone you know experienced unlawful discrimination? The Civil "
 "Rights Division may be able to help. Civil rights laws can protect you from "
@@ -1205,79 +1271,88 @@ msgstr ""
 "於在各種場合遭受非法歧視、騷擾或虐待，如住房、職場、學校、投票、商店、醫療保"
 "健設施、公共場所等等。"
 
-#: templates/base.html:79
+#: crt_portal/cts_forms/templates/base.html:77
 msgid "Skip to main content"
 msgstr "跳到主要內容"
 
-#: templates/base.html:132 templates/forms/errors.html:14
-#: templates/forms/report_maintenance.html:12 templates/landing.html:11
-#: templates/landing.html:18
+#: crt_portal/cts_forms/templates/base.html:136
+#: crt_portal/cts_forms/templates/forms/errors.html:14
+#: crt_portal/cts_forms/templates/forms/report_maintenance.html:12
+#: crt_portal/cts_forms/templates/landing.html:11
+#: crt_portal/cts_forms/templates/landing.html:18
+#: crt_portal/cts_forms/templates/printable_intake_form.html:27
 msgid "U.S. Department of Justice"
 msgstr "美國司法部"
 
-#: templates/base.html:135 templates/forms/confirmation.html:21
-#: templates/forms/errors.html:15 templates/forms/report_maintenance.html:13
-#: templates/landing.html:11 templates/landing.html:21
+#: crt_portal/cts_forms/templates/base.html:139
+#: crt_portal/cts_forms/templates/forms/confirmation.html:21
+#: crt_portal/cts_forms/templates/forms/errors.html:15
+#: crt_portal/cts_forms/templates/forms/report_maintenance.html:13
+#: crt_portal/cts_forms/templates/landing.html:11
+#: crt_portal/cts_forms/templates/landing.html:21
+#: crt_portal/cts_forms/templates/printable_intake_form.html:28
 msgid "Civil Rights Division"
 msgstr "民權司"
 
-#: templates/forms/complaint_view/actions/bulk_actions.html:94
-#: templates/forms/grouped_questions.html:6
-#: templates/forms/question_cards/commercial_public_location.html:5
-#: templates/forms/question_cards/other_question.html:11
-#: templates/forms/question_cards/police_location.html:4
-#: templates/forms/question_cards/single_form.html:16
-#: templates/forms/question_cards/single_question.html:13
-#: templates/forms/report_class.html:13 templates/forms/report_details.html:12
-#: templates/forms/report_location.html:32
-#: templates/forms/report_location.html:38
-#: templates/forms/report_primary_complaint.html:10
-#: templates/forms/snippets/input.html:9
+#: crt_portal/cts_forms/templates/forms/complaint_view/actions/bulk_actions.html:94
+#: crt_portal/cts_forms/templates/forms/grouped_questions.html:6
+#: crt_portal/cts_forms/templates/forms/question_cards/commercial_public_location.html:5
+#: crt_portal/cts_forms/templates/forms/question_cards/other_question.html:11
+#: crt_portal/cts_forms/templates/forms/question_cards/police_location.html:4
+#: crt_portal/cts_forms/templates/forms/question_cards/single_form.html:16
+#: crt_portal/cts_forms/templates/forms/question_cards/single_question.html:13
+#: crt_portal/cts_forms/templates/forms/report_class.html:13
+#: crt_portal/cts_forms/templates/forms/report_details.html:12
+#: crt_portal/cts_forms/templates/forms/report_location.html:32
+#: crt_portal/cts_forms/templates/forms/report_location.html:38
+#: crt_portal/cts_forms/templates/forms/report_primary_complaint.html:10
+#: crt_portal/cts_forms/templates/forms/snippets/input.html:9
 msgid "required"
 msgstr "必填"
 
-#: templates/forms/confirmation.html:7
+#: crt_portal/cts_forms/templates/forms/confirmation.html:7
 msgid "Submission complete"
 msgstr "完成提交"
 
-#: templates/forms/confirmation.html:20 templates/forms/confirmation.html:26
-#: templates/forms/portal/header.html:2
+#: crt_portal/cts_forms/templates/forms/confirmation.html:20
+#: crt_portal/cts_forms/templates/forms/confirmation.html:26
+#: crt_portal/cts_forms/templates/forms/portal/header.html:2
 msgid "United States Department of Justice"
 msgstr "美國司法部"
 
-#: templates/forms/confirmation.html:29
+#: crt_portal/cts_forms/templates/forms/confirmation.html:29
 msgid "Thank you for submitting a report to the Civil Rights Division."
 msgstr "感謝您向民權司提交報告。"
 
-#: templates/forms/confirmation.html:46
+#: crt_portal/cts_forms/templates/forms/confirmation.html:46
 msgid "Report successfully submitted"
 msgstr "報告提交成功"
 
-#: templates/forms/confirmation.html:51
+#: crt_portal/cts_forms/templates/forms/confirmation.html:51
 msgid "Please save your record number for tracking."
 msgstr "请保存您的記錄號碼以便查詢。"
 
-#: templates/forms/confirmation.html:55
+#: crt_portal/cts_forms/templates/forms/confirmation.html:55
 msgid "Your record number is:"
 msgstr "您的記錄號碼是："
 
-#: templates/forms/confirmation.html:62
+#: crt_portal/cts_forms/templates/forms/confirmation.html:62
 msgid "Print report"
 msgstr "打印報告"
 
-#: templates/forms/confirmation.html:63
+#: crt_portal/cts_forms/templates/forms/confirmation.html:63
 msgid "Save report"
 msgstr "保存報告"
 
-#: templates/forms/confirmation.html:75
+#: crt_portal/cts_forms/templates/forms/confirmation.html:75
 msgid "What to expect"
 msgstr "後續流程"
 
-#: templates/forms/confirmation.html:85
+#: crt_portal/cts_forms/templates/forms/confirmation.html:85
 msgid "We review your report"
 msgstr "我們會審查您的報告"
 
-#: templates/forms/confirmation.html:90
+#: crt_portal/cts_forms/templates/forms/confirmation.html:90
 msgid ""
 "Our specialists in the Civil Rights Division carefully read every report to "
 "identify civil rights violations, spot trends, and determine if we have "
@@ -1286,27 +1361,27 @@ msgstr ""
 "民權司的專員會仔細閱讀每份報告，以找出違反民權法的行為、瞭解違規行為的趨勢並"
 "判定我們是否有權協助處理您所舉報的事宜。"
 
-#: templates/forms/confirmation.html:100
+#: crt_portal/cts_forms/templates/forms/confirmation.html:100
 msgid "Our specialists determine the next step"
 msgstr "我們的專員將會決定接下來該怎麼做"
 
-#: templates/forms/confirmation.html:104
+#: crt_portal/cts_forms/templates/forms/confirmation.html:104
 msgid "We may decide to:"
 msgstr "我們可決定："
 
-#: templates/forms/confirmation.html:107
+#: crt_portal/cts_forms/templates/forms/confirmation.html:107
 msgid ""
 "<strong>Open an investigation</strong> or take some other action within the "
 "legal authority of the Justice Department."
 msgstr "<strong>立案調查</strong>或在司法部的法律權限範圍內採取某些其他行動。"
 
-#: templates/forms/confirmation.html:108
+#: crt_portal/cts_forms/templates/forms/confirmation.html:108
 msgid ""
 "<strong>Collect more information</strong> before we can look into your "
 "report."
 msgstr "在我們針對您的報告進行調查之前<strong>收集更多資訊</strong>。"
 
-#: templates/forms/confirmation.html:109
+#: crt_portal/cts_forms/templates/forms/confirmation.html:109
 msgid ""
 "<strong>Recommend another government agency</strong> that can properly look "
 "into your report. If so, we’ll let you know."
@@ -1314,7 +1389,7 @@ msgstr ""
 "為您建議可以針對您報告進行適當調查的<strong>其他政府機關</strong>。如發生此情"
 "況，我們將會通知您。"
 
-#: templates/forms/confirmation.html:112
+#: crt_portal/cts_forms/templates/forms/confirmation.html:112
 msgid ""
 "In some cases, we may determine that we don’t have legal authority to handle "
 "your report and will recommend that you seek help from a private lawyer or "
@@ -1323,11 +1398,11 @@ msgstr ""
 "在某些情況下，我們可能會判定我們沒有法律權限可以處理您的報告，且我們將會建議"
 "您向私人律師或當地法扶組織尋求協助。"
 
-#: templates/forms/confirmation.html:122
+#: crt_portal/cts_forms/templates/forms/confirmation.html:122
 msgid "When possible, we will follow up with you"
 msgstr "在可能的情況下，我們將會跟進您的狀況"
 
-#: templates/forms/confirmation.html:127
+#: crt_portal/cts_forms/templates/forms/confirmation.html:127
 msgid ""
 "We do our best to let you know about the outcome of our review. However, we "
 "may not always be able to provide you with updates because:"
@@ -1335,16 +1410,17 @@ msgstr ""
 "我們會盡力通知您有關我們審查的結果。然而，我們可能不一定能夠為您提供進度更"
 "新，理由如下："
 
-#: templates/forms/confirmation.html:131
+#: crt_portal/cts_forms/templates/forms/confirmation.html:131
 msgid ""
 "We’re actively working on an investigation or case related to your report."
 msgstr "我們正在積極調查與您報告有關的案件。"
 
-#: templates/forms/confirmation.html:134
+#: crt_portal/cts_forms/templates/forms/confirmation.html:134
 msgid "We’re receiving and actively reviewing many requests at the same time."
 msgstr "我們同時收到許多要求且正在積極審查這些要求。"
 
-#: templates/forms/confirmation.html:137 templates/landing.html:325
+#: crt_portal/cts_forms/templates/forms/confirmation.html:137
+#: crt_portal/cts_forms/templates/landing.html:325
 msgid ""
 "If we are able to respond, we will contact you using the contact information "
 "you provided in this report. Depending on the type of report, response times "
@@ -1356,26 +1432,26 @@ msgstr ""
 "類型而定，回覆的時間可能會有所不同。如果您需要與我們聯絡有關您報告的事宜，在"
 "聯絡我們時請告知我們您的報告號碼。我們透過此方式來追蹤您所提交的資訊。"
 
-#: templates/forms/confirmation.html:145
+#: crt_portal/cts_forms/templates/forms/confirmation.html:145
 msgid "What you can do next"
 msgstr "您接下來可以採取的行動"
 
-#: templates/forms/confirmation.html:151
+#: crt_portal/cts_forms/templates/forms/confirmation.html:151
 msgid "1"
 msgstr "1"
 
-#: templates/forms/confirmation.html:154
+#: crt_portal/cts_forms/templates/forms/confirmation.html:154
 msgid ""
 "Contact local legal aid organizations or a lawyer if you haven’t already"
 msgstr "如果您尚未與您當地的法扶組織或律師聯絡，您可以與其聯絡"
 
-#: templates/forms/confirmation.html:158
+#: crt_portal/cts_forms/templates/forms/confirmation.html:158
 msgid ""
 "Legal aid offices or members of lawyer associations in your state may be "
 "able to help you with your issue."
 msgstr "您所在州的法扶辦公室或律師協會的成員可能可以協助您處理您的問題。"
 
-#: templates/forms/confirmation.html:161
+#: crt_portal/cts_forms/templates/forms/confirmation.html:161
 msgid ""
 "American Bar Association, visit <a class=\"external-link--blue external-"
 "link--popup\" href=\"https://www.americanbar.org/groups/legal_services/flh-"
@@ -1387,7 +1463,7 @@ msgstr ""
 "groups/legal_services/flh-home</a> 或致電 <a href=\"tel:800-285-2221\">(800) "
 "285-2221</a> 與美國律師協會聯絡"
 
-#: templates/forms/confirmation.html:164
+#: crt_portal/cts_forms/templates/forms/confirmation.html:164
 #, fuzzy
 #| msgid ""
 #| "Legal Services Corporation (or Legal Aid Offices), visit <a aria-"
@@ -1404,15 +1480,15 @@ msgstr ""
 "blue external-link--popup\" href=\"https://www.lsc.gov/find-legal-aid\">www."
 "lsc.gov/find-legal-aid</a>"
 
-#: templates/forms/confirmation.html:172
+#: crt_portal/cts_forms/templates/forms/confirmation.html:172
 msgid "2"
 msgstr "2"
 
-#: templates/forms/confirmation.html:175
+#: crt_portal/cts_forms/templates/forms/confirmation.html:175
 msgid "Get help immediately if you are in danger"
 msgstr "如果您的處境危險，請立即尋求協助"
 
-#: templates/forms/confirmation.html:180
+#: crt_portal/cts_forms/templates/forms/confirmation.html:180
 msgid ""
 "If you reported an incident where you or someone else has experienced or is "
 "still experiencing physical harm or violence, or are in immediate danger, "
@@ -1422,15 +1498,16 @@ msgstr ""
 "或其他人目前仍因為該事件而遭受身體傷害或暴力行為，或仍随时可能有危險，請致電 "
 "<a href=\"tel:911\">911</a> 並與警察聯絡。"
 
-#: templates/forms/confirmation.html:193
+#: crt_portal/cts_forms/templates/forms/confirmation.html:193
 msgid "Your submission"
 msgstr "您所提交的資訊"
 
-#: templates/forms/error_422.html:5 templates/forms/errors.html:32
+#: crt_portal/cts_forms/templates/forms/error_422.html:5
+#: crt_portal/cts_forms/templates/forms/errors.html:32
 msgid "We're sorry, something went wrong"
 msgstr "很抱歉，系統發生錯誤"
 
-#: templates/forms/error_422.html:8
+#: crt_portal/cts_forms/templates/forms/error_422.html:8
 msgid ""
 "\n"
 "        <p>This error might be associated with an incompatible Internet "
@@ -1446,56 +1523,61 @@ msgstr ""
 "<p>此外，在輸入您的報告時，請勿使用多個瀏覽器和／或使用多個瀏覽器分頁。</p>\n"
 "    "
 
-#: templates/forms/errors.html:34
+#: crt_portal/cts_forms/templates/forms/errors.html:34
 msgid "We hope to fix this issue shortly"
 msgstr "我們希望此問題很快可以獲得解決"
 
-#: templates/forms/errors.html:36
+#: crt_portal/cts_forms/templates/forms/errors.html:36
 msgid "Error: "
 msgstr "錯誤訊息："
 
-#: templates/forms/errors.html:38 templates/forms/report_maintenance.html:32
+#: crt_portal/cts_forms/templates/forms/errors.html:38
+#: crt_portal/cts_forms/templates/forms/report_maintenance.html:32
 msgid "If you need to contact us immediately, you can reach us by:"
 msgstr "如果您需要立即與我們聯絡，您可以透過下列方式與我們取得聯繫："
 
-#: templates/forms/errors.html:43 templates/forms/report_maintenance.html:37
+#: crt_portal/cts_forms/templates/forms/errors.html:43
+#: crt_portal/cts_forms/templates/forms/report_maintenance.html:37
 msgid "Email"
 msgstr "電子郵件"
 
-#: templates/partials/footer.html:18
-msgid "Send Printed Report Form (<a target=\"_blank\" href=\"https://www.ada.gov/assets/pdfs/file-a-complaint.pdf\">Regular Format</a> | <a target=\"_blank\" href=\"https://www.ada.gov/assets/pdfs/file-a-complaint-lg.pdf\">Large Format</a>) To:"
-msgstr "將打印的舉報表格 (<a target=\"_blank\" href=\"https://www.ada.gov/assets/pdfs/file-a-complaint.pdf\">普通格式</a> | <a target=\"_blank\" href=\"https://www.ada.gov/assets/pdfs/file-a-complaint-lg.pdf\">大型格式</a>)發送至:"
-
-#: templates/forms/errors.html:52 templates/forms/report_maintenance.html:46
-#: templates/partials/footer.html:32
+#: crt_portal/cts_forms/templates/forms/errors.html:52
+#: crt_portal/cts_forms/templates/forms/report_maintenance.html:46
+#: crt_portal/cts_forms/templates/partials/footer.html:32
 msgid "(toll-free)"
 msgstr "（免費）"
 
-#: templates/forms/errors.html:53 templates/forms/report_maintenance.html:47
-#: templates/partials/footer.html:33
+#: crt_portal/cts_forms/templates/forms/errors.html:53
+#: crt_portal/cts_forms/templates/forms/report_maintenance.html:47
+#: crt_portal/cts_forms/templates/partials/footer.html:33
 msgid "Telephone Device for the Deaf"
 msgstr "聽障專線"
 
-#: templates/forms/errors.html:54 templates/forms/report_maintenance.html:48
-#: templates/partials/footer.html:34
+#: crt_portal/cts_forms/templates/forms/errors.html:54
+#: crt_portal/cts_forms/templates/forms/report_maintenance.html:48
+#: crt_portal/cts_forms/templates/partials/footer.html:34
 msgid "(TTY)"
 msgstr "(TTY)"
 
-#: templates/forms/errors.html:69 templates/forms/report_maintenance.html:63
+#: crt_portal/cts_forms/templates/forms/errors.html:69
+#: crt_portal/cts_forms/templates/forms/report_maintenance.html:63
 msgid "Other information"
 msgstr "其他資訊"
 
-#: templates/forms/errors.html:70
+#: crt_portal/cts_forms/templates/forms/errors.html:70
+#: crt_portal/utils/pdf.py:183
 msgid "File a complaint"
 msgstr "提出投訴"
 
-#: templates/forms/errors.html:72 templates/forms/report_maintenance.html:65
-#: templates/landing.html:137
+#: crt_portal/cts_forms/templates/forms/errors.html:72
+#: crt_portal/cts_forms/templates/forms/report_maintenance.html:65
+#: crt_portal/cts_forms/templates/landing.html:137
 msgid "About the Civil Rights Division"
 msgstr "民權司相關資訊"
 
-#: templates/forms/errors.html:75 templates/forms/report_maintenance.html:68
-#: templates/landing.html:120
+#: crt_portal/cts_forms/templates/forms/errors.html:75
+#: crt_portal/cts_forms/templates/forms/report_maintenance.html:68
+#: crt_portal/cts_forms/templates/landing.html:120
 msgid ""
 "If you or someone else is in immediate danger, <a href=\"tel:911\">please "
 "call 911 or local police.</a>"
@@ -1503,11 +1585,11 @@ msgstr ""
 "如果您或其他人有紧急的危險，<a href=\"tel:911\">請致電 911 或與當地警察聯絡。"
 "</a>"
 
-#: templates/forms/portal/progress-bar.html:5
+#: crt_portal/cts_forms/templates/forms/portal/progress-bar.html:5
 msgid "progress"
 msgstr "進度"
 
-#: templates/forms/portal/progress-bar.html:7
+#: crt_portal/cts_forms/templates/forms/portal/progress-bar.html:7
 #, python-format
 msgid ""
 "\n"
@@ -1520,15 +1602,15 @@ msgstr ""
 "%(total_stages)s.\n"
 "        "
 
-#: templates/forms/portal/progress-bar.html:26
+#: crt_portal/cts_forms/templates/forms/portal/progress-bar.html:26
 msgid "not completed"
 msgstr "尚未完成"
 
-#: templates/forms/portal/progress-bar.html:28
+#: crt_portal/cts_forms/templates/forms/portal/progress-bar.html:28
 msgid "completed"
 msgstr "已完成"
 
-#: templates/forms/report_base.html:8
+#: crt_portal/cts_forms/templates/forms/report_base.html:8
 #, python-format
 msgid ""
 "\n"
@@ -1537,11 +1619,11 @@ msgstr ""
 "\n"
 "        步驟 %(stage_number)s: %(current_step_name)s - "
 
-#: templates/forms/report_base.html:24
+#: crt_portal/cts_forms/templates/forms/report_base.html:26
 msgid "Contact the Department of Justice to report a civil rights violation"
 msgstr "與司法部聯絡以舉報民權侵犯事件"
 
-#: templates/forms/report_base.html:56
+#: crt_portal/cts_forms/templates/forms/report_base.html:58
 #, python-format
 msgid ""
 "\n"
@@ -1560,39 +1642,43 @@ msgstr[1] ""
 "                  發現 %(counter)s 項錯誤\n"
 "                "
 
-#: templates/forms/report_base.html:86
-#: templates/forms/report_contact_info.html:38
+#: crt_portal/cts_forms/templates/forms/report_base.html:88
+#: crt_portal/cts_forms/templates/forms/report_contact_info.html:49
 msgid "Submit"
 msgstr "提交"
 
-#: templates/forms/report_base.html:88
-#: templates/forms/report_contact_info.html:32
-#: templates/forms/report_contact_info.html:40
+#: crt_portal/cts_forms/templates/forms/report_base.html:90
+#: crt_portal/cts_forms/templates/forms/report_contact_info.html:43
+#: crt_portal/cts_forms/templates/forms/report_contact_info.html:51
 msgid "Next"
 msgstr "下一步"
 
-#: templates/forms/report_base.html:97 templates/forms/report_review.html:33
+#: crt_portal/cts_forms/templates/forms/report_base.html:99
+#: crt_portal/cts_forms/templates/forms/report_review.html:33
 msgid "previous step"
 msgstr "上一步"
 
-#: templates/forms/report_base.html:100 templates/forms/report_review.html:36
-#: templates/partials/redirect-modal.html:23
+#: crt_portal/cts_forms/templates/forms/report_base.html:102
+#: crt_portal/cts_forms/templates/forms/report_review.html:36
+#: crt_portal/cts_forms/templates/partials/redirect-modal.html:23
 msgid "Back"
 msgstr "返回"
 
-#: templates/forms/report_data.html:21 templates/forms/report_data.html:111
+#: crt_portal/cts_forms/templates/forms/report_data.html:21
+#: crt_portal/cts_forms/templates/forms/report_data.html:111
 msgid "Address"
 msgstr "地址"
 
-#: templates/forms/report_data.html:131 templates/forms/report_data.html:137
+#: crt_portal/cts_forms/templates/forms/report_data.html:131
+#: crt_portal/cts_forms/templates/forms/report_data.html:137
 msgid "None selected"
 msgstr "沒有選擇任何選項"
 
-#: templates/forms/report_maintenance.html:29
+#: crt_portal/cts_forms/templates/forms/report_maintenance.html:29
 msgid "This page is currently down for maintenance."
 msgstr "本頁面目前正在維护。"
 
-#: templates/forms/report_maintenance.html:30
+#: crt_portal/cts_forms/templates/forms/report_maintenance.html:30
 msgid ""
 "We expect to be back shortly. We recommend checking back to report a civil "
 "rights violation."
@@ -1600,11 +1686,11 @@ msgstr ""
 "我們預計很快就能恢復正常運作。我們建議您稍后回來確認網站狀況，以舉報民權侵犯"
 "事件。"
 
-#: templates/forms/report_review.html:9
+#: crt_portal/cts_forms/templates/forms/report_review.html:9
 msgid "Before you submit your report, please check your responses"
 msgstr "在您提交報告之前，請檢查您的答案"
 
-#: templates/forms/report_review.html:11
+#: crt_portal/cts_forms/templates/forms/report_review.html:11
 msgid ""
 "If you need to make any changes, you can go back and edit the previous "
 "pages. Please make sure your information is accurate. This allows us to "
@@ -1613,20 +1699,22 @@ msgstr ""
 "如果您需要更改任何答案，您可以返回並修改先前的頁面。請確認您的資訊正確無誤。"
 "這可讓我們迅速回覆您的報告。"
 
-#: templates/forms/report_review.html:13 templates/forms/report_review.html:25
+#: crt_portal/cts_forms/templates/forms/report_review.html:13
+#: crt_portal/cts_forms/templates/forms/report_review.html:25
 msgid "Submit report"
 msgstr "提交報告"
 
-#: templates/forms/snippets/preview_button.html:5
+#: crt_portal/cts_forms/templates/forms/snippets/preview_button.html:5
 msgid "Edit this page"
 msgstr "修改本頁面"
 
-#: templates/forms/widgets/crt_radio_area_option.html:26
-#: templates/vot_resources.html:57
+#: crt_portal/cts_forms/templates/forms/widgets/crt_radio_area_option.html:26
+#: crt_portal/cts_forms/templates/printable_intake_form.html:112
+#: crt_portal/cts_forms/templates/vot_resources.html:57
 msgid "Examples:"
 msgstr "例子："
 
-#: templates/forms/word_counter.html:4
+#: crt_portal/cts_forms/templates/forms/word_counter.html:4
 #, python-format
 msgid ""
 "\n"
@@ -1637,7 +1725,8 @@ msgstr ""
 "    %(word_limit)s 字數限制.\n"
 "  "
 
-#: templates/forms/word_counter.html:16 templates/forms/word_counter.html:21
+#: crt_portal/cts_forms/templates/forms/word_counter.html:16
+#: crt_portal/cts_forms/templates/forms/word_counter.html:21
 #, python-format
 msgid ""
 "\n"
@@ -1648,211 +1737,229 @@ msgstr ""
 "          %(word_limit)s 已達字數限制\n"
 "        "
 
-#: templates/hate_crime_human_trafficking.html:6
-#: templates/hate_crime_human_trafficking.html:13
+#: crt_portal/cts_forms/templates/hate_crime_human_trafficking.html:6
+#: crt_portal/cts_forms/templates/hate_crime_human_trafficking.html:13
 msgid ""
 "Civil Rights Division - Department of Justice - Get help for hate crimes and "
 "human trafficking"
 msgstr "民權司 - 司法部 - 獲取仇恨犯罪和人口販運方面的幫助"
 
-#: templates/hate_crime_human_trafficking.html:24
+#: crt_portal/cts_forms/templates/hate_crime_human_trafficking.html:24
 msgid "Get help"
 msgstr "請立即求助！"
 
-#: templates/hate_crime_human_trafficking.html:28
+#: crt_portal/cts_forms/templates/hate_crime_human_trafficking.html:28
 msgid "Report a hate crime or hate incident"
 msgstr "舉報仇恨罪案和仇恨事件"
 
-#: templates/hate_crime_human_trafficking.html:31
+#: crt_portal/cts_forms/templates/hate_crime_human_trafficking.html:31
 msgid "Report human trafficking"
 msgstr "舉報人口販運"
 
-#: templates/hate_crime_human_trafficking.html:38
+#: crt_portal/cts_forms/templates/hate_crime_human_trafficking.html:38
 msgid "Get help for hate crimes and human trafficking"
 msgstr "獲取仇恨犯罪和人口販運方面的幫助"
 
-#: templates/hate_crime_human_trafficking.html:43
+#: crt_portal/cts_forms/templates/hate_crime_human_trafficking.html:43
 msgid "Where to report hate crimes and hate incidents"
 msgstr "如何舉報仇恨罪案和仇恨事件"
 
-#: templates/hate_crime_human_trafficking.html:49
+#: crt_portal/cts_forms/templates/hate_crime_human_trafficking.html:49
 msgid "In cases of emergency, contact 911"
 msgstr "緊急情況，請拨打911"
 
-#: templates/hate_crime_human_trafficking.html:54
+#: crt_portal/cts_forms/templates/hate_crime_human_trafficking.html:54
 msgid "Otherwise, contact the FBI online"
 msgstr "否则，請綫上聯係聯邦調查局"
 
-#: templates/hate_crime_human_trafficking.html:59
+#: crt_portal/cts_forms/templates/hate_crime_human_trafficking.html:59
 msgid "Or a local field office by phone"
 msgstr "或者致電當地的分局"
 
-#: templates/hate_crime_human_trafficking.html:63
-msgid "Not every act of a hate crime involves a crime. <a class='external-link--blue' href='https://www.justice.gov/hatecrimes/learn-about-hate-crimes'>Acts of prejudice</a> that are not crimes, and do not involve violence, threats, or property damage, are referred to as bias incidents or hate incidents. Some of these incidents, particularly those that occur in schools, workplaces, residences, or in other public spaces, may violate federal civil rights laws. You can report hate incidents to the Civil Rights Division using <a href='https://civilrights.justice.gov/'>this reporting portal</a>"
-msgstr "並非每一項涉仇恨罪案的行爲都涉及犯罪。<a class='external-link--blue' href='https://www.justice.gov/hatecrimes/learn-about-hate-crimes'>成見</a>, 如非犯罪，不涉及暴力、威脅或財產損失，稱之爲偏見事件或仇恨事件。其中某些事件，尤其是發生在學校、工作場所、住所和其它公共場所，可能違反聯邦民權法。您可以通過<a href='https://civilrights.justice.gov/'>此舉報網站</a>向民權司舉報仇恨事件。"
+#: crt_portal/cts_forms/templates/hate_crime_human_trafficking.html:63
+msgid ""
+"Not every act of a hate crime involves a crime. <a class='external-link--"
+"blue' href='https://www.justice.gov/hatecrimes/learn-about-hate-crimes'>Acts "
+"of prejudice</a> that are not crimes, and do not involve violence, threats, "
+"or property damage, are referred to as bias incidents or hate incidents. "
+"Some of these incidents, particularly those that occur in schools, "
+"workplaces, residences, or in other public spaces, may violate federal civil "
+"rights laws. You can report hate incidents to the Civil Rights Division "
+"using <a href='https://civilrights.justice.gov/'>this reporting portal</a>"
+msgstr ""
+"並非每一項涉仇恨罪案的行爲都涉及犯罪。<a class='external-link--blue' "
+"href='https://www.justice.gov/hatecrimes/learn-about-hate-crimes'>成見</a>, "
+"如非犯罪，不涉及暴力、威脅或財產損失，稱之爲偏見事件或仇恨事件。其中某些事"
+"件，尤其是發生在學校、工作場所、住所和其它公共場所，可能違反聯邦民權法。您可"
+"以通過<a href='https://civilrights.justice.gov/'>此舉報網站</a>向民權司舉報仇"
+"恨事件。"
 
-#: templates/hate_crime_human_trafficking.html:68
+#: crt_portal/cts_forms/templates/hate_crime_human_trafficking.html:68
 msgid "Where to report human trafficking"
 msgstr "在哪裏舉報人口販運"
 
-#: templates/hate_crime_human_trafficking.html:70
+#: crt_portal/cts_forms/templates/hate_crime_human_trafficking.html:70
 msgid ""
 "Human trafficking includes being forced or coerced to do work, or forced or "
 "coerced to engage in sex acts for something of value."
 msgstr ""
 "人口販運包括被强迫或脅迫做工，或是被强迫或脅迫从事性行爲以換取有價值的東西。"
 
-#: templates/hce_resources.html:6 templates/hce_resources.html:13
+#: crt_portal/cts_forms/templates/hce_resources.html:6
+#: crt_portal/cts_forms/templates/hce_resources.html:13
 #, fuzzy
 #| msgid "Civil Rights Division - Department of Justice - Privacy Policy"
 msgid "Civil Rights Division - Department of Justice - Get resources"
 msgstr "民權司 - 司法部 - 隱私政策"
 
-#: templates/hce_resources.html:24
+#: crt_portal/cts_forms/templates/hce_resources.html:24
 msgid "Housing Section Resources"
 msgstr ""
 
-#: templates/hce_resources.html:28 templates/hce_resources.html:55
+#: crt_portal/cts_forms/templates/hce_resources.html:28
+#: crt_portal/cts_forms/templates/hce_resources.html:55
 msgid "Credit"
 msgstr "信用"
 
-#: templates/hce_resources.html:31 templates/hce_resources.html:75
+#: crt_portal/cts_forms/templates/hce_resources.html:31
+#: crt_portal/cts_forms/templates/hce_resources.html:75
 msgid "Disability"
 msgstr "残疾"
 
-#: templates/hce_resources.html:34 templates/hce_resources.html:84
+#: crt_portal/cts_forms/templates/hce_resources.html:34
+#: crt_portal/cts_forms/templates/hce_resources.html:84
 msgid "Housing"
 msgstr "房屋"
 
-#: templates/hce_resources.html:37
+#: crt_portal/cts_forms/templates/hce_resources.html:37
 msgid "Find an attorney"
 msgstr "查找律師"
 
-#: templates/hce_resources.html:40
+#: crt_portal/cts_forms/templates/hce_resources.html:40
 msgid "Enforcement of state laws"
 msgstr "州法律執行機構"
 
-#: templates/hce_resources.html:43
+#: crt_portal/cts_forms/templates/hce_resources.html:43
 msgid "General assistance"
 msgstr "般援助"
 
-#: templates/hce_resources.html:50
+#: crt_portal/cts_forms/templates/hce_resources.html:50
 msgid "Housing section resources"
 msgstr ""
 
-#: templates/hce_resources.html:58
+#: crt_portal/cts_forms/templates/hce_resources.html:58
 msgid "Consumer Financial Protection Bureau"
 msgstr "消費者金融保護局"
 
-#: templates/hce_resources.html:59
+#: crt_portal/cts_forms/templates/hce_resources.html:59
 msgid "Submit a complaint about a financial product or service."
 msgstr "提交關於住房歧視的投訴。"
 
-#: templates/hce_resources.html:65
+#: crt_portal/cts_forms/templates/hce_resources.html:65
 msgid "Credit Bureaus"
 msgstr "信貸局"
 
-#: templates/hce_resources.html:66
+#: crt_portal/cts_forms/templates/hce_resources.html:66
 msgid "Find information about credit history or credit scores."
 msgstr "查找有關信用記錄或信用評分的信息。"
 
-#: templates/hce_resources.html:78
+#: crt_portal/cts_forms/templates/hce_resources.html:78
 msgid "Fair Housing Accessibility First"
 msgstr "公平住房無障碍第一倡議"
 
-#: templates/hce_resources.html:79
+#: crt_portal/cts_forms/templates/hce_resources.html:79
 msgid ""
 "Information about physical accessibility requirements in multifamily housing."
 msgstr "有關多户住宅中身體辅助功能要求的信息。"
 
-#: templates/hce_resources.html:87
+#: crt_portal/cts_forms/templates/hce_resources.html:87
 msgid "U.S. Department of Housing and Urban Development"
 msgstr "美國住房和城市發展部"
 
-#: templates/hce_resources.html:88
+#: crt_portal/cts_forms/templates/hce_resources.html:88
 msgid "Submit a complaint about discrimination in housing."
 msgstr "提交關於住房歧視的投訴。"
 
-#: templates/hce_resources.html:95
+#: crt_portal/cts_forms/templates/hce_resources.html:95
 msgid "Homelessness Resources"
 msgstr "無家可歸者的資源"
 
-#: templates/hce_resources.html:96
+#: crt_portal/cts_forms/templates/hce_resources.html:96
 msgid "Information on housing assistance."
 msgstr "住房援助的信息。"
 
-#: templates/hce_resources.html:100
+#: crt_portal/cts_forms/templates/hce_resources.html:100
 msgid "Office of Public &amp; Indian Housing"
 msgstr "公共和印第安住房辦公室"
 
-#: templates/hce_resources.html:101
+#: crt_portal/cts_forms/templates/hce_resources.html:101
 msgid ""
 "Information on public housing authorities, rental assistance, and housing "
 "counseling."
 msgstr "公共住房當局、租賃援助和住房咨詢的信息。"
 
-#: templates/hce_resources.html:102
+#: crt_portal/cts_forms/templates/hce_resources.html:102
 msgid ""
 "(for inquiries on public housing authorities and housing choice voucher "
 "programs)"
 msgstr "（用於公共住房當局和住房選擇券項目的查詢）"
 
-#: templates/hce_resources.html:106
+#: crt_portal/cts_forms/templates/hce_resources.html:106
 msgid "Office of Inspector General (OIG)"
 msgstr "督察長辦公室 (OIG)"
 
-#: templates/hce_resources.html:107
+#: crt_portal/cts_forms/templates/hce_resources.html:107
 msgid "Report fraud, waste, or abuse in HUD-funded programs."
 msgstr "報告 HUD 資助的項目中存在的欺詐、浪費或濫用行爲。"
 
-#: templates/hce_resources.html:109
+#: crt_portal/cts_forms/templates/hce_resources.html:109
 msgid "(202) 708-4829 Facsimile"
 msgstr "傳真：(202) 708-4829 "
 
-#: templates/hce_resources.html:110
+#: crt_portal/cts_forms/templates/hce_resources.html:110
 msgid "Email: hotline@hudoig.gov"
 msgstr "電子郵件： hotline@hudoig.gov"
 
-#: templates/hce_resources.html:114
+#: crt_portal/cts_forms/templates/hce_resources.html:114
 msgid "Fair Housing Initiatives Program Agencies"
 msgstr "公平住房倡議計劃機構"
 
-#: templates/hce_resources.html:115
+#: crt_portal/cts_forms/templates/hce_resources.html:115
 msgid ""
 "Information about organizations that assist people who believe they have "
 "been victims of housing discrimination."
 msgstr "幫助那些認爲他們是住房歧視受害者的援助組織的信息。"
 
-#: templates/hce_resources.html:119
+#: crt_portal/cts_forms/templates/hce_resources.html:119
 msgid "Fair Housing Assistance Program Agencies"
 msgstr "公平住房援助方案機構"
 
-#: templates/hce_resources.html:120
+#: crt_portal/cts_forms/templates/hce_resources.html:120
 msgid ""
 "State and local agencies responsible for receiving reports of discrimination."
 msgstr "負責接收歧視報告的州和地方機構。"
 
-#: templates/hce_resources.html:124
+#: crt_portal/cts_forms/templates/hce_resources.html:124
 msgid "Rent and Utility Payment Assistance"
 msgstr "租金和公用事業付款援助"
 
-#: templates/hce_resources.html:125
+#: crt_portal/cts_forms/templates/hce_resources.html:125
 msgid "Information on rental assistance programs in your area."
 msgstr "您所在地區裏租賃援助項目的信息。"
 
-#: templates/hce_resources.html:129
+#: crt_portal/cts_forms/templates/hce_resources.html:129
 msgid "Find an Attorney"
 msgstr "查找律師"
 
-#: templates/hce_resources.html:132
+#: crt_portal/cts_forms/templates/hce_resources.html:132
 msgid "American Bar Association"
 msgstr "美國律師協會"
 
-#: templates/hce_resources.html:139
+#: crt_portal/cts_forms/templates/hce_resources.html:139
 msgid "Legal Services Corporation (or Legal Aid Offices)"
 msgstr "法律服務公司（或法律援助辦事處）"
 
-#: templates/hce_resources.html:140
+#: crt_portal/cts_forms/templates/hce_resources.html:140
 msgid ""
 "Information on non-profit organizations providing legal help to people with "
 "limited income. Visit <a class='external-link--blue external-link--popup' "
@@ -1863,58 +1970,63 @@ msgstr ""
 "href=\"https://www.lsc.gov/find-legal-aid\">法律服務公司（或法律援助辦事處）"
 "</a>"
 
-#: templates/hce_resources.html:144
+#: crt_portal/cts_forms/templates/hce_resources.html:144
 msgid "Enforcement of State Laws"
 msgstr "州法律執行機構"
 
-#: templates/hce_resources.html:147
+#: crt_portal/cts_forms/templates/hce_resources.html:147
 msgid "State Attorneys General"
 msgstr "州檢察長"
 
-#: templates/hce_resources.html:148
+#: crt_portal/cts_forms/templates/hce_resources.html:148
 msgid "Find contact information for your state attorney general."
 msgstr "查找州檢察長的聯絡信息。"
 
-#: templates/hce_resources.html:152
+#: crt_portal/cts_forms/templates/hce_resources.html:152
 msgid "General Assistance"
 msgstr "般援助"
 
-#: templates/hce_resources.html:156
+#: crt_portal/cts_forms/templates/hce_resources.html:156
 msgid ""
 "Assistance with questions about federal agencies, government programs, "
 "services, and more."
 msgstr "協助處理有關聯邦機構、政府項目、服務等的問題"
 
-#: templates/landing.html:31
+#: crt_portal/cts_forms/templates/landing.html:31
 msgid "Menu"
 msgstr "菜單"
 
-#: templates/landing.html:40
+#: crt_portal/cts_forms/templates/landing.html:40
 msgid "About the Division"
 msgstr "民權司相關資訊"
 
-#: templates/landing.html:45
+#: crt_portal/cts_forms/templates/landing.html:45
 msgid "Your rights"
 msgstr "您的權利"
 
-#: templates/landing.html:50 templates/partials/footer.html:70
+#: crt_portal/cts_forms/templates/landing.html:50
+#: crt_portal/cts_forms/templates/partials/footer.html:70
 msgid "Report a violation"
 msgstr "舉報侵權事件"
 
-#: templates/landing.html:55
+#: crt_portal/cts_forms/templates/landing.html:55
 msgid "Already submitted?"
 msgstr "已經提交？"
 
-#: templates/landing.html:60 templates/partials/footer.html:8
-#: views_public.py:201 views_public.py:305 views_public.py:323
+#: crt_portal/cts_forms/templates/landing.html:60
+#: crt_portal/cts_forms/templates/partials/footer.html:8
+#: crt_portal/cts_forms/templates/printable_intake_form.html:50
+#: crt_portal/cts_forms/views_public.py:202
+#: crt_portal/cts_forms/views_public.py:308
+#: crt_portal/cts_forms/views_public.py:326
 msgid "Contact"
 msgstr "聯絡"
 
-#: templates/landing.html:91
+#: crt_portal/cts_forms/templates/landing.html:91
 msgid "We uphold the civil rights of <em>all</em> people in the United States."
 msgstr "我們會維護所有身处美國的民众的民權。"
 
-#: templates/landing.html:96
+#: crt_portal/cts_forms/templates/landing.html:96
 msgid ""
 "The Civil Rights Division enforces federal laws that protect you from "
 "discrimination based on your race, color, national origin, disability "
@@ -1924,28 +2036,29 @@ msgstr ""
 "民權司負責執行聯邦法律，保護您免於因為種族、膚色、原國籍、殘障人士身分、性"
 "別、宗教、家庭狀況而遭受歧視或喪失其他憲法權利。"
 
-#: templates/landing.html:99
+#: crt_portal/cts_forms/templates/landing.html:99
 msgid ""
 "If you believe your civil rights, or someone else’s, have been violated, "
 "submit a report using our online form."
 msgstr "如果您認為自己或他人的民權受到侵犯，請使用我們的線上表格提交報告。"
 
-#: templates/landing.html:101 templates/landing.html:298
+#: crt_portal/cts_forms/templates/landing.html:101
+#: crt_portal/cts_forms/templates/landing.html:298
 msgid "Start a report"
 msgstr "開始提交報告"
 
-#: templates/landing.html:102
+#: crt_portal/cts_forms/templates/landing.html:102
 msgid "Learn your rights"
 msgstr "瞭解您的權利"
 
-#: templates/landing.html:114
+#: crt_portal/cts_forms/templates/landing.html:114
 msgid ""
 "If you are in danger, contact <a href=\"tel:911\" aria-label=\"9 1 1\">911</"
 "a>"
 msgstr ""
 "如果您處境危險，請聯絡 <a href=\"tel:911\" aria-label=\"9 1 1\">911</a>"
 
-#: templates/landing.html:125
+#: crt_portal/cts_forms/templates/landing.html:125
 msgid ""
 "If you are reporting misconduct by law enforcement or believe you have "
 "experienced a hate crime, please <a aria-label=\"contact the FBI\" "
@@ -1956,21 +2069,21 @@ msgstr ""
 "label=\"contact the FBI\" class=\"external-link--white\" href=\"https://www."
 "fbi.gov/contact-us\">請與聯邦調查局 (FBI) 聯絡</a>。"
 
-#: templates/landing.html:139
+#: crt_portal/cts_forms/templates/landing.html:139
 msgid "We protect your rights through:"
 msgstr "我們透過下列方式保障您的權利："
 
-#: templates/landing.html:142
+#: crt_portal/cts_forms/templates/landing.html:142
 msgid "Enforcement"
 msgstr "執法"
 
-#: templates/landing.html:144
+#: crt_portal/cts_forms/templates/landing.html:144
 msgid ""
 "We sue or prosecute individuals and organizations who violate civil rights "
 "laws."
 msgstr "我們會控告或起訴違反民權法的人士和組織。"
 
-#: templates/landing.html:147
+#: crt_portal/cts_forms/templates/landing.html:147
 #, python-format
 msgid ""
 "\n"
@@ -1984,38 +2097,38 @@ msgstr ""
 "舉報可能的民權侵犯事件，以協助我們完成。\n"
 "                "
 
-#: templates/landing.html:153
+#: crt_portal/cts_forms/templates/landing.html:153
 msgid "Education"
 msgstr "教育"
 
-#: templates/landing.html:155
+#: crt_portal/cts_forms/templates/landing.html:155
 msgid "We help the public understand how to comply with these laws."
 msgstr "我們會協助一般民眾瞭解如何遵守這些法律。"
 
-#: templates/landing.html:156
+#: crt_portal/cts_forms/templates/landing.html:156
 msgid "We do this through public speaking, technical assistance, and more."
 msgstr "我們透過公開演講、技術協助等方法來讓民眾瞭解如何遵守這些法律。"
 
-#: templates/landing.html:159
+#: crt_portal/cts_forms/templates/landing.html:159
 msgid "Coordination"
 msgstr "協調"
 
-#: templates/landing.html:161
+#: crt_portal/cts_forms/templates/landing.html:161
 msgid ""
 "We help the entire federal government work together to enforce these laws."
 msgstr "我們會協助聯邦政府全體同仁共同合作以執行這些法律。"
 
-#: templates/landing.html:162
+#: crt_portal/cts_forms/templates/landing.html:162
 msgid ""
 "Our teams work with other agencies to promote a consistent approach to civil "
 "rights laws."
 msgstr "我們的團隊會與其他機構合作，以促使大家透過一致的方式執行民權法。"
 
-#: templates/landing.html:174
+#: crt_portal/cts_forms/templates/landing.html:174
 msgid "Understanding your rights"
 msgstr "瞭解您的權利"
 
-#: templates/landing.html:177
+#: crt_portal/cts_forms/templates/landing.html:177
 msgid ""
 "Civil rights laws can protect you from unlawful discrimination, harassment, "
 "or abuse in a variety of settings like <span class=\"crt-landing--"
@@ -2026,7 +2139,7 @@ msgstr ""
 "landing--rights_text crt-landing--rights_categories\">住房、職場、學校、投"
 "票、商店、醫療保健設施、公共場所</span>等等。"
 
-#: templates/landing.html:180
+#: crt_portal/cts_forms/templates/landing.html:180
 msgid ""
 "If you have been <span class=\"crt-landing--rights_categories\">mistreated "
 "by law enforcement</span> (including while incarcerated), believe you have "
@@ -2040,11 +2153,11 @@ msgstr ""
 "landing--rights_categories\">仇恨犯罪</span>或<span class=\"crt-landing--"
 "rights_categories\">人口販賣</span>的受害者，我們可以協助您與適當的單位聯絡。"
 
-#: templates/landing.html:196
+#: crt_portal/cts_forms/templates/landing.html:196
 msgid "Choose from this list to see example civil rights violations:"
 msgstr "請從本清單中選擇，以查看民權侵犯事件的例子："
 
-#: templates/landing.html:208
+#: crt_portal/cts_forms/templates/landing.html:208
 msgid ""
 "If you think you’ve experienced a similar situation, learn <a href=\"#crt-"
 "landing--reporting\">how to report a civil rights violation</a>."
@@ -2052,15 +2165,15 @@ msgstr ""
 "如果您認為自己曾發生類似情況，請瞭解該<a href=\"#crt-landing--reporting\">如"
 "何舉報民權侵犯事件</a>。"
 
-#: templates/landing.html:218
+#: crt_portal/cts_forms/templates/landing.html:218
 msgid "Protected by civil rights laws"
 msgstr "受到民權法的保護"
 
-#: templates/landing.html:220
+#: crt_portal/cts_forms/templates/landing.html:220
 msgid "These are the most common characteristics that are legally protected."
 msgstr "以下是受到法律保護的最常見特徵清單。"
 
-#: templates/landing.html:223
+#: crt_portal/cts_forms/templates/landing.html:223
 msgid ""
 "Disability <span class=\"crt-landing--protected\">including temporary or in "
 "recovery</span>"
@@ -2068,22 +2181,22 @@ msgstr ""
 "殘障<span class=\"crt-landing--protected\">（包括暫時性或康復中的情況）</"
 "span>"
 
-#: templates/landing.html:225
+#: crt_portal/cts_forms/templates/landing.html:225
 msgid "Sex, gender identity, and sexual orientation"
 msgstr "性別、性別認同及性取向"
 
-#: templates/landing.html:226
+#: crt_portal/cts_forms/templates/landing.html:226
 msgid "Immigration/citizenship status"
 msgstr "移民／公民身分"
 
-#: templates/landing.html:227
+#: crt_portal/cts_forms/templates/landing.html:227
 msgid ""
 "Language and national origin <span class=\"crt-landing--"
 "protected\">including ancestry and ethnicity</span>"
 msgstr ""
 "語言和原國籍<span class=\"crt-landing--protected\">（包括祖籍和族裔）</span>"
 
-#: templates/landing.html:228
+#: crt_portal/cts_forms/templates/landing.html:228
 msgid ""
 "Family, marital, or parental status <span class=\"crt-landing--"
 "protected\">including pregnancy</span>"
@@ -2091,29 +2204,29 @@ msgstr ""
 "家庭狀況、婚姻狀態或是否擁有子女<span class=\"crt-landing--protected\">（包括"
 "懷孕）</span>"
 
-#: templates/landing.html:230
+#: crt_portal/cts_forms/templates/landing.html:230
 msgid "Genetic identification"
 msgstr "基因識別資訊"
 
-#: templates/landing.html:231
+#: crt_portal/cts_forms/templates/landing.html:231
 msgid "Servicemember status"
 msgstr "服役人員状态"
 
-#: templates/landing.html:245
+#: crt_portal/cts_forms/templates/landing.html:245
 msgid "How to report a civil rights violation"
 msgstr "民權侵犯事件的舉報方式"
 
-#: templates/landing.html:250
+#: crt_portal/cts_forms/templates/landing.html:250
 msgid ""
 "If you believe that you or someone else experienced unlawful discrimination, "
 "you can report a civil rights violation."
 msgstr "如果您認為自己或他人遭受非法歧視，您可以舉報民權侵犯事件。"
 
-#: templates/landing.html:259
+#: crt_portal/cts_forms/templates/landing.html:259
 msgid "Report using our online form."
 msgstr "請使用我們的線上表格進行舉報。"
 
-#: templates/landing.html:260
+#: crt_portal/cts_forms/templates/landing.html:260
 msgid ""
 "By completing the online form, you can provide the details we need to "
 "understand what happened. You will receive a confirmation number and your "
@@ -2122,11 +2235,12 @@ msgstr ""
 "您可藉由填寫線上表格來提供我們瞭解事發經過所需的詳細資訊。您將會收到一組確認"
 "號碼，而您的報告將會立即寄送給我們的工作人員進行審查。"
 
-#: templates/landing.html:268
+#: crt_portal/cts_forms/templates/landing.html:268
 msgid "We review your report."
 msgstr "我們會審查您的報告。"
 
-#: templates/landing.html:269
+#: crt_portal/cts_forms/templates/landing.html:269
+#: crt_portal/cts_forms/templates/printable_intake_form.html:252
 msgid ""
 "Teams that specialize in handling your type of issue will review it. If it "
 "needs to be forwarded to another team or agency, we will try to connect your "
@@ -2135,11 +2249,12 @@ msgstr ""
 "專門處理您該類型問題的團隊將會審查您的報告。如果我們需要將您的報告轉交給其他"
 "團隊或機構，我們將會盡力將您的投訴轉介給適當的團體。"
 
-#: templates/landing.html:277
+#: crt_portal/cts_forms/templates/landing.html:277
 msgid "We determine next steps and get back to you."
 msgstr "我們會決定接下來該怎麼做並回覆您。"
 
-#: templates/landing.html:278
+#: crt_portal/cts_forms/templates/landing.html:278
+#: crt_portal/cts_forms/templates/printable_intake_form.html:257
 msgid ""
 "Possible outcomes include: following up for more information, starting a "
 "mediation or investigation, directing you to another organization for "
@@ -2148,11 +2263,11 @@ msgstr ""
 "可能的結果包括：跟進以索取進一步資訊、開始進行調解或調查、轉介您至其他組織以"
 "尋求進一步協助或通知您我們無法提供協助。"
 
-#: templates/landing.html:297
+#: crt_portal/cts_forms/templates/landing.html:297
 msgid "Have you or someone you know experienced a civil rights violation?"
 msgstr "您或您所認識的人是否曾遭遇民權侵權事件？"
 
-#: templates/landing.html:303
+#: crt_portal/cts_forms/templates/landing.html:303
 msgid ""
 "If you cannot access the online form, you can <a href=\"#phone-"
 "footer\">call</a> to report a violation or report a violation by <a "
@@ -2161,15 +2276,15 @@ msgstr ""
 "如果您無法使用線上表格，您可以<a href=\"#phone-footer\">致電</a>或透過<a "
 "href=\"#address-footer\">郵件</a>舉報侵權事件。"
 
-#: templates/landing.html:313
+#: crt_portal/cts_forms/templates/landing.html:313
 msgid "Already submitted a report?"
 msgstr "已經提交報告了嗎？"
 
-#: templates/landing.html:316
+#: crt_portal/cts_forms/templates/landing.html:316
 msgid "Here's what to expect."
 msgstr "以下是後續流程。"
 
-#: templates/landing.html:320
+#: crt_portal/cts_forms/templates/landing.html:320
 msgid ""
 "<strong>Thank you for your report.</strong> We carefully read each one to "
 "determine if we have the authority to help. We do our best to let you know "
@@ -2180,20 +2295,20 @@ msgstr ""
 "供協助。我們會盡力通知您有關我們審查的結果。然而，我們可能不一定能夠為您提供"
 "進度更新，理由如下："
 
-#: templates/landing.html:322
+#: crt_portal/cts_forms/templates/landing.html:322
 msgid ""
 "We're actively working on an investigation or case related to your report."
 msgstr "我們正在積極處理某項與您報告有關的案件。"
 
-#: templates/landing.html:323
+#: crt_portal/cts_forms/templates/landing.html:323
 msgid "We're receiving and actively reviewing many reports at the same time."
 msgstr "我們同時收到許多報告且正在積極審查這些報告。"
 
-#: templates/landing.html:330
+#: crt_portal/cts_forms/templates/landing.html:330
 msgid "Need urgent legal help?"
 msgstr "急需法律援助？"
 
-#: templates/landing.html:332
+#: crt_portal/cts_forms/templates/landing.html:332
 msgid ""
 "Due to the amount of reports we receive, it can take several weeks for us to "
 "respond to your issue. Local legal aid offices or lawyers in your area may "
@@ -2202,20 +2317,18 @@ msgstr ""
 "基於我們所收到的報告量，我們可能需要幾週的時間才能回覆您的問題。您當地的法扶"
 "辦公室或律師可能可以迅速作出回覆或協助您處理您所擔憂的問題"
 
-#: templates/landing.html:333
+#: crt_portal/cts_forms/templates/landing.html:333
 msgid ""
 "Contact Legal Services Corporation to help you find a legal aid lawyer in "
 "your area at <a aria-label=\"www.lsc.gov/find-legal-aid\" class=\"external-"
 "link--blue external-link--popup\" href=\"https://www.lsc.gov/find-legal-"
 "aid\">lsc.gov/find-legal-aid</a>."
 msgstr ""
-"通過法律服務法人的網站尋找您所在地區的法律援助律師 (<a aria-label=\"www.lsc.gov/find-legal-aid\" class=\"external-link--"
-"blue external-link--popup\" href=\"https://www.lsc.gov/find-legal-aid\">lsc."
-"gov/find-legal-aid</a>)。"
+"通過法律服務法人的網站尋找您所在地區的法律援助律師 (<a aria-label=\"www.lsc."
+"gov/find-legal-aid\" class=\"external-link--blue external-link--popup\" "
+"href=\"https://www.lsc.gov/find-legal-aid\">lsc.gov/find-legal-aid</a>)。"
 
-
-
-#: templates/landing.html:334
+#: crt_portal/cts_forms/templates/landing.html:334
 msgid ""
 "Or visit <a class=\"external-link--blue external-link--popup american-bar-"
 "link\" href=\"https://www.americanbar.org/groups/legal_services/flh-home/"
@@ -2228,29 +2341,29 @@ msgstr ""
 "\">www.americanbar.org/groups/legal_services/flh-home</a>或致電 <a "
 "href=\"tel:800-285-2221\">(800) 285-2221</a> 以透過美國律師協會尋找律師。"
 
-#: templates/landing.html:348
+#: crt_portal/cts_forms/templates/landing.html:348
 msgid "Image attributions"
 msgstr "圖片來源"
 
-#: templates/partials/banner/usa_banner_content.html:6
+#: crt_portal/cts_forms/templates/partials/banner/usa_banner_content.html:6
 msgid "Official websites use .gov"
 msgstr "官方網站使用.gov"
 
-#: templates/partials/banner/usa_banner_content.html:7
+#: crt_portal/cts_forms/templates/partials/banner/usa_banner_content.html:7
 msgid ""
 "A <strong>.gov</strong> website belongs to an official government "
 "organization in the United States."
 msgstr "以<strong>.gov</strong> 的網站為美國正式的政府機構。"
 
-#: templates/partials/banner/usa_banner_content.html:15
+#: crt_portal/cts_forms/templates/partials/banner/usa_banner_content.html:15
 msgid "Secure .gov websites use HTTPS"
 msgstr "安全的.gov 网站使用 HTTPS"
 
-#: templates/partials/banner/usa_banner_content.html:17
+#: crt_portal/cts_forms/templates/partials/banner/usa_banner_content.html:17
 msgid "A <strong>lock</strong> ("
 msgstr "<strong>锁</strong>图案（"
 
-#: templates/partials/banner/usa_banner_content.html:19
+#: crt_portal/cts_forms/templates/partials/banner/usa_banner_content.html:19
 msgid ""
 ") or <strong>https://</strong> means you’ve safely connected to the .gov "
 "website. Share sensitive information only on official, secure websites."
@@ -2258,22 +2371,22 @@ msgstr ""
 "）或https:// 表示您已安全连接到.gov 网站。请仅在官方和安全的网站上分享敏感的"
 "信息。"
 
-#: templates/partials/banner/usa_banner_header.html:8
+#: crt_portal/cts_forms/templates/partials/banner/usa_banner_header.html:8
 msgid "An official website of the United States government"
 msgstr "美國政府官方網站"
 
-#: templates/partials/banner/usa_banner_header.html:9
-#: templates/partials/banner/usa_banner_header.html:12
+#: crt_portal/cts_forms/templates/partials/banner/usa_banner_header.html:9
+#: crt_portal/cts_forms/templates/partials/banner/usa_banner_header.html:12
 msgid "Here’s how you know"
 msgstr "以下為您說明辨識方式"
 
-#: templates/partials/contact-info-confirmation-modal.html:8
+#: crt_portal/cts_forms/templates/partials/contact-info-confirmation-modal.html:8
 msgid ""
 "You are continuing your complaint without providing email or phone "
 "information."
 msgstr "您在繼續填寫您的報告，但尚未提供電子郵件或電話信息。"
 
-#: templates/partials/contact-info-confirmation-modal.html:13
+#: crt_portal/cts_forms/templates/partials/contact-info-confirmation-modal.html:13
 msgid ""
 "You do not have to provide contact information, however, we will not be able "
 "to contact you for any status updates or potential follow up. Would you like "
@@ -2283,97 +2396,112 @@ msgstr ""
 "您不一定要提供聯繫信息，但是，我們將無法與你聯繫，以提供任何狀態更新或進行後"
 "續跟進。您想現在添加聯繫信息嗎？如果不願意，您將進入第2步。"
 
-#: templates/partials/contact-info-confirmation-modal.html:18
+#: crt_portal/cts_forms/templates/partials/contact-info-confirmation-modal.html:18
 msgid "No, I don't want to provide it"
 msgstr "不，我不想提供聯繫方式"
 
-#: templates/partials/contact-info-confirmation-modal.html:21
+#: crt_portal/cts_forms/templates/partials/contact-info-confirmation-modal.html:21
 msgid "Yes, I'd like to add it"
 msgstr "好，我想添加聯繫方式"
 
-#: templates/partials/example-accordion.html:18
+#: crt_portal/cts_forms/templates/partials/example-accordion.html:18
 msgid "Examples"
 msgstr "例子"
 
-#: templates/partials/example-accordion.html:40
+#: crt_portal/cts_forms/templates/partials/example-accordion.html:40
 msgid "Note"
 msgstr "備注"
 
-#: templates/partials/example-accordion.html:51
+#: crt_portal/cts_forms/templates/partials/example-accordion.html:51
 msgid "Learn More"
 msgstr "認識更多"
 
-#: templates/partials/footer.html:47
+#: crt_portal/cts_forms/templates/partials/footer.html:18
+msgid ""
+"Send Printed Report Form (<a target=\"_blank\" href=\"https://www.ada.gov/"
+"assets/pdfs/file-a-complaint.pdf\">Regular Format</a> | <a target=\"_blank\" "
+"href=\"https://www.ada.gov/assets/pdfs/file-a-complaint-lg.pdf\">Large "
+"Format</a>) To:"
+msgstr ""
+"將打印的舉報表格 (<a target=\"_blank\" href=\"https://www.ada.gov/assets/"
+"pdfs/file-a-complaint.pdf\">普通格式</a> | <a target=\"_blank\" "
+"href=\"https://www.ada.gov/assets/pdfs/file-a-complaint-lg.pdf\">大型格式</"
+"a>)發送至:"
+
+#: crt_portal/cts_forms/templates/partials/footer.html:47
 msgid "Availability of Language Assistance Services"
 msgstr "語言協助服務的提供"
 
-#: templates/partials/footer.html:59
+#: crt_portal/cts_forms/templates/partials/footer.html:59
 msgid "Links"
 msgstr "連結"
 
-#: templates/partials/footer.html:67
+#: crt_portal/cts_forms/templates/partials/footer.html:67
 msgid "About the division"
 msgstr "民權司相關資訊"
 
-#: templates/partials/footer.html:73
+#: crt_portal/cts_forms/templates/partials/footer.html:73
+#: crt_portal/cts_forms/templates/printable_intake_form.html:278
 msgid "Privacy policy"
 msgstr "隱私政策"
 
-#: templates/partials/footer.html:76
+#: crt_portal/cts_forms/templates/partials/footer.html:76
 msgid "FOIA"
 msgstr "資訊自由法 (FOIA)"
 
-#: templates/partials/footer.html:79
+#: crt_portal/cts_forms/templates/partials/footer.html:79
 msgid "Accessibility"
 msgstr "便利設施"
 
-#: templates/partials/footer.html:94
+#: crt_portal/cts_forms/templates/partials/footer.html:94
 msgid "Office of Inspector General"
 msgstr "檢察總長辦公室"
 
-#: templates/partials/footer.html:97
+#: crt_portal/cts_forms/templates/partials/footer.html:97
 msgid "Budget and performance"
 msgstr "預算與績效"
 
-#: templates/partials/footer.html:100
+#: crt_portal/cts_forms/templates/partials/footer.html:100
 msgid "Legal policies and Disclaimers"
 msgstr "法律政策與免責聲明"
 
-#: templates/partials/i8n.html:15
+#: crt_portal/cts_forms/templates/partials/i8n.html:15
 msgid "Go"
 msgstr "前往"
 
-#: templates/partials/important_message.html:7
-#: templates/partials/message_hate_crime.html:7
+#: crt_portal/cts_forms/templates/partials/important_message.html:7
+#: crt_portal/cts_forms/templates/partials/message_hate_crime.html:7
 msgid "Have you been a victim of a hate crime or human trafficking?"
 msgstr "您是否是仇恨犯罪或人口販運的受害者嗎？"
 
-#: templates/partials/important_message.html:9
-#: templates/partials/message_hate_crime.html:9
+#: crt_portal/cts_forms/templates/partials/important_message.html:9
+#: crt_portal/cts_forms/templates/partials/message_hate_crime.html:9
 msgid "Get help NOW!"
 msgstr "請立即求助！"
 
-#: templates/partials/important_message_voting.html:8
-#: templates/vot_resources.html:45
+#: crt_portal/cts_forms/templates/partials/important_message_voting.html:8
+#: crt_portal/cts_forms/templates/vot_resources.html:45
 msgid "Report voting issues"
 msgstr "舉報投票問題"
 
-#: templates/partials/important_message_voting.html:9
+#: crt_portal/cts_forms/templates/partials/important_message_voting.html:9
 msgid "including threats against voters and election fraud."
 msgstr "包括對投票人的威脅和選舉舞弊"
 
-#: templates/partials/menu_language_selection.html:35
+#: crt_portal/cts_forms/templates/partials/menu_language_selection.html:35
 msgid "More Language Assistance Services"
 msgstr "語言協助服務的提供"
 
-#: templates/partials/omb-modal.html:13
+#: crt_portal/cts_forms/templates/partials/omb-modal.html:13
+#: crt_portal/cts_forms/templates/printable_intake_form.html:298
 msgid ""
 "According to the Paperwork Reduction Act of 1995, no persons are required to "
 "respond to a collection of information unless such collection displays a "
 "valid OMB control number."
 msgstr ""
 
-#: templates/partials/omb-modal.html:16
+#: crt_portal/cts_forms/templates/partials/omb-modal.html:16
+#: crt_portal/cts_forms/templates/printable_intake_form.html:299
 msgid ""
 "Public reporting burden for this collection of information is estimated to "
 "average 2 minutes per response, including time for reviewing instructions, "
@@ -2381,7 +2509,8 @@ msgid ""
 "and completing and reviewing the collection of information."
 msgstr ""
 
-#: templates/partials/omb-modal.html:19
+#: crt_portal/cts_forms/templates/partials/omb-modal.html:19
+#: crt_portal/cts_forms/templates/printable_intake_form.html:300
 msgid ""
 "The personal description question is estimated to take 10 minutes for the "
 "response, time for reviewing instructions, searching existing data sources, "
@@ -2390,24 +2519,26 @@ msgid ""
 "voluntary."
 msgstr ""
 
-#: templates/partials/omb-modal.html:22
+#: crt_portal/cts_forms/templates/partials/omb-modal.html:22
+#: crt_portal/cts_forms/templates/printable_intake_form.html:301
 msgid ""
 "Send comments regarding the burden estimate or any other aspect of this "
 "collection of information, including suggestions for reducing this burden, "
 "to:"
 msgstr ""
 
-#: templates/partials/omb-modal.html:33
+#: crt_portal/cts_forms/templates/partials/omb-modal.html:33
 #, fuzzy
 #| msgid "Start a report"
 msgid "Return to filing a report"
 msgstr "開始提交報告"
 
-#: templates/partials/policy.html:9
+#: crt_portal/cts_forms/templates/partials/policy.html:9
 msgid "Privacy Policy"
 msgstr "隱私政策"
 
-#: templates/partials/policy.html:16
+#: crt_portal/cts_forms/templates/partials/policy.html:16
+#: crt_portal/cts_forms/templates/printable_intake_form.html:281
 #, python-format
 msgid ""
 "\n"
@@ -2431,25 +2562,30 @@ msgstr ""
 "享這些資訊：\n"
 "            "
 
-#: templates/partials/policy.html:20
+#: crt_portal/cts_forms/templates/partials/policy.html:20
+#: crt_portal/cts_forms/templates/printable_intake_form.html:286
 msgid "contractors who work with us, if they need it to perform a contract;"
 msgstr "與我們合作的簽約合作者（如果對方需要這些資訊才能履行合約）；"
 
-#: templates/partials/policy.html:21
+#: crt_portal/cts_forms/templates/partials/policy.html:21
+#: crt_portal/cts_forms/templates/printable_intake_form.html:287
 msgid ""
 "a court, magistrate, or administrative tribunal, as well as opposing counsel "
 "during settlement negotiations and/or litigation;"
 msgstr "法院、地方法官或行政法庭以及在和解協商和／或訴訟期間的辯方律師；"
 
-#: templates/partials/policy.html:22
+#: crt_portal/cts_forms/templates/partials/policy.html:22
+#: crt_portal/cts_forms/templates/printable_intake_form.html:288
 msgid "Members of Congress;"
 msgstr "國會議員；"
 
-#: templates/partials/policy.html:23
+#: crt_portal/cts_forms/templates/partials/policy.html:23
+#: crt_portal/cts_forms/templates/printable_intake_form.html:289
 msgid "Federal, state, or local law enforcement agencies."
 msgstr "聯邦政府、州政府或地方政府的執法機構。"
 
-#: templates/partials/policy.html:27
+#: crt_portal/cts_forms/templates/partials/policy.html:27
+#: crt_portal/cts_forms/templates/printable_intake_form.html:293
 #, python-format
 msgid ""
 "You can find our complete <a href=\"%(privacy_policy_url)s\">Privacy Policy "
@@ -2457,15 +2593,15 @@ msgid ""
 msgstr ""
 "您可點選此處以查詢我們完整的<a href=\"%(privacy_policy_url)s\">隱私政策</a>。"
 
-#: templates/partials/redirect-modal.html:8
+#: crt_portal/cts_forms/templates/partials/redirect-modal.html:8
 msgid "You are now leaving the Department of Justice website."
 msgstr "您現在即將退出司法部的網站。"
 
-#: templates/partials/redirect-modal.html:13
+#: crt_portal/cts_forms/templates/partials/redirect-modal.html:13
 msgid "You will automatically be redirected to:"
 msgstr "您將會自動轉到："
 
-#: templates/partials/redirect-modal.html:18
+#: crt_portal/cts_forms/templates/partials/redirect-modal.html:18
 msgid ""
 "The Department of Justice does not endorse the organizations or views "
 "represented by this site and takes no responsibility for, and exercises no "
@@ -2475,11 +2611,11 @@ msgstr ""
 "司法部不為本網站中所提及的組織或意見背書；對於本網站中所包含之資料的準確性、"
 "可使用性、版權或商標的合規性或合法性，司法部概不負責且不具有任何控制能力。"
 
-#: templates/partials/redirect-modal.html:26
+#: crt_portal/cts_forms/templates/partials/redirect-modal.html:26
 msgid "Continue"
 msgstr "繼續"
 
-#: templates/partials/unsupported-browser-modal.html:9
+#: crt_portal/cts_forms/templates/partials/unsupported-browser-modal.html:9
 msgid ""
 "\n"
 "          <strong>NOTICE: Your mobile browser is not compatible with this "
@@ -2491,7 +2627,7 @@ msgstr ""
 "遇到問題。\n"
 "          "
 
-#: templates/partials/unsupported-browser-modal.html:14
+#: crt_portal/cts_forms/templates/partials/unsupported-browser-modal.html:14
 msgid ""
 "\n"
 "          Please consider downloading the latest version of Google Chrome, "
@@ -2505,23 +2641,158 @@ msgstr ""
 "或郵件聯絡。</a>\n"
 "          "
 
-#: templates/privacy.html:6 templates/privacy.html:12
+#: crt_portal/cts_forms/templates/printable_intake_form.html:17
+msgid "Page"
+msgstr ""
+
+#: crt_portal/cts_forms/templates/printable_intake_form.html:31
+#: crt_portal/cts_forms/templates/vot_resources.html:28
+#: crt_portal/cts_forms/templates/vot_resources.html:50
+msgid "Report a possible civil rights violation"
+msgstr "舉報可能侵犯民權的違法行爲"
+
+#: crt_portal/cts_forms/templates/printable_intake_form.html:38
+msgid "Before starting, you can also"
+msgstr ""
+
+#: crt_portal/cts_forms/templates/printable_intake_form.html:38
+msgid "read the instructions for this form"
+msgstr ""
+
+#: crt_portal/cts_forms/templates/printable_intake_form.html:38
+msgid "(at the end) and what to expect after submission."
+msgstr ""
+
+#: crt_portal/cts_forms/templates/printable_intake_form.html:77
+#: crt_portal/cts_forms/views_public.py:203
+#: crt_portal/cts_forms/views_public.py:309
+#: crt_portal/cts_forms/views_public.py:327
+#: crt_portal/cts_forms/views_public.py:362
+msgid "Primary concern"
+msgstr "主要擔憂問題"
+
+#: crt_portal/cts_forms/templates/printable_intake_form.html:92
+msgid ""
+"Note: Some primary concerns have follow-up questions. If you select one of "
+"these, we ask that you also answer the follow-up question presented below "
+"the specific primary reason."
+msgstr ""
+
+#: crt_portal/cts_forms/templates/printable_intake_form.html:144
+#: crt_portal/cts_forms/templates/printable_intake_form.html:209
+#, fuzzy
+#| msgid "Please describe"
+msgid "Please describe \\"
+msgstr "請說明"
+
+#: crt_portal/cts_forms/templates/printable_intake_form.html:159
+#: crt_portal/cts_forms/views_public.py:328
+#: crt_portal/cts_forms/views_public.py:329
+#: crt_portal/cts_forms/views_public.py:330
+#: crt_portal/cts_forms/views_public.py:331
+#: crt_portal/cts_forms/views_public.py:332
+#: crt_portal/cts_forms/views_public.py:333
+msgid "Location details"
+msgstr "地點詳細資訊"
+
+#: crt_portal/cts_forms/templates/printable_intake_form.html:178
+#: crt_portal/cts_forms/templates/printable_intake_form.html:186
+#: crt_portal/cts_forms/views_public.py:206
+#: crt_portal/cts_forms/views_public.py:317
+#: crt_portal/cts_forms/views_public.py:335
+msgid "Date"
+msgstr "日期"
+
+#: crt_portal/cts_forms/templates/printable_intake_form.html:195
+#: crt_portal/cts_forms/views_public.py:205
+#: crt_portal/cts_forms/views_public.py:316
+#: crt_portal/cts_forms/views_public.py:334
+msgid "Personal characteristics"
+msgstr "個人特徵"
+
+#: crt_portal/cts_forms/templates/printable_intake_form.html:218
+#: crt_portal/cts_forms/views_public.py:207
+#: crt_portal/cts_forms/views_public.py:318
+#: crt_portal/cts_forms/views_public.py:336
+msgid "Personal description"
+msgstr "個人描述"
+
+#: crt_portal/cts_forms/templates/printable_intake_form.html:234
+msgid "You may attach further details as extra pages, if necessary"
+msgstr ""
+
+#: crt_portal/cts_forms/templates/printable_intake_form.html:239
+#, fuzzy
+#| msgid "Image attributions"
+msgid "Instructions"
+msgstr "圖片來源"
+
+#: crt_portal/cts_forms/templates/printable_intake_form.html:242
+msgid ""
+"The purpose of this form is to assist you in filing a report with the Civil "
+"Rights Division. You are not required to use this form; a letter with the "
+"same information is sufficient, however, please ensure you are including the "
+"same information."
+msgstr ""
+
+#: crt_portal/cts_forms/templates/printable_intake_form.html:246
+msgid "Step 1: You can complete and submit this form."
+msgstr ""
+
+#: crt_portal/cts_forms/templates/printable_intake_form.html:247
+#, fuzzy
+#| msgid ""
+#| "By completing the online form, you can provide the details we need to "
+#| "understand what happened. You will receive a confirmation number and your "
+#| "report is immediately sent to our staff for review."
+msgid ""
+"By completing this form, you can provide the details we need to understand "
+"what happened. You can mail a printed copy of this form via postal service "
+"to the Division. Once we receive your report, it is immediately sent to our "
+"staff for review"
+msgstr ""
+"您可藉由填寫線上表格來提供我們瞭解事發經過所需的詳細資訊。您將會收到一組確認"
+"號碼，而您的報告將會立即寄送給我們的工作人員進行審查。"
+
+#: crt_portal/cts_forms/templates/printable_intake_form.html:251
+#, fuzzy
+#| msgid "We review your report."
+msgid "Step 2: We will review your report."
+msgstr "我們會審查您的報告。"
+
+#: crt_portal/cts_forms/templates/printable_intake_form.html:256
+#, fuzzy
+#| msgid "We determine next steps and get back to you."
+msgid "Step 3: We will determine next steps and get back to you."
+msgstr "我們會決定接下來該怎麼做並回覆您。"
+
+#: crt_portal/cts_forms/templates/printable_intake_form.html:262
+msgid "To mail a printed copy of the form:"
+msgstr ""
+
+#: crt_portal/cts_forms/templates/printable_intake_form.html:270
+msgid "To reach us by phone:"
+msgstr ""
+
+#: crt_portal/cts_forms/templates/privacy.html:6
+#: crt_portal/cts_forms/templates/privacy.html:12
 msgid "Civil Rights Division - Department of Justice - Privacy Policy"
 msgstr "民權司 - 司法部 - 隱私政策"
 
-#: templates/privacy.html:22 templates/privacy.html:35
+#: crt_portal/cts_forms/templates/privacy.html:22
+#: crt_portal/cts_forms/templates/privacy.html:35
 msgid "Privacy Act Statement"
 msgstr "隱私法案聲明"
 
-#: templates/privacy.html:26
+#: crt_portal/cts_forms/templates/privacy.html:26
 msgid "Your information"
 msgstr "您的資訊"
 
-#: templates/privacy.html:29
+#: crt_portal/cts_forms/templates/privacy.html:29
 msgid "Our Statutes"
 msgstr "我們的法規"
 
-#: templates/privacy.html:38
+#: crt_portal/cts_forms/templates/privacy.html:38
 msgid ""
 "The information you provide through this form will help the Department of "
 "Justice’s Civil Rights Division (“us,” “we”) enforce the federal civil "
@@ -2530,7 +2801,7 @@ msgstr ""
 "您透過本表格所提供的資訊將可協助司法部的民權科（以下簡稱為「我們」）在其權限"
 "範圍內執行聯邦民權法規。"
 
-#: templates/privacy.html:41
+#: crt_portal/cts_forms/templates/privacy.html:41
 msgid ""
 "In addition to our enforcement efforts, we may use the information you "
 "provide on this form for certain routine purposes. These include sharing "
@@ -2539,7 +2810,7 @@ msgstr ""
 "除了用於執法之外，我們可能還會將您在本表格中所提供的資訊用於特定例行用途。其"
 "中包括與下列人士或組織分享："
 
-#: templates/privacy.html:43
+#: crt_portal/cts_forms/templates/privacy.html:43
 msgid ""
 "\n"
 "                    <li>\n"
@@ -2588,16 +2859,16 @@ msgstr ""
 "有違反法律或法規或是可能有違反法律或法規的情況。                    </li>\n"
 "                    "
 
-#: templates/privacy.html:66
+#: crt_portal/cts_forms/templates/privacy.html:66
 msgid ""
 "For a complete list of routine agency uses, please consult the following:"
 msgstr "如需例行機構用途的完整清單，請參閱下文："
 
-#: templates/privacy.html:75
+#: crt_portal/cts_forms/templates/privacy.html:75
 msgid "You should also know that:"
 msgstr "您也應瞭解："
 
-#: templates/privacy.html:77
+#: crt_portal/cts_forms/templates/privacy.html:77
 msgid ""
 "\n"
 "                    <li>Any information you provide to us through this form "
@@ -2622,17 +2893,18 @@ msgstr ""
 "                    </li>\n"
 "                    "
 
-#: templates/privacy.html:86 templates/privacy.html:147
+#: crt_portal/cts_forms/templates/privacy.html:86
+#: crt_portal/cts_forms/templates/privacy.html:147
 msgid "Return to top"
 msgstr "返回最前面"
 
-#: templates/privacy.html:89
+#: crt_portal/cts_forms/templates/privacy.html:89
 msgid ""
 "We are authorized to collect this information pursuant to the following "
 "statutes:"
 msgstr "我們已獲得授權，得以根據下列法規收集這些資訊："
 
-#: templates/privacy.html:91
+#: crt_portal/cts_forms/templates/privacy.html:91
 msgid ""
 "\n"
 "                    <li>Official Misconduct, 18 U.S.C. §§ 241, 242</li>\n"
@@ -2769,7 +3041,7 @@ msgstr ""
 "<li>1870 年、1957 年、1960 年及 1964 年民權法</li>\n"
 "                    "
 
-#: templates/privacy.html:143
+#: crt_portal/cts_forms/templates/privacy.html:143
 msgid ""
 "\n"
 "                The full list of routine uses for this correspondence can be "
@@ -2787,35 +3059,35 @@ msgstr ""
 "82 Fed. Reg. 24147 (5-25-2017)。\n"
 "                "
 
-#: templates/vot_resources.html:6 templates/vot_resources.html:13
+#: crt_portal/cts_forms/templates/vot_resources.html:6
+#: crt_portal/cts_forms/templates/vot_resources.html:13
 #, fuzzy
 #| msgid "Civil Rights Division - Department of Justice - Privacy Policy"
 msgid "Civil Rights Division - Department of Justice - Voting resources"
 msgstr "民權司 - 司法部 - 隱私政策"
 
-#: templates/vot_resources.html:24
+#: crt_portal/cts_forms/templates/vot_resources.html:24
 msgid "How do I..."
 msgstr "我如何……"
 
-#: templates/vot_resources.html:28 templates/vot_resources.html:50
-msgid "Report a possible civil rights violation"
-msgstr "舉報可能侵犯民權的違法行爲"
-
-#: templates/vot_resources.html:31 templates/vot_resources.html:68
+#: crt_portal/cts_forms/templates/vot_resources.html:31
+#: crt_portal/cts_forms/templates/vot_resources.html:68
 msgid "Report a possible federal criminal civil rights violation"
 msgstr "舉報可能侵犯民權的聯邦刑事犯罪"
 
-#: templates/vot_resources.html:34 templates/vot_resources.html:84
+#: crt_portal/cts_forms/templates/vot_resources.html:34
+#: crt_portal/cts_forms/templates/vot_resources.html:84
 msgid ""
 "Find the election laws, voting hours, or polling place locations in your "
 "state"
 msgstr "查找您所在州的選舉法、投票時間或選舉地點"
 
-#: templates/vot_resources.html:38 templates/vot_resources.html:92
+#: crt_portal/cts_forms/templates/vot_resources.html:38
+#: crt_portal/cts_forms/templates/vot_resources.html:92
 msgid "Learn about your voting rights"
 msgstr "瞭解您的投票權力"
 
-#: templates/vot_resources.html:53
+#: crt_portal/cts_forms/templates/vot_resources.html:53
 msgid ""
 "To report civil rights violations, go to <a class='link--blue' href='https://"
 "civilrights.justice.gov/report/'>civilrights.justice.gov/report</a>"
@@ -2823,25 +3095,25 @@ msgstr ""
 "舉報可能侵犯民權的行爲，請前往<a class='link--blue' href='https://"
 "civilrights.justice.gov/report/'>civilrights.justice.gov/report</a>"
 
-#: templates/vot_resources.html:60
+#: crt_portal/cts_forms/templates/vot_resources.html:60
 msgid ""
 "Discrimination on the basis of race, color, or membership in a language "
 "minority group while voting or attempting to vote"
 msgstr "在他人投票或試圖投票時基於種族、膚色或少數語言群體成員的歧視"
 
-#: templates/vot_resources.html:61
+#: crt_portal/cts_forms/templates/vot_resources.html:61
 msgid "Voter registration issues"
 msgstr "選民登記問題"
 
-#: templates/vot_resources.html:62
+#: crt_portal/cts_forms/templates/vot_resources.html:62
 msgid "Lack of accessibility while voting"
 msgstr "投票時缺乏可訪問性無障礙設施"
 
-#: templates/vot_resources.html:63
+#: crt_portal/cts_forms/templates/vot_resources.html:63
 msgid "Absentee voting issues for uniformed services or overseas voters"
 msgstr "現役軍人或海外選民的缺席投票問題"
 
-#: templates/vot_resources.html:72
+#: crt_portal/cts_forms/templates/vot_resources.html:72
 msgid ""
 "All complaints related to violence, threats of violence, or intimidation at "
 "a polling place should be reported first to local police authorities by "
@@ -2850,11 +3122,11 @@ msgstr ""
 "所有和在投票站使用暴力、暴力威脅或恐嚇有關的舉報，都先應撥打911向地方警察當局"
 "報告"
 
-#: templates/vot_resources.html:74
+#: crt_portal/cts_forms/templates/vot_resources.html:74
 msgid "911"
 msgstr "911"
 
-#: templates/vot_resources.html:77
+#: crt_portal/cts_forms/templates/vot_resources.html:77
 msgid ""
 "After alerting local law enforcement to such emergencies by calling <a "
 "class='external-link--blue' href='tel:911'>911</a>, the public should "
@@ -2863,7 +3135,7 @@ msgstr ""
 "撥打<a class='external-link--blue' href='tel:911'>911</a>向地方執法部門報告緊"
 "急情況后，公眾應和司法部聯係"
 
-#: templates/vot_resources.html:79
+#: crt_portal/cts_forms/templates/vot_resources.html:79
 msgid ""
 "Election-crime complaints should be directed to your local <a "
 "class='external-link--blue' href='https://www.justice.gov/usao/find-your-"
@@ -2876,7 +3148,7 @@ msgstr ""
 "官辦公室</a>或者<a class='external-link--blue' href='https://www.fbi.gov/"
 "contact-us'>聯邦調查局地方分局</a>。"
 
-#: templates/vot_resources.html:87
+#: crt_portal/cts_forms/templates/vot_resources.html:87
 msgid ""
 "Go to <a class='external-link--blue' href='https://usa.gov/election-"
 "office'>usa.gov/election-office</a> to find your state election website"
@@ -2884,7 +3156,7 @@ msgstr ""
 "查找您所在州的選舉辦公室網站，請訪問<a class='external-link--blue' "
 "href='https://usa.gov/election-office'>usa.gov/election-office</a>"
 
-#: templates/vot_resources.html:96
+#: crt_portal/cts_forms/templates/vot_resources.html:96
 msgid ""
 "Find additional information about voting rights laws at <a class='link--"
 "blue' href='https://justice.gov/crt/voting-section'>www.justice.gov/crt/"
@@ -2893,7 +3165,7 @@ msgstr ""
 "瞭解更多的聯邦投票權法律， 請訪問<a class='link--blue' href='https://justice."
 "gov/crt/voting-section'>www.justice.gov/crt/voting-section</a>"
 
-#: templates/vot_resources.html:98
+#: crt_portal/cts_forms/templates/vot_resources.html:98
 msgid ""
 "Learn about federal laws that protect voters with disabilities at <a "
 "class='link--blue' href='https://ada.gov'>ada.gov</a>."
@@ -2901,7 +3173,7 @@ msgstr ""
 "瞭解聯邦法律中保護殘障投票者的法律，請訪問<a class='link--blue' "
 "href='https://ada.gov'>ada.gov</a>"
 
-#: templates/vot_resources.html:101
+#: crt_portal/cts_forms/templates/vot_resources.html:101
 msgid ""
 "Download the Justice Department's new <a class='link--blue' href='https://"
 "www.justice.gov/file/1517936/download'>Know Your Voting Rights</a> guide."
@@ -2909,75 +3181,59 @@ msgstr ""
 "下載司法部新的<a class='link--blue' href='https://www.justice.gov/"
 "file/1517936/download'>“瞭解您的投票權”</a>指南"
 
-#: validators.py:127
+#: crt_portal/cts_forms/validators.py:127
 msgid "Enter a valid email address."
 msgstr "輸入一个有效的電子郵件地址"
 
-#: views_public.py:202 views_public.py:306 views_public.py:324
-#: views_public.py:359
-msgid "Primary concern"
-msgstr "主要擔憂問題"
-
-#: views_public.py:203 views_public.py:307 views_public.py:308
-#: views_public.py:309 views_public.py:310 views_public.py:311
-#: views_public.py:312
+#: crt_portal/cts_forms/views_public.py:204
+#: crt_portal/cts_forms/views_public.py:310
+#: crt_portal/cts_forms/views_public.py:311
+#: crt_portal/cts_forms/views_public.py:312
+#: crt_portal/cts_forms/views_public.py:313
+#: crt_portal/cts_forms/views_public.py:314
+#: crt_portal/cts_forms/views_public.py:315
 msgid "Location"
 msgstr "地點"
 
-#: views_public.py:204 views_public.py:313 views_public.py:331
-msgid "Personal characteristics"
-msgstr "個人特徵"
-
-#: views_public.py:205 views_public.py:314 views_public.py:332
-msgid "Date"
-msgstr "日期"
-
-#: views_public.py:206 views_public.py:315 views_public.py:333
-msgid "Personal description"
-msgstr "個人描述"
-
-#: views_public.py:207 views_public.py:316 views_public.py:364
+#: crt_portal/cts_forms/views_public.py:208
+#: crt_portal/cts_forms/views_public.py:319
+#: crt_portal/cts_forms/views_public.py:367
 msgid "Review"
 msgstr "審查"
 
-#: views_public.py:325 views_public.py:326 views_public.py:327
-#: views_public.py:328 views_public.py:329 views_public.py:330
-msgid "Location details"
-msgstr "地點詳細資訊"
-
-#: views_public.py:334
+#: crt_portal/cts_forms/views_public.py:337
 msgid "Review your report"
 msgstr "審查您的報告"
 
-#: views_public.py:350
+#: crt_portal/cts_forms/views_public.py:353
 msgid "word remaining"
 msgstr "仍有剩餘字數"
 
-#: views_public.py:351
+#: crt_portal/cts_forms/views_public.py:354
 msgid " words remaining"
 msgstr " 仍有剩餘字數"
 
-#: views_public.py:352
+#: crt_portal/cts_forms/views_public.py:355
 msgid " word limit reached"
 msgstr " 已達字數限制"
 
-#: views_public.py:362
+#: crt_portal/cts_forms/views_public.py:365
 msgid "Please select if any that apply to your situation (optional)"
 msgstr "請選擇任何適用於您情況的選項（選填）"
 
-#: views_public.py:447
+#: crt_portal/cts_forms/views_public.py:454
 msgid "404 | Page not found"
 msgstr "404 | 找不到網頁"
 
-#: views_public.py:448
+#: crt_portal/cts_forms/views_public.py:455
 msgid "We can't find the page you are looking for"
 msgstr "我們找不到您要尋找的網頁"
 
-#: views_public.py:507
+#: crt_portal/cts_forms/views_public.py:514
 msgid "Your browser couldn't create a secure cookie"
 msgstr "您的瀏覽器無法建立安全 cookie"
 
-#: views_public.py:508
+#: crt_portal/cts_forms/views_public.py:515
 msgid ""
 "We use security cookies to protect your information from attackers. Make "
 "sure you allow cookies for this site. Having the page open for long periods "
