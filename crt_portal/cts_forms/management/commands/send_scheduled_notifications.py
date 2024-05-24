@@ -1,3 +1,5 @@
+import traceback
+
 from django.core.management.base import BaseCommand
 from cts_forms.models import ScheduledNotification
 from cts_forms.mail import notify_scheduled
@@ -11,6 +13,6 @@ class Command(BaseCommand):
             try:
                 notify_scheduled(notification)
             except Exception as e:
-                self.stdout.write(self.style.ERROR(f'Error sending notification {notification.id}: {e}'))
+                self.stdout.write(self.style.ERROR(f'Error sending notification {notification.id}: {e}\n\n{traceback.format_exc()}'))
             else:
                 self.stdout.write(self.style.SUCCESS(f'Sent notification {notification.id}'))

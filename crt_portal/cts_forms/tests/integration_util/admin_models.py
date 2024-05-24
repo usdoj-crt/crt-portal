@@ -70,6 +70,7 @@ def create_report(page, **fields) -> int:
 
     For example, with the minimum required fields:
         create_report(
+            page,
             crt_reciept_month='12',
             crt_reciept_day='25',
             crt_reciept_year='2000',

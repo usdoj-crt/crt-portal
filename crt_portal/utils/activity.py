@@ -65,6 +65,8 @@ def _handle_notify(preference_name, *, user, verb, description, target):
         return
 
     scheduled = ScheduledNotification.find_for(recipient=recipient, frequency=frequency)
+    if not scheduled.notifications.get(preference_name):
+        scheduled.notifications[preference_name] = []
     scheduled.notifications[preference_name].extend([
         {'report': {'id': report.id}}
         for report in reports
