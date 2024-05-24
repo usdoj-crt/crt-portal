@@ -18,7 +18,7 @@
       </span>
       <thead>
         <tr>
-          {% if can_approve_disposition %}
+          {% if can_approve_disposition and disposition_status != 'other' %}
           <th aria-label="Bulk Action Selection">
             <div class="usa-checkbox td-checkbox">
               <input type="checkbox"
@@ -36,8 +36,12 @@
               <img alt="" aria-hidden="true" src="{% static "img/intake-icons/ic_chevron-right.svg" %}" class="icon">
             </a>
           </th>
-          {% render_sortable_heading 'Status' sort_state filter_state grouping group_params index %}
-          {% render_sortable_heading 'Section' sort_state filter_state grouping group_params index %}
+          <th scope="col">
+            <span>Status</span>
+          </th>
+          <th scope="col">
+            <span>Section</span>
+          </th>
           {% render_sortable_heading 'Retention Schedule' sort_state filter_state grouping group_params index %}
           {% render_sortable_heading 'Expiration Date' sort_state filter_state grouping group_params index %}
           {% render_sortable_heading 'Closed Date' sort_state filter_state grouping group_params index %}
@@ -50,7 +54,7 @@
         <tbody>
           {% for datum in data_dict %}
             <tr class="tr-status-{{ datum.report.status }} tr--hover{% cycle ' stripe' '' %}">
-              {% if can_approve_disposition %}
+              {% if can_approve_disposition and disposition_status != 'other' %}
               <td>
                 <div class="usa-checkbox td-checkbox">
                   <input type="checkbox"
@@ -70,9 +74,15 @@
               </td>
               <td>
                 <a class="td-link display-block" href="view/{{datum.url}}">
-                  <span class="status-tag status-{{ datum.report.status }}">
-                    {{ datum.report.status }}
-                  </span>
+                  {% if datum.report.report_disposition_status == 'rejected' %}
+                    <span class="status-tag status-{{ datum.report.status }}">
+                      {{ datum.report.report_disposition_status }}
+                    </span>
+                  {% else %}
+                    <span class="status-tag status-{{ datum.report.status }}">
+                      {{ datum.report.status }}
+                    </span>
+                  {% endif %}
                 </a>
               </td>
               <td><a class="td-link display-block" href="view/{{datum.url}}">{{ datum.report.assigned_section }}</a></td>
@@ -165,6 +175,7 @@
           <span class="usa-tooltip" data-position="right" data-classes="display-inline" title="This may take a while if many reports are selected.">Print</span>
         </button>
       </div>
+      <p class="selection-warning" hidden>Maximum records for bulk change is capped at 500. Please update your selection.</p>
     </div>
   </div>
 </form>

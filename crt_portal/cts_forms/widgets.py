@@ -74,6 +74,8 @@ class FuzzyWidget(MultiWidget):
         if len(raw) != 3:
             return ['', 0, 0]
         value, sound, look = raw
+        sound = sound or 0
+        look = look or 0
         try:
             return [value, int(sound), int(look)]
         except ValueError:

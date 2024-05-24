@@ -246,6 +246,14 @@ STATUS_CHOICES = (
     (CLOSED_STATUS, 'Closed'),
 )
 
+# CRT views only
+REPORT_DISPOSITION_REJECTED_STATUS = 'rejected'
+REPORT_DISPOSITION_APPROVED_STATUS = 'approved'
+REPORT_DISPOSITION_STATUS_CHOICES = (
+    (REPORT_DISPOSITION_REJECTED_STATUS, 'Rejected'),
+    (REPORT_DISPOSITION_APPROVED_STATUS, 'Approved'),
+)
+
 NOTIFICATION_CADENCE_CHOICES = (
     ('none', 'None'),
     ('individual', 'Individual'),
@@ -254,11 +262,17 @@ NOTIFICATION_CADENCE_CHOICES = (
 )
 
 # CRT views only
+BATCH_READY_STATUS = 'ready'
+BATCH_APPROVED_STATUS = 'approved'
+BATCH_IN_REVIEW_STATUS = 'in_review'
+BATCH_REJECTED_STATUS = 'rejected'
+BATCH_ARCHIVED_STATUS = 'archived'
 BATCH_STATUS_CHOICES = (
-    ('ready', 'Ready'),
-    ('in_review', 'In Review'),
-    ('approved', 'Approved'),
-    ('rejected', 'Rejected'),
+    (BATCH_READY_STATUS, 'Ready'),
+    (BATCH_IN_REVIEW_STATUS, 'In Review'),
+    (BATCH_APPROVED_STATUS, 'Approved'),
+    (BATCH_REJECTED_STATUS, 'Rejected'),
+    (BATCH_ARCHIVED_STATUS, 'Archived'),
 )
 
 # CRT views only
