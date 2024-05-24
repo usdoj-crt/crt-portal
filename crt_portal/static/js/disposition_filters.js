@@ -5,7 +5,8 @@
     per_page: '',
     disposition_status: '',
     retention_schedule: '',
-    expiration_date: ''
+    expiration_date: '',
+    status: ''
   };
 
   function filterController() {
@@ -17,6 +18,7 @@
     const radioExpirationDateEls = dom.querySelectorAll('input[name="expiration_date"]');
     const retentionScheduleEls = dom.getElementsByName('retention_schedule');
     const dispositionStatusEls = dom.getElementsByName('disposition_status');
+    const batchStatusEls = dom.getElementsByName('status');
 
     root.CRT.formView({
       el: root.CRT.formEl
@@ -62,12 +64,19 @@
     });
     root.CRT.selectRadio(retentionScheduleEls, 'retention_schedule');
 
+    root.CRT.radioButtonView({
+      el: batchStatusEls,
+      name: 'status'
+    });
+    root.CRT.selectRadio(batchStatusEls, 'status');
+
     root.CRT.clearFiltersView({
       el: clearAllEl,
       onClick: () => {
         const updates = {
           retention_schedule: '',
-          expiration_date: ''
+          expiration_date: '',
+          status: ''
         };
         root.CRT.mutateFilterDataWithUpdates(root.CRT.filterDataModel, updates);
         root.CRT.formView.doSearch(root.CRT.formEl);

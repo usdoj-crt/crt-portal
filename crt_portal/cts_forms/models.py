@@ -32,7 +32,7 @@ from .model_variables import (BATCH_STATUS_CHOICES, CLOSED_STATUS,
                               CONTACT_PHONE_INVALID_MESSAGE,
                               CORRECTIONAL_FACILITY_LOCATION_CHOICES,
                               CORRECTIONAL_FACILITY_LOCATION_TYPE_CHOICES,
-                              DATE_ERRORS, DISTRICT_CHOICES, ELECTION_CHOICES,
+                              DATE_ERRORS, REPORT_DISPOSITION_STATUS_CHOICES, DISTRICT_CHOICES, ELECTION_CHOICES,
                               EMPLOYER_SIZE_CHOICES, HATE_CRIME_CHOICES,
                               HATE_CRIMES_TRAFFICKING_MODEL_CHOICES,
                               INTAKE_FORMAT_CHOICES, PRIMARY_COMPLAINT_CHOICES,
@@ -434,6 +434,7 @@ class Report(models.Model):
     # Details Summary
     violation_summary = models.TextField(max_length=7000, null=True, blank=True)
     status = models.TextField(choices=STATUS_CHOICES, default='new')
+    report_disposition_status = models.TextField(choices=REPORT_DISPOSITION_STATUS_CHOICES, null=True, blank=True)
     assigned_section = models.TextField(choices=SECTION_CHOICES, default='ADM')
 
     # Incident location
@@ -835,6 +836,7 @@ class ReportDisposition(models.Model):
     schedule = models.ForeignKey(RetentionSchedule, related_name="disposed_reports", on_delete=models.PROTECT)
     batch = models.ForeignKey(ReportDispositionBatch, related_name="disposed_reports", on_delete=models.PROTECT)
     public_id = models.CharField(max_length=100, null=False, blank=False, help_text="The record locator for the disposed report")
+    rejected = models.BooleanField(default=False)
 
 
 class ReportAttachment(models.Model):
