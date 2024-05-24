@@ -3,7 +3,7 @@ from typing import Optional
 import logging
 import time
 import uuid
-from datetime import datetime
+from datetime import datetime, timedelta
 from babel.dates import format_date
 
 import markdown
@@ -122,8 +122,78 @@ class NotificationPreference(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='notification_preference')
     assigned_to = models.CharField('Assigned to a report', choices=NOTIFICATION_CADENCE_CHOICES, default='none')
 
+    saved_searches = models.JSONField(default=dict, blank=True, help_text="Contains the notification cadence for each saved search. The key is the saved search ID, and the value is the cadence.")
+    saved_searches_last_checked = models.JSONField(default=dict, blank=True, help_text="The last time each search was checked for new reports.")
+
+    def __getattr__(self, name):
+        if name == 'saved_search_new':
+            return 'none'
+        if name.startswith('saved_search_'):
+            return self.saved_searches.get(name.split('_')[-1], 'none')
+        raise AttributeError(name)
+
+    def __setattr__(self, name, value):
+        if name == 'saved_search_new':
+            return
+        if name.startswith('saved_search_'):
+            search_id = name.split('_')[-1]
+            self.saved_searches[search_id] = value
+            return
+        super().__setattr__(name, value)
+
     def __str__(self):
         return str(self.user)
+
+
+class ScheduledNotification(models.Model):
+    recipient = models.ForeignKey(User, on_delete=models.CASCADE, related_name='notification_digests')
+    # An example "notifications":
+    # {
+    #   'assigned_to': [
+    #     {
+    #       'report': {
+    #         'id': 1,
+    #       }
+    #     }
+    #   ],
+    #   'saved_search_1': {  # Where '1' is the ID of a SavedSearch object
+    #     'name': 'Test search',
+    #     'new_reports': 100,
+    #   }
+    # }
+    notifications = models.JSONField()
+    frequency = models.CharField(max_length=100, choices=NOTIFICATION_CADENCE_CHOICES)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    scheduled_for = models.DateTimeField()
+    was_sent = models.BooleanField(default=False)
+
+    @classmethod
+    def find_for(cls, recipient: User, frequency: str):
+        if frequency == 'daily':
+            scheduled_for = datetime.now() + timedelta(days=1)
+        elif frequency == 'weekly':
+            scheduled_for = datetime.now() + timedelta(days=7)
+        else:
+            raise ValueError(f'Invalid frequency: {frequency}')
+
+        scheduled, created = cls.objects.get_or_create(
+            recipient=recipient,
+            frequency=frequency,
+            was_sent=False,
+            defaults={
+                'notifications': {},
+                'scheduled_for': scheduled_for,
+            },
+        )
+        return scheduled
+
+    @classmethod
+    def find_ready_to_send(cls):
+        return cls.objects.filter(
+            scheduled_for__lte=datetime.now(),
+            was_sent=False,
+        )
 
 
 class CommentAndSummary(models.Model):

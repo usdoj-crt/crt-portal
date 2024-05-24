@@ -70,6 +70,7 @@ def create_report(page, **fields) -> int:
 
     For example, with the minimum required fields:
         create_report(
+            page,
             crt_reciept_month='12',
             crt_reciept_day='25',
             crt_reciept_year='2000',
@@ -124,7 +125,7 @@ def _go_to_model(page, admin_path, filters):
     with page.expect_navigation():
         page.goto(query_page_path)
     if page.locator('.paginator').text_content().strip().startswith('0 '):
-        raise ValueError('No models found to update')
+        raise ValueError(f'No models found matching the given filters: {filters}')
     with page.expect_navigation():
         page.locator("#result_list tbody tr th a").first.click()
 

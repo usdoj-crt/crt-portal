@@ -59,7 +59,9 @@
     </table>
 
     <div style="margin-left:1rem; margin-right: 1rem">
+      {% block notification_content %}
       {{ content | safe }}
+      {% endblock %}
 
       <p>If you need training on how to process these reports, please reach out to {% application_contact_markup %}.</p>
 

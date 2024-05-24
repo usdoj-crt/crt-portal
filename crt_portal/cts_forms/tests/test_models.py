@@ -5,9 +5,11 @@ from unittest import mock
 from django.test import SimpleTestCase, TestCase
 from types import SimpleNamespace
 
+import datetime
+
 from .factories import ReportFactory
 
-from cts_forms.models import JudicialDistrict, Report, ReportDispositionBatch, RetentionSchedule, User, SavedSearch
+from cts_forms.models import JudicialDistrict, Report, ReportDispositionBatch, RetentionSchedule, User, SavedSearch, ScheduledNotification
 from .test_data import SAMPLE_REPORT_1
 
 
@@ -47,6 +49,88 @@ class ReportSimpleTests(SimpleTestCase):
         report = ReportFactory.build(contact_last_name="", contact_first_name="")
         expected = "Thank you for your report"
         self.assertEqual(report.addressee, expected)
+
+
+class ScheduledNotificationTests(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        ScheduledNotification.objects.all().delete()
+        User.objects.filter(username='notification_test_user').delete()
+        cls.test_user = User.objects.create(username='notification_test_user')
+
+    def test_finds_existing_for_user(self):
+        ScheduledNotification.objects.create(
+            recipient=self.test_user,
+            notifications='"yes"',
+            frequency='weekly',
+            scheduled_for=datetime.datetime.now() + datetime.timedelta(days=1),
+            was_sent=False,
+        )
+        ScheduledNotification.objects.create(
+            recipient=self.test_user,
+            notifications='"no"',
+            frequency='weekly',
+            scheduled_for=datetime.datetime.now() + datetime.timedelta(days=1),
+            was_sent=True,
+        )
+        ScheduledNotification.objects.create(
+            recipient=self.test_user,
+            notifications='"no"',
+            frequency='daily',
+            scheduled_for=datetime.datetime.now() + datetime.timedelta(days=1),
+            was_sent=False,
+        )
+
+        scheduled = ScheduledNotification.find_for(self.test_user, 'weekly')
+
+        self.assertEqual(scheduled.notifications, '"yes"')
+
+    def test_creates_for_user(self):
+        ScheduledNotification.objects.create(
+            recipient=self.test_user,
+            notifications='"no"',
+            frequency='weekly',
+            scheduled_for=datetime.datetime.now() + datetime.timedelta(days=1),
+            was_sent=True,
+        )
+        ScheduledNotification.objects.create(
+            recipient=self.test_user,
+            notifications='"no"',
+            frequency='daily',
+            scheduled_for=datetime.datetime.now() + datetime.timedelta(days=1),
+            was_sent=False,
+        )
+
+        scheduled = ScheduledNotification.find_for(self.test_user, 'weekly')
+        self.assertEqual(scheduled.notifications, {})
+        self.assertEqual(scheduled.frequency, 'weekly')
+        self.assertEqual(scheduled.recipient, self.test_user)
+        self.assertFalse(scheduled.was_sent)
+        self.assertGreater(scheduled.scheduled_for, datetime.datetime.now())
+
+    def test_finds_ready_to_send(self):
+        ScheduledNotification.objects.create(
+            recipient=self.test_user,
+            scheduled_for=datetime.datetime.now() + datetime.timedelta(days=1),
+            notifications='"no"',
+            was_sent=False,
+        )
+        ScheduledNotification.objects.create(
+            recipient=self.test_user,
+            notifications='"no"',
+            scheduled_for=datetime.datetime.now() - datetime.timedelta(days=1),
+            was_sent=True,
+        )
+        ScheduledNotification.objects.create(
+            recipient=self.test_user,
+            notifications='"yes"',
+            scheduled_for=datetime.datetime.now() - datetime.timedelta(days=1),
+            was_sent=False,
+        )
+
+        ready = ScheduledNotification.find_ready_to_send()
+
+        self.assertEqual([r.notifications for r in ready], ['"yes"'])
 
 
 class SavedSearchTests(TestCase):

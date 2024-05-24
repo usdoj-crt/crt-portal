@@ -1,0 +1,27 @@
+{% extends "notification.html" %}
+{% block notification_content %}
+  This is a {{ frequency }} digest of events concerning you from the CRT Reporting Portal, which takes in reports from the public at <a href="https://civilrights.justice.gov">civilrights.justice.gov</a>.
+
+<ul>
+{% for digest in digests %}
+  <li>{{digest.title | safe }}</li>
+
+  {% if digest.items %}
+  <ul>
+    {% for item in digest.items %}
+    <li>{{item | safe}}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+
+{% endfor %}
+</ul>
+
+After reviewing the link(s) above, you can:
+
+<ol>
+  <li>Respond to the public through the Portal User Interface</li>
+  <li>Change the status of the report (close the report)</li>
+  <li>Assign it to another user and more</li>
+</ol>
+{% endblock %}
