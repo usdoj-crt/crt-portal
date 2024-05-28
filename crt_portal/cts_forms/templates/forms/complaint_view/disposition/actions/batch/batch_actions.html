@@ -10,6 +10,7 @@
 
 <form class="usa-form" method="post" action="/form/disposition/batch/{{batch.uuid}}/" novalidate>
     <input type="hidden" value="{{ return_url_args }}" name="return_url_args" id="return_url_args" />
+    <input type="hidden" value="" name="rejected_report_ids" id="rejected_report_ids" />
     {% csrf_token %}
     <div>
         <h3>Primary Information</h3>

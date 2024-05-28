@@ -7,6 +7,7 @@ import json
 import secrets
 from datetime import date, timedelta
 import pypdf
+import re
 
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
@@ -21,9 +22,10 @@ from testfixtures import LogCapture
 
 from ..forms import ComplaintOutreach, ContactEditForm, ReportEditForm, add_activity
 from ..model_variables import PRIMARY_COMPLAINT_CHOICES
-from ..models import Profile, Report, ReportAttachment, ProtectedClass, PROTECTED_MODEL_CHOICES, CommentAndSummary, Campaign, BannerMessage, RetentionSchedule, SavedSearch
+from ..models import Profile, Report, ReportAttachment, ProtectedClass, PROTECTED_MODEL_CHOICES, CommentAndSummary, Campaign, BannerMessage, RetentionSchedule, SavedSearch, NotificationPreference
 from .test_data import SAMPLE_REPORT_1, SAMPLE_REPORT_3, SAMPLE_REPORT_4
 from .factories import ReportFactory
+from .utils import assertSoupFinds, assertSoupSelects
 
 
 class ProfileViewTests(TestCase):
@@ -78,6 +80,46 @@ class OutreachTests(TestCase):
 
         self.test_report.refresh_from_db()
         self.assertEqual(self.test_report.origination_utm_campaign, new_campaign)
+
+
+class NotificationManagementTests(TestCase):
+    def setUp(self):
+        self.test_report = Report.objects.create(**SAMPLE_REPORT_1)
+        self.user = User.objects.create_user('DELETE_USER', 'test@usdoj.gov', '')
+        self.url = '/form/notifications/'
+        self.client = Client()
+        self.client.login(username='DELETE_USER', password='')  # nosec
+        NotificationPreference.objects.all().delete()
+        self.preference = NotificationPreference.objects.get_or_create(user=self.user)[0]
+        self.preference.assigned_to = 'individual'
+        self.preference.save()
+
+    def test_renders(self):
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+        assertSoupFinds(response, 'h2', string='Notification Management')
+        assertSoupFinds(response, 'button', string='Save preferences')
+
+    def test_includes_complaint_assignment_settings(self):
+        response = self.client.get(self.url)
+        assertSoupFinds(response, 'td', string=re.compile('.*Complaint assignments.*'))
+        assertSoupSelects(response, 'input[name="assigned_to"][value="individual"]')
+        assertSoupSelects(response, 'input[name="assigned_to"][value="none"]')
+
+    def test_can_save_preferences(self):
+        response = self.client.post(self.url, {'assigned_to': 'none'}, follow=True)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Your preferences have been saved')
+
+    def test_does_not_update_if_unchanged(self):
+        response = self.client.post(self.url, {'assigned_to': 'individual'}, follow=True)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'No changes were made')
+
+    def tearDown(self):
+        self.user.delete()
 
 
 class ContactInfoUpdateTests(TestCase):
@@ -995,14 +1037,35 @@ class CRTDispositionTests(TestCase):
         self.assertIn('1 Year', str(response.content))
 
     def test_other_scheduled_reports(self):
-        """Should only return two reports"""
+        """Should only return two reports, with three year and ten year"""
         url = f'{self.url}?disposition_status=other'
         self.client.force_login(self.superuser)
         response = self.client.get(url)
         reports = response.context['data_dict']
         report_len = len(reports)
         self.assertEqual(report_len, 2)
-        self.assertIn('Permanent', str(response.content))
+        self.assertIn('3 Year', str(response.content))
+        self.assertIn('10 Year', str(response.content))
+
+    def test_filter_by_schedule(self):
+        """Should only return two reports, with three year and ten year"""
+        url = f'{self.url}?disposition_status=other&retention_schedule=10%20Year'
+        self.client.force_login(self.superuser)
+        response = self.client.get(url)
+        reports = response.context['data_dict']
+        report_len = len(reports)
+        self.assertEqual(report_len, 1)
+        self.assertIn('10 Year', str(response.content))
+
+    def test_filter_by_expiration(self):
+        """Should only return two reports, with three year and ten year"""
+        url = f'{self.url}?disposition_status=other&expiration_date=2028-01-01'
+        self.client.force_login(self.superuser)
+        response = self.client.get(url)
+        reports = response.context['data_dict']
+        report_len = len(reports)
+        self.assertEqual(report_len, 1)
+        self.assertIn('10 Year', str(response.content))
 
     def test_disposition_bulk_action(self):
         url = reverse('crt_forms:disposition-actions')

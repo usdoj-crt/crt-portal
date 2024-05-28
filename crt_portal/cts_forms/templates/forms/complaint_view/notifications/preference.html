@@ -1,0 +1,26 @@
+{% load notification_preference_helpers %}
+{% load get_dict_item %}
+
+<tr>
+  <td>
+    {{title}}
+  </td>
+  <td>
+    {% for choice_value, choice_display in choices|get_dict_item:key %}
+    {% with existing_value=preferences|get_preference_value:key %}
+      <input id="{{key}}-{{choice_value}}" class="usa-radio__input" type="radio" name="{{key}}" {% if choice_value == existing_value %}checked="checked" {% endif %}value="{{choice_value}}"/>
+      <label
+j         data-position="left"
+          for="{{key}}-{{choice_value}}"
+          class="usa-radio__label display-flex flex-column">
+        <span class="usa-tooltip"
+          {% if choice_value == 'individual' %}title="Select this to receive a notification every time this action or event occurs"{% endif %}
+          {% if choice_value == 'none' %}title="Select this to disable any notifications for this event or action"{% endif %}
+        >
+        {{choice_display}}
+        </span>
+      </label>
+    {% endwith %}
+    {% endfor %}
+  </td>
+</tr>

@@ -1,5 +1,4 @@
 from django.db.models import F
-from django.http import Http404
 
 from .models import EmailReportCount, Report
 
@@ -26,7 +25,8 @@ def _valid_sort_params(sort, type):
 def report_sort(sort):
 
     if not _valid_sort_params(sort, 'report'):
-        raise Http404(f'Invalid sort request: {sort}')
+        # Simply reset the sort if the params are not valid:
+        return [], []
 
     sort_exprs = []
     # apply the sort items individually so that we can push nulls to the back
@@ -45,7 +45,8 @@ def report_sort(sort):
 def other_sort(sort, sort_type):
 
     if not _valid_sort_params(sort, sort_type):
-        raise Http404(f'Invalid sort request: {sort}')
+        # Simply reset the sort if the params are not valid:
+        return [], []
 
     sort_exprs = []
 

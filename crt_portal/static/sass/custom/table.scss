@@ -69,6 +69,31 @@
   }
 }
 
+.notifications.crt-table {
+  border-spacing: 0;
+  border-collapse: collapse;
+
+  thead tr th {
+    text-align: left;
+    vertical-align: middle;
+    padding: 1em;
+  }
+
+  tbody tr td {
+    text-align: left;
+    vertical-align: middle;
+    padding: 1em;
+
+    &:first-child {
+      font-weight: bold;
+    }
+  }
+
+  tbody tr:nth-child(odd) {
+    background-color: color('gray-2');
+  }
+}
+
 .crt-table {
   @extend .usa-table;
   @include text--body-copy__small();
@@ -349,6 +374,42 @@
 #active-filters {
   display: flex;
   flex-wrap: wrap;
+}
+
+.crt-table {
+  tr {
+    &.removed {
+      .td-link {
+        opacity: 0.7;
+      }
+    }
+    td.report-control {
+      padding: 0.5rem 0.5rem 0.5rem 1rem;
+      a.report-batch-control {
+        background-color: #1E4A80;
+        border-radius: 50%;
+        padding: 0;
+        display: flex;
+        margin: 1em 0;
+        .report-batch-icon {
+          width: 20px;
+          height: 20px;
+        }
+        &.removed {
+          background-color: #7891B1;
+          .add {
+            display: block;
+          }
+          .remove {
+            display: none;
+          }
+        }
+        .add {
+          display: none;
+        }
+      }
+    }
+  }
 }
 
 .intake-pagination {

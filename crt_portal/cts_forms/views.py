@@ -40,9 +40,8 @@ from .forms import (
     AttachmentActions, Review, save_form,
 )
 from .mail import mail_to_complainant
-from .model_variables import HATE_CRIMES_TRAFFICKING_MODEL_CHOICES
-from .models import CommentAndSummary, Profile, Report, ReportAttachment, ReportDisposition, ReportDispositionBatch, ReportsData, RetentionSchedule, SavedSearch, Trends, EmailReportCount, Campaign, User, \
-    RoutingSection, RoutingStepOneContact, RepeatWriterInfo
+from .model_variables import HATE_CRIMES_TRAFFICKING_MODEL_CHOICES, NOTIFICATION_PREFERENCE_CHOICES
+from .models import CommentAndSummary, Profile, Report, ReportAttachment, ReportDisposition, ReportDispositionBatch, ReportsData, RetentionSchedule, SavedSearch, Trends, EmailReportCount, Campaign, User, NotificationPreference, RoutingSection, RoutingStepOneContact, RepeatWriterInfo
 from .page_through import pagination
 from .sorts import other_sort, report_sort
 
@@ -398,7 +397,9 @@ def get_view_data(request, report_query, query_filters, disposition_status=None)
     # make sure the links for this page have the same paging, sorting, filtering etc.
     if disposition_status:
         page_args = f'?per_page={per_page}'
-        filter_args = f'{get_filter_args(query_filters)}&disposition_status={disposition_status}'
+        filter_args = get_filter_args(query_filters)
+        if '&disposition_status=' not in filter_args:
+            filter_args += f'disposition_status={disposition_status}'
     else:
         page_args = f'?per_page={per_page}&grouping=default'
         filter_args = get_filter_args(query_filters)
@@ -713,7 +714,9 @@ def get_batch_view_data(request):
     page_args += filter_args
     all_args_encoded = urllib.parse.quote(page_args)
     data = get_batch_data(disposition_batches, all_args_encoded)
+    can_approve_disposition = request.user.has_perm('cts_forms.approve_disposition') if request.user else False
     return {
+        'can_approve_disposition': can_approve_disposition,
         'disposition_status': 'batches',
         'page_format': page_format,
         'page_args': page_args,
@@ -727,18 +730,54 @@ def get_batch_view_data(request):
 
 @login_required
 def disposition_view(request):
-    disposition_status = request.GET.get('disposition_status', 'past')
+    params = request.GET.copy()
+    if not params.get('disposition_status'):
+        params['disposition_status'] = 'past'
+    disposition_status = params.get('disposition_status')
     profile_form = get_profile_form(request)
     if disposition_status == 'batches':
         final_data = get_batch_view_data(request)
         return render(request, 'forms/complaint_view/disposition/index.html', final_data)
-    report_query, query_filters = report_filter(QueryDict('status=closed&retention_schedule=1%20Year&retention_schedule=3%20Year&retention_schedule=10%20Year&retention_schedule=Permanent&disposition_status=' + disposition_status))
+
+    report_query, query_filters = report_filter(params)
+
+    # Records without these values should _never_ show on the disposition page,
+    # regardless of user-selected filters:
+    report_query = report_query.filter(
+        status='closed',
+        retention_schedule__retention_years__gt=0,
+    ).exclude(
+        retention_schedule__is_retired=True,
+        retention_schedule__isnull=True,
+    )
+
     final_data = get_view_data(request, report_query, query_filters, disposition_status)
     can_approve_disposition = request.user.has_perm('cts_forms.approve_disposition') if request.user else False
+
+    schedules = (
+        RetentionSchedule.objects.all()
+        .filter(retention_years__gt=0)
+        .exclude(is_retired=True)
+        .order_by('retention_years')
+    )
+
+    expirations = (
+        report_query.annotate(
+            retention_year=F('retention_schedule__retention_years'),
+            expiration_year=F('retention_year') + ExtractYear('closed_date') + 1,
+            expiration_date=Cast(Concat(F('expiration_year'), Value('-01-01'), output_field=CharField()), output_field=DateField())
+        )
+        .order_by()
+        .values_list('expiration_date', flat=True)
+        .distinct()
+    )
+
     final_data.update({
         'profile_form': profile_form,
         'disposition_status': disposition_status,
         'can_approve_disposition': can_approve_disposition,
+        'schedules': schedules,
+        'expirations': expirations,
     })
     return render(request, 'forms/complaint_view/disposition/index.html', final_data)
 
@@ -752,18 +791,68 @@ def unsubscribe_view(request):
         return redirect(reverse('crt_forms:crt-forms-index'))
     preferences = request.user.notification_preference
 
-    if not preferences.assigned_to:
+    if preferences.assigned_to == 'none':
         messages.add_message(request,
                              messages.ERROR,
                              mark_safe("You are not subscribed to notifications"))
         return redirect(reverse('crt_forms:crt-forms-index'))
 
-    preferences.assigned_to = False
+    preferences.assigned_to = 'none'
     preferences.save()
     messages.add_message(request,
                          messages.SUCCESS,
                          mark_safe("You have been unsubscribed from all portal notifications"))
     return redirect(reverse('crt_forms:crt-forms-index'))
+
+
+@login_required
+def notification_view(request):
+    if request.method == 'GET':
+        return _notification_get(request)
+    return _notification_change(request)
+
+
+def _notification_get(request):
+    if hasattr(request.user, 'notification_preference'):
+        preferences = request.user.notification_preference
+    else:
+        preferences = NotificationPreference(user=request.user)
+    return render(request, 'forms/complaint_view/notifications/index.html', {
+        'preferences': preferences,
+        'choices': NOTIFICATION_PREFERENCE_CHOICES,
+    })
+
+
+def _notification_change(request):
+    preference = NotificationPreference.objects.get_or_create(user=request.user)[0]
+
+    changes = request.POST
+    changed = False
+    for key in changes:
+        if key == 'csrfmiddlewaretoken':
+            continue
+
+        if not hasattr(preference, key):
+            raise BadRequest(f"Not a valid notification setting: {key}")
+
+        value = changes.getlist(key)[0]
+        if getattr(preference, key) == value:
+            continue
+
+        setattr(preference, key, value)
+        changed = True
+
+    if not changed:
+        messages.add_message(request,
+                             messages.WARNING,
+                             mark_safe("No changes were made"))
+        return redirect(reverse('crt_forms:crt-forms-notifications'))
+
+    preference.save()
+    messages.add_message(request,
+                         messages.SUCCESS,
+                         mark_safe("Your preferences have been saved"))
+    return redirect(reverse('crt_forms:crt-forms-notifications'))
 
 
 class ProfileView(LoginRequiredMixin, FormView):
@@ -1046,10 +1135,18 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
         return ''.join([f'&id={id}' for id in ids])
 
     def get(self, request, id=None):
+        rejected_batch_uuid = request.GET.get('rejected_batch_uuid', None)
+        if rejected_batch_uuid:
+            batch = get_object_or_404(ReportDispositionBatch, pk=rejected_batch_uuid)
+            report_dispo_objects = ReportDisposition.objects.filter(batch=batch).filter(rejected=False)
+            report_public_ids = report_dispo_objects.values_list('public_id', flat=True)
+            reports = Report.objects.filter(public_id__in=report_public_ids).order_by('pk')
+            ids = list(map(str, reports.values_list('pk', flat=True)))
+        else:
+            ids = request.GET.getlist('id')
         return_url_args = request.GET.get('next', '')
         return_url_args = urllib.parse.unquote(return_url_args)
         query_string = return_url_args
-        ids = request.GET.getlist('id')
         selected_all = request.GET.get('all', '') == 'all'
         uuid = request.GET.get('uuid', None)
         if selected_all:
@@ -1272,14 +1369,19 @@ class DispositionBatchActionsView(LoginRequiredMixin, FormView):
         return_url_args = request.POST.get('return_url_args', '')
         return_url_args = urllib.parse.unquote(return_url_args)
         if form.is_valid():
+            rejected_report_ids = request.POST.get('rejected_report_ids', '').split(',')
+            rejected_report_dispo_objects = ReportDisposition.objects.filter(public_id__in=rejected_report_ids)
+            for report in rejected_report_dispo_objects:
+                report.rejected = True
+                report.save()
             batch = form.save(commit=False)
             batch.save()
             if batch.status == 'approved':
-                message = f'{batch.uuid} has been approved for disposal.'
+                message = f'Batch #{batch.uuid} has been approved for disposal.'
                 messages.add_message(request, messages.SUCCESS, message)
             elif batch.status == 'rejected':
-                message = f'{batch.uuid} has been rejected for disposal.'
-                messages.add_message(request, messages.INFO, message)
+                message = f'Batch #{batch.uuid} has been rejected for disposal.'
+                messages.add_message(request, messages.ERROR, message)
             # log this action for an audit trail.
             logger.info(f'Batch #{batch.uuid} has been {batch.status} by {request.user}')
             url = reverse('crt_forms:disposition')
