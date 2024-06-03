@@ -395,9 +395,10 @@ def get_view_data(request, report_query, query_filters, disposition_status=None)
         page_args = f'?per_page={per_page}'
         filter_args = get_filter_args(query_filters)
         requested_reports = requested_reports.annotate(dispo_status=Case(
-      When(report_disposition_status=None, then=F('status')),
-      default=F('report_disposition_status'),
-   ),)
+                When(report_disposition_status=None, then=F('status')),
+                default=F('report_disposition_status'),
+            ),
+        )
         if '&disposition_status=' not in filter_args:
             filter_args += f'disposition_status={disposition_status}'
     else:
