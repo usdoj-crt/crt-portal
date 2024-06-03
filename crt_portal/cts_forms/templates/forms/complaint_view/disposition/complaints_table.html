@@ -36,9 +36,7 @@
               <img alt="" aria-hidden="true" src="{% static "img/intake-icons/ic_chevron-right.svg" %}" class="icon">
             </a>
           </th>
-          <th scope="col">
-            <span>Status</span>
-          </th>
+          {% render_sortable_heading 'Status' sort_state filter_state grouping group_params index %}
           <th scope="col">
             <span>Section</span>
           </th>
