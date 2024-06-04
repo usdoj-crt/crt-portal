@@ -196,6 +196,11 @@ class ScheduledNotification(models.Model):
         )
 
 
+class UserGroup(models.Model):
+    name = models.CharField(max_length=250, null=False, blank=False)
+    users = models.ManyToManyField(User, blank=True)
+
+
 class CommentAndSummary(models.Model):
     note = models.CharField(max_length=7000, null=False, blank=False,)
     author = models.CharField(max_length=1000, null=False, blank=False,)
