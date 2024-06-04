@@ -19,7 +19,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import SuspiciousOperation, BadRequest
 from django.core.paginator import Paginator
-from django.db.models import F, Subquery, OuterRef, Value, CharField, DateField
+from django.db.models import F, Subquery, OuterRef, Value, CharField, DateField, Case, When
 from django.http import Http404, HttpResponse, QueryDict
 from django.shortcuts import get_object_or_404, redirect, render, reverse
 from django.utils.html import mark_safe
@@ -387,23 +387,27 @@ def get_view_data(request, report_query, query_filters, disposition_status=None)
     # Sort data based on request from params, default to `created_date` of complaint
     per_page = request.GET.get('per_page', request.COOKIES.get('complaint_view_per_page', 15))
     page = request.GET.get('page', 1)
-    sort_expr, sorts = report_sort(request.GET.getlist('sort'))
-
-    requested_reports = requested_reports.order_by(*sort_expr)
-    paginator = Paginator(requested_reports, per_page)
-    requested_reports, page_format = pagination(paginator, page, per_page)
 
     sort_state = {}
     # make sure the links for this page have the same paging, sorting, filtering etc.
     if disposition_status:
+        sort_expr, sorts = other_sort(request.GET.getlist('sort'), 'disposition')
         page_args = f'?per_page={per_page}'
         filter_args = get_filter_args(query_filters)
+        requested_reports = requested_reports.annotate(dispo_status=Case(
+            When(report_disposition_status=None, then=F('status')),
+            default=F('report_disposition_status'),
+        ))
         if '&disposition_status=' not in filter_args:
             filter_args += f'disposition_status={disposition_status}'
     else:
+        sort_expr, sorts = report_sort(request.GET.getlist('sort'))
         page_args = f'?per_page={per_page}&grouping=default'
         filter_args = get_filter_args(query_filters)
 
+    requested_reports = requested_reports.order_by(*sort_expr)
+    paginator = Paginator(requested_reports, per_page)
+    requested_reports, page_format = pagination(paginator, page, per_page)
     page_args += filter_args
 
     # process sort query params
