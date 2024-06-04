@@ -10,6 +10,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <style>
+    /* Included here so it is translated. Put other css in printable_intake_form.css */
+    @page {
+      @bottom-left {
+        content: '{% trans "Page" %} ' counter(page);
+      }
+    }
+    </style>
   </head>
   <body>
 
@@ -27,7 +35,7 @@
       <section>
         <p>
           {% trans "If you believe you or someone else has experienced a civil rights violation, please tell us what happened." %}
-          {% trans "Before starting, you can also <a href=\"#instructions\">read the instructions for this form</a> (at the end) and what to expect after submission." %}
+          {% trans "Before starting, you can also" %} <a href=\"#instructions\">{% trans "read the instructions for this form" %}</a> {% trans "(at the end) and what to expect after submission." %}
         </p>
         <p>
           <small><em>
@@ -235,11 +243,13 @@
         </p>
 
         <p>
-          <strong>{% trans "Step 1: You can complete and submit this form." %}</strong>{% trans "By completing this form, you can provide the details we need to understand what happened. You can mail a printed copy of this form via postal service to the Division. Once we receive your report, it is immediately sent to our staff for review" %}
+          <strong>{% trans "Step 1: You can complete and submit this form." %}</strong>
+          {% trans "By completing this form, you can provide the details we need to understand what happened. You can mail a printed copy of this form via postal service to the Division. Once we receive your report, it is immediately sent to our staff for review" %}
         </p>
 
         <p>
-          <strong>{% trans "Step 2: We will review your report." %}</strong>{% trans "Teams that specialize in handling your type of issue will review it. If it needs to be forwarded to another team or agency, we will try to connect your complaint to the right group." %}
+          <strong>{% trans "Step 2: We will review your report." %}</strong>
+          {% trans "Teams that specialize in handling your type of issue will review it. If it needs to be forwarded to another team or agency, we will try to connect your complaint to the right group." %}
         </p>
 
         <p>

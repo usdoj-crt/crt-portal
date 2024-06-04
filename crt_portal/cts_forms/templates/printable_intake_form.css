@@ -38,9 +38,6 @@
   @top-left {
     content: element(header);
   }
-  @bottom-left {
-    content: 'Page ' counter(page);
-  }
   @bottom-right {
     white-space: pre;
     content: 'OMB No. 1190-0020' '\A' 'Expires 08/31/2026';

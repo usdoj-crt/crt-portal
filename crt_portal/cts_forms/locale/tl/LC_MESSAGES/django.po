@@ -1,25 +1,32 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-05 20:44+0000\n"
+"POT-Creation-Date: 2024-05-24 14:33-0400\n"
 "Language: Tagalog\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#: crt_portal/cts_forms/forms.py:388
+msgid "Challenge was invalid, please try again."
+msgstr ""
+
 #. Translators: this is the default- blank options for a drop-down menu where a user chooses a state
-#: forms.py:367 forms.py:2384
+#: crt_portal/cts_forms/forms.py:407 crt_portal/cts_forms/forms.py:2608
 msgid " - Select - "
 msgstr " - Pumili - "
 
 #. Translators: This is help text for the question asking if someone is a service member
-#: forms.py:379
+#: crt_portal/cts_forms/forms.py:419
+#: crt_portal/cts_forms/templates/printable_intake_form.html:62
 msgid ""
 "If you’re reporting on behalf of someone else, please select their status."
 msgstr ""
 "Kung ikaw ay nag-uulat sa ngalan ng ibang tao, mangyaring piliin ang "
 "kanilang katayuan."
 
-#: forms.py:396 templates/forms/report_contact_info.html:8
+#: crt_portal/cts_forms/forms.py:436
+#: crt_portal/cts_forms/templates/forms/report_contact_info.html:15
+#: crt_portal/cts_forms/templates/printable_intake_form.html:37
 msgid ""
 "If you believe you or someone else has experienced a civil rights violation, "
 "please tell us what happened."
@@ -27,7 +34,8 @@ msgstr ""
 "Kung sa paniniwala mo na ikaw o ang ibang tao ay nakaranas ng isang paglabag "
 "sa mga karapatang sibil, mangyaring sabihin sa amin kung ano ang nangyari."
 
-#: forms.py:424
+#: crt_portal/cts_forms/forms.py:464
+#: crt_portal/cts_forms/templates/printable_intake_form.html:86
 msgid ""
 "Select the reason that best describes your concern. Each reason lists "
 "examples of civil rights violations that may relate to your incident. In "
@@ -39,7 +47,7 @@ msgstr ""
 "maaaring maiugnay sa iyong insidente. Sa ibang seksyon ng ulat na ito, "
 "maaari mong ilarawan ang iyong pagkabahala sa sarili mong mga salita."
 
-#: forms.py:482
+#: crt_portal/cts_forms/forms.py:522 crt_portal/cts_forms/question_text.py:47
 msgid ""
 "Examples: Name of business, school, intersection, prison, polling place, "
 "website, etc."
@@ -47,11 +55,11 @@ msgstr ""
 "Mga halimbawa: Pangalan ng negosyo, paaralan, interseksyon, kulungan, lugar "
 "kung saan maaaring bomoto, website, at iba pa."
 
-#: forms.py:504 question_text.py:29
+#: crt_portal/cts_forms/forms.py:544 crt_portal/cts_forms/question_text.py:37
 msgid "Where did this happen?"
 msgstr "Saan ito nangyari?"
 
-#: forms.py:516
+#: crt_portal/cts_forms/forms.py:556
 msgid ""
 "Please tell us the city, state, and name of the location where this incident "
 "took place. This ensures your report is reviewed by the right people within "
@@ -61,45 +69,17 @@ msgstr ""
 "saan naganap ang panyayaring ito. Tinitiyak nito na ang iyong ulat ay "
 "masusuri ng mga tamang tao sa loob ng Dibisyon sa mga Karapatang Sibil."
 
-#: forms.py:579
-msgid ""
-"Public employers include organizations funded by the government like the "
-"military, post office, fire department, courthouse, DMV, or public school. "
-"This could be at the local or state level."
-msgstr ""
-"Kasama sa pampublikong tagapag-empleyo ang mga organisasyon na pinopondohan "
-"ng gobyerno katulad ng militar, tanggapan ng koreo, himpilan ng bumbero, "
-"korte, DMV, o pampublikong paaralan. Ito ay maaaring nasa lokal o estadong "
-"antas."
-
-#: forms.py:580
-msgid ""
-"Private employers are business or non-profits not funded by the government "
-"such as retail stores, banks, or restaurants."
-msgstr ""
-"Ang mga pribadong tagapag-empleyo ay mga negosyo o mga hindi kumikita at "
-"hindi pinopondohan ng gobyerno katulad ng mga tindahan, mga bangko, o mga "
-"restawran."
-
 #. Translators: describe the "other" option for commercial or public place question
-#: forms.py:626
+#: crt_portal/cts_forms/forms.py:663
 msgid "Please describe"
 msgstr "Mangyaring ilarawan"
 
-#: forms.py:693
-msgid ""
-"Includes schools, educational programs, or educational activities, like "
-"training programs, sports teams, clubs, or other school-sponsored activities"
-msgstr ""
-"Kasama ang mga paaralan, mga palatuntunang pang-edukasyon, o mga aktibidad "
-"na pang-edukasyon, katulad ng mga palatuntunan sa pagsasanay, mga koponan sa "
-"paglalaro, mga klab o ibang aktibidad na sinusuportahan ng paaralan"
-
-#: forms.py:704
+#: crt_portal/cts_forms/forms.py:741
 msgid "Please select the type of school or educational program."
 msgstr "Mangyaring piliin ang uri ng paaralan o palatuntunang pang-edukasyon."
 
-#: forms.py:727
+#: crt_portal/cts_forms/forms.py:764
+#: crt_portal/cts_forms/templates/printable_intake_form.html:199
 msgid ""
 "There are federal and state laws that protect people from discrimination "
 "based on their personal characteristics. Here is a list of the most common "
@@ -112,11 +92,12 @@ msgstr ""
 "na pamamaraan. Pumili ng anuman na nababagay sa iyong insidente."
 
 #. Translators: This is to explain an "other" choice for personal characteristics
-#: forms.py:732
+#: crt_portal/cts_forms/forms.py:769
 msgid "Please describe \"Other reason\""
 msgstr "Mangyaring ilarawan ang “Ibang dahilan”"
 
-#: forms.py:920
+#: crt_portal/cts_forms/forms.py:957
+#: crt_portal/cts_forms/templates/printable_intake_form.html:182
 msgid ""
 "It is important for us to know how recently this incident happened so we can "
 "take the appropriate action. If this happened over a period of time or is "
@@ -127,74 +108,81 @@ msgstr ""
 "kasalukuyan pa ring nangyayari, mangyaring ibigay ang pinaka-kamakailan na "
 "petsa."
 
-#: forms.py:1249
+#: crt_portal/cts_forms/forms.py:1286
 msgid "Assigned to"
 msgstr "Naitalaga kay"
 
-#: forms.py:1276
+#: crt_portal/cts_forms/forms.py:1313
 msgid "Campaign"
 msgstr ""
 
-#: forms.py:1299
+#: crt_portal/cts_forms/forms.py:1336
 msgid "Incident state"
 msgstr ""
 
-#: forms.py:1307
+#: crt_portal/cts_forms/forms.py:1344
 #, fuzzy
 #| msgid "District of Columbia"
 msgid "District number"
 msgstr "District of Columbia"
 
-#: forms.py:1317
+#: crt_portal/cts_forms/forms.py:1354
 msgid "Primary classification"
 msgstr "Pangunahing pag-uuri"
 
-#: forms.py:1327
+#: crt_portal/cts_forms/forms.py:1364
 msgid "Records per page"
 msgstr ""
 
-#: forms.py:1338
+#: crt_portal/cts_forms/forms.py:1375
 msgid "Grouping"
 msgstr ""
 
-#: forms.py:1575
+#: crt_portal/cts_forms/forms.py:1658
 msgid "Create date cannot be in the future."
 msgstr "Ang petsa na inilikha ay hindi maaaring sa hinaharap."
 
-#: forms.py:1947
+#: crt_portal/cts_forms/forms.py:2030
 msgid "Comment cannot be empty"
 msgstr "Ang puna ay hindi maaaring walang laman"
 
 #. Translators: This is used as a an empty selection default for drop down menus
-#: model_variables.py:6
+#: crt_portal/cts_forms/model_variables.py:7
 msgid "- Select -"
 msgstr "- Pumili -"
 
-#: model_variables.py:9 model_variables.py:201 model_variables.py:388
+#: crt_portal/cts_forms/model_variables.py:10
+#: crt_portal/cts_forms/model_variables.py:202
+#: crt_portal/cts_forms/model_variables.py:424
 msgid "Yes"
 msgstr "Oo"
 
-#: model_variables.py:10 model_variables.py:202 model_variables.py:387
+#: crt_portal/cts_forms/model_variables.py:11
+#: crt_portal/cts_forms/model_variables.py:203
+#: crt_portal/cts_forms/model_variables.py:425
 msgid "No"
 msgstr "Hindi"
 
-#: model_variables.py:13
+#: crt_portal/cts_forms/model_variables.py:14
 msgid "Please select a status as an active duty service member."
 msgstr ""
 "Mangyaring piliin ang katayuan bilang isang aktibong miyembro ng serbisyo sa "
 "tungkulin."
 
-#: model_variables.py:17 model_variables.py:29
+#: crt_portal/cts_forms/model_variables.py:18
+#: crt_portal/cts_forms/model_variables.py:30
 msgid "Workplace discrimination or other employment-related problem"
 msgstr ""
 "Diskriminasyon sa lugar ng pinagtratrabahuhan o iba pang problema na may "
 "kaugnayan sa trabaho"
 
-#: model_variables.py:18 model_variables.py:30
+#: crt_portal/cts_forms/model_variables.py:19
+#: crt_portal/cts_forms/model_variables.py:31
 msgid "Housing discrimination or harassment"
 msgstr "Diskriminasyon o panliligalig sa pabahay"
 
-#: model_variables.py:19 model_variables.py:31
+#: crt_portal/cts_forms/model_variables.py:20
+#: crt_portal/cts_forms/model_variables.py:32
 msgid ""
 "Discrimination at a school, educational program or service, or related to "
 "receiving education"
@@ -202,32 +190,36 @@ msgstr ""
 "Diskriminasyon sa paaralan, palatuntunang o serbisyong pang-edukasyon, o may "
 "kaugnayan sa pagtanggap ng edukasyon"
 
-#: model_variables.py:20 model_variables.py:32
+#: crt_portal/cts_forms/model_variables.py:21
+#: crt_portal/cts_forms/model_variables.py:33
 msgid "Mistreated by police, correctional staff, or inmates"
 msgstr "Minaltrato ng pulis, mga tauhan sa pagwawasto, o mga preso"
 
-#: model_variables.py:21 model_variables.py:28
+#: crt_portal/cts_forms/model_variables.py:22
+#: crt_portal/cts_forms/model_variables.py:29
 msgid "Voting rights or ability to vote affected"
 msgstr "Naapektuhan na mga karapatan sa pagboto o ang kakayahang bumoto"
 
-#: model_variables.py:22 model_variables.py:33
+#: crt_portal/cts_forms/model_variables.py:23
+#: crt_portal/cts_forms/model_variables.py:34
 msgid "Discriminated against in a commercial location or public place"
 msgstr ""
 "Nakaranas ng diskriminasyon sa isang lugar ng komersiyo o lugar na pampubliko"
 
-#: model_variables.py:23 model_variables.py:34
+#: crt_portal/cts_forms/model_variables.py:24
+#: crt_portal/cts_forms/model_variables.py:35
 msgid "Something else happened"
 msgstr "Mayroon pang ibang nangyari"
 
-#: model_variables.py:59
+#: crt_portal/cts_forms/model_variables.py:60
 msgid "Victim of a hate crime"
 msgstr "Biktima ng isang krimen sa pagkapoot"
 
-#: model_variables.py:60
+#: crt_portal/cts_forms/model_variables.py:61
 msgid "Victim of human trafficking"
 msgstr "Biktima ng panlilinlang ng mga tao"
 
-#: model_variables.py:65
+#: crt_portal/cts_forms/model_variables.py:66
 msgid ""
 "This could include a store, restaurant, bar, hotel, place of worship, "
 "library, medical facility, bank, courthouse, government building, public "
@@ -237,7 +229,7 @@ msgstr ""
 "pagsamba, silid-aklatan, pasilidad ng medisina, bangko, korte, gusali ng "
 "pamahalaan, pampublikong parke o langsangan, pati na rin ang online."
 
-#: model_variables.py:66
+#: crt_portal/cts_forms/model_variables.py:67
 msgid ""
 "The examples above reflect some but not all of the civil rights violations "
 "that we address. Select this option if you don’t see an example that applies "
@@ -248,11 +240,11 @@ msgstr ""
 "pagpipiliang ito kung wala kang nakikitang isang halimbawa na nababagay sa "
 "iyong sitwasyon.  Maaari kang magsabi sa amin ng karagdagan mamaya."
 
-#: model_variables.py:67
+#: crt_portal/cts_forms/model_variables.py:68
 msgid "(Including while in prison)"
 msgstr "(Kabilang ang habang nakakulong)"
 
-#: model_variables.py:70
+#: crt_portal/cts_forms/model_variables.py:71
 msgid ""
 "To potentially be a hate crime, the situation must include physical harm, or "
 "attempts to cause harm with a dangerous weapon, because of race, color, "
@@ -268,7 +260,7 @@ msgstr ""
 "lahi, kulay, relihiyon, o pambansang pinagmulan ay maaari rin na mga krimen "
 "sa pagkapoot."
 
-#: model_variables.py:71
+#: crt_portal/cts_forms/model_variables.py:72
 msgid ""
 "Human trafficking is when someone is forced into labor or sex work for "
 "profit. This can happen in many types of work that include, for example: "
@@ -280,31 +272,32 @@ msgstr ""
 "loob ng bahay, mga restawran, mga serbisyong tagapaglinis, at trabaho sa "
 "pakikipagtalik."
 
-#: model_variables.py:75
+#: crt_portal/cts_forms/model_variables.py:76
 msgid "Were you forced to work against your will?"
 msgstr "Pinilit ka bang magtrabaho ng laban sa iyong kalooban?"
 
-#: model_variables.py:76 templates/hate_crime_human_trafficking.html:74
+#: crt_portal/cts_forms/model_variables.py:77
+#: crt_portal/cts_forms/templates/hate_crime_human_trafficking.html:74
 msgid "Get help from the National Human Trafficking Hotline"
 msgstr ""
 "Humingi ng tulong mula sa Pambansang Hotline sa Panlilinlang ng mga Tao"
 
-#: model_variables.py:80
+#: crt_portal/cts_forms/model_variables.py:81
 msgid "Get help for hate crimes"
 msgstr "Humingi ng tulong para sa mga krimen ng pagka-poot"
 
-#: model_variables.py:86
+#: crt_portal/cts_forms/model_variables.py:87
 msgid ""
 "To report a threat against voters, threats against election officials, or "
 "election fraud, visit <a href=\"https://tips.fbi.gov\">tips.fbi.gov</a> or "
 "call 800-CALL-FBI"
 msgstr ""
-"Upang iulat ang isang banta laban sa mga botante, "
-"mga banta laban sa mga opisyal ng halalan, o pandaraya sa halalan, "
-"bisitahin ang <a href=\"https://tips.fbi.gov\">tips.fbi.gov</a> "
-"o tumawag sa 800-CALL-FBI"
+"Upang iulat ang isang banta laban sa mga botante, mga banta laban sa mga "
+"opisyal ng halalan, o pandaraya sa halalan, bisitahin ang <a href=\"https://"
+"tips.fbi.gov\">tips.fbi.gov</a> o tumawag sa 800-CALL-FBI"
 
-#: model_variables.py:90 templates/hate_crime_human_trafficking.html:45
+#: crt_portal/cts_forms/model_variables.py:91
+#: crt_portal/cts_forms/templates/hate_crime_human_trafficking.html:45
 msgid ""
 "A hate crime is violence or threats of violence based on race, color, "
 "national origin, religion, gender, sexual orientation, gender identity, or "
@@ -314,7 +307,8 @@ msgstr ""
 "batay sa lahi, kulay, pambansang pinagmulan, relihiyon, kasarian, "
 "oryentasyong sekswal, pagkakakilanlan ng kasarian, o kapansanan."
 
-#: model_variables.py:100 model_variables.py:142
+#: crt_portal/cts_forms/model_variables.py:101
+#: crt_portal/cts_forms/model_variables.py:143
 msgid ""
 "Fired, not hired, or demoted for reasons unrelated to job performance or "
 "qualifications"
@@ -322,23 +316,27 @@ msgstr ""
 "Natanggal sa trabaho, hindi natanggap, o na-demot sa trabaho sa kadahilanang "
 "hindi kaugnay sa pagganap sa trabaho o mga kwalipikasyon."
 
-#: model_variables.py:101 model_variables.py:143
+#: crt_portal/cts_forms/model_variables.py:102
+#: crt_portal/cts_forms/model_variables.py:144
 msgid "Retaliated against for reporting discrimination"
 msgstr "Ginantihan dahil sa pag-uulat ng diskriminasyon"
 
-#: model_variables.py:102 model_variables.py:144
+#: crt_portal/cts_forms/model_variables.py:103
+#: crt_portal/cts_forms/model_variables.py:145
 msgid "Inappropriately asked to provide immigration documentation"
 msgstr ""
 "Hindi naaangkop na humiling na magbigay ng dokumentasyon tungkol sa "
 "imigrasyon."
 
-#: model_variables.py:103 model_variables.py:145
+#: crt_portal/cts_forms/model_variables.py:104
+#: crt_portal/cts_forms/model_variables.py:146
 msgid "Denied reemployment or fired based on military service"
 msgstr ""
 "Tinanggihan sa muling pagtatrabaho o sisantehin sa trabaho batay sa "
 "serbisyong militar"
 
-#: model_variables.py:104 model_variables.py:146
+#: crt_portal/cts_forms/model_variables.py:105
+#: crt_portal/cts_forms/model_variables.py:147
 msgid ""
 "Denied an accommodation for a disability, including not being allowed to "
 "have a service animal <strong>in the workplace</strong>"
@@ -347,7 +345,8 @@ msgstr ""
 "pagpapahintulot na magkaroon ng hayop na nagbibigay ng serbisyo <strong>sa "
 "lugar ng pinagtratrabahuhan</strong>"
 
-#: model_variables.py:107 model_variables.py:149
+#: crt_portal/cts_forms/model_variables.py:108
+#: crt_portal/cts_forms/model_variables.py:150
 msgid ""
 "Denied housing, a permit, or a loan based on personal characteristics like "
 "race, sex, and/or having children under 18 years old"
@@ -356,19 +355,22 @@ msgstr ""
 "katangian katulad ng lahi, kasarian, at/o pagkakaroon ng mga anak na wala "
 "pang 18 taong gulang"
 
-#: model_variables.py:108 model_variables.py:150
+#: crt_portal/cts_forms/model_variables.py:109
+#: crt_portal/cts_forms/model_variables.py:151
 msgid "Harassment by a landlord or another tenant, including sexual harassment"
 msgstr ""
 "Panliligalig ng isang nagpapaupa o ibang umuupa, kabilang ang sekswal na "
 "panliligalig"
 
-#: model_variables.py:109 model_variables.py:151
+#: crt_portal/cts_forms/model_variables.py:110
+#: crt_portal/cts_forms/model_variables.py:152
 msgid "Challenges with terminating a lease due to military status change"
 msgstr ""
 "Mga hamon sa pagwawakas ng pagpapaupa dahil sa pagbabago ng katayuan sa "
 "militar"
 
-#: model_variables.py:110 model_variables.py:152
+#: crt_portal/cts_forms/model_variables.py:111
+#: crt_portal/cts_forms/model_variables.py:153
 msgid ""
 "Denied an accommodation for a disability, including not being allowed to "
 "have a service or assistance animal <strong>in public housing</strong>"
@@ -377,25 +379,29 @@ msgstr ""
 "pagpapahintulot na magkaroon ng hayop na nagbibigay ng serbisyo o hayop na "
 "tumutulong <strong>sa loob ng pampublikong pabahay</strong>"
 
-#: model_variables.py:113 model_variables.py:155
+#: crt_portal/cts_forms/model_variables.py:114
+#: crt_portal/cts_forms/model_variables.py:156
 msgid "Harassment based on race, sex, national origin, disability, or religion"
 msgstr ""
 "Panliligalig batay sa lahi, kasarian, pambansang pinagmulan, kapansanan, o "
 "relihiyon"
 
-#: model_variables.py:114 model_variables.py:156
+#: crt_portal/cts_forms/model_variables.py:115
+#: crt_portal/cts_forms/model_variables.py:157
 msgid "Denied admission or segregated in an education program or activity"
 msgstr ""
 "Tinanggihan ang pagpasok o inihiwalay sa isang palatuntunan o aktibidad na "
 "pang-edukasyon"
 
-#: model_variables.py:115 model_variables.py:157
+#: crt_portal/cts_forms/model_variables.py:116
+#: crt_portal/cts_forms/model_variables.py:158
 msgid "Denied educational accommodations for a disability or language barrier"
 msgstr ""
 "Tinanggihan ng mga tulong na pang-edukasyon dahil sa isang kapansanan o "
 "kahadlangan sa wika"
 
-#: model_variables.py:118 model_variables.py:137
+#: crt_portal/cts_forms/model_variables.py:119
+#: crt_portal/cts_forms/model_variables.py:138
 msgid ""
 "Obstacles to registering to vote, obtaining or submitting a ballot, having "
 "your ballot counted, or entering a polling place to vote"
@@ -403,7 +409,8 @@ msgstr ""
 "Mga sagabal sa pagpaparehistro sa pagboto, sa pagkuha o pagsumite ng balota, "
 "sa pagbilang sa iyong balota, o pagpasok sa lugar ng botohan upang bumoto"
 
-#: model_variables.py:119 model_variables.py:138
+#: crt_portal/cts_forms/model_variables.py:120
+#: crt_portal/cts_forms/model_variables.py:139
 msgid ""
 "Denied adequate voting assistance or accommodations for a disability at a "
 "polling place"
@@ -411,7 +418,8 @@ msgstr ""
 "Tinanggihan ng sapat na tulong sa pagboto o mga akomodasyon para sa isang "
 "kapansanan sa lugar ng botohan"
 
-#: model_variables.py:120 model_variables.py:139
+#: crt_portal/cts_forms/model_variables.py:121
+#: crt_portal/cts_forms/model_variables.py:140
 msgid ""
 "Restricted or prevented from participating in an election, including voting, "
 "becoming a candidate, or being elected for office"
@@ -419,7 +427,8 @@ msgstr ""
 "Pinaghigpitan o pinigilang makilahok sa isang halalan, kabilang ang pagboto, "
 "pagiging isang kandidato, o pagkahalal sa posisyon"
 
-#: model_variables.py:123 model_variables.py:160
+#: crt_portal/cts_forms/model_variables.py:124
+#: crt_portal/cts_forms/model_variables.py:161
 msgid ""
 "Police brutality or use of excessive force, including patterns of police "
 "misconduct"
@@ -427,7 +436,8 @@ msgstr ""
 "Pagmamalupit ng pulis o paggamit ng labis na puwersa, kabilang ang mga "
 "kaparaanan ng maling pangangasiwa ng mga pulis"
 
-#: model_variables.py:124 model_variables.py:161
+#: crt_portal/cts_forms/model_variables.py:125
+#: crt_portal/cts_forms/model_variables.py:162
 msgid ""
 "Searched and arrested under false pretenses, including racial or other "
 "discriminatory profiling"
@@ -435,11 +445,13 @@ msgstr ""
 "Hinanapan at inaresto sa ilalim ng maling mga pagpapanggap, kabilang ang "
 "pagtatangi ng lahi o iba pang diskriminasyon "
 
-#: model_variables.py:125 model_variables.py:162
+#: crt_portal/cts_forms/model_variables.py:126
+#: crt_portal/cts_forms/model_variables.py:163
 msgid "Denied rights while arrested or incarcerated"
 msgstr "Tinanggihang mga karapatan habang naaresto o nakakulong"
 
-#: model_variables.py:126 model_variables.py:163
+#: crt_portal/cts_forms/model_variables.py:127
+#: crt_portal/cts_forms/model_variables.py:164
 msgid ""
 "Denied access to safe living conditions or accommodations for a disability, "
 "language barrier, or religious practice while incarcerated"
@@ -448,14 +460,16 @@ msgstr ""
 "tulong para sa kapansanan, kahadlangan sa wika, o kasanayan sa relihiyon "
 "habang nakakulong"
 
-#: model_variables.py:129 model_variables.py:166
+#: crt_portal/cts_forms/model_variables.py:130
+#: crt_portal/cts_forms/model_variables.py:167
 msgid ""
 "A physical or online location that does not provide disability accommodations"
 msgstr ""
 "Isang lugar na pisikal o online na hindi nagkakaloob ng akomodasyon para sa "
 "may kapansanan"
 
-#: model_variables.py:130 model_variables.py:167
+#: crt_portal/cts_forms/model_variables.py:131
+#: crt_portal/cts_forms/model_variables.py:168
 msgid ""
 "Denied service or entry because of a perceived personal characteristic like "
 "race, sex, or religion"
@@ -463,7 +477,8 @@ msgstr ""
 "Tinanggihan na serbisyo o pagpasok dahil sa isang pinaghihinalaang personal "
 "na katangian katulad ng lahi, kasarian, o relihiyon"
 
-#: model_variables.py:131 model_variables.py:168
+#: crt_portal/cts_forms/model_variables.py:132
+#: crt_portal/cts_forms/model_variables.py:169
 msgid ""
 "Denied an accommodation for a disability, including not being allowed to "
 "have a service animal <strong>in a commercial or public location</strong>"
@@ -472,7 +487,7 @@ msgstr ""
 "pagpapahintulot na magkaroon ng hayop na nagbibigay ng serbisyo <strong>sa "
 "isang komersyal o pampublikong lokasyon</strong>"
 
-#: model_variables.py:174
+#: crt_portal/cts_forms/model_variables.py:175
 msgid ""
 "Physical attack causing injury, or an attempt to cause injury with a "
 "dangerous weapon, because of the above characteristics"
@@ -480,7 +495,7 @@ msgstr ""
 "Pisikal na atake na nagdudulot ng pinsala, o pagtangkang magdulot ng pinsala "
 "gamit ang mapanganib na sandata, dahil sa mga katangian na nabanggit sa itaas"
 
-#: model_variables.py:175
+#: crt_portal/cts_forms/model_variables.py:176
 msgid ""
 "Attacks, threats of violence, or destruction of property at place of worship "
 "(ie: shooting, arson, bombing, smashing windows, writing slurs)"
@@ -489,7 +504,7 @@ msgstr ""
 "pagsamba (tulad ng: pagbaril, pagsunog, pagbomba, pagbasag ng mga bintana, "
 "pagsulat ng mga insulto)"
 
-#: model_variables.py:178
+#: crt_portal/cts_forms/model_variables.py:179
 msgid ""
 "Coerced into working through threats of harm or deportation, psychological "
 "manipulation, debt manipulation, document confiscation, or confinement"
@@ -498,7 +513,7 @@ msgstr ""
 "deportasyon, manipulasyong sikolohikal, manipulasyon sa mga utang, "
 "pagkumpiska ng mga dokumento, o pagkakulong"
 
-#: model_variables.py:179
+#: crt_portal/cts_forms/model_variables.py:180
 msgid ""
 "Forced into sex work for profit through physical abuse or assault, sexual "
 "abuse or assault, other threats of harm, or confinement"
@@ -507,25 +522,29 @@ msgstr ""
 "pisikal na pang-aabuso o pag-atake, sekswal na pang-aabuso o pag-atake, iba "
 "pang mga banta ng pananakit, o pagkakulong"
 
-#: model_variables.py:184 model_variables.py:394
+#: crt_portal/cts_forms/model_variables.py:185
+#: crt_portal/cts_forms/model_variables.py:431
 msgid "Federal"
 msgstr "Pederal"
 
-#: model_variables.py:185
+#: crt_portal/cts_forms/model_variables.py:186
 msgid "State or local"
 msgstr "Estado o lokal"
 
 #. Translators: Both state, federal and local elections
-#: model_variables.py:187
+#: crt_portal/cts_forms/model_variables.py:188
 msgid "Both"
 msgstr "Pareho"
 
-#: model_variables.py:188 model_variables.py:396 model_variables.py:411
-#: model_variables.py:419 model_variables.py:436
+#: crt_portal/cts_forms/model_variables.py:189
+#: crt_portal/cts_forms/model_variables.py:433
+#: crt_portal/cts_forms/model_variables.py:448
+#: crt_portal/cts_forms/model_variables.py:456
+#: crt_portal/cts_forms/model_variables.py:473
 msgid "I'm not sure"
 msgstr "Hindi ako sigurado"
 
-#: model_variables.py:194
+#: crt_portal/cts_forms/model_variables.py:195
 msgid ""
 "Physical harm or threats of violence based on race, color, national origin, "
 "religion, gender, sexual orientation, gender identity, or disability"
@@ -534,7 +553,7 @@ msgstr ""
 "pambansang pinagmulan, relihiyon, kasarian, orientasyong sekswal, "
 "pagkakakilanlan ng kasarian, o kapansanan"
 
-#: model_variables.py:195
+#: crt_portal/cts_forms/model_variables.py:196
 msgid ""
 "Threatened, forced, and held against your will for the purposes of "
 "performing work or commercial sex acts. This could include threats of "
@@ -546,11 +565,12 @@ msgstr ""
 "kabilang dito ang pagbabanta sa pisikal na pananakit, pagpipigil sa "
 "ipinangakong mga sahod, o pagsasa-ilalim sa huwad na kontrata sa trabaho"
 
-#: model_variables.py:209 templates/landing.html:229
+#: crt_portal/cts_forms/model_variables.py:210
+#: crt_portal/cts_forms/templates/landing.html:229
 msgid "Age"
 msgstr "Edad"
 
-#: model_variables.py:210
+#: crt_portal/cts_forms/model_variables.py:211
 msgid ""
 "Disability (including temporary or recovered and including HIV and drug "
 "addiction)"
@@ -558,62 +578,64 @@ msgstr ""
 "Kapansanan (kabilang ang pansamantalang kapansan o gumaling na, pati na rin "
 "ang HIV at pagkagumon sa droga)"
 
-#: model_variables.py:211
+#: crt_portal/cts_forms/model_variables.py:212
 msgid "Family, marital, or parental status"
 msgstr "Katayuan ng pamilya, pag-aasawa, o pagiging magulang"
 
-#: model_variables.py:212
+#: crt_portal/cts_forms/model_variables.py:213
 msgid "Gender identity (including gender stereotypes)"
 msgstr "Pagkakakilanlan ng kasarian (kabilang ang mga estereotipo sa kasarian)"
 
-#: model_variables.py:213
+#: crt_portal/cts_forms/model_variables.py:214
 msgid "Genetic information (including family medical history)"
 msgstr "Impormasyong genetiko (kabilang ang kasaysayang medikal ng pamilya)"
 
-#: model_variables.py:214
+#: crt_portal/cts_forms/model_variables.py:215
 msgid ""
 "Immigration/citizenship status (choosing this will not share your status)"
 msgstr ""
 "Katayuan ng Imigrasyon/pagkamamamayan (ang pagpili nito ay hindi magbabahagi "
 "ng iyong katayuan)"
 
-#: model_variables.py:215
+#: crt_portal/cts_forms/model_variables.py:216
 msgid "Language"
 msgstr "Wika"
 
-#: model_variables.py:216
+#: crt_portal/cts_forms/model_variables.py:217
 msgid "National origin (including ancestry and ethnicity)"
 msgstr "Pambansang pinagmulan (kabilang ang ninuno at etnisidad)"
 
-#: model_variables.py:217
+#: crt_portal/cts_forms/model_variables.py:218
 msgid "Pregnancy"
 msgstr "Pagbubuntis"
 
-#: model_variables.py:218 templates/landing.html:222
+#: crt_portal/cts_forms/model_variables.py:219
+#: crt_portal/cts_forms/templates/landing.html:222
 msgid "Race/color"
 msgstr "Lahi/kulay"
 
-#: model_variables.py:219 templates/landing.html:224
+#: crt_portal/cts_forms/model_variables.py:220
+#: crt_portal/cts_forms/templates/landing.html:224
 msgid "Religion"
 msgstr "Relihiyon"
 
-#: model_variables.py:220
+#: crt_portal/cts_forms/model_variables.py:221
 msgid "Sex"
 msgstr "Kasarian"
 
-#: model_variables.py:221
+#: crt_portal/cts_forms/model_variables.py:222
 msgid "Sexual orientation"
 msgstr "Orientasyong sekswal"
 
-#: model_variables.py:222
+#: crt_portal/cts_forms/model_variables.py:223
 msgid "None of these apply to me"
 msgstr "Wala sa mga ito ang nalalapat sa akin"
 
-#: model_variables.py:223
+#: crt_portal/cts_forms/model_variables.py:224
 msgid "Other reason"
 msgstr "Ibang dahilan"
 
-#: model_variables.py:236
+#: crt_portal/cts_forms/model_variables.py:237
 msgid ""
 "Please make a selection to continue. If none of these apply to your "
 "situation, please select “None of these apply to me” or \"Other reason\"and "
@@ -623,31 +645,34 @@ msgstr ""
 "nalalapat sa iyong sitwasyon, mangyaring piliin ang “Wala sa mga ito ang "
 "nalalapat sa akin” o “Ibang dahilan” at ipaliwanag."
 
-#: model_variables.py:359
+#: crt_portal/cts_forms/model_variables.py:389
 msgid "Place of worship or about a place of worship"
 msgstr "Lugar ng pagsamba o tungkol sa lugar ng pagsamba"
 
-#: model_variables.py:360
+#: crt_portal/cts_forms/model_variables.py:390
 msgid "Commercial or retail building"
 msgstr "Gusaling pangkomersyal o tingian"
 
-#: model_variables.py:361 model_variables.py:372
+#: crt_portal/cts_forms/model_variables.py:391
+#: crt_portal/cts_forms/model_variables.py:402
 msgid "Healthcare facility"
 msgstr "Pasilidad sa pag-aalaga ng kalusugan"
 
-#: model_variables.py:362 model_variables.py:373
+#: crt_portal/cts_forms/model_variables.py:392
+#: crt_portal/cts_forms/model_variables.py:403
 msgid "Financial institution"
 msgstr "Institusyong pampinansyal"
 
-#: model_variables.py:363
+#: crt_portal/cts_forms/model_variables.py:393
 msgid "Public space"
 msgstr "Puwang na pampubliko"
 
-#: model_variables.py:364 templatetags/commercial_public_space_view.py:17
+#: crt_portal/cts_forms/model_variables.py:394
+#: crt_portal/cts_forms/templatetags/commercial_public_space_view.py:17
 msgid "Other"
 msgstr "Iba pa"
 
-#: model_variables.py:367
+#: crt_portal/cts_forms/model_variables.py:397
 msgid ""
 "Please select the type of location. If none of these apply to your "
 "situation, please select \"Other\"."
@@ -655,27 +680,27 @@ msgstr ""
 "Mangyaring pumili ng uri ng lugar. Kung wala sa mga ito ang nalalapat sa "
 "iyong sitwasyon, mangyaring piliin ang “Iba pa”."
 
-#: model_variables.py:370
+#: crt_portal/cts_forms/model_variables.py:400
 msgid "Place of worship"
 msgstr "Lugar ng pagsamba"
 
-#: model_variables.py:371
+#: crt_portal/cts_forms/model_variables.py:401
 msgid "Commercial"
 msgstr "Komersyal"
 
-#: model_variables.py:374
+#: crt_portal/cts_forms/model_variables.py:404
 msgid "Public outdoor space"
 msgstr "Puwang sa labas na pampubliko"
 
-#: model_variables.py:378
+#: crt_portal/cts_forms/model_variables.py:408
 msgid "Church, synagogue, temple, religious community center"
 msgstr "Simbahan, sinagoga, templo, tampukan ng relihiyong pamayanan "
 
-#: model_variables.py:379
+#: crt_portal/cts_forms/model_variables.py:409
 msgid "Store, restaurant, bar, hotel, theater"
 msgstr "Tindahan, restawran, bar, otel, teatro"
 
-#: model_variables.py:380
+#: crt_portal/cts_forms/model_variables.py:410
 msgid ""
 "Hospital or clinic (including inpatient and outpatient programs), "
 "reproductive care clinic, state developmental institution, nursing home"
@@ -685,11 +710,11 @@ msgstr ""
 "pangangalaga ng pampag-anak, institusyon para sa pang-unlad ng estado, bahay "
 "ng pag-aalaga  "
 
-#: model_variables.py:381
+#: crt_portal/cts_forms/model_variables.py:411
 msgid "Bank, credit union, loan services"
 msgstr "Bangko, unyon ng kredito, mga serbisyo sa pautang"
 
-#: model_variables.py:382
+#: crt_portal/cts_forms/model_variables.py:412
 msgid ""
 "Park, sidewalk, street, other public buildings (courthouse, DMV, city "
 "library)"
@@ -697,377 +722,406 @@ msgstr ""
 "Parke, bangketa, lansangan, iba pang mga gusaling pampubliko (korte, DMV, "
 "silid-aklatan ng lungsod)"
 
-#: model_variables.py:393
+#: crt_portal/cts_forms/model_variables.py:417
+msgid ""
+"Public employers include organizations funded by the government like the "
+"military, post office, fire department, courthouse, DMV, or public school. "
+"This could be at the local or state level."
+msgstr ""
+"Kasama sa pampublikong tagapag-empleyo ang mga organisasyon na pinopondohan "
+"ng gobyerno katulad ng militar, tanggapan ng koreo, himpilan ng bumbero, "
+"korte, DMV, o pampublikong paaralan. Ito ay maaaring nasa lokal o estadong "
+"antas."
+
+#: crt_portal/cts_forms/model_variables.py:418
+msgid ""
+"Private employers are business or non-profits not funded by the government "
+"such as retail stores, banks, or restaurants."
+msgstr ""
+"Ang mga pribadong tagapag-empleyo ay mga negosyo o mga hindi kumikita at "
+"hindi pinopondohan ng gobyerno katulad ng mga tindahan, mga bangko, o mga "
+"restawran."
+
+#: crt_portal/cts_forms/model_variables.py:421
+msgid ""
+"Includes schools, educational programs, or educational activities, like "
+"training programs, sports teams, clubs, or other school-sponsored activities"
+msgstr ""
+"Kasama ang mga paaralan, mga palatuntunang pang-edukasyon, o mga aktibidad "
+"na pang-edukasyon, katulad ng mga palatuntunan sa pagsasanay, mga koponan sa "
+"paglalaro, mga klab o ibang aktibidad na sinusuportahan ng paaralan"
+
+#: crt_portal/cts_forms/model_variables.py:430
 msgid "State/local"
 msgstr "Estado/lokal"
 
-#: model_variables.py:395
+#: crt_portal/cts_forms/model_variables.py:432
 msgid "Private"
 msgstr "Pribado"
 
-#: model_variables.py:401
+#: crt_portal/cts_forms/model_variables.py:438
 msgid "Outside of prison"
 msgstr "Sa labas ng bilangguan"
 
-#: model_variables.py:403
+#: crt_portal/cts_forms/model_variables.py:440
 msgid "Prison (Federal)"
 msgstr "Bilangguan (Pederal)"
 
-#: model_variables.py:404
+#: crt_portal/cts_forms/model_variables.py:441
 msgid "Prison (Private)"
 msgstr "Bilangguan (Pribado)"
 
-#: model_variables.py:405
+#: crt_portal/cts_forms/model_variables.py:442
 msgid "Prison (I'm not sure)"
 msgstr "Bilangguan (Hindi ako sigurado)"
 
-#: model_variables.py:409
+#: crt_portal/cts_forms/model_variables.py:446
 msgid "Public employer"
 msgstr "Tagapag-empleyong pampubliko"
 
-#: model_variables.py:410
+#: crt_portal/cts_forms/model_variables.py:447
 msgid "Private employer"
 msgstr "Tagapag-empleyong pampribado"
 
-#: model_variables.py:414
+#: crt_portal/cts_forms/model_variables.py:451
 msgid "Please select what type of employer this is."
 msgstr "Mangyaring piliin kung anong uri ng tagapag-empleyo ito."
 
-#: model_variables.py:417
+#: crt_portal/cts_forms/model_variables.py:454
 msgid "Fewer than 15 employees"
 msgstr "Mas kaunti sa 15 na mga empleyado"
 
-#: model_variables.py:418
+#: crt_portal/cts_forms/model_variables.py:455
 msgid "15 or more employees"
 msgstr "15 o higit pang mga empleyado"
 
-#: model_variables.py:422
+#: crt_portal/cts_forms/model_variables.py:459
 msgid "Please select how large the employer is."
 msgstr "Mangyaring piliin kung gaano kalaki ang tagapag-empleyo."
 
-#: model_variables.py:434
+#: crt_portal/cts_forms/model_variables.py:471
 msgid "Public school or educational program"
 msgstr "Pampublikong paaralan o palatuntunang pang-edukasyon"
 
-#: model_variables.py:435
+#: crt_portal/cts_forms/model_variables.py:472
 msgid "Private school or educational program"
 msgstr "Pribadong paaralan o palatuntunang pang-edukasyon"
 
-#: model_variables.py:441
+#: crt_portal/cts_forms/model_variables.py:478
 #, fuzzy
 #| msgid "Year"
 msgid "1 Year"
 msgstr "Taon"
 
-#: model_variables.py:442
+#: crt_portal/cts_forms/model_variables.py:479
 #, fuzzy
 #| msgid "Year"
 msgid "3 Year"
 msgstr "Taon"
 
-#: model_variables.py:443
+#: crt_portal/cts_forms/model_variables.py:480
 #, fuzzy
 #| msgid "Year"
 msgid "10 Year"
 msgstr "Taon"
 
-#: model_variables.py:444
+#: crt_portal/cts_forms/model_variables.py:481
 msgid "Permanent"
 msgstr ""
 
-#: model_variables.py:448
+#: crt_portal/cts_forms/model_variables.py:485
 msgid "Alabama"
 msgstr "Alabama"
 
-#: model_variables.py:449
+#: crt_portal/cts_forms/model_variables.py:486
 msgid "Alaska"
 msgstr "Alaska"
 
-#: model_variables.py:450
+#: crt_portal/cts_forms/model_variables.py:487
 msgid "Arizona"
 msgstr "Arizona"
 
-#: model_variables.py:451
+#: crt_portal/cts_forms/model_variables.py:488
 msgid "Arkansas"
 msgstr "Arkansas"
 
-#: model_variables.py:452
+#: crt_portal/cts_forms/model_variables.py:489
 msgid "California"
 msgstr "California"
 
-#: model_variables.py:453
+#: crt_portal/cts_forms/model_variables.py:490
 msgid "Colorado"
 msgstr "Colorado"
 
-#: model_variables.py:454
+#: crt_portal/cts_forms/model_variables.py:491
 msgid "Connecticut"
 msgstr "Connecticut"
 
-#: model_variables.py:455
+#: crt_portal/cts_forms/model_variables.py:492
 msgid "Delaware"
 msgstr "Delaware"
 
-#: model_variables.py:456
+#: crt_portal/cts_forms/model_variables.py:493
 msgid "District of Columbia"
 msgstr "District of Columbia"
 
-#: model_variables.py:457
+#: crt_portal/cts_forms/model_variables.py:494
 msgid "Florida"
 msgstr "Florida"
 
-#: model_variables.py:458
+#: crt_portal/cts_forms/model_variables.py:495
 msgid "Georgia"
 msgstr "Georgia"
 
-#: model_variables.py:459
+#: crt_portal/cts_forms/model_variables.py:496
 msgid "Hawaii"
 msgstr "Hawaii"
 
-#: model_variables.py:460
+#: crt_portal/cts_forms/model_variables.py:497
 msgid "Idaho"
 msgstr "Idaho"
 
-#: model_variables.py:461
+#: crt_portal/cts_forms/model_variables.py:498
 msgid "Illinois"
 msgstr "Illinois"
 
-#: model_variables.py:462
+#: crt_portal/cts_forms/model_variables.py:499
 msgid "Indiana"
 msgstr "Indiana"
 
-#: model_variables.py:463
+#: crt_portal/cts_forms/model_variables.py:500
 msgid "Iowa"
 msgstr "Iowa"
 
-#: model_variables.py:464
+#: crt_portal/cts_forms/model_variables.py:501
 msgid "Kansas"
 msgstr "Kansas"
 
-#: model_variables.py:465
+#: crt_portal/cts_forms/model_variables.py:502
 msgid "Kentucky"
 msgstr "Kentucky"
 
-#: model_variables.py:466
+#: crt_portal/cts_forms/model_variables.py:503
 msgid "Louisiana"
 msgstr "Louisiana"
 
-#: model_variables.py:467
+#: crt_portal/cts_forms/model_variables.py:504
 msgid "Maine"
 msgstr "Maine"
 
-#: model_variables.py:468
+#: crt_portal/cts_forms/model_variables.py:505
 msgid "Maryland"
 msgstr "Maryland"
 
-#: model_variables.py:469
+#: crt_portal/cts_forms/model_variables.py:506
 msgid "Massachusetts"
 msgstr "Massachusetts"
 
-#: model_variables.py:470
+#: crt_portal/cts_forms/model_variables.py:507
 msgid "Michigan"
 msgstr "Michigan"
 
-#: model_variables.py:471
+#: crt_portal/cts_forms/model_variables.py:508
 msgid "Minnesota"
 msgstr "Minnesota"
 
-#: model_variables.py:472
+#: crt_portal/cts_forms/model_variables.py:509
 msgid "Mississippi"
 msgstr "Mississippi"
 
-#: model_variables.py:473
+#: crt_portal/cts_forms/model_variables.py:510
 msgid "Missouri"
 msgstr "Missouri"
 
-#: model_variables.py:474
+#: crt_portal/cts_forms/model_variables.py:511
 msgid "Montana"
 msgstr "Montana"
 
-#: model_variables.py:475
+#: crt_portal/cts_forms/model_variables.py:512
 msgid "Nebraska"
 msgstr "Nebraska"
 
-#: model_variables.py:476
+#: crt_portal/cts_forms/model_variables.py:513
 msgid "Nevada"
 msgstr "Nevada"
 
-#: model_variables.py:477
+#: crt_portal/cts_forms/model_variables.py:514
 msgid "New Hampshire"
 msgstr "New Hampshire"
 
-#: model_variables.py:478
+#: crt_portal/cts_forms/model_variables.py:515
 msgid "New Jersey"
 msgstr "New Jersey"
 
-#: model_variables.py:479
+#: crt_portal/cts_forms/model_variables.py:516
 msgid "New Mexico"
 msgstr "New Mexico"
 
-#: model_variables.py:480
+#: crt_portal/cts_forms/model_variables.py:517
 msgid "New York"
 msgstr "New York"
 
-#: model_variables.py:481
+#: crt_portal/cts_forms/model_variables.py:518
 msgid "North Carolina"
 msgstr "North Carolina"
 
-#: model_variables.py:482
+#: crt_portal/cts_forms/model_variables.py:519
 msgid "North Dakota"
 msgstr "North Dakota"
 
-#: model_variables.py:483
+#: crt_portal/cts_forms/model_variables.py:520
 msgid "Ohio"
 msgstr "Ohio"
 
-#: model_variables.py:484
+#: crt_portal/cts_forms/model_variables.py:521
 msgid "Oklahoma"
 msgstr "Oklashoma"
 
-#: model_variables.py:485
+#: crt_portal/cts_forms/model_variables.py:522
 msgid "Oregon"
 msgstr "Oregon"
 
-#: model_variables.py:486
+#: crt_portal/cts_forms/model_variables.py:523
 msgid "Pennsylvania"
 msgstr "Pennsylvania"
 
-#: model_variables.py:487
+#: crt_portal/cts_forms/model_variables.py:524
 msgid "Rhode Island"
 msgstr "Rhode Island"
 
-#: model_variables.py:488
+#: crt_portal/cts_forms/model_variables.py:525
 msgid "South Carolina"
 msgstr "South Carolina"
 
-#: model_variables.py:489
+#: crt_portal/cts_forms/model_variables.py:526
 msgid "South Dakota"
 msgstr "South Dakota"
 
-#: model_variables.py:490
+#: crt_portal/cts_forms/model_variables.py:527
 msgid "Tennessee"
 msgstr "Tennessee"
 
-#: model_variables.py:491
+#: crt_portal/cts_forms/model_variables.py:528
 msgid "Texas"
 msgstr "Texas"
 
-#: model_variables.py:492
+#: crt_portal/cts_forms/model_variables.py:529
 msgid "Utah"
 msgstr "Utah"
 
-#: model_variables.py:493
+#: crt_portal/cts_forms/model_variables.py:530
 msgid "Vermont"
 msgstr "Vermont"
 
-#: model_variables.py:494
+#: crt_portal/cts_forms/model_variables.py:531
 msgid "Virginia"
 msgstr "Virginia"
 
-#: model_variables.py:495
+#: crt_portal/cts_forms/model_variables.py:532
 msgid "Washington"
 msgstr "Washington"
 
-#: model_variables.py:496
+#: crt_portal/cts_forms/model_variables.py:533
 msgid "West Virginia"
 msgstr "West Virginia"
 
-#: model_variables.py:497
+#: crt_portal/cts_forms/model_variables.py:534
 msgid "Wisconsin"
 msgstr "Wisconsin"
 
-#: model_variables.py:498
+#: crt_portal/cts_forms/model_variables.py:535
 msgid "Wyoming"
 msgstr "Wyoming"
 
-#: model_variables.py:499
+#: crt_portal/cts_forms/model_variables.py:536
 msgid "American Samoa"
 msgstr "American Samoa"
 
-#: model_variables.py:500
+#: crt_portal/cts_forms/model_variables.py:537
 msgid "Guam"
 msgstr "Guam"
 
-#: model_variables.py:501
+#: crt_portal/cts_forms/model_variables.py:538
 msgid "Northern Mariana Islands"
 msgstr "Northern Mariana Islands"
 
-#: model_variables.py:502
+#: crt_portal/cts_forms/model_variables.py:539
 msgid "Puerto Rico"
 msgstr "Puerto Rico"
 
-#: model_variables.py:503
+#: crt_portal/cts_forms/model_variables.py:540
 msgid "Virgin Islands"
 msgstr "Virgin Islands"
 
-#: model_variables.py:504
+#: crt_portal/cts_forms/model_variables.py:541
 msgid "Armed Forces Africa"
 msgstr "Armed Forces Africa"
 
-#: model_variables.py:505
+#: crt_portal/cts_forms/model_variables.py:542
 msgid "Armed Forces Americas"
 msgstr "Armed Forces Americas"
 
-#: model_variables.py:506
+#: crt_portal/cts_forms/model_variables.py:543
 msgid "Armed Forces Canada"
 msgstr "Armed Forces Canada"
 
-#: model_variables.py:507
+#: crt_portal/cts_forms/model_variables.py:544
 msgid "Armed Forces Europe"
 msgstr "Armed Forces Europe"
 
-#: model_variables.py:508
+#: crt_portal/cts_forms/model_variables.py:545
 msgid "Armed Forces Middle East"
 msgstr "Armed Forces Middle East"
 
-#: model_variables.py:509
+#: crt_portal/cts_forms/model_variables.py:546
 msgid "Armed Forces Pacific"
 msgstr "Armed Forces Pacific"
 
-#: model_variables.py:512
+#: crt_portal/cts_forms/model_variables.py:549
 msgid "Please provide description to continue"
 msgstr "Mangyaring magbigay ng paglalarawan upang makapagpatuloy"
 
-#: model_variables.py:513
+#: crt_portal/cts_forms/model_variables.py:550
 msgid "Please select a primary reason to continue."
 msgstr "Mangyaring pumili ng pangunahing dahilan upang makapagpatuloy."
 
-#: model_variables.py:517
+#: crt_portal/cts_forms/model_variables.py:554
 msgid "Please enter the name of the location where this took place."
 msgstr "Mangyaring ilagay ang pangalan ng lugar kung saan ito nangyari."
 
-#: model_variables.py:518
+#: crt_portal/cts_forms/model_variables.py:555
 msgid "Please enter the city or town where this took place."
 msgstr "Mangyaring ilagay ang lungsod o bayan kung saan ito nangyari."
 
-#: model_variables.py:519
+#: crt_portal/cts_forms/model_variables.py:556
 msgid "Please select the state where this took place."
 msgstr "Mangyaring piliin ang estado kung saan ito nangyari."
 
-#: model_variables.py:523
+#: crt_portal/cts_forms/model_variables.py:560
 msgid "Please select where this occurred"
 msgstr "Mangyaring piliin kung saan ito nangyari"
 
-#: model_variables.py:524
+#: crt_portal/cts_forms/model_variables.py:561
 msgid "Please select the type of location"
 msgstr "Mangyaring piliin ang uri ng lugar"
 
-#: model_variables.py:536
+#: crt_portal/cts_forms/model_variables.py:573
 msgid "You must enter a month and year. Please use the format MM/DD/YYYY."
 msgstr ""
 "Kailangan mong ilagay ang buwan at taon. Mangyaring gamitin ang pormat na BB/"
 "AA/TTTT"
 
-#: model_variables.py:539
+#: crt_portal/cts_forms/model_variables.py:576
 msgid "Please enter a month."
 msgstr "Mangyaring ilagay ang buwan."
 
-#: model_variables.py:540
+#: crt_portal/cts_forms/model_variables.py:577
 msgid "Please enter a valid month. Month must be between 1 and 12."
 msgstr ""
 "Mangyaring ilagay ang tamang buwan. Ang buwan ay kailangang nasa pagitan ng "
 "1 at 12."
 
-#: model_variables.py:542
+#: crt_portal/cts_forms/model_variables.py:579
 msgid ""
 "Please enter a valid day of the month. Day must be between 1 and the last "
 "day of the month."
@@ -1075,27 +1129,27 @@ msgstr ""
 "Mangyaring ilagay ang tamang araw ng buwan.  Ang araw ay kailangang nasa "
 "pagitan ng 1 at sa huling araw ng buwan."
 
-#: model_variables.py:543
+#: crt_portal/cts_forms/model_variables.py:580
 msgid "Please enter a year."
 msgstr "Mangyaring ilagay ang taon."
 
-#: model_variables.py:544
+#: crt_portal/cts_forms/model_variables.py:581
 msgid "Date can not be in the future."
 msgstr "Ang petsa ay hindi maaaring sa hinaharap."
 
-#: model_variables.py:545
+#: crt_portal/cts_forms/model_variables.py:582
 msgid "Please enter a year after 1900."
 msgstr "Mangyaring ilagay ang taon pagkaraan ng 1900."
 
-#: model_variables.py:547
+#: crt_portal/cts_forms/model_variables.py:584
 msgid "Please enter a valid date. Use format MM/DD/YYYY."
 msgstr "Mangyaring ilagay ang tamang petsa. Gamitin ang pormat na BB/AA/TTTT"
 
-#: model_variables.py:551
+#: crt_portal/cts_forms/model_variables.py:588
 msgid "Please select the type of election or voting activity."
 msgstr "Mangyaring piliin ang uri ng halalan o aktibidad sa pagboto."
 
-#: model_variables.py:702
+#: crt_portal/cts_forms/model_variables.py:739
 msgid ""
 "If you submit a phone number, please make sure to include between 7 and 15 "
 "digits. The characters \"+\", \")\", \"(\", \"-\", and \".\" are allowed. "
@@ -1106,11 +1160,11 @@ msgstr ""
 "“-”, at “.” ay pinapahintulutan. Mangyaring ilagay ang kodigo ng bansa kung "
 "naglalagay ng internasyonal na numero ng telepono."
 
-#: question_text.py:5
+#: crt_portal/cts_forms/question_text.py:6
 msgid "Contact information"
 msgstr "Impormasyon sa pakikipag-ugnay"
 
-#: question_text.py:6
+#: crt_portal/cts_forms/question_text.py:7
 msgid ""
 "You are not required to provide your name or contact information. If you "
 "want to remain anonymous, leave this section blank. If you choose to provide "
@@ -1121,69 +1175,71 @@ msgstr ""
 "Kung piliin mong magbigay ng iyong impormasyon sa pakikipag-ugnay, gagamitin "
 "lamang namin ito upang sagutin ang iyong pagsumite."
 
-#: question_text.py:7 templates/forms/report_data.html:12
+#: crt_portal/cts_forms/question_text.py:8
+#: crt_portal/cts_forms/templates/forms/report_data.html:12
 msgid "Your name"
 msgstr "Iyong pangalan"
 
-#: question_text.py:8
+#: crt_portal/cts_forms/question_text.py:9
 msgid "First name"
 msgstr "Pangalan"
 
-#: question_text.py:9
+#: crt_portal/cts_forms/question_text.py:10
 msgid "Last name"
 msgstr "Apelyido"
 
-#: question_text.py:10
+#: crt_portal/cts_forms/question_text.py:11
 msgid "Email address"
 msgstr "Direksyon ng Email "
 
-#: question_text.py:11
+#: crt_portal/cts_forms/question_text.py:12
 msgid "Phone number"
 msgstr "Numero ng telepono"
 
-#: question_text.py:12
+#: crt_portal/cts_forms/question_text.py:13
 msgid "Mailing address 1"
 msgstr "Direksyon kung saan tumatanggap ng koreo 1"
 
-#: question_text.py:13
+#: crt_portal/cts_forms/question_text.py:14
 msgid "Mailing address 2"
 msgstr "Direksyon kung saan tumatanggap ng koreo 2"
 
-#: question_text.py:14
+#: crt_portal/cts_forms/question_text.py:15
 msgid "City"
 msgstr "Lungsod"
 
-#: question_text.py:15
-msgid "Zip code"
-msgstr "Kodigo ng koreo"
-
-#: question_text.py:16 question_text.py:34
+#: crt_portal/cts_forms/question_text.py:16
+#: crt_portal/cts_forms/question_text.py:42
 msgid "State"
 msgstr "Estado"
 
-#: question_text.py:18
+#: crt_portal/cts_forms/question_text.py:17
+msgid "Zip code"
+msgstr "Kodigo ng koreo"
+
+#: crt_portal/cts_forms/question_text.py:26
 msgid "Are you now or have ever been an active duty service member?"
 msgstr ""
 "Ikaw ba ay pangkasalukuyan o naging isang aktibong miyembro ng serbisyo sa "
 "tungkulin?"
 
-#: question_text.py:21
+#: crt_portal/cts_forms/question_text.py:29
 msgid "What is your primary reason for contacting the Civil Rights Division?"
 msgstr ""
 "Ano ang iyong pangunahing dahilan sa pakikipag-uugnay sa Dibisyon sa mga "
 "Karapatang Sibil?"
 
-#: question_text.py:23
+#: crt_portal/cts_forms/question_text.py:31
 msgid "Primary Issue"
 msgstr "Pangunahing Suliranin"
 
-#: question_text.py:24
+#: crt_portal/cts_forms/question_text.py:32
 msgid "Does your situation involve physical harm or threats of violence?"
 msgstr ""
 "Ang sitwasyon mo ba ay kinasasangkutan ng pisikal na pananakit o mga banta "
 "ng karahasan?"
 
-#: question_text.py:25
+#: crt_portal/cts_forms/question_text.py:33
 msgid ""
 "To be considered a hate crime, the physical harm or threats of violence must "
 "be based on race, color, national origin, religion, gender, sexual "
@@ -1194,35 +1250,35 @@ msgstr ""
 "pambansang pinagmulan, relihiyon, kasarian, orientasyong sekswal, "
 "pagkakakilanlan ng kasarian, o kapansanan."
 
-#: question_text.py:30
+#: crt_portal/cts_forms/question_text.py:38
 msgid "Organization name"
 msgstr "Pangalan ng organisasyon"
 
-#: question_text.py:31
+#: crt_portal/cts_forms/question_text.py:39
 msgid "Street address 1"
 msgstr "Direksyon ng lansangan 1"
 
-#: question_text.py:32
+#: crt_portal/cts_forms/question_text.py:40
 msgid "Street address 2"
 msgstr "Direksyon ng lansangan 2"
 
-#: question_text.py:33
+#: crt_portal/cts_forms/question_text.py:41
 msgid "City/town"
 msgstr "Lungsod/bayan"
 
-#: question_text.py:36
+#: crt_portal/cts_forms/question_text.py:60
 msgid "What kind of election or voting activity was this related to?"
 msgstr "Anong uri na halalan o aktibidad sa pagboto ang kaugnay nito?"
 
-#: question_text.py:38
+#: crt_portal/cts_forms/question_text.py:62
 msgid "Was this a public or private employer?"
 msgstr "Ito ba ay isang pampubliko o pampribadong tagapag-empleyo?"
 
-#: question_text.py:39
+#: crt_portal/cts_forms/question_text.py:63
 msgid "How large is this employer?"
 msgstr "Gaano kalaki ang tagapag-empleyong ito?"
 
-#: question_text.py:41
+#: crt_portal/cts_forms/question_text.py:65
 msgid ""
 "Please choose the type of location that best describes where the incident "
 "happened"
@@ -1230,15 +1286,15 @@ msgstr ""
 "Mangyaring piliin ang uri ng lugar na pinaka-naglalarawan kung saan nangyari "
 "ang insidente"
 
-#: question_text.py:43
+#: crt_portal/cts_forms/question_text.py:67
 msgid "Did this happen while in custody or incarcerated?"
 msgstr "Nangyari ba ito habang nasa kustodiya o nakakulong?"
 
-#: question_text.py:44
+#: crt_portal/cts_forms/question_text.py:68
 msgid "What type of prison or correctional facility?"
 msgstr "Anong uri ng kulungan o pasilidad sa pagwawasto?"
 
-#: question_text.py:46
+#: crt_portal/cts_forms/question_text.py:70
 msgid ""
 "Did this happen at a public or a private school, educational program or "
 "activity?"
@@ -1246,7 +1302,7 @@ msgstr ""
 "Nangyari ba ito sa isang pampubliko o pampribadong paaralan, palatuntunan o "
 "aktibidad na pang-edukasyon?"
 
-#: question_text.py:49
+#: crt_portal/cts_forms/question_text.py:73
 msgid ""
 "Do you believe any of these personal characteristics influenced why you were "
 "treated this way?"
@@ -1254,45 +1310,50 @@ msgstr ""
 "Naniniwala ka ba na alin man sa mga katangiang ito ang naka-impluwensiya "
 "kung bakit ka natrato sa ganitong paraan?"
 
-#: question_text.py:52
+#: crt_portal/cts_forms/question_text.py:76
 msgid "When did this happen?"
 msgstr "Kailan ito nangyari?"
 
-#: question_text.py:53
+#: crt_portal/cts_forms/question_text.py:77
 msgid "Month"
 msgstr "Buwan"
 
-#: question_text.py:54
+#: crt_portal/cts_forms/question_text.py:78
 msgid "Day"
 msgstr "Araw"
 
-#: question_text.py:55
+#: crt_portal/cts_forms/question_text.py:79
 msgid "Year"
 msgstr "Taon"
 
-#: question_text.py:59
+#: crt_portal/cts_forms/question_text.py:83
+#: crt_portal/cts_forms/templates/printable_intake_form.html:221
 msgid "In your own words, describe what happened"
 msgstr "Sa sarili mong mga salita, ilarawan kung ano ang nangyari"
 
-#: question_text.py:61
+#: crt_portal/cts_forms/question_text.py:85
+#: crt_portal/cts_forms/templates/printable_intake_form.html:223
 msgid "Please share details like:"
 msgstr "Mangyaring ibahagi ang mga detalye katulad ng:"
 
-#: question_text.py:63
+#: crt_portal/cts_forms/question_text.py:87
+#: crt_portal/cts_forms/templates/printable_intake_form.html:225
 msgid "Time"
 msgstr "Oras"
 
-#: question_text.py:64
+#: crt_portal/cts_forms/question_text.py:88
+#: crt_portal/cts_forms/templates/printable_intake_form.html:226
 msgid "Names of people involved including witnesses if there are any"
 msgstr ""
 "Mga pangalan ng mga taong kasangkot kabilang ang mga saksi kung mayroon man"
 
-#: question_text.py:65
+#: crt_portal/cts_forms/question_text.py:89
+#: crt_portal/cts_forms/templates/printable_intake_form.html:227
 msgid "Any supporting materials (please list and describe them)"
 msgstr ""
 "Anumang pang-suportang materyales (mangyaring ilista at ilarawan ang mga ito)"
 
-#: question_text.py:66
+#: crt_portal/cts_forms/question_text.py:90
 msgid ""
 "While you <strong>cannot</strong> submit these materials through this site, "
 "we may request copies of these from you at a later date. If you provide "
@@ -1305,13 +1366,15 @@ msgstr ""
 "materyales na ito, malalaman namin kung ano ang higit na makakatulong para "
 "sa iyong ulat."
 
-#: templates/base.html:42 templates/base.html:67
-#: templates/forms/report_base.html:10 templates/forms/report_base.html:13
+#: crt_portal/cts_forms/templates/base.html:42
+#: crt_portal/cts_forms/templates/base.html:67
+#: crt_portal/cts_forms/templates/forms/report_base.html:10
+#: crt_portal/cts_forms/templates/forms/report_base.html:13
 msgid "Contact the Civil Rights Division | Department of Justice"
 msgstr ""
 "Makipag-ugnay sa Dibisyon sa mga Karapatang Sibil | Kagawaran ng Katarungan"
 
-#: templates/base.html:55
+#: crt_portal/cts_forms/templates/base.html:55
 msgid ""
 "Have you or someone you know experienced unlawful discrimination? The Civil "
 "Rights Division may be able to help. Civil rights laws can protect you from "
@@ -1326,80 +1389,89 @@ msgstr ""
 "katulad ng pabahay, lugar ng pinagtratrabahuhan, paaralan, botohan, mga "
 "negosyo, pangangalaga sa kalusugan, pamublikong puwang, at iba pa."
 
-#: templates/base.html:79
+#: crt_portal/cts_forms/templates/base.html:77
 msgid "Skip to main content"
 msgstr "Lampasan upang mapunta sa pangunahing nilalaman"
 
-#: templates/base.html:132 templates/forms/errors.html:14
-#: templates/forms/report_maintenance.html:12 templates/landing.html:11
-#: templates/landing.html:18
+#: crt_portal/cts_forms/templates/base.html:136
+#: crt_portal/cts_forms/templates/forms/errors.html:14
+#: crt_portal/cts_forms/templates/forms/report_maintenance.html:12
+#: crt_portal/cts_forms/templates/landing.html:11
+#: crt_portal/cts_forms/templates/landing.html:18
+#: crt_portal/cts_forms/templates/printable_intake_form.html:27
 msgid "U.S. Department of Justice"
 msgstr "Kagawaran ng Katarungan ng Estados Unidos"
 
-#: templates/base.html:135 templates/forms/confirmation.html:21
-#: templates/forms/errors.html:15 templates/forms/report_maintenance.html:13
-#: templates/landing.html:11 templates/landing.html:21
+#: crt_portal/cts_forms/templates/base.html:139
+#: crt_portal/cts_forms/templates/forms/confirmation.html:21
+#: crt_portal/cts_forms/templates/forms/errors.html:15
+#: crt_portal/cts_forms/templates/forms/report_maintenance.html:13
+#: crt_portal/cts_forms/templates/landing.html:11
+#: crt_portal/cts_forms/templates/landing.html:21
+#: crt_portal/cts_forms/templates/printable_intake_form.html:28
 msgid "Civil Rights Division"
 msgstr "Dibisyon sa mga Karapatang Sibil"
 
-#: templates/forms/complaint_view/actions/bulk_actions.html:94
-#: templates/forms/grouped_questions.html:6
-#: templates/forms/question_cards/commercial_public_location.html:5
-#: templates/forms/question_cards/other_question.html:11
-#: templates/forms/question_cards/police_location.html:4
-#: templates/forms/question_cards/single_form.html:16
-#: templates/forms/question_cards/single_question.html:13
-#: templates/forms/report_class.html:13 templates/forms/report_details.html:12
-#: templates/forms/report_location.html:32
-#: templates/forms/report_location.html:38
-#: templates/forms/report_primary_complaint.html:10
-#: templates/forms/snippets/input.html:9
+#: crt_portal/cts_forms/templates/forms/complaint_view/actions/bulk_actions.html:94
+#: crt_portal/cts_forms/templates/forms/grouped_questions.html:6
+#: crt_portal/cts_forms/templates/forms/question_cards/commercial_public_location.html:5
+#: crt_portal/cts_forms/templates/forms/question_cards/other_question.html:11
+#: crt_portal/cts_forms/templates/forms/question_cards/police_location.html:4
+#: crt_portal/cts_forms/templates/forms/question_cards/single_form.html:16
+#: crt_portal/cts_forms/templates/forms/question_cards/single_question.html:13
+#: crt_portal/cts_forms/templates/forms/report_class.html:13
+#: crt_portal/cts_forms/templates/forms/report_details.html:12
+#: crt_portal/cts_forms/templates/forms/report_location.html:32
+#: crt_portal/cts_forms/templates/forms/report_location.html:38
+#: crt_portal/cts_forms/templates/forms/report_primary_complaint.html:10
+#: crt_portal/cts_forms/templates/forms/snippets/input.html:9
 msgid "required"
 msgstr "kailangan"
 
-#: templates/forms/confirmation.html:7
+#: crt_portal/cts_forms/templates/forms/confirmation.html:7
 msgid "Submission complete"
 msgstr "Kumpleto ang pagsusumite"
 
-#: templates/forms/confirmation.html:20 templates/forms/confirmation.html:26
-#: templates/forms/portal/header.html:2
+#: crt_portal/cts_forms/templates/forms/confirmation.html:20
+#: crt_portal/cts_forms/templates/forms/confirmation.html:26
+#: crt_portal/cts_forms/templates/forms/portal/header.html:2
 msgid "United States Department of Justice"
 msgstr "Kagawaran ng Katarungan ng Estados Unidos"
 
-#: templates/forms/confirmation.html:29
+#: crt_portal/cts_forms/templates/forms/confirmation.html:29
 msgid "Thank you for submitting a report to the Civil Rights Division."
 msgstr ""
 "Salamat sa iyong pagsumite ng ulat sa Dibisyon sa mga Karapatang Sibil."
 
-#: templates/forms/confirmation.html:46
+#: crt_portal/cts_forms/templates/forms/confirmation.html:46
 msgid "Report successfully submitted"
 msgstr "Matagumpay na naisumite ang ulat"
 
-#: templates/forms/confirmation.html:51
+#: crt_portal/cts_forms/templates/forms/confirmation.html:51
 msgid "Please save your record number for tracking."
 msgstr "Mangyaring itabi ang numero ng iyong tala para sa pagsubaybay."
 
-#: templates/forms/confirmation.html:55
+#: crt_portal/cts_forms/templates/forms/confirmation.html:55
 msgid "Your record number is:"
 msgstr "Ang numero ng iyong tala ay:"
 
-#: templates/forms/confirmation.html:62
+#: crt_portal/cts_forms/templates/forms/confirmation.html:62
 msgid "Print report"
 msgstr "Ilimbag ang ulat"
 
-#: templates/forms/confirmation.html:63
+#: crt_portal/cts_forms/templates/forms/confirmation.html:63
 msgid "Save report"
 msgstr "I-save ang ulat"
 
-#: templates/forms/confirmation.html:75
+#: crt_portal/cts_forms/templates/forms/confirmation.html:75
 msgid "What to expect"
 msgstr "Ano ang dapat asahan"
 
-#: templates/forms/confirmation.html:85
+#: crt_portal/cts_forms/templates/forms/confirmation.html:85
 msgid "We review your report"
 msgstr "Sinusuri namin ang iyong ulat "
 
-#: templates/forms/confirmation.html:90
+#: crt_portal/cts_forms/templates/forms/confirmation.html:90
 msgid ""
 "Our specialists in the Civil Rights Division carefully read every report to "
 "identify civil rights violations, spot trends, and determine if we have "
@@ -1410,16 +1482,16 @@ msgstr ""
 "karapatang sibil, makita ang mga kalakaran, at matukoy kung mayroon kaming "
 "awtoridad upang tumulong sa iyong ulat."
 
-#: templates/forms/confirmation.html:100
+#: crt_portal/cts_forms/templates/forms/confirmation.html:100
 msgid "Our specialists determine the next step"
 msgstr ""
 "Ang aming mga espesyalista ang nagtutukoy kung ano ang susunod na hakbang"
 
-#: templates/forms/confirmation.html:104
+#: crt_portal/cts_forms/templates/forms/confirmation.html:104
 msgid "We may decide to:"
 msgstr "Maaari kaming magpasya na:"
 
-#: templates/forms/confirmation.html:107
+#: crt_portal/cts_forms/templates/forms/confirmation.html:107
 msgid ""
 "<strong>Open an investigation</strong> or take some other action within the "
 "legal authority of the Justice Department."
@@ -1427,7 +1499,7 @@ msgstr ""
 "<strong>Magbukas ng isang pagsisiyasat</strong> o gumawa ng iba pang mga "
 "kilos sa loob ng ligal na awtoridad ng Kagawaran ng Katarungan."
 
-#: templates/forms/confirmation.html:108
+#: crt_portal/cts_forms/templates/forms/confirmation.html:108
 msgid ""
 "<strong>Collect more information</strong> before we can look into your "
 "report."
@@ -1435,7 +1507,7 @@ msgstr ""
 "<strong>Magtipon ng karagdagang impormasyon</strong> bago namin matingnan "
 "ang iyong ulat."
 
-#: templates/forms/confirmation.html:109
+#: crt_portal/cts_forms/templates/forms/confirmation.html:109
 msgid ""
 "<strong>Recommend another government agency</strong> that can properly look "
 "into your report. If so, we’ll let you know."
@@ -1443,18 +1515,18 @@ msgstr ""
 "<strong>Magrekomenda ng ibang ahensya ng gobyerno</strong> na titingin ng "
 "maayos sa iyong ulat. Kung gayon, ipapaalam namin sa iyo."
 
-#: templates/forms/confirmation.html:112
+#: crt_portal/cts_forms/templates/forms/confirmation.html:112
 msgid ""
 "In some cases, we may determine that we don’t have legal authority to handle "
 "your report and will recommend that you seek help from a private lawyer or "
 "local legal aid organization."
 msgstr "Magtipon ng karagdagang impormasyon bago namin tingnan ang iyong ulat."
 
-#: templates/forms/confirmation.html:122
+#: crt_portal/cts_forms/templates/forms/confirmation.html:122
 msgid "When possible, we will follow up with you"
 msgstr "Kapag maaari, magpa-follow-up kami sa iyo"
 
-#: templates/forms/confirmation.html:127
+#: crt_portal/cts_forms/templates/forms/confirmation.html:127
 msgid ""
 "We do our best to let you know about the outcome of our review. However, we "
 "may not always be able to provide you with updates because:"
@@ -1463,19 +1535,20 @@ msgstr ""
 "kinalabasan ng aming pagsusuri. Subalit, maaaring hindi namin palaging "
 "maibibigay sa iyo ang mga pinakabagong impormasyon dahil:"
 
-#: templates/forms/confirmation.html:131
+#: crt_portal/cts_forms/templates/forms/confirmation.html:131
 msgid ""
 "We’re actively working on an investigation or case related to your report."
 msgstr ""
 "Kami ay aktibong nagsasagawa ng pagsisiyasat o kaso na kaugnay sa iyong ulat."
 
-#: templates/forms/confirmation.html:134
+#: crt_portal/cts_forms/templates/forms/confirmation.html:134
 msgid "We’re receiving and actively reviewing many requests at the same time."
 msgstr ""
 "Kami ay tumatanggap at aktibong sumusuri ng maraming mga kahilingan ng sabay-"
 "sabay."
 
-#: templates/forms/confirmation.html:137 templates/landing.html:325
+#: crt_portal/cts_forms/templates/forms/confirmation.html:137
+#: crt_portal/cts_forms/templates/landing.html:325
 msgid ""
 "If we are able to respond, we will contact you using the contact information "
 "you provided in this report. Depending on the type of report, response times "
@@ -1490,22 +1563,22 @@ msgstr ""
 "iyong numero ng ulat kung makikipag-ugnayan sa amin. Ito ang paraan namin "
 "upang masusubaybayan ang iyong pagsumite."
 
-#: templates/forms/confirmation.html:145
+#: crt_portal/cts_forms/templates/forms/confirmation.html:145
 msgid "What you can do next"
 msgstr "Ang mga susunod na maaari mong gawin"
 
-#: templates/forms/confirmation.html:151
+#: crt_portal/cts_forms/templates/forms/confirmation.html:151
 msgid "1"
 msgstr "1"
 
-#: templates/forms/confirmation.html:154
+#: crt_portal/cts_forms/templates/forms/confirmation.html:154
 msgid ""
 "Contact local legal aid organizations or a lawyer if you haven’t already"
 msgstr ""
 "Makipag-ugnay sa mga organisasyong lokal para sa ligal na tulong o sa "
 "abogado kung hindi mo pa ito nagagawa"
 
-#: templates/forms/confirmation.html:158
+#: crt_portal/cts_forms/templates/forms/confirmation.html:158
 msgid ""
 "Legal aid offices or members of lawyer associations in your state may be "
 "able to help you with your issue."
@@ -1513,7 +1586,7 @@ msgstr ""
 "Ang mga tanggapan sa ligal na tulong o mga miyembro ng mga samahan ng "
 "abogado sa iyong estado ay maaaring makatulong sa iyo sa iyong suliranin."
 
-#: templates/forms/confirmation.html:161
+#: crt_portal/cts_forms/templates/forms/confirmation.html:161
 msgid ""
 "American Bar Association, visit <a class=\"external-link--blue external-"
 "link--popup\" href=\"https://www.americanbar.org/groups/legal_services/flh-"
@@ -1525,7 +1598,7 @@ msgstr ""
 "legal_services/flh-home/\">www.americanbar.org/groups/legal_services/flh-"
 "home</a> o tawagan ang <a href=\"tel:800-285-2221\">(800) 285-2221</a>"
 
-#: templates/forms/confirmation.html:164
+#: crt_portal/cts_forms/templates/forms/confirmation.html:164
 #, fuzzy
 #| msgid ""
 #| "Legal Services Corporation (or Legal Aid Offices), visit <a aria-"
@@ -1543,15 +1616,15 @@ msgstr ""
 "external-link--popup\" href=\"https://www.lsc.gov/find-legal-aid\">www.lsc."
 "gov/find-legal-aid</a>"
 
-#: templates/forms/confirmation.html:172
+#: crt_portal/cts_forms/templates/forms/confirmation.html:172
 msgid "2"
 msgstr "2"
 
-#: templates/forms/confirmation.html:175
+#: crt_portal/cts_forms/templates/forms/confirmation.html:175
 msgid "Get help immediately if you are in danger"
 msgstr "Humingi ng tulong kaagad-agad kung ikaw ay nasa panganib"
 
-#: templates/forms/confirmation.html:180
+#: crt_portal/cts_forms/templates/forms/confirmation.html:180
 msgid ""
 "If you reported an incident where you or someone else has experienced or is "
 "still experiencing physical harm or violence, or are in immediate danger, "
@@ -1562,15 +1635,16 @@ msgstr ""
 "kaagarang panganib, mangyaring tumawag sa <a href=\"tel:911\">911</a> at "
 "makipag-ugnay sa pulis. "
 
-#: templates/forms/confirmation.html:193
+#: crt_portal/cts_forms/templates/forms/confirmation.html:193
 msgid "Your submission"
 msgstr "Ang iyong pagsumite"
 
-#: templates/forms/error_422.html:5 templates/forms/errors.html:32
+#: crt_portal/cts_forms/templates/forms/error_422.html:5
+#: crt_portal/cts_forms/templates/forms/errors.html:32
 msgid "We're sorry, something went wrong"
 msgstr "Pasensya na, mayroong nangyaring kamalian"
 
-#: templates/forms/error_422.html:8
+#: crt_portal/cts_forms/templates/forms/error_422.html:8
 msgid ""
 "\n"
 "        <p>This error might be associated with an incompatible Internet "
@@ -1588,58 +1662,63 @@ msgstr ""
 "at/o mga tabs ng browser kapag ipinapasok ang iyong ulat.</p>\n"
 "    "
 
-#: templates/forms/errors.html:34
+#: crt_portal/cts_forms/templates/forms/errors.html:34
 msgid "We hope to fix this issue shortly"
 msgstr "Umaasa kami na maaayos ang suliraning ito ng ilang sandali"
 
-#: templates/forms/errors.html:36
+#: crt_portal/cts_forms/templates/forms/errors.html:36
 msgid "Error: "
 msgstr "Pagkakamali: "
 
-#: templates/forms/errors.html:38 templates/forms/report_maintenance.html:32
+#: crt_portal/cts_forms/templates/forms/errors.html:38
+#: crt_portal/cts_forms/templates/forms/report_maintenance.html:32
 msgid "If you need to contact us immediately, you can reach us by:"
 msgstr ""
 "Kung kinakailangan mong makipag-ugnay sa amin kaagad-agad, maaari kang "
 "makipag-abot sa amin sa pamamagitan ng:"
 
-#: templates/forms/errors.html:43 templates/forms/report_maintenance.html:37
+#: crt_portal/cts_forms/templates/forms/errors.html:43
+#: crt_portal/cts_forms/templates/forms/report_maintenance.html:37
 msgid "Email"
 msgstr "Email"
 
-#: templates/partials/footer.html:18
-msgid "Send Printed Report Form (<a target=\"_blank\" href=\"https://www.ada.gov/assets/pdfs/file-a-complaint.pdf\">Regular Format</a> | <a target=\"_blank\" href=\"https://www.ada.gov/assets/pdfs/file-a-complaint-lg.pdf\">Large Format</a>) To:"
-msgstr "Magpadala ng Nakalimbag na Pormat ng Ulat (<a target=\"_blank\" href=\"https://www.ada.gov/assets/pdfs/file-a-complaint.pdf\">Regular na Pormat</a> | <a target=\"_blank\" href=\"https://www.ada.gov/assets/pdfs/file-a-complaint-lg.pdf\">Malaking Pormat</a>) upang:"
-
-#: templates/forms/errors.html:52 templates/forms/report_maintenance.html:46
-#: templates/partials/footer.html:32
+#: crt_portal/cts_forms/templates/forms/errors.html:52
+#: crt_portal/cts_forms/templates/forms/report_maintenance.html:46
+#: crt_portal/cts_forms/templates/partials/footer.html:32
 msgid "(toll-free)"
 msgstr "(walang bayad)"
 
-#: templates/forms/errors.html:53 templates/forms/report_maintenance.html:47
-#: templates/partials/footer.html:33
+#: crt_portal/cts_forms/templates/forms/errors.html:53
+#: crt_portal/cts_forms/templates/forms/report_maintenance.html:47
+#: crt_portal/cts_forms/templates/partials/footer.html:33
 msgid "Telephone Device for the Deaf"
 msgstr "Teleponong Aparato para sa mga Bingi"
 
-#: templates/forms/errors.html:54 templates/forms/report_maintenance.html:48
-#: templates/partials/footer.html:34
+#: crt_portal/cts_forms/templates/forms/errors.html:54
+#: crt_portal/cts_forms/templates/forms/report_maintenance.html:48
+#: crt_portal/cts_forms/templates/partials/footer.html:34
 msgid "(TTY)"
 msgstr "(TTY)"
 
-#: templates/forms/errors.html:69 templates/forms/report_maintenance.html:63
+#: crt_portal/cts_forms/templates/forms/errors.html:69
+#: crt_portal/cts_forms/templates/forms/report_maintenance.html:63
 msgid "Other information"
 msgstr "Iba pang impormasyon"
 
-#: templates/forms/errors.html:70
+#: crt_portal/cts_forms/templates/forms/errors.html:70
+#: crt_portal/utils/pdf.py:183
 msgid "File a complaint"
 msgstr "Magsumite ng reklamo"
 
-#: templates/forms/errors.html:72 templates/forms/report_maintenance.html:65
-#: templates/landing.html:137
+#: crt_portal/cts_forms/templates/forms/errors.html:72
+#: crt_portal/cts_forms/templates/forms/report_maintenance.html:65
+#: crt_portal/cts_forms/templates/landing.html:137
 msgid "About the Civil Rights Division"
 msgstr "Tungkol sa Dibisyon sa mga Karapatang Sibil"
 
-#: templates/forms/errors.html:75 templates/forms/report_maintenance.html:68
-#: templates/landing.html:120
+#: crt_portal/cts_forms/templates/forms/errors.html:75
+#: crt_portal/cts_forms/templates/forms/report_maintenance.html:68
+#: crt_portal/cts_forms/templates/landing.html:120
 msgid ""
 "If you or someone else is in immediate danger, <a href=\"tel:911\">please "
 "call 911 or local police.</a>"
@@ -1647,11 +1726,11 @@ msgstr ""
 "Kung ikaw o ibang tao ay nasa kaagarang panganib, <a "
 "href=\"tel:911\">mangyaring tumawag sa 911 o lokal na pulis.</a>"
 
-#: templates/forms/portal/progress-bar.html:5
+#: crt_portal/cts_forms/templates/forms/portal/progress-bar.html:5
 msgid "progress"
 msgstr "pag-unlad"
 
-#: templates/forms/portal/progress-bar.html:7
+#: crt_portal/cts_forms/templates/forms/portal/progress-bar.html:7
 #, python-format
 msgid ""
 "\n"
@@ -1664,15 +1743,15 @@ msgstr ""
 "%(stage_number)s of %(total_stages)s.\n"
 "        "
 
-#: templates/forms/portal/progress-bar.html:26
+#: crt_portal/cts_forms/templates/forms/portal/progress-bar.html:26
 msgid "not completed"
 msgstr "Hindi nakumpleto"
 
-#: templates/forms/portal/progress-bar.html:28
+#: crt_portal/cts_forms/templates/forms/portal/progress-bar.html:28
 msgid "completed"
 msgstr "Kumpleto "
 
-#: templates/forms/report_base.html:8
+#: crt_portal/cts_forms/templates/forms/report_base.html:8
 #, python-format
 msgid ""
 "\n"
@@ -1681,13 +1760,13 @@ msgstr ""
 "\n"
 "        Hakbang %(stage_number)s: %(current_step_name)s - "
 
-#: templates/forms/report_base.html:24
+#: crt_portal/cts_forms/templates/forms/report_base.html:26
 msgid "Contact the Department of Justice to report a civil rights violation"
 msgstr ""
 "Makipag-ugnay sa Kagawaran ng Katarungan upang mag-ulat ng isang Paglabag sa "
 "mga karapatang sibil"
 
-#: templates/forms/report_base.html:56
+#: crt_portal/cts_forms/templates/forms/report_base.html:58
 #, python-format
 msgid ""
 "\n"
@@ -1704,41 +1783,45 @@ msgstr[1] ""
 "\n"
 "                  %(counter)s kamaliang natagpuan                "
 
-#: templates/forms/report_base.html:86
-#: templates/forms/report_contact_info.html:38
+#: crt_portal/cts_forms/templates/forms/report_base.html:88
+#: crt_portal/cts_forms/templates/forms/report_contact_info.html:49
 msgid "Submit"
 msgstr "i-sumite"
 
-#: templates/forms/report_base.html:88
-#: templates/forms/report_contact_info.html:32
-#: templates/forms/report_contact_info.html:40
+#: crt_portal/cts_forms/templates/forms/report_base.html:90
+#: crt_portal/cts_forms/templates/forms/report_contact_info.html:43
+#: crt_portal/cts_forms/templates/forms/report_contact_info.html:51
 msgid "Next"
 msgstr "Kasunod"
 
-#: templates/forms/report_base.html:97 templates/forms/report_review.html:33
+#: crt_portal/cts_forms/templates/forms/report_base.html:99
+#: crt_portal/cts_forms/templates/forms/report_review.html:33
 msgid "previous step"
 msgstr "nakaraang hakbang"
 
-#: templates/forms/report_base.html:100 templates/forms/report_review.html:36
-#: templates/partials/redirect-modal.html:23
+#: crt_portal/cts_forms/templates/forms/report_base.html:102
+#: crt_portal/cts_forms/templates/forms/report_review.html:36
+#: crt_portal/cts_forms/templates/partials/redirect-modal.html:23
 msgid "Back"
 msgstr "Balik"
 
-#: templates/forms/report_data.html:21 templates/forms/report_data.html:111
+#: crt_portal/cts_forms/templates/forms/report_data.html:21
+#: crt_portal/cts_forms/templates/forms/report_data.html:111
 msgid "Address"
 msgstr "Direksyon"
 
-#: templates/forms/report_data.html:131 templates/forms/report_data.html:137
+#: crt_portal/cts_forms/templates/forms/report_data.html:131
+#: crt_portal/cts_forms/templates/forms/report_data.html:137
 msgid "None selected"
 msgstr "Walang napili"
 
-#: templates/forms/report_maintenance.html:29
+#: crt_portal/cts_forms/templates/forms/report_maintenance.html:29
 msgid "This page is currently down for maintenance."
 msgstr ""
 "Ang pahinang ito ay kasalukuyang hindi gumagana dahil sa ginagawang "
 "pagpapanatili."
 
-#: templates/forms/report_maintenance.html:30
+#: crt_portal/cts_forms/templates/forms/report_maintenance.html:30
 msgid ""
 "We expect to be back shortly. We recommend checking back to report a civil "
 "rights violation."
@@ -1746,12 +1829,12 @@ msgstr ""
 "Inaasahan naming makabalik ng ilang sandali. Kami ay nagrerekomenda na "
 "muling bumalik upang mag-ulat ng isang paglabag sa mga karapatang sibil."
 
-#: templates/forms/report_review.html:9
+#: crt_portal/cts_forms/templates/forms/report_review.html:9
 msgid "Before you submit your report, please check your responses"
 msgstr ""
 "Bago ka magsumite ng iyong ulat, mangyaring suriin ang iyong mga katugunan"
 
-#: templates/forms/report_review.html:11
+#: crt_portal/cts_forms/templates/forms/report_review.html:11
 msgid ""
 "If you need to make any changes, you can go back and edit the previous "
 "pages. Please make sure your information is accurate. This allows us to "
@@ -1762,20 +1845,22 @@ msgstr ""
 "impormasyon. Pinahihintulutan nito na mapabilis ang aming pagtugon sa iyong "
 "ulat."
 
-#: templates/forms/report_review.html:13 templates/forms/report_review.html:25
+#: crt_portal/cts_forms/templates/forms/report_review.html:13
+#: crt_portal/cts_forms/templates/forms/report_review.html:25
 msgid "Submit report"
 msgstr "Isumite ang ulat"
 
-#: templates/forms/snippets/preview_button.html:5
+#: crt_portal/cts_forms/templates/forms/snippets/preview_button.html:5
 msgid "Edit this page"
 msgstr "Baguhin ang pahinang ito"
 
-#: templates/forms/widgets/crt_radio_area_option.html:26
-#: templates/vot_resources.html:57
+#: crt_portal/cts_forms/templates/forms/widgets/crt_radio_area_option.html:26
+#: crt_portal/cts_forms/templates/printable_intake_form.html:112
+#: crt_portal/cts_forms/templates/vot_resources.html:57
 msgid "Examples:"
 msgstr "Mga halimbawa:"
 
-#: templates/forms/word_counter.html:4
+#: crt_portal/cts_forms/templates/forms/word_counter.html:4
 #, python-format
 msgid ""
 "\n"
@@ -1786,7 +1871,8 @@ msgstr ""
 "%(word_limit)s Hangganan ng salita.\n"
 "  "
 
-#: templates/forms/word_counter.html:16 templates/forms/word_counter.html:21
+#: crt_portal/cts_forms/templates/forms/word_counter.html:16
+#: crt_portal/cts_forms/templates/forms/word_counter.html:21
 #, python-format
 msgid ""
 "\n"
@@ -1797,8 +1883,8 @@ msgstr ""
 "          %(word_limit)s naabot na ang hangganan ng salita\n"
 "        "
 
-#: templates/hate_crime_human_trafficking.html:6
-#: templates/hate_crime_human_trafficking.html:13
+#: crt_portal/cts_forms/templates/hate_crime_human_trafficking.html:6
+#: crt_portal/cts_forms/templates/hate_crime_human_trafficking.html:13
 msgid ""
 "Civil Rights Division - Department of Justice - Get help for hate crimes and "
 "human trafficking"
@@ -1806,48 +1892,67 @@ msgstr ""
 "Dibisyon sa mga Karapatang Sibil - Kagawaran ng Katarungan - Humingi ng "
 "tulong para sa mga krimen sa pagkapoot at panlilinlang ng mga tao"
 
-#: templates/hate_crime_human_trafficking.html:24
+#: crt_portal/cts_forms/templates/hate_crime_human_trafficking.html:24
 msgid "Get help"
 msgstr "Humingi ng tulong NGAYON!"
 
-#: templates/hate_crime_human_trafficking.html:28
+#: crt_portal/cts_forms/templates/hate_crime_human_trafficking.html:28
 msgid "Report a hate crime or hate incident"
 msgstr "Iulat ang isang krimen sa pagkapoot o insidente ng poot"
 
-#: templates/hate_crime_human_trafficking.html:31
+#: crt_portal/cts_forms/templates/hate_crime_human_trafficking.html:31
 msgid "Report human trafficking"
 msgstr "Mag-ulat ng panlilinlang ng mga tao"
 
-#: templates/hate_crime_human_trafficking.html:38
+#: crt_portal/cts_forms/templates/hate_crime_human_trafficking.html:38
 msgid "Get help for hate crimes and human trafficking"
 msgstr ""
 "Humingi ng tulong para sa mga krimen sa pagkapoot at panlilinlang ng mga tao"
 
-#: templates/hate_crime_human_trafficking.html:43
+#: crt_portal/cts_forms/templates/hate_crime_human_trafficking.html:43
 msgid "Where to report hate crimes and hate incidents"
 msgstr "Saan iuulat ang mga krimen sa pagkapoot at mga pangyayari ng poot"
 
-#: templates/hate_crime_human_trafficking.html:49
+#: crt_portal/cts_forms/templates/hate_crime_human_trafficking.html:49
 msgid "In cases of emergency, contact 911"
 msgstr "Kung sakaling may kagipitan, makipag-ugnay sa 911"
 
-#: templates/hate_crime_human_trafficking.html:54
+#: crt_portal/cts_forms/templates/hate_crime_human_trafficking.html:54
 msgid "Otherwise, contact the FBI online"
 msgstr "Kung hindi man, makipag-ugnay sa FBI sa online"
 
-#: templates/hate_crime_human_trafficking.html:59
+#: crt_portal/cts_forms/templates/hate_crime_human_trafficking.html:59
 msgid "Or a local field office by phone"
 msgstr "O sa isang lokal na tanggapan ng FBI sa pamamagitan ng telepono"
 
-#: templates/hate_crime_human_trafficking.html:63
-msgid "Not every act of a hate crime involves a crime. <a class='external-link--blue' href='https://www.justice.gov/hatecrimes/learn-about-hate-crimes'>Acts of prejudice</a> that are not crimes, and do not involve violence, threats, or property damage, are referred to as bias incidents or hate incidents. Some of these incidents, particularly those that occur in schools, workplaces, residences, or in other public spaces, may violate federal civil rights laws. You can report hate incidents to the Civil Rights Division using <a href='https://civilrights.justice.gov/'>this reporting portal</a>"
-msgstr "Hindi bawat gawa ng isang krimen sa pagkapoot ay nagsasangkot sa isang krimen. Ang <a class='external-link--blue' href='https://www.justice.gov/hatecrimes/learn-about-hate-crimes'>mga gawa ng pinsala</a> na hindi mga krimen, at hindi nagsasangkot ng karahasan, mga banta, o pinsala sa ari-arian, ay tinutukoy bilang mga pangyayaring may pagkiling o mga pangyayari ng poot. Ilan sa mga pangyayaring ito, lalo na ang mga nangyayari sa mga paaralan, mga lugar ng trabaho, mga tirahan, o sa iba pang pampublikong mga lugar, ay maaaring lumabag sa pederal na mga batas sa mga karapatang sibil. Maaari mong iulat ang mga pangyayari ng poot sa Dibisyon ng Mga Karapatang Sibil gamit ang <a href='https://civilrights.justice.gov/'>itong portal sa pag-uulat</a>"
+#: crt_portal/cts_forms/templates/hate_crime_human_trafficking.html:63
+msgid ""
+"Not every act of a hate crime involves a crime. <a class='external-link--"
+"blue' href='https://www.justice.gov/hatecrimes/learn-about-hate-crimes'>Acts "
+"of prejudice</a> that are not crimes, and do not involve violence, threats, "
+"or property damage, are referred to as bias incidents or hate incidents. "
+"Some of these incidents, particularly those that occur in schools, "
+"workplaces, residences, or in other public spaces, may violate federal civil "
+"rights laws. You can report hate incidents to the Civil Rights Division "
+"using <a href='https://civilrights.justice.gov/'>this reporting portal</a>"
+msgstr ""
+"Hindi bawat gawa ng isang krimen sa pagkapoot ay nagsasangkot sa isang "
+"krimen. Ang <a class='external-link--blue' href='https://www.justice.gov/"
+"hatecrimes/learn-about-hate-crimes'>mga gawa ng pinsala</a> na hindi mga "
+"krimen, at hindi nagsasangkot ng karahasan, mga banta, o pinsala sa ari-"
+"arian, ay tinutukoy bilang mga pangyayaring may pagkiling o mga pangyayari "
+"ng poot. Ilan sa mga pangyayaring ito, lalo na ang mga nangyayari sa mga "
+"paaralan, mga lugar ng trabaho, mga tirahan, o sa iba pang pampublikong mga "
+"lugar, ay maaaring lumabag sa pederal na mga batas sa mga karapatang sibil. "
+"Maaari mong iulat ang mga pangyayari ng poot sa Dibisyon ng Mga Karapatang "
+"Sibil gamit ang <a href='https://civilrights.justice.gov/'>itong portal sa "
+"pag-uulat</a>"
 
-#: templates/hate_crime_human_trafficking.html:68
+#: crt_portal/cts_forms/templates/hate_crime_human_trafficking.html:68
 msgid "Where to report human trafficking"
 msgstr "Biktima ng panlilinlang ng mga tao"
 
-#: templates/hate_crime_human_trafficking.html:70
+#: crt_portal/cts_forms/templates/hate_crime_human_trafficking.html:70
 msgid ""
 "Human trafficking includes being forced or coerced to do work, or forced or "
 "coerced to engage in sex acts for something of value."
@@ -1856,7 +1961,8 @@ msgstr ""
 "ng trabaho, o pagsapilitan o pagpilit na makisali sa mga gawaing sekswal "
 "bilang kapalit sa isang bagay na may halaga."
 
-#: templates/hce_resources.html:6 templates/hce_resources.html:13
+#: crt_portal/cts_forms/templates/hce_resources.html:6
+#: crt_portal/cts_forms/templates/hce_resources.html:13
 #, fuzzy
 #| msgid "Civil Rights Division - Department of Justice - Privacy Policy"
 msgid "Civil Rights Division - Department of Justice - Get resources"
@@ -1864,90 +1970,93 @@ msgstr ""
 "Dibisyon sa mga Karapatang Sibil - Kagawaran ng Katarungan- Patakaran sa "
 "Pagkapribado"
 
-#: templates/hce_resources.html:24
+#: crt_portal/cts_forms/templates/hce_resources.html:24
 msgid "Housing Section Resources"
 msgstr ""
 
-#: templates/hce_resources.html:28 templates/hce_resources.html:55
+#: crt_portal/cts_forms/templates/hce_resources.html:28
+#: crt_portal/cts_forms/templates/hce_resources.html:55
 msgid "Credit"
 msgstr "Pautang"
 
-#: templates/hce_resources.html:31 templates/hce_resources.html:75
+#: crt_portal/cts_forms/templates/hce_resources.html:31
+#: crt_portal/cts_forms/templates/hce_resources.html:75
 msgid "Disability"
 msgstr "Kapansanan"
 
-#: templates/hce_resources.html:34 templates/hce_resources.html:84
+#: crt_portal/cts_forms/templates/hce_resources.html:34
+#: crt_portal/cts_forms/templates/hce_resources.html:84
 msgid "Housing"
 msgstr "Pabahay"
 
-#: templates/hce_resources.html:37
+#: crt_portal/cts_forms/templates/hce_resources.html:37
 msgid "Find an attorney"
 msgstr "Humanap ng Abogado"
 
-#: templates/hce_resources.html:40
+#: crt_portal/cts_forms/templates/hce_resources.html:40
 msgid "Enforcement of state laws"
 msgstr "Pagpapatupad ng mga Batas ng Estado"
 
-#: templates/hce_resources.html:43
+#: crt_portal/cts_forms/templates/hce_resources.html:43
 msgid "General assistance"
 msgstr "Pangkalahatang Tulong"
 
-#: templates/hce_resources.html:50
+#: crt_portal/cts_forms/templates/hce_resources.html:50
 msgid "Housing section resources"
 msgstr ""
 
-#: templates/hce_resources.html:58
+#: crt_portal/cts_forms/templates/hce_resources.html:58
 msgid "Consumer Financial Protection Bureau"
 msgstr "Kagawaran ng Proteksyon sa Pananalapi ng Mamimili"
 
-#: templates/hce_resources.html:59
+#: crt_portal/cts_forms/templates/hce_resources.html:59
 msgid "Submit a complaint about a financial product or service."
 msgstr ""
 "Magsumite ng isang reklamo tungkol sa isang produkto o serbisyo sa "
 "pananalapi."
 
-#: templates/hce_resources.html:65
+#: crt_portal/cts_forms/templates/hce_resources.html:65
 msgid "Credit Bureaus"
 msgstr "Mga Kagawaran sa Pautang"
 
-#: templates/hce_resources.html:66
+#: crt_portal/cts_forms/templates/hce_resources.html:66
 msgid "Find information about credit history or credit scores."
 msgstr ""
 "Humanap ng impormasyon tungkol sa kasaysayan ng kredito o mga marka ng "
 "kredito."
 
-#: templates/hce_resources.html:78
+#: crt_portal/cts_forms/templates/hce_resources.html:78
 msgid "Fair Housing Accessibility First"
 msgstr "Sinaunang Pagkarating sa Patas na Pabahay"
 
-#: templates/hce_resources.html:79
+#: crt_portal/cts_forms/templates/hce_resources.html:79
 msgid ""
 "Information about physical accessibility requirements in multifamily housing."
 msgstr ""
 "Impormasyon tungkol sa mga kinakailangang pisikal na pagkarati ng pabahay ng "
 "maraming pamilya."
 
-#: templates/hce_resources.html:87
+#: crt_portal/cts_forms/templates/hce_resources.html:87
 msgid "U.S. Department of Housing and Urban Development"
 msgstr "Kagawaran ng Katarungan ng Estados Unidos"
 
-#: templates/hce_resources.html:88
+#: crt_portal/cts_forms/templates/hce_resources.html:88
 msgid "Submit a complaint about discrimination in housing."
 msgstr "Magsumite ng isang reklamo tungkol sa diskriminasyon sa pabahay."
 
-#: templates/hce_resources.html:95
+#: crt_portal/cts_forms/templates/hce_resources.html:95
 msgid "Homelessness Resources"
 msgstr "Mga Mapagkukunan ng Kawalan ng Tirahan "
 
-#: templates/hce_resources.html:96
+#: crt_portal/cts_forms/templates/hce_resources.html:96
 msgid "Information on housing assistance."
 msgstr "Impormasyon tungkol sa tulong sa pabahay."
 
-#: templates/hce_resources.html:100
+#: crt_portal/cts_forms/templates/hce_resources.html:100
 msgid "Office of Public &amp; Indian Housing"
 msgstr "Tanggapan ng Pabahay na Pampubliko at Pang-Indyan"
 
-#: templates/hce_resources.html:101
+#: crt_portal/cts_forms/templates/hce_resources.html:101
 msgid ""
 "Information on public housing authorities, rental assistance, and housing "
 "counseling."
@@ -1955,7 +2064,7 @@ msgstr ""
 "Impormasyon ukol sa mga awtoridad sa pampublikong pabahay, tulong para sa "
 "upa, at pagpapayo sa pabahay."
 
-#: templates/hce_resources.html:102
+#: crt_portal/cts_forms/templates/hce_resources.html:102
 msgid ""
 "(for inquiries on public housing authorities and housing choice voucher "
 "programs)"
@@ -1963,29 +2072,29 @@ msgstr ""
 "(para sa mga katanungan ukol sa mga awtoridad sa pampublikong pabahay at "
 "butser na mga programa sa pagpili ng pabahay)"
 
-#: templates/hce_resources.html:106
+#: crt_portal/cts_forms/templates/hce_resources.html:106
 msgid "Office of Inspector General (OIG)"
 msgstr "Tanggapan ng Inspektor Heneral (OIG)"
 
-#: templates/hce_resources.html:107
+#: crt_portal/cts_forms/templates/hce_resources.html:107
 msgid "Report fraud, waste, or abuse in HUD-funded programs."
 msgstr ""
 "Mag-ulat tungkol sa pandaraya, pag-aaksaya, o pag-abuso sa mga programang "
 "pinondohan ng HUD."
 
-#: templates/hce_resources.html:109
+#: crt_portal/cts_forms/templates/hce_resources.html:109
 msgid "(202) 708-4829 Facsimile"
 msgstr "(202) 708-4829 Facsimile"
 
-#: templates/hce_resources.html:110
+#: crt_portal/cts_forms/templates/hce_resources.html:110
 msgid "Email: hotline@hudoig.gov"
 msgstr "Email: hotline@hudoig.gov"
 
-#: templates/hce_resources.html:114
+#: crt_portal/cts_forms/templates/hce_resources.html:114
 msgid "Fair Housing Initiatives Program Agencies"
 msgstr "Mga Ahensya ng Programa sa mga Hakbangin sa Patas na Pabahay"
 
-#: templates/hce_resources.html:115
+#: crt_portal/cts_forms/templates/hce_resources.html:115
 msgid ""
 "Information about organizations that assist people who believe they have "
 "been victims of housing discrimination."
@@ -1993,40 +2102,40 @@ msgstr ""
 "Impormasyon tungkol sa mga organisasyong tumutulong sa mga taong "
 "naniniwalang sila ay naging mga biktima ng diskriminasyon sa pabahay."
 
-#: templates/hce_resources.html:119
+#: crt_portal/cts_forms/templates/hce_resources.html:119
 msgid "Fair Housing Assistance Program Agencies"
 msgstr "Mga Ahensya ng Programa sa Patas na Tulong sa Pabahay  "
 
-#: templates/hce_resources.html:120
+#: crt_portal/cts_forms/templates/hce_resources.html:120
 msgid ""
 "State and local agencies responsible for receiving reports of discrimination."
 msgstr ""
 "Mga ahensyang pang-estado at pang-lokal na responsable sa pagtanggap ng mga "
 "ulat ng diskriminasyon."
 
-#: templates/hce_resources.html:124
+#: crt_portal/cts_forms/templates/hce_resources.html:124
 msgid "Rent and Utility Payment Assistance"
 msgstr "Tulong sa Pagbabayad ng Upa at Palingkurang-bayan"
 
-#: templates/hce_resources.html:125
+#: crt_portal/cts_forms/templates/hce_resources.html:125
 msgid "Information on rental assistance programs in your area."
 msgstr "Impormasyon ukol sa mga programa ng tulong sa pag-upa sa iyong lugar."
 
-#: templates/hce_resources.html:129
+#: crt_portal/cts_forms/templates/hce_resources.html:129
 msgid "Find an Attorney"
 msgstr "Humanap ng Abogado"
 
-#: templates/hce_resources.html:132
+#: crt_portal/cts_forms/templates/hce_resources.html:132
 msgid "American Bar Association"
 msgstr "Asosasyon ng mga Kapisanan ng Abogado ng Amerikano"
 
-#: templates/hce_resources.html:139
+#: crt_portal/cts_forms/templates/hce_resources.html:139
 msgid "Legal Services Corporation (or Legal Aid Offices)"
 msgstr ""
 "Korporasyon ng mga Serbisyong Pang-ligal (o mga Tanggapan na Pang-ligal na "
 "Tulong)"
 
-#: templates/hce_resources.html:140
+#: crt_portal/cts_forms/templates/hce_resources.html:140
 msgid ""
 "Information on non-profit organizations providing legal help to people with "
 "limited income. Visit <a class='external-link--blue external-link--popup' "
@@ -2037,25 +2146,25 @@ msgstr ""
 "find-legal-aid\" class=\"external-link--blue external-link--popup\" "
 "href=\"https://www.lsc.gov/find-legal-aid\">www.lsc.gov/find-legal-aid</a>"
 
-#: templates/hce_resources.html:144
+#: crt_portal/cts_forms/templates/hce_resources.html:144
 msgid "Enforcement of State Laws"
 msgstr "Pagpapatupad ng mga Batas ng Estado"
 
-#: templates/hce_resources.html:147
+#: crt_portal/cts_forms/templates/hce_resources.html:147
 msgid "State Attorneys General"
 msgstr "Pang-estadong Mga Abogadong Heneral"
 
-#: templates/hce_resources.html:148
+#: crt_portal/cts_forms/templates/hce_resources.html:148
 msgid "Find contact information for your state attorney general."
 msgstr ""
 "Humanap ng impormasyon sa pakikipag-ugnayan para sa iyong pang-estadong "
 "abogadong heneral."
 
-#: templates/hce_resources.html:152
+#: crt_portal/cts_forms/templates/hce_resources.html:152
 msgid "General Assistance"
 msgstr "Pangkalahatang Tulong"
 
-#: templates/hce_resources.html:156
+#: crt_portal/cts_forms/templates/hce_resources.html:156
 msgid ""
 "Assistance with questions about federal agencies, government programs, "
 "services, and more."
@@ -2063,38 +2172,43 @@ msgstr ""
 "Tulong sa mga katanungan tungkol sa mga ahensyang pampederal, mga programa "
 "ng gobyerno, mga serbisyo, at higit pa."
 
-#: templates/landing.html:31
+#: crt_portal/cts_forms/templates/landing.html:31
 msgid "Menu"
 msgstr "Nabigasyon"
 
-#: templates/landing.html:40
+#: crt_portal/cts_forms/templates/landing.html:40
 msgid "About the Division"
 msgstr "Tungkol sa Dibisyon"
 
-#: templates/landing.html:45
+#: crt_portal/cts_forms/templates/landing.html:45
 msgid "Your rights"
 msgstr "Ang iyong mga karapatan"
 
-#: templates/landing.html:50 templates/partials/footer.html:70
+#: crt_portal/cts_forms/templates/landing.html:50
+#: crt_portal/cts_forms/templates/partials/footer.html:70
 msgid "Report a violation"
 msgstr "Mag-ulat ng paglabag"
 
-#: templates/landing.html:55
+#: crt_portal/cts_forms/templates/landing.html:55
 msgid "Already submitted?"
 msgstr "Naisumite na?"
 
-#: templates/landing.html:60 templates/partials/footer.html:8
-#: views_public.py:201 views_public.py:305 views_public.py:323
+#: crt_portal/cts_forms/templates/landing.html:60
+#: crt_portal/cts_forms/templates/partials/footer.html:8
+#: crt_portal/cts_forms/templates/printable_intake_form.html:50
+#: crt_portal/cts_forms/views_public.py:202
+#: crt_portal/cts_forms/views_public.py:308
+#: crt_portal/cts_forms/views_public.py:326
 msgid "Contact"
 msgstr "Makipag-ugnay"
 
-#: templates/landing.html:91
+#: crt_portal/cts_forms/templates/landing.html:91
 msgid "We uphold the civil rights of <em>all</em> people in the United States."
 msgstr ""
 "Pinapanindigan namin ang mga karapatang sibil ng <em>lahat</em> ng tao sa "
 "Estados Unidos."
 
-#: templates/landing.html:96
+#: crt_portal/cts_forms/templates/landing.html:96
 msgid ""
 "The Civil Rights Division enforces federal laws that protect you from "
 "discrimination based on your race, color, national origin, disability "
@@ -2107,7 +2221,7 @@ msgstr ""
 "relihiyon, katayuan ng pamilya, o kawalan ng ibang mga karapatan sa ilalim "
 "ng saligang batas."
 
-#: templates/landing.html:99
+#: crt_portal/cts_forms/templates/landing.html:99
 msgid ""
 "If you believe your civil rights, or someone else’s, have been violated, "
 "submit a report using our online form."
@@ -2115,15 +2229,16 @@ msgstr ""
 "Kung naniniwala ka na ang iyong mga karapatang sibil o ng ibang tao ay "
 "nalabag, magsumite ng ulat gamit ang aming online na pormularyo."
 
-#: templates/landing.html:101 templates/landing.html:298
+#: crt_portal/cts_forms/templates/landing.html:101
+#: crt_portal/cts_forms/templates/landing.html:298
 msgid "Start a report"
 msgstr "Mag-umpisa ng isang ulat"
 
-#: templates/landing.html:102
+#: crt_portal/cts_forms/templates/landing.html:102
 msgid "Learn your rights"
 msgstr "Alamin ang iyong mga karapatan"
 
-#: templates/landing.html:114
+#: crt_portal/cts_forms/templates/landing.html:114
 msgid ""
 "If you are in danger, contact <a href=\"tel:911\" aria-label=\"9 1 1\">911</"
 "a>"
@@ -2131,7 +2246,7 @@ msgstr ""
 "Kung ikaw ay nasa panganib, makipag-ugnay sa <a href=\"tel:911\" aria-"
 "label=\"9 1 1\">911</a>"
 
-#: templates/landing.html:125
+#: crt_portal/cts_forms/templates/landing.html:125
 msgid ""
 "If you are reporting misconduct by law enforcement or believe you have "
 "experienced a hate crime, please <a aria-label=\"contact the FBI\" "
@@ -2143,15 +2258,15 @@ msgstr ""
 "aria-label=\"contact the FBI\" class=\"external-link--white\" href=\"https://"
 "www.fbi.gov/contact-us\">makipag-ugnay sa FBI</a>."
 
-#: templates/landing.html:139
+#: crt_portal/cts_forms/templates/landing.html:139
 msgid "We protect your rights through:"
 msgstr "Pinoprotektahan namin ang iyong mga karapatan sa pamamagitan ng:"
 
-#: templates/landing.html:142
+#: crt_portal/cts_forms/templates/landing.html:142
 msgid "Enforcement"
 msgstr "Pagpapatupad"
 
-#: templates/landing.html:144
+#: crt_portal/cts_forms/templates/landing.html:144
 msgid ""
 "We sue or prosecute individuals and organizations who violate civil rights "
 "laws."
@@ -2159,7 +2274,7 @@ msgstr ""
 "Idinedemanda o inuusig namin ang mga tao at mga samahan na lumalabag sa mga "
 "batas sa mga karapatang sibil."
 
-#: templates/landing.html:147
+#: crt_portal/cts_forms/templates/landing.html:147
 #, python-format
 msgid ""
 "\n"
@@ -2175,34 +2290,34 @@ msgstr ""
 "pormularyo</a>.\n"
 "                "
 
-#: templates/landing.html:153
+#: crt_portal/cts_forms/templates/landing.html:153
 msgid "Education"
 msgstr "Edukasyon"
 
-#: templates/landing.html:155
+#: crt_portal/cts_forms/templates/landing.html:155
 msgid "We help the public understand how to comply with these laws."
 msgstr ""
 "Tinutulungan namin ang publiko na maunawaan kung paano sumunod sa mga batas "
 "na ito."
 
-#: templates/landing.html:156
+#: crt_portal/cts_forms/templates/landing.html:156
 msgid "We do this through public speaking, technical assistance, and more."
 msgstr ""
 "Ginagawa namin ito sa pamamagitan ng pakikipag-usap sa publiko, tulong na "
 "pangteknikal, at iba pa."
 
-#: templates/landing.html:159
+#: crt_portal/cts_forms/templates/landing.html:159
 msgid "Coordination"
 msgstr "Koordinasyon"
 
-#: templates/landing.html:161
+#: crt_portal/cts_forms/templates/landing.html:161
 msgid ""
 "We help the entire federal government work together to enforce these laws."
 msgstr ""
 "Tinutulungan namin ang buong gobyernong pampederal na magtrabaho ng sama-"
 "sama upang ipatupad ang mga batas na ito."
 
-#: templates/landing.html:162
+#: crt_portal/cts_forms/templates/landing.html:162
 msgid ""
 "Our teams work with other agencies to promote a consistent approach to civil "
 "rights laws."
@@ -2210,11 +2325,11 @@ msgstr ""
 "Ang aming mga koponan ay nagtatrabaho kasama ang ibang mga ahensya upang "
 "itaguyod ang naaalinsunod na pagtalakay ng mga batas sa karapatang sibil."
 
-#: templates/landing.html:174
+#: crt_portal/cts_forms/templates/landing.html:174
 msgid "Understanding your rights"
 msgstr "Pag-unawa sa iyong mga karapatan"
 
-#: templates/landing.html:177
+#: crt_portal/cts_forms/templates/landing.html:177
 msgid ""
 "Civil rights laws can protect you from unlawful discrimination, harassment, "
 "or abuse in a variety of settings like <span class=\"crt-landing--"
@@ -2228,7 +2343,7 @@ msgstr ""
 "negosyo, pangangalaga sa kalusugan, pampublikong mga puwang</span>, at iba "
 "pa."
 
-#: templates/landing.html:180
+#: crt_portal/cts_forms/templates/landing.html:180
 msgid ""
 "If you have been <span class=\"crt-landing--rights_categories\">mistreated "
 "by law enforcement</span> (including while incarcerated), believe you have "
@@ -2244,13 +2359,13 @@ msgstr ""
 "class=\"crt-landing--rights_categories\">panlilinlang ng mga tao</span>, "
 "maaari ka naming tulungan na tumungo sa tamang direksiyon."
 
-#: templates/landing.html:196
+#: crt_portal/cts_forms/templates/landing.html:196
 msgid "Choose from this list to see example civil rights violations:"
 msgstr ""
 "Pumili mula sa listahang ito upang makita ang halimbawa ng mga paglabag sa "
 "mga karapatang sibil:"
 
-#: templates/landing.html:208
+#: crt_portal/cts_forms/templates/landing.html:208
 msgid ""
 "If you think you’ve experienced a similar situation, learn <a href=\"#crt-"
 "landing--reporting\">how to report a civil rights violation</a>."
@@ -2259,17 +2374,17 @@ msgstr ""
 "href=\"#crt-landing--reporting\">kung paano mag-ulat ng isang paglabag sa "
 "mga karapatang sibil</a>."
 
-#: templates/landing.html:218
+#: crt_portal/cts_forms/templates/landing.html:218
 msgid "Protected by civil rights laws"
 msgstr "Protektado ng mga batas sa mga karapatang sibil"
 
-#: templates/landing.html:220
+#: crt_portal/cts_forms/templates/landing.html:220
 msgid "These are the most common characteristics that are legally protected."
 msgstr ""
 "Ang mga ito ay ang pinaka-karaniwang mga katangian na ligal na "
 "pinoprotektahan."
 
-#: templates/landing.html:223
+#: crt_portal/cts_forms/templates/landing.html:223
 msgid ""
 "Disability <span class=\"crt-landing--protected\">including temporary or in "
 "recovery</span>"
@@ -2277,15 +2392,15 @@ msgstr ""
 "Kapansanan <span class=\"crt-landing--protected\">kabilang ang panandalian o "
 "habang nagpapagaling</span>"
 
-#: templates/landing.html:225
+#: crt_portal/cts_forms/templates/landing.html:225
 msgid "Sex, gender identity, and sexual orientation"
 msgstr "Kasarian, pagkakakilanlan ng kasarian, at orientasyong sekswal"
 
-#: templates/landing.html:226
+#: crt_portal/cts_forms/templates/landing.html:226
 msgid "Immigration/citizenship status"
 msgstr "Katayuan sa Imigrasyon / Pagkamamamayan"
 
-#: templates/landing.html:227
+#: crt_portal/cts_forms/templates/landing.html:227
 msgid ""
 "Language and national origin <span class=\"crt-landing--"
 "protected\">including ancestry and ethnicity</span>"
@@ -2293,7 +2408,7 @@ msgstr ""
 "Wika at pambansang pinagmulan <span class=\"crt-landing--"
 "protected\">kabilang ang pinagnunuan at etnisidad</span>"
 
-#: templates/landing.html:228
+#: crt_portal/cts_forms/templates/landing.html:228
 msgid ""
 "Family, marital, or parental status <span class=\"crt-landing--"
 "protected\">including pregnancy</span>"
@@ -2301,19 +2416,19 @@ msgstr ""
 "Katayuan ng pamilya, pag-aasawa, o pagiging magulang <span class=\"crt-"
 "landing--protected\">kabilang ang pagbubuntis</span>"
 
-#: templates/landing.html:230
+#: crt_portal/cts_forms/templates/landing.html:230
 msgid "Genetic identification"
 msgstr "Pagkakakilanlan ng genetika"
 
-#: templates/landing.html:231
+#: crt_portal/cts_forms/templates/landing.html:231
 msgid "Servicemember status"
 msgstr "Katayuan sa miyembro ng serbisyo"
 
-#: templates/landing.html:245
+#: crt_portal/cts_forms/templates/landing.html:245
 msgid "How to report a civil rights violation"
 msgstr "Paano mag-ulat ng isang paglabag sa mga karapatang sibil"
 
-#: templates/landing.html:250
+#: crt_portal/cts_forms/templates/landing.html:250
 msgid ""
 "If you believe that you or someone else experienced unlawful discrimination, "
 "you can report a civil rights violation."
@@ -2322,11 +2437,11 @@ msgstr ""
 "diskriminasyon, maaari kang mag-ulat ng isang paglabag sa mga karapatang "
 "sibil."
 
-#: templates/landing.html:259
+#: crt_portal/cts_forms/templates/landing.html:259
 msgid "Report using our online form."
 msgstr "Mag-ulat gamit ang aming online na pormularyo."
 
-#: templates/landing.html:260
+#: crt_portal/cts_forms/templates/landing.html:260
 msgid ""
 "By completing the online form, you can provide the details we need to "
 "understand what happened. You will receive a confirmation number and your "
@@ -2337,11 +2452,12 @@ msgstr ""
 "Makakatanggap ka ng numero bilang kumpirmasyon at ang iyong ulat ay agad na "
 "maipapadala sa aming kawani upang masuri."
 
-#: templates/landing.html:268
+#: crt_portal/cts_forms/templates/landing.html:268
 msgid "We review your report."
 msgstr "Sinusuri namin ang iyong ulat."
 
-#: templates/landing.html:269
+#: crt_portal/cts_forms/templates/landing.html:269
+#: crt_portal/cts_forms/templates/printable_intake_form.html:252
 msgid ""
 "Teams that specialize in handling your type of issue will review it. If it "
 "needs to be forwarded to another team or agency, we will try to connect your "
@@ -2351,11 +2467,12 @@ msgstr ""
 "susuriin ito. Kung kinakailangang ipasa ito sa ibang koponan o ahensya, "
 "susubukan naming ikonekta ang iyong reklamo sa tamang pangkat."
 
-#: templates/landing.html:277
+#: crt_portal/cts_forms/templates/landing.html:277
 msgid "We determine next steps and get back to you."
 msgstr "Tinutukoy namin ang mga susunod na hakbang at babalikan ka namin."
 
-#: templates/landing.html:278
+#: crt_portal/cts_forms/templates/landing.html:278
+#: crt_portal/cts_forms/templates/printable_intake_form.html:257
 msgid ""
 "Possible outcomes include: following up for more information, starting a "
 "mediation or investigation, directing you to another organization for "
@@ -2366,13 +2483,13 @@ msgstr ""
 "ididirekta ka sa ibang samahan para sa karagdagang tulong, o ipapaalam sa "
 "iyo na hindi kami makakatulong."
 
-#: templates/landing.html:297
+#: crt_portal/cts_forms/templates/landing.html:297
 msgid "Have you or someone you know experienced a civil rights violation?"
 msgstr ""
 "Ikaw ba o isang kakilala mo ay nakaranas ng isang paglabag sa mga karapatang "
 "sibil?"
 
-#: templates/landing.html:303
+#: crt_portal/cts_forms/templates/landing.html:303
 msgid ""
 "If you cannot access the online form, you can <a href=\"#phone-"
 "footer\">call</a> to report a violation or report a violation by <a "
@@ -2382,15 +2499,15 @@ msgstr ""
 "footer\">tumawag</a> upang mag-ulat ng isang paglabag o mag-ulat ng isang "
 "paglabag sa pamamagitan ng <a href=\"#address-footer\">koreo</a>."
 
-#: templates/landing.html:313
+#: crt_portal/cts_forms/templates/landing.html:313
 msgid "Already submitted a report?"
 msgstr "Nagsumite na ng ulat?"
 
-#: templates/landing.html:316
+#: crt_portal/cts_forms/templates/landing.html:316
 msgid "Here's what to expect."
 msgstr "Ito ang aasahan."
 
-#: templates/landing.html:320
+#: crt_portal/cts_forms/templates/landing.html:320
 msgid ""
 "<strong>Thank you for your report.</strong> We carefully read each one to "
 "determine if we have the authority to help. We do our best to let you know "
@@ -2403,22 +2520,22 @@ msgstr ""
 "aming pagsusuri. Subalit, maaaring hindi namin palaging maibibigay sa iyo "
 "ang mga pinakabagong impormasyon dahil:"
 
-#: templates/landing.html:322
+#: crt_portal/cts_forms/templates/landing.html:322
 msgid ""
 "We're actively working on an investigation or case related to your report."
 msgstr ""
 "Kami ay aktibong nagsasagawa ng pagsisiyasat o kaso na kaugnay sa iyong ulat."
 
-#: templates/landing.html:323
+#: crt_portal/cts_forms/templates/landing.html:323
 msgid "We're receiving and actively reviewing many reports at the same time."
 msgstr ""
 "Kami ay tumatanggap at aktibong sumusuri ng maraming mga ulat ng sabay-sabay."
 
-#: templates/landing.html:330
+#: crt_portal/cts_forms/templates/landing.html:330
 msgid "Need urgent legal help?"
 msgstr "Nangangailangan ng kagyat na ligal na tulong?"
 
-#: templates/landing.html:332
+#: crt_portal/cts_forms/templates/landing.html:332
 msgid ""
 "Due to the amount of reports we receive, it can take several weeks for us to "
 "respond to your issue. Local legal aid offices or lawyers in your area may "
@@ -2429,18 +2546,20 @@ msgstr ""
 "ligal na tulong o mga abogado sa iyong lugar ay maaaring tumugon ng "
 "mabilisan o tumulong sa iyong pagkabahala"
 
-#: templates/landing.html:333
+#: crt_portal/cts_forms/templates/landing.html:333
 msgid ""
 "Contact Legal Services Corporation to help you find a legal aid lawyer in "
 "your area at <a aria-label=\"www.lsc.gov/find-legal-aid\" class=\"external-"
 "link--blue external-link--popup\" href=\"https://www.lsc.gov/find-legal-"
 "aid\">lsc.gov/find-legal-aid</a>."
 msgstr ""
-"Makipag-ugnay sa Korporasyon ng Mga Serbisyong Legal upang tulungan kang makahanap ng isang abogado ng tulong na legal sa iyong lugar sa <a aria-label=\"www.lsc.gov/"
-"find-legal-aid\" class=\"external-link--blue external-link--popup\" "
-"href=\"https://www.lsc.gov/find-legal-aid\">lsc.gov/find-legal-aid</a>."
+"Makipag-ugnay sa Korporasyon ng Mga Serbisyong Legal upang tulungan kang "
+"makahanap ng isang abogado ng tulong na legal sa iyong lugar sa <a aria-"
+"label=\"www.lsc.gov/find-legal-aid\" class=\"external-link--blue external-"
+"link--popup\" href=\"https://www.lsc.gov/find-legal-aid\">lsc.gov/find-legal-"
+"aid</a>."
 
-#: templates/landing.html:334
+#: crt_portal/cts_forms/templates/landing.html:334
 msgid ""
 "Or visit <a class=\"external-link--blue external-link--popup american-bar-"
 "link\" href=\"https://www.americanbar.org/groups/legal_services/flh-home/"
@@ -2454,15 +2573,15 @@ msgstr ""
 "href=\"tel:800-285-2221\">(800) 285-2221</a> upang humanap ng isang abogado "
 "sa pamamagitan ng American Bar Association."
 
-#: templates/landing.html:348
+#: crt_portal/cts_forms/templates/landing.html:348
 msgid "Image attributions"
 msgstr "Mga katangian ng imahe"
 
-#: templates/partials/banner/usa_banner_content.html:6
+#: crt_portal/cts_forms/templates/partials/banner/usa_banner_content.html:6
 msgid "Official websites use .gov"
 msgstr "Ginagamit ng opisyal na mga pahinarya ang .gov"
 
-#: templates/partials/banner/usa_banner_content.html:7
+#: crt_portal/cts_forms/templates/partials/banner/usa_banner_content.html:7
 msgid ""
 "A <strong>.gov</strong> website belongs to an official government "
 "organization in the United States."
@@ -2470,15 +2589,15 @@ msgstr ""
 "Ang isang pahinarya na <strong>.gov</strong> ay kabilang sa isang opisyal na "
 "organisasyon ng pamahalaan sa Estados Unidos."
 
-#: templates/partials/banner/usa_banner_content.html:15
+#: crt_portal/cts_forms/templates/partials/banner/usa_banner_content.html:15
 msgid "Secure .gov websites use HTTPS"
 msgstr "Ang ligtas na mga pahinarya na .gov ay gumagamit ng HTTPS"
 
-#: templates/partials/banner/usa_banner_content.html:17
+#: crt_portal/cts_forms/templates/partials/banner/usa_banner_content.html:17
 msgid "A <strong>lock</strong> ("
 msgstr "Ang isang <strong>kandado</strong> ("
 
-#: templates/partials/banner/usa_banner_content.html:19
+#: crt_portal/cts_forms/templates/partials/banner/usa_banner_content.html:19
 msgid ""
 ") or <strong>https://</strong> means you’ve safely connected to the .gov "
 "website. Share sensitive information only on official, secure websites."
@@ -2486,16 +2605,16 @@ msgstr ""
 ") o <strong>https://</strong> ay nakakonekta sa pahinaryang .gov. Magbahagi "
 "lamang ng sensitibong impormasyon sa opisyal, ligtas na mga pahinarya."
 
-#: templates/partials/banner/usa_banner_header.html:8
+#: crt_portal/cts_forms/templates/partials/banner/usa_banner_header.html:8
 msgid "An official website of the United States government"
 msgstr "Isang opisyal na website ng gobyerno ng Estados Unidos"
 
-#: templates/partials/banner/usa_banner_header.html:9
-#: templates/partials/banner/usa_banner_header.html:12
+#: crt_portal/cts_forms/templates/partials/banner/usa_banner_header.html:9
+#: crt_portal/cts_forms/templates/partials/banner/usa_banner_header.html:12
 msgid "Here’s how you know"
 msgstr "Ito ay kung paano mo malalaman"
 
-#: templates/partials/contact-info-confirmation-modal.html:8
+#: crt_portal/cts_forms/templates/partials/contact-info-confirmation-modal.html:8
 msgid ""
 "You are continuing your complaint without providing email or phone "
 "information."
@@ -2503,7 +2622,7 @@ msgstr ""
 "Ipinagpapatuloy mo ang iyong pag-uulat nang hindi nagbibigay ng impormasyon "
 "sa iyong email o telepono."
 
-#: templates/partials/contact-info-confirmation-modal.html:13
+#: crt_portal/cts_forms/templates/partials/contact-info-confirmation-modal.html:13
 msgid ""
 "You do not have to provide contact information, however, we will not be able "
 "to contact you for any status updates or potential follow up. Would you like "
@@ -2516,99 +2635,114 @@ msgstr ""
 "impormasyon sa pakikipag-ugnay ngayon? Kung pipiliin mo na hindi, mapupunta "
 "ka sa Hakbang 2."
 
-#: templates/partials/contact-info-confirmation-modal.html:18
+#: crt_portal/cts_forms/templates/partials/contact-info-confirmation-modal.html:18
 msgid "No, I don't want to provide it"
 msgstr "Hindi, ayaw kong ibigay ito."
 
-#: templates/partials/contact-info-confirmation-modal.html:21
+#: crt_portal/cts_forms/templates/partials/contact-info-confirmation-modal.html:21
 msgid "Yes, I'd like to add it"
 msgstr "Oo, gusto kong idagdag ito."
 
-#: templates/partials/example-accordion.html:18
+#: crt_portal/cts_forms/templates/partials/example-accordion.html:18
 msgid "Examples"
 msgstr "Mga halimbawa"
 
-#: templates/partials/example-accordion.html:40
+#: crt_portal/cts_forms/templates/partials/example-accordion.html:40
 msgid "Note"
 msgstr "Tandaan"
 
-#: templates/partials/example-accordion.html:51
+#: crt_portal/cts_forms/templates/partials/example-accordion.html:51
 msgid "Learn More"
 msgstr "Matuto ng mas marami"
 
-#: templates/partials/footer.html:47
+#: crt_portal/cts_forms/templates/partials/footer.html:18
+msgid ""
+"Send Printed Report Form (<a target=\"_blank\" href=\"https://www.ada.gov/"
+"assets/pdfs/file-a-complaint.pdf\">Regular Format</a> | <a target=\"_blank\" "
+"href=\"https://www.ada.gov/assets/pdfs/file-a-complaint-lg.pdf\">Large "
+"Format</a>) To:"
+msgstr ""
+"Magpadala ng Nakalimbag na Pormat ng Ulat (<a target=\"_blank\" "
+"href=\"https://www.ada.gov/assets/pdfs/file-a-complaint.pdf\">Regular na "
+"Pormat</a> | <a target=\"_blank\" href=\"https://www.ada.gov/assets/pdfs/"
+"file-a-complaint-lg.pdf\">Malaking Pormat</a>) upang:"
+
+#: crt_portal/cts_forms/templates/partials/footer.html:47
 msgid "Availability of Language Assistance Services"
 msgstr "Mga Handog na Serbisyong Tulong sa Wika"
 
-#: templates/partials/footer.html:59
+#: crt_portal/cts_forms/templates/partials/footer.html:59
 msgid "Links"
 msgstr "Mga Kawing"
 
-#: templates/partials/footer.html:67
+#: crt_portal/cts_forms/templates/partials/footer.html:67
 msgid "About the division"
 msgstr "Tungkol sa Dibisyon"
 
-#: templates/partials/footer.html:73
+#: crt_portal/cts_forms/templates/partials/footer.html:73
+#: crt_portal/cts_forms/templates/printable_intake_form.html:278
 msgid "Privacy policy"
 msgstr "Patakaran sa pagkapribado"
 
-#: templates/partials/footer.html:76
+#: crt_portal/cts_forms/templates/partials/footer.html:76
 msgid "FOIA"
 msgstr "FOIA"
 
-#: templates/partials/footer.html:79
+#: crt_portal/cts_forms/templates/partials/footer.html:79
 msgid "Accessibility"
 msgstr "Kakayahang makuha"
 
-#: templates/partials/footer.html:94
+#: crt_portal/cts_forms/templates/partials/footer.html:94
 msgid "Office of Inspector General"
 msgstr "Tanggapan ng Inspektor Heneral"
 
-#: templates/partials/footer.html:97
+#: crt_portal/cts_forms/templates/partials/footer.html:97
 msgid "Budget and performance"
 msgstr "Badyet at pagganap"
 
-#: templates/partials/footer.html:100
+#: crt_portal/cts_forms/templates/partials/footer.html:100
 msgid "Legal policies and Disclaimers"
 msgstr "Ligal na mga patakaran at mga Pagtanggi"
 
-#: templates/partials/i8n.html:15
+#: crt_portal/cts_forms/templates/partials/i8n.html:15
 msgid "Go"
 msgstr "Oo"
 
-#: templates/partials/important_message.html:7
-#: templates/partials/message_hate_crime.html:7
+#: crt_portal/cts_forms/templates/partials/important_message.html:7
+#: crt_portal/cts_forms/templates/partials/message_hate_crime.html:7
 msgid "Have you been a victim of a hate crime or human trafficking?"
 msgstr ""
 "Naging biktima ka ba ng isang krimen sa pagkapoot o panlilinlang ng mga tao?"
 
-#: templates/partials/important_message.html:9
-#: templates/partials/message_hate_crime.html:9
+#: crt_portal/cts_forms/templates/partials/important_message.html:9
+#: crt_portal/cts_forms/templates/partials/message_hate_crime.html:9
 msgid "Get help NOW!"
 msgstr "Humingi ng tulong NGAYON!"
 
-#: templates/partials/important_message_voting.html:8
-#: templates/vot_resources.html:45
+#: crt_portal/cts_forms/templates/partials/important_message_voting.html:8
+#: crt_portal/cts_forms/templates/vot_resources.html:45
 msgid "Report voting issues"
 msgstr "Mag-ulat nang mga isyu sa pagboto"
 
-#: templates/partials/important_message_voting.html:9
+#: crt_portal/cts_forms/templates/partials/important_message_voting.html:9
 msgid "including threats against voters and election fraud."
 msgstr ""
 "kabilang ang mga banta laban sa mga mamboboto at pandaraya sa eleksyon "
 
-#: templates/partials/menu_language_selection.html:35
+#: crt_portal/cts_forms/templates/partials/menu_language_selection.html:35
 msgid "More Language Assistance Services"
 msgstr "Karagdagang Serbisyo sa Pantulong sa Wika"
 
-#: templates/partials/omb-modal.html:13
+#: crt_portal/cts_forms/templates/partials/omb-modal.html:13
+#: crt_portal/cts_forms/templates/printable_intake_form.html:298
 msgid ""
 "According to the Paperwork Reduction Act of 1995, no persons are required to "
 "respond to a collection of information unless such collection displays a "
 "valid OMB control number."
 msgstr ""
 
-#: templates/partials/omb-modal.html:16
+#: crt_portal/cts_forms/templates/partials/omb-modal.html:16
+#: crt_portal/cts_forms/templates/printable_intake_form.html:299
 msgid ""
 "Public reporting burden for this collection of information is estimated to "
 "average 2 minutes per response, including time for reviewing instructions, "
@@ -2616,7 +2750,8 @@ msgid ""
 "and completing and reviewing the collection of information."
 msgstr ""
 
-#: templates/partials/omb-modal.html:19
+#: crt_portal/cts_forms/templates/partials/omb-modal.html:19
+#: crt_portal/cts_forms/templates/printable_intake_form.html:300
 msgid ""
 "The personal description question is estimated to take 10 minutes for the "
 "response, time for reviewing instructions, searching existing data sources, "
@@ -2625,24 +2760,26 @@ msgid ""
 "voluntary."
 msgstr ""
 
-#: templates/partials/omb-modal.html:22
+#: crt_portal/cts_forms/templates/partials/omb-modal.html:22
+#: crt_portal/cts_forms/templates/printable_intake_form.html:301
 msgid ""
 "Send comments regarding the burden estimate or any other aspect of this "
 "collection of information, including suggestions for reducing this burden, "
 "to:"
 msgstr ""
 
-#: templates/partials/omb-modal.html:33
+#: crt_portal/cts_forms/templates/partials/omb-modal.html:33
 #, fuzzy
 #| msgid "Start a report"
 msgid "Return to filing a report"
 msgstr "Mag-umpisa ng isang ulat"
 
-#: templates/partials/policy.html:9
+#: crt_portal/cts_forms/templates/partials/policy.html:9
 msgid "Privacy Policy"
 msgstr "Patakaran sa pagkapribado"
 
-#: templates/partials/policy.html:16
+#: crt_portal/cts_forms/templates/partials/policy.html:16
+#: crt_portal/cts_forms/templates/printable_intake_form.html:281
 #, python-format
 msgid ""
 "\n"
@@ -2672,13 +2809,15 @@ msgstr ""
 "kasama ang:\n"
 "            "
 
-#: templates/partials/policy.html:20
+#: crt_portal/cts_forms/templates/partials/policy.html:20
+#: crt_portal/cts_forms/templates/printable_intake_form.html:286
 msgid "contractors who work with us, if they need it to perform a contract;"
 msgstr ""
 "mga kontratista na nagtratrabaho kasama namin, kung kakailanganin nila ito "
 "upang makagawa ng isang kontrata;"
 
-#: templates/partials/policy.html:21
+#: crt_portal/cts_forms/templates/partials/policy.html:21
+#: crt_portal/cts_forms/templates/printable_intake_form.html:287
 msgid ""
 "a court, magistrate, or administrative tribunal, as well as opposing counsel "
 "during settlement negotiations and/or litigation;"
@@ -2687,15 +2826,18 @@ msgstr ""
 "mga manananggol ng salungat na panig sa panahon ng negosasyon sa pag-aareglo "
 "at/o litigasyon;"
 
-#: templates/partials/policy.html:22
+#: crt_portal/cts_forms/templates/partials/policy.html:22
+#: crt_portal/cts_forms/templates/printable_intake_form.html:288
 msgid "Members of Congress;"
 msgstr "Mga Miyembro ng Kongreso"
 
-#: templates/partials/policy.html:23
+#: crt_portal/cts_forms/templates/partials/policy.html:23
+#: crt_portal/cts_forms/templates/printable_intake_form.html:289
 msgid "Federal, state, or local law enforcement agencies."
 msgstr "Mga ahensiya na nagpapatupad ng batas sa pederal, estado, o lokal "
 
-#: templates/partials/policy.html:27
+#: crt_portal/cts_forms/templates/partials/policy.html:27
+#: crt_portal/cts_forms/templates/printable_intake_form.html:293
 #, python-format
 msgid ""
 "You can find our complete <a href=\"%(privacy_policy_url)s\">Privacy Policy "
@@ -2704,15 +2846,15 @@ msgstr ""
 "Maaari mong makita ang aming kumpletong <a "
 "href=\"%(privacy_policy_url)s\">Patakaran sa Pagkapribado dito</a>."
 
-#: templates/partials/redirect-modal.html:8
+#: crt_portal/cts_forms/templates/partials/redirect-modal.html:8
 msgid "You are now leaving the Department of Justice website."
 msgstr "Ikaw ay lumilisan na sa website ng Kagawaran ng Katarungan."
 
-#: templates/partials/redirect-modal.html:13
+#: crt_portal/cts_forms/templates/partials/redirect-modal.html:13
 msgid "You will automatically be redirected to:"
 msgstr "Ikaw ay kusang igagawi sa:"
 
-#: templates/partials/redirect-modal.html:18
+#: crt_portal/cts_forms/templates/partials/redirect-modal.html:18
 msgid ""
 "The Department of Justice does not endorse the organizations or views "
 "represented by this site and takes no responsibility for, and exercises no "
@@ -2725,11 +2867,11 @@ msgstr ""
 "sa karapatang magpalathala o marka ng kalakal o pagiging ligal ng mga "
 "materyales na nilalaman ng sityo na ito."
 
-#: templates/partials/redirect-modal.html:26
+#: crt_portal/cts_forms/templates/partials/redirect-modal.html:26
 msgid "Continue"
 msgstr "Ipagpatuloy"
 
-#: templates/partials/unsupported-browser-modal.html:9
+#: crt_portal/cts_forms/templates/partials/unsupported-browser-modal.html:9
 msgid ""
 "\n"
 "          <strong>NOTICE: Your mobile browser is not compatible with this "
@@ -2741,7 +2883,7 @@ msgstr ""
 "strong> at maaari kang dumanas ng mga problema sa pagsumite ng pormularyo.\n"
 "          "
 
-#: templates/partials/unsupported-browser-modal.html:14
+#: crt_portal/cts_forms/templates/partials/unsupported-browser-modal.html:14
 msgid ""
 "\n"
 "          Please consider downloading the latest version of Google Chrome, "
@@ -2756,25 +2898,162 @@ msgstr ""
 "pamamagitan ng telepono o koreo.</a>\n"
 "          "
 
-#: templates/privacy.html:6 templates/privacy.html:12
+#: crt_portal/cts_forms/templates/printable_intake_form.html:17
+msgid "Page"
+msgstr ""
+
+#: crt_portal/cts_forms/templates/printable_intake_form.html:31
+#: crt_portal/cts_forms/templates/vot_resources.html:28
+#: crt_portal/cts_forms/templates/vot_resources.html:50
+msgid "Report a possible civil rights violation"
+msgstr "Mag-ulat ng posibleng paglabag sa mga karapatang sibil"
+
+#: crt_portal/cts_forms/templates/printable_intake_form.html:38
+msgid "Before starting, you can also"
+msgstr ""
+
+#: crt_portal/cts_forms/templates/printable_intake_form.html:38
+msgid "read the instructions for this form"
+msgstr ""
+
+#: crt_portal/cts_forms/templates/printable_intake_form.html:38
+msgid "(at the end) and what to expect after submission."
+msgstr ""
+
+#: crt_portal/cts_forms/templates/printable_intake_form.html:77
+#: crt_portal/cts_forms/views_public.py:203
+#: crt_portal/cts_forms/views_public.py:309
+#: crt_portal/cts_forms/views_public.py:327
+#: crt_portal/cts_forms/views_public.py:362
+msgid "Primary concern"
+msgstr "Pangunahing pagkabahala"
+
+#: crt_portal/cts_forms/templates/printable_intake_form.html:92
+msgid ""
+"Note: Some primary concerns have follow-up questions. If you select one of "
+"these, we ask that you also answer the follow-up question presented below "
+"the specific primary reason."
+msgstr ""
+
+#: crt_portal/cts_forms/templates/printable_intake_form.html:144
+#: crt_portal/cts_forms/templates/printable_intake_form.html:209
+#, fuzzy
+#| msgid "Please describe"
+msgid "Please describe \\"
+msgstr "Mangyaring ilarawan"
+
+#: crt_portal/cts_forms/templates/printable_intake_form.html:159
+#: crt_portal/cts_forms/views_public.py:328
+#: crt_portal/cts_forms/views_public.py:329
+#: crt_portal/cts_forms/views_public.py:330
+#: crt_portal/cts_forms/views_public.py:331
+#: crt_portal/cts_forms/views_public.py:332
+#: crt_portal/cts_forms/views_public.py:333
+msgid "Location details"
+msgstr "Mga detalye ng lugar"
+
+#: crt_portal/cts_forms/templates/printable_intake_form.html:178
+#: crt_portal/cts_forms/templates/printable_intake_form.html:186
+#: crt_portal/cts_forms/views_public.py:206
+#: crt_portal/cts_forms/views_public.py:317
+#: crt_portal/cts_forms/views_public.py:335
+msgid "Date"
+msgstr "Petsa"
+
+#: crt_portal/cts_forms/templates/printable_intake_form.html:195
+#: crt_portal/cts_forms/views_public.py:205
+#: crt_portal/cts_forms/views_public.py:316
+#: crt_portal/cts_forms/views_public.py:334
+msgid "Personal characteristics"
+msgstr "Personal na mga katangian"
+
+#: crt_portal/cts_forms/templates/printable_intake_form.html:218
+#: crt_portal/cts_forms/views_public.py:207
+#: crt_portal/cts_forms/views_public.py:318
+#: crt_portal/cts_forms/views_public.py:336
+msgid "Personal description"
+msgstr "Personal na paglalarawan"
+
+#: crt_portal/cts_forms/templates/printable_intake_form.html:234
+msgid "You may attach further details as extra pages, if necessary"
+msgstr ""
+
+#: crt_portal/cts_forms/templates/printable_intake_form.html:239
+#, fuzzy
+#| msgid "Image attributions"
+msgid "Instructions"
+msgstr "Mga katangian ng imahe"
+
+#: crt_portal/cts_forms/templates/printable_intake_form.html:242
+msgid ""
+"The purpose of this form is to assist you in filing a report with the Civil "
+"Rights Division. You are not required to use this form; a letter with the "
+"same information is sufficient, however, please ensure you are including the "
+"same information."
+msgstr ""
+
+#: crt_portal/cts_forms/templates/printable_intake_form.html:246
+msgid "Step 1: You can complete and submit this form."
+msgstr ""
+
+#: crt_portal/cts_forms/templates/printable_intake_form.html:247
+#, fuzzy
+#| msgid ""
+#| "By completing the online form, you can provide the details we need to "
+#| "understand what happened. You will receive a confirmation number and your "
+#| "report is immediately sent to our staff for review."
+msgid ""
+"By completing this form, you can provide the details we need to understand "
+"what happened. You can mail a printed copy of this form via postal service "
+"to the Division. Once we receive your report, it is immediately sent to our "
+"staff for review"
+msgstr ""
+"Sa pamamagitan ng pagkumpleto sa online na pormularyo, maaari kang magbigay "
+"ng mga detalye na kailangan namin upang maunawaan kung ano ang nangyari. "
+"Makakatanggap ka ng numero bilang kumpirmasyon at ang iyong ulat ay agad na "
+"maipapadala sa aming kawani upang masuri."
+
+#: crt_portal/cts_forms/templates/printable_intake_form.html:251
+#, fuzzy
+#| msgid "We review your report."
+msgid "Step 2: We will review your report."
+msgstr "Sinusuri namin ang iyong ulat."
+
+#: crt_portal/cts_forms/templates/printable_intake_form.html:256
+#, fuzzy
+#| msgid "We determine next steps and get back to you."
+msgid "Step 3: We will determine next steps and get back to you."
+msgstr "Tinutukoy namin ang mga susunod na hakbang at babalikan ka namin."
+
+#: crt_portal/cts_forms/templates/printable_intake_form.html:262
+msgid "To mail a printed copy of the form:"
+msgstr ""
+
+#: crt_portal/cts_forms/templates/printable_intake_form.html:270
+msgid "To reach us by phone:"
+msgstr ""
+
+#: crt_portal/cts_forms/templates/privacy.html:6
+#: crt_portal/cts_forms/templates/privacy.html:12
 msgid "Civil Rights Division - Department of Justice - Privacy Policy"
 msgstr ""
 "Dibisyon sa mga Karapatang Sibil - Kagawaran ng Katarungan- Patakaran sa "
 "Pagkapribado"
 
-#: templates/privacy.html:22 templates/privacy.html:35
+#: crt_portal/cts_forms/templates/privacy.html:22
+#: crt_portal/cts_forms/templates/privacy.html:35
 msgid "Privacy Act Statement"
 msgstr "Pahayag sa Batas ng Pagkapribado"
 
-#: templates/privacy.html:26
+#: crt_portal/cts_forms/templates/privacy.html:26
 msgid "Your information"
 msgstr "Ang iyong impormasyon"
 
-#: templates/privacy.html:29
+#: crt_portal/cts_forms/templates/privacy.html:29
 msgid "Our Statutes"
 msgstr "Ang aming mga Batas"
 
-#: templates/privacy.html:38
+#: crt_portal/cts_forms/templates/privacy.html:38
 msgid ""
 "The information you provide through this form will help the Department of "
 "Justice’s Civil Rights Division (“us,” “we”) enforce the federal civil "
@@ -2785,7 +3064,7 @@ msgstr ""
 "na ipatupad ang mga batas na pampederal sa mga karapatang sibil sa loob ng "
 "kanyang kapangyarihan."
 
-#: templates/privacy.html:41
+#: crt_portal/cts_forms/templates/privacy.html:41
 msgid ""
 "In addition to our enforcement efforts, we may use the information you "
 "provide on this form for certain routine purposes. These include sharing "
@@ -2795,7 +3074,7 @@ msgstr ""
 "impormasyon na iyong ibibigay sa pormularyong ito para sa ilang karaniwang "
 "gawain. Kabilang dito ang pagbabahagi sa:"
 
-#: templates/privacy.html:43
+#: crt_portal/cts_forms/templates/privacy.html:43
 msgid ""
 "\n"
 "                    <li>\n"
@@ -2852,18 +3131,18 @@ msgstr ""
 "                    </li>\n"
 "                    "
 
-#: templates/privacy.html:66
+#: crt_portal/cts_forms/templates/privacy.html:66
 msgid ""
 "For a complete list of routine agency uses, please consult the following:"
 msgstr ""
 "Para sa isang kumpletong listahan ng mga karaniwang gawain ng ahensya, "
 "mangyaring kumunsulta sa sumusunod:"
 
-#: templates/privacy.html:75
+#: crt_portal/cts_forms/templates/privacy.html:75
 msgid "You should also know that:"
 msgstr "Kailangan mo ring malaman na:"
 
-#: templates/privacy.html:77
+#: crt_portal/cts_forms/templates/privacy.html:77
 msgid ""
 "\n"
 "                    <li>Any information you provide to us through this form "
@@ -2891,11 +3170,12 @@ msgstr ""
 "                    </li>\n"
 "                    "
 
-#: templates/privacy.html:86 templates/privacy.html:147
+#: crt_portal/cts_forms/templates/privacy.html:86
+#: crt_portal/cts_forms/templates/privacy.html:147
 msgid "Return to top"
 msgstr "Bumalik sa itaas"
 
-#: templates/privacy.html:89
+#: crt_portal/cts_forms/templates/privacy.html:89
 msgid ""
 "We are authorized to collect this information pursuant to the following "
 "statutes:"
@@ -2903,7 +3183,7 @@ msgstr ""
 "Kami ay pinahintulutan na tipunin ang impormasyong ito na alinsunod sa "
 "sumusunod na mga batas:"
 
-#: templates/privacy.html:91
+#: crt_portal/cts_forms/templates/privacy.html:91
 msgid ""
 "\n"
 "                    <li>Official Misconduct, 18 U.S.C. §§ 241, 242</li>\n"
@@ -3069,7 +3349,7 @@ msgstr ""
 "<li>Batas para sa Mga Karapatang Pangsibil ng 1870, 1957, 1960 & 1964</li>\n"
 "                    "
 
-#: templates/privacy.html:143
+#: crt_portal/cts_forms/templates/privacy.html:143
 msgid ""
 "\n"
 "                The full list of routine uses for this correspondence can be "
@@ -3088,7 +3368,8 @@ msgstr ""
 "(5-25-2017).\n"
 "                "
 
-#: templates/vot_resources.html:6 templates/vot_resources.html:13
+#: crt_portal/cts_forms/templates/vot_resources.html:6
+#: crt_portal/cts_forms/templates/vot_resources.html:13
 #, fuzzy
 #| msgid "Civil Rights Division - Department of Justice - Privacy Policy"
 msgid "Civil Rights Division - Department of Justice - Voting resources"
@@ -3096,20 +3377,18 @@ msgstr ""
 "Dibisyon sa mga Karapatang Sibil - Kagawaran ng Katarungan- Patakaran sa "
 "Pagkapribado"
 
-#: templates/vot_resources.html:24
+#: crt_portal/cts_forms/templates/vot_resources.html:24
 msgid "How do I..."
 msgstr "Paano ako…"
 
-#: templates/vot_resources.html:28 templates/vot_resources.html:50
-msgid "Report a possible civil rights violation"
-msgstr "Mag-ulat ng posibleng paglabag sa mga karapatang sibil"
-
-#: templates/vot_resources.html:31 templates/vot_resources.html:68
+#: crt_portal/cts_forms/templates/vot_resources.html:31
+#: crt_portal/cts_forms/templates/vot_resources.html:68
 msgid "Report a possible federal criminal civil rights violation"
 msgstr ""
 "Mag-ulat ng posibleng paglabag sa mga karapatang sibil ng pederal na kriminal"
 
-#: templates/vot_resources.html:34 templates/vot_resources.html:84
+#: crt_portal/cts_forms/templates/vot_resources.html:34
+#: crt_portal/cts_forms/templates/vot_resources.html:84
 msgid ""
 "Find the election laws, voting hours, or polling place locations in your "
 "state"
@@ -3117,11 +3396,12 @@ msgstr ""
 "Hanapin ang mga batas sa eleksyon, mga oras ng pagboto, o mga lokasyon ng "
 "botohan sa iyong estado"
 
-#: templates/vot_resources.html:38 templates/vot_resources.html:92
+#: crt_portal/cts_forms/templates/vot_resources.html:38
+#: crt_portal/cts_forms/templates/vot_resources.html:92
 msgid "Learn about your voting rights"
 msgstr "Alamin ang iyong mga karapatan sa pagboto"
 
-#: templates/vot_resources.html:53
+#: crt_portal/cts_forms/templates/vot_resources.html:53
 msgid ""
 "To report civil rights violations, go to <a class='link--blue' href='https://"
 "civilrights.justice.gov/report/'>civilrights.justice.gov/report</a>"
@@ -3130,7 +3410,7 @@ msgstr ""
 "class='link--blue' href='https://civilrights.justice.gov/"
 "report/'>civilrights.justice.gov/report</a>"
 
-#: templates/vot_resources.html:60
+#: crt_portal/cts_forms/templates/vot_resources.html:60
 msgid ""
 "Discrimination on the basis of race, color, or membership in a language "
 "minority group while voting or attempting to vote"
@@ -3138,21 +3418,21 @@ msgstr ""
 "Diskriminasyon batay sa lahi, kulay, o pagiging kasapi sa isang minoryang "
 "grupo ng wika habang bumoboto o sumusubok na bumoto"
 
-#: templates/vot_resources.html:61
+#: crt_portal/cts_forms/templates/vot_resources.html:61
 msgid "Voter registration issues"
 msgstr "Mga isyu sa pagrehistro ng botante"
 
-#: templates/vot_resources.html:62
+#: crt_portal/cts_forms/templates/vot_resources.html:62
 msgid "Lack of accessibility while voting"
 msgstr "Kawalan ng pag-access habang bumoboto "
 
-#: templates/vot_resources.html:63
+#: crt_portal/cts_forms/templates/vot_resources.html:63
 msgid "Absentee voting issues for uniformed services or overseas voters"
 msgstr ""
 "Mga isyu ng pagboto sa nakaliban na mga sundalo sa serbisyo o mga botanteng "
 "nasa ibang bansa "
 
-#: templates/vot_resources.html:72
+#: crt_portal/cts_forms/templates/vot_resources.html:72
 msgid ""
 "All complaints related to violence, threats of violence, or intimidation at "
 "a polling place should be reported first to local police authorities by "
@@ -3162,11 +3442,11 @@ msgstr ""
 "o pananakot sa lugar ng botohan ay nararapat na iulat muna sa iyong lokal na "
 "mga awtoridad ng pulisya sa pamamagitan ng pagtawag sa"
 
-#: templates/vot_resources.html:74
+#: crt_portal/cts_forms/templates/vot_resources.html:74
 msgid "911"
 msgstr "911"
 
-#: templates/vot_resources.html:77
+#: crt_portal/cts_forms/templates/vot_resources.html:77
 msgid ""
 "After alerting local law enforcement to such emergencies by calling <a "
 "class='external-link--blue' href='tel:911'>911</a>, the public should "
@@ -3177,7 +3457,7 @@ msgstr ""
 "href='tel:911'>911</a>, nararapat na tawagan ng publiko ang Kagawaran ng "
 "Hustisya"
 
-#: templates/vot_resources.html:79
+#: crt_portal/cts_forms/templates/vot_resources.html:79
 msgid ""
 "Election-crime complaints should be directed to your local <a "
 "class='external-link--blue' href='https://www.justice.gov/usao/find-your-"
@@ -3191,7 +3471,7 @@ msgstr ""
 "lokal na <a class='external-link--blue' href='https://www.fbi.gov/contact-"
 "us'>tanggapan ng FBI</a>"
 
-#: templates/vot_resources.html:87
+#: crt_portal/cts_forms/templates/vot_resources.html:87
 msgid ""
 "Go to <a class='external-link--blue' href='https://usa.gov/election-"
 "office'>usa.gov/election-office</a> to find your state election website"
@@ -3200,7 +3480,7 @@ msgstr ""
 "office'>usa.gov/election-office</a> upang hanapin ang website ng tanggapan "
 "sa botohan para sa iyong estado"
 
-#: templates/vot_resources.html:96
+#: crt_portal/cts_forms/templates/vot_resources.html:96
 msgid ""
 "Find additional information about voting rights laws at <a class='link--"
 "blue' href='https://justice.gov/crt/voting-section'>www.justice.gov/crt/"
@@ -3210,7 +3490,7 @@ msgstr ""
 "na pagboto sa <a class='link--blue' href='https://justice.gov/crt/voting-"
 "section'>www.justice.gov/crt/voting-section</a>"
 
-#: templates/vot_resources.html:98
+#: crt_portal/cts_forms/templates/vot_resources.html:98
 msgid ""
 "Learn about federal laws that protect voters with disabilities at <a "
 "class='link--blue' href='https://ada.gov'>ada.gov</a>."
@@ -3218,7 +3498,7 @@ msgstr ""
 "Pag-aralan ang mga batas ng pederal na pumoprotekta sa mga mambobotong may "
 "mga kapansanan sa <a class='link--blue' href='https://ada.gov'>ada.gov</a>"
 
-#: templates/vot_resources.html:101
+#: crt_portal/cts_forms/templates/vot_resources.html:101
 msgid ""
 "Download the Justice Department's new <a class='link--blue' href='https://"
 "www.justice.gov/file/1517936/download'>Know Your Voting Rights</a> guide."
@@ -3227,76 +3507,60 @@ msgstr ""
 "blue' href='https://www.justice.gov/file/1517936/download'>Know Your Voting "
 "Rights</a>"
 
-#: validators.py:127
+#: crt_portal/cts_forms/validators.py:127
 msgid "Enter a valid email address."
 msgstr "Maglagay ng wastong email address."
 
-#: views_public.py:202 views_public.py:306 views_public.py:324
-#: views_public.py:359
-msgid "Primary concern"
-msgstr "Pangunahing pagkabahala"
-
-#: views_public.py:203 views_public.py:307 views_public.py:308
-#: views_public.py:309 views_public.py:310 views_public.py:311
-#: views_public.py:312
+#: crt_portal/cts_forms/views_public.py:204
+#: crt_portal/cts_forms/views_public.py:310
+#: crt_portal/cts_forms/views_public.py:311
+#: crt_portal/cts_forms/views_public.py:312
+#: crt_portal/cts_forms/views_public.py:313
+#: crt_portal/cts_forms/views_public.py:314
+#: crt_portal/cts_forms/views_public.py:315
 msgid "Location"
 msgstr "Lugar"
 
-#: views_public.py:204 views_public.py:313 views_public.py:331
-msgid "Personal characteristics"
-msgstr "Personal na mga katangian"
-
-#: views_public.py:205 views_public.py:314 views_public.py:332
-msgid "Date"
-msgstr "Petsa"
-
-#: views_public.py:206 views_public.py:315 views_public.py:333
-msgid "Personal description"
-msgstr "Personal na paglalarawan"
-
-#: views_public.py:207 views_public.py:316 views_public.py:364
+#: crt_portal/cts_forms/views_public.py:208
+#: crt_portal/cts_forms/views_public.py:319
+#: crt_portal/cts_forms/views_public.py:367
 msgid "Review"
 msgstr "Pagsusuri"
 
-#: views_public.py:325 views_public.py:326 views_public.py:327
-#: views_public.py:328 views_public.py:329 views_public.py:330
-msgid "Location details"
-msgstr "Mga detalye ng lugar"
-
-#: views_public.py:334
+#: crt_portal/cts_forms/views_public.py:337
 msgid "Review your report"
 msgstr "Suriin ang iyong ulat"
 
-#: views_public.py:350
+#: crt_portal/cts_forms/views_public.py:353
 msgid "word remaining"
 msgstr "natitirang salita"
 
-#: views_public.py:351
+#: crt_portal/cts_forms/views_public.py:354
 msgid " words remaining"
 msgstr " natitirang mga salita"
 
-#: views_public.py:352
+#: crt_portal/cts_forms/views_public.py:355
 msgid " word limit reached"
 msgstr " naabot na ang hangganan ng salita"
 
-#: views_public.py:362
+#: crt_portal/cts_forms/views_public.py:365
 msgid "Please select if any that apply to your situation (optional)"
 msgstr ""
 "Mangyaring pumili kung mayroong naaangkop  sa iyong sitwasyon (opsyonal)"
 
-#: views_public.py:447
+#: crt_portal/cts_forms/views_public.py:454
 msgid "404 | Page not found"
 msgstr "404 | Pahina ay hindi makita"
 
-#: views_public.py:448
+#: crt_portal/cts_forms/views_public.py:455
 msgid "We can't find the page you are looking for"
 msgstr "Hindi namin makita ang pahina na iyong hinahanap"
 
-#: views_public.py:507
+#: crt_portal/cts_forms/views_public.py:514
 msgid "Your browser couldn't create a secure cookie"
 msgstr "Ang iyong browser ay hindi makalikha ng matatag na cookie"
 
-#: views_public.py:508
+#: crt_portal/cts_forms/views_public.py:515
 msgid ""
 "We use security cookies to protect your information from attackers. Make "
 "sure you allow cookies for this site. Having the page open for long periods "
