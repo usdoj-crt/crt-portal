@@ -286,7 +286,6 @@ def maybe_auto_close(report):
         system_user = get_system_user()
         report.status = CLOSED_STATUS
         report.closeout_report()
-        report.assigned_section = 'ADM'
         summary = report.internal_comments.get_or_create(is_summary=True)[0]
         summary.author = system_user.username
         summary.note = reason_for_closing
