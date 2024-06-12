@@ -19,7 +19,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import SuspiciousOperation, BadRequest
 from django.core.paginator import Paginator
-from django.db.models import F, Subquery, OuterRef, Value, CharField, DateField
+from django.db.models import F, Subquery, OuterRef, Value, CharField, DateField, Case, When
 from django.http import Http404, HttpResponse, QueryDict
 from django.shortcuts import get_object_or_404, redirect, render, reverse
 from django.utils.html import mark_safe
@@ -40,7 +40,7 @@ from .forms import (
     AttachmentActions, Review, save_form,
 )
 from .mail import mail_to_complainant
-from .model_variables import HATE_CRIMES_TRAFFICKING_MODEL_CHOICES, NOTIFICATION_PREFERENCE_CHOICES
+from .model_variables import BATCH_STATUS_CHOICES, HATE_CRIMES_TRAFFICKING_MODEL_CHOICES, NOTIFICATION_PREFERENCE_CHOICES
 from .models import CommentAndSummary, Profile, Report, ReportAttachment, ReportDisposition, ReportDispositionBatch, ReportsData, RetentionSchedule, SavedSearch, Trends, EmailReportCount, Campaign, User, NotificationPreference, RoutingSection, RoutingStepOneContact, RepeatWriterInfo
 from .page_through import pagination
 from .sorts import other_sort, report_sort
@@ -387,23 +387,27 @@ def get_view_data(request, report_query, query_filters, disposition_status=None)
     # Sort data based on request from params, default to `created_date` of complaint
     per_page = request.GET.get('per_page', request.COOKIES.get('complaint_view_per_page', 15))
     page = request.GET.get('page', 1)
-    sort_expr, sorts = report_sort(request.GET.getlist('sort'))
-
-    requested_reports = requested_reports.order_by(*sort_expr)
-    paginator = Paginator(requested_reports, per_page)
-    requested_reports, page_format = pagination(paginator, page, per_page)
 
     sort_state = {}
     # make sure the links for this page have the same paging, sorting, filtering etc.
     if disposition_status:
+        sort_expr, sorts = other_sort(request.GET.getlist('sort'), 'disposition')
         page_args = f'?per_page={per_page}'
         filter_args = get_filter_args(query_filters)
+        requested_reports = requested_reports.annotate(dispo_status=Case(
+            When(report_disposition_status=None, then=F('status')),
+            default=F('report_disposition_status'),
+        ))
         if '&disposition_status=' not in filter_args:
             filter_args += f'disposition_status={disposition_status}'
     else:
+        sort_expr, sorts = report_sort(request.GET.getlist('sort'))
         page_args = f'?per_page={per_page}&grouping=default'
         filter_args = get_filter_args(query_filters)
 
+    requested_reports = requested_reports.order_by(*sort_expr)
+    paginator = Paginator(requested_reports, per_page)
+    requested_reports, page_format = pagination(paginator, page, per_page)
     page_args += filter_args
 
     # process sort query params
@@ -699,11 +703,15 @@ def get_batch_data(disposition_batches, all_args_encoded):
 
 def get_batch_view_data(request):
     disposition_batches = ReportDispositionBatch.objects.all()
+    status_filter = request.GET.get('status', None)
+    if status_filter:
+        disposition_batches = disposition_batches.filter(status=status_filter)
     per_page = request.GET.get('per_page', request.COOKIES.get('complaint_view_per_page', 15))
     page = request.GET.get('page', 1)
     sort_expr, sorts = other_sort(request.GET.getlist('sort'), 'batch')
     disposition_batches = disposition_batches.annotate(retention_schedule=Subquery(ReportDisposition.objects.filter(batch=OuterRef("pk")).values_list('schedule', flat=True).distinct()))
     disposition_batches = disposition_batches.order_by(*sort_expr)
+    statuses = map(lambda choice: choice[1].lower(), BATCH_STATUS_CHOICES)
     paginator = Paginator(disposition_batches, per_page)
     disposition_batches, page_format = pagination(paginator, page, per_page)
     sort_state = {}
@@ -725,6 +733,7 @@ def get_batch_view_data(request):
         'filter_state': filter_args,
         'return_url_args': all_args_encoded,
         'data': data,
+        'statuses': statuses,
     }
 
 
@@ -738,7 +747,8 @@ def disposition_view(request):
     if disposition_status == 'batches':
         final_data = get_batch_view_data(request)
         return render(request, 'forms/complaint_view/disposition/index.html', final_data)
-
+    if params.get('status'):
+        params.pop('status')
     report_query, query_filters = report_filter(params)
 
     # Records without these values should _never_ show on the disposition page,
@@ -788,21 +798,13 @@ def unsubscribe_view(request):
         messages.add_message(request,
                              messages.ERROR,
                              mark_safe("You are not subscribed to notifications"))
-        return redirect(reverse('crt_forms:crt-forms-index'))
-    preferences = request.user.notification_preference
+        return redirect(reverse('crt_forms:crt-forms-notifications'))
 
-    if preferences.assigned_to == 'none':
-        messages.add_message(request,
-                             messages.ERROR,
-                             mark_safe("You are not subscribed to notifications"))
-        return redirect(reverse('crt_forms:crt-forms-index'))
-
-    preferences.assigned_to = 'none'
-    preferences.save()
+    request.user.notification_preference.delete()
     messages.add_message(request,
                          messages.SUCCESS,
                          mark_safe("You have been unsubscribed from all portal notifications"))
-    return redirect(reverse('crt_forms:crt-forms-index'))
+    return redirect(reverse('crt_forms:crt-forms-notifications'))
 
 
 @login_required
@@ -817,7 +819,14 @@ def _notification_get(request):
         preferences = request.user.notification_preference
     else:
         preferences = NotificationPreference(user=request.user)
+    search_ids = [int(k) for k in preferences.saved_searches.keys()]
+    search_names = {
+        str(pk): name
+        for pk, name
+        in SavedSearch.objects.filter(id__in=search_ids).values_list('id', 'name')
+    }
     return render(request, 'forms/complaint_view/notifications/index.html', {
+        'search_names': search_names,
         'preferences': preferences,
         'choices': NOTIFICATION_PREFERENCE_CHOICES,
     })
@@ -1189,6 +1198,7 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
         display_name = f'{request.user.first_name} {request.user.last_name}' if request.user.first_name and request.user.last_name else request.user.username
         output = {
             'action': request.GET.get('action', ''),
+            'rejected_batch_uuid': rejected_batch_uuid,
             'uuid': uuid,
             'display_name': display_name,
             'disposed_by': request.user.pk,
@@ -1218,6 +1228,7 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
         ids = request.POST.get('ids', '').split(',')
         selected_all = request.POST.get('all', '') == 'all'
         query_string = request.POST.get('query_string', return_url_args)
+        rejected_batch_uuid = request.POST.get('rejected_batch_uuid')
         uuid = request.POST.get('uuid', None)
         if confirm_all:
             requested_query = reconstruct_query(query_string)
@@ -1235,6 +1246,10 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
             batch = get_object_or_404(ReportDispositionBatch, pk=uuid)
         bulk_disposition_form = BulkDispositionForm(request.POST, user=request.user, instance=batch)
         if bulk_disposition_form.is_valid():
+            if rejected_batch_uuid != 'None':
+                rejected_batch = get_object_or_404(ReportDispositionBatch, pk=rejected_batch_uuid)
+                rejected_batch.status = 'archived'
+                rejected_batch.save()
             batch = bulk_disposition_form.save(commit=False)
             batch.save()
             bulk_disposition_form.update_reports(requested_query, request.user, batch)
@@ -1371,9 +1386,13 @@ class DispositionBatchActionsView(LoginRequiredMixin, FormView):
         if form.is_valid():
             rejected_report_ids = request.POST.get('rejected_report_ids', '').split(',')
             rejected_report_dispo_objects = ReportDisposition.objects.filter(public_id__in=rejected_report_ids)
-            for report in rejected_report_dispo_objects:
-                report.rejected = True
+            for report_dispo_object in rejected_report_dispo_objects:
+                report = Report.objects.filter(public_id=report_dispo_object.public_id).first()
+                report.batched_for_disposal = False
+                report.report_disposition_status = 'rejected'
                 report.save()
+                report_dispo_object.rejected = True
+                report_dispo_object.save()
             batch = form.save(commit=False)
             batch.save()
             if batch.status == 'approved':
@@ -1618,14 +1637,22 @@ class SavedSearchActionView(LoginRequiredMixin, View):
         saved_search_view = request.GET.get('saved_search_view', 'all')
         name = request.GET.get('name', None)
         if name:
-            saved_search_form = SavedSearchActions(request.GET, instance=saved_search)
+            saved_search_form = SavedSearchActions(request.GET, instance=saved_search, user=request.user)
         else:
-            saved_search_form = SavedSearchActions(query=query, instance=saved_search)
+            saved_search_form = SavedSearchActions(query=query, instance=saved_search, user=request.user)
+
+        if hasattr(request.user, 'notification_preference'):
+            notification_preferences = request.user.notification_preference
+        else:
+            notification_preferences = NotificationPreference(user=request.user)
+
         output = {
             'form': saved_search_form,
             'section_filter': section_filter,
             'saved_search_view': f'&saved_search_view={saved_search_view}',
             'filters': query_filters,
+            'notification_choices': NOTIFICATION_PREFERENCE_CHOICES,
+            'notification_preferences': notification_preferences,
         }
         if id:
             return render(request, 'forms/complaint_view/saved_searches/actions/update.html', output)
@@ -1641,7 +1668,7 @@ class SavedSearchActionView(LoginRequiredMixin, View):
             saved_search.created_by = request.user
         else:
             saved_search = get_object_or_404(SavedSearch, pk=id)
-        form = SavedSearchActions(request.POST, instance=saved_search)
+        form = SavedSearchActions(request.POST, instance=saved_search, user=request.user)
         if delete:
             saved_search.delete()
             messages.add_message(request, messages.SUCCESS, form.success_message(id, delete))
@@ -1674,9 +1701,7 @@ class SavedSearchActionView(LoginRequiredMixin, View):
             if not id:
                 return render(request, 'forms/complaint_view/saved_searches/actions/new.html', output)
             return render(request, 'forms/complaint_view/saved_searches/actions/update.html', output)
-        saved_search = form.save(commit=False)
-
-        saved_search.save()
+        saved_search = form.save()
         messages.add_message(request, messages.SUCCESS, form.success_message(id))
         url = reverse('crt_forms:saved-searches')
         return redirect(f"{url}?{section_filter}{saved_search_view}")

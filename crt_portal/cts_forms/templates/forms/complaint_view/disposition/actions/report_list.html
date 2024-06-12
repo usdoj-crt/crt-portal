@@ -16,7 +16,7 @@
     <span>Section: {{ shared_report_fields.assigned_section }}</span>
 </div>
 <div class="filter-tag">
-    <span>Status: {{ shared_report_fields.status }}</span>
+  <span>Status: {{ shared_report_fields.status }}</span>
 </div>
 </div>
 <div class="grid-col-auto">
@@ -24,7 +24,9 @@
     <table class="usa-table crt-table sort-table disposition-action-table">
       <thead>
         <tr>
+          {% if batch %}
           <th aria-label="report removal and addition buttons"></th>
+          {% endif %}
           <th>
             Report ID
           </th>
@@ -42,9 +44,10 @@
       {% if data %}
         <tbody>
           {% for datum in data %}
-            <tr class="stripe">
+            <tr class="stripe {% if datum.report.report_disposition_status == 'rejected' %}removed{% endif %}">
+              {% if batch %}
               <td class="report-control">
-                <a href="#" class="report-batch-control" id="{{ datum.report.public_id }}">
+                <a href="#" class="report-batch-control {% if datum.report.report_disposition_status == 'rejected' %}removed{% endif %}" id="{{ datum.report.public_id }}">
                   <svg class="icon report-batch-icon remove" fill="#FFF" aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" id="remove" viewBox="0 0 24 24">
                     <path d="M19 13H5v-2h14v2z"/>
                   </svg>
@@ -53,6 +56,7 @@
                   </svg>
                 </a>
               </td>
+              {% endif %}
               <td><a class="td-link display-block" href="{{datum.url}}">{{ datum.report.public_id }}</a></td>
               <td><a class="td-link display-block" href="{{datum.url}}">{{ datum.report.expiration_date|date:"SHORT_DATE_FORMAT" }}</a></td>
               <td><a class="td-link display-block" href="{{datum.url}}">{{ datum.report.location_name|default:"-" }}</a></td>

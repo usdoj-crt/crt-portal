@@ -2,7 +2,7 @@ from typing import Optional
 
 import logging
 from actstream import action
-from cts_forms.models import Report
+from cts_forms.models import Report, ScheduledNotification
 from cts_forms.mail import notify, bulk_notify
 
 
@@ -64,7 +64,14 @@ def _handle_notify(preference_name, *, user, verb, description, target):
         _notify_individual(user=user, reports=reports, verb=verb, description=description, target=target, template_title=preference_name, recipient=recipient)
         return
 
-    raise NotImplementedError(f'Unsupported frequency: {frequency}')
+    scheduled = ScheduledNotification.find_for(recipient=recipient, frequency=frequency)
+    if not scheduled.notifications.get(preference_name):
+        scheduled.notifications[preference_name] = []
+    scheduled.notifications[preference_name].extend([
+        {'report': {'id': report.id}}
+        for report in reports
+    ])
+    scheduled.save()
 
 
 def _notify_individual(user, *, reports, verb, description, target, template_title, recipient):

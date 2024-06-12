@@ -71,7 +71,7 @@ def test_intake_add_search(page, *, report):
     with page.expect_navigation():
         page.locator('button').filter(has_text='Apply changes').click()
 
-    page.locator('.usa-alert--success').filter(has_text=f'Successfully updated Name, Query, Section, Description, and Share in Saved Search Integration Test {search_id} - Updated').wait_for()
+    page.locator('.usa-alert--success').filter(has_text=f'Successfully updated Name, Query, Section, Description, Share, and Notification Preference in Saved Search Integration Test {search_id} - Updated').wait_for()
 
     report.screenshot(page, full_page=True, caption="""Because your search is no longer shared, you won't see it in the "Shared saved searches" tab anymore.""")
 

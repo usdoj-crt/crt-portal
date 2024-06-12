@@ -9,7 +9,7 @@ from datetime import datetime
 from django.conf import settings
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
-from cts_forms.models import Report, ResponseTemplate
+from cts_forms.models import Report, ResponseTemplate, ScheduledNotification
 from tms.models import TMSEmail
 from utils.markdown_extensions import RelativeToAbsoluteLinkExtension, CustomHTMLExtension
 from utils.site_prefix import get_site_prefix
@@ -114,6 +114,62 @@ def _render_notification_mail(*,
                 subject=f'[CRT Portal] {subject}')
 
 
+def _render_digest(notification):
+    report_id = notification['report']['id']
+    return f'[Report {report_id}](/form/view/{report_id})'
+
+
+def _render_digests(kind, scheduled):
+    extensions = ['extra', 'sane_lists', 'admonition', 'nl2br', CustomHTMLExtension(), RelativeToAbsoluteLinkExtension(for_intake=True)]
+    if kind == 'assigned_to':
+        items = list(set([
+            markdown.markdown(_render_digest(notification), extensions=extensions)
+            for notification in scheduled.notifications[kind]
+        ]))
+    else:
+        items = None
+
+    if kind == 'assigned_to':
+        title = 'You have been assigned to the following reports:'
+    elif kind.startswith('saved_search_'):
+        search_name = scheduled.notifications[kind]['name']
+        new_reports = scheduled.notifications[kind]['new_reports']
+        search_id = kind.split('_')[-1]
+        title = f'There are {new_reports} new reports matching your search "[{search_name}](/form/saved-searches/actions/{search_id})"'
+
+    return {
+        'title': markdown.markdown(title, extensions=extensions),
+        'items': items
+    }
+
+
+def _render_scheduled_notification_mail(scheduled: ScheduledNotification) -> Mail:
+    saved_search_groups = [key for key
+                           in scheduled.notifications
+                           if key.startswith('saved_search_')]
+
+    digests = [
+        _render_digests(kind, scheduled)
+        for kind in ['assigned_to', *saved_search_groups]
+    ]
+
+    html_message = render_to_string('scheduled_notification.html', {
+        'digests': digests,
+        'unsubscribe_link': '/'.join([get_site_prefix(for_intake=True), 'form/notifications/unsubscribe'])
+    })
+
+    recipients = [scheduled.recipient.email]
+
+    allowed_recipients = remove_disallowed_recipients(recipients)
+    disallowed_recipients = list(set(recipients) - set(allowed_recipients))
+
+    return Mail(message=html_message,
+                html_message=html_message,
+                recipients=allowed_recipients,
+                disallowed_recipients=disallowed_recipients,
+                subject=f'[CRT Portal] {scheduled.frequency} notification digest')
+
+
 def send_tms(message: Mail, *, report: Optional[Report], purpose: str, dry_run: bool) -> List[int]:
     if dry_run:
         return [0]
@@ -156,6 +212,24 @@ def send_tms(message: Mail, *, report: Optional[Report], purpose: str, dry_run: 
                  ).save()
 
     return send_results
+
+
+def notify_scheduled(scheduled: ScheduledNotification):
+    """Sends a set of scheduled notifications as a digest."""
+    scheduled.was_sent = True
+
+    if not scheduled.recipient.email:
+        logger.info(f'Not sending digest notification (no email address for {scheduled.recipient})')
+        return
+
+    message = _render_scheduled_notification_mail(scheduled)
+
+    logger.info(f'Digest Notification sent to {message.recipients}')
+
+    send_tms(message,
+             report=None,
+             purpose=TMSEmail.NOTIFICATION,
+             dry_run=False)
 
 
 def notify(template_title: str,

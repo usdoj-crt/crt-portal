@@ -1,3 +1,4 @@
+from contextlib import redirect_stdout, redirect_stderr
 import csv
 import io
 import logging
@@ -12,6 +13,7 @@ from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
 from django.contrib.postgres.aggregates import StringAgg
 from django.contrib import messages
+from django.core.management import call_command
 from django.http import HttpResponseRedirect, HttpRequest
 from django.core.paginator import Paginator
 from django.db.models import Subquery, OuterRef
@@ -32,7 +34,7 @@ from .model_variables import SECTION_CHOICES
 from .models import (CommentAndSummary, HateCrimesandTrafficking, Profile,
                      ProtectedClass, Report, ResponseTemplate, DoNotEmail,
                      JudicialDistrict, RetentionSchedule, RoutingSection, RoutingStepOneContact, Tag,
-                     VotingMode, Campaign, ReferralContact, BannerMessage, SavedSearch, NotificationPreference, ApplicationContact)
+                     VotingMode, Campaign, ReferralContact, BannerMessage, SavedSearch, NotificationPreference, ScheduledNotification, ApplicationContact)
 from utils.request_utils import get_client_ip
 
 logger = logging.getLogger(__name__)
@@ -279,6 +281,32 @@ class RoutingSectionAdmin(CrtModelAdmin):
 class ApplicationContactAdmin(CrtModelAdmin):
     list_display = ['name', 'email', 'order']
     ordering = ['order']
+
+
+class ScheduledNotificationAdmin(CrtModelAdmin):
+    list_display = ['recipient', 'frequency', 'scheduled_for', 'was_sent']
+    ordering = ['scheduled_for']
+
+    def lookup_allowed(self, *args, **kwargs):
+        return True
+
+    def send_scheduled_notifications(self, request: HttpRequest):
+        with io.StringIO() as buf, redirect_stdout(buf), redirect_stderr(buf):
+            call_command('send_scheduled_notifications')
+            output = buf.getvalue()
+        return HttpResponse(output)
+
+    def check_saved_searches(self, request: HttpRequest):
+        with io.StringIO() as buf, redirect_stdout(buf), redirect_stderr(buf):
+            call_command('check_saved_searches')
+            output = buf.getvalue()
+        return HttpResponse(output)
+
+    def get_urls(self):
+        return [
+            path(r'send_scheduled_notifications/', self.admin_site.admin_view(self.send_scheduled_notifications), name='send_scheduled_notifications'),
+            path(r'check_saved_searches/', self.admin_site.admin_view(self.check_saved_searches), name='check_saved_searches'),
+        ] + super().get_urls()
 
 
 class RoutingStepOneContactAdmin(CrtModelAdmin):
@@ -571,6 +599,7 @@ admin.site.register(BannerMessage, BannerMessageAdmin)
 admin.site.register(RoutingStepOneContact, RoutingStepOneContactAdmin)
 admin.site.register(SavedSearch, SavedSearchAdmin)
 admin.site.register(RetentionSchedule, RetentionScheduleAdmin)
+admin.site.register(ScheduledNotification, ScheduledNotificationAdmin)
 
 # Activity stream already registers an Admin for Action, we want to replace it
 admin.site.unregister(Action)

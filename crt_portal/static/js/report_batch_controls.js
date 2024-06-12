@@ -1,5 +1,8 @@
 (function(root, dom) {
-  const notesField = dom.querySelector('#id_notes');
+  let notesField = dom.querySelector('#id_notes');
+  if (notesField.disabled) {
+    notesField = dom.querySelector('#id_second_review_notes');
+  }
   const rejectedReportIdsInput = dom.querySelector('#rejected_report_ids');
   function regexEscape(str) {
     return str.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');

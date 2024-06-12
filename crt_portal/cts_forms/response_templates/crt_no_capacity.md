@@ -10,7 +10,7 @@ You contacted the Department of Justice on {{date_of_intake}}. After careful rev
 
 # What we did:
 
-Team members from the Civil Rights Division reviewed the information you submitted.  Based on our review, we have decided not to take any further action on your complaint.  We receive several thousand reports of civil rights violations each year.  We unfortunately do not have the resources to take direct action for every report.
+Team members from the Civil Rights Division reviewed the information you submitted.  Based on our review, we have decided not to take any further action on your complaint.  We receive several thousand reports of civil rights violations each year and cannot take direct action on every report.
 
 Your report number was {{record_locator}}.
 
@@ -29,7 +29,7 @@ Legal Services Corporation (or Legal Aid Offices)
 
 # How you have helped:
 
-While we don’t have the capacity to take on each individual report, your report can help us find issues affecting multiple people or communities. It also helps us understand emerging trends and topics.
+While we cannot take on each individual report, your report can help us find issues affecting multiple people or communities. It also helps us understand emerging trends and topics.
 
 Thank you for taking the time to contact the Department of Justice about your concerns.  We regret we are not able to provide more help on this matter.
 

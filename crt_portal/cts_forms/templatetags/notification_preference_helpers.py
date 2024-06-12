@@ -8,6 +8,4 @@ register = template.Library()
 def get_preference_value(preferences, key):
     if not preferences:
         return 'none'
-    if getattr(preferences, key, False):
-        return 'individual'
-    return 'none'
+    return getattr(preferences, key)

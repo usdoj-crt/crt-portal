@@ -82,6 +82,12 @@
           {{ bulk_actions_form.litigation_hold }}
         </div>
         {% endif %}
+        <div class="margin-bottom-2 crt-dropdown">
+          <label for="id_tags" class="intake-label">
+            {{ bulk_actions_form.tags.label }}
+          </label>
+          {{ bulk_actions_form.tags }}
+        </div>
         <div class="margin-bottom-2 crt-textarea">
           <label for="id_summary" class="intake-label">
             {{ bulk_actions_form.summary.label }}

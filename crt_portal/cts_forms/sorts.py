@@ -19,6 +19,8 @@ def _valid_sort_params(sort, type):
         ]
         valid_fields = [f.name for f in fields]
         valid_fields.append('expiration_date')
+        if type == 'disposition':
+            valid_fields.append('dispo_status')
     return all(elem.replace("-", '') in valid_fields for elem in sort)
 
 
@@ -51,10 +53,12 @@ def other_sort(sort, sort_type):
     sort_exprs = []
 
     for sort_item in sort:
+        if sort_type == 'disposition' and 'status' in sort_item:
+            sort_item = sort_item.replace('status', 'dispo_status')
         if sort_item[0] == SORT_DESC_CHAR:
-            sort_exprs.append(F(sort_item[1::]))
+            sort_exprs.append(F(sort_item[1::]).desc(nulls_last=False))
         else:
-            sort_exprs.append(F(sort_item))
+            sort_exprs.append(F(sort_item).asc(nulls_last=False))
     sort_exprs.extend([F('pk').desc()])
 
     return sort_exprs, sort

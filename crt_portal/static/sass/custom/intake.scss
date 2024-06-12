@@ -159,6 +159,10 @@ hr {
   #main-content {
     max-width: 90%;
     margin-left: 10%;
+    @media print {
+      max-width: 100%;
+      margin-left: 0;
+    }
   }
   &.intake-form {
     #main-content {
@@ -182,6 +186,9 @@ hr {
     position: fixed;
     height: 100vh;
     top: 0;
+    @media print {
+      display: none;
+    }
     form#cts-forms-profile .crt-dropdown {
       margin-top: 0.5em;
       margin-bottom: 0;
@@ -1010,6 +1017,10 @@ label.flex-column span.usa-tooltip {
         color: #162e51;
         background-color: #e1e7f1;
         border-radius: 5px;
+
+        &.status {
+          text-transform: uppercase;
+        }
 
         &:has(input:checked) {
           background-color: #162e51;
