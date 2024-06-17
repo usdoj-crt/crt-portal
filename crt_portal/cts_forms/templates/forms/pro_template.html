@@ -8,15 +8,15 @@
 {% endblock %}
 
 {% block page_header %}
-{% if ENABLED_FEATURES.nav_updates %}
-<div class="intake-header--progress-bar">
-  <div class="grid-container">
-    {% include 'forms/portal/progress-bar.html' %}
-  </div>
-</div>
-<div class="main-wrapper intake-form">
-{% endif %}
   {% include 'forms/complaint_view/intake_header.html' with title_text="CRT Public Complaint Intake" section_filter=False %}
+  {% if ENABLED_FEATURES.nav_updates %}
+  <div class="intake-header--progress-bar">
+    <div class="grid-container">
+      {% include 'forms/portal/progress-bar.html' %}
+    </div>
+  </div>
+  <div class="main-wrapper intake-form">
+  {% endif %}
 {% endblock %}
 
 {% block form_questions %}
