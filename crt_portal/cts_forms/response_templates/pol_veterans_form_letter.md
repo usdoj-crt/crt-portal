@@ -10,7 +10,7 @@ Thank you for contacting the U.S. Department of Justice (DOJ) on {{ date_of_inta
 
 # What we did:
 
-The Servicemembers and Veterans Initiative at DOJ carefully reviewed your report.  The Initiative is located within DOJ’s Civil Rights Division.  Based on the information in your report, our team determined that the situation you described does not appear to be within the jurisdiction of the federal civil rights laws we enforce. For that reason and in the exercise of our enforcement discretion, the Division will take no further action regarding your correspondence.
+The Servicemembers and Veterans Initiative at DOJ carefully reviewed your report.  The Initiative is located within DOJ’s Civil Rights Division.  Based on the information in your report, our team determined that the situation you described does not appear to be within the jurisdiction of the federal civil rights laws we enforce. For that reason, we are unable to take further action regarding your correspondence.
 
 
 # What you can do:
@@ -25,7 +25,7 @@ We have included a list of resources for veterans that may be helpful.
 
 - If you are a veteran in need of legal assistance, the Office of General Counsel at the VA has compiled this list of legal resources for veterans: [https://www.va.gov/OGC/LegalServices.asp](https://www.va.gov/OGC/LegalServices.asp)
 
-- If you have questions about applying for benefits and your character of discharge, see [https://www.benefits.va.gov/benefits/character_of_discharge.asp](https://www.benefits.va.gov/benefits/character_of_discharge.asp)
+- If you have questions about applying for VA benefits and your character of discharge, see [https://www.benefits.va.gov/benefits/character_of_discharge.asp](https://www.benefits.va.gov/benefits/character_of_discharge.asp)
 
 - If you need general assistance, visit [Contact Us | Veterans Affairs (va.gov)](https://www.va.gov/contact-us/)
 
