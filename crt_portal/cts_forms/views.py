@@ -279,7 +279,7 @@ def index_view(request):
 
 
 def render_group_view(request, profile_form, selected_assignee_id, selected_campaign_uuid, grouping):
-    group_queries, filters = report_grouping(request.GET)
+    group_queries, filters = report_grouping(request)
     group_params = json.loads(request.GET.get('group_params', "[]").replace("'", '"'))
     group_view_data = []
     updated_group_queries = []

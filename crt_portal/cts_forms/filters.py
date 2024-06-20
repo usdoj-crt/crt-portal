@@ -12,10 +12,12 @@ from django.apps import apps
 from django.db.models import Q, ExpressionWrapper, Count, IntegerField, Min, F, Value, CharField, DateField, Func
 from django.db.models.functions import ExtractYear, Concat, Cast, Left
 
+from django.contrib import messages
 from django.contrib.postgres.search import SearchQuery, TrigramSimilarity
 from django.db import connection
 from django.db.models.lookups import GreaterThan, LessThanOrEqual
 from django.http.request import QueryDict, MultiValueDict
+from django.utils.html import mark_safe
 
 from utils.datetime_fns import change_datetime_to_end_of_day
 from utils.request_utils import get_user_section
@@ -110,14 +112,23 @@ def _get_date_field_from_param(field):
     return field[:field.rfind('_')]
 
 
-def report_grouping(querydict):
-    all_qs, filters = report_filter(querydict)
+_GROUP_LIMIT = 10
+
+
+def report_grouping(request):
+    all_qs, filters = report_filter(request.GET)
     groups = all_qs.values('violation_summary').annotate(
         total=Count('violation_summary'),
         first_report_id=Min('pk'),
-    ).filter(total__gt=1).order_by('-total')
+    ).filter(total__gt=1).order_by('-total')[:_GROUP_LIMIT + 1]
     group_queries = []
     summaries = []
+    if len(groups) > _GROUP_LIMIT:
+        groups = groups[:_GROUP_LIMIT]
+        messages.add_message(request,
+                             messages.WARNING,
+                             mark_safe("<p>The filters you've set have too many different sets of matching descriptions, so we're showing only the first ten.</p><p>To see different groups, please make your filters more specific.</p>"))
+
     for group in groups:
         description = group['violation_summary']
         if description == "":
