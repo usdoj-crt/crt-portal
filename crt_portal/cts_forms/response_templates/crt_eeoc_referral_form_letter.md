@@ -2,6 +2,7 @@
 title: CRT - EEOC Response Form Letter
 subject: "Re: Your Civil Rights Division Report - {{ record_locator }} from the {{ section_name }} Section"
 language: en
+is_html: true
 referral_contact: eeoc
 ---
 Re:		Civil Rights Division Complaint – {{ record_locator }} from the {{ section_name }} Section
