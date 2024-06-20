@@ -7,7 +7,7 @@
   }
   function setUpSideNav() {
     mainWrapper.classList.add('display-flex');
-    const menuSlider = mainWrapper.querySelector('.menu-slider');
+    const menuSlider = dom.querySelector('.menu-slider');
     menuSlider.addEventListener('click', toggleMenu);
 
     // Some items on the page calculate their size based on the side-nav
