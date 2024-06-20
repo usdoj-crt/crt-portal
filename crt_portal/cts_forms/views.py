@@ -1395,8 +1395,8 @@ class DispositionBatchActionsView(LoginRequiredMixin, FormView):
                 report_dispo_object.save()
             batch = form.save(commit=False)
             batch.save()
-            if batch.status == 'approved':
-                message = f'Batch #{batch.uuid} has been approved for disposal.'
+            if batch.status in ['approved', 'verified']:
+                message = f'Batch #{batch.uuid} has been {batch.status} for disposal.'
                 messages.add_message(request, messages.SUCCESS, message)
             elif batch.status == 'rejected':
                 message = f'Batch #{batch.uuid} has been rejected for disposal.'
