@@ -2084,17 +2084,6 @@ class BatchReviewForm(ModelForm, ActivityStreamUpdater):
             if self.field_changed(field_name)
         ]
 
-    status = TypedChoiceField(
-        choices=(('approved', 'Approved'), ('rejected', 'Rejected')),
-        empty_value=None,
-        widget=UsaRadioSelect(
-            attrs={
-                'class': 'display-flex radio-flex',
-            }
-        ),
-        required=False,
-    )
-
     class Meta:
         model = ReportDispositionBatch
         fields = ['first_reviewer', 'first_review_date', 'second_reviewer', 'second_review_date', 'status', 'notes', 'second_review_notes']
@@ -2184,6 +2173,20 @@ class BatchReviewForm(ModelForm, ActivityStreamUpdater):
         self.user = user
         self.can_review_batch = can_review_batch
         ModelForm.__init__(self, *args, **kwargs)
+
+        next_status = 'approved' if self.instance.first_reviewer else 'verified'
+
+        self.fields['status'] = TypedChoiceField(
+            choices=((next_status, 'Approved'), ('rejected', 'Rejected')),
+            empty_value=None,
+            widget=UsaRadioSelect(
+                attrs={
+                    'class': 'display-flex radio-flex',
+                }
+            ),
+            required=False,
+        )
+
         self.fields['notes'].disabled = not self.can_review_batch
         self.fields['status'].disabled = not self.can_review_batch
         self.setup_first_review_date()
