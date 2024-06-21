@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from actstream import registry
 from actstream.models import actor_stream
 from django.http import QueryDict
-from django.test import SimpleTestCase, TestCase, TransactionTestCase
+from django.test import SimpleTestCase, TestCase, TransactionTestCase, RequestFactory
 import pytz
 
 from ..filters import get_report_filter_from_search, report_filter, report_grouping, filter_by_similar
@@ -244,7 +244,8 @@ class ReportFilterTests(TestCase):
         self.assertEqual(reports.count(), 2)
 
     def test_grouping(self):
-        group_queries, _ = report_grouping(QueryDict('grouping="matching-descriptions"'))
+        request = RequestFactory().get('/form/view?grouping=matching-descriptions')
+        group_queries, _ = report_grouping(request)
         self.assertEqual(len(group_queries), 2)
         self.assertEqual(group_queries[0]['qs'].count(), 2)
 
