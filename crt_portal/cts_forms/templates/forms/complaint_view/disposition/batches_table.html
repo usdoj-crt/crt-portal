@@ -29,6 +29,8 @@
             <tr class="tr--hover{% cycle ' stripe' '' %}">
               {% if can_approve_disposition %}
               {% if datum.batch.status == 'rejected' %}
+              {{datum.batch.all_rejected}}
+              {% if not datum.batch.all_rejected %}
               <td>
                 <div class="usa-checkbox td-checkbox">
                   <input type="checkbox"
@@ -41,7 +43,21 @@
                 </div>
               </td>
               {% else %}
-                <td></td>
+              <td>
+                <div class="usa-checkbox td-checkbox">
+                  <span class="usa-tooltip" title="This entire batch has been rejected and cannot be re-used">
+                    <input type="checkbox"
+                           class="usa-checkbox__input"
+                           disabled="disabled"
+                           id="checkbox-{{ datum.batch.uuid }}"
+                    >
+                    <label class="usa-checkbox__label crt-checkbox__label" for="checkbox-{{ datum.batch.uuid }}" aria-label="This entire batch has been rejected and cannot be re-used {{ datum.batch.uuid }}"></label>
+                  </span>
+                </div>
+              </td>
+              {% endif %}
+              {% else %}
+              <td></td>
               {% endif %}
               {% endif %}
               <td>

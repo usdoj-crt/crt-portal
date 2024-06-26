@@ -30,7 +30,6 @@ from tms.models import TMSEmail
 from datetime import datetime
 from django.db.models.functions import ExtractYear, Cast, Concat
 
-
 from .attachments import ALLOWED_FILE_EXTENSIONS
 from .filters import report_filter, dashboard_filter, report_grouping
 from .forms import (
@@ -710,6 +709,7 @@ def get_batch_view_data(request):
     page = request.GET.get('page', 1)
     sort_expr, sorts = other_sort(request.GET.getlist('sort'), 'batch')
     disposition_batches = disposition_batches.annotate(retention_schedule=Subquery(ReportDisposition.objects.filter(batch=OuterRef("pk")).values_list('schedule', flat=True).distinct()))
+    disposition_batches = disposition_batches.annotate(all_rejected=Subquery(ReportDisposition.objects.filter(batch=OuterRef("pk")).order_by('rejected').values_list('rejected', flat=True)[:1]))
     disposition_batches = disposition_batches.order_by(*sort_expr)
     statuses = map(lambda choice: choice[1].lower(), BATCH_STATUS_CHOICES)
     paginator = Paginator(disposition_batches, per_page)
