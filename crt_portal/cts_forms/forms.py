@@ -2894,8 +2894,6 @@ class SavedSearchActions(ModelForm):
         # if both are Falsy, nothing actually changed (None ~= "")
         old = self.initial.get(field, None)
         new = self.cleaned_data.get(field, None)
-        logging.info(old)
-        logging.info(new)
         if not old and not new:
             return False
         return old != new
