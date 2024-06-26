@@ -2,6 +2,7 @@ import logging
 from datetime import datetime, timezone
 
 from django.contrib.auth import get_user_model
+from django.contrib.auth.models import User
 from django.core.validators import ValidationError
 from django.forms import (BooleanField, CharField, CheckboxInput, ChoiceField,
                           ClearableFileInput, DateField,
@@ -55,7 +56,7 @@ from .model_variables import (ACTION_CHOICES, CLOSED_STATUS, COMMERCIAL_OR_PUBLI
                               VIOLATION_SUMMARY_ERROR, WHERE_ERRORS,
                               HATE_CRIME_CHOICES, GROUPING, RETENTION_SCHEDULE_CHOICES)
 from .models import (CommentAndSummary,
-                     ProtectedClass, Report, ReportDispositionBatch, ResponseTemplate, Profile, ReportAttachment, Campaign, RetentionSchedule, SavedSearch, get_system_user, Tag, NotificationPreference)
+                     ProtectedClass, Report, ReportDispositionBatch, ResponseTemplate, Profile, ReportAttachment, Campaign, RetentionSchedule, SavedSearch, get_system_user, Tag, NotificationPreference, GroupPreferences)
 from .phone_regex import phone_validation_regex
 from .question_group import QuestionGroup
 from .question_text import (CONTACT_QUESTIONS, DATE_QUESTIONS,
@@ -286,7 +287,6 @@ def maybe_auto_close(report):
         system_user = get_system_user()
         report.status = CLOSED_STATUS
         report.closeout_report()
-        report.assigned_section = 'ADM'
         summary = report.internal_comments.get_or_create(is_summary=True)[0]
         summary.author = system_user.username
         summary.note = reason_for_closing
@@ -2891,6 +2891,8 @@ class SavedSearchActions(ModelForm):
         # if both are Falsy, nothing actually changed (None ~= "")
         old = self.initial.get(field, None)
         new = self.cleaned_data.get(field, None)
+        logging.info(old)
+        logging.info(new)
         if not old and not new:
             return False
         return old != new
@@ -2919,8 +2921,12 @@ class SavedSearchActions(ModelForm):
     def is_locked(self):
         return self.instance.auto_close or self.instance.override_section_assignment
 
-    def __init__(self, *args, query=None, user=None, **kwargs):
+    def is_member(self, user, group_name):
+        return user.groups.filter(name=group_name).exists()
+
+    def __init__(self, *args, query=None, user=None, group_data=[], **kwargs):
         self.user = user
+        self.group_data = group_data
         ModelForm.__init__(self, *args, **kwargs)
 
         if self.instance and self.instance.id is not None:
@@ -2937,6 +2943,18 @@ class SavedSearchActions(ModelForm):
             required=False,
             disabled=False,
         )
+        for group in self.group_data:
+            id = group['group'].id
+            field_name = f'group_{id}_{self.saved_search_field}'
+            self.fields[field_name] = ChoiceField(
+                label=group['group'].name + ' notification preference',
+                choices=NOTIFICATION_PREFERENCE_CHOICES['group_saved_search'],
+                widget=ComplaintSelect(
+                    attrs={'class': 'crt-dropdown__data'},
+                ),
+                required=False,
+                disabled=False,
+            )
 
         self.fields['section'] = ChoiceField(
             widget=ComplaintSelect(
@@ -3009,6 +3027,8 @@ class SavedSearchActions(ModelForm):
         def get_label(field):
             if field.startswith('saved_search_'):
                 return 'Notification Preference'
+            if field.startswith('group_'):
+                return 'Group Notification Preference'
             field = self.fields[field]
             # Some fields can't support the extra context label, and store it
             # on their attributes
@@ -3028,19 +3048,33 @@ class SavedSearchActions(ModelForm):
         fields += f', and {updated_fields[-1]}'
         return f"Successfully updated {fields} in {search_name}."
 
-    def save(self):
-        saved_search = super().save(True)
-
-        if hasattr(self.user, 'notification_preference'):
-            notification_preference = self.user.notification_preference
+    def set_user_preferences(self, user, saved_search, key, search_field):
+        if hasattr(user, 'notification_preference'):
+            notification_preference = user.notification_preference
         else:
-            notification_preference = NotificationPreference(user=self.user)
-
-        search_field = f'saved_search_{saved_search.id}'
+            notification_preference = NotificationPreference(user=user)
         setattr(notification_preference,
-                search_field,
-                self.cleaned_data[self.saved_search_field])
+                key,
+                self.cleaned_data[search_field])
         notification_preference.saved_searches_last_checked[str(saved_search.id)] = datetime.now().isoformat()
         notification_preference.save()
+
+    def save(self):
+        saved_search = super().save(True)
+        search_field = f'saved_search_{saved_search.id}'
+        key = search_field
+        self.set_user_preferences(self.user, saved_search, key, search_field)
+        for group in self.group_data:
+            group_obj = group['group']
+            users = User.objects.filter(groups__name=group_obj.name)
+            group_search_field = f'group_{group_obj.id}_{search_field}'
+            if hasattr(group_obj, 'group_preferences'):
+                group_preferences = group_obj.group_preferences
+            else:
+                group_preferences = GroupPreferences(group=group_obj)
+            group_preferences.saved_searches[saved_search.id] = self.cleaned_data[group_search_field]
+            group_preferences.save()
+            for user in users:
+                self.set_user_preferences(user, saved_search, key, group_search_field)
 
         return saved_search

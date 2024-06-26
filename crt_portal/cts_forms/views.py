@@ -29,6 +29,7 @@ from analytics.models import AnalyticsFile, get_intake_notebooks
 from tms.models import TMSEmail
 from datetime import datetime
 from django.db.models.functions import ExtractYear, Cast, Concat
+from django.contrib.auth.models import User, Group
 
 
 from .attachments import ALLOWED_FILE_EXTENSIONS
@@ -279,7 +280,7 @@ def index_view(request):
 
 
 def render_group_view(request, profile_form, selected_assignee_id, selected_campaign_uuid, grouping):
-    group_queries, filters = report_grouping(request.GET)
+    group_queries, filters = report_grouping(request)
     group_params = json.loads(request.GET.get('group_params', "[]").replace("'", '"'))
     group_view_data = []
     updated_group_queries = []
@@ -1618,6 +1619,30 @@ class SavedSearchView(LoginRequiredMixin, FormView):
 
 class SavedSearchActionView(LoginRequiredMixin, View):
     form = SavedSearchActions
+    def is_group_admin(self, user, group):
+        if not hasattr(group.group_preferences, 'admins'):
+            return False
+        admins = group.group_preferences.admins.filter(username=user.username)
+        if user in admins:
+            return True
+        return False
+
+    def get_group_data(self, user, id):
+        group_data = []
+        group_notification_preference = 'none'
+        for group in Group.objects.all():
+           if hasattr(group, 'group_preferences') and self.is_group_admin(user, group):
+                try:
+                    group_notification_preference = group.group_preferences.saved_searches[str(id)]
+                except Exception:
+                    pass
+                group_data.append({
+                    'group': group,
+                    'notification_preferences': group_notification_preference,
+                    'field_name': f'group_{group.id}_saved_search_{id}',
+                    'notification_choices': NOTIFICATION_PREFERENCE_CHOICES['group_saved_search'],
+                })
+        return group_data
 
     def get(self, request, id=None):
         """
@@ -1636,16 +1661,16 @@ class SavedSearchActionView(LoginRequiredMixin, View):
         section_filter = request.GET.get('section_filter', '')
         saved_search_view = request.GET.get('saved_search_view', 'all')
         name = request.GET.get('name', None)
+        group_data = self.get_group_data(request.user, saved_search.id)
         if name:
-            saved_search_form = SavedSearchActions(request.GET, instance=saved_search, user=request.user)
+            saved_search_form = SavedSearchActions(request.GET, instance=saved_search, user=request.user, group_data=group_data)
         else:
-            saved_search_form = SavedSearchActions(query=query, instance=saved_search, user=request.user)
+            saved_search_form = SavedSearchActions(query=query, instance=saved_search, user=request.user, group_data=group_data)
 
         if hasattr(request.user, 'notification_preference'):
             notification_preferences = request.user.notification_preference
         else:
             notification_preferences = NotificationPreference(user=request.user)
-
         output = {
             'form': saved_search_form,
             'section_filter': section_filter,
@@ -1653,6 +1678,7 @@ class SavedSearchActionView(LoginRequiredMixin, View):
             'filters': query_filters,
             'notification_choices': NOTIFICATION_PREFERENCE_CHOICES,
             'notification_preferences': notification_preferences,
+            'group_data': group_data,
         }
         if id:
             return render(request, 'forms/complaint_view/saved_searches/actions/update.html', output)
@@ -1668,7 +1694,8 @@ class SavedSearchActionView(LoginRequiredMixin, View):
             saved_search.created_by = request.user
         else:
             saved_search = get_object_or_404(SavedSearch, pk=id)
-        form = SavedSearchActions(request.POST, instance=saved_search, user=request.user)
+        group_data = self.get_group_data(request.user, saved_search.id)
+        form = SavedSearchActions(request.POST, instance=saved_search, user=request.user, group_data=group_data)
         if delete:
             saved_search.delete()
             messages.add_message(request, messages.SUCCESS, form.success_message(id, delete))

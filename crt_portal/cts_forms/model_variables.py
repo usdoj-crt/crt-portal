@@ -841,3 +841,10 @@ NOTIFICATION_PREFERENCE_CHOICES.update({
         ('none', 'None'),
     ]
 })
+
+NOTIFICATION_PREFERENCE_CHOICES.update({
+    'group_saved_search': [
+        ('weekly', 'Weekly Digest'),
+        ('none', 'None'),
+    ]
+})

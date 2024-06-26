@@ -2,15 +2,41 @@
 {% load get_dict_item %}
 
 <tr>
+  {% if group %}
   <td>
-    {{title}}
+      <div>
+        <input id="{{group.id}}" type="hidden" name="{{group.id}}" value="{{group.id}}"/>
+        <label class="intake-label"> {{group.name}} </label>
+      </div>
+  </td>
+  <td>
+    {% for choice_value, choice_display in choices %}
+    {% with existing_value=preferences %}
+      <input id="{{key}}-{{choice_value}}" class="usa-radio__input" type="radio" name="{{key}}" {% if choice_value == existing_value %}checked="checked" {% endif %}value="{{choice_value}}"/>
+      <label
+          data-position="left"
+          for="{{key}}-{{choice_value}}"
+          class="usa-radio__label display-flex flex-column">
+        <span class="usa-tooltip"
+          {% if choice_value == 'weekly' %}title="Receive a brief list of events at most once per week"{% endif %}
+          {% if choice_value == 'none' %}title="Select this to disable any notifications for this event or action"{% endif %}
+        >
+        {{choice_display}}
+        </span>
+      </label>
+    {% endwith %}
+    {% endfor %}
+  </td>
+  {% else %}
+  <td>
+    <label class="intake-label"> {{title}} </label>
   </td>
   <td>
     {% for choice_value, choice_display in choices|get_dict_item:key %}
     {% with existing_value=preferences|get_preference_value:key %}
       <input id="{{key}}-{{choice_value}}" class="usa-radio__input" type="radio" name="{{key}}" {% if choice_value == existing_value %}checked="checked" {% endif %}value="{{choice_value}}"/>
       <label
-j         data-position="left"
+          data-position="left"
           for="{{key}}-{{choice_value}}"
           class="usa-radio__label display-flex flex-column">
         <span class="usa-tooltip"
@@ -25,4 +51,5 @@ j         data-position="left"
     {% endwith %}
     {% endfor %}
   </td>
+  {% endif %}
 </tr>
