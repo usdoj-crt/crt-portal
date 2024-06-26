@@ -29,7 +29,6 @@
             <tr class="tr--hover{% cycle ' stripe' '' %}">
               {% if can_approve_disposition %}
               {% if datum.batch.status == 'rejected' %}
-              {{datum.batch.all_rejected}}
               {% if not datum.batch.all_rejected %}
               <td>
                 <div class="usa-checkbox td-checkbox">
