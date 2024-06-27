@@ -6,7 +6,7 @@
     disposition_status: '',
     retention_schedule: '',
     expiration_date: '',
-    status: ''
+    status: Cookies.get('disposition_view_batch_status') || ''
   };
 
   function filterController() {
@@ -73,6 +73,7 @@
     root.CRT.clearFiltersView({
       el: clearAllEl,
       onClick: () => {
+        Cookies.remove('disposition_view_batch_status');
         const updates = {
           retention_schedule: '',
           expiration_date: '',
@@ -85,9 +86,16 @@
   }
 
   function init() {
-    if (root.location.search === '') {
-      root.location.search = '?disposition_status=past';
+    const search = new URLSearchParams(root.location.search);
+    if (search.size === 0) {
+      search.set('disposition_status', 'past');
     }
+    if (!search.has('status') && root.CRT.initialFilterState['status']) {
+      search.set('status', root.CRT.initialFilterState['status']);
+    }
+
+    root.history.replaceState({}, null, `?${search.toString()}`);
+
     const updates = root.CRT.getQueryParams(
       root.location.search,
       Object.keys(root.CRT.initialFilterState)
