@@ -1662,15 +1662,14 @@ class SavedSearchActionView(LoginRequiredMixin, View):
         saved_search_view = request.GET.get('saved_search_view', 'all')
         name = request.GET.get('name', None)
         group_data = self.get_group_data(request.user, saved_search.id)
-        if name:
-            saved_search_form = SavedSearchActions(request.GET, instance=saved_search, user=request.user, group_data=group_data)
-        else:
-            saved_search_form = SavedSearchActions(query=query, instance=saved_search, user=request.user, group_data=group_data)
-
         if hasattr(request.user, 'notification_preference'):
             notification_preferences = request.user.notification_preference
         else:
             notification_preferences = NotificationPreference(user=request.user)
+        if name:
+            saved_search_form = SavedSearchActions(request.GET, instance=saved_search, user=request.user, group_data=group_data, notification_preferences=notification_preferences)
+        else:
+            saved_search_form = SavedSearchActions(query=query, instance=saved_search, user=request.user, group_data=group_data, notification_preferences=notification_preferences)
         output = {
             'form': saved_search_form,
             'section_filter': section_filter,
@@ -1695,7 +1694,11 @@ class SavedSearchActionView(LoginRequiredMixin, View):
         else:
             saved_search = get_object_or_404(SavedSearch, pk=id)
         group_data = self.get_group_data(request.user, saved_search.id)
-        form = SavedSearchActions(request.POST, instance=saved_search, user=request.user, group_data=group_data)
+        if hasattr(request.user, 'notification_preference'):
+            notification_preferences = request.user.notification_preference
+        else:
+            notification_preferences = NotificationPreference(user=request.user)
+        form = SavedSearchActions(request.POST, instance=saved_search, user=request.user, group_data=group_data, notification_preferences=notification_preferences)
         if delete:
             saved_search.delete()
             messages.add_message(request, messages.SUCCESS, form.success_message(id, delete))

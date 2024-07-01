@@ -2,7 +2,7 @@ import logging
 from datetime import datetime, timezone
 
 from django.contrib.auth import get_user_model
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django.core.validators import ValidationError
 from django.forms import (BooleanField, CharField, CheckboxInput, ChoiceField,
                           ClearableFileInput, DateField,
@@ -2925,16 +2925,16 @@ class SavedSearchActions(ModelForm):
     def is_member(self, user, group_name):
         return user.groups.filter(name=group_name).exists()
 
-    def __init__(self, *args, query=None, user=None, group_data=[], **kwargs):
+    def __init__(self, *args, query=None, user=None, group_data=[], notification_preferences=None, **kwargs):
         self.user = user
         self.group_data = group_data
         ModelForm.__init__(self, *args, **kwargs)
-
         if self.instance and self.instance.id is not None:
             self.saved_search_field = f'saved_search_{self.instance.id}'
+            if hasattr(notification_preferences, 'saved_searches'):
+                self.initial[self.saved_search_field] = notification_preferences.saved_searches.get(str(self.instance.id), None)
         else:
             self.saved_search_field = 'saved_search_new'
-
         self.fields[self.saved_search_field] = ChoiceField(
             label='Notification preference',
             choices=NOTIFICATION_PREFERENCE_CHOICES['saved_search'],
@@ -2956,6 +2956,7 @@ class SavedSearchActions(ModelForm):
                 required=False,
                 disabled=False,
             )
+            self.initial[field_name] = group['notification_preferences']
 
         self.fields['section'] = ChoiceField(
             widget=ComplaintSelect(
@@ -3029,7 +3030,9 @@ class SavedSearchActions(ModelForm):
             if field.startswith('saved_search_'):
                 return 'Notification Preference'
             if field.startswith('group_'):
-                return 'Group Notification Preference'
+                group_id = field.split('_')[1]
+                group = Group.objects.filter(id=int(group_id)).first()
+                return f'{group.name} Notification Preference'
             field = self.fields[field]
             # Some fields can't support the extra context label, and store it
             # on their attributes
@@ -3062,20 +3065,20 @@ class SavedSearchActions(ModelForm):
 
     def save(self):
         saved_search = super().save(True)
-        search_field = f'saved_search_{saved_search.id}'
-        key = search_field
-        self.set_user_preferences(self.user, saved_search, key, search_field)
+        key = self.saved_search_field
+        self.set_user_preferences(self.user, saved_search, key, self.saved_search_field)
         for group in self.group_data:
             group_obj = group['group']
             users = User.objects.filter(groups__name=group_obj.name)
-            group_search_field = f'group_{group_obj.id}_{search_field}'
+            group_search_field = f'group_{group_obj.id}_{self.saved_search_field}'
             if hasattr(group_obj, 'group_preferences'):
                 group_preferences = group_obj.group_preferences
             else:
                 group_preferences = GroupPreferences(group=group_obj)
-            group_preferences.saved_searches[saved_search.id] = self.cleaned_data[group_search_field]
-            group_preferences.save()
-            for user in users:
-                self.set_user_preferences(user, saved_search, key, group_search_field)
+            if self.field_changed(group_search_field):
+                group_preferences.saved_searches[saved_search.id] = self.cleaned_data[group_search_field]
+                group_preferences.save()
+                for user in users:
+                    self.set_user_preferences(user, saved_search, key, group_search_field)
 
         return saved_search
