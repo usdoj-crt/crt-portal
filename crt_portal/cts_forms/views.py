@@ -29,7 +29,8 @@ from analytics.models import AnalyticsFile, get_intake_notebooks
 from tms.models import TMSEmail
 from datetime import datetime
 from django.db.models.functions import ExtractYear, Cast, Concat
-from django.contrib.auth.models import User, Group
+from django.contrib.auth import get_user_model
+from django.contrib.auth.models import Group
 
 
 from .attachments import ALLOWED_FILE_EXTENSIONS
@@ -47,6 +48,7 @@ from .page_through import pagination
 from .sorts import other_sort, report_sort
 
 logger = logging.getLogger(__name__)
+User = get_user_model()
 
 SORT_DESC_CHAR = '-'
 
@@ -1618,6 +1620,7 @@ class SavedSearchView(LoginRequiredMixin, FormView):
 
 
 class SavedSearchActionView(LoginRequiredMixin, View):
+
     form = SavedSearchActions
     def is_group_admin(self, user, group):
         if not hasattr(group.group_preferences, 'admins'):
@@ -1631,7 +1634,7 @@ class SavedSearchActionView(LoginRequiredMixin, View):
         group_data = []
         group_notification_preference = 'none'
         for group in Group.objects.all():
-           if hasattr(group, 'group_preferences') and self.is_group_admin(user, group):
+            if hasattr(group, 'group_preferences') and self.is_group_admin(user, group):
                 group_notification_preference = group.group_preferences.saved_searches.get(str(id), 'none')
                 group_data.append({
                     'group': group,

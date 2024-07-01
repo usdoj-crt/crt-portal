@@ -2,7 +2,7 @@ import logging
 from datetime import datetime, timezone
 
 from django.contrib.auth import get_user_model
-from django.contrib.auth.models import User, Group
+from django.contrib.auth.models import Group
 from django.core.validators import ValidationError
 from django.forms import (BooleanField, CharField, CheckboxInput, ChoiceField,
                           ClearableFileInput, DateField,
