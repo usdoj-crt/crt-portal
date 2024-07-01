@@ -3065,8 +3065,9 @@ class SavedSearchActions(ModelForm):
 
     def save(self):
         saved_search = super().save(True)
-        key = self.saved_search_field
-        self.set_user_preferences(self.user, saved_search, key, self.saved_search_field)
+        saved_search_field = f'saved_search_{saved_search.id}'
+        key = saved_search_field
+        self.set_user_preferences(self.user, saved_search, key, saved_search_field)
         for group in self.group_data:
             group_obj = group['group']
             users = User.objects.filter(groups__name=group_obj.name)
