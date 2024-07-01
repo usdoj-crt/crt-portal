@@ -1632,10 +1632,7 @@ class SavedSearchActionView(LoginRequiredMixin, View):
         group_notification_preference = 'none'
         for group in Group.objects.all():
            if hasattr(group, 'group_preferences') and self.is_group_admin(user, group):
-                try:
-                    group_notification_preference = group.group_preferences.saved_searches[str(id)]
-                except Exception:
-                    pass
+                group_notification_preference = group.group_preferences.saved_searches.get(str(id), 'none')
                 group_data.append({
                     'group': group,
                     'notification_preferences': group_notification_preference,
