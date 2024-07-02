@@ -702,7 +702,7 @@ def get_batch_data(disposition_batches, all_args_encoded):
 
 def get_batch_view_data(request):
     disposition_batches = ReportDispositionBatch.objects.all()
-    status_filter = request.GET.get('status', None)
+    status_filter = request.GET.get('status', request.COOKIES.get('disposition_view_batch_status', ''))
     if status_filter:
         disposition_batches = disposition_batches.filter(status=status_filter)
     per_page = request.GET.get('per_page', request.COOKIES.get('complaint_view_per_page', 15))
@@ -734,6 +734,7 @@ def get_batch_view_data(request):
         'return_url_args': all_args_encoded,
         'data': data,
         'statuses': statuses,
+        'status': status_filter,
     }
 
 
@@ -746,7 +747,9 @@ def disposition_view(request):
     profile_form = get_profile_form(request)
     if disposition_status == 'batches':
         final_data = get_batch_view_data(request)
-        return render(request, 'forms/complaint_view/disposition/index.html', final_data)
+        response = render(request, 'forms/complaint_view/disposition/index.html', final_data)
+        response.set_cookie('disposition_view_batch_status', final_data.get('status'))
+        return response
     if params.get('status'):
         params.pop('status')
     report_query, query_filters = report_filter(params)
