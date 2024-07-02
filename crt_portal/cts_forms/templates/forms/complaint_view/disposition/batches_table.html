@@ -44,13 +44,13 @@
               {% else %}
               <td>
                 <div class="usa-checkbox td-checkbox">
-                  <span class="usa-tooltip" title="This entire batch has been rejected and cannot be re-used">
+                  <span class="usa-tooltip" title="All reports in this batch have been rejected so a new batch cannot be generated">
                     <input type="checkbox"
                            class="usa-checkbox__input"
                            disabled="disabled"
                            id="checkbox-{{ datum.batch.uuid }}"
                     >
-                    <label class="usa-checkbox__label crt-checkbox__label" for="checkbox-{{ datum.batch.uuid }}" aria-label="This entire batch has been rejected and cannot be re-used {{ datum.batch.uuid }}"></label>
+                    <label class="usa-checkbox__label crt-checkbox__label" for="checkbox-{{ datum.batch.uuid }}" aria-label="All reports in this batch have been rejected so a new batch cannot be generated (batch {{ datum.batch.uuid }})"></label>
                   </span>
                 </div>
               </td>
