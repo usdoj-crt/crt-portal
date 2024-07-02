@@ -37,6 +37,7 @@ ENABLE_DEBUG_TOOLBAR = os.environ.get('ENABLE_DEBUG_TOOLBAR', False)
 MAINTENANCE_MODE = os.environ.get('MAINTENANCE_MODE', False)
 VOTING_MODE = os.environ.get('VOTING_MODE', False)
 
+REDACT_REPORTS = environment != 'PRODUCTION'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
