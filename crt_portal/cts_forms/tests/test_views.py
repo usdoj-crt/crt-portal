@@ -102,7 +102,7 @@ class NotificationManagementTests(TestCase):
 
     def test_includes_complaint_assignment_settings(self):
         response = self.client.get(self.url)
-        assertSoupFinds(response, 'td', string=re.compile('.*Complaint assignments.*'))
+        assertSoupFinds(response, 'label', string=re.compile('.*Complaint assignments.*'))
         assertSoupSelects(response, 'input[name="assigned_to"][value="individual"]')
         assertSoupSelects(response, 'input[name="assigned_to"][value="none"]')
 
