@@ -207,7 +207,6 @@ class ReportTests(TestCase):
             original.public_id
             for original in reports.all()
         })
-        self.assertTrue(all(original.disposed for original in reports))
 
     class DistrictEdgeCase(SimpleNamespace):
         city_user_enters: str

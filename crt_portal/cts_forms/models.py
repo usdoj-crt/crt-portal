@@ -937,7 +937,6 @@ class ReportDispositionBatch(models.Model):
         with transaction.atomic():
             batch = cls.objects.create(disposed_by=user,
                                        disposed_count=queryset.count())
-            queryset.all().update(disposed=True)
             ReportDisposition.objects.bulk_create([
                 ReportDisposition(
                     schedule=report.retention_schedule,
