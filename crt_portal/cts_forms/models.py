@@ -917,7 +917,10 @@ class ReportDispositionBatch(models.Model):
 
     def redact_reports(self):
         """Deletes (blanks out) all reports in the batch."""
-        for report in self.disposed_reports.all():
+        public_ids = self.disposed_reports.values_list('public_id', flat=True)
+        reports = Report.objects.filter(public_id__in=public_ids).all()
+
+        for report in reports:
             report.redact()
 
     @classmethod
