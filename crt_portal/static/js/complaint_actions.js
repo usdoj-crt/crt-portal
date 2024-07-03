@@ -9,7 +9,8 @@
     if (count === 0) {
       actionNotificationEl.hidden = true;
     } else if (selectAllCheckbox.checked && totalReports) {
-      const val = totalReports.getAttribute('value') < 500 ? totalReports.getAttribute('value') : 500;
+      const val =
+        totalReports.getAttribute('value') < 500 ? totalReports.getAttribute('value') : 500;
       const recordsPlural = val === 1 ? ' record' : ' records';
       countEl.innerText = val + recordsPlural;
       selectionWarning.hidden = !(totalReports.getAttribute('value') > 500);
