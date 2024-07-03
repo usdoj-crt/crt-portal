@@ -5,25 +5,19 @@
     const countEl = actionNotificationEl.getElementsByClassName('selection-action-count')[0];
     const count = parentTable.querySelectorAll('td input.usa-checkbox__input:checked').length;
     const totalReports = parentTable.querySelector('#total_reports');
-    const btns = actionNotificationEl.querySelectorAll('#actions');
     const selectionWarning = actionNotificationEl.querySelector('.selection-warning');
     if (count === 0) {
       actionNotificationEl.hidden = true;
     } else if (selectAllCheckbox.checked && totalReports) {
-      const recordsPlural = totalReports.getAttribute('value') === 1 ? ' record' : ' records';
-      countEl.innerText = totalReports.getAttribute('value') + recordsPlural;
-      btns.forEach(btn => {
-        btn.hidden = totalReports.getAttribute('value') > 500;
-      });
+      const val = totalReports.getAttribute('value') < 500 ? totalReports.getAttribute('value') : 500;
+      const recordsPlural = val === 1 ? ' record' : ' records';
+      countEl.innerText = val + recordsPlural;
       selectionWarning.hidden = !(totalReports.getAttribute('value') > 500);
       actionNotificationEl.hidden = false;
     } else {
       const recordsPlural = count === 1 ? ' record' : ' records';
       countEl.innerText = count + recordsPlural;
       if (totalReports) {
-        btns.forEach(btn => {
-          btn.hidden = false;
-        });
         selectionWarning.hidden = true;
       }
       actionNotificationEl.hidden = false;
