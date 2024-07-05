@@ -1659,7 +1659,7 @@ class Filters(ModelForm):
             },
         }
 
-    @ property
+    @property
     def get_section_filters(self):
         """
         Return set of sections received as query parameters which are also valid section choices
@@ -1745,7 +1745,7 @@ class ComplaintActions(LitigationHoldLock, ModelForm, ActivityStreamUpdater):
             return False
         return old != new
 
-    @ cached_property
+    @cached_property
     def changed_data(self):
         return [
             field_name
@@ -2771,7 +2771,7 @@ class ReportEditForm(LitigationHoldLock, ProForm, ActivityStreamUpdater):
             self.fields['summary'].initial = summary.note
             self.fields['summary_id'].initial = summary.pk
 
-    @ cached_property
+    @cached_property
     def changed_data(self):
         changed_data = super().changed_data
 
