@@ -627,7 +627,7 @@ class SimilarityFilterTests(TestCase):
 
 
 class AutoResponsesFilterTests(TestCase):
-    @ classmethod
+    @classmethod
     def setUpTestData(cls):
         report_1 = Report.objects.create(**SAMPLE_REPORT_1)
         report_1.create_date = datetime(2022, 4, 12, 18, 17, 52, 0, tzinfo=pytz.utc)
