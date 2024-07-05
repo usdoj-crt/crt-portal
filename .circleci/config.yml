@@ -508,7 +508,7 @@ jobs:
       - *wait-for-tasks
       - run:
           name: dispose of reports
-          command: cf run-task crt-portal-django  -c "python crt_portal/manage.py dispose_reports" --name send-scheduled-notifications -m 512M -k 7G
+          command: cf run-task crt-portal-django  -c "python crt_portal/manage.py dispose_reports" --name dispose-reports -m 512M -k 7G
 
   dev-maintenance-tasks:
     docker:
@@ -556,7 +556,7 @@ jobs:
       - *wait-for-tasks
       - run:
           name: dispose of reports
-          command: cf run-task crt-portal-django  -c "python crt_portal/manage.py dispose_reports" --name send-scheduled-notifications -m 512M -k 7G
+          command: cf run-task crt-portal-django  -c "python crt_portal/manage.py dispose_reports" --name dispose-reports -m 512M -k 7G
 
   dev-jupyter-tasks:
     docker:
