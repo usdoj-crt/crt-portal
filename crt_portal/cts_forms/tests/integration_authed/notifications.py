@@ -69,40 +69,6 @@ def _get_email_content(page):
 
 @pytest.mark.only_browser("chromium")
 @console.raise_errors(ignore='404')
-def test_group_saved_search_notification(page):
-    username = login_as_superuser(page)
-    admin_models.create(
-        page,
-        '/admin/auth/group/add/',
-        name='Group Integration Test',
-    )
-    saved_search = admin_models.create(
-        page,
-        '/admin/cts_forms/savedsearch',
-        name='Saved Search Integration Test - group notifications',
-        query='status=new&status=open&violation_summary=%22group!%22&no_status=false&grouping=default',
-        shared=True,
-    )
-    page.goto('/admin/auth/group/')
-    with page.expect_navigation():
-        page.locator('a').filter(has_text='Group Integration Test').click()
-    option = page.locator(f'option[title="{username}"]')
-    add_link = page.locator("#add_id_group_preferences-0-admins")
-    option.click()
-    add_link.click()
-    page.goto(f'/form/saved-searches/{saved_search}')
-
-    assert page.locator('label').filter(has_text='Group Notifications').is_visible()
-    assert page.locator('label').filter(has_text='Group Integration Test').is_visible()
-    page.locator('label').filter(has_text='Weekly Digest').click()
-    with page.expect_navigation():
-        page.locator('button').filter(has_text='Apply changes').click()
-
-    assert page.locator('.usa-alert--success').is_visible()
-
-
-@pytest.mark.only_browser("chromium")
-@console.raise_errors(ignore='404')
 def test_notifications_send(page):
     login_as_superuser(page)
     username, _ = get_test_credentials()
@@ -162,3 +128,38 @@ def test_notifications_send(page):
     assert sent['subject'] == '[CRT Portal] weekly notification digest'
 
     assert 'new reports matching your search' in sent['body']
+
+
+@pytest.mark.only_browser("chromium")
+@console.raise_errors(ignore='404')
+def test_group_saved_search_notification(page):
+    login_as_superuser(page)
+    username, _ = get_test_credentials()
+    admin_models.create(
+        page,
+        '/admin/auth/group',
+        name='Group Integration Test',
+    )
+    saved_search = admin_models.create(
+        page,
+        '/admin/cts_forms/savedsearch',
+        name='Saved Search Integration Test - group notifications',
+        query='status=new&status=open&violation_summary=%22group!%22&no_status=false&grouping=default',
+        shared=True,
+    )
+    page.goto('/admin/auth/group/')
+    with page.expect_navigation():
+        page.locator('a').filter(has_text='Group Integration Test').click()
+    option = page.locator(f'option[title="{username}"]')
+    add_link = page.locator("#add_id_group_preferences-0-admins")
+    option.click()
+    add_link.click()
+    page.goto(f'/form/saved-searches/{saved_search}')
+
+    assert page.locator('label').filter(has_text='Group Notifications').is_visible()
+    assert page.locator('label').filter(has_text='Group Integration Test').is_visible()
+    page.locator('label').filter(has_text='Weekly Digest').click()
+    with page.expect_navigation():
+        page.locator('button').filter(has_text='Apply changes').click()
+
+    assert page.locator('.usa-alert--success').is_visible()
