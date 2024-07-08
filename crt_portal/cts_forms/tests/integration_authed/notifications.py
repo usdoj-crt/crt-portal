@@ -1,4 +1,3 @@
-from django.contrib.auth.models import Group
 import pytest
 
 from cts_forms.tests.integration_authed.auth import login_as_superuser, get_test_credentials
@@ -77,7 +76,6 @@ def test_group_saved_search_notification(page):
         '/admin/auth/group/add/',
         name='Group Integration Test',
     )
-    group_id = Group.objects.filter(name='Group Integration Test').first().pk
     saved_search = admin_models.create(
         page,
         '/admin/cts_forms/savedsearch',
@@ -85,7 +83,9 @@ def test_group_saved_search_notification(page):
         query='status=new&status=open&violation_summary=%22group!%22&no_status=false&grouping=default',
         shared=True,
     )
-    page.goto(f'/admin/auth/group/{group_id}/change/')
+    page.goto('/admin/auth/group/')
+    with page.expect_navigation():
+        page.locator('a').filter(has_text='Group Integration Test').click()
     option = page.locator(f'option[title="{username}"]')
     add_link = page.locator("#add_id_group_preferences-0-admins")
     option.click()
