@@ -40,7 +40,7 @@ applications:
   routes:
   - route: crt-portal-jupyter-dev.app.cloud.gov
   memory: 2G
-  disk_quota: 6G
+  disk_quota: 7G
   instances: 1
   env:
     ENV: DEVELOP
