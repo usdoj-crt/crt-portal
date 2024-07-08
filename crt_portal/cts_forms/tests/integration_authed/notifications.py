@@ -150,10 +150,10 @@ def test_group_saved_search_notification(page):
     page.goto('/admin/auth/group/')
     with page.expect_navigation():
         page.locator('a').filter(has_text='Group Integration Test').click()
-    option = page.locator(f'option[title="{username}"]')
-    add_link = page.locator("#add_id_group_preferences-0-admins")
+    option = page.locator('option').filter(has_text=username)
     option.click()
-    add_link.click()
+    with page.expect_navigation():
+        page.click("input[type='submit']")
     page.goto(f'/form/saved-searches/{saved_search}')
 
     assert page.locator('label').filter(has_text='Group Notifications').is_visible()
