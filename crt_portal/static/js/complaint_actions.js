@@ -9,10 +9,10 @@
     if (count === 0) {
       actionNotificationEl.hidden = true;
     } else if (selectAllCheckbox.checked && totalReports) {
-      const val =
+      const numReports =
         totalReports.getAttribute('value') < 500 ? totalReports.getAttribute('value') : 500;
-      const recordsPlural = val === 1 ? ' record' : ' records';
-      countEl.innerText = val + recordsPlural;
+      const recordsPlural = numReports === 1 ? ' record' : ' records';
+      countEl.innerText = numReports + recordsPlural;
       selectionWarning.hidden = !(totalReports.getAttribute('value') > 500);
       actionNotificationEl.hidden = false;
     } else {

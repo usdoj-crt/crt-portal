@@ -1177,8 +1177,7 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
             shared_report_fields[key] = value
         shared_report_fields['date_range'] = self.get_report_date_range(requested_query)
         # Limit the count to 500 here because we have to display all the reports we're batching in a table
-        if requested_query.count() > 500:
-            requested_query = requested_query[:500]
+        requested_query = requested_query[:500]
         all_ids_count = requested_query.count()
         ids_count = len(ids)
 
@@ -1235,8 +1234,7 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
         uuid = request.POST.get('uuid', None)
         if confirm_all:
             requested_query = reconstruct_query(query_string)
-            if requested_query.count() > 500:
-                requested_query = requested_query[:500]
+            requested_query.count() > 500
             selected_report_args = 'all=all'
         else:
             requested_query = Report.objects.filter(pk__in=ids)
@@ -1282,8 +1280,7 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
             for key, value in self.get_shared_report_values(requested_query, keys):
                 shared_report_fields[key] = value
             shared_report_fields['date_range'] = self.get_report_date_range(requested_query)
-            if requested_query.count() > 500:
-                requested_query = requested_query[:500]
+            requested_query.count() > 500
             all_ids_count = requested_query.count()
             ids_count = len(ids)
 
