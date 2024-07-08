@@ -79,14 +79,14 @@
 
     {% include 'forms/complaint_view/notifications/preference.html' with preferences=notification_preferences choices=notification_choices title="Notifications" key=form.saved_search_field %}
     {% if group_data %}
-      <div>
+      <div class="group-notifications-container">
         <label class="intake-label margin-top-3">
           Group Notifications
         </label>
-      </div>
       {% for group in group_data %}
         {% include 'forms/complaint_view/notifications/preference.html' with preferences=group.notification_preferences choices=group.notification_choices title="Notifications" key=group.field_name group=group.group %}
       {% endfor %}
+      </div>
     {% endif %}
     <div class="intake-section apply-discard">
       <button class="usa-button" type="submit" name='type'>Apply changes</button>

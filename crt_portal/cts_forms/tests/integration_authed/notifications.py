@@ -158,7 +158,7 @@ def test_group_saved_search_notification(page):
 
     assert page.locator('label').filter(has_text='Group Notifications').is_visible()
     assert page.locator('label').filter(has_text='Group Integration Test').is_visible()
-    page.locator('label').filter(has_text='Weekly Digest').click()
+    page.locator('.group-notifications-container label').filter(has_text='Weekly Digest').click()
     with page.expect_navigation():
         page.locator('button').filter(has_text='Apply changes').click()
 
