@@ -150,7 +150,7 @@ def test_group_saved_search_notification(page):
     page.goto('/admin/auth/group/')
     with page.expect_navigation():
         page.locator('a').filter(has_text='Group Integration Test').click()
-    option = page.locator('option').filter(has_text=username)
+    option = page.locator('#id_group_preferences-0-admins > option').filter(has_text=username)
     option.click()
     with page.expect_navigation():
         page.click("input[type='submit']")
