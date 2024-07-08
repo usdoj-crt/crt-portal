@@ -135,7 +135,7 @@ def _get_tags_plaintext(field_content):
     return f'{section} - {name}'
 
 
-@ register.filter(name='get_field_plaintext')
+@register.filter(name='get_field_plaintext')
 def get_field_plaintext(field_content, field_name) -> str:
     if field_name == 'tags':
         return _get_tags_plaintext(field_content)
