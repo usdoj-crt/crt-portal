@@ -1168,9 +1168,6 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
             requested_query = Report.objects.filter(pk__in=ids)
             selected_report_args = reconstruct_id_args(ids)
 
-        if requested_query.count() > 500:
-            raise BadRequest
-
         disposition_status = request.GET.get('disposition_status', 'past')
         _, query_filters = report_filter(QueryDict(query_string))
         filter_args = f'{get_filter_args(query_filters)}'
@@ -1179,6 +1176,8 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
         for key, value in self.get_shared_report_values(requested_query, keys):
             shared_report_fields[key] = value
         shared_report_fields['date_range'] = self.get_report_date_range(requested_query)
+        # Limit the count to 500 here because we have to display all the reports we're batching in a table
+        requested_query = requested_query[:500]
         all_ids_count = requested_query.count()
         ids_count = len(ids)
 
@@ -1235,13 +1234,11 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
         uuid = request.POST.get('uuid', None)
         if confirm_all:
             requested_query = reconstruct_query(query_string)
+            requested_query.count() > 500
             selected_report_args = 'all=all'
         else:
             requested_query = Report.objects.filter(pk__in=ids)
             selected_report_args = reconstruct_id_args(ids)
-
-        if requested_query.count() > 500:
-            raise BadRequest
 
         if not uuid:
             batch = ReportDispositionBatch.objects.create()
@@ -1283,6 +1280,7 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
             for key, value in self.get_shared_report_values(requested_query, keys):
                 shared_report_fields[key] = value
             shared_report_fields['date_range'] = self.get_report_date_range(requested_query)
+            requested_query.count() > 500
             all_ids_count = requested_query.count()
             ids_count = len(ids)
 

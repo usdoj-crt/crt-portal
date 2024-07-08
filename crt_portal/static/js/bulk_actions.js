@@ -3,7 +3,7 @@
   AriaAutocomplete(select, {});
 
   var comment_field = document.getElementById('id_comment');
-  const disposed_by = document.getElementById('id_disposed_by');
+  const disposed_by = document.getElementById('disposed_by');
   if (!comment_field && !disposed_by) {
     return; // This is the print view, no actions are shown.
   }
@@ -33,11 +33,11 @@
     warning_section.removeAttribute('hidden');
     if (is_partial) {
       warning_count_all.setAttribute('hidden', 'hidden');
-      warning_count_partial.removeAttribute('hidden');
+      warning_count_partial?.removeAttribute('hidden');
       confirm_button.setAttribute('value', 'none');
     } else {
       warning_count_all.removeAttribute('hidden');
-      warning_count_partial.setAttribute('hidden', 'hidden');
+      warning_count_partial?.setAttribute('hidden', 'hidden');
       confirm_button.setAttribute('value', 'confirm_all');
     }
   };

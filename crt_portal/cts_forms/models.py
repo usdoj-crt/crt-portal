@@ -815,8 +815,10 @@ class ReportDispositionBatch(models.Model):
         """Creates a batch of disposed reports."""
         if not user:
             raise ValueError("Cannot determine the current user for report disposal.")
-
-        queryset.all().update(batched_for_disposal=True)
+        # Creating a new queryset by filtering by id so we can update the
+        # batched_for_disposal field after limiting the record number to 500
+        ids = queryset.values_list('pk', flat=True)
+        Report.objects.filter(pk__in=list(ids)).update(batched_for_disposal=True)
         ReportDisposition.objects.bulk_create([
             ReportDisposition(
                 schedule=report.retention_schedule,
