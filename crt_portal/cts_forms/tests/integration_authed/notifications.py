@@ -154,7 +154,7 @@ def test_group_saved_search_notification(page):
     option.click()
     with page.expect_navigation():
         page.click("input[type='submit']")
-    page.goto(f'/form/saved-searches/{saved_search}')
+    page.goto(f'/form/saved-searches/actions/{saved_search}')
 
     assert page.locator('label').filter(has_text='Group Notifications').is_visible()
     assert page.locator('label').filter(has_text='Group Integration Test').is_visible()
