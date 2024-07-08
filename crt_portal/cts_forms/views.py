@@ -1634,14 +1634,15 @@ class SavedSearchActionView(LoginRequiredMixin, View):
         group_data = []
         group_notification_preference = 'none'
         for group in Group.objects.all():
-            if hasattr(group, 'group_preferences') and self.is_group_admin(user, group):
-                group_notification_preference = group.group_preferences.saved_searches.get(str(id), 'none')
-                group_data.append({
-                    'group': group,
-                    'notification_preferences': group_notification_preference,
-                    'field_name': f'group_{group.id}_saved_search_{id}',
-                    'notification_choices': NOTIFICATION_PREFERENCE_CHOICES['group_saved_search'],
-                })
+            if not hasattr(group, 'group_preferences') or not self.is_group_admin(user, group):
+                continue
+            group_notification_preference = group.group_preferences.saved_searches.get(str(id), 'none')
+            group_data.append({
+                'group': group,
+                'notification_preferences': group_notification_preference,
+                'field_name': f'group_{group.id}_saved_search_{id}',
+                'notification_choices': NOTIFICATION_PREFERENCE_CHOICES['group_saved_search'],
+            })
         return group_data
 
     def get(self, request, id=None):
@@ -1666,10 +1667,12 @@ class SavedSearchActionView(LoginRequiredMixin, View):
             notification_preferences = request.user.notification_preference
         else:
             notification_preferences = NotificationPreference(user=request.user)
-        if name:
-            saved_search_form = SavedSearchActions(request.GET, instance=saved_search, user=request.user, group_data=group_data, notification_preferences=notification_preferences)
-        else:
-            saved_search_form = SavedSearchActions(query=query, instance=saved_search, user=request.user, group_data=group_data, notification_preferences=notification_preferences)
+        saved_search_form = SavedSearchActions(
+            request.GET if name else query,
+            instance=saved_search,
+            user=request.user,
+            group_data=group_data,
+            notification_preferences=notification_preferences)
         output = {
             'form': saved_search_form,
             'section_filter': section_filter,

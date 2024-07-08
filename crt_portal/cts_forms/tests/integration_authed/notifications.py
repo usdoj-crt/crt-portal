@@ -1,3 +1,4 @@
+from django.contrib.auth.models import Group
 import pytest
 
 from cts_forms.tests.integration_authed.auth import login_as_superuser, get_test_credentials
@@ -65,6 +66,39 @@ def _get_email_content(page):
         filters={'recipient__contains': 'notifications_test@example.com'},
         fields=['subject', 'body'],
     )
+
+
+@pytest.mark.only_browser("chromium")
+@console.raise_errors(ignore='404')
+def test_group_saved_search_notification(page):
+    username = login_as_superuser(page)
+    admin_models.create(
+        page,
+        '/admin/auth/group/add/',
+        name='Group Integration Test',
+    )
+    group_id = Group.objects.filter(name='Group Integration Test').first().pk
+    saved_search = admin_models.create(
+        page,
+        '/admin/cts_forms/savedsearch',
+        name='Saved Search Integration Test - group notifications',
+        query='status=new&status=open&violation_summary=%22group!%22&no_status=false&grouping=default',
+        shared=True,
+    )
+    page.goto(f'/admin/auth/group/{group_id}/change/')
+    option = page.locator(f'option[title="{username}"]')
+    add_link = page.locator("#add_id_group_preferences-0-admins")
+    option.click()
+    add_link.click()
+    page.goto(f'/form/saved-searches/{saved_search}')
+
+    assert page.locator('label').filter(has_text='Group Notifications').is_visible()
+    assert page.locator('label').filter(has_text='Group Integration Test').is_visible()
+    page.locator('label').filter(has_text='Weekly Digest').click()
+    with page.expect_navigation():
+        page.locator('button').filter(has_text='Apply changes').click()
+
+    assert page.locator('.usa-alert--success').is_visible()
 
 
 @pytest.mark.only_browser("chromium")

@@ -2925,7 +2925,7 @@ class SavedSearchActions(ModelForm):
     def is_member(self, user, group_name):
         return user.groups.filter(name=group_name).exists()
 
-    def __init__(self, *args, query=None, user=None, group_data=[], notification_preferences=None, **kwargs):
+    def __init__(self, *args, query=None, user=None, group_data=None, notification_preferences=None, **kwargs):
         self.user = user
         self.group_data = group_data
         ModelForm.__init__(self, *args, **kwargs)
