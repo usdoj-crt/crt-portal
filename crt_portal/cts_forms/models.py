@@ -12,9 +12,10 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.postgres.indexes import GinIndex
 from django.contrib.postgres.search import SearchVectorField
-from django.core.exceptions import ValidationError
+from django.core.exceptions import ValidationError, FieldDoesNotExist
 from django.core.validators import MaxValueValidator, RegexValidator
 from django.db import connection, models, transaction
+from django.db.models import fields
 from django.template import Context, Template
 from django.urls import reverse
 from django.utils import translation
@@ -403,8 +404,22 @@ class Tag(models.Model):
         return self.name
 
 
+class ReportManager(models.Manager):
+    def get_queryset(self):
+        return super(ReportManager, self).get_queryset().filter(disposed=False)
+
+
+class DisposedReportManager(models.Manager):
+    def get_queryset(self):
+        return super(DisposedReportManager, self).get_queryset().filter(disposed=True)
+
+
 # NOTE: If you add fields to report, they'll automatically be set to empty on the edit form. Make sure to address any additions in ReportEditForm as well!
 class Report(models.Model):
+
+    objects = ReportManager()
+    disposed_objects = DisposedReportManager()
+
     PRIMARY_COMPLAINT_DEPENDENT_FIELDS = {
         'workplace': ['public_or_private_employer', 'employer_size'],
         'education': ['public_or_private_school'],
@@ -544,6 +559,80 @@ class Report(models.Model):
 
     class Meta:
         indexes = [GinIndex(fields=['violation_summary_search_vector'])]
+
+    def redact(self):
+        """Removes all information from the report besides its ID"""
+
+        if self.litigation_hold:
+            logger.error(f'Attempted to redact report {self.public_id} while on litigation hold.')
+            return
+
+        self.disposed = True
+
+        if not settings.REDACT_REPORTS:
+            self.save()
+            return
+
+        ignore = [
+            'id',
+            'public_id',
+            'modified_date',
+            'retention_schedule',
+            'batched_for_disposal',
+            'disposed',
+            'email_report_count',
+        ]
+
+        to_redact = [
+            field
+            for field in self._meta.get_fields()
+            if field.name not in ignore
+        ]
+
+        for field in to_redact:
+            # Clear out this field, no matter what type it is:
+
+            if field.is_relation:
+                if field.one_to_one:
+                    getattr(self, field.name).delete()
+                    continue
+
+                if field.one_to_many or field.name == 'internal_comments':
+                    try:
+                        setattr(self, field.name, None)
+                    except TypeError:
+                        getattr(self, field.name).all().delete()
+                    continue
+
+                if field.many_to_many:
+                    try:
+                        getattr(self, field.name).clear()
+                    except FieldDoesNotExist:
+                        pass
+                    continue
+
+            if field.null:
+                setattr(self, field.name, None)
+                continue
+
+            if field.blank:
+                blank = {
+                    fields.CharField: '',
+                    fields.TextField: '',
+                    fields.IntegerField: 0,
+                    fields.BooleanField: False,
+                    fields.DateTimeField: datetime.fromtimestamp(0),
+                }.get(type(field))
+                setattr(self, field.name, blank)
+                continue
+
+            if hasattr(field, 'default') and field.default != fields.NOT_PROVIDED:
+                setattr(self, field.name, field.default)
+                continue
+
+        print(f'Redacted report {self.public_id}')
+        self.save()
+        return
 
     @cached_property
     def last_incident_date(self):
@@ -828,6 +917,14 @@ class ReportDispositionBatch(models.Model):
             in queryset.all().select_related('retention_schedule').only('retention_schedule', 'public_id')
         ])
 
+    def redact_reports(self):
+        """Deletes (blanks out) all reports in the batch."""
+        public_ids = self.disposed_reports.values_list('public_id', flat=True)
+        reports = Report.objects.filter(public_id__in=public_ids).all()
+
+        for report in reports:
+            report.redact()
+
     @classmethod
     def dispose(cls, queryset):
         """Creates a batch of disposed reports."""
@@ -842,7 +939,6 @@ class ReportDispositionBatch(models.Model):
         with transaction.atomic():
             batch = cls.objects.create(disposed_by=user,
                                        disposed_count=queryset.count())
-            queryset.all().update(disposed=True)
             ReportDisposition.objects.bulk_create([
                 ReportDisposition(
                     schedule=report.retention_schedule,
