@@ -1400,14 +1400,24 @@ class BatchActionFormTests(TestCase):
         client.login(username='REVIEWER', password=self.test_pass)
         url = reverse('crt_forms:disposition-batch-actions', kwargs={'id': self.batch.uuid})
         params = {
-            'status': 'approved',
+            'status': 'verified',
             'first_review_date': datetime.today().strftime('%m/%d/%Y'),
             'first_reviewer': self.user_reviewer.pk,
         }
         response = client.post(url, params, follow=True)
         content = str(response.content)
+        self.assertIn('has been verified for disposal', content)
+
+        client.login(username='SECOND_REVIEWER', password=self.test_pass)
+        params = {
+            'status': 'approved',
+            'second_review_date': datetime.today().strftime('%m/%d/%Y'),
+            'second_reviewer': self.second_user_reviewer.pk,
+        }
+        response = client.post(url, params, follow=True)
+        content = str(response.content)
         self.assertEqual(response.status_code, 200)
-        self.assertTrue('has been approved for disposal' in content)
+        self.assertIn('has been approved for disposal', content)
 
     def test_reject_batch(self):
         client = Client()
