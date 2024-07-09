@@ -1667,12 +1667,10 @@ class SavedSearchActionView(LoginRequiredMixin, View):
             notification_preferences = request.user.notification_preference
         else:
             notification_preferences = NotificationPreference(user=request.user)
-        saved_search_form = SavedSearchActions(
-            request.GET if name else query,
-            instance=saved_search,
-            user=request.user,
-            group_data=group_data,
-            notification_preferences=notification_preferences)
+        if name:
+            saved_search_form = SavedSearchActions(request.GET, instance=saved_search, user=request.user, group_data=group_data, notification_preferences=notification_preferences)
+        else:
+            saved_search_form = SavedSearchActions(query=query, instance=saved_search, user=request.user, group_data=group_data, notification_preferences=notification_preferences)
         output = {
             'form': saved_search_form,
             'section_filter': section_filter,
