@@ -21,6 +21,7 @@ from django.urls import reverse
 from django.utils import translation
 from django.utils.functional import cached_property
 from django.utils.html import escape
+from django.contrib.auth.models import Group
 
 from utils import sanitize
 from utils.markdown_extensions import get_optionals, OptionalExtension, OptionalProcessor
@@ -108,6 +109,12 @@ class SavedSearch(models.Model):
     def save(self, *args, **kwargs):
         self._set_short_url()
         super().save(*args, **kwargs)
+
+
+class GroupPreferences(models.Model):
+    group = models.OneToOneField(Group, on_delete=models.CASCADE, related_name='group_preferences')
+    saved_searches = models.JSONField(default=dict, blank=True, help_text="Contains the notification cadence for each saved search. The key is the saved search ID, and the value is the cadence.")
+    admins = models.ManyToManyField(User, blank=True)
 
 
 class Profile(models.Model):

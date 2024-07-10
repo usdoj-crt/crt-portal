@@ -9,8 +9,8 @@ from django.apps import apps
 from django.conf import settings
 from django.contrib import admin
 from django.contrib.admin.widgets import AdminTextareaWidget
-from django.contrib.auth.admin import UserAdmin
-from django.contrib.auth.models import User
+from django.contrib.auth.admin import UserAdmin, GroupAdmin
+from django.contrib.auth.models import User, Group
 from django.contrib.postgres.aggregates import StringAgg
 from django.contrib import messages
 from django.core.management import call_command
@@ -34,7 +34,7 @@ from .model_variables import SECTION_CHOICES
 from .models import (CommentAndSummary, HateCrimesandTrafficking, Profile,
                      ProtectedClass, Report, ResponseTemplate, DoNotEmail,
                      JudicialDistrict, RetentionSchedule, RoutingSection, RoutingStepOneContact, Tag,
-                     VotingMode, Campaign, ReferralContact, BannerMessage, SavedSearch, NotificationPreference, ScheduledNotification, ApplicationContact)
+                     VotingMode, Campaign, ReferralContact, BannerMessage, SavedSearch, NotificationPreference, ScheduledNotification, ApplicationContact, GroupPreferences)
 from utils.request_utils import get_client_ip
 
 logger = logging.getLogger(__name__)
@@ -503,6 +503,23 @@ class ProfileInline(admin.StackedInline):
     fk_name = 'user'
 
 
+class GroupPreferencesInline(admin.StackedInline):
+    model = GroupPreferences
+    can_delete = False
+    verbose_name_plural = 'Group Preferences'
+    fk_name = 'group'
+
+
+class CustomGroupAdmin(GroupAdmin, CrtModelAdmin):
+    inlines = (GroupPreferencesInline, )
+    actions = (GroupAdmin.actions)
+
+    def get_inline_instances(self, request, obj=None):
+        if not obj:
+            return list()
+        return super().get_inline_instances(request, obj)
+
+
 class NotificationPreferenceInline(admin.StackedInline):
     model = NotificationPreference
     can_delete = True
@@ -608,3 +625,6 @@ admin.site.register(Action, ActionAdmin)
 
 admin.site.unregister(User)
 admin.site.register(User, CustomUserAdmin)
+
+admin.site.unregister(Group)
+admin.site.register(Group, CustomGroupAdmin)
