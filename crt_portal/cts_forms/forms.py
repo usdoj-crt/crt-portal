@@ -1000,6 +1000,7 @@ class ProForm(
         fields = \
             ['intake_format'] +\
             Contact.Meta.fields +\
+            ['contact_inmate_number'] +\
             ['primary_complaint'] +\
             ['hate_crime'] +\
             ['location_name', 'location_address_line_1', 'location_address_line_2',
@@ -1016,7 +1017,12 @@ class ProForm(
         all_widgets = {}
 
         widget_list = [
-            Contact.Meta.widgets,
+            {
+                **Contact.Meta.widgets,
+                'contact_inmate_number': TextInput(attrs={
+                    'class': 'usa-input'
+                }),
+            },
             # location widgets
             {
                 'location_name': TextInput(attrs={
@@ -1100,6 +1106,12 @@ class ProForm(
     def __init__(self, *args, **kwargs):
         ModelForm.__init__(self, *args, **kwargs)
         Contact.__init__(self, *args, **kwargs)
+        self.question_groups[1].fields = (
+            'contact_inmate_number',
+            *self.question_groups[1].fields,
+        )
+        self.fields['contact_inmate_number'].help_text = 'If this person is incarcerated, please provide their inmate number.'
+
         # CRT views only
         self.fields['intake_format'] = ChoiceField(
             choices=(
@@ -2633,7 +2645,7 @@ class ContactEditForm(LitigationHoldLock, ModelForm, ActivityStreamUpdater):
             'contact_first_name', 'contact_last_name',
             'contact_email', 'contact_phone', 'contact_address_line_1',
             'contact_address_line_2', 'contact_state',
-            'contact_city', 'contact_zip',
+            'contact_city', 'contact_zip', 'contact_inmate_number',
         ]
 
         widgets = {
@@ -2661,6 +2673,9 @@ class ContactEditForm(LitigationHoldLock, ModelForm, ActivityStreamUpdater):
                 'class': 'usa-input',
             }),
             'contact_zip': TextInput(attrs={
+                'class': 'usa-input',
+            }),
+            'contact_inmate_number': TextInput(attrs={
                 'class': 'usa-input',
             }),
         }
