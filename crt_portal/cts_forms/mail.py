@@ -151,6 +151,7 @@ def _render_scheduled_notification_mail(scheduled: ScheduledNotification) -> Mai
     digests = [
         _render_digests(kind, scheduled)
         for kind in ['assigned_to', *saved_search_groups]
+        if kind in scheduled.notifications
     ]
 
     html_message = render_to_string('scheduled_notification.html', {
