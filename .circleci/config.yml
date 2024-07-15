@@ -23,7 +23,7 @@ install-python-dev-dependencies: &install-python-dev-dependencies
       du -h -d 1 /tmp/
       pip install -U pip
       pip install pipenv
-      pipenv install --dev --clear --extra-pip-args '--no-cache-dir'
+      pipenv install --dev --clear --extra-pip-args '--prefer-binary --no-cache-dir'
       pipenv run python -m playwright install
       du -h -d 1 /home/vcap/
       du -h -d 1 /tmp/
