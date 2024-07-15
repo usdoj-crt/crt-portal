@@ -18,10 +18,15 @@ install-python-dev-dependencies: &install-python-dev-dependencies
   run:
     name: Install python dev dependencies
     command: |
+      echo "pipdebug"
+      du -h -d 1 /home/vcap/
+      du -h -d 1 /tmp/
       pip install -U pip
       pip install pipenv
-      pipenv install --dev
+      pipenv install --dev --clear --extra-pip-args '--no-cache-dir'
       pipenv run python -m playwright install
+      du -h -d 1 /home/vcap/
+      du -h -d 1 /tmp/
 
 wait-for-tasks: &wait-for-tasks
   # Each task starts a container, which counts towards our RAM limit
@@ -644,7 +649,10 @@ commands:
 workflows:
   build-test-deploy:
     jobs:
-      - build_and_test
+      - deploy-dev:
+          filters:
+            branches:
+              only: kk/pipspace
 
       - owasp-scan-dev:
           filters:
@@ -662,13 +670,6 @@ workflows:
           filters:
             branches:
               only: master
-
-      - deploy-dev:
-          requires:
-            - build_and_test
-          filters:
-            branches:
-              only: develop
 
       - deploy-stage:
           requires:
