@@ -291,6 +291,7 @@ class ReportTests(TestCase):
             ('contact_city', 'Anytown', None),
             ('contact_state', 'FL', None),
             ('contact_zip', '12345', None),
+            ('contact_inmate_number', '12345', None),
 
             ('emails', report.emails.all(), []),
 
