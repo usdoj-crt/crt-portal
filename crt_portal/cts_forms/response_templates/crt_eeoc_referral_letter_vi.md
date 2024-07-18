@@ -1,5 +1,5 @@
 ---
-title: CRT - EEOC Referral Letter (Vietnamese)
+title: ELS - Form letter (Vietnamese)
 subject: "Hồi đáp: Báo Cáo của Ban Dân Quyền của Quý Vị - {{ record_locator }} từ Phòng {{ vi.section_name }}"
 language: vi
 ---

@@ -1,5 +1,5 @@
 ---
-title: CRT - EEOC Referral Letter (Tagalog)
+title: ELS - Form letter (Tagalog)
 subject: "Tugon: Ang Iyong Ulat sa Dibisyon sa Mga Karapatang Sibil – {{ record_locator }} mula sa Seksyon na {{ tl.section_name }}"
 language: tl
 ---
