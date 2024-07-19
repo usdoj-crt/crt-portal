@@ -1,3 +1,8 @@
+import logging
+import mimetypes
+import boto3
+from botocore.client import Config
+from botocore.exceptions import ClientError
 from api.filters import form_letters_filter, reports_accessed_filter, autoresponses_filter, report_cws
 from django.utils.html import mark_safe
 from api.serializers import ReportSerializer, ResponseTemplateSerializer, RelatedReportSerializer
@@ -5,13 +10,13 @@ from utils.pdf import convert_html_to_pdf
 from cts_forms.filters import report_filter
 from cts_forms.mail import mail_to_complainant, mail_to_agency, build_letters, build_preview
 from utils.markdown_extensions import CustomHTMLExtension, OptionalExtension
-from cts_forms.models import Report, ResponseTemplate
+from cts_forms.models import Report, ResponseTemplate, ProformAttachment
 from cts_forms.views import mark_report_as_viewed, mark_reports_as_viewed
 from cts_forms.forms import add_activity
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, JsonResponse
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.template import Context, Template
 from rest_framework import generics
 from rest_framework import permissions
@@ -20,6 +25,8 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
 from rest_framework.views import APIView
+from django.http import Http404
+from datetime import datetime
 import frontmatter
 import base64
 import json
@@ -44,7 +51,8 @@ def api_root(request, format=None):
         'related-reports': reverse('api:related-reports', request=request, format=format),
         'form-letters': reverse('api:form-letters', request=request, format=format),
         'report-cws': reverse('api:report-cws', request=request, format=format),
-        'response-action': reverse('api:response-action', request=request, format=format)
+        'response-action': reverse('api:response-action', request=request, format=format),
+        'proform-attachment-action': reverse('api:proform-attachment-action', request=request, format=format)
     })
 
 
@@ -396,3 +404,87 @@ class ResponseAction(APIView):
         description = f"{action}: '{template.title}' to {addressee} via {self.MAIL_SERVICE}"
         add_activity(request.user, f"Contacted {recipient}:", description, report)
         return JsonResponse({'response': description})
+
+
+class ProformAttachmentView(APIView):
+    """
+    API endpoint that enables adding attachments to the proform
+
+
+    Example: api/proform-attachment-action/
+    """
+
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request) -> JsonResponse:
+        action = request.POST.get('action')
+        file = request.FILES.get('file')
+        if action == 'add':
+            try:
+                attachment = ProformAttachment.objects.create(file=file)
+
+                # this is the filename that the user sees
+                attachment.filename = attachment.file.name
+
+                # this is the filename that gets stored in S3
+                suffix = datetime.now().strftime('%Y%m%d%H%M%S%f')
+                attachment.file.name = f'{attachment.id}-{suffix}'
+                attachment.save()
+                verb = 'Attached file: '
+
+                # add_activity(request.user, verb, attachment.filename, instance=attachment)
+            except Exception as e:
+                return JsonResponse({'response': f'File attachment {attachment.filename} failed: {e}'}, status=502)
+
+        if action == 'remove':
+            attachment_id = request.POST.get('attachment_id')
+            attachment = get_object_or_404(ProformAttachment, pk=attachment_id)
+            attachment.active = False
+            attachment.save()
+
+        return JsonResponse({'response': f'File {attachment.filename} was successfully {action}ed', 'id': attachment.id, })
+
+    def get(self, request) -> JsonResponse:
+        """
+        Download a particular attachment for a report
+        """
+        attachment_id = request.GET.get('attachment_id')
+        attachment = get_object_or_404(ProformAttachment, pk=attachment_id)
+
+        if settings.ENABLE_LOCAL_ATTACHMENT_STORAGE:
+            try:
+                file = open(attachment.file.name, 'rb')
+                mime_type, _ = mimetypes.guess_type(attachment.filename)
+                response = HttpResponse(file, content_type=mime_type)
+                response.headers['Content-Disposition'] = f'attachment;filename={attachment.filename}'
+                return response
+
+            except FileNotFoundError:
+                raise Http404(f'File {attachment.filename} not found.')
+
+        else:
+            # Generate a presigned URL for the S3 object
+            s3_client = boto3.client(
+                service_name='s3',
+                region_name=settings.PRIV_S3_REGION,
+                aws_access_key_id=settings.PRIV_S3_ACCESS_KEY_ID,
+                aws_secret_access_key=settings.PRIV_S3_SECRET_ACCESS_KEY,
+                endpoint_url=settings.PRIV_S3_ENDPOINT_URL,
+                config=Config(signature_version='s3v4'))
+
+            try:
+                response = s3_client.generate_presigned_url(
+                    'get_object',
+                    Params={
+                        'Bucket': settings.PRIV_S3_BUCKET,
+                        'Key': attachment.file.name,
+                        'ResponseContentDisposition': f'attachment;filename={attachment.filename}'
+                    },
+                    ExpiresIn=30,
+                )
+
+                return redirect(response)
+
+            except ClientError as e:
+                logging.error(e)
+                raise Http404(f'File {attachment.filename} not found.')

@@ -102,6 +102,15 @@
 
 <div class="crt-portal-card">
   <div class="crt-portal-card__content crt-portal-card__content--lg">
+    <h2 class="h1" id="date">Attachments</h2>
+    <div class="margin-top-3 display-flex flex-align-end grid-row">
+      {% include "forms/snippets/file_upload.html" with title="Attachments" %}
+    </div>
+  </div>
+</div>
+
+<div class="crt-portal-card">
+  <div class="crt-portal-card__content crt-portal-card__content--lg">
     <h2 class="h1" id="personal-description">Personal Description</h2>
     <div class="margin-top-3">
       {% include "forms/question_cards/single_question.html" with field=form.violation_summary card_title="Personal Description" %}
@@ -127,6 +136,9 @@
     };
   })(window)
 </script>
+<script src="{% static 'vendor/js.cookie.min.js' %}"></script>
+<script src="{% static 'js/modal.min.js' %}"></script>
+<script src="{% static 'js/pro_form_attachments.min.js' %}"></script>
 <script src="{% static 'js/disable_submit_button.min.js' %}"></script>
 <script src="{% static 'js/pro_form_show_hide.min.js' %}"></script>
 <script src="{% static 'js/autofill_current_date.min.js' %}"></script>

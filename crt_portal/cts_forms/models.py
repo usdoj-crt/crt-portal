@@ -967,6 +967,17 @@ class ReportDisposition(models.Model):
     rejected = models.BooleanField(default=False)
 
 
+class ProformAttachment(models.Model):
+    file = models.FileField(upload_to='attachments', validators=[validate_file_attachment])
+    filename = models.CharField(max_length=255)
+    user = models.ForeignKey(User, blank=True, null=True, on_delete=models.SET_NULL)
+    created_date = models.DateTimeField(auto_now_add=True)
+    active = models.BooleanField(default=True)
+
+    def get_absolute_url(self):
+        return reverse('crt_forms:get-proform-attachment', kwargs={"attachment_id": self.id})
+
+
 class ReportAttachment(models.Model):
     file = models.FileField(upload_to='attachments', validators=[validate_file_attachment])
     filename = models.CharField(max_length=255)
