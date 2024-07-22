@@ -323,6 +323,14 @@ def render_group_view(request, profile_form, selected_assignee_id, selected_camp
 
 def render_default_view(request, profile_form, selected_assignee_id, selected_campaign_uuid):
     report_query, query_filters = report_filter(request.GET)
+
+    if 'public_id' in query_filters and Report.all_objects.filter(public_id__startswith=query_filters.get('public_id')[0], disposed=True).exists():
+        public_id = query_filters.get('public_id')[0].split('-')[0]
+        batch_id = ReportDisposition.objects.get(public_id__startswith=f'{public_id}-').batch_id
+        messages.add_message(request,
+                             messages.WARNING,
+                             mark_safe(f'This report ({public_id}) has been disposed and can not longer be viewed or recovered. <a href="/form/disposition/batch/{batch_id}">Click here to view the disposal batch</a>.'))
+
     final_data = get_view_data(request, report_query, query_filters)
     final_data.update({
         'profile_form': profile_form,
@@ -993,6 +1001,13 @@ class ShowView(LoginRequiredMixin, View):
     }
 
     def get(self, request, id):
+        if Report.all_objects.filter(pk=id, disposed=True).exists():
+            batch = get_object_or_404(ReportDisposition, public_id__startswith=f'{id}-')
+            messages.add_message(request,
+                                 messages.WARNING,
+                                 'This report has been disposed of as part of the following disposition batch and can no longer be viewed or recovered.')
+            return redirect(f'/form/disposition/batch/{batch.batch_id}')
+
         report = get_object_or_404(Report.objects.prefetch_related('attachments'), pk=id)
         # If a user has an email, it is looked up in the table to see if they are a repeat writer and add the count to the report.
         if report.contact_email:
@@ -1344,7 +1359,7 @@ class DispositionBatchActionsView(LoginRequiredMixin, FormView):
         batch = get_object_or_404(ReportDispositionBatch, pk=id)
         report_dispo_objects = ReportDisposition.objects.filter(batch=batch)
         report_public_ids = report_dispo_objects.values_list('public_id', flat=True)
-        reports = Report.objects.filter(public_id__in=report_public_ids).order_by('pk')
+        reports = Report.all_objects.filter(public_id__in=report_public_ids).order_by('pk')
         report_ids = list(reports.values_list('pk', flat=True))
         first_report = reports.first()
         page = request.GET.get('page', 1)
