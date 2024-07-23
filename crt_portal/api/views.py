@@ -12,7 +12,7 @@ from cts_forms.mail import mail_to_complainant, mail_to_agency, build_letters, b
 from utils.markdown_extensions import CustomHTMLExtension, OptionalExtension
 from cts_forms.models import Report, ResponseTemplate, ProformAttachment
 from cts_forms.views import mark_report_as_viewed, mark_reports_as_viewed
-from cts_forms.forms import add_activity
+from cts_forms.forms import add_activity, ProformAttachmentActions
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, JsonResponse
@@ -413,44 +413,39 @@ class ProformAttachmentView(APIView):
 
     Example: api/proform-attachment-action/
     """
-
+    form_class = ProformAttachmentActions
     permission_classes = (IsAuthenticated,)
 
     def post(self, request) -> JsonResponse:
         action = request.POST.get('action')
-        file = request.FILES.get('file')
         if action == 'add':
-            try:
-                attachment = ProformAttachment.objects.create(file=file)
+            attachment_form = self.form_class(request.POST, request.FILES)
+            if attachment_form.is_valid() and attachment_form.has_changed():
+                try:
+                    attachment = attachment_form.save(commit=False)
+                    attachment.save()
+                except Exception as e:
+                    return JsonResponse({'response': f'File attachment {attachment.filename} failed: {e}', 'type': 'error'}, status=502)
+            else:
+                for key in attachment_form.errors:
+                    errors = '; '.join(attachment_form.errors[key])
+                    error_message = f'Could not save attachment: {errors}'
+                    return JsonResponse({'response': error_message, 'type': 'error'})
 
-                # this is the filename that the user sees
-                attachment.filename = attachment.file.name
-
-                # this is the filename that gets stored in S3
-                suffix = datetime.now().strftime('%Y%m%d%H%M%S%f')
-                attachment.file.name = f'{attachment.id}-{suffix}'
-                attachment.save()
-                verb = 'Attached file: '
-
-                # add_activity(request.user, verb, attachment.filename, instance=attachment)
-            except Exception as e:
-                return JsonResponse({'response': f'File attachment {attachment.filename} failed: {e}'}, status=502)
-
-        if action == 'remove':
-            attachment_id = request.POST.get('attachment_id')
+        else:
+            attachment_id = int(request.POST.get('attachment_id'))
             attachment = get_object_or_404(ProformAttachment, pk=attachment_id)
             attachment.active = False
             attachment.save()
 
-        return JsonResponse({'response': f'File {attachment.filename} was successfully {action}ed', 'id': attachment.id, })
+        return JsonResponse({'response': f'File {attachment.filename} was successfully {action}', 'id': attachment.pk, 'name': attachment.filename, 'type': 'success' })
 
     def get(self, request) -> JsonResponse:
         """
         Download a particular attachment for a report
         """
-        attachment_id = request.GET.get('attachment_id')
+        attachment_id = int(request.GET['attachment_id'])
         attachment = get_object_or_404(ProformAttachment, pk=attachment_id)
-
         if settings.ENABLE_LOCAL_ATTACHMENT_STORAGE:
             try:
                 file = open(attachment.file.name, 'rb')
@@ -483,7 +478,7 @@ class ProformAttachmentView(APIView):
                     ExpiresIn=30,
                 )
 
-                return redirect(response)
+                return response
 
             except ClientError as e:
                 logging.error(e)

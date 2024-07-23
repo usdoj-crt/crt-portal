@@ -55,7 +55,7 @@ from .model_variables import (ACTION_CHOICES, CLOSED_STATUS, COMMERCIAL_OR_PUBLI
                               STATUS_CHOICES, STATUTE_CHOICES,
                               VIOLATION_SUMMARY_ERROR, WHERE_ERRORS,
                               HATE_CRIME_CHOICES, GROUPING, RETENTION_SCHEDULE_CHOICES)
-from .models import (CommentAndSummary,
+from .models import (CommentAndSummary, ProformAttachment,
                      ProtectedClass, Report, ReportDispositionBatch, ResponseTemplate, Profile, ReportAttachment, Campaign, RetentionSchedule, SavedSearch, get_system_user, Tag, NotificationPreference, GroupPreferences)
 from .phone_regex import phone_validation_regex
 from .question_group import QuestionGroup
@@ -2835,6 +2835,26 @@ class ReportEditForm(LitigationHoldLock, ProForm, ActivityStreamUpdater):
             self.summary_created = created
             self.summary = summary
         return report
+
+
+class ProformAttachmentActions(ModelForm):
+    class Meta:
+        model = ProformAttachment
+        fields = ['file']
+
+    def save(self, commit=True):
+        instance = ModelForm.save(self, commit=False)
+        # this is the filename that the user sees
+        instance.filename = instance.file.name
+
+        # this is the filename that gets stored in S3
+        suffix = datetime.now().strftime('%Y%m%d%H%M%S%f')
+        instance.file.name = f'{instance.pk}-{suffix}'
+
+        if commit:
+            instance.save()
+
+        return instance
 
 
 class AttachmentActions(ModelForm):
