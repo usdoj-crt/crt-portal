@@ -71,25 +71,33 @@ def _get_email_content(page):
 @console.raise_errors(ignore='404')
 def test_notifications_send(page):
     login_as_superuser(page)
+    report_id = admin_models.create_report(
+        page,
+        crt_reciept_month='12',
+        crt_reciept_day='25',
+        crt_reciept_year='2000',
+        intake_format_2='phone',
+        primary_complaint='something_else',
+    )
     username, _ = get_test_credentials()
 
     _set_user(page, username, '', 'individual')
-    page.goto('/form/view/1')
+    page.goto(f'/form/view/{report_id}')
     _set_assignee(page, '')
     _set_assignee(page, username)
     assert page.locator('.usa-alert--success').filter(has_text=f'{username} will not be notified because they do not have an email address listed').is_visible()
 
     _set_user(page, username, 'notifications_test@example.com', 'individual')
-    page.goto('/form/view/1')
+    page.goto(f'/form/view/{report_id}')
     _set_assignee(page, '')
     _set_assignee(page, username)
     assert page.locator('.usa-alert--success').filter(has_text=f'{username} will be notified').is_visible()
     sent = _get_email_content(page)
-    assert 'You have been assigned [Report 1](/form/view/1)' in sent['body']
-    assert sent['subject'] == '[CRT Portal] Assigned: Report 1'
+    assert f'You have been assigned [Report {report_id}](/form/view/{report_id})' in sent['body']
+    assert sent['subject'] == f'[CRT Portal] Assigned: Report {report_id}'
 
     _set_user(page, username, 'notifications_test@example.com', 'weekly')
-    page.goto('/form/view/1')
+    page.goto(f'/form/view/{report_id}')
     _set_assignee(page, '')
     _set_assignee(page, username)
     assert page.locator('.usa-alert--success').filter(has_text=f'{username} will be notified').is_visible()
@@ -128,3 +136,38 @@ def test_notifications_send(page):
     assert sent['subject'] == '[CRT Portal] weekly notification digest'
 
     assert 'new reports matching your search' in sent['body']
+
+
+@pytest.mark.only_browser("chromium")
+@console.raise_errors(ignore='404')
+def test_group_saved_search_notification(page):
+    login_as_superuser(page)
+    username, _ = get_test_credentials()
+    admin_models.create(
+        page,
+        '/admin/auth/group',
+        name='Group Integration Test',
+    )
+    saved_search = admin_models.create(
+        page,
+        '/admin/cts_forms/savedsearch',
+        name='Saved Search Integration Test - group notifications',
+        query='status=new&status=open&violation_summary=%22group!%22&no_status=false&grouping=default',
+        shared=True,
+    )
+    page.goto('/admin/auth/group/')
+    with page.expect_navigation():
+        page.locator('a').filter(has_text='Group Integration Test').click()
+    option = page.locator('#id_group_preferences-0-admins > option').filter(has_text=username)
+    option.click()
+    with page.expect_navigation():
+        page.click("input[type='submit']")
+    page.goto(f'/form/saved-searches/actions/{saved_search}')
+
+    assert page.locator('label').filter(has_text='Group Notifications').is_visible()
+    assert page.locator('label').filter(has_text='Group Integration Test').is_visible()
+    page.locator('.group-notifications-container label').filter(has_text='Weekly Digest').click()
+    with page.expect_navigation():
+        page.locator('button').filter(has_text='Apply changes').click()
+
+    assert page.locator('.usa-alert--success').is_visible()

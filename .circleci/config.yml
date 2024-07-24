@@ -30,7 +30,7 @@ wait-for-tasks: &wait-for-tasks
   run:
     name: Wait for maintenance tasks to complete
     command: |
-      sleep 300  # (Five minutes)
+      sleep 120  # (Two minutes)
 
 jobs:
   build_and_test: # runs not using Workflows must have a `build` job as entry point
@@ -38,7 +38,7 @@ jobs:
     working_directory: ~/code
     docker:
       # CircleCI Python images available at: https://hub.docker.com/r/cimg/python/
-      - image: cimg/python:3.12.3-browsers
+      - image: cimg/python:3.12.4-browsers
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
@@ -163,7 +163,7 @@ jobs:
     working_directory: ~/code
     docker:
       # CircleCI Python images available at: https://hub.docker.com/r/cimg/python/
-      - image: cimg/python:3.12.3-browsers
+      - image: cimg/python:3.12.4-browsers
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
     steps:
@@ -178,7 +178,7 @@ jobs:
     working_directory: ~/code
     docker:
       # CircleCI Python images available at: https://hub.docker.com/r/cimg/python/
-      - image: cimg/python:3.12.3-browsers
+      - image: cimg/python:3.12.4-browsers
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
     steps:
@@ -225,7 +225,7 @@ jobs:
     working_directory: ~/code
     docker:
       # standard docker python image
-      - image: python:3.12.3
+      - image: python:3.12.4
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
@@ -292,7 +292,7 @@ jobs:
   deploy-stage:
     working_directory: ~/code
     docker:
-      - image: python:3.12.3
+      - image: python:3.12.4
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
@@ -355,7 +355,7 @@ jobs:
     working_directory: ~/code
     docker:
       # CircleCI Python images available at: https://hub.docker.com/r/cimg/python/
-      - image: python:3.12.3
+      - image: python:3.12.4
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
@@ -505,6 +505,10 @@ jobs:
       - run:
           name: send scheduled notifications
           command: cf run-task crt-portal-django  -c "python crt_portal/manage.py send_scheduled_notifications" --name send-scheduled-notifications -m 512M -k 7G
+      - *wait-for-tasks
+      - run:
+          name: dispose of reports
+          command: cf run-task crt-portal-django  -c "python crt_portal/manage.py dispose_reports" --name dispose-reports -m 512M -k 7G
 
   dev-maintenance-tasks:
     docker:
@@ -549,6 +553,10 @@ jobs:
       - run:
           name: send scheduled notifications
           command: cf run-task crt-portal-django  -c "python crt_portal/manage.py send_scheduled_notifications" --name send-scheduled-notifications -m 512M -k 7G
+      - *wait-for-tasks
+      - run:
+          name: dispose of reports
+          command: cf run-task crt-portal-django  -c "python crt_portal/manage.py dispose_reports" --name dispose-reports -m 512M -k 7G
 
   dev-jupyter-tasks:
     docker:

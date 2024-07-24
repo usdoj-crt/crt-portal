@@ -1,5 +1,5 @@
 ---
-title: CRT - EEOC Referral Letter (Chinese Traditional)
+title: ELS - Form letter (Chinese Traditional)
 subject: "回應：您的民權司報告 - {{ zh_hant.section_name }}科的 {{ record_locator }}"
 language: zh-hant
 ---

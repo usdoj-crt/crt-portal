@@ -25,7 +25,7 @@ tblib = "*"
 pyshp = "*"
 
 [packages]
-django = "==4.2.11"
+django = "==4.2.14"
 gunicorn = "*"
 django-compressor = "*"
 django-compressor-toolkit = "*"
@@ -34,7 +34,7 @@ psycopg2-binary = "*"
 rcssmin = "*"
 django-formtools = "*"
 django-crequest = "*"
-django-auth-adfs = "1.11.6"
+django-auth-adfs = "1.14.0"
 django-oauth-toolkit = "*"
 django-cors-headers = "*"
 django-csp = "*"
@@ -67,9 +67,10 @@ ipywidgets = "*"
 plotly = "*"
 bokeh = "*"
 holoviews = "*"
+cryptography = ">=42.0.4"
 
 [requires]
-python_version = "3.12.3"
+python_version = "3.12.4"
 
 [pipenv]
 allow_prereleases = true

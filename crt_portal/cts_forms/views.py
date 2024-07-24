@@ -29,6 +29,7 @@ from analytics.models import AnalyticsFile, get_intake_notebooks
 from tms.models import TMSEmail
 from datetime import datetime
 from django.db.models.functions import ExtractYear, Cast, Concat
+from django.contrib.auth.models import Group
 
 from .attachments import ALLOWED_FILE_EXTENSIONS
 from .filters import report_filter, dashboard_filter, report_grouping
@@ -322,6 +323,14 @@ def render_group_view(request, profile_form, selected_assignee_id, selected_camp
 
 def render_default_view(request, profile_form, selected_assignee_id, selected_campaign_uuid):
     report_query, query_filters = report_filter(request.GET)
+
+    if 'public_id' in query_filters and Report.all_objects.filter(public_id__startswith=query_filters.get('public_id')[0], disposed=True).exists():
+        public_id = query_filters.get('public_id')[0].split('-')[0]
+        batch_id = ReportDisposition.objects.get(public_id__startswith=f'{public_id}-').batch_id
+        messages.add_message(request,
+                             messages.WARNING,
+                             mark_safe(f'This report ({public_id}) has been disposed and can not longer be viewed or recovered. <a href="/form/disposition/batch/{batch_id}">Click here to view the disposal batch</a>.'))
+
     final_data = get_view_data(request, report_query, query_filters)
     final_data.update({
         'profile_form': profile_form,
@@ -992,6 +1001,13 @@ class ShowView(LoginRequiredMixin, View):
     }
 
     def get(self, request, id):
+        if Report.all_objects.filter(pk=id, disposed=True).exists():
+            batch = get_object_or_404(ReportDisposition, public_id__startswith=f'{id}-')
+            messages.add_message(request,
+                                 messages.WARNING,
+                                 'This report has been disposed of as part of the following disposition batch and can no longer be viewed or recovered.')
+            return redirect(f'/form/disposition/batch/{batch.batch_id}')
+
         report = get_object_or_404(Report.objects.prefetch_related('attachments'), pk=id)
         # If a user has an email, it is looked up in the table to see if they are a repeat writer and add the count to the report.
         if report.contact_email:
@@ -1168,9 +1184,6 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
             requested_query = Report.objects.filter(pk__in=ids)
             selected_report_args = reconstruct_id_args(ids)
 
-        if requested_query.count() > 500:
-            raise BadRequest
-
         disposition_status = request.GET.get('disposition_status', 'past')
         _, query_filters = report_filter(QueryDict(query_string))
         filter_args = f'{get_filter_args(query_filters)}'
@@ -1179,6 +1192,8 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
         for key, value in self.get_shared_report_values(requested_query, keys):
             shared_report_fields[key] = value
         shared_report_fields['date_range'] = self.get_report_date_range(requested_query)
+        # Limit the count to 500 here because we have to display all the reports we're batching in a table
+        requested_query = requested_query[:500]
         all_ids_count = requested_query.count()
         ids_count = len(ids)
 
@@ -1235,13 +1250,11 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
         uuid = request.POST.get('uuid', None)
         if confirm_all:
             requested_query = reconstruct_query(query_string)
+            requested_query.count() > 500
             selected_report_args = 'all=all'
         else:
             requested_query = Report.objects.filter(pk__in=ids)
             selected_report_args = reconstruct_id_args(ids)
-
-        if requested_query.count() > 500:
-            raise BadRequest
 
         if not uuid:
             batch = ReportDispositionBatch.objects.create()
@@ -1283,6 +1296,7 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
             for key, value in self.get_shared_report_values(requested_query, keys):
                 shared_report_fields[key] = value
             shared_report_fields['date_range'] = self.get_report_date_range(requested_query)
+            requested_query.count() > 500
             all_ids_count = requested_query.count()
             ids_count = len(ids)
 
@@ -1345,7 +1359,7 @@ class DispositionBatchActionsView(LoginRequiredMixin, FormView):
         batch = get_object_or_404(ReportDispositionBatch, pk=id)
         report_dispo_objects = ReportDisposition.objects.filter(batch=batch)
         report_public_ids = report_dispo_objects.values_list('public_id', flat=True)
-        reports = Report.objects.filter(public_id__in=report_public_ids).order_by('pk')
+        reports = Report.all_objects.filter(public_id__in=report_public_ids).order_by('pk')
         report_ids = list(reports.values_list('pk', flat=True))
         first_report = reports.first()
         page = request.GET.get('page', 1)
@@ -1620,7 +1634,32 @@ class SavedSearchView(LoginRequiredMixin, FormView):
 
 
 class SavedSearchActionView(LoginRequiredMixin, View):
+
     form = SavedSearchActions
+
+    def is_group_admin(self, user, group):
+
+        if not hasattr(group.group_preferences, 'admins'):
+            return False
+        admins = group.group_preferences.admins.filter(username=user.username)
+        if user in admins:
+            return True
+        return False
+
+    def get_group_data(self, user, id):
+        group_data = []
+        group_notification_preference = 'none'
+        for group in Group.objects.all():
+            if not hasattr(group, 'group_preferences') or not self.is_group_admin(user, group):
+                continue
+            group_notification_preference = group.group_preferences.saved_searches.get(str(id), 'none')
+            group_data.append({
+                'group': group,
+                'notification_preferences': group_notification_preference,
+                'field_name': f'group_{group.id}_saved_search_{id}',
+                'notification_choices': NOTIFICATION_PREFERENCE_CHOICES['group_saved_search'],
+            })
+        return group_data
 
     def get(self, request, id=None):
         """
@@ -1639,16 +1678,15 @@ class SavedSearchActionView(LoginRequiredMixin, View):
         section_filter = request.GET.get('section_filter', '')
         saved_search_view = request.GET.get('saved_search_view', 'all')
         name = request.GET.get('name', None)
-        if name:
-            saved_search_form = SavedSearchActions(request.GET, instance=saved_search, user=request.user)
-        else:
-            saved_search_form = SavedSearchActions(query=query, instance=saved_search, user=request.user)
-
+        group_data = self.get_group_data(request.user, saved_search.id)
         if hasattr(request.user, 'notification_preference'):
             notification_preferences = request.user.notification_preference
         else:
             notification_preferences = NotificationPreference(user=request.user)
-
+        if name:
+            saved_search_form = SavedSearchActions(request.GET, instance=saved_search, user=request.user, group_data=group_data, notification_preferences=notification_preferences)
+        else:
+            saved_search_form = SavedSearchActions(query=query, instance=saved_search, user=request.user, group_data=group_data, notification_preferences=notification_preferences)
         output = {
             'form': saved_search_form,
             'section_filter': section_filter,
@@ -1656,6 +1694,7 @@ class SavedSearchActionView(LoginRequiredMixin, View):
             'filters': query_filters,
             'notification_choices': NOTIFICATION_PREFERENCE_CHOICES,
             'notification_preferences': notification_preferences,
+            'group_data': group_data,
         }
         if id:
             return render(request, 'forms/complaint_view/saved_searches/actions/update.html', output)
@@ -1671,7 +1710,12 @@ class SavedSearchActionView(LoginRequiredMixin, View):
             saved_search.created_by = request.user
         else:
             saved_search = get_object_or_404(SavedSearch, pk=id)
-        form = SavedSearchActions(request.POST, instance=saved_search, user=request.user)
+        group_data = self.get_group_data(request.user, saved_search.id)
+        if hasattr(request.user, 'notification_preference'):
+            notification_preferences = request.user.notification_preference
+        else:
+            notification_preferences = NotificationPreference(user=request.user)
+        form = SavedSearchActions(request.POST, instance=saved_search, user=request.user, group_data=group_data, notification_preferences=notification_preferences)
         if delete:
             saved_search.delete()
             messages.add_message(request, messages.SUCCESS, form.success_message(id, delete))
