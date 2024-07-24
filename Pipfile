@@ -70,7 +70,7 @@ holoviews = "*"
 cryptography = ">=42.0.4"
 
 [requires]
-python_version = "3.12.3"
+python_version = "3.12.4"
 
 [pipenv]
 allow_prereleases = true
