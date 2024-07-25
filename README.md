@@ -171,6 +171,9 @@ cf set-env crt-portal-django CHALLENGE_SECRET_KEY yoursecrethere
 # Note that prod does not need a defeat key, as we do not run e2e tests against prod.
 ```
 
+##### Configuration
+
+Some turnstile configuration needs to updated using API calls. See ./turnstile.sh for an example of how to do this.
 
 #### OAuth
 

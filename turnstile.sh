@@ -6,7 +6,7 @@
 # Follows the format at:
 # https://developers.cloudflare.com/api/operations/accounts-turnstile-widget-update
 #
-# Set the following environment variables:
+# Set the following environment variables in .env:
 # - TURNSTILE_ACCOUNTID
 #  - This can be found on https://dash.cloudflare.com/
 # - TURNSTILE_TOKEN
@@ -16,9 +16,8 @@
 #   - This can be found by running the "Configuration before" command below.
 #   - (You'll need your TURNSTILE_ACCOUNTID and TURNSTILE_TOKEN set to run this command)
 
-TURNSTILE_ACCOUNTID='DO NOT COMMIT THIS'
-TURNSTILE_TOKEN='DO NOT COMMIT THIS'
-TURNSTILE_SITEKEY='DO NOT COMMIT THIS'
+# Make sure to set your environment variables before running this script!
+. .env
 
 echo "Verifying token:"
 curl -s --request GET \
