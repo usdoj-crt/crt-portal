@@ -1,6 +1,6 @@
 {% if report.contact_first_name or report.contact_last_name or report.contact_address_line_1 or report.contact_city or report.contact_state or report.contact_zip or report.contact_email %}
 <p id="form-letterhead--addressee">
-  {% if report.contact_first_name %}{{ report.contact_first_name }}{% endif %} {% if report.contact_last_name %}{{ report.contact_last_name }}{% endif %}
+  {% if report.contact_first_name %}{{ report.contact_first_name }}{% endif %} {% if report.contact_last_name %}{{ report.contact_last_name }}{% endif %} {% if report.contact_inmate_number %}#{{ report.contact_inmate_number }}{% endif %}
   {% if report.contact_address_line_1 %}
     <br />
     {{ report.contact_address_line_1 }}

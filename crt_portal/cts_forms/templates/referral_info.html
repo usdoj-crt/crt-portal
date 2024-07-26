@@ -102,6 +102,10 @@
     <br />
     <h2>Complainant Contact Address</h2>
     <p>
+      {% if report.contact_inmate_number %}
+      <span>Inmate Number: #{{ report.contact_inmate_number|default:"—" }}</span>
+      <br />
+      {% endif %}
       <span>{{ report.contact_address_line_1|default:"—" }}</span>
       <br />
       <span>{{ report.contact_address_line_2|default:"—" }}</span>
