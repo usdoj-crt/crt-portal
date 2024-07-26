@@ -1213,7 +1213,7 @@ class ProForm(
             self.fields['violation_summary'].widget.attrs['aria-describedby'] = 'details-help-text'
             # CRT view only
             self.fields['violation_summary'].help_text = 'What did the person believe happened?'
-        if self.data:
+        if self.data and self.data.get('pro_form_attachment', None):
             pro_form_attachment = self.data['pro_form_attachment']
             self.fields['pro_form_attachment'].initial = pro_form_attachment
 
