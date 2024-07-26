@@ -71,25 +71,33 @@ def _get_email_content(page):
 @console.raise_errors(ignore='404')
 def test_notifications_send(page):
     login_as_superuser(page)
+    report_id = admin_models.create_report(
+        page,
+        crt_reciept_month='12',
+        crt_reciept_day='25',
+        crt_reciept_year='2000',
+        intake_format_2='phone',
+        primary_complaint='something_else',
+    )
     username, _ = get_test_credentials()
 
     _set_user(page, username, '', 'individual')
-    page.goto('/form/view/1')
+    page.goto(f'/form/view/{report_id}')
     _set_assignee(page, '')
     _set_assignee(page, username)
     assert page.locator('.usa-alert--success').filter(has_text=f'{username} will not be notified because they do not have an email address listed').is_visible()
 
     _set_user(page, username, 'notifications_test@example.com', 'individual')
-    page.goto('/form/view/1')
+    page.goto(f'/form/view/{report_id}')
     _set_assignee(page, '')
     _set_assignee(page, username)
     assert page.locator('.usa-alert--success').filter(has_text=f'{username} will be notified').is_visible()
     sent = _get_email_content(page)
-    assert 'You have been assigned [Report 1](/form/view/1)' in sent['body']
-    assert sent['subject'] == '[CRT Portal] Assigned: Report 1'
+    assert f'You have been assigned [Report {report_id}](/form/view/{report_id})' in sent['body']
+    assert sent['subject'] == f'[CRT Portal] Assigned: Report {report_id}'
 
     _set_user(page, username, 'notifications_test@example.com', 'weekly')
-    page.goto('/form/view/1')
+    page.goto(f'/form/view/{report_id}')
     _set_assignee(page, '')
     _set_assignee(page, username)
     assert page.locator('.usa-alert--success').filter(has_text=f'{username} will be notified').is_visible()

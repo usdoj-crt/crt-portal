@@ -1,5 +1,5 @@
 ---
-title: CRT - EEOC Referral Letter (Chinese Simplified)
+title: ELS - Form letter (Chinese Simplified)
 subject: "回应：您的民权司报告 - {{ zh_hans.section_name }}科的 {{ record_locator }}"
 language: zh-hans
 ---

@@ -240,7 +240,7 @@ class ReportTests(TestCase):
         report.save()
         report.redact()
         self.assertFalse(Report.objects.filter(pk=report.pk).exists())
-        self.assertTrue(Report.disposed_objects.filter(pk=report.pk).exists())
+        self.assertTrue(Report.all_objects.filter(pk=report.pk).exists())
 
     def test_report_disposes(self):
         Tag.objects.create(name='test tag')
@@ -291,6 +291,7 @@ class ReportTests(TestCase):
             ('contact_city', 'Anytown', None),
             ('contact_state', 'FL', None),
             ('contact_zip', '12345', None),
+            ('contact_inmate_number', '12345', None),
 
             ('emails', report.emails.all(), []),
 

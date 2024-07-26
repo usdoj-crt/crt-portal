@@ -416,16 +416,16 @@ class ReportManager(models.Manager):
         return super(ReportManager, self).get_queryset().filter(disposed=False)
 
 
-class DisposedReportManager(models.Manager):
+class AllReportManager(models.Manager):
     def get_queryset(self):
-        return super(DisposedReportManager, self).get_queryset().filter(disposed=True)
+        return super(AllReportManager, self).get_queryset().filter(disposed=True)
 
 
 # NOTE: If you add fields to report, they'll automatically be set to empty on the edit form. Make sure to address any additions in ReportEditForm as well!
 class Report(models.Model):
 
     objects = ReportManager()
-    disposed_objects = DisposedReportManager()
+    all_objects = AllReportManager()
 
     PRIMARY_COMPLAINT_DEPENDENT_FIELDS = {
         'workplace': ['public_or_private_employer', 'employer_size'],
@@ -449,6 +449,7 @@ class Report(models.Model):
     contact_city = models.CharField(max_length=700, null=True, blank=True)
     contact_state = models.CharField(max_length=100, null=True, blank=True, choices=STATES_AND_TERRITORIES)
     contact_zip = models.CharField(max_length=10, null=True, blank=True)
+    contact_inmate_number = models.CharField(max_length=225, null=True, blank=True)
     by_repeat_writer = models.BooleanField(default=False)
 
     servicemember = models.CharField(max_length=4, null=True, blank=True, choices=SERVICEMEMBER_CHOICES)

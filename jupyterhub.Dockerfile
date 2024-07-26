@@ -1,5 +1,5 @@
 # Pull base image. We use the python image instead of Jupyterhub to be more consistent with available Cloud Foundry buildpacks.
-FROM python:3.12.3
+FROM python:3.12.4
 
 # Brings output to the terminal
 ENV PYTHONDONTWRITEBYTECODE 1

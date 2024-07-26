@@ -9,7 +9,7 @@ from datetime import datetime
 from django.conf import settings
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
-from cts_forms.models import Report, ResponseTemplate, ScheduledNotification
+from cts_forms.models import Report, ResponseTemplate, ScheduledNotification, SavedSearch
 from tms.models import TMSEmail
 from utils.markdown_extensions import RelativeToAbsoluteLinkExtension, CustomHTMLExtension
 from utils.site_prefix import get_site_prefix
@@ -119,7 +119,7 @@ def _render_digest(notification):
     return f'[Report {report_id}](/form/view/{report_id})'
 
 
-def _render_digests(kind, scheduled):
+def _render_digests(kind, scheduled: ScheduledNotification):
     extensions = ['extra', 'sane_lists', 'admonition', 'nl2br', CustomHTMLExtension(), RelativeToAbsoluteLinkExtension(for_intake=True)]
     if kind == 'assigned_to':
         items = list(set([
@@ -135,7 +135,13 @@ def _render_digests(kind, scheduled):
         search_name = scheduled.notifications[kind]['name']
         new_reports = scheduled.notifications[kind]['new_reports']
         search_id = kind.split('_')[-1]
-        title = f'There are {new_reports} new reports matching your search "[{search_name}](/form/saved-searches/actions/{search_id})"'
+        try:
+            search = SavedSearch.objects.get(pk=int(search_id))
+        except SavedSearch.DoesNotExist:
+            return None
+        start_date = scheduled.created_at.isoformat().split('T')[0]
+        url = f'{search.get_absolute_url()}&create_date_start={start_date}'
+        title = f'There are {new_reports} new reports matching your search "[{search_name}]({url})"'
 
     return {
         'title': markdown.markdown(title, extensions=extensions),
@@ -153,6 +159,8 @@ def _render_scheduled_notification_mail(scheduled: ScheduledNotification) -> Mai
         for kind in ['assigned_to', *saved_search_groups]
         if kind in scheduled.notifications
     ]
+
+    digests = [digest for digest in digests if digest]
 
     html_message = render_to_string('scheduled_notification.html', {
         'digests': digests,

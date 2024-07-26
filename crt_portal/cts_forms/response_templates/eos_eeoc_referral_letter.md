@@ -4,6 +4,7 @@ subject: "Response: Your Civil Rights Division Report - {{ record_locator }} fro
 language: en
 html: true
 referral_contact: eeoc
+show_in_dropdown: false
 ---
 Re: Your Civil Rights Division Complaint – {{ record_locator }} from the Educational Opportunities Section
 

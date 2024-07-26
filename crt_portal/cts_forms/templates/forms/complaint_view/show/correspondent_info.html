@@ -54,7 +54,17 @@ class="edit-toggle-btn usa-button usa-button--unstyled button--edit margin-left-
             {{ data.contact_state|default:"—" }},
             {{ data.contact_zip|default:"—" }}</span>
         </td>
-    </tr>
+      </tr>
+
+      <tr>
+        <th>Inmate Number</th>
+        <td>
+          <div class="display-flex">
+            <span>{{ data.contact_inmate_number|default:"—" }}</span>
+          </div>
+        </td>
+      </tr>
+
     </table>
   </div>
 
