@@ -117,7 +117,7 @@ def validate_file_attachment(file):
     validate_file_size(file)
     validate_file_extension(file)
     validate_content_type(file)
-    # validate_file_infection(file)
+    validate_file_infection(file)
 
 
 def validate_email_address(email):
