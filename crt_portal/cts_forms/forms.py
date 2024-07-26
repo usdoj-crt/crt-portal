@@ -358,6 +358,9 @@ class Contact(ModelForm):
         if not hasattr(self, 'request'):
             return form_data
 
+        if not self.use_challenge:
+            return form_data
+
         client_defeat = self.request.headers.get('X-Challenge-Defeat')
         server_defeat = settings.CHALLENGE['DEFEAT_KEY']
         if server_defeat and client_defeat == server_defeat:
@@ -389,9 +392,11 @@ class Contact(ModelForm):
         self.add_error(None, _('Challenge was invalid, please try again.'))
         return form_data
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, use_challenge=False, **kwargs):
         ModelForm.__init__(self, *args, **kwargs)
         self.label_suffix = ''
+
+        self.use_challenge = use_challenge
 
         self.fields['contact_first_name'].label = CONTACT_QUESTIONS['contact_first_name']
         self.fields['contact_last_name'].label = CONTACT_QUESTIONS['contact_last_name']
