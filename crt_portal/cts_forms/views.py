@@ -1979,9 +1979,11 @@ class ProFormView(LoginRequiredMixin, SessionWizardView):
             'Date',
             'Personal Description',
         ]
-
-        pro_form_attachment_ids = self.request.POST.get('pro_form_attachment', []).split(',')[:-1]
-        pro_form_attachments = list(map(lambda id: get_object_or_404(ProformAttachment, pk=int(id)), pro_form_attachment_ids))
+        attachment_data = self.request.POST.get('pro_form_attachment', None)
+        attachments = None
+        if attachment_data:
+            attachment_ids = attachment_data.split(',')[:-1]
+            attachments = list(map(lambda id: get_object_or_404(ProformAttachment, pk=int(id)), attachment_ids))
         context.update({
             'field_errors': field_errors,
             'page_errors': page_errors,
@@ -1995,7 +1997,7 @@ class ProFormView(LoginRequiredMixin, SessionWizardView):
             'stage_link': True,
             'submit_button': True,
             'form_novalidate': True,
-            'pro_form_attachments': pro_form_attachments,
+            'pro_form_attachments': attachments,
         })
 
         return context

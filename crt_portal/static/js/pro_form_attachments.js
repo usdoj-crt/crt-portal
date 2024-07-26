@@ -2,7 +2,21 @@
   const addAttachmentEl = document.getElementById('add_attachment');
   const fileEl = document.getElementById('file_input');
   const responseWrapper = document.getElementsByClassName('response-wrapper')[0];
-
+  const attachmentInput = document.getElementById('pro_form_attachment');
+  const downloadLinks = document.querySelectorAll('.download-attachment');
+  downloadLinks.forEach(downloadLink => {
+    downloadLink.onclick = function(event) {
+      event.preventDefault();
+      downloadAttachment(event);
+    };
+  });
+  const removeLinks = document.querySelectorAll('.remove-attachment-button');
+  removeLinks.forEach(removeLink => {
+    removeLink.onclick = function(event) {
+      event.preventDefault();
+      removeFile(event);
+    };
+  });
   addAttachmentEl.onclick = function(event) {
     event.preventDefault();
     fileEl.click();
@@ -73,7 +87,7 @@
     newRow.id = data.id + 'row';
     newRow.innerHTML = `
             <td>
-                <a href="#" data-attachment-id="${data.id}"> ${data.name}</a>
+                <a href="#" data-attachment-id="${data.id}" class="download-attachment"> ${data.name}</a>
             </td>
             <td>
                 <button data-attachment-id="${data.id}" data-attachment-filename="${data.name}" class="usa-button usa-button--outline remove-attachment-button">
@@ -91,13 +105,18 @@
       event.preventDefault();
       removeFile(event);
     };
+    if (attachmentInput.value == 'None') {
+      attachmentInput.value = data.id + ',';
+    } else {
+      attachmentInput.value += data.id + ',';
+    }
   }
 
   function removeAttachment(attachmentId) {
     const csrf = Cookies.get('csrftoken');
     let formData = new FormData();
     formData.append('csrfmiddlewaretoken', csrf);
-    formData.append('action', 'remove');
+    formData.append('action', 'removed');
     formData.append('attachment_id', attachmentId);
     window
       .fetch('/api/proform-attachment-action/', {
@@ -121,6 +140,10 @@
             ? `<div class="usa-alert__body"><em class="usa-alert__text">${data.response}</em></div>`
             : '';
         responseWrapper.hidden = data.type != 'error';
+        const attachmentInputVal = attachmentInput.value;
+        const regex = new RegExp(data.id + ',');
+        const newVal = attachmentInputVal.replace(regex, '');
+        attachmentInput.value = newVal;
       })
       .catch(error => {
         console.error(error);
@@ -134,7 +157,7 @@
     const file = e.target.files[0];
     formData.append('file', file);
     formData.append('csrfmiddlewaretoken', csrf);
-    formData.append('action', 'add');
+    formData.append('action', 'added');
     window
       .fetch('/api/proform-attachment-action/', {
         method: 'POST',

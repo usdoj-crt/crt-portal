@@ -424,8 +424,9 @@ class ProformAttachmentView(APIView):
                     attachment = attachment_form.save(commit=False)
                     name = attachment.filename
                     attachment.save()
+                    attachment_id = attachment.pk
                 except Exception as e:
-                    return JsonResponse({'response': f'File attachment {attachment.filename} failed: {e}', 'type': 'error'}, status=502)
+                    return JsonResponse({'response': f'File attachment {name} failed: {e}', 'type': 'error'}, status=502)
             else:
                 for key in attachment_form.errors:
                     errors = '; '.join(attachment_form.errors[key])
@@ -438,7 +439,7 @@ class ProformAttachmentView(APIView):
             name = attachment.filename
             attachment.delete()
 
-        return JsonResponse({'response': f'File {name} was successfully {action}', 'id': attachment.pk, 'name': attachment.filename, 'type': 'success' })
+        return JsonResponse({'response': f'File {name} was successfully {action}', 'id': attachment_id, 'name': name, 'type': 'success' })
 
     def get(self, request) -> JsonResponse:
         """
