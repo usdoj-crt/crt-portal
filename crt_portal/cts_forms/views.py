@@ -41,7 +41,7 @@ from .forms import (
 )
 from .mail import mail_to_complainant
 from .model_variables import BATCH_STATUS_CHOICES, HATE_CRIMES_TRAFFICKING_MODEL_CHOICES, NOTIFICATION_PREFERENCE_CHOICES
-from .models import CommentAndSummary, Profile, Report, ReportAttachment, ReportDisposition, ReportDispositionBatch, ReportsData, RetentionSchedule, SavedSearch, Trends, EmailReportCount, Campaign, User, NotificationPreference, RoutingSection, RoutingStepOneContact, RepeatWriterInfo
+from .models import CommentAndSummary, Profile, ProformAttachment, Report, ReportAttachment, ReportDisposition, ReportDispositionBatch, ReportsData, RetentionSchedule, SavedSearch, Trends, EmailReportCount, Campaign, User, NotificationPreference, RoutingSection, RoutingStepOneContact, RepeatWriterInfo
 from .page_through import pagination
 from .sorts import other_sort, report_sort
 
@@ -1980,6 +1980,8 @@ class ProFormView(LoginRequiredMixin, SessionWizardView):
             'Personal Description',
         ]
 
+        pro_form_attachment_ids = self.request.POST.get('pro_form_attachment', []).split(',')[:-1]
+        pro_form_attachments = list(map(lambda id: get_object_or_404(ProformAttachment, pk=int(id)), pro_form_attachment_ids))
         context.update({
             'field_errors': field_errors,
             'page_errors': page_errors,
@@ -1993,12 +1995,25 @@ class ProFormView(LoginRequiredMixin, SessionWizardView):
             'stage_link': True,
             'submit_button': True,
             'form_novalidate': True,
+            'pro_form_attachments': pro_form_attachments,
         })
 
         return context
 
     def done(self, form_list, form_dict, **kwargs):
-        data, report = save_form(self.get_all_cleaned_data())
+        cleaned_data = self.get_all_cleaned_data()
+        cleaned_data.pop('pro_form_attachment')
+        data, report = save_form(cleaned_data)
+        pro_form_attachments = self.request.POST.get('pro_form_attachment', []).split(',')[:-1]
+        for id in pro_form_attachments:
+            attachment = get_object_or_404(ProformAttachment, pk=int(id))
+            report_attachment = ReportAttachment.objects.create(
+                user=self.request.user,
+                file=attachment.file,
+                filename=attachment.filename,
+                report=report)
+            report_attachment.save()
+            attachment.delete()
         EmailReportCount.refresh_view()
         return redirect(reverse('crt_forms:crt-forms-show', kwargs={'id': report.pk}))
 

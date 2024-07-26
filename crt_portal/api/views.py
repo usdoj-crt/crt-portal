@@ -16,7 +16,7 @@ from cts_forms.forms import add_activity, ProformAttachmentActions
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, JsonResponse
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.template import Context, Template
 from rest_framework import generics
 from rest_framework import permissions
@@ -417,11 +417,12 @@ class ProformAttachmentView(APIView):
 
     def post(self, request) -> JsonResponse:
         action = request.POST.get('action')
-        if action == 'add':
+        if action == 'added':
             attachment_form = self.form_class(request.POST, request.FILES)
             if attachment_form.is_valid() and attachment_form.has_changed():
                 try:
                     attachment = attachment_form.save(commit=False)
+                    name = attachment.filename
                     attachment.save()
                 except Exception as e:
                     return JsonResponse({'response': f'File attachment {attachment.filename} failed: {e}', 'type': 'error'}, status=502)
@@ -434,10 +435,10 @@ class ProformAttachmentView(APIView):
         else:
             attachment_id = int(request.POST.get('attachment_id'))
             attachment = get_object_or_404(ProformAttachment, pk=attachment_id)
-            attachment.active = False
-            attachment.save()
+            name = attachment.filename
+            attachment.delete()
 
-        return JsonResponse({'response': f'File {attachment.filename} was successfully {action}', 'id': attachment.pk, 'name': attachment.filename, 'type': 'success'})
+        return JsonResponse({'response': f'File {name} was successfully {action}', 'id': attachment.pk, 'name': attachment.filename, 'type': 'success' })
 
     def get(self, request) -> JsonResponse:
         """

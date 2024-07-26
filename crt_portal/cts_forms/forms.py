@@ -386,7 +386,7 @@ class Contact(ModelForm):
 
         errors = result.get('error-codes')
         logging.error(f'Challenge validation failed: {errors}')
-        self.add_error(None, _('Challenge was invalid, please try again.'))
+       #  self.add_error(None, _('Challenge was invalid, please try again.'))
         return form_data
 
     def __init__(self, *args, **kwargs):
@@ -1194,6 +1194,7 @@ class ProForm(
                 'aria-describedby': 'protected-class-help-text'
             }),
         )
+        self.fields['pro_form_attachment'] = CharField(widget=HiddenInput(), empty_value=None, required=False)
         self.fields['last_incident_day'].label = DATE_QUESTIONS['last_incident_day']
         self.fields['last_incident_month'].label = DATE_QUESTIONS['last_incident_month']
         self.fields['last_incident_year'].label = DATE_QUESTIONS['last_incident_year']
@@ -1212,6 +1213,9 @@ class ProForm(
             self.fields['violation_summary'].widget.attrs['aria-describedby'] = 'details-help-text'
             # CRT view only
             self.fields['violation_summary'].help_text = 'What did the person believe happened?'
+        if self.data:
+            pro_form_attachment = self.data['pro_form_attachment']
+            self.fields['pro_form_attachment'].initial = pro_form_attachment
 
     def clean(self):
         """Validating more than one field at a time can't be done in the model validation"""
