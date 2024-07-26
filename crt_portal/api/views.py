@@ -16,7 +16,7 @@ from cts_forms.forms import add_activity, ProformAttachmentActions
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, JsonResponse
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404
 from django.template import Context, Template
 from rest_framework import generics
 from rest_framework import permissions
@@ -26,7 +26,6 @@ from rest_framework.response import Response
 from rest_framework.reverse import reverse
 from rest_framework.views import APIView
 from django.http import Http404
-from datetime import datetime
 import frontmatter
 import base64
 import json
@@ -438,7 +437,7 @@ class ProformAttachmentView(APIView):
             attachment.active = False
             attachment.save()
 
-        return JsonResponse({'response': f'File {attachment.filename} was successfully {action}', 'id': attachment.pk, 'name': attachment.filename, 'type': 'success' })
+        return JsonResponse({'response': f'File {attachment.filename} was successfully {action}', 'id': attachment.pk, 'name': attachment.filename, 'type': 'success'})
 
     def get(self, request) -> JsonResponse:
         """
