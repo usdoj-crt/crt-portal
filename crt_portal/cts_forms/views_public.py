@@ -37,7 +37,7 @@ from .model_variables import (COMMERCIAL_OR_PUBLIC_PLACE_DICT,
                               PUBLIC_OR_PRIVATE_EMPLOYER_DICT,
                               PUBLIC_OR_PRIVATE_SCHOOL_DICT)
 from .models import Report, ResponseTemplate, EmailReportCount, Campaign
-from .forms import save_form, Review
+from .forms import save_form, Review, Contact
 from .mail import mail_to_complainant
 from utils.voting_mode import is_voting_mode
 from utils import pdf
@@ -256,6 +256,13 @@ class CRTReportWizard(SessionWizardView):
             return render(self.request, 'forms/report_maintenance.html', status=503)
         return super().get(request)
 
+    def process_step(self, form):
+        # The first step (contact) contains validation that will fail
+        # (and skip calling this method) if the challenge fails.
+        # So, we can assume they passed the challenge if they get here.
+        self.storage.extra_data['use_challenge'] = False
+        return super().process_step(form)
+
     # overriding the get form to add checks to the hidden field and avoid 500s
     def get_form(self, step=None, data=None, files=None):
         """
@@ -271,6 +278,9 @@ class CRTReportWizard(SessionWizardView):
         elif not step.isdigit() or int(step) > len(TEMPLATES):
             raise PermissionDenied
 
+        if 'use_challenge' not in self.storage.extra_data:
+            self.storage.extra_data['use_challenge'] = True
+
         form_class = self.form_list[step]
         # prepare the kwargs for the form instance.
         kwargs = self.get_form_kwargs(step)
@@ -280,6 +290,10 @@ class CRTReportWizard(SessionWizardView):
             'prefix': self.get_form_prefix(step, form_class),
             'initial': self.get_form_initial(step),
         })
+
+        if issubclass(form_class, Contact):
+            kwargs['use_challenge'] = self.storage.extra_data['use_challenge']
+
         if issubclass(form_class, (forms.ModelForm, forms.models.BaseInlineFormSet)):
             # If the form is based on ModelForm or InlineFormSet,
             # add instance if available and not previously set.
