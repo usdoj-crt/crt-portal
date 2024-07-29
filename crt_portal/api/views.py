@@ -16,7 +16,7 @@ from cts_forms.forms import add_activity, ProformAttachmentActions
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, JsonResponse
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404
 from django.template import Context, Template
 from rest_framework import generics
 from rest_framework import permissions
@@ -439,7 +439,7 @@ class ProformAttachmentView(APIView):
             name = attachment.filename
             attachment.delete()
 
-        return JsonResponse({'response': f'File {name} was successfully {action}', 'id': attachment_id, 'name': name, 'type': 'success' })
+        return JsonResponse({'response': f'File {name} was successfully {action}', 'id': attachment_id, 'name': name, 'type': 'success'})
 
     def get(self, request) -> JsonResponse:
         """
