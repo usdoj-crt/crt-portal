@@ -106,7 +106,7 @@
       event.preventDefault();
       removeFile(event);
     };
-    violationSummary.value = 'See attachment.'
+    violationSummary.value = 'See attachment.';
     if (attachmentInput.value == 'None') {
       attachmentInput.value = data.id + ',';
     } else {
