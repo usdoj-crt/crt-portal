@@ -41,7 +41,7 @@ from .forms import (
 )
 from .mail import mail_to_complainant
 from .model_variables import BATCH_STATUS_CHOICES, HATE_CRIMES_TRAFFICKING_MODEL_CHOICES, NOTIFICATION_PREFERENCE_CHOICES
-from .models import CommentAndSummary, Profile, ReportAttachment, Report, ReportAttachment, ReportDisposition, ReportDispositionBatch, ReportsData, RetentionSchedule, SavedSearch, Trends, EmailReportCount, Campaign, User, NotificationPreference, RoutingSection, RoutingStepOneContact, RepeatWriterInfo
+from .models import CommentAndSummary, Profile, Report, ReportAttachment, ReportDisposition, ReportDispositionBatch, ReportsData, RetentionSchedule, SavedSearch, Trends, EmailReportCount, Campaign, User, NotificationPreference, RoutingSection, RoutingStepOneContact, RepeatWriterInfo
 from .page_through import pagination
 from .sorts import other_sort, report_sort
 
