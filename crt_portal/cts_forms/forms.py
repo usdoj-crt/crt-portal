@@ -55,8 +55,7 @@ from .model_variables import (ACTION_CHOICES, CLOSED_STATUS, COMMERCIAL_OR_PUBLI
                               STATUS_CHOICES, STATUTE_CHOICES,
                               VIOLATION_SUMMARY_ERROR, WHERE_ERRORS,
                               HATE_CRIME_CHOICES, GROUPING, RETENTION_SCHEDULE_CHOICES)
-from .models import (CommentAndSummary, ProformAttachment,
-                     ProtectedClass, Report, ReportDispositionBatch, ResponseTemplate, Profile, ReportAttachment, Campaign, RetentionSchedule, SavedSearch, get_system_user, Tag, NotificationPreference, GroupPreferences)
+from .models import (CommentAndSummary, ProtectedClass, Report, ReportDispositionBatch, ResponseTemplate, Profile, ReportAttachment, Campaign, RetentionSchedule, SavedSearch, get_system_user, Tag, NotificationPreference, GroupPreferences)
 from .phone_regex import phone_validation_regex
 from .question_group import QuestionGroup
 from .question_text import (CONTACT_QUESTIONS, DATE_QUESTIONS,
@@ -2858,7 +2857,7 @@ class ReportEditForm(LitigationHoldLock, ProForm, ActivityStreamUpdater):
 
 class ProformAttachmentActions(ModelForm):
     class Meta:
-        model = ProformAttachment
+        model = ReportAttachment
         fields = ['file']
 
     def save(self, commit=True):

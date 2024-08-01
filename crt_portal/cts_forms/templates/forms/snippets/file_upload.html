@@ -1,16 +1,14 @@
 <table class="usa-table usa-table--borderless attachments-table width-full">
   <tbody id="attachmentTable">
-    {% if pro_form_attachments %}
-        {% for attachment in pro_form_attachments %}
-            <tr id="{{ attachment.pk }}row">
-            <td><a href="#" data-attachment-id="{{ attachment.pk }}" class="download-attachment"> {{ attachment.filename }}</a></td>
-            <td>
-                <button data-attachment-id="{{ attachment.pk }}" data-attachment-filename="{{ attachment.filename }}" class="usa-button usa-button--outline remove-attachment-button">
-                <img data-attachment-id="{{ attachment.pk }}" src="/static/img/trash-2.svg" alt="remove attachment" class="icon"></button>
-            </td>
-            </tr>
-        {% endfor %}
-    {% endif %}
+    {% for attachment in pro_form_attachments %}
+        <tr id="{{ attachment.pk }}row">
+        <td><a href="#" data-attachment-id="{{ attachment.pk }}" class="download-attachment"> {{ attachment.filename }}</a></td>
+        <td>
+            <button data-attachment-id="{{ attachment.pk }}" data-attachment-filename="{{ attachment.filename }}" class="usa-button usa-button--outline remove-attachment-button">
+            <img data-attachment-id="{{ attachment.pk }}" src="/static/img/trash-2.svg" alt="remove attachment" class="icon"></button>
+        </td>
+        </tr>
+    {% endfor %}
   </tbody>
 </table>
 <input type="hidden" value="{{ form.pro_form_attachment.initial }}" name="pro_form_attachment" id="pro_form_attachment" />

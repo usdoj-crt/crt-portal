@@ -1,8 +1,3 @@
-import logging
-import mimetypes
-import boto3
-from botocore.client import Config
-from botocore.exceptions import ClientError
 from api.filters import form_letters_filter, reports_accessed_filter, autoresponses_filter, report_cws
 from django.utils.html import mark_safe
 from api.serializers import ReportSerializer, ResponseTemplateSerializer, RelatedReportSerializer
@@ -10,8 +5,8 @@ from utils.pdf import convert_html_to_pdf
 from cts_forms.filters import report_filter
 from cts_forms.mail import mail_to_complainant, mail_to_agency, build_letters, build_preview
 from utils.markdown_extensions import CustomHTMLExtension, OptionalExtension
-from cts_forms.models import Report, ResponseTemplate, ProformAttachment
-from cts_forms.views import mark_report_as_viewed, mark_reports_as_viewed
+from cts_forms.models import Report, ResponseTemplate, ReportAttachment
+from cts_forms.views import mark_report_as_viewed, mark_reports_as_viewed, upload_file
 from cts_forms.forms import add_activity, ProformAttachmentActions
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
@@ -417,70 +412,31 @@ class ProformAttachmentView(APIView):
 
     def post(self, request) -> JsonResponse:
         action = request.POST.get('action')
-        if action == 'added':
-            attachment_form = self.form_class(request.POST, request.FILES)
-            if attachment_form.is_valid() and attachment_form.has_changed():
-                try:
-                    attachment = attachment_form.save(commit=False)
-                    name = attachment.filename
-                    attachment.save()
-                    attachment_id = attachment.pk
-                except Exception as e:
-                    return JsonResponse({'response': f'File attachment {name} failed: {e}', 'type': 'error'}, status=502)
-            else:
-                for key in attachment_form.errors:
-                    errors = '; '.join(attachment_form.errors[key])
-                    error_message = f'Could not save attachment: {errors}'
-                    return JsonResponse({'response': error_message, 'type': 'error'})
-
-        else:
-            attachment_id = int(request.POST.get('attachment_id'))
-            attachment = get_object_or_404(ProformAttachment, pk=attachment_id)
+        if action == 'removed':
+            try:
+                attachment_id = int(request.POST.get('attachment_id'))
+                attachment = get_object_or_404(ReportAttachment, pk=attachment_id)
+                name = attachment.filename
+                attachment.delete()
+                return JsonResponse({'response': f'File {name} was successfully {action}', 'id': attachment_id, 'name': name, 'type': 'success'})
+            except ValueError:
+                return HttpResponse(status=400)
+        attachment_form = self.form_class(request.POST, request.FILES)
+        if attachment_form.is_valid() and attachment_form.has_changed():
+            attachment = attachment_form.save(commit=False)
             name = attachment.filename
-            attachment.delete()
-
-        return JsonResponse({'response': f'File {name} was successfully {action}', 'id': attachment_id, 'name': name, 'type': 'success'})
+            attachment.save()
+            attachment_id = attachment.pk
+            return JsonResponse({'response': f'File {name} was successfully {action}', 'id': attachment_id, 'name': name, 'type': 'success'})
+        else:
+            errors = [value for _, value in attachment_form.errors.items()]
+            error_message = f'Could not save attachment: {errors}'
+            return JsonResponse({'response': error_message, 'type': 'error'})
 
     def get(self, request) -> JsonResponse:
         """
         Download a particular attachment for a report
         """
         attachment_id = int(request.GET['attachment_id'])
-        attachment = get_object_or_404(ProformAttachment, pk=attachment_id)
-        if settings.ENABLE_LOCAL_ATTACHMENT_STORAGE:
-            try:
-                file = open(attachment.file.name, 'rb')
-                mime_type, _ = mimetypes.guess_type(attachment.filename)
-                response = HttpResponse(file, content_type=mime_type)
-                response.headers['Content-Disposition'] = f'attachment;filename={attachment.filename}'
-                return response
-
-            except FileNotFoundError:
-                raise Http404(f'File {attachment.filename} not found.')
-
-        else:
-            # Generate a presigned URL for the S3 object
-            s3_client = boto3.client(
-                service_name='s3',
-                region_name=settings.PRIV_S3_REGION,
-                aws_access_key_id=settings.PRIV_S3_ACCESS_KEY_ID,
-                aws_secret_access_key=settings.PRIV_S3_SECRET_ACCESS_KEY,
-                endpoint_url=settings.PRIV_S3_ENDPOINT_URL,
-                config=Config(signature_version='s3v4'))
-
-            try:
-                response = s3_client.generate_presigned_url(
-                    'get_object',
-                    Params={
-                        'Bucket': settings.PRIV_S3_BUCKET,
-                        'Key': attachment.file.name,
-                        'ResponseContentDisposition': f'attachment;filename={attachment.filename}'
-                    },
-                    ExpiresIn=30,
-                )
-
-                return response
-
-            except ClientError as e:
-                logging.error(e)
-                raise Http404(f'File {attachment.filename} not found.')
+        attachment = get_object_or_404(ReportAttachment, pk=attachment_id)
+        return upload_file(attachment)
