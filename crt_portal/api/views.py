@@ -1,3 +1,8 @@
+import logging
+import mimetypes
+import boto3
+from botocore.client import Config
+from botocore.exceptions import ClientError
 from api.filters import form_letters_filter, reports_accessed_filter, autoresponses_filter, report_cws
 from django.utils.html import mark_safe
 from api.serializers import ReportSerializer, ResponseTemplateSerializer, RelatedReportSerializer
@@ -6,7 +11,7 @@ from cts_forms.filters import report_filter
 from cts_forms.mail import mail_to_complainant, mail_to_agency, build_letters, build_preview
 from utils.markdown_extensions import CustomHTMLExtension, OptionalExtension
 from cts_forms.models import Report, ResponseTemplate, ReportAttachment
-from cts_forms.views import mark_report_as_viewed, mark_reports_as_viewed, upload_file
+from cts_forms.views import mark_report_as_viewed, mark_reports_as_viewed
 from cts_forms.forms import add_activity, ProformAttachmentActions
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
@@ -48,6 +53,46 @@ def api_root(request, format=None):
         'response-action': reverse('api:response-action', request=request, format=format),
         'proform-attachment-action': reverse('api:proform-attachment-action', request=request, format=format)
     })
+
+
+def upload_file(attachment):
+    if settings.ENABLE_LOCAL_ATTACHMENT_STORAGE:
+        try:
+            file = open(attachment.file.name, 'rb')
+            mime_type, _ = mimetypes.guess_type(attachment.filename)
+            response = HttpResponse(file, content_type=mime_type)
+            response.headers['Content-Disposition'] = f'attachment;filename={attachment.filename}'
+            return response
+
+        except FileNotFoundError:
+            raise Http404(f'File {attachment.filename} not found.')
+
+    else:
+        # Generate a presigned URL for the S3 object
+        s3_client = boto3.client(
+            service_name='s3',
+            region_name=settings.PRIV_S3_REGION,
+            aws_access_key_id=settings.PRIV_S3_ACCESS_KEY_ID,
+            aws_secret_access_key=settings.PRIV_S3_SECRET_ACCESS_KEY,
+            endpoint_url=settings.PRIV_S3_ENDPOINT_URL,
+            config=Config(signature_version='s3v4'))
+
+        try:
+            response = s3_client.generate_presigned_url(
+                'get_object',
+                Params={
+                    'Bucket': settings.PRIV_S3_BUCKET,
+                    'Key': attachment.file.name,
+                    'ResponseContentDisposition': f'attachment;filename={attachment.filename}'
+                },
+                ExpiresIn=30,
+            )
+
+            return response
+
+        except ClientError as e:
+            logging.error(e)
+            raise Http404(f'File {attachment.filename} not found.')
 
 
 class ReportList(generics.ListAPIView):

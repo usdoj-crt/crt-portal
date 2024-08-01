@@ -50,46 +50,6 @@ logger = logging.getLogger(__name__)
 SORT_DESC_CHAR = '-'
 
 
-def upload_file(attachment):
-    if settings.ENABLE_LOCAL_ATTACHMENT_STORAGE:
-        try:
-            file = open(attachment.file.name, 'rb')
-            mime_type, _ = mimetypes.guess_type(attachment.filename)
-            response = HttpResponse(file, content_type=mime_type)
-            response.headers['Content-Disposition'] = f'attachment;filename={attachment.filename}'
-            return response
-
-        except FileNotFoundError:
-            raise Http404(f'File {attachment.filename} not found.')
-
-    else:
-        # Generate a presigned URL for the S3 object
-        s3_client = boto3.client(
-            service_name='s3',
-            region_name=settings.PRIV_S3_REGION,
-            aws_access_key_id=settings.PRIV_S3_ACCESS_KEY_ID,
-            aws_secret_access_key=settings.PRIV_S3_SECRET_ACCESS_KEY,
-            endpoint_url=settings.PRIV_S3_ENDPOINT_URL,
-            config=Config(signature_version='s3v4'))
-
-        try:
-            response = s3_client.generate_presigned_url(
-                'get_object',
-                Params={
-                    'Bucket': settings.PRIV_S3_BUCKET,
-                    'Key': attachment.file.name,
-                    'ResponseContentDisposition': f'attachment;filename={attachment.filename}'
-                },
-                ExpiresIn=30,
-            )
-
-            return response
-
-        except ClientError as e:
-            logging.error(e)
-            raise Http404(f'File {attachment.filename} not found.')
-
-
 def format_protected_class(p_class_objects, other_class):
     p_class_list = []
     for p_class in p_class_objects:
@@ -1808,7 +1768,43 @@ class ReportAttachmentView(LoginRequiredMixin, FormView):
 
         logger.info(f'User {request.user} downloading attachment {attachment.filename} for report {id}')
 
-        return upload_file(attachment)
+        if settings.ENABLE_LOCAL_ATTACHMENT_STORAGE:
+            try:
+                file = open(attachment.file.name, 'rb')
+                mime_type, _ = mimetypes.guess_type(attachment.filename)
+                response = HttpResponse(file, content_type=mime_type)
+                response.headers['Content-Disposition'] = f'attachment;filename={attachment.filename}'
+                return response
+
+            except FileNotFoundError:
+                raise Http404(f'File {attachment.filename} not found.')
+
+        else:
+            # Generate a presigned URL for the S3 object
+            s3_client = boto3.client(
+                service_name='s3',
+                region_name=settings.PRIV_S3_REGION,
+                aws_access_key_id=settings.PRIV_S3_ACCESS_KEY_ID,
+                aws_secret_access_key=settings.PRIV_S3_SECRET_ACCESS_KEY,
+                endpoint_url=settings.PRIV_S3_ENDPOINT_URL,
+                config=Config(signature_version='s3v4'))
+
+            try:
+                response = s3_client.generate_presigned_url(
+                    'get_object',
+                    Params={
+                        'Bucket': settings.PRIV_S3_BUCKET,
+                        'Key': attachment.file.name,
+                        'ResponseContentDisposition': f'attachment;filename={attachment.filename}'
+                    },
+                    ExpiresIn=30,
+                )
+
+                return redirect(response)
+
+            except ClientError as e:
+                logging.error(e)
+                raise Http404(f'File {attachment.filename} not found.')
 
     def post(self, request, report_id):
         report = get_object_or_404(Report, pk=report_id)
