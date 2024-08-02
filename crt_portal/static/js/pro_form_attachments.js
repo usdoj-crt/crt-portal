@@ -17,6 +17,7 @@
       removeFile(event);
     };
   });
+  const violationSummary = document.querySelector('#id_0-violation_summary');
   addAttachmentEl.onclick = function(event) {
     event.preventDefault();
     fileEl.click();
@@ -105,6 +106,7 @@
       event.preventDefault();
       removeFile(event);
     };
+    violationSummary.value = 'See attachment.';
     if (attachmentInput.value == 'None') {
       attachmentInput.value = data.id + ',';
     } else {
