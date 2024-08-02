@@ -1979,7 +1979,11 @@ class ProFormView(LoginRequiredMixin, SessionWizardView):
             'Date',
             'Personal Description',
         ]
-
+        attachment_data = self.request.POST.get('pro_form_attachment', None)
+        attachments = None
+        if attachment_data:
+            attachment_ids = attachment_data.split(',')[:-1]
+            attachments = list(map(lambda id: get_object_or_404(ReportAttachment, pk=int(id)), attachment_ids))
         context.update({
             'field_errors': field_errors,
             'page_errors': page_errors,
@@ -1993,12 +1997,24 @@ class ProFormView(LoginRequiredMixin, SessionWizardView):
             'stage_link': True,
             'submit_button': True,
             'form_novalidate': True,
+            'pro_form_attachments': attachments,
         })
 
         return context
 
     def done(self, form_list, form_dict, **kwargs):
-        data, report = save_form(self.get_all_cleaned_data())
+        cleaned_data = self.get_all_cleaned_data()
+        cleaned_data.pop('pro_form_attachment')
+        data, report = save_form(cleaned_data)
+        pro_form_attachments = self.request.POST.get('pro_form_attachment', []).split(',')[:-1]
+        attachments = [
+            get_object_or_404(ReportAttachment, pk=int(id))
+            for id in pro_form_attachments
+        ]
+        for attachment in attachments:
+            attachment.report = report
+            attachment.user = self.request.user
+            attachment.save()
         EmailReportCount.refresh_view()
         return redirect(reverse('crt_forms:crt-forms-show', kwargs={'id': report.pk}))
 

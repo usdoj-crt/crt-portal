@@ -55,8 +55,7 @@ from .model_variables import (ACTION_CHOICES, CLOSED_STATUS, COMMERCIAL_OR_PUBLI
                               STATUS_CHOICES, STATUTE_CHOICES,
                               VIOLATION_SUMMARY_ERROR, WHERE_ERRORS,
                               HATE_CRIME_CHOICES, GROUPING, RETENTION_SCHEDULE_CHOICES)
-from .models import (CommentAndSummary,
-                     ProtectedClass, Report, ReportDispositionBatch, ResponseTemplate, Profile, ReportAttachment, Campaign, RetentionSchedule, SavedSearch, get_system_user, Tag, NotificationPreference, GroupPreferences)
+from .models import (CommentAndSummary, ProtectedClass, Report, ReportDispositionBatch, ResponseTemplate, Profile, ReportAttachment, Campaign, RetentionSchedule, SavedSearch, get_system_user, Tag, NotificationPreference, GroupPreferences)
 from .phone_regex import phone_validation_regex
 from .question_group import QuestionGroup
 from .question_text import (CONTACT_QUESTIONS, DATE_QUESTIONS,
@@ -1199,6 +1198,7 @@ class ProForm(
                 'aria-describedby': 'protected-class-help-text'
             }),
         )
+        self.fields['pro_form_attachment'] = CharField(widget=HiddenInput(), empty_value=None, required=False)
         self.fields['last_incident_day'].label = DATE_QUESTIONS['last_incident_day']
         self.fields['last_incident_month'].label = DATE_QUESTIONS['last_incident_month']
         self.fields['last_incident_year'].label = DATE_QUESTIONS['last_incident_year']
@@ -1217,6 +1217,9 @@ class ProForm(
             self.fields['violation_summary'].widget.attrs['aria-describedby'] = 'details-help-text'
             # CRT view only
             self.fields['violation_summary'].help_text = 'What did the person believe happened?'
+        if self.data and self.data.get('pro_form_attachment', None):
+            pro_form_attachment = self.data['pro_form_attachment']
+            self.fields['pro_form_attachment'].initial = pro_form_attachment
 
     def clean(self):
         """Validating more than one field at a time can't be done in the model validation"""
@@ -2855,6 +2858,26 @@ class ReportEditForm(LitigationHoldLock, ProForm, ActivityStreamUpdater):
             self.summary_created = created
             self.summary = summary
         return report
+
+
+class ProformAttachmentActions(ModelForm):
+    class Meta:
+        model = ReportAttachment
+        fields = ['file']
+
+    def save(self, commit=True):
+        instance = ModelForm.save(self, commit=False)
+        # this is the filename that the user sees
+        instance.filename = instance.file.name
+
+        # this is the filename that gets stored in S3
+        suffix = datetime.now().strftime('%Y%m%d%H%M%S%f')
+        instance.file.name = f'{instance.pk}-{suffix}'
+
+        if commit:
+            instance.save()
+
+        return instance
 
 
 class AttachmentActions(ModelForm):
