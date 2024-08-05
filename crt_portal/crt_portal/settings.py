@@ -34,7 +34,6 @@ environment = os.environ.get('ENV', 'UNDEFINED')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', False)
-DEBUG = False
 ENABLE_DEBUG_TOOLBAR = os.environ.get('ENABLE_DEBUG_TOOLBAR', False)
 MAINTENANCE_MODE = os.environ.get('MAINTENANCE_MODE', False)
 VOTING_MODE = os.environ.get('VOTING_MODE', False)
