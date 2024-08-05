@@ -18,7 +18,7 @@ import boto3
 import django.conf.locale
 from django.utils.log import DEFAULT_LOGGING
 from django.utils.translation import gettext_lazy as _
-from csp.constants import SELF
+from csp.constants import SELF, NONCE
 
 
 # Are we in a test environment?
@@ -422,11 +422,11 @@ SESSION_COOKIE_HTTPONLY = True
 
 CONTENT_SECURITY_POLICY = {
     'EXCLUDE_URL_PREFIXES': ('/admin'),  # Allow admin panel functionality (which is trusted content that uses inline sources)
-    'INCLUDE_NONCE_IN': ['script-src'],
     'DIRECTIVES': {
         'default-src': allowed_sources,
         'script-src': (
             SELF,
+            NONCE,
             'www.civilrights.justice.gov',
             'civilrights.justice.gov',
             'https://dap.digitalgov.gov',
