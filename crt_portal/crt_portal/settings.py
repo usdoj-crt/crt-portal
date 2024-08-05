@@ -18,6 +18,7 @@ import boto3
 import django.conf.locale
 from django.utils.log import DEFAULT_LOGGING
 from django.utils.translation import gettext_lazy as _
+from csp.constants import SELF
 
 
 # Are we in a test environment?
@@ -33,6 +34,7 @@ environment = os.environ.get('ENV', 'UNDEFINED')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', False)
+DEBUG = False
 ENABLE_DEBUG_TOOLBAR = os.environ.get('ENABLE_DEBUG_TOOLBAR', False)
 MAINTENANCE_MODE = os.environ.get('MAINTENANCE_MODE', False)
 VOTING_MODE = os.environ.get('VOTING_MODE', False)
@@ -100,6 +102,7 @@ INSTALLED_APPS = [
     'compressor_toolkit',
     'storages',
     'formtools',
+    'csp',
     # 'django_auth_adfs' in production only
     'crequest',
     'rest_framework',
@@ -123,6 +126,7 @@ MIDDLEWARE = [
     'django.middleware.locale.LocaleMiddleware',
     'crt_portal.locale_middleware.LanguageParamMiddleware',
     'crequest.middleware.CrequestMiddleware',
+    'csp.middleware.CSPMiddleware',
 ]
 
 
@@ -390,9 +394,8 @@ if environment in ['PRODUCTION', 'STAGE', 'DEVELOP']:
 else:
     env_csp_sources = []
 
-MIDDLEWARE.append('csp.middleware.CSPMiddleware')
 allowed_sources = (
-    "'self'",
+    SELF,
     'www.civilrights.justice.gov',
     'civilrights.justice.gov',
     'https://touchpoints.app.cloud.gov',
@@ -414,76 +417,83 @@ CSRF_COOKIE_SECURE = True
 X_FRAME_OPTIONS = "DENY"
 # If this is set to True, client-side JavaScript will not be able to access the language cookie.
 SESSION_COOKIE_HTTPONLY = True
-# see settings options https://django-csp.readthedocs.io/en/latest/configuration.html#configuration-chapter
-CSP_DEFAULT_SRC = allowed_sources
+# See https://django-csp.readthedocs.io/en/latest/configuration.html
+# Note we are on 4.0+
+
+CONTENT_SECURITY_POLICY = {
+    'EXCLUDE_URL_PREFIXES': ('/admin'),  # Allow admin panel functionality (which is trusted content that uses inline sources)
+    'INCLUDE_NONCE_IN': ['script-src'],
+    'DIRECTIVES': {
+        'default-src': allowed_sources,
+        'script-src': (
+            SELF,
+            'www.civilrights.justice.gov',
+            'civilrights.justice.gov',
+            'https://dap.digitalgov.gov',
+            'https://www.google-analytics.com',
+            'https://stats.g.doubleclick.net',
+            'https://touchpoints.app.cloud.gov',
+            'https://www.googletagmanager.com/',
+            'https://cdnjs.cloudflare.com/',
+            'https://challenges.cloudflare.com/',
+            'https://www.google.com/',
+            'a.tile.openstreetmap.org',  # For loading image tiles in map data
+            'b.tile.openstreetmap.org',  # For loading image tiles in map data
+            'c.tile.openstreetmap.org',  # For loading image tiles in map data
+            *env_csp_sources,
+        ),
+        'connect-src': (
+            SELF,
+            'www.civilrights.justice.gov',
+            'civilrights.justice.gov',
+            'https://dap.digitalgov.gov',
+            'https://www.google-analytics.com',
+            'https://stats.g.doubleclick.net',
+            'https://touchpoints.app.cloud.gov',
+            'https://www.googletagmanager.com/',
+            'https://cdnjs.cloudflare.com/',
+            'https://challenges.cloudflare.com/',
+            'https://www.google.com/',
+            'a.tile.openstreetmap.org',  # For loading image tiles in map data
+            'b.tile.openstreetmap.org',  # For loading image tiles in map data
+            'c.tile.openstreetmap.org',  # For loading image tiles in map data
+            *env_csp_sources,
+        ),
+        'img-src': (
+            *allowed_sources,
+            'data:',
+            'a.tile.openstreetmap.org',  # For loading image tiles in map data
+            'b.tile.openstreetmap.org',  # For loading image tiles in map data
+            'c.tile.openstreetmap.org',  # For loading image tiles in map data
+        ),
+        'media-src': allowed_sources,
+        'frame-src': allowed_sources,
+        'worker-src': (
+            *allowed_sources,
+            'blob:'
+        ),
+        'frame-ancestors': allowed_sources,
+        'style-src': (
+            SELF,
+            'www.civilrights.justice.gov',
+            'civilrights.justice.gov',
+            "'unsafe-inline'",
+            'https://fonts.googleapis.com',
+            *env_csp_sources,
+        ),
+        'font-src': (
+            SELF,
+            'www.civilrights.justice.gov',
+            'civilrights.justice.gov',
+            "'unsafe-inline'",
+            'https://fonts.gstatic.com',
+            *env_csp_sources,
+        ),
+    }
+}
+
 SESSION_COOKIE_SAMESITE = 'Lax'
-CSP_SCRIPT_SRC = (
-    "'self'",
-    'www.civilrights.justice.gov',
-    'civilrights.justice.gov',
-    'https://dap.digitalgov.gov',
-    'https://www.google-analytics.com',
-    'https://stats.g.doubleclick.net',
-    'https://touchpoints.app.cloud.gov',
-    'https://www.googletagmanager.com/',
-    'https://cdnjs.cloudflare.com/',
-    'https://challenges.cloudflare.com/',
-    'https://www.google.com/',
-    'a.tile.openstreetmap.org',  # For loading image tiles in map data
-    'b.tile.openstreetmap.org',  # For loading image tiles in map data
-    'c.tile.openstreetmap.org',  # For loading image tiles in map data
-    *env_csp_sources,
-)
-CSP_CONNECT_SRC = (
-    "'self'",
-    'www.civilrights.justice.gov',
-    'civilrights.justice.gov',
-    'https://dap.digitalgov.gov',
-    'https://www.google-analytics.com',
-    'https://stats.g.doubleclick.net',
-    'https://touchpoints.app.cloud.gov',
-    'https://www.googletagmanager.com/',
-    'https://cdnjs.cloudflare.com/',
-    'https://challenges.cloudflare.com/',
-    'https://www.google.com/',
-    'a.tile.openstreetmap.org',  # For loading image tiles in map data
-    'b.tile.openstreetmap.org',  # For loading image tiles in map data
-    'c.tile.openstreetmap.org',  # For loading image tiles in map data
-    *env_csp_sources,
-)
-CSP_IMG_SRC = (
-    *allowed_sources,
-    'data:',
-    'a.tile.openstreetmap.org',  # For loading image tiles in map data
-    'b.tile.openstreetmap.org',  # For loading image tiles in map data
-    'c.tile.openstreetmap.org',  # For loading image tiles in map data
-)
-CSP_MEDIA_SRC = allowed_sources
-CSP_FRAME_SRC = allowed_sources
-CSP_WORKER_SRC = (
-    *allowed_sources,
-    'blob:'
-)
-CSP_FRAME_ANCESTORS = allowed_sources
-CSP_STYLE_SRC = (
-    "'self'",
-    'www.civilrights.justice.gov',
-    'civilrights.justice.gov',
-    "'unsafe-inline'",
-    'https://fonts.googleapis.com',
-    *env_csp_sources,
-)
-CSP_FONT_SRC = (
-    "'self'",
-    'www.civilrights.justice.gov',
-    'civilrights.justice.gov',
-    "'unsafe-inline'",
-    'https://fonts.gstatic.com',
-    *env_csp_sources,
-)
-CSP_INCLUDE_NONCE_IN = ['script-src']
-# Allow admin panel functionality (which is trusted content that uses inline sources):
-CSP_EXCLUDE_URL_PREFIXES = ('/admin')
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
