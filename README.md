@@ -171,6 +171,9 @@ cf set-env crt-portal-django CHALLENGE_SECRET_KEY yoursecrethere
 # Note that prod does not need a defeat key, as we do not run e2e tests against prod.
 ```
 
+##### Configuration
+
+Some turnstile configuration needs to updated using API calls. See ./turnstile.sh for an example of how to do this.
 
 #### OAuth
 
@@ -508,11 +511,11 @@ We use OWASP ZAP for security scans. Here is an [intro to OWASP ZAP](https://res
 
 You can run and pull down the container to use locally:
 
-    docker pull owasp/zap2docker-weekly
+    docker pull softwaresecurityproject/zap-stable
 
 Run OWASP ZAP security scans with docker using the GUI:
 
-    docker run -u zap -p 8080:8080 -p 8090:8090 -i owasp/zap2docker-weekly zap-webswing.sh
+    docker run -u zap -p 8080:8080 -p 8090:8090 -i softwaresecurityproject/zap-stable  zap-webswing.sh
 
 you can see the GUI at http://localhost:8080/zap/
 
@@ -528,8 +531,17 @@ Then you can stop the container with:
 
 Run OWASP ZAP security scans with docker using the command line. Here is an example of running the baseline, passive scan locally targeting the development site:
 
-    docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-weekly zap-baseline.py \
-    -t https://crt-portal-django-dev.app.cloud.gov/report/ -c .circleci/zap.conf -z "-config rules.cookie.ignorelist=django_language"
+```
+docker run -v $(pwd):/zap/wrk/:rw -t softwaresecurityproject/zap-stable zap-baseline.py -t https://crt-portal-django-dev.app.cloud.gov/report/ -c .circleci/zap.conf --autooff -z "-config rules.cookie.ignorelist=django_language"
+```
+
+And here's targeting a local devserver (note that "--net=host" allows it to connect to reach the devserver at localhost):
+
+Note that the devserver serves Django 404 pages when DEBUG=True is enabled, and these pages will fail some security (such as CSP).
+
+```
+docker run --net=host -v $(pwd):/zap/wrk/:rw -t softwaresecurityproject/zap-stable zap-baseline.py -t http://localhost:8000/report/ -c .circleci/zap.conf --autooff -z "-config rules.cookie.ignorelist=django_language"
+```
 
 That will produce a report locally that you can view in your browser. It will give you a list of things that you should check. Sometimes there are things at the low or informational level that are false positives or are not worth the trade-offs to implement. The report will take a minute or two to generate.
 

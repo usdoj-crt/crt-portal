@@ -1,0 +1,31 @@
+<table class="usa-table usa-table--borderless attachments-table width-full">
+  <tbody id="attachmentTable">
+    {% for attachment in pro_form_attachments %}
+        <tr id="{{ attachment.pk }}row">
+        <td><a href="#" data-attachment-id="{{ attachment.pk }}" class="download-attachment"> {{ attachment.filename }}</a></td>
+        <td>
+            <button data-attachment-id="{{ attachment.pk }}" data-attachment-filename="{{ attachment.filename }}" class="usa-button usa-button--outline remove-attachment-button">
+            <img data-attachment-id="{{ attachment.pk }}" src="/static/img/trash-2.svg" alt="remove attachment" class="icon"></button>
+        </td>
+        </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<input type="hidden" value="{{ form.pro_form_attachment.initial }}" name="pro_form_attachment" id="pro_form_attachment" />
+<div class="usa-alert usa-alert--error usa-alert--slim response-wrapper" hidden></div>
+<div>
+  {% csrf_token %}
+  <fieldset name="view-attachments" class="usa-fieldset usa-prose">
+    <legend class="usa-sr-only">View attachments</legend>
+    <div class="intake-section">
+      <input type="file" name="file" id="file_input" accept="{{ allowed_file_types|join:', ' }}" hidden />
+      <button class="outline-button outline-button--blue" id="add_attachment">
+        {% include 'partials/sprite.html' with icon='folder' %}
+        ADD ATTACHMENT
+      </button>
+    </div>
+  </fieldset>
+</div>
+
+{% include "partials/attachment-uploading-modal.html" %}
+{% include "partials/attachment-removal-confirmation-modal.html" %}

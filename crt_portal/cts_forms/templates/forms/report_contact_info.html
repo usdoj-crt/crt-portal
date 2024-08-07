@@ -3,7 +3,7 @@
 
 {% block page_js %}
 {{ block.super }}
-{% if CHALLENGE.site_key %}
+{% if CHALLENGE.site_key and use_challenge %}
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 {% endif %}
 {% endblock %}
@@ -32,9 +32,9 @@
     {% include "forms/question_cards/single_form.html" with field=form.servicemember ally_id="servicemember-help-text" %}
   </div>
 
-  {% if CHALLENGE.site_key %}
+{% if CHALLENGE.site_key and use_challenge %}
   <div class="cf-turnstile" data-theme="light" data-sitekey="{{CHALLENGE.site_key}}"></div>
-  {% endif %}
+{% endif %}
 {% endblock %}
 
 {% block submit-button %}
