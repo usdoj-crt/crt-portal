@@ -1,3 +1,6 @@
+{% load get_env %}
+{% load get_request %}
+
 <div class="side-nav">
 <div class="side-nav-content">
     <a href="#" class="menu-slider">
@@ -22,5 +25,12 @@
         <span>New record</span>
     </a>
     {% include 'forms/complaint_view/side_nav_options.html' with page=page %}
+
+    {% environment as env %}
+    {% get_request_user as user %}
+    {% if env != "PRODUCTION" and user.is_superuser  %}
+    <span>TEST SITE ADMINISTRATION</span>
+    {% include 'forms/complaint_view/side_nav_test_site.html' with page=page %}
+    {% endif %}
   </div>
 </div>
