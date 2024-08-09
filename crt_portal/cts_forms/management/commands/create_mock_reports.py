@@ -8,7 +8,7 @@ from datetime import datetime
 from pytz import timezone
 import random
 from cts_forms.signals import salt
-from cts_forms.models import EmailReportCount, ProtectedClass, Campaign, ResponseTemplate, CommentAndSummary, Tag
+from cts_forms.models import EmailReportCount, ProtectedClass, Campaign, ResponseTemplate, CommentAndSummary, Tag, RetentionSchedule
 from cts_forms.model_variables import PROTECTED_MODEL_CHOICES, DISTRICT_CHOICES, STATUTE_CHOICES
 from cts_forms.forms import add_activity
 from django.contrib.auth.models import User
@@ -77,14 +77,24 @@ class Command(BaseCommand):  # pragma: no cover
         ]
 
         for i in range(number_reports):
+            is_disposition = random.randint(1, 100) < 25  # nosec
             report = ReportFactory.build()
             UTC = timezone('UTC')
             date = random_date()
+            if is_disposition:
+                date = date - timedelta(days=365 * 15)
             report.save()
             report.create_date = date
             salt_chars = salt()
             report.public_id = f'{report.pk}-{salt_chars}'
             title = random_form_letters[i].get('title')
+
+            has_schedule = is_disposition or random.randint(1, 100) < 20   # nosec
+            if has_schedule:
+                report.retention_schedule = RetentionSchedule.objects.order_by('?').first()
+
+            if is_disposition:
+                report.status = 'closed'
 
             dj_number_chance = random.randint(1, 100)  # nosec
             if dj_number_chance > 90:

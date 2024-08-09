@@ -9,8 +9,8 @@ from operator import and_
 
 from django.apps import apps
 
-from django.db.models import Q, ExpressionWrapper, Count, IntegerField, Min, F, Value, CharField, DateField, Func
-from django.db.models.functions import ExtractYear, Concat, Cast, Left
+from django.db.models import Q, ExpressionWrapper, Count, IntegerField, Min, F, Value, CharField, DateField, Func, Case, When
+from django.db.models.functions import ExtractYear, Cast, Left
 
 from django.contrib import messages
 from django.contrib.postgres.search import SearchQuery, TrigramSimilarity
@@ -185,6 +185,12 @@ def _get_fuzzy_kwargs(field, querydict) -> Tuple[Dict[str, Any], Dict[str, Any],
                         'lookslike': lookslike}}, filters
 
 
+class ToDate(Func):
+    function = 'to_date'
+    arity = 2
+    output_field = DateField()
+
+
 def report_filter(querydict):
     kwargs = {}
     filters = {}
@@ -278,9 +284,13 @@ def report_filter(querydict):
             user_section = get_user_section()
             if user_section:
                 qs = qs.filter(assigned_section=user_section)
+            expiration_date = Case(
+                When(Q(expiration_year__isnull=True), then=Value(None)),  # noqa
+                default=ToDate(Cast(F('expiration_year'), output_field=CharField()), Value('YYYY'))
+            )
             qs = qs.annotate(retention_year=F('retention_schedule__retention_years'),
                              expiration_year=F('retention_year') + ExtractYear('closed_date') + 1,
-                             expiration_date=Cast(Concat(F('expiration_year'), Value('-'), Value('01'), Value('-'), Value('01'), output_field=CharField()), output_field=DateField()),
+                             expiration_date=expiration_date,
                              eligible_date=ExpressionWrapper(F('expiration_date') - timedelta(days=30), output_field=DateField()))
             if field_options == 'expiration_date':
                 expiration_date = querydict.getlist(field)[0]
