@@ -988,6 +988,29 @@ class Review(ModelForm):
         fields = []
 
 
+class PhoneProForm(ModelForm):
+    class Meta:
+        model = Report
+        fields = [
+            'contact_first_name'
+        ]
+        widgets = {
+            'contact_first_name': TextInput(attrs={
+                'class': 'usa-input',
+            }),
+        }
+
+    def __init__(self, *args, use_challenge=False, **kwargs):
+        ModelForm.__init__(self, *args, **kwargs)
+        self.label_suffix = ''
+
+        self.use_challenge = use_challenge
+
+        self.fields['contact_first_name'].label = CONTACT_QUESTIONS['contact_first_name']
+        self.help_text = 'Help help help',
+        self.lede_text = _('Lede lede lede')
+
+
 class ProForm(
     Contact,
     ElectionLocation,

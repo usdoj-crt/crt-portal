@@ -1956,6 +1956,17 @@ class SaveCommentView(LoginRequiredMixin, FormView):
             return render(request, 'forms/complaint_view/show/index.html', output)
 
 
+@login_required
+def phone_pro_form_view(request):
+    return render(
+        request,
+        'forms/phone_pro_template.html',
+        {
+            'title': 'Election Call Center Intake Form',
+        }
+    )
+
+
 class ProFormView(LoginRequiredMixin, SessionWizardView):
     """This is the one-page internal form for CRT staff to input complaints"""
 
