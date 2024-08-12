@@ -1,4 +1,5 @@
 {% extends "forms/complaint_view/intake_base.html" %}
+{% include "templates/partials/expandable.html" %}
 {{ super }}
 
 {% block head %}
@@ -23,7 +24,50 @@
 
   <div class="crt-portal-card">
     <div class="crt-portal-card__content crt-portal-card__content--lg">
-      questions go here
+
+      <h2 class="h1" id='contact'>Identifying Information</h2>
+
+      <div class="grid-row margin-top-2">
+        {% include 'partials/field.html' with field=form.contact_first_name %}
+      </div>
+
+      <div class="grid-row margin-top-2">
+        {% include 'partials/field.html' with field=form.contact_last_name %}
+      </div>
+
+      <div class="grid-row margin-top-2">
+        {% include 'partials/field.html' with field=form.contact_phone %}
+      </div>
+
+      {% include 'partials/start_expandable.html' with title='See more contact fields' %}
+
+      <p>
+        <em>Though the reporter is not obligated to provide the following, you may record volunteered information here</em>
+      </p>
+
+      <div class="grid-row">
+        {% include 'partials/field.html' with field=form.contact_email %}
+      </div>
+
+      <div class="grid-row">
+        {% include 'partials/field.html' with field=form.contact_address_line_1 %}
+      </div>
+
+      <div class="grid-row">
+        {% include 'partials/field.html' with field=form.contact_address_line_2 %}
+      </div>
+
+      <div class="grid-row">
+        {% include 'partials/field.html' with field=form.contact_city %}
+      </div>
+
+      <div class="grid-row">
+        {% include 'partials/field.html' with field=form.contact_state extra_class="padding-right-2" field_size=6 %}
+
+        {% include 'partials/field.html' with field=form.contact_zip field_size=6 %}
+      </div>
+
+      {% include 'partials/end_expandable.html' %}
     </div>
   </div>
 </div>
