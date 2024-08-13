@@ -69,7 +69,7 @@ from .question_text import (CONTACT_QUESTIONS, DATE_QUESTIONS,
                             HATE_CRIME_QUESTION)
 from .widgets import (ComplaintSelect, CrtMultiSelect,
                       CrtPrimaryIssueRadioGroup, CrtTextInput, DjNumberWidget, FuzzyFilterField, UsaCheckboxSelectMultiple, UsaTagSelectMultiple,
-                      UsaRadioSelect, DataAttributesSelect, CrtDateInput, add_empty_choice)
+                      UsaRadioSelect, DataAttributesSelect, CrtDateInput, add_empty_choice, CrtExpandableRadioSelect)
 from utils.voting_mode import is_voting_mode
 from utils import activity
 
@@ -1024,6 +1024,13 @@ PHONE_FORM_CONFIG = [
     FieldConfig('contact_zip',
                 TextInput(attrs={'class': 'usa-input'}),
                 CONTACT_QUESTIONS['contact_zip']),
+
+    FieldConfig('primary_complaint',
+                CrtExpandableRadioSelect(
+                    choices=PRIMARY_COMPLAINT_CHOICES,
+                    unfolded_options=['voting'],
+                ),
+                PRIMARY_REASON_QUESTION),
 ]
 
 

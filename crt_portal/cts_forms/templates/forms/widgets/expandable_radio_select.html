@@ -1,0 +1,27 @@
+{% with id=widget.attrs.id %}<div{% if id %} id="{{ id }}"{% endif %}{% if widget.attrs.class %} class="{{ widget.attrs.class }}"{% endif %}>
+
+{% for group, options, index in widget.optgroups %}
+{% for option in options %}
+    {% if option.value in unfolded_options %}
+    {% if group %}<div><label>{{ group }}</label>{% endif %}
+    <div>{% include option.template_name with widget=option %}</div>
+    {% endif %}
+    {% if group %}</div>{% endif %}
+{% endfor %}
+{% endfor %}
+
+{% include 'partials/start_expandable.html' with title='See more primary concerns' %}
+
+{% for group, options, index in widget.optgroups %}
+{% for option in options %}
+    {% if option.value not in unfolded_options %}
+    {% if group %}<div><label>{{ group }}</label>{% endif %}
+    <div>{% include option.template_name with widget=option %}</div>
+    {% endif %}
+    {% if group %}</div>{% endif %}
+{% endfor %}
+{% endfor %}
+
+{% include 'partials/end_expandable.html' %}
+
+</div>{% endwith %}

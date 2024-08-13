@@ -25,7 +25,7 @@
   <div class="crt-portal-card">
     <div class="crt-portal-card__content crt-portal-card__content--lg">
 
-      <h2 class="h1" id='contact'>Identifying Information</h2>
+      <h2 class="h1">Identifying Information</h2>
 
       <div class="grid-row margin-top-2">
         {% include 'partials/field.html' with field=form.contact_first_name %}
@@ -68,6 +68,14 @@
       </div>
 
       {% include 'partials/end_expandable.html' %}
+
+      <h2 class="h1 margin-top-2">Primary concern</h2>
+
+      <div class="grid-row margin-top-2">
+        {% include 'partials/field.html' with field=form.primary_complaint %}
+      </div>
+
+
     </div>
   </div>
 </div>
