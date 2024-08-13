@@ -25,7 +25,7 @@
   <div class="crt-portal-card">
     <div class="crt-portal-card__content crt-portal-card__content--lg">
 
-      <h2 class="h1">Identifying Information</h2>
+      <h2>Identifying Information</h2>
 
       <div class="grid-row margin-top-2">
         {% include 'partials/field.html' with field=form.contact_first_name %}
@@ -69,13 +69,47 @@
 
       {% include 'partials/end_expandable.html' %}
 
-      <h2 class="h1 margin-top-2">Primary concern</h2>
+      <h2 class="margin-top-2">Primary concern</h2>
 
       <div class="grid-row margin-top-2">
         {% include 'partials/field.html' with field=form.primary_complaint %}
       </div>
 
+      <h2 class="margin-top-2">Incident location</h2>
 
+      <div class="grid-row margin-top-2">
+        {% include 'partials/field.html' with field=form.location_name %}
+      </div>
+
+      <div class="grid-row margin-top-2">
+        {% include 'partials/field.html' with field=form.location_address_line_1 %}
+      </div>
+
+      <div class="grid-row margin-top-2">
+        {% include 'partials/field.html' with field=form.location_address_line_2 %}
+      </div>
+
+      <div class="grid-row margin-top-2">
+        {% include 'partials/field.html' with field=form.location_city_town field_size=6 extra_class="padding-right-2" %}
+        {% include 'partials/field.html' with field=form.location_state field_size=6 %}
+      </div>
+
+      <h2 class="margin-top-2">Summary</h2>
+      <div class="margin-top-1">
+        {% include "forms/question_cards/single_question.html" with field=form.violation_summary card_title="Personal Description" %}
+        {% include "forms/word_counter.html" with word_limit=500 %}
+      </div>
+
+      <h2 class="margin-top-2">Receipt Date</h2>
+      <div class="margin-top-3 display-flex flex-align-end">
+        {% include "forms/question_cards/date.html" with question='CRT receipt date' month=form.crt_reciept_month day=form.crt_reciept_day year=form.crt_reciept_year required=True proform_required=True %}
+      </div>
+
+      {# These are hidden inputs: #}
+      {{form.intake_format}}
+
+      <input type="button" value='Save' class="usa-button crt-button--large"/>
+      <a href="/form/new/phone" class="usa-button usa-button--outline crt-button--large">Create New</a>
     </div>
   </div>
 </div>
@@ -102,7 +136,6 @@
 <script src="{% static 'vendor/shepherd.min.js'%}"></script>
 <script src="{% static 'js/modal.min.js' %}"></script>
 <script src="{% static 'js/pro_form_attachments.min.js' %}"></script>
-<script src="{% static 'js/disable_submit_button.min.js' %}"></script>
 <script src="{% static 'js/pro_form_show_hide.min.js' %}"></script>
 <script src="{% static 'js/autofill_current_date.min.js' %}"></script>
 <script src="{% static 'js/word_count.min.js' %}"></script>
