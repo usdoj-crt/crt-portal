@@ -14,13 +14,14 @@
 {% block main_class %} class="margin-top-5 margin-bottom-0"{% endblock %}
 
 {% block content %}
-<div class="intake-content">
+<div class="grid-row">
+<h1 class="intake-section-title padding-bottom-2m margin-left-5">{{title}}</h1>
+</div>
+<div class="grid-row margin-top-2">
+<div class="intake-content grid-col-8">
   <div id="status-update" class="grid-col-auto">
     {% include 'partials/messages.html' %}
   </div>
-
-  <h2 class="intake-section-title padding-bottom-2">{{title}}</h2>
-  <div class="margin-bottom-2"></div>
 
   <div class="crt-portal-card">
     <div class="crt-portal-card__content crt-portal-card__content--lg">
@@ -59,12 +60,11 @@
 
       <div class="grid-row">
         {% include 'partials/field.html' with field=form.contact_city %}
+        {% include 'partials/field.html' with field=form.contact_state extra_class="padding-right-2" field_size=6 %}
       </div>
 
       <div class="grid-row">
-        {% include 'partials/field.html' with field=form.contact_state extra_class="padding-right-2" field_size=6 %}
-
-        {% include 'partials/field.html' with field=form.contact_zip field_size=6 %}
+        {% include 'partials/field.html' with field=form.contact_zip %}
       </div>
 
       {% include 'partials/end_expandable.html' %}
@@ -91,7 +91,7 @@
 
       <div class="grid-row margin-top-2">
         {% include 'partials/field.html' with field=form.location_city_town field_size=6 extra_class="padding-right-2" %}
-        {% include 'partials/field.html' with field=form.location_state field_size=6 %}
+        {% include 'partials/field.html' with field=form.location_state field_size=5 %}
       </div>
 
       <h2 class="margin-top-2">Summary</h2>
@@ -107,11 +107,50 @@
 
       {# These are hidden inputs: #}
       {{form.intake_format}}
-
-      <input type="button" value='Save' class="usa-button crt-button--large"/>
-      <a href="/form/new/phone" class="usa-button usa-button--outline crt-button--large">Create New</a>
     </div>
   </div>
+</div>
+<div class="intake-sidebar grid-col-3 margin-top-3">
+  <div class="crt-portal-card margin-top-2">
+    <div class="crt-portal-card__content crt-portal-card__content--lg">
+      <h2>Quick Links</h2>
+
+      <ul class="usa-list--unstyled">
+      {% for text, link in quick_links %}
+        <li><a href="{{link}}" class="usa-link">{{text}}</a></li>
+      {% endfor %}
+      </ul>
+    </div>
+  </div>
+
+
+  {% include 'partials/start_expandable.html' with title='Specific Contacts' %}
+
+  <ul>
+    {% for contact in specific_contacts %}
+      <li>
+        <span>{{contact.title}}</span>
+
+        {% if contact.email %}
+        <span><a href="mailto:{{contact.email}}" class="usa-link">{{contact.email}}</a></span>
+        {% endif %}
+
+        {% if contact.phone %}
+        <span>{{contact.phone}}</span>
+        {% endif %}
+
+      </li>
+    {% endfor %}
+  </ul>
+
+  {% include 'partials/end_expandable.html' %}
+
+  <div class="margin-top-2">
+    <input type="button" value='Save' class="usa-button crt-button--large"/>
+    <a href="/form/new/phone" class="usa-button usa-button--outline crt-button--large">Create New</a>
+  </div>
+
+</div>
 </div>
 
 {% endblock %}

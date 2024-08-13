@@ -1967,6 +1967,26 @@ def phone_pro_form_view(request):
         'forms/phone_pro_template.html',
         {
             'title': 'Election Call Center Intake Form',
+            'quick_links': [
+                ('State Contacts', '#'),
+                ('Poll Locator', '#'),
+                ('Voting Hours', '#'),
+                ('Justice.gov', 'https://justice.gov'),
+            ],
+
+            'specific_contacts': [
+                {
+                    'title': 'Some Person',
+                    'phone': '555-555-5555',
+                    'email': 'person@example.com',
+                },
+                {
+                    'title': 'Person 2',
+                    'phone': '555-555-5552',
+                    'email': 'other@example.com',
+                },
+            ],
+
             'form': form,
         }
     )
