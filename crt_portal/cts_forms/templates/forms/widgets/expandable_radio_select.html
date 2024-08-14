@@ -10,6 +10,7 @@
 {% endfor %}
 {% endfor %}
 
+<hr>
 {% include 'partials/start_expandable.html' with title='See more primary concerns' %}
 
 {% for group, options, index in widget.optgroups %}
@@ -23,5 +24,6 @@
 {% endfor %}
 
 {% include 'partials/end_expandable.html' %}
+<hr>
 
 </div>{% endwith %}

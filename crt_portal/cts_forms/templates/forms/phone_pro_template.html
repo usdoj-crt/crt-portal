@@ -18,15 +18,15 @@
 <h1 class="intake-section-title padding-bottom-2m margin-left-5">{{title}}</h1>
 </div>
 <div class="grid-row margin-top-2">
-<div class="intake-content grid-col-8">
+<div class="intake-content intake-phone-content grid-col-8">
   <div id="status-update" class="grid-col-auto">
     {% include 'partials/messages.html' %}
   </div>
 
-  <div class="crt-portal-card">
-    <div class="crt-portal-card__content crt-portal-card__content--lg">
+  <div class="crt-portal-card main-card">
+    <div class="crt-portal-card__content">
 
-      <h2>Identifying Information</h2>
+      <h2>Contact</h2>
 
       <div class="grid-row margin-top-2">
         {% include 'partials/field.html' with field=form.contact_first_name %}
@@ -36,10 +36,11 @@
         {% include 'partials/field.html' with field=form.contact_last_name %}
       </div>
 
-      <div class="grid-row margin-top-2">
+      <div class="grid-row margin-top-2 margin-bottom-3">
         {% include 'partials/field.html' with field=form.contact_phone %}
       </div>
 
+      <hr>
       {% include 'partials/start_expandable.html' with title='See more contact fields' %}
 
       <p>
@@ -69,13 +70,15 @@
 
       {% include 'partials/end_expandable.html' %}
 
-      <h2 class="margin-top-2">Primary concern</h2>
+      <hr>
+
+      <h2>Primary concern</h2>
 
       <div class="grid-row margin-top-2">
-        {% include 'partials/field.html' with field=form.primary_complaint %}
+        {% include 'partials/field.html' with field=form.primary_complaint strong_label=True %}
       </div>
 
-      <h2 class="margin-top-2">Incident location</h2>
+      <h2>Incident location</h2>
 
       <div class="grid-row margin-top-2">
         {% include 'partials/field.html' with field=form.location_name %}
@@ -89,20 +92,23 @@
         {% include 'partials/field.html' with field=form.location_address_line_2 %}
       </div>
 
-      <div class="grid-row margin-top-2">
+      <div class="grid-row margin-top-2 margin-bottom-3">
         {% include 'partials/field.html' with field=form.location_city_town field_size=6 extra_class="padding-right-2" %}
         {% include 'partials/field.html' with field=form.location_state field_size=5 %}
       </div>
 
-      <h2 class="margin-top-2">Summary</h2>
-      <div class="margin-top-1">
+      <hr>
+
+      <h2>Summary</h2>
+      <div class="margin-top-1 margin-bottom-2">
         {% include "forms/question_cards/single_question.html" with field=form.violation_summary card_title="Personal Description" %}
         {% include "forms/word_counter.html" with word_limit=500 %}
       </div>
 
-      <h2 class="margin-top-2">Receipt Date</h2>
-      <div class="margin-top-3 display-flex flex-align-end">
-        {% include "forms/question_cards/date.html" with question='CRT receipt date' month=form.crt_reciept_month day=form.crt_reciept_day year=form.crt_reciept_year required=True proform_required=True %}
+      <hr>
+
+      <div class="margin-bottom-3 margin-top-3 display-flex flex-align-end">
+        {% include "forms/question_cards/date.html" with question='Receipt date' month=form.crt_reciept_month day=form.crt_reciept_day year=form.crt_reciept_year required=True proform_required=True %}
       </div>
 
       {# These are hidden inputs: #}
@@ -112,10 +118,10 @@
 </div>
 <div class="intake-sidebar grid-col-3 margin-top-3">
   <div class="crt-portal-card margin-top-2">
-    <div class="crt-portal-card__content crt-portal-card__content--lg">
+    <div class="crt-portal-card__content">
       <h2>Quick Links</h2>
 
-      <ul class="usa-list--unstyled">
+      <ul class="usa-list--unstyled margin-bottom-2">
       {% for text, link in quick_links %}
         <li><a href="{{link}}" class="usa-link">{{text}}</a></li>
       {% endfor %}
@@ -129,14 +135,14 @@
   <ul>
     {% for contact in specific_contacts %}
       <li>
-        <span>{{contact.title}}</span>
+        <p><strong>{{contact.title}}</strong></p>
 
         {% if contact.email %}
-        <span><a href="mailto:{{contact.email}}" class="usa-link">{{contact.email}}</a></span>
+        <p><a href="mailto:{{contact.email}}" class="usa-link">{{contact.email}}</a></p>
         {% endif %}
 
         {% if contact.phone %}
-        <span>{{contact.phone}}</span>
+        <p>{{contact.phone}}</p>
         {% endif %}
 
       </li>
