@@ -44,6 +44,27 @@ def report_sort(sort):
     return sort_exprs, sort
 
 
+def resource_sort(sort):
+    valid_fields = ['section', 'organization', 'phone', 'url', 'other_resources_available', 'tags']
+    valid = all(elem.replace("-", '') in valid_fields for elem in sort)
+    if not valid:
+        # Simply reset the sort if the params are not valid:
+        return [], []
+
+    sort_exprs = []
+
+    for sort_item in sort:
+        if 'organization' in sort_item:
+            sort_item = sort_item.replace('organization', 'name')
+        if sort_item[0] == SORT_DESC_CHAR:
+            sort_exprs.append(F(sort_item[1::]).desc(nulls_last=False))
+        else:
+            sort_exprs.append(F(sort_item).asc(nulls_last=False))
+    sort_exprs.extend([F('pk').desc()])
+
+    return sort_exprs, sort
+
+
 def other_sort(sort, sort_type):
 
     if not _valid_sort_params(sort, sort_type):

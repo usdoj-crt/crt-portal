@@ -47,7 +47,7 @@ from .mail import mail_to_complainant
 from .model_variables import BATCH_STATUS_CHOICES, HATE_CRIMES_TRAFFICKING_MODEL_CHOICES, NOTIFICATION_PREFERENCE_CHOICES
 from .models import CommentAndSummary, Profile, Report, ReportAttachment, ReportDisposition, ReportDispositionBatch, ReportsData, Resource, RetentionSchedule, SavedSearch, Trends, EmailReportCount, Campaign, User, NotificationPreference, RoutingSection, RoutingStepOneContact, RepeatWriterInfo
 from .page_through import pagination
-from .sorts import other_sort, report_sort
+from .sorts import other_sort, report_sort, resource_sort
 
 logger = logging.getLogger(__name__)
 
@@ -919,6 +919,10 @@ def _notification_change(request):
 @login_required
 def resources_view(request):
     resources = Resource.objects.all()
+    sort_expr, sorts = resource_sort(request.GET.getlist('sort'))
+    sort_state = {}
+    sort_args, sort_state = get_sort_args(sorts, sort_state)
+    resources = resources.order_by(*sort_expr)
     data = []
     for index, resource in enumerate(resources):
         data.append({
@@ -927,6 +931,7 @@ def resources_view(request):
         })
     data_dict = {
         'data_dict': data,
+        'sort_state': sort_state
     }
     return render(request, 'forms/complaint_view/resources/index.html', data_dict)
 

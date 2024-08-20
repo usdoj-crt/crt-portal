@@ -26,6 +26,11 @@ sort_lookup = {
     'uuid': 'uuid',
     'create date': 'create_date',
     'proposed disposal date': 'proposed_disposal_date',
+    'organization': 'name',
+    'other resources available': 'other_resources_available',
+    'phone': 'phone',
+    'url': 'url',
+    'tags': 'tags',
 }
 sortable_props = [
     'status',
@@ -50,6 +55,10 @@ sortable_props = [
     'uuid',
     'create_date',
     'proposed_disposal_date',
+    'phone',
+    'url',
+    'tags',
+    'other_resources_available',
 ]
 
 

@@ -1,3 +1,5 @@
+{% load sortable_table_heading %}
+
 <form class="usa-form"
       method="get"
       action=""
@@ -29,24 +31,12 @@
               <img alt="" aria-hidden="true" src="{% static "img/intake-icons/ic_chevron-right.svg" %}" class="icon">
             </a>
           </th>
-          <th>
-            Section
-          </th>
-          <th>
-            Organization
-          </th>
-          <th>
-            Phone Number
-          </th>
-          <th>
-            Url
-          </th>
-          <th>
-            Other Resources Available
-          </th>
-          <th>
-            Tags
-          </th>
+          {% render_sortable_heading 'Section' sort_state %}
+          {% render_sortable_heading 'Organization' sort_state %}
+          {% render_sortable_heading 'Phone' sort_state %}
+          {% render_sortable_heading 'Url' sort_state %}
+          {% render_sortable_heading 'Other Resources Available' sort_state %}
+          {% render_sortable_heading 'Tags' sort_state %}
        </tr>
       </thead>
       {% if data_dict %}
