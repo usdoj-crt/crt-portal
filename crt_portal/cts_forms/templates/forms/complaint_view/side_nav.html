@@ -25,7 +25,8 @@
         <span>New record</span>
     </a>
     {% include 'forms/complaint_view/side_nav_options.html' with page=page %}
-
+    <span>RESOURCES</span>
+    {% include 'forms/complaint_view/side_nav_resources.html' with page=page %}
     {% environment as env %}
     {% get_request_user as user %}
     {% if env != "PRODUCTION" and user.is_superuser  %}

@@ -45,7 +45,7 @@ from .forms import (
 )
 from .mail import mail_to_complainant
 from .model_variables import BATCH_STATUS_CHOICES, HATE_CRIMES_TRAFFICKING_MODEL_CHOICES, NOTIFICATION_PREFERENCE_CHOICES
-from .models import CommentAndSummary, Profile, Report, ReportAttachment, ReportDisposition, ReportDispositionBatch, ReportsData, RetentionSchedule, SavedSearch, Trends, EmailReportCount, Campaign, User, NotificationPreference, RoutingSection, RoutingStepOneContact, RepeatWriterInfo
+from .models import CommentAndSummary, Profile, Report, ReportAttachment, ReportDisposition, ReportDispositionBatch, ReportsData, Resource, RetentionSchedule, SavedSearch, Trends, EmailReportCount, Campaign, User, NotificationPreference, RoutingSection, RoutingStepOneContact, RepeatWriterInfo
 from .page_through import pagination
 from .sorts import other_sort, report_sort
 
@@ -914,6 +914,21 @@ def _notification_change(request):
                          messages.SUCCESS,
                          mark_safe("Your preferences have been saved"))
     return redirect(reverse('crt_forms:crt-forms-notifications'))
+
+
+@login_required
+def resources_view(request):
+    resources = Resource.objects.all()
+    data = []
+    for index, resource in enumerate(resources):
+        data.append({
+            'resource': resource,
+            'tags': list(map(str, resource.tags.values_list('name', flat=True))),
+        })
+    data_dict = {
+        'data_dict': data,
+    }
+    return render(request, 'forms/complaint_view/resources/index.html', data_dict)
 
 
 class ProfileView(LoginRequiredMixin, FormView):
