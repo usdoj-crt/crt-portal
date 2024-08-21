@@ -11,11 +11,15 @@ def get_client_ip(request):
     return ip
 
 
-def get_user_section():
+def get_user():
     current_request = CrequestMiddleware.get_request()
-    user = current_request.user
+    return current_request.user
+
+
+def get_user_section():
+    user = get_user()
     if hasattr(user, 'profile'):
-        return current_request.user.profile.section
+        return user.profile.section
     return None
 
 
