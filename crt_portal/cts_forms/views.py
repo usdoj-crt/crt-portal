@@ -4,9 +4,12 @@ This is where to put views that need authentication.
  - Add a test to ensure authentication
  - Be mindful of any naming collision with public URLs in settings
 """
+import contextlib
+import io
 import json
 import logging
 import mimetypes
+import os
 import urllib.parse
 
 import boto3
@@ -18,6 +21,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import SuspiciousOperation, BadRequest
+from django.core.management import call_command
 from django.core.paginator import Paginator
 from django.db.models import F, Subquery, OuterRef, Value, CharField, DateField, Case, When
 from django.http import Http404, HttpResponse, QueryDict
@@ -827,6 +831,42 @@ def notification_view(request):
     return _notification_change(request)
 
 
+@login_required
+def test_site_view(request):
+    environment = os.environ.get('ENV', 'UNDEFINED')
+    if environment not in ['LOCAL', 'UNDEFINED', 'STAGE', 'DEVELOP']:
+        return HttpResponse(status=416)
+    if request.method != 'GET':
+        return HttpResponse(status=405)
+
+    command_name = request.GET.get('command', '')
+    if not command_name:
+        return HttpResponse(status=400)
+
+    if command_name not in [
+        'create_mock_reports',
+        'reset_disposition',
+        'force_disposition'
+    ]:
+        return HttpResponse(status=400)
+
+    args = request.GET.getlist('arg')
+    stdout = io.StringIO()
+    stderr = io.StringIO()
+    with contextlib.redirect_stdout(stdout), contextlib.redirect_stderr(stderr):
+        call_command(command_name, *args)
+    output = stdout.getvalue()
+    error = stderr.getvalue()
+    output_part = f"<p>Command output:</p><pre>{output}</pre>" if output else ''
+    error_part = f"<p>Command error:</p><pre>{error}</pre>" if error else ''
+    message = f"<p>Command <strong>{command_name}</strong> executed.</p> {output_part} {error_part}"
+    messages.add_message(request,
+                         messages.WARNING,
+                         mark_safe(message))
+
+    return redirect(request.GET.get('next', '/form/view'))
+
+
 def _notification_get(request):
     if hasattr(request.user, 'notification_preference'):
         preferences = request.user.notification_preference
@@ -1191,6 +1231,8 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
         shared_report_fields = {}
         keys = ['assigned_section', 'retention_schedule', 'status', 'expiration_date']
         for key, value in self.get_shared_report_values(requested_query, keys):
+            if key == 'expiration_date' and value == '-01-01':
+                continue
             shared_report_fields[key] = value
         shared_report_fields['date_range'] = self.get_report_date_range(requested_query)
         # Limit the count to 500 here because we have to display all the reports we're batching in a table
@@ -1360,7 +1402,7 @@ class DispositionBatchActionsView(LoginRequiredMixin, FormView):
         batch = get_object_or_404(ReportDispositionBatch, pk=id)
         report_dispo_objects = ReportDisposition.objects.filter(batch=batch)
         report_public_ids = report_dispo_objects.values_list('public_id', flat=True)
-        reports = Report.all_objects.filter(public_id__in=report_public_ids).order_by('pk')
+        reports = Report.objects.filter(public_id__in=report_public_ids).order_by('pk')
         report_ids = list(reports.values_list('pk', flat=True))
         first_report = reports.first()
         page = request.GET.get('page', 1)
