@@ -1,0 +1,23 @@
+<div class="title">
+    <ul class="usa-nav__primary usa-accordion">
+      <li class="usa-nav__primary-item">
+        <a onclick="return confirm('This will make 50 fake reports with random statuses, data, disposition, tms responses, etc. Are you sure?')" class="crt-landing--menu_link reporting-header {% if page == 'report_records' %} selected {% endif %}" href="/form/test-site-command?next=/form/view&command=create_mock_reports&arg=50">
+          Create mock reports
+        </a>
+      </li>
+
+      {% if page == 'disposition' %}
+      <li class="usa-nav__primary-item">
+        <a onclick="return confirm('This will delete all disposition batches, and un-dispose any reports, as if we never tried disposing anything. Are you sure?')" class="crt-landing--menu_link reporting-header {% if page == 'report_records' %} selected {% endif %}" href="/form/test-site-command?next=/form/disposition&command=reset_disposition">
+          Reset disposition
+        </a>
+      </li>
+      <li class="usa-nav__primary-item">
+        <a onclick="return confirm('This will force the disposition of approved batches, regardless of when they are actually scheduled to be deleted. Are you sure?')" class="crt-landing--menu_link reporting-header {% if page == 'report_records' %} selected {% endif %}" href="/form/test-site-command?next=/form/disposition&command=force_disposition">
+          Dispose approved batches
+        </a>
+      </li>
+      {% endif %}
+
+    </ul>
+  </div>
