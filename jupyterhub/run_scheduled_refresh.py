@@ -106,7 +106,10 @@ def _execute_one(schedule, manager) -> Dict:
         logging.error(f'Failed to execute {path}: No notebook content')
         return schedule
 
-    kernel = content.get('metadata', {}).get('kernelspec', {}).get('name', 'python3')
+    try:
+        kernel = content.get('metadata', {}).get('kernelspec', {}).get('name', 'python3')
+    except AttributeError:
+        kernel = 'python3'
     processor = ExecutePreprocessor(timeout=600, kernel_name=kernel)
     # Run relative to the jupyterhub/ directory
     # (Any imports, files, etc must exist on disk):
