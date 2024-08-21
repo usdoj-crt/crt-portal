@@ -932,7 +932,7 @@ def resources_view(request):
     for index, resource in enumerate(resources):
         data.append({
             'resource': resource,
-            'tags': list({'name': str(name), 'section': str(section) if section else '', 'tooltip': str(tooltip) if tooltip else '' } for name, section, tooltip in resource.tags.values_list('name', 'section', 'tooltip')),
+            'tags': list({'name': str(name), 'section': str(section) if section else '', 'tooltip': str(tooltip) if tooltip else ''} for name, section, tooltip in resource.tags.values_list('name', 'section', 'tooltip')),
         })
     data_dict = {
         'data_dict': data,
