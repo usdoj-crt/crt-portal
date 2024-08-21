@@ -920,17 +920,25 @@ def _notification_change(request):
 def resources_view(request):
     resources = Resource.objects.all()
     sort_expr, sorts = resource_sort(request.GET.getlist('sort'))
+    per_page = 15
+    page = request.GET.get('page', 1)
+    page_args = f'?per_page={per_page}'
     sort_state = {}
     sort_args, sort_state = get_sort_args(sorts, sort_state)
     resources = resources.order_by(*sort_expr)
+    paginator = Paginator(resources, per_page)
+    resources, page_format = pagination(paginator, page, per_page)
     data = []
     for index, resource in enumerate(resources):
         data.append({
             'resource': resource,
-            'tags': list(map(str, resource.tags.values_list('name', flat=True))),
+            'tags': list({'name': str(name), 'section': str(section) if section else '', 'tooltip': str(tooltip) if tooltip else '' } for name, section, tooltip in resource.tags.values_list('name', 'section', 'tooltip')),
         })
     data_dict = {
         'data_dict': data,
+        'page_format': page_format,
+        'page_args': page_args,
+        'per_page': per_page,
         'sort_state': sort_state
     }
     return render(request, 'forms/complaint_view/resources/index.html', data_dict)

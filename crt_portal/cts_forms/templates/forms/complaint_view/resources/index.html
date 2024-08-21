@@ -5,21 +5,29 @@
   <div id="status-update" class="grid-col-auto">
     {% include 'partials/messages.html' %}
   </div>
-  <br/>
+  <h2 class="intake-section-title padding-bottom-2">Resources</h2>
+<div class="margin-bottom-8">Review, edit, and share contacts, organizations, agencies, and resources.</div>
 </form>
 <div class="grid-col-auto">
-  <div class="intake-table">
-    <div class="intake-table-header">
-      <h3 class="intake-section-title">Resources</h3>
-      <div class="margin-left-auto">
-        {% include "forms/snippets/pagination.html" with page_args=page_args placement="top" %}
+    <div class="intake-table flat">
+      <form>
+        <div class="intake-table-tabbed-header">
+          {% include 'forms/complaint_view/resources/tabs.html' %}
+        </div>
+      </form>
       </div>
-    </div>
+      <div class="scrollable-table">
     {% include "forms/complaint_view/resources/resource_table.html" with data_dict=data_dict sort_state=sort_state filter_state=filter_state %}
   </div>
 </div>
-<div class="margin-bottom-5">
-  {% include "forms/snippets/pagination.html" with page_args=page_args placement="bottom" %}
+<div class="scrollable-table-footer display-flex flex-justify-end flex-align-center">
+<span class="margin-top-neg-05">
+{% include "forms/snippets/pagination.html" with page_args=page_args placement="bottom" %}
+</span>
+  <span class="intake-pagination padding-left-2">
+    {{ page_format.page_range_start }} to {{ page_format.page_range_end }} of {{ page_format.count }} records
+    {% include 'forms/complaint_view/index/filters/per_page.html' with per_page=page_format.per_page %}
+  </span>
 </div>
 </div>
 {% endblock %}

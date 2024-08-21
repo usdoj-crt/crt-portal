@@ -1249,6 +1249,7 @@ class Resource(models.Model):
     """
     name = models.CharField(max_length=255, null=False, blank=False, help_text="The name of the resource as it will appear in lists and dropdowns.")
     section = models.TextField(choices=SECTION_CHOICES, null=True, blank=True, default=None, help_text="The section to which this resource applies.")
+    url = models.TextField(null=True, blank=True, help_text="Address of resource website.")
     email = models.CharField(max_length=225, null=True, blank=True, validators=[validate_email_address])
     secondary_email = models.CharField(max_length=225, null=True, blank=True, validators=[validate_email_address])
     phone = models.CharField(
