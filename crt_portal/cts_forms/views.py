@@ -38,6 +38,7 @@ from .forms import (
     ContactEditForm, Filters, PrintActions, ProfileForm,
     ReportEditForm, ResponseActions, SavedSearchActions, SavedSearchFilter, add_activity,
     AttachmentActions, Review, save_form,
+    PhoneProForm
 )
 from .mail import mail_to_complainant
 from .model_variables import BATCH_STATUS_CHOICES, HATE_CRIMES_TRAFFICKING_MODEL_CHOICES, NOTIFICATION_PREFERENCE_CHOICES
@@ -1958,11 +1959,15 @@ class SaveCommentView(LoginRequiredMixin, FormView):
 
 @login_required
 def phone_pro_form_view(request):
+
+    form = PhoneProForm()
+
     return render(
         request,
         'forms/phone_pro_template.html',
         {
             'title': 'Election Call Center Intake Form',
+            'form': form,
         }
     )
 
