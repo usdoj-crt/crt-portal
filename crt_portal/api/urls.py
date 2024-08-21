@@ -1,11 +1,12 @@
 from django.urls import path
 from rest_framework.urlpatterns import format_suffix_patterns
-from api.views import ResponseList, ResponseDetail, ReportSummary, ReportCountView, ReportCWs, ReportList, ReportDetail, RelatedReports, FormLettersIndex, api_root, ResponseTemplateFilePreview, ResponseTemplateFormPreview, ResponseAction, ProformAttachmentView
+from api.views import ResponseList, ResponseDetail, ReportSummary, ReportCountView, ReportCWs, ReportList, ReportDetail, RelatedReports, FormLettersIndex, api_root, ResponseTemplateFilePreview, ResponseTemplateFormPreview, ResponseAction, ProformAttachmentView, ReportEdit
 
 app_name = 'api'
 
 urlpatterns = [
     path('', api_root, name='api-base'),
+    path('report-edit/', ReportEdit.as_view(), name='report-edit'),
     path('reports/', ReportList.as_view(), name='report-list'),
     path('reports/<int:pk>/', ReportDetail.as_view(), name='report-detail'),
     path('responses/', ResponseList.as_view(), name='response-list'),

@@ -14,6 +14,7 @@
 {% block main_class %} class="margin-top-5 margin-bottom-0"{% endblock %}
 
 {% block content %}
+<form style="all: unset;" action="/api/report-edit/" method="post" id="report-form">
 <div class="grid-row">
 <h1 class="intake-section-title padding-bottom-2m margin-left-5">{{title}}</h1>
 </div>
@@ -25,7 +26,10 @@
 
   <div class="crt-portal-card main-card">
     <div class="crt-portal-card__content">
+      <section id="page-errors" class="page-errors margin-bottom-2" role="alert" aria-live="assertive" hidden>
+      </section>
 
+      {% csrf_token %}
       <h2>Contact</h2>
 
       <div class="grid-row margin-top-2">
@@ -113,6 +117,7 @@
 
       {# These are hidden inputs: #}
       {{form.intake_format}}
+      {{form.pk}}
     </div>
   </div>
 </div>
@@ -152,12 +157,15 @@
   {% include 'partials/end_expandable.html' %}
 
   <div class="margin-top-2">
-    <input type="button" value='Save' class="usa-button crt-button--large"/>
+    {% include 'partials/field.html' with field=form.public_id %}
+
+    <button type="button" data-saves="report-form" class="usa-button crt-button--large">Save</button>
     <a href="/form/new/phone" class="usa-button usa-button--outline crt-button--large">Create New</a>
   </div>
 
 </div>
 </div>
+</form>
 
 {% endblock %}
 {% if ENABLED_FEATURES.nav_updates %}
@@ -180,13 +188,12 @@
 <script src="{% static 'vendor/js.cookie.min.js' %}"></script>
 <script src="{% static 'vendor/shepherd.min.js'%}"></script>
 <script src="{% static 'js/modal.min.js' %}"></script>
-<script src="{% static 'js/pro_form_attachments.min.js' %}"></script>
 <script src="{% static 'js/pro_form_show_hide.min.js' %}"></script>
 <script src="{% static 'js/autofill_current_date.min.js' %}"></script>
 <script src="{% static 'js/word_count.min.js' %}"></script>
-<script src="{% static 'js/progress-bar.min.js' %}"></script>
 <script src="{% static 'vendor/intlTelInput.min.js' %}"></script>
 <script src="{% static 'js/report_phone.min.js' %}"></script>
+<script src="{% static 'js/async_report_edit.min.js' %}"></script>
 {% if ENABLED_FEATURES.nav_updates %}
     <script src="{% static 'js/side_nav_slider.min.js' %}"></script>
 {% endif %}

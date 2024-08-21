@@ -1732,6 +1732,12 @@ fieldset[name='saved-search-actions'] {
   }
 }
 
+.usa-alert__body .close-icon {
+  float: right;
+  margin-right: -2rem;
+  cursor: pointer;
+}
+
 .intake-phone-content {
   hr {
       width: calc(100% + 3rem);

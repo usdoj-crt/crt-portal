@@ -4,9 +4,9 @@ from typing import Tuple
 def get_test_credentials() -> Tuple[str, str]:
     try:
         with open('test-user-username.txt', 'r') as f:
-            username = f.readline()
+            username = f.readline().strip()
         with open('test-user-password.txt', 'r') as f:
-            password = f.readline()
+            password = f.readline().strip()
         return username, password
     except FileNotFoundError:
         raise RuntimeError('Please run manage.py create_test_user first.')

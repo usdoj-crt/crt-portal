@@ -12,6 +12,16 @@ class ReportSerializer(serializers.ModelSerializer):
         fields = ['url', 'pk', 'viewed']
 
 
+def make_report_serializer(fields_to_expose):
+    class ReportSerializer(serializers.ModelSerializer):
+        class Meta:
+            model = Report
+            fields = fields_to_expose
+            read_only_fields = ['pk', 'public_id']
+
+    return ReportSerializer
+
+
 class ResponseTemplateSerializer(serializers.ModelSerializer):
     url = serializers.HyperlinkedIdentityField(
         view_name='api:response-detail',
