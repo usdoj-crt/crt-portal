@@ -12,6 +12,8 @@ def _valid_sort_params(sort, type):
         valid_fields = ['created_by', 'section', 'name']
     elif type == 'batch':
         valid_fields = ['status', 'retention_schedule', 'proposed_disposal_date', 'create_date']
+    elif type == 'resources':
+        valid_fields = ['section', 'name', 'phone', 'url', 'other_resources_available', 'tags']
     else:
         fields = [
             *EmailReportCount._meta.fields,
@@ -40,25 +42,6 @@ def report_sort(sort):
             sort_exprs.append(F(sort_item).asc(nulls_last=nulls_last))
 
     sort_exprs.extend([F('create_date').desc(), F('id').desc()])
-
-    return sort_exprs, sort
-
-
-def resource_sort(sort):
-    valid_fields = ['section', 'name', 'phone', 'url', 'other_resources_available', 'tags']
-    valid = all(elem.replace("-", '') in valid_fields for elem in sort)
-    if not valid:
-        # Simply reset the sort if the params are not valid:
-        return [], []
-
-    sort_exprs = []
-
-    for sort_item in sort:
-        if sort_item[0] == SORT_DESC_CHAR:
-            sort_exprs.append(F(sort_item[1::]).desc(nulls_last=False))
-        else:
-            sort_exprs.append(F(sort_item).asc(nulls_last=False))
-    sort_exprs.extend([F('pk').desc()])
 
     return sort_exprs, sort
 
