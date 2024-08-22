@@ -1243,6 +1243,22 @@ class DoNotEmail(models.Model):
         return self.recipient
 
 
+class ResourceContact(models.Model):
+    """
+    Organized resources to share with public users.
+    """
+    first_name = models.CharField(max_length=225, null=True, blank=True)
+    last_name = models.CharField(max_length=225, null=True, blank=True)
+    title = models.CharField(max_length=225, null=True, blank=True)
+    email = models.CharField(max_length=225, null=True, blank=True, validators=[validate_email_address])
+    phone = models.CharField(
+        validators=[RegexValidator(phone_validation_regex, message=CONTACT_PHONE_INVALID_MESSAGE)],
+        max_length=225,
+        null=True,
+        blank=True
+    )
+
+
 class Resource(models.Model):
     """
     Organized resources to share with public users.
@@ -1263,25 +1279,6 @@ class Resource(models.Model):
         null=True,
         blank=True
     )
-    contact_first_name = models.CharField(max_length=225, null=True, blank=True)
-    contact_last_name = models.CharField(max_length=225, null=True, blank=True)
-    contact_title = models.CharField(max_length=225, null=True, blank=True)
-    contact_email = models.CharField(max_length=225, null=True, blank=True, validators=[validate_email_address])
-    contact_phone = models.CharField(
-        validators=[RegexValidator(phone_validation_regex, message=CONTACT_PHONE_INVALID_MESSAGE)],
-        max_length=225,
-        null=True,
-        blank=True
-    )
-    secondary_contact_first_name = models.CharField(max_length=225, null=True, blank=True)
-    secondary_contact_last_name = models.CharField(max_length=225, null=True, blank=True)
-    secondary_contact_title = models.CharField(max_length=225, null=True, blank=True)
-    secondary_contact_email = models.CharField(max_length=225, null=True, blank=True, validators=[validate_email_address])
-    secondary_contact_phone = models.CharField(
-        validators=[RegexValidator(phone_validation_regex, message=CONTACT_PHONE_INVALID_MESSAGE)],
-        max_length=225,
-        null=True,
-        blank=True
-    )
+    contacts = models.ManyToManyField(ResourceContact, blank=True)
     notes = models.TextField(max_length=7000, null=True, blank=True)
     tags = models.ManyToManyField(Tag, blank=True)

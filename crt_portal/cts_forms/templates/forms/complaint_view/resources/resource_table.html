@@ -39,75 +39,76 @@
           {% render_sortable_heading 'Tags' sort_state %}
        </tr>
       </thead>
-      {% if data_dict %}
+      {% if resources %}
         <tbody>
-          {% for datum in data_dict %}
-            <tr class="tr-status-{{ datum.resource.section }} tr--hover{% cycle ' stripe' '' %}">
+          {% for resource in resources %}
+            <tr class="tr-status-{{ resource.resource.section }} tr--hover{% cycle ' stripe' '' %}">
               <td>
                 <div class="usa-checkbox td-checkbox">
                   <input type="checkbox"
                          name="id"
                          class="usa-checkbox__input"
-                         value="{{ datum.resource.id }}"
-                         id="checkbox-{{ datum.resource.id }}"
+                         value="{{ resource.resource.id }}"
+                         id="checkbox-{{ resource.resource.id }}"
                   >
-                  <label class="usa-checkbox__label crt-checkbox__label" for="checkbox-{{ datum.resource.id }}" aria-label="Select record {{ datum.resource.id }}"></label>
+                  <label class="usa-checkbox__label crt-checkbox__label" for="checkbox-{{ resource.resource.id }}" aria-label="Select record {{ resource.resource.id }}"></label>
                 </div>
               </td>
               <td>
-                <a data-id="{{ datum.resource.id }}" aria-expanded="false" aria-label="Expand details for Record {{datum.resource.id}}" role="button" aria-controls="tr-additional-{{ datum.resource.id }}" class="td-toggle display-flex" href="#">
+                <a data-id="{{ resource.resource.id }}" aria-expanded="false" aria-label="Expand details for Record {{resource.resource.id}}" role="button" aria-controls="tr-additional-{{ resource.resource.id }}" class="td-toggle display-flex" href="#">
                   <img aria-hidden="true" src="{% static "img/intake-icons/ic_chevron-right.svg" %}" class="icon">
                 </a>
               </td>
               <td>
-                <a class="td-link display-block" href="{{datum.url}}">
-                  <span class="status-tag status-{{ datum.resource.section }}">
-                    {{ datum.resource.section }}
+                <a class="td-link display-block" href="{{resource.url}}">
+                  <span class="status-tag status-{{ resource.resource.section }}">
+                    {{ resource.resource.section }}
                   </span>
                 </a>
               </td>
-              <td><a class="td-link display-block" href="{{datum.url}}">{{ datum.resource.name }}</a></td>
-              <td><a class="td-link display-block" href="{{datum.url}}">{{ datum.resource.phone }}</a></td>
-              <td><a class="td-link display-block" href="{{datum.url}}">{{ datum.resource.url }}</a></td>
-              <td><a class="td-link display-block" href="{{datum.url}}"></a></td>
+              <td><a class="td-link display-block" href="{{resource.url}}">{{ resource.resource.name }}</a></td>
+              <td><a class="td-link display-block" href="{{resource.url}}">{{ resource.resource.phone }}</a></td>
+              <td><a class="td-link display-block" href="{{resource.url}}">{{ resource.resource.url }}</a></td>
+              <td><a class="td-link display-block" href="{{resource.url}}"></a></td>
               <td>
-                <a class="td-link display-block" href="{{datum.url}}">
-                    {% for tag in datum.tags %}
+                <a class="td-link display-block" href="{{resource.url}}">
+                    {% for tag in resource.tags %}
                         {{ tag }}
                     {% endfor %}
                 </a>
               </td>
             </tr>
             {# this row is hidden by default #}
-            <tr class="tr-quickview" id="tr-additional-{{ datum.resource.id }}" hidden>
+            <tr class="tr-quickview" id="tr-additional-{{ resource.resource.id }}" hidden>
               <td class="quickview">
-                <span class="usa-sr-only">Details for record {{ datum.resource.id }}</span>
+                <span class="usa-sr-only">Details for record {{ resource.resource.id }}</span>
               </td>
               {# All screen readers don't yet read the headers attribute correctly, so we've added a redundant aria-label #}
               {# https://a11ysupport.io/tech/html/headers_attribute #}
               <td aria-label="Individual Contacts" headers="crt-table-indiv-contacts-header" class="quickview" colspan="5">
-                <label aria-hidden="true" for="tr-quickview-indiv-contacts-{{ datum.resource.id }}" class="td-quickview">
+                <label aria-hidden="true" for="tr-quickview-indiv-contacts-{{ resource.resource.id }}" class="td-quickview">
                   Individual Contacts
                 </label>
-                <div tabindex="0" role="textbox" aria-readonly="true" id="tr-quickview-indiv-contacts-{{ datum.resource.id }}" class="td-indiv-contacts">
-                    <a class="td-link display-block" href="{{datum.url}}">
-                        {% with last=datum.resource.contact_last_name|default:"—" %}
-                        {{ last|truncatechars:20 }}{% endwith %}, {% with first=datum.resource.contact_first_name|default:"—" %}
+                <div tabindex="0" role="textbox" aria-readonly="true" id="tr-quickview-indiv-contacts-{{ resource.resource.id }}" class="td-indiv-contacts">
+                    <a class="td-link display-block" href="{{resource.url}}">
+                      {% for contact in resource.contacts %}
+                        {% with last=contact.last_name|default:"—" %}
+                        {{ last|truncatechars:20 }}{% endwith %}, {% with first=contact.first_name|default:"—" %}
                         {{ first|truncatechars:20 }}
                         {% endwith %}
-                        {{ datum.resource.contact_title }}
-                        {{ datum.resource.contact_affiliation }}
-                        {{ datum.resource.contact_email }}
-                        {{ datum.resource.contact_phone }}
+                        {{ contact.title }}
+                        {{ contact.email }}
+                        {{ contact.phone }}
+                      {% endfor %}
                     </a>
                 </div>
               </td>
               <td aria-label="Notes" headers="crt-table-notes-header" class="quickview" colspan="6">
-                <label aria-hidden="true" for="tr-quickview-notes-{{ datum.resource.id }}" class="td-quickview">
+                <label aria-hidden="true" for="tr-quickview-notes-{{ resource.resource.id }}" class="td-quickview">
                   Notes
                 </label>
-                <div tabindex="0" role="textbox" aria-readonly="true" id="tr-quickview-notes-{{ datum.resource.id }}" class="td-notes word-break">
-                  {{ datum.resource.notes|linebreaks|default:"-" }}
+                <div tabindex="0" role="textbox" aria-readonly="true" id="tr-quickview-notes-{{ resource.resource.id }}" class="td-notes word-break">
+                  {{ resource.resource.notes|linebreaks|default:"-" }}
                 </div>
               </td>
             </tr>
@@ -118,7 +119,7 @@
   </div>
 </form>
 
-{% if not data_dict %}
+{% if not resources %}
   <div class="crt-portal-card table-message">
     <div class="crt-portal-card__content">
       <div class="grid-container padding-bottom-2">
@@ -132,7 +133,7 @@
   </div>
 {% endif %}
 
-{% if not page_format.has_next and data_dict %}
+{% if not page_format.has_next and resources %}
   <div class="crt-portal-card table-message">
     <div class="crt-portal-card__content">
       <div class="grid-container padding-bottom-2">
