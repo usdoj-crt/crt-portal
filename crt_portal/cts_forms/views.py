@@ -918,17 +918,18 @@ def _notification_change(request):
 
 @login_required
 def resources_view(request):
-    resources = Resource.objects.all()
-    data = []
-    for index, resource in enumerate(resources):
-        data.append({
+    resources = [
+        {
             'resource': resource,
             'tags': list(map(str, resource.tags.values_list('name', flat=True))),
-        })
-    data_dict = {
-        'data_dict': data,
+            'contacts': list({'first_name': str(first_name), 'last_name': str(last_name), 'title': str(title), 'email': str(email), 'phone': str(phone)} for first_name, last_name, title, email, phone in resource.contacts.values_list('first_name', 'last_name', 'title', 'email', 'phone'))
+        }
+        for index, resource in enumerate(Resource.objects.all().prefetch_related('tags', 'contacts'))
+    ]
+    resource_data = {
+        'resources': resources,
     }
-    return render(request, 'forms/complaint_view/resources/index.html', data_dict)
+    return render(request, 'forms/complaint_view/resources/index.html', resource_data)
 
 
 class ProfileView(LoginRequiredMixin, FormView):
