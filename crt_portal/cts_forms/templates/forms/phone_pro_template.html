@@ -1,0 +1,108 @@
+{% extends "forms/complaint_view/intake_base.html" %}
+{% include "templates/partials/expandable.html" %}
+{{ super }}
+
+{% block head %}
+  {{ super }}
+  <link rel="stylesheet" href="{% static 'css/vendor/intlTelInput.min.css' %}">
+{% endblock %}
+
+{% block page_header %}
+ {% include 'forms/complaint_view/side_nav.html' with page='report_records' section_filter=False %}
+{% endblock %}
+
+{% block main_class %} class="margin-top-5 margin-bottom-0"{% endblock %}
+
+{% block content %}
+<div class="intake-content">
+  <div id="status-update" class="grid-col-auto">
+    {% include 'partials/messages.html' %}
+  </div>
+
+  <h2 class="intake-section-title padding-bottom-2">{{title}}</h2>
+  <div class="margin-bottom-2"></div>
+
+  <div class="crt-portal-card">
+    <div class="crt-portal-card__content crt-portal-card__content--lg">
+
+      <h2 class="h1" id='contact'>Identifying Information</h2>
+
+      <div class="grid-row margin-top-2">
+        {% include 'partials/field.html' with field=form.contact_first_name %}
+      </div>
+
+      <div class="grid-row margin-top-2">
+        {% include 'partials/field.html' with field=form.contact_last_name %}
+      </div>
+
+      <div class="grid-row margin-top-2">
+        {% include 'partials/field.html' with field=form.contact_phone %}
+      </div>
+
+      {% include 'partials/start_expandable.html' with title='See more contact fields' %}
+
+      <p>
+        <em>Though the reporter is not obligated to provide the following, you may record volunteered information here</em>
+      </p>
+
+      <div class="grid-row">
+        {% include 'partials/field.html' with field=form.contact_email %}
+      </div>
+
+      <div class="grid-row">
+        {% include 'partials/field.html' with field=form.contact_address_line_1 %}
+      </div>
+
+      <div class="grid-row">
+        {% include 'partials/field.html' with field=form.contact_address_line_2 %}
+      </div>
+
+      <div class="grid-row">
+        {% include 'partials/field.html' with field=form.contact_city %}
+      </div>
+
+      <div class="grid-row">
+        {% include 'partials/field.html' with field=form.contact_state extra_class="padding-right-2" field_size=6 %}
+
+        {% include 'partials/field.html' with field=form.contact_zip field_size=6 %}
+      </div>
+
+      {% include 'partials/end_expandable.html' %}
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+{% if ENABLED_FEATURES.nav_updates %}
+</div>
+{% endif %}
+{% block page_js %}
+{{ super }}
+<script nonce="{{request.csp_nonce}}">
+  (function(root) {
+    root.CRT = root.CRT || {};
+
+    root.CRT.translations = {
+      wordRemainingText: "word remaining",
+      wordsRemainingText: " words remaining",
+      wordLimitReachedText: " word limit reached"
+    };
+  })(window)
+</script>
+<script src="{% static 'js/ga_util.min.js' %}"></script>
+<script src="{% static 'vendor/js.cookie.min.js' %}"></script>
+<script src="{% static 'vendor/shepherd.min.js'%}"></script>
+<script src="{% static 'js/modal.min.js' %}"></script>
+<script src="{% static 'js/pro_form_attachments.min.js' %}"></script>
+<script src="{% static 'js/disable_submit_button.min.js' %}"></script>
+<script src="{% static 'js/pro_form_show_hide.min.js' %}"></script>
+<script src="{% static 'js/autofill_current_date.min.js' %}"></script>
+<script src="{% static 'js/word_count.min.js' %}"></script>
+<script src="{% static 'js/progress-bar.min.js' %}"></script>
+<script src="{% static 'vendor/intlTelInput.min.js' %}"></script>
+<script src="{% static 'js/report_phone.min.js' %}"></script>
+{% if ENABLED_FEATURES.nav_updates %}
+    <script src="{% static 'js/side_nav_slider.min.js' %}"></script>
+{% endif %}
+<script type="module" src="{% static 'js/tour.min.js'%}"></script>
+{% endblock %}
