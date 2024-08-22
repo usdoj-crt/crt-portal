@@ -1,4 +1,5 @@
 import logging
+import collections
 from datetime import datetime, timezone
 
 from django.contrib.auth import get_user_model
@@ -986,6 +987,63 @@ class Review(ModelForm):
     class Meta:
         model = Report
         fields = []
+
+
+FieldConfig = collections.namedtuple('FieldConfig', [
+    'name',
+    'widget',
+    'label',
+])
+
+
+PHONE_FORM_CONFIG = [
+    FieldConfig('contact_first_name',
+                TextInput(attrs={'class': 'usa-input'}),
+                CONTACT_QUESTIONS['contact_first_name']),
+    FieldConfig('contact_last_name',
+                TextInput(attrs={'class': 'usa-input'}),
+                CONTACT_QUESTIONS['contact_last_name']),
+    FieldConfig('contact_phone',
+                TextInput(attrs={'class': 'usa-input phone-input', 'pattern': phone_validation_regex, 'title': CONTACT_PHONE_INVALID_MESSAGE}),
+                CONTACT_QUESTIONS['contact_phone']),
+    FieldConfig('contact_email',
+                EmailInput(attrs={'class': 'usa-input'}),
+                CONTACT_QUESTIONS['contact_email']),
+    FieldConfig('contact_address_line_1',
+                TextInput(attrs={'class': 'usa-input'}),
+                CONTACT_QUESTIONS['contact_address_line_1']),
+    FieldConfig('contact_address_line_2',
+                TextInput(attrs={'class': 'usa-input'}),
+                CONTACT_QUESTIONS['contact_address_line_2']),
+    FieldConfig('contact_city',
+                TextInput(attrs={'class': 'usa-input'}),
+                CONTACT_QUESTIONS['contact_city']),
+    FieldConfig('contact_state',
+                Select(attrs={'class': 'usa-select'}),
+                CONTACT_QUESTIONS['contact_state']),
+    FieldConfig('contact_zip',
+                TextInput(attrs={'class': 'usa-input'}),
+                CONTACT_QUESTIONS['contact_zip']),
+]
+
+
+class PhoneProForm(ModelForm):
+
+    class Meta:
+        model = Report
+        fields = [field.name for field in PHONE_FORM_CONFIG]
+
+        widgets = {
+            field.name: field.widget
+            for field in PHONE_FORM_CONFIG
+        }
+
+    def __init__(self, *args, **kwargs):
+        ModelForm.__init__(self, *args, **kwargs)
+        self.label_suffix = ''
+
+        for field in PHONE_FORM_CONFIG:
+            self.fields[field.name].label = field.label
 
 
 class ProForm(
