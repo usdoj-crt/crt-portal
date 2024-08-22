@@ -925,16 +925,23 @@ def resources_view(request):
     page_args = f'?per_page={per_page}'
     sort_state = {}
     sort_args, sort_state = get_sort_args(sorts, sort_state)
-    qs = Resource.objects.all().order_by(*sort_expr)
-    paginator = Paginator(resources, per_page)
+    qs = Resource.objects.all().order_by(*sort_expr).prefetch_related('tags', 'contacts')
+    paginator = Paginator(qs, per_page)
     qs, page_format = pagination(paginator, page, per_page)
     resources = [
         {
             'resource': resource,
-            'tags': list({'name': str(name), 'section': str(section) if section else '', 'tooltip': str(tooltip) if tooltip else ''} for name, section, tooltip in resource.tags.values_list('name', 'section', 'tooltip')),
-            'contacts': list({'first_name': str(first_name), 'last_name': str(last_name), 'title': str(title), 'email': str(email), 'phone': str(phone)} for first_name, last_name, title, email, phone in resource.contacts.values_list('first_name', 'last_name', 'title', 'email', 'phone'))
+            'tags': [{'name': str(name),
+                      'tooltip': str(tooltip) if tooltip else ''}
+                      for name, tooltip in resource.tags.values_list('name', 'tooltip')],
+            'contacts': [{'first_name': str(first_name),
+                          'last_name': str(last_name),
+                          'title': str(title),
+                          'email': str(email),
+                          'phone': str(phone)}
+                          for first_name, last_name, title, email, phone in resource.contacts.values_list('first_name', 'last_name', 'title', 'email', 'phone')]
         }
-        for index, resource in enumerate(qs.prefetch_related('tags', 'contacts'))
+        for index, resource in enumerate(qs)
     ]
     resource_data = {
         'resources': resources,
