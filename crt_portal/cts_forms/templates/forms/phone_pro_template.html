@@ -14,18 +14,19 @@
 {% block main_class %} class="margin-top-5 margin-bottom-0"{% endblock %}
 
 {% block content %}
-<div class="intake-content">
+<div class="grid-row">
+<h1 class="intake-section-title padding-bottom-2m margin-left-5">{{title}}</h1>
+</div>
+<div class="grid-row margin-top-2">
+<div class="intake-content intake-phone-content grid-col-8">
   <div id="status-update" class="grid-col-auto">
     {% include 'partials/messages.html' %}
   </div>
 
-  <h2 class="intake-section-title padding-bottom-2">{{title}}</h2>
-  <div class="margin-bottom-2"></div>
+  <div class="crt-portal-card main-card">
+    <div class="crt-portal-card__content">
 
-  <div class="crt-portal-card">
-    <div class="crt-portal-card__content crt-portal-card__content--lg">
-
-      <h2>Identifying Information</h2>
+      <h2>Contact</h2>
 
       <div class="grid-row margin-top-2">
         {% include 'partials/field.html' with field=form.contact_first_name %}
@@ -35,10 +36,11 @@
         {% include 'partials/field.html' with field=form.contact_last_name %}
       </div>
 
-      <div class="grid-row margin-top-2">
+      <div class="grid-row margin-top-2 margin-bottom-3">
         {% include 'partials/field.html' with field=form.contact_phone %}
       </div>
 
+      <hr>
       {% include 'partials/start_expandable.html' with title='See more contact fields' %}
 
       <p>
@@ -59,23 +61,24 @@
 
       <div class="grid-row">
         {% include 'partials/field.html' with field=form.contact_city %}
+        {% include 'partials/field.html' with field=form.contact_state extra_class="padding-right-2" field_size=6 %}
       </div>
 
       <div class="grid-row">
-        {% include 'partials/field.html' with field=form.contact_state extra_class="padding-right-2" field_size=6 %}
-
-        {% include 'partials/field.html' with field=form.contact_zip field_size=6 %}
+        {% include 'partials/field.html' with field=form.contact_zip %}
       </div>
 
       {% include 'partials/end_expandable.html' %}
 
-      <h2 class="margin-top-2">Primary concern</h2>
+      <hr>
+
+      <h2>Primary concern</h2>
 
       <div class="grid-row margin-top-2">
-        {% include 'partials/field.html' with field=form.primary_complaint %}
+        {% include 'partials/field.html' with field=form.primary_complaint strong_label=True %}
       </div>
 
-      <h2 class="margin-top-2">Incident location</h2>
+      <h2>Incident location</h2>
 
       <div class="grid-row margin-top-2">
         {% include 'partials/field.html' with field=form.location_name %}
@@ -89,29 +92,71 @@
         {% include 'partials/field.html' with field=form.location_address_line_2 %}
       </div>
 
-      <div class="grid-row margin-top-2">
+      <div class="grid-row margin-top-2 margin-bottom-3">
         {% include 'partials/field.html' with field=form.location_city_town field_size=6 extra_class="padding-right-2" %}
-        {% include 'partials/field.html' with field=form.location_state field_size=6 %}
+        {% include 'partials/field.html' with field=form.location_state field_size=5 %}
       </div>
 
-      <h2 class="margin-top-2">Summary</h2>
-      <div class="margin-top-1">
+      <hr>
+
+      <h2>Summary</h2>
+      <div class="margin-top-1 margin-bottom-2">
         {% include "forms/question_cards/single_question.html" with field=form.violation_summary card_title="Personal Description" %}
         {% include "forms/word_counter.html" with word_limit=500 %}
       </div>
 
-      <h2 class="margin-top-2">Receipt Date</h2>
-      <div class="margin-top-3 display-flex flex-align-end">
-        {% include "forms/question_cards/date.html" with question='CRT receipt date' month=form.crt_reciept_month day=form.crt_reciept_day year=form.crt_reciept_year required=True proform_required=True %}
+      <hr>
+
+      <div class="margin-bottom-3 margin-top-3 display-flex flex-align-end">
+        {% include "forms/question_cards/date.html" with question='Receipt date' month=form.crt_reciept_month day=form.crt_reciept_day year=form.crt_reciept_year required=True proform_required=True %}
       </div>
 
       {# These are hidden inputs: #}
       {{form.intake_format}}
-
-      <input type="button" value='Save' class="usa-button crt-button--large"/>
-      <a href="/form/new/phone" class="usa-button usa-button--outline crt-button--large">Create New</a>
     </div>
   </div>
+</div>
+<div class="intake-sidebar grid-col-3 margin-top-3">
+  <div class="crt-portal-card margin-top-2">
+    <div class="crt-portal-card__content">
+      <h2>Quick Links</h2>
+
+      <ul class="usa-list--unstyled margin-bottom-2">
+      {% for text, link in quick_links %}
+        <li><a href="{{link}}" class="usa-link">{{text}}</a></li>
+      {% endfor %}
+      </ul>
+    </div>
+  </div>
+
+
+  {% include 'partials/start_expandable.html' with title='Specific Contacts' %}
+
+  <ul>
+    {% for contact in specific_contacts %}
+      <li>
+        <p><strong>{{contact.title}}</strong></p>
+
+        {% if contact.email %}
+        <p><a href="mailto:{{contact.email}}" class="usa-link">{{contact.email}}</a></p>
+        {% endif %}
+
+        {% if contact.phone %}
+        <p>{{contact.phone}}</p>
+        {% endif %}
+
+      </li>
+    {% endfor %}
+  </ul>
+
+  {% include 'partials/end_expandable.html' %}
+
+  <div class="margin-top-2">
+    <input type="button" value='Save' class="usa-button crt-button--large"/>
+    <a href="/form/new/phone" class="usa-button usa-button--outline crt-button--large">Create New</a>
+  </div>
+
+</div>
 </div>
 
 {% endblock %}
