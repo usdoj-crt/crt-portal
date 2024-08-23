@@ -932,15 +932,15 @@ def resources_view(request):
         {
             'resource': resource,
             'tags': [{'name': str(name),
-                        'tooltip': str(tooltip) if tooltip else ''
-                    } for name, tooltip in resource.tags.values_list('name', 'tooltip')],
+                      'tooltip': str(tooltip) if tooltip else ''
+                      } for name, tooltip in resource.tags.values_list('name', 'tooltip')],
             'contacts': [{
-                            'first_name': str(first_name),
-                            'last_name': str(last_name),
-                            'title': str(title),
-                            'email': str(email),
-                            'phone': str(phone)
-                        } for first_name, last_name, title, email, phone in resource.contacts.values_list('first_name', 'last_name', 'title', 'email', 'phone')]
+                'first_name': str(first_name),
+                'last_name': str(last_name),
+                'title': str(title),
+                'email': str(email),
+                'phone': str(phone)
+            } for first_name, last_name, title, email, phone in resource.contacts.values_list('first_name', 'last_name', 'title', 'email', 'phone')]
         }
         for index, resource in enumerate(qs)
     ]
