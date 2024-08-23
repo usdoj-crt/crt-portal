@@ -1167,6 +1167,128 @@ class LoginRequiredTests(TestCase):
             )
 
 
+class ReportEditApiTests(TestCase):
+
+    report_data = {
+        "contact_first_name": "fakefirst",
+        "contact_last_name": "fakelast",
+        "contact_phone": "+15555555555",
+        "contact_email": "fake@example.com",
+        "contact_address_line_1": "123 Fake St",
+        "contact_address_line_2": "",
+        "contact_city": "Fakington",
+        "contact_state": "OH",
+        "contact_zip": "12345",
+        "primary_complaint": "voting",
+        "location_name": "Fake Org",
+        "location_address_line_1": "1234 Fake Ave",
+        "location_address_line_2": "",
+        "location_city_town": "Fakeville",
+        "location_state": "AZ",
+        "violation_summary": "something happened",
+        "crt_reciept_month": 8,
+        "crt_reciept_day": 15,
+        "crt_reciept_year": 2024,
+        "intake_format": "phone",
+    }
+
+    def setUp(self):
+        self.client = Client()
+        self.user = User.objects.create_user("USER_1", "user@example.com", "")
+        self.base_url = reverse('api:report-edit')
+        self.client.login(username="USER_1", password="")  # nosec
+
+    def tearDown(self):
+        self.user.delete()
+
+    def test_phone_pro_form_404s(self):
+        url = self.base_url
+
+        response = self.client.post(url,
+                                    {'public_id': 'not-a-public-id'},
+                                    content_type='application/json')
+
+        self.assertEqual(response.status_code, 404)
+
+    def test_phone_pro_form_creates(self):
+        url = self.base_url
+
+        # Just the subset from the phone pro form:
+        response = self.client.post(url, self.report_data, content_type='application/json')
+        response_json = response.json()
+
+        public_id = response_json['form']['public_id']
+        pk = public_id.split('-')[0]
+        self.assertGreater(int(pk), 0)
+        self.assertEqual(response.status_code, 201)
+        self.maxDiff = None
+        self.assertDictEqual(response_json, {
+            'changed_data': ['contact_first_name',
+                             'contact_last_name',
+                             'contact_phone',
+                             'contact_email',
+                             'contact_address_line_1',
+                             'contact_city',
+                             'contact_state',
+                             'contact_zip',
+                             'primary_complaint',
+                             'location_name',
+                             'location_address_line_1',
+                             'location_city_town',
+                             'location_state',
+                             'violation_summary',
+                             'crt_reciept_month',
+                             'crt_reciept_day',
+                             'crt_reciept_year',
+                             'intake_format',
+                             'public_id'],
+            'form': {
+                **self.report_data,
+                'public_id': public_id,
+            },
+            'messages': [
+                {'message': f'Successfully created report {public_id}',
+                 'type': 'success'},
+            ],
+            'new_url': f'/form/new/phone/{pk}/',
+        })
+
+    def test_phone_pro_form_edits(self):
+        public_id = '123-XYZ'
+        report = Report.objects.create(**self.report_data)
+        report.public_id = public_id
+        report.save()
+        url = self.base_url
+
+        # Just the subset from the phone pro form:
+        response = self.client.post(url,
+                                    {
+                                        'public_id': public_id,
+                                        **self.report_data,
+                                        'contact_first_name': 'newfirst',
+                                    },
+                                    content_type='application/json')
+        response_json = response.json()
+
+        self.assertEqual(response.status_code, 200)
+        self.maxDiff = None
+        self.assertDictEqual(response_json, {
+            'changed_data': ['contact_first_name'],
+            'form': {
+                **self.report_data,
+                'contact_first_name': 'newfirst',
+                'public_id': public_id,
+            },
+            'messages': [
+                {'message': 'Contact first name: Updated from "fakefirst" to "newfirst"',
+                 'type': 'success'},
+                {'message': f'Successfully updated report {public_id}',
+                 'type': 'success'},
+            ],
+            'new_url': None,
+        })
+
+
 class ReportSummaryApiTests(TestCase):
 
     def setUp(self):

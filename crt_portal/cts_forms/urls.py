@@ -22,6 +22,7 @@ urlpatterns = [
     path('view/search-examples', SearchHelperView.as_view(), name='cts-forms-search-help'),
     path('new/', ProFormView.as_view([ProForm]), name='crt-pro-form'),
     path('new/phone/', phone_pro_form_view, name='crt-phone-pro-form'),
+    path('new/phone/<int:report_id>/', phone_pro_form_view, name='crt-phone-pro-form'),
     path('actions/', ActionsView.as_view(), name='crt-forms-actions'),
     path('actions/print', PrintView.as_view(), name='crt-forms-print'),
     path('comment/report/<int:report_id>/', SaveCommentView.as_view(), name='save-report-comment'),

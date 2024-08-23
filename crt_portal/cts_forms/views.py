@@ -2000,9 +2000,13 @@ class SaveCommentView(LoginRequiredMixin, FormView):
 
 
 @login_required
-def phone_pro_form_view(request):
+def phone_pro_form_view(request, report_id=None):
 
-    form = PhoneProForm()
+    if report_id:
+        report = get_object_or_404(Report, pk=report_id)
+        form = PhoneProForm(instance=report)
+    else:
+        form = PhoneProForm()
 
     return render(
         request,
