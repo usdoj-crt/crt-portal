@@ -919,16 +919,21 @@ def _notification_change(request):
 
 @login_required
 def resources_view(request):
+    sort_expr, sorts = other_sort(request.GET.getlist('sort'), 'resources')
+    sort_state = {}
+    sort_args, sort_state = get_sort_args(sorts, sort_state)
+    qs = Resource.objects.all().order_by(*sort_expr)
     resources = [
         {
             'resource': resource,
             'tags': list(map(str, resource.tags.values_list('name', flat=True))),
             'contacts': list({'first_name': str(first_name), 'last_name': str(last_name), 'title': str(title), 'email': str(email), 'phone': str(phone)} for first_name, last_name, title, email, phone in resource.contacts.values_list('first_name', 'last_name', 'title', 'email', 'phone'))
         }
-        for index, resource in enumerate(Resource.objects.all().prefetch_related('tags', 'contacts'))
+        for index, resource in enumerate(qs.prefetch_related('tags', 'contacts'))
     ]
     resource_data = {
         'resources': resources,
+        'sort_state': sort_state,
     }
     return render(request, 'forms/complaint_view/resources/index.html', resource_data)
 

@@ -12,6 +12,8 @@ def _valid_sort_params(sort, type):
         valid_fields = ['created_by', 'section', 'name']
     elif type == 'batch':
         valid_fields = ['status', 'retention_schedule', 'proposed_disposal_date', 'create_date']
+    elif type == 'resources':
+        valid_fields = ['section', 'name', 'phone', 'url', 'other_resources_available', 'tags']
     else:
         fields = [
             *EmailReportCount._meta.fields,
