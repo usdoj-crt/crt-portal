@@ -169,6 +169,13 @@
       // way to remove padding from td elements in the table body
       border-left: 1px solid color('white');
       vertical-align: top;
+      .circle-4 svg.icon, .copy-resource svg.icon {
+        max-width: 26px;
+        max-height: 26px;
+        position: absolute;
+        top: 3px;
+        left: 3px;
+      }
     }
 
     tr {

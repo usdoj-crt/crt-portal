@@ -37,6 +37,8 @@
           {% render_sortable_heading 'Url' sort_state %}
           {% render_sortable_heading 'Other Resources Available' sort_state %}
           {% render_sortable_heading 'Tags' sort_state %}
+          <th></th>
+          <th></th>
        </tr>
       </thead>
       {% if resources %}
@@ -68,10 +70,26 @@
               </td>
               <td><a class="td-link display-block text-uppercase" href="{{resource.url}}">{{ resource.resource.name }}</a></td>
               <td><a class="td-link display-block" href="{{resource.url}}">{{ resource.resource.phone }}</a></td>
-              <td>{% if datum.resource.url %}<a href="{{datum.resource.url}}" class="text-uppercase">{{ datum.resource.url }}</a>{% endif %}</td>
-              <td><a class="td-link display-block" href="{{resource.url}}"></a></td>
+              <td>{% if resource.resource.url %}<a href="{{resource.resource.url}}" class="text-uppercase">{{ resource.resource.url }}</a>{% endif %}</td>
+              <td><a class="td-link display-flex" href="{{resource.url}}">
+                {% if resource.resource.email or resource.resource.secondary_email %}
+                  <div class="margin-2px bg-primary circle-4 position-relative">{% include 'partials/sprite.html' with icon='alternate_email' fill='#FFF' %}</div>
+                {% else %}
+                  <div class="margin-2px bg-gray-30 circle-4 position-relative">{% include 'partials/sprite.html' with icon='alternate_email' fill='#FFF' %}</div>
+                {% endif %}
+                {% if resource.resource.secondary_phone %}
+                  <div class="margin-2px bg-primary circle-4 position-relative">{% include 'partials/sprite.html' with icon='phone' fill='#FFF' %}</div>
+                {% else %}
+                  <div class="margin-2px bg-gray-30 circle-4 position-relative">{% include 'partials/sprite.html' with icon='phone' fill='#FFF' %}</div>
+                {% endif %}
+                {% if resource.contacts %}
+                  <div class="margin-2px bg-primary circle-4 position-relative">{% include 'partials/sprite.html' with icon='people' fill='#FFF' %}</div>
+                {% else %}
+                  <div class="margin-2px bg-gray-30 circle-4 position-relative">{% include 'partials/sprite.html' with icon='people' fill='#FFF' %}</div>
+                {% endif %}
+              </a></td>
               <td>
-                <a class="td-link display-block" href="{{datum.url}}">
+                <a class="td-link display-block" href="{{resource.url}}">
                     {% for tag in resource.tags %}
                     <span class="usa-tooltip" data-position="right" data-classes="display-inline" title="{{ tag.tooltip }}">
                         <span class='usa-tag usa-tag--big'>
@@ -80,6 +98,21 @@
                     </span>
                     {% endfor %}
                 </a>
+              </td>
+              <td>
+                <span style="display:none" class="copied">Copied!</span>
+                <span class="usa-tooltip" data-position="right" data-classes="display-inline" title="Copy resource">
+                <a href="#" class="copy-resource position-absolute padding-top-4 margin-top-1 display-flex height-full z-100">
+                    {% include 'partials/sprite.html' with icon='content_copy' %}
+                </a>
+              </span>
+              </td>
+              <td class="opacity-0">
+                <span class="copy-text position-absolute height-0 width-0">
+                  {{ resource.resource.name }}
+                  {{ resource.resource.phone }}
+                  {{ resource.resource.url }}
+                  </span>
               </td>
             </tr>
             {# this row is hidden by default #}
