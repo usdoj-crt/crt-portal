@@ -19,6 +19,20 @@ class UsaRadioSelect(ChoiceWidget):
     option_template_name = 'forms/widgets/usa_radio_option.html'
 
 
+class CrtExpandableRadioSelect(UsaRadioSelect):
+    template_name = 'forms/widgets/expandable_radio_select.html'
+
+    def __init__(self, *args, **kwargs):
+        self.unfolded_options = kwargs.pop('unfolded_options', [])
+        super().__init__(*args, **kwargs)
+
+    def get_context(self, *args, **kwargs):
+        return {
+            **super().get_context(*args, **kwargs),
+            'unfolded_options': self.unfolded_options,
+        }
+
+
 class CrtTextInput(TextInput):
     input_type = 'text'
     template_name = 'django/forms/widgets/input.html'
