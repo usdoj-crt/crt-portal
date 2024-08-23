@@ -1059,7 +1059,6 @@ PHONE_FORM_CONFIG = [
                     'maxlength': 2,
                     'pattern': '[0-9]*',
                     'inputmode': 'numeric',
-                    'required': True,
                     'value': dtimezone.now().month,
                 }),
                 'Month'),
@@ -1070,7 +1069,6 @@ PHONE_FORM_CONFIG = [
                     'maxlength': 2,
                     'pattern': '[0-9]*',
                     'inputmode': 'numeric',
-                    'required': True,
                     'value': dtimezone.now().day,
                 }),
                 'Day'),
@@ -1082,10 +1080,13 @@ PHONE_FORM_CONFIG = [
                     'maxlength': 4,
                     'pattern': '[0-9]*',
                     'inputmode': 'numeric',
-                    'required': True,
                     'value': dtimezone.now().year,
                 }),
                 'Year'),
+
+    FieldConfig('public_id',
+                TextInput(attrs={'class': 'usa-input'}),
+                'Record Locator (Public ID)'),
 
     FieldConfig('intake_format',
                 HiddenInput(attrs={'value': 'phone'}),
@@ -1093,7 +1094,7 @@ PHONE_FORM_CONFIG = [
 ]
 
 
-class PhoneProForm(ModelForm):
+class PhoneProForm(ModelForm, ActivityStreamUpdater):
 
     class Meta:
         model = Report
@@ -1110,10 +1111,11 @@ class PhoneProForm(ModelForm):
 
         for field in PHONE_FORM_CONFIG:
             self.fields[field.name].label = field.label
+            self.fields[field.name].required = False
 
     def clean(self):
         """Handles special fields that don't map back to model fields"""
-        cleaned_data = super(ProForm, self).clean()
+        cleaned_data = super(PhoneProForm, self).clean()
         return crt_date_cleaner(self, cleaned_data)
 
 
