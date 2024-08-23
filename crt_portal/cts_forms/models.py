@@ -1241,3 +1241,44 @@ class DoNotEmail(models.Model):
 
     def __str__(self):
         return self.recipient
+
+
+class ResourceContact(models.Model):
+    """
+    Organized resources to share with public users.
+    """
+    first_name = models.CharField(max_length=225, null=True, blank=True)
+    last_name = models.CharField(max_length=225, null=True, blank=True)
+    title = models.CharField(max_length=225, null=True, blank=True)
+    email = models.CharField(max_length=225, null=True, blank=True, validators=[validate_email_address])
+    phone = models.CharField(
+        validators=[RegexValidator(phone_validation_regex, message=CONTACT_PHONE_INVALID_MESSAGE)],
+        max_length=225,
+        null=True,
+        blank=True
+    )
+
+
+class Resource(models.Model):
+    """
+    Organized resources to share with public users.
+    """
+    name = models.CharField(max_length=255, null=False, blank=False, help_text="The name of the resource as it will appear in lists and dropdowns.")
+    section = models.TextField(choices=SECTION_CHOICES, null=True, blank=True, default=None, help_text="The section to which this resource applies.")
+    email = models.CharField(max_length=225, null=True, blank=True, validators=[validate_email_address])
+    secondary_email = models.CharField(max_length=225, null=True, blank=True, validators=[validate_email_address])
+    phone = models.CharField(
+        validators=[RegexValidator(phone_validation_regex, message=CONTACT_PHONE_INVALID_MESSAGE)],
+        max_length=225,
+        null=True,
+        blank=True
+    )
+    secondary_phone = models.CharField(
+        validators=[RegexValidator(phone_validation_regex, message=CONTACT_PHONE_INVALID_MESSAGE)],
+        max_length=225,
+        null=True,
+        blank=True
+    )
+    contacts = models.ManyToManyField(ResourceContact, blank=True)
+    notes = models.TextField(max_length=7000, null=True, blank=True)
+    tags = models.ManyToManyField(Tag, blank=True)

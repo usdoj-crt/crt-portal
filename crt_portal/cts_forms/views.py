@@ -46,7 +46,7 @@ from .forms import (
 )
 from .mail import mail_to_complainant
 from .model_variables import BATCH_STATUS_CHOICES, HATE_CRIMES_TRAFFICKING_MODEL_CHOICES, NOTIFICATION_PREFERENCE_CHOICES
-from .models import CommentAndSummary, Profile, Report, ReportAttachment, ReportDisposition, ReportDispositionBatch, ReportsData, RetentionSchedule, SavedSearch, Trends, EmailReportCount, Campaign, User, NotificationPreference, RoutingSection, RoutingStepOneContact, RepeatWriterInfo
+from .models import CommentAndSummary, Profile, Report, ReportAttachment, ReportDisposition, ReportDispositionBatch, ReportsData, Resource, RetentionSchedule, SavedSearch, Trends, EmailReportCount, Campaign, User, NotificationPreference, RoutingSection, RoutingStepOneContact, RepeatWriterInfo
 from .page_through import pagination
 from .sorts import other_sort, report_sort
 
@@ -915,6 +915,22 @@ def _notification_change(request):
                          messages.SUCCESS,
                          mark_safe("Your preferences have been saved"))
     return redirect(reverse('crt_forms:crt-forms-notifications'))
+
+
+@login_required
+def resources_view(request):
+    resources = [
+        {
+            'resource': resource,
+            'tags': list(map(str, resource.tags.values_list('name', flat=True))),
+            'contacts': list({'first_name': str(first_name), 'last_name': str(last_name), 'title': str(title), 'email': str(email), 'phone': str(phone)} for first_name, last_name, title, email, phone in resource.contacts.values_list('first_name', 'last_name', 'title', 'email', 'phone'))
+        }
+        for index, resource in enumerate(Resource.objects.all().prefetch_related('tags', 'contacts'))
+    ]
+    resource_data = {
+        'resources': resources,
+    }
+    return render(request, 'forms/complaint_view/resources/index.html', resource_data)
 
 
 class ProfileView(LoginRequiredMixin, FormView):
