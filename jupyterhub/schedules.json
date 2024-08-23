@@ -3,28 +3,46 @@
     "interval": {
       "hours": 1
     },
-    "last_executed": "2023-09-15T19:03:34.362762",
-    "path": "assignments/intake-dashboard/total_complaints.ipynb"
+    "path": "assignments/intake-dashboard/2data_tables_example.txt"
   },
   {
     "interval": {
       "hours": 1
     },
-    "last_executed": "2023-09-15T19:03:42.499914",
-    "path": "assignments/intake-dashboard/only_for_adm.ipynb"
+    "last_executed": "2024-08-21T20:01:38.764035",
+    "path": "assignments/intake-dashboard/DRS Dashboard.ipynb"
   },
   {
     "interval": {
       "hours": 1
     },
-    "last_executed": "",
-    "path": "assignments/intake-dashboard/whats_happening_where.ipynb"
+    "path": "assignments/intake-dashboard/Session.vim"
   },
   {
     "interval": {
       "hours": 1
     },
-    "last_executed": "",
-    "path": "assignments/intake-dashboard/report_districts.ipynb"
+    "last_executed": "2024-08-21T20:02:11.348006",
+    "path": "assignments/intake-dashboard/cities.ipynb"
+  },
+  {
+    "interval": {
+      "hours": 1
+    },
+    "last_executed": "2024-08-21T20:02:33.720859",
+    "path": "assignments/intake-dashboard/draft_data_tables_example.ipynb"
+  },
+  {
+    "interval": {
+      "hours": 1
+    },
+    "last_executed": "2024-08-21T20:02:43.363909",
+    "path": "assignments/intake-dashboard/draft_waffles.ipynb"
+  },
+  {
+    "interval": {
+      "hours": 1
+    },
+    "path": "assignments/intake-dashboard/whats_happening_where2.ipynb"
   }
 ]
