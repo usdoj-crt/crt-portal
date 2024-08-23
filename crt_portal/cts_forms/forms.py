@@ -390,7 +390,7 @@ class Contact(ModelForm):
 
         errors = result.get('error-codes')
         logging.error(f'Challenge validation failed: {errors}')
-        self.add_error(None, _('Challenge was invalid, please try again.'))
+        self.add_error(None, _('Submission failed. Please try again.'))
         return form_data
 
     def __init__(self, *args, use_challenge=False, **kwargs):

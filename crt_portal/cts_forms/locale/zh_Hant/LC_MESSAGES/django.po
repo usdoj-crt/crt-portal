@@ -8,7 +8,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: crt_portal/cts_forms/forms.py:388
-msgid "Challenge was invalid, please try again."
+msgid "Submission failed. Please try again."
 msgstr ""
 
 #. Translators: this is the default- blank options for a drop-down menu where a user chooses a state
