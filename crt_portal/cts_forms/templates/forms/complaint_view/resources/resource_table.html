@@ -61,19 +61,23 @@
               </td>
               <td>
                 <a class="td-link display-block" href="{{resource.url}}">
-                  <span class="status-tag status-{{ resource.resource.section }}">
+                  <span class="status-tag status-closed">
                     {{ resource.resource.section }}
                   </span>
                 </a>
               </td>
-              <td><a class="td-link display-block" href="{{resource.url}}">{{ resource.resource.name }}</a></td>
+              <td><a class="td-link display-block text-uppercase" href="{{resource.url}}">{{ resource.resource.name }}</a></td>
               <td><a class="td-link display-block" href="{{resource.url}}">{{ resource.resource.phone }}</a></td>
-              <td><a class="td-link display-block" href="{{resource.url}}">{{ resource.resource.url }}</a></td>
+              <td>{% if datum.resource.url %}<a href="{{datum.resource.url}}" class="text-uppercase">{{ datum.resource.url }}</a>{% endif %}</td>
               <td><a class="td-link display-block" href="{{resource.url}}"></a></td>
               <td>
-                <a class="td-link display-block" href="{{resource.url}}">
+                <a class="td-link display-block" href="{{datum.url}}">
                     {% for tag in resource.tags %}
-                        {{ tag }}
+                    <span class="usa-tooltip" data-position="right" data-classes="display-inline" title="{{ tag.tooltip }}">
+                        <span class='usa-tag usa-tag--big'>
+                            <span class='name'>{{ tag.name }}</span>
+                        </span>
+                    </span>
                     {% endfor %}
                 </a>
               </td>
@@ -91,14 +95,14 @@
                 </label>
                 <div tabindex="0" role="textbox" aria-readonly="true" id="tr-quickview-indiv-contacts-{{ resource.resource.id }}" class="td-indiv-contacts">
                     <a class="td-link display-block" href="{{resource.url}}">
-                      {% for contact in resource.contacts %}
+                     <p> {% for contact in resource.contacts %}
                         {% with last=contact.last_name|default:"—" %}
                         {{ last|truncatechars:20 }}{% endwith %}, {% with first=contact.first_name|default:"—" %}
                         {{ first|truncatechars:20 }}
-                        {% endwith %}
-                        {{ contact.title }}
-                        {{ contact.email }}
-                        {{ contact.phone }}
+                        {% endwith %} <br />
+                          {{ contact.title }} <br />
+                        {{ contact.email }} <br />
+                       {{ contact.phone }}</p>
                       {% endfor %}
                     </a>
                 </div>

@@ -913,6 +913,12 @@ ul.table-tabs {
     flex-basis: 20%;
     height: 3em;
     list-style: none;
+    &.resources-tab {
+      flex-basis: auto;
+      button {
+        padding: 0 2em;
+      }
+    }
   }
 
   button {

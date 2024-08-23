@@ -920,20 +920,36 @@ def _notification_change(request):
 @login_required
 def resources_view(request):
     sort_expr, sorts = other_sort(request.GET.getlist('sort'), 'resources')
+    per_page = 15
+    page = request.GET.get('page', 1)
+    page_args = f'?per_page={per_page}'
     sort_state = {}
     sort_args, sort_state = get_sort_args(sorts, sort_state)
-    qs = Resource.objects.all().order_by(*sort_expr)
+    qs = Resource.objects.all().order_by(*sort_expr).prefetch_related('tags', 'contacts')
+    paginator = Paginator(qs, per_page)
+    qs, page_format = pagination(paginator, page, per_page)
     resources = [
         {
             'resource': resource,
-            'tags': list(map(str, resource.tags.values_list('name', flat=True))),
-            'contacts': list({'first_name': str(first_name), 'last_name': str(last_name), 'title': str(title), 'email': str(email), 'phone': str(phone)} for first_name, last_name, title, email, phone in resource.contacts.values_list('first_name', 'last_name', 'title', 'email', 'phone'))
+            'tags': [{'name': str(name),
+                      'tooltip': str(tooltip) if tooltip else ''
+                      } for name, tooltip in resource.tags.values_list('name', 'tooltip')],
+            'contacts': [{
+                'first_name': str(first_name),
+                'last_name': str(last_name),
+                'title': str(title),
+                'email': str(email),
+                'phone': str(phone)
+            } for first_name, last_name, title, email, phone in resource.contacts.values_list('first_name', 'last_name', 'title', 'email', 'phone')]
         }
-        for index, resource in enumerate(qs.prefetch_related('tags', 'contacts'))
+        for index, resource in enumerate(qs)
     ]
     resource_data = {
         'resources': resources,
         'sort_state': sort_state,
+        'page_format': page_format,
+        'page_args': page_args,
+        'per_page': per_page,
     }
     return render(request, 'forms/complaint_view/resources/index.html', resource_data)
 
