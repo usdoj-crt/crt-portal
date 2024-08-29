@@ -99,8 +99,8 @@
       if (valueToList[0] !== '') {
         var paramsString = valueToList
           .reduce(function(accum, value) {
-              accum.push(makeQueryParam(key, value));
-              newParamKeys.push(key);
+            accum.push(makeQueryParam(key, value));
+            newParamKeys.push(key);
             return accum;
           }, [])
           .join('&');
