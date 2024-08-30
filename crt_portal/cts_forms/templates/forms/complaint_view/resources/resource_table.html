@@ -1,10 +1,6 @@
 {% load sortable_table_heading %}
 
-<form class="usa-form"
-      method="get"
-      action=""
-      novalidate
->
+<form class="usa-form">
   <div class="crt-xscroll">
     <table class="usa-table crt-table sort-table">
     {# This "fake" table makes nested headers available to screen readers #}
@@ -107,8 +103,8 @@
                 </a>
               </span>
               </td>
-              <td class="opacity-0">
-                <span class="copy-text position-absolute height-0 width-0">
+              <td>
+                <span class="copy-text position-absolute height-0 width-0 opacity-0">
                   {{ resource.resource.name }}
                   {{ resource.resource.phone }}
                   {{ resource.resource.url }}
@@ -153,6 +149,19 @@
         </tbody>
       {% endif %}
     </table>
+  </div>
+  <div class="selection-action-notification" hidden>
+    <div class="display-flex flex-align-center">
+      <div>
+        <img src="{% static 'img/ic_successconfirmation-white.svg' %}" alt="action available on selection" class="icon">
+      </div>
+      <h2>
+        <span id="selection-action-count" class="selection-action-count">1 resource selected</span>
+      </h2>
+      <div class="selection-submit">
+        <button id="actions" label="actions" class="usa-button">Copy resource</button>
+      </div>
+    </div>
   </div>
 </form>
 
