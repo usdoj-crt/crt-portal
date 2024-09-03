@@ -1283,3 +1283,7 @@ class Resource(models.Model):
     contacts = models.ManyToManyField(ResourceContact, blank=True)
     notes = models.TextField(max_length=7000, null=True, blank=True)
     tags = models.ManyToManyField(Tag, blank=True)
+    outreach_efforts = models.TextField(max_length=1000, null=True, blank=True)
+    background = models.TextField(max_length=1000, null=True, blank=True)
+    soi_opportunities = models.BooleanField(default=False, null=False)
+    need_followup = models.BooleanField(default=False, null=False)

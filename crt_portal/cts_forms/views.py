@@ -932,8 +932,9 @@ def resources_view(request):
         {
             'resource': resource,
             'tags': [{'name': str(name),
+                      'section': str(section) if section else '',
                       'tooltip': str(tooltip) if tooltip else ''
-                      } for name, tooltip in resource.tags.values_list('name', 'tooltip')],
+                      } for name, section, tooltip in resource.tags.values_list('name', 'section', 'tooltip')],
             'contacts': [{
                 'first_name': str(first_name),
                 'last_name': str(last_name),

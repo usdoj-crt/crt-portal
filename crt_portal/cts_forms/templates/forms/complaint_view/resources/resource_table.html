@@ -89,7 +89,8 @@
                     {% for tag in resource.tags %}
                     <span class="usa-tooltip" data-position="right" data-classes="display-inline" title="{{ tag.tooltip }}">
                         <span class='usa-tag usa-tag--big'>
-                            <span class='name'>{{ tag.name }}</span>
+                          <span class='section'>{{ tag.section }}</span>
+                          <span class='name'>{{ tag.name }}</span>
                         </span>
                     </span>
                     {% endfor %}
@@ -118,30 +119,83 @@
               </td>
               {# All screen readers don't yet read the headers attribute correctly, so we've added a redundant aria-label #}
               {# https://a11ysupport.io/tech/html/headers_attribute #}
-              <td aria-label="Individual Contacts" headers="crt-table-indiv-contacts-header" class="quickview" colspan="5">
+              <td aria-label="Individual Contacts" headers="crt-table-indiv-contacts-header" class="quickview" colspan="9">
+                <label aria-hidden="true" for="tr-quickview-indiv-contacts-{{ resource.resource.id }}" class="td-quickview">
+                  Secondary Information
+                </label>
+                <div tabindex="0" role="textbox" aria-readonly="true" id="tr-quickview-indiv-contacts-{{ resource.resource.id }}" class="td-indiv-contacts">
+                  <a class="td-link display-block" href="{{resource.url}}">
+                    <p>
+                      {{ resource.resource.secondary_phone|default:"-" }},
+                      {{ resource.resource.secondary_email|default:"-" }}
+                    </p>
+                  </a>
+                </div>
                 <label aria-hidden="true" for="tr-quickview-indiv-contacts-{{ resource.resource.id }}" class="td-quickview">
                   Individual Contacts
                 </label>
                 <div tabindex="0" role="textbox" aria-readonly="true" id="tr-quickview-indiv-contacts-{{ resource.resource.id }}" class="td-indiv-contacts">
-                    <a class="td-link display-block" href="{{resource.url}}">
-                     <p> {% for contact in resource.contacts %}
+                  <a class="td-link display-block" href="{{resource.url}}">
+                    {% for contact in resource.contacts %}
+                    <div class="grid-row">
+                      <div class="grid-col-3">
                         {% with last=contact.last_name|default:"—" %}
-                        {{ last|truncatechars:20 }}{% endwith %}, {% with first=contact.first_name|default:"—" %}
-                        {{ first|truncatechars:20 }}
-                        {% endwith %} <br />
-                          {{ contact.title }} <br />
-                        {{ contact.email }} <br />
-                       {{ contact.phone }}</p>
-                      {% endfor %}
-                    </a>
+                        <p> {{ last|truncatechars:20 }}{% endwith %}, {% with first=contact.first_name|default:"—" %}
+                        {{ first|truncatechars:20 }}</p>
+                        {% endwith %}
+                      </div>
+                      <div class="grid-col-3"><p>{{ contact.title|default:"-" }}</p></div>
+                      <div class="grid-col-3"><p>{{ contact.email|default:"-" }}</p></div>
+                      <div class="grid-col-3"><p>{{ contact.phone|default:"-" }}</p></div>
+                    </div>
+                    {% endfor %}
+                  </a>
                 </div>
-              </td>
-              <td aria-label="Notes" headers="crt-table-notes-header" class="quickview" colspan="6">
-                <label aria-hidden="true" for="tr-quickview-notes-{{ resource.resource.id }}" class="td-quickview">
-                  Notes
-                </label>
-                <div tabindex="0" role="textbox" aria-readonly="true" id="tr-quickview-notes-{{ resource.resource.id }}" class="td-notes word-break">
-                  {{ resource.resource.notes|linebreaks|default:"-" }}
+                <div class="grid-row">
+                  <div class="grid-col-6">
+                    <label aria-hidden="true" for="tr-quickview-outreach-efforts-{{ resource.resource.id }}" class="td-quickview">
+                      Outreach Efforts
+                    </label>
+                    <div tabindex="0" role="textbox" aria-readonly="true" id="tr-quickview-outreach-efforts-{{ resource.resource.id }}" class="td-outreach-efforts word-break">
+                    <p>{{ resource.resource.outreach_efforts|default:"-" }}</p>
+                    </div>
+                  </div>
+                  <div class="grid-col-6">
+                    <label aria-hidden="true" for="tr-quickview-notes-{{ resource.resource.id }}" class="td-quickview">
+                      Comments
+                    </label>
+                    <div tabindex="0" role="textbox" aria-readonly="true" id="tr-quickview-notes-{{ resource.resource.id }}" class="td-notes word-break">
+                    <p>{{ resource.resource.notes|default:"-" }}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="grid-row">
+                  <div class="grid-col-3">
+                    <label aria-hidden="true" for="tr-quickview-needs-followup-{{ resource.resource.id }}" class="td-quickview">
+                      Need Follow Up
+                    </label>
+                    <div tabindex="0" role="textbox" aria-readonly="true" id="tr-quickview-need-followup-{{ resource.resource.id }}" class="td-need-followup">
+                      {% if resource.resource.need_followup %}<p>Yes</p>{% else %}<p>No</p>{% endif %}
+                    </div>
+                  </div>
+                  <div class="grid-col-3">
+                    <label aria-hidden="true" for="tr-quickview-soi-opportunities-{{ resource.resource.id }}" class="td-quickview">
+                      SOI Opportunities
+                    </label>
+                    <div tabindex="0" role="textbox" aria-readonly="true" id="tr-quickview-soi-opportunities-{{ resource.resource.id }}" class="td-soi-opportunities">
+                      {% if resource.resource.soi_opportunities %}<p>Yes</p>{% else %}<p>No</p>{% endif %}
+                    </div>
+                  </div>
+                </div>
+                <div class="grid-row">
+                  <div class="grid-col-6">
+                    <label aria-hidden="true" for="tr-quickview-background-{{ resource.resource.id }}" class="td-quickview">
+                      Background
+                    </label>
+                    <div tabindex="0" role="textbox" aria-readonly="true" id="tr-quickview-background-{{ resource.resource.id }}" class="td-background">
+                      <p>{{ resource.resource.background|default:"-" }}</p>
+                    </div>
+                  </div>
                 </div>
               </td>
             </tr>
