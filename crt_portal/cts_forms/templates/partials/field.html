@@ -1,0 +1,8 @@
+<div class="mobile-lg:grid-col-{{field_size|default:'12'}} form-group {{extra_class}}">
+  {% if strong_label %}<h3>{% endif %}
+  <label for="{{field.id_for_label}}">
+    {{ field.label }}
+  </label>
+  {% if strong_label %}</h3>{% endif %}
+  {{ field }}
+</div>

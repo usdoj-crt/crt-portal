@@ -1,4 +1,5 @@
 import logging
+import collections
 from datetime import datetime, timezone
 
 from django.contrib.auth import get_user_model
@@ -13,6 +14,7 @@ from django.forms import (BooleanField, CharField, CheckboxInput, ChoiceField,
                           TypedChoiceField)
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
+from django.utils import timezone as dtimezone
 from django.conf import settings
 
 import requests
@@ -68,7 +70,7 @@ from .question_text import (CONTACT_QUESTIONS, DATE_QUESTIONS,
                             HATE_CRIME_QUESTION)
 from .widgets import (ComplaintSelect, CrtMultiSelect,
                       CrtPrimaryIssueRadioGroup, CrtTextInput, DjNumberWidget, FuzzyFilterField, UsaCheckboxSelectMultiple, UsaTagSelectMultiple,
-                      UsaRadioSelect, DataAttributesSelect, CrtDateInput, add_empty_choice)
+                      UsaRadioSelect, DataAttributesSelect, CrtDateInput, add_empty_choice, CrtExpandableRadioSelect)
 from utils.voting_mode import is_voting_mode
 from utils import activity
 
@@ -388,7 +390,7 @@ class Contact(ModelForm):
 
         errors = result.get('error-codes')
         logging.error(f'Challenge validation failed: {errors}')
-        self.add_error(None, _('Challenge was invalid, please try again.'))
+        self.add_error(None, _('Submission failed. Please try again.'))
         return form_data
 
     def __init__(self, *args, use_challenge=False, **kwargs):
@@ -986,6 +988,135 @@ class Review(ModelForm):
     class Meta:
         model = Report
         fields = []
+
+
+FieldConfig = collections.namedtuple('FieldConfig', [
+    'name',
+    'widget',
+    'label',
+])
+
+
+PHONE_FORM_CONFIG = [
+    FieldConfig('contact_first_name',
+                TextInput(attrs={'class': 'usa-input'}),
+                CONTACT_QUESTIONS['contact_first_name']),
+    FieldConfig('contact_last_name',
+                TextInput(attrs={'class': 'usa-input'}),
+                CONTACT_QUESTIONS['contact_last_name']),
+    FieldConfig('contact_phone',
+                TextInput(attrs={'class': 'usa-input phone-input', 'pattern': phone_validation_regex, 'title': CONTACT_PHONE_INVALID_MESSAGE}),
+                CONTACT_QUESTIONS['contact_phone']),
+    FieldConfig('contact_email',
+                EmailInput(attrs={'class': 'usa-input'}),
+                CONTACT_QUESTIONS['contact_email']),
+    FieldConfig('contact_address_line_1',
+                TextInput(attrs={'class': 'usa-input'}),
+                CONTACT_QUESTIONS['contact_address_line_1']),
+    FieldConfig('contact_address_line_2',
+                TextInput(attrs={'class': 'usa-input'}),
+                CONTACT_QUESTIONS['contact_address_line_2']),
+    FieldConfig('contact_city',
+                TextInput(attrs={'class': 'usa-input'}),
+                CONTACT_QUESTIONS['contact_city']),
+    FieldConfig('contact_state',
+                Select(attrs={'class': 'usa-select'}),
+                CONTACT_QUESTIONS['contact_state']),
+    FieldConfig('contact_zip',
+                TextInput(attrs={'class': 'usa-input'}),
+                CONTACT_QUESTIONS['contact_zip']),
+
+    FieldConfig('primary_complaint',
+                CrtExpandableRadioSelect(
+                    choices=PRIMARY_COMPLAINT_CHOICES,
+                    unfolded_options=['voting'],
+                ),
+                PRIMARY_REASON_QUESTION),
+
+    FieldConfig('location_name',
+                TextInput(attrs={'class': 'usa-input'}),
+                LOCATION_QUESTIONS['location_name']),
+    FieldConfig('location_address_line_1',
+                TextInput(attrs={'class': 'usa-input'}),
+                LOCATION_QUESTIONS['location_address_line_1']),
+    FieldConfig('location_address_line_2',
+                TextInput(attrs={'class': 'usa-input'}),
+                LOCATION_QUESTIONS['location_address_line_2']),
+    FieldConfig('location_city_town',
+                TextInput(attrs={'class': 'usa-input'}),
+                LOCATION_QUESTIONS['location_city_town']),
+    FieldConfig('location_state',
+                Select(attrs={'class': 'usa-select'}),
+                LOCATION_QUESTIONS['location_state']),
+
+    FieldConfig('violation_summary',
+                Textarea(attrs={'class': 'usa-textarea word-count-500'}),
+                'What did the person believe happened?'),
+    FieldConfig('crt_reciept_month',
+                TextInput(attrs={
+                    'class': 'usa-input usa-input--small',
+                    'type': 'text',
+                    'maxlength': 2,
+                    'pattern': '[0-9]*',
+                    'inputmode': 'numeric',
+                    'value': dtimezone.now().month,
+                }),
+                'Month'),
+    FieldConfig('crt_reciept_day',
+                TextInput(attrs={
+                    'class': 'usa-input usa-input--small',
+                    'type': 'text',
+                    'maxlength': 2,
+                    'pattern': '[0-9]*',
+                    'inputmode': 'numeric',
+                    'value': dtimezone.now().day,
+                }),
+                'Day'),
+    FieldConfig('crt_reciept_year',
+                TextInput(attrs={
+                    'class': 'usa-input usa-input--medium',
+                    'type': 'text',
+                    'minlength': 4,
+                    'maxlength': 4,
+                    'pattern': '[0-9]*',
+                    'inputmode': 'numeric',
+                    'value': dtimezone.now().year,
+                }),
+                'Year'),
+
+    FieldConfig('public_id',
+                TextInput(attrs={'class': 'usa-input'}),
+                'Record Locator (Public ID)'),
+
+    FieldConfig('intake_format',
+                HiddenInput(attrs={'value': 'phone'}),
+                'Intake Format'),
+]
+
+
+class PhoneProForm(ModelForm, ActivityStreamUpdater):
+
+    class Meta:
+        model = Report
+        fields = [field.name for field in PHONE_FORM_CONFIG]
+
+        widgets = {
+            field.name: field.widget
+            for field in PHONE_FORM_CONFIG
+        }
+
+    def __init__(self, *args, **kwargs):
+        ModelForm.__init__(self, *args, **kwargs)
+        self.label_suffix = ''
+
+        for field in PHONE_FORM_CONFIG:
+            self.fields[field.name].label = field.label
+            self.fields[field.name].required = False
+
+    def clean(self):
+        """Handles special fields that don't map back to model fields"""
+        cleaned_data = super(PhoneProForm, self).clean()
+        return crt_date_cleaner(self, cleaned_data)
 
 
 class ProForm(

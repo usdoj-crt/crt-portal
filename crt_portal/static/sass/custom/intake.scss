@@ -913,6 +913,12 @@ ul.table-tabs {
     flex-basis: 20%;
     height: 3em;
     list-style: none;
+    &.resources-tab {
+      flex-basis: auto;
+      button {
+        padding: 0 2em;
+      }
+    }
   }
 
   button {
@@ -1706,6 +1712,105 @@ fieldset[name='saved-search-actions'] {
   .usa-tooltip {
     display: inline-block;
   }
+}
+
+.intake-phone-content,.intake-sidebar {
+  h2 {
+    font-size: 1.25rem;
+    color: #162E51;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+
+    &:first-child {
+      margin-top: 1rem;
+    }
+  }
+
+  h3 {
+    font-size: 1rem;
+    color: #162E51;
+    margin-top: 0;
+    margin-bottom: 1rem;
+  }
+
+  h4 .usa-accordion-button {
+    color: #162E51;
+  }
+}
+
+.usa-alert__body .close-icon {
+  float: right;
+  margin-right: -2rem;
+  cursor: pointer;
+}
+
+.intake-phone-content {
+  hr {
+      width: calc(100% + 3rem);
+      margin-left: -1.5rem;
+      border-color: #E7E7E7;
+      margin-top: 0;
+      margin-bottom: 0;
+  }
+
+  .main-card .usa-accordion__content>:last-child {
+    margin-bottom: 1rem;
+  }
+
+  #id_primary_complaint hr:first-of-type {
+    margin-top: 1rem;
+  }
+
+  .main-card .usa-accordion__heading {
+    button {
+      background-color: white;
+      padding-left: 0px;
+    }
+  }
+
+  .main-card .usa-accordion__content {
+    padding: 0px;
+  }
+}
+
+.intake-sidebar {
+  .usa-list--unstyled li {
+    border-bottom: 0;
+  }
+
+  ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  li {
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+    border-bottom: 1px solid #E7E7E7;
+    p {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    p:first-child {
+      margin-top: inherit;
+    }
+
+    p:last-child {
+      margin-bottom: inherit;
+    }
+  }
+
+  li:last-child {
+    margin-bottom: 0;
+    border-bottom: 0;
+  }
+  li:first-child {
+    margin-top: 0;
+  }
+}
+
+label[for="id_primary_complaint_0"] {
+  color: #162E51;
 }
 
 /* Match combo box input styling with other filters */

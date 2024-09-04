@@ -1,0 +1,16 @@
+{% load form_helpers %}
+
+{% random_id as id %}
+<div class="usa-accordion">
+  <h4 class="usa-accordion__heading">
+    <button
+      type="button"
+      class="usa-accordion__button"
+      aria-expanded="false"
+      aria-controls="{{id}}"
+      data-allow-multiple="true"
+    >
+      {{title}}
+    </button>
+  </h4>
+  <div id="{{id}}" class="usa-accordion__content">

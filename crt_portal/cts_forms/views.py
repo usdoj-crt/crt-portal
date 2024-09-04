@@ -42,10 +42,11 @@ from .forms import (
     ContactEditForm, Filters, PrintActions, ProfileForm,
     ReportEditForm, ResponseActions, SavedSearchActions, SavedSearchFilter, add_activity,
     AttachmentActions, Review, save_form,
+    PhoneProForm
 )
 from .mail import mail_to_complainant
 from .model_variables import BATCH_STATUS_CHOICES, HATE_CRIMES_TRAFFICKING_MODEL_CHOICES, NOTIFICATION_PREFERENCE_CHOICES
-from .models import CommentAndSummary, Profile, Report, ReportAttachment, ReportDisposition, ReportDispositionBatch, ReportsData, RetentionSchedule, SavedSearch, Trends, EmailReportCount, Campaign, User, NotificationPreference, RoutingSection, RoutingStepOneContact, RepeatWriterInfo
+from .models import CommentAndSummary, Profile, Report, ReportAttachment, ReportDisposition, ReportDispositionBatch, ReportsData, Resource, RetentionSchedule, SavedSearch, Trends, EmailReportCount, Campaign, User, NotificationPreference, RoutingSection, RoutingStepOneContact, RepeatWriterInfo
 from .page_through import pagination
 from .sorts import other_sort, report_sort
 
@@ -914,6 +915,43 @@ def _notification_change(request):
                          messages.SUCCESS,
                          mark_safe("Your preferences have been saved"))
     return redirect(reverse('crt_forms:crt-forms-notifications'))
+
+
+@login_required
+def resources_view(request):
+    sort_expr, sorts = other_sort(request.GET.getlist('sort'), 'resources')
+    per_page = 15
+    page = request.GET.get('page', 1)
+    page_args = f'?per_page={per_page}'
+    sort_state = {}
+    sort_args, sort_state = get_sort_args(sorts, sort_state)
+    qs = Resource.objects.all().order_by(*sort_expr).prefetch_related('tags', 'contacts')
+    paginator = Paginator(qs, per_page)
+    qs, page_format = pagination(paginator, page, per_page)
+    resources = [
+        {
+            'resource': resource,
+            'tags': [{'name': str(name),
+                      'tooltip': str(tooltip) if tooltip else ''
+                      } for name, tooltip in resource.tags.values_list('name', 'tooltip')],
+            'contacts': [{
+                'first_name': str(first_name),
+                'last_name': str(last_name),
+                'title': str(title),
+                'email': str(email),
+                'phone': str(phone)
+            } for first_name, last_name, title, email, phone in resource.contacts.values_list('first_name', 'last_name', 'title', 'email', 'phone')]
+        }
+        for index, resource in enumerate(qs)
+    ]
+    resource_data = {
+        'resources': resources,
+        'sort_state': sort_state,
+        'page_format': page_format,
+        'page_args': page_args,
+        'per_page': per_page,
+    }
+    return render(request, 'forms/complaint_view/resources/index.html', resource_data)
 
 
 class ProfileView(LoginRequiredMixin, FormView):
@@ -1996,6 +2034,45 @@ class SaveCommentView(LoginRequiredMixin, FormView):
             })
 
             return render(request, 'forms/complaint_view/show/index.html', output)
+
+
+@login_required
+def phone_pro_form_view(request, report_id=None):
+
+    if report_id:
+        report = get_object_or_404(Report, pk=report_id)
+        form = PhoneProForm(instance=report)
+    else:
+        form = PhoneProForm()
+
+    return render(
+        request,
+        'forms/phone_pro_template.html',
+        {
+            'title': 'Election Call Center Intake Form',
+            'quick_links': [
+                ('State Contacts', '#'),
+                ('Poll Locator', '#'),
+                ('Voting Hours', '#'),
+                ('Justice.gov', 'https://justice.gov'),
+            ],
+
+            'specific_contacts': [
+                {
+                    'title': 'Some Person',
+                    'phone': '555-555-5555',
+                    'email': 'person@example.com',
+                },
+                {
+                    'title': 'Person 2',
+                    'phone': '555-555-5552',
+                    'email': 'other@example.com',
+                },
+            ],
+
+            'form': form,
+        }
+    )
 
 
 class ProFormView(LoginRequiredMixin, SessionWizardView):

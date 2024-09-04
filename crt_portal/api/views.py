@@ -5,14 +5,14 @@ from botocore.client import Config
 from botocore.exceptions import ClientError
 from api.filters import form_letters_filter, reports_accessed_filter, autoresponses_filter, report_cws
 from django.utils.html import mark_safe
-from api.serializers import ReportSerializer, ResponseTemplateSerializer, RelatedReportSerializer
+from api.serializers import make_report_serializer, ReportSerializer, ResponseTemplateSerializer, RelatedReportSerializer
 from utils.pdf import convert_html_to_pdf
 from cts_forms.filters import report_filter
 from cts_forms.mail import mail_to_complainant, mail_to_agency, build_letters, build_preview
 from utils.markdown_extensions import CustomHTMLExtension, OptionalExtension
 from cts_forms.models import Report, ResponseTemplate, ReportAttachment
 from cts_forms.views import mark_report_as_viewed, mark_reports_as_viewed
-from cts_forms.forms import add_activity, ProformAttachmentActions
+from cts_forms.forms import add_activity, ProformAttachmentActions, PHONE_FORM_CONFIG, PhoneProForm
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, JsonResponse
@@ -93,6 +93,82 @@ def upload_file(attachment):
         except ClientError as e:
             logging.error(e)
             raise Http404(f'File {attachment.filename} not found.')
+
+
+class ReportEdit(generics.CreateAPIView):
+    """
+    API endpoint allowing reports to be edited by staff.
+    """
+    permission_classes = (IsAuthenticated,)
+    queryset = Report.objects.all().order_by('pk')
+    serializer_class = make_report_serializer(['public_id', *[field.name for field in PHONE_FORM_CONFIG]])
+
+    def create(self, request, *args, **kwargs):
+        user_changes = dict(request.data)
+        public_id = user_changes.get('public_id')
+        if not public_id:
+            created = True
+            form = PhoneProForm(user_changes)
+        else:
+            created = False
+            report = get_object_or_404(Report, public_id=public_id)
+            form = PhoneProForm(user_changes, instance=report)
+
+        if not form.has_changed():
+            return JsonResponse({'messages': [
+                {
+                    'message': 'No changes were made to the report.',
+                    'type': 'warning',
+                    'changed_data': form.changed_data,
+                    'form': form.data,
+                }
+            ]}, status=200)
+
+        if not form.is_valid():
+            return JsonResponse({'messages': [
+                {
+                    'message': 'The form is invalid. Please correct the errors and try again.',
+                    'type': 'error',
+                },
+                *[
+                    {'field': field, 'message': error, 'type': 'error'}
+                    for field, error in form.errors.items()
+                ],
+            ]}, status=400)
+
+        # This series of saves and refresh forces the public_id to populate:
+        form.save()
+        form.instance.save()
+        form.instance.refresh_from_db()
+
+        form.update_activity_stream(request.user)
+
+        server_changes = [] if public_id else ['public_id']
+        server_data = {'public_id': form.instance.public_id}
+        verb = 'created' if created else 'updated'
+        extra_messages = [
+            {
+                'message': f'Successfully {verb} report {form.instance.public_id}',
+                'type': 'success',
+            }
+        ]
+
+        all_changes = form.changed_data + server_changes
+        all_data = {**form.data, **server_data}
+
+        new_url = f'/form/new/phone/{form.instance.pk}/' if 'public_id' in all_changes else None
+
+        return JsonResponse({
+            'messages': [
+                {
+                    'message': ' '.join(action),
+                    'type': 'success',
+                } for action in form.get_actions()
+            ] + extra_messages,
+            'changed_data': all_changes,
+            'form': all_data,
+            'new_url': new_url,
+        }, status=201 if created else 200)
 
 
 class ReportList(generics.ListAPIView):
