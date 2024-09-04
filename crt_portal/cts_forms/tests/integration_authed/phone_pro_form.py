@@ -45,7 +45,7 @@ def test_form(page, *, report):
         k: v for k, v in TEST_DATA.items() if k in ["contact_first_name", "contact_last_name"]
     })
 
-    page.locator('input#id_crt_receipt_year').fill('2023')
+    page.locator('input#id_crt_reciept_year').fill('2023')
     page.locator('button[data-saves]').click()
     page.locator('.usa-alert').filter(has_text="Successfully created report").wait_for()
     report.screenshot(page, full_page=True, caption="One key feature of the phone intake form is that information can be partially filled in, saved, and then edited without leaving the page. We've only filled in the contact first and last name here before clicking save, and we're already presented with a Record Locator we can give to the caller.")
