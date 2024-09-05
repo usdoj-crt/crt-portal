@@ -96,15 +96,17 @@
       }
 
       var valueToList = wrapValue(paramValue);
-      var paramsString = valueToList
-        .reduce(function(accum, value) {
-          accum.push(makeQueryParam(key, value));
-          newParamKeys.push(key);
-          return accum;
-        }, [])
-        .join('&');
+      if (valueToList[0] !== '') {
+        var paramsString = valueToList
+          .reduce(function(accum, value) {
+            accum.push(makeQueryParam(key, value));
+            newParamKeys.push(key);
+            return accum;
+          }, [])
+          .join('&');
 
-      memo.push(paramsString);
+        memo.push(paramsString);
+      }
 
       return memo;
     }, []);

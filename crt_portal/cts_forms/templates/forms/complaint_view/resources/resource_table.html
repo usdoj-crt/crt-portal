@@ -1,10 +1,6 @@
 {% load sortable_table_heading %}
 
-<form class="usa-form"
-      method="get"
-      action=""
-      novalidate
->
+<form class="usa-form">
   <div class="crt-xscroll">
     <table class="usa-table crt-table sort-table">
     {# This "fake" table makes nested headers available to screen readers #}
@@ -37,6 +33,8 @@
           {% render_sortable_heading 'Url' sort_state %}
           {% render_sortable_heading 'Other Resources Available' sort_state %}
           {% render_sortable_heading 'Tags' sort_state %}
+          <th></th>
+          <th></th>
        </tr>
       </thead>
       {% if resources %}
@@ -68,18 +66,50 @@
               </td>
               <td><a class="td-link display-block text-uppercase" href="{{resource.url}}">{{ resource.resource.name }}</a></td>
               <td><a class="td-link display-block" href="{{resource.url}}">{{ resource.resource.phone }}</a></td>
-              <td>{% if datum.resource.url %}<a href="{{datum.resource.url}}" class="text-uppercase">{{ datum.resource.url }}</a>{% endif %}</td>
-              <td><a class="td-link display-block" href="{{resource.url}}"></a></td>
+              <td>{% if resource.resource.url %}<a href="{{resource.resource.url}}" class="text-uppercase">{{ resource.resource.url }}</a>{% endif %}</td>
+              <td><a class="td-link display-flex" href="{{resource.url}}">
+                {% if resource.resource.email or resource.resource.secondary_email %}
+                  <div class="margin-2px bg-primary circle-4 position-relative">{% include 'partials/sprite.html' with icon='alternate_email' fill='#FFF' %}</div>
+                {% else %}
+                  <div class="margin-2px bg-gray-30 circle-4 position-relative">{% include 'partials/sprite.html' with icon='alternate_email' fill='#FFF' %}</div>
+                {% endif %}
+                {% if resource.resource.secondary_phone %}
+                  <div class="margin-2px bg-primary circle-4 position-relative">{% include 'partials/sprite.html' with icon='phone' fill='#FFF' %}</div>
+                {% else %}
+                  <div class="margin-2px bg-gray-30 circle-4 position-relative">{% include 'partials/sprite.html' with icon='phone' fill='#FFF' %}</div>
+                {% endif %}
+                {% if resource.contacts %}
+                  <div class="margin-2px bg-primary circle-4 position-relative">{% include 'partials/sprite.html' with icon='people' fill='#FFF' %}</div>
+                {% else %}
+                  <div class="margin-2px bg-gray-30 circle-4 position-relative">{% include 'partials/sprite.html' with icon='people' fill='#FFF' %}</div>
+                {% endif %}
+              </a></td>
               <td>
-                <a class="td-link display-block" href="{{datum.url}}">
+                <a class="td-link display-block" href="{{resource.url}}">
                     {% for tag in resource.tags %}
                     <span class="usa-tooltip" data-position="right" data-classes="display-inline" title="{{ tag.tooltip }}">
                         <span class='usa-tag usa-tag--big'>
-                            <span class='name'>{{ tag.name }}</span>
+                          <span class='section'>{{ tag.section }}</span>
+                          <span class='name'>{{ tag.name }}</span>
                         </span>
                     </span>
                     {% endfor %}
                 </a>
+              </td>
+              <td>
+                <span style="display:none" class="copied">Copied!</span>
+                <span class="usa-tooltip" data-position="right" data-classes="display-inline" title="Copy resource">
+                <a href="#" class="copy-resource position-absolute padding-top-4 margin-top-1 display-flex height-full z-100">
+                    {% include 'partials/sprite.html' with icon='content_copy' %}
+                </a>
+              </span>
+              </td>
+              <td>
+                <span class="copy-text position-absolute height-0 width-0 opacity-0">
+                  {{ resource.resource.name }}
+                  {{ resource.resource.phone }}
+                  {{ resource.resource.url }}
+                  </span>
               </td>
             </tr>
             {# this row is hidden by default #}
@@ -89,30 +119,83 @@
               </td>
               {# All screen readers don't yet read the headers attribute correctly, so we've added a redundant aria-label #}
               {# https://a11ysupport.io/tech/html/headers_attribute #}
-              <td aria-label="Individual Contacts" headers="crt-table-indiv-contacts-header" class="quickview" colspan="5">
+              <td aria-label="Individual Contacts" headers="crt-table-indiv-contacts-header" class="quickview" colspan="9">
+                <label aria-hidden="true" for="tr-quickview-indiv-contacts-{{ resource.resource.id }}" class="td-quickview">
+                  Secondary Information
+                </label>
+                <div tabindex="0" role="textbox" aria-readonly="true" id="tr-quickview-indiv-contacts-{{ resource.resource.id }}" class="td-indiv-contacts">
+                  <a class="td-link display-block" href="{{resource.url}}">
+                    <p>
+                      {{ resource.resource.secondary_phone|default:"-" }},
+                      {{ resource.resource.secondary_email|default:"-" }}
+                    </p>
+                  </a>
+                </div>
                 <label aria-hidden="true" for="tr-quickview-indiv-contacts-{{ resource.resource.id }}" class="td-quickview">
                   Individual Contacts
                 </label>
                 <div tabindex="0" role="textbox" aria-readonly="true" id="tr-quickview-indiv-contacts-{{ resource.resource.id }}" class="td-indiv-contacts">
-                    <a class="td-link display-block" href="{{resource.url}}">
-                     <p> {% for contact in resource.contacts %}
+                  <a class="td-link display-block" href="{{resource.url}}">
+                    {% for contact in resource.contacts %}
+                    <div class="grid-row">
+                      <div class="grid-col-3">
                         {% with last=contact.last_name|default:"—" %}
-                        {{ last|truncatechars:20 }}{% endwith %}, {% with first=contact.first_name|default:"—" %}
-                        {{ first|truncatechars:20 }}
-                        {% endwith %} <br />
-                          {{ contact.title }} <br />
-                        {{ contact.email }} <br />
-                       {{ contact.phone }}</p>
-                      {% endfor %}
-                    </a>
+                        <p> {{ last|truncatechars:20 }}{% endwith %}, {% with first=contact.first_name|default:"—" %}
+                        {{ first|truncatechars:20 }}</p>
+                        {% endwith %}
+                      </div>
+                      <div class="grid-col-3"><p>{{ contact.title|default:"-" }}</p></div>
+                      <div class="grid-col-3"><p>{{ contact.email|default:"-" }}</p></div>
+                      <div class="grid-col-3"><p>{{ contact.phone|default:"-" }}</p></div>
+                    </div>
+                    {% endfor %}
+                  </a>
                 </div>
-              </td>
-              <td aria-label="Notes" headers="crt-table-notes-header" class="quickview" colspan="6">
-                <label aria-hidden="true" for="tr-quickview-notes-{{ resource.resource.id }}" class="td-quickview">
-                  Notes
-                </label>
-                <div tabindex="0" role="textbox" aria-readonly="true" id="tr-quickview-notes-{{ resource.resource.id }}" class="td-notes word-break">
-                  {{ resource.resource.notes|linebreaks|default:"-" }}
+                <div class="grid-row">
+                  <div class="grid-col-6">
+                    <label aria-hidden="true" for="tr-quickview-outreach-efforts-{{ resource.resource.id }}" class="td-quickview">
+                      Outreach Efforts
+                    </label>
+                    <div tabindex="0" role="textbox" aria-readonly="true" id="tr-quickview-outreach-efforts-{{ resource.resource.id }}" class="td-outreach-efforts word-break">
+                    <p>{{ resource.resource.outreach_efforts|default:"-" }}</p>
+                    </div>
+                  </div>
+                  <div class="grid-col-6">
+                    <label aria-hidden="true" for="tr-quickview-notes-{{ resource.resource.id }}" class="td-quickview">
+                      Comments
+                    </label>
+                    <div tabindex="0" role="textbox" aria-readonly="true" id="tr-quickview-notes-{{ resource.resource.id }}" class="td-notes word-break">
+                    <p>{{ resource.resource.notes|default:"-" }}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="grid-row">
+                  <div class="grid-col-3">
+                    <label aria-hidden="true" for="tr-quickview-needs-followup-{{ resource.resource.id }}" class="td-quickview">
+                      Need Follow Up
+                    </label>
+                    <div tabindex="0" role="textbox" aria-readonly="true" id="tr-quickview-need-followup-{{ resource.resource.id }}" class="td-need-followup">
+                      {% if resource.resource.need_followup %}<p>Yes</p>{% else %}<p>No</p>{% endif %}
+                    </div>
+                  </div>
+                  <div class="grid-col-3">
+                    <label aria-hidden="true" for="tr-quickview-soi-opportunities-{{ resource.resource.id }}" class="td-quickview">
+                      SOI Opportunities
+                    </label>
+                    <div tabindex="0" role="textbox" aria-readonly="true" id="tr-quickview-soi-opportunities-{{ resource.resource.id }}" class="td-soi-opportunities">
+                      {% if resource.resource.soi_opportunities %}<p>Yes</p>{% else %}<p>No</p>{% endif %}
+                    </div>
+                  </div>
+                </div>
+                <div class="grid-row">
+                  <div class="grid-col-6">
+                    <label aria-hidden="true" for="tr-quickview-background-{{ resource.resource.id }}" class="td-quickview">
+                      Background
+                    </label>
+                    <div tabindex="0" role="textbox" aria-readonly="true" id="tr-quickview-background-{{ resource.resource.id }}" class="td-background">
+                      <p>{{ resource.resource.background|default:"-" }}</p>
+                    </div>
+                  </div>
                 </div>
               </td>
             </tr>
@@ -120,6 +203,19 @@
         </tbody>
       {% endif %}
     </table>
+  </div>
+  <div class="selection-action-notification" hidden>
+    <div class="display-flex flex-align-center">
+      <div>
+        <img src="{% static 'img/ic_successconfirmation-white.svg' %}" alt="action available on selection" class="icon">
+      </div>
+      <h2>
+        <span id="selection-action-count" class="selection-action-count">1 resource selected</span>
+      </h2>
+      <div class="selection-submit">
+        <button id="actions" label="actions" class="usa-button">Copy resource</button>
+      </div>
+    </div>
   </div>
 </form>
 
