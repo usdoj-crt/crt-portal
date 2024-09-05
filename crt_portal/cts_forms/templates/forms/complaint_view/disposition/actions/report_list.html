@@ -18,6 +18,11 @@
 <div class="filter-tag">
   <span>Status: {{ shared_report_fields.status }}</span>
 </div>
+{% if batch %}
+<div class="filter-tag">
+  <span>Closed date range: {{ shared_report_fields.earliest|date:"SHORT_DATE_FORMAT" }} - {{ shared_report_fields.latest|date:"SHORT_DATE_FORMAT" }}</span>
+</div>
+{% endif %}
 </div>
 <div class="grid-col-auto">
   <div class="crt-xscroll">
@@ -26,7 +31,16 @@
         <tr>
           {% if batch %}
           <th aria-label="report removal and addition buttons"></th>
-          {% endif %}
+          <th>
+            Report ID
+          </th>
+          <th>
+            Closed Date
+          </th>
+          <th>
+            Expiration
+          </th>
+          {% else %}
           <th>
             Report ID
           </th>
@@ -39,6 +53,7 @@
           <th>
             City/State
           </th>
+          {% endif %}
         </tr>
       </thead>
       {% if data %}
@@ -56,7 +71,10 @@
                   </svg>
                 </a>
               </td>
-              {% endif %}
+              <td><a class="td-link display-block" href="{{datum.url}}">{{ datum.report.public_id }}</a></td>
+              <td><a class="td-link display-block" href="{{datum.url}}">{{ datum.report.closed_date|date:"SHORT_DATE_FORMAT" }}</a></td>
+              <td><a class="td-link display-block" href="{{datum.url}}">{{ datum.report.expiration_date|date:"SHORT_DATE_FORMAT" }}</a></td>
+              {% else %}
               <td><a class="td-link display-block" href="{{datum.url}}">{{ datum.report.public_id }}</a></td>
               <td><a class="td-link display-block" href="{{datum.url}}">{{ datum.report.expiration_date|date:"SHORT_DATE_FORMAT" }}</a></td>
               <td><a class="td-link display-block" href="{{datum.url}}">{{ datum.report.location_name|default:"-" }}</a></td>
@@ -65,6 +83,7 @@
                   {{ datum.report.location_city_town }}, {{ datum.report.location_state }}
                 </a>
               </td>
+              {% endif %}
             </tr>
           {% endfor %}
         </tbody>
