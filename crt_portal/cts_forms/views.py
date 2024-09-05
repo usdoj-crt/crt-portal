@@ -1441,6 +1441,8 @@ class DispositionBatchActionsView(LoginRequiredMixin, FormView):
         report_dispo_objects = ReportDisposition.objects.filter(batch=batch)
         report_public_ids = report_dispo_objects.values_list('public_id', flat=True)
         reports = Report.objects.filter(public_id__in=report_public_ids).order_by('pk')
+        earliest = reports.order_by('closed_date')[0]
+        latest = reports.order_by('-closed_date')[0]
         report_ids = list(reports.values_list('pk', flat=True))
         first_report = reports.first()
         page = request.GET.get('page', 1)
@@ -1449,6 +1451,8 @@ class DispositionBatchActionsView(LoginRequiredMixin, FormView):
         return_url_args = request.GET.get('return_url_args', '')
         return_url_args = urllib.parse.unquote(return_url_args)
         shared_report_fields = {}
+        shared_report_fields['earliest'] = earliest.closed_date
+        shared_report_fields['latest'] = latest.closed_date
         shared_report_fields['assigned_section'] = first_report.assigned_section
         shared_report_fields['status'] = first_report.status
         shared_report_fields['retention_schedule'] = first_report.retention_schedule
