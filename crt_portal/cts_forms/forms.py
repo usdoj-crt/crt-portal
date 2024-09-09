@@ -1092,8 +1092,8 @@ PHONE_FORM_CONFIG = [
                 HiddenInput(attrs={'value': 'phone'}),
                 'Intake Format'),
     FieldConfig('district',
-            HiddenInput(),
-            'District Number'),
+                HiddenInput(),
+                'District Number'),
 ]
 
 
