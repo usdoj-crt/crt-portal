@@ -1812,6 +1812,9 @@ class SavedSearchActionView(LoginRequiredMixin, View):
                 'section_filter': section_filter,
                 'id': saved_search.pk,
                 'saved_search_view': f'&saved_search_view={saved_search_view}',
+                'notification_choices': NOTIFICATION_PREFERENCE_CHOICES,
+                'notification_preferences': notification_preferences,
+                'group_data': group_data,
             }
 
             try:
