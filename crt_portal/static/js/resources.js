@@ -61,7 +61,7 @@
     });
   }
 
-  function addCheckboxListener(checkbox, index, parentTable) {
+  function addCheckboxListener(checkbox, index, parentTable, selectAllCheckboxes) {
     checkbox.addEventListener('click', event => {
       const target = event.target;
       const parent = target.parentNode.parentNode.parentNode;
@@ -124,7 +124,7 @@
       const parentTable = selectAllCheckboxes[index].closest('.usa-table.crt-table');
       const allCheckboxes = parentTable.querySelectorAll('td input.usa-checkbox__input');
       allCheckboxes.forEach(checkbox => {
-        addCheckboxListener(checkbox, index, parentTable);
+        addCheckboxListener(checkbox, index, parentTable, selectAllCheckboxes);
       });
       addCheckAllListener(selectAllCheckboxes[index], allCheckboxes);
     }

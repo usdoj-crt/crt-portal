@@ -15,14 +15,13 @@
           <th aria-label="Bulk Action Selection">
             <div class="usa-checkbox td-checkbox">
               <input type="checkbox" name="all" class="usa-checkbox__input checkbox-input-all" value="all">
-              <label class="usa-checkbox__label crt-checkbox__label checkbox-all"
-                aria-label="Select all records"></label>
+              <label class="usa-checkbox__label crt-checkbox__label checkbox-all" aria-label="Select all records"></label>
             </div>
           </th>
           <th aria-label="Detail toggles">
             <a aria-expanded="false" role="button" aria-label="Expand all detail rows"
               class="td-toggle-all display-flex" data-posted='false' href="#">
-              <img alt="" aria-hidden="true" src="{% static " img/intake-icons/ic_chevron-right.svg" %}" class="icon">
+              <img alt="" aria-hidden="true" src="{% static  'img/intake-icons/ic_chevron-right.svg' %}" class="icon">
             </a>
           </th>
           {% render_sortable_heading 'Section' sort_state %}
@@ -41,17 +40,13 @@
         <tr class="tr-status-{{ resource.resource.section }} tr--hover{% cycle ' stripe' '' %}">
           <td>
             <div class="usa-checkbox td-checkbox">
-              <input type="checkbox" name="id" class="usa-checkbox__input" value="{{ resource.resource.pk }}"
-                id="checkbox-{{ resource.resource.pk }}">
-              <label class="usa-checkbox__label crt-checkbox__label" for="checkbox-{{ resource.resource.pk }}"
-                aria-label="Select record {{ resource.resource.pk }}"></label>
+              <input type="checkbox" name="id" class="usa-checkbox__input" value="{{ resource.resource.pk }}" id="checkbox-{{ resource.resource.pk }}">
+              <label class="usa-checkbox__label crt-checkbox__label" for="checkbox-{{ resource.resource.pk }}" aria-label="Select record {{ resource.resource.pk }}"></label>
             </div>
           </td>
           <td>
-            <a data-id="{{ resource.resource.pk }}" aria-expanded="false"
-              aria-label="Expand details for Record {{resource.resource.pk}}" role="button"
-              aria-controls="tr-additional-{{ resource.resource.pk }}" class="td-toggle display-flex" href="#">
-              <img aria-hidden="true" src="{% static " img/intake-icons/ic_chevron-right.svg" %}" class="icon">
+            <a data-id="{{ resource.resource.pk }}" aria-expanded="false" aria-label="Expand details for Record {{resource.resource.pk}}" role="button" aria-controls="tr-additional-{{ resource.resource.pk }}" class="td-toggle display-flex" href="#">
+              <img aria-hidden="true" src="{% static 'img/intake-icons/ic_chevron-right.svg' %}" class="icon">
             </a>
           </td>
           <td>
@@ -64,29 +59,22 @@
           <td><a class="td-link display-block text-uppercase" href="{{resource.url}}">{{ resource.resource.name }}</a>
           </td>
           <td><a class="td-link display-block" href="{{resource.url}}">{{ resource.resource.phone }}</a></td>
-          <td>{% if resource.resource.url %}<a href="{{resource.resource.url}}" class="text-uppercase">{{
-              resource.resource.url }}</a>{% endif %}</td>
+          <td>{% if resource.resource.url %}<a href="{{resource.resource.url}}" class="text-uppercase">{{resource.resource.url }}</a>{% endif %}</td>
           <td><a class="td-link display-flex" href="{{resource.url}}">
               {% if resource.resource.email or resource.resource.secondary_email %}
-              <div class="margin-2px bg-primary circle-4 position-relative">{% include 'partials/sprite.html' with
-                icon='alternate_email' fill='#FFF' %}</div>
+              <div class="margin-2px bg-primary circle-4 position-relative">{% include 'partials/sprite.html' with icon='alternate_email' fill='#FFF' %}</div>
               {% else %}
-              <div class="margin-2px bg-gray-30 circle-4 position-relative">{% include 'partials/sprite.html' with
-                icon='alternate_email' fill='#FFF' %}</div>
+              <div class="margin-2px bg-gray-30 circle-4 position-relative">{% include 'partials/sprite.html' with icon='alternate_email' fill='#FFF' %}</div>
               {% endif %}
               {% if resource.resource.secondary_phone %}
-              <div class="margin-2px bg-primary circle-4 position-relative">{% include 'partials/sprite.html' with
-                icon='phone' fill='#FFF' %}</div>
+              <div class="margin-2px bg-primary circle-4 position-relative">{% include 'partials/sprite.html' with icon='phone' fill='#FFF' %}</div>
               {% else %}
-              <div class="margin-2px bg-gray-30 circle-4 position-relative">{% include 'partials/sprite.html' with
-                icon='phone' fill='#FFF' %}</div>
+              <div class="margin-2px bg-gray-30 circle-4 position-relative">{% include 'partials/sprite.html' with icon='phone' fill='#FFF' %}</div>
               {% endif %}
               {% if resource.resource.contacts %}
-              <div class="margin-2px bg-primary circle-4 position-relative">{% include 'partials/sprite.html' with
-                icon='people' fill='#FFF' %}</div>
+              <div class="margin-2px bg-primary circle-4 position-relative">{% include 'partials/sprite.html' with icon='people' fill='#FFF' %}</div>
               {% else %}
-              <div class="margin-2px bg-gray-30 circle-4 position-relative">{% include 'partials/sprite.html' with
-                icon='people' fill='#FFF' %}</div>
+              <div class="margin-2px bg-gray-30 circle-4 position-relative">{% include 'partials/sprite.html' with icon='people' fill='#FFF' %}</div>
               {% endif %}
             </a></td>
           <td>
