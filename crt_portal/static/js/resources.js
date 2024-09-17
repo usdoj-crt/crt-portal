@@ -13,6 +13,7 @@
     document.body.removeChild(textArea);
   }
 
+  let hideNotification;
   function addCopyButtonListener(copyButton, parentTable, actionNotificationEl, countEl) {
     const checkBoxes = parentTable.querySelectorAll('td input.usa-checkbox__input:checked');
     copyButton.addEventListener('click', e => {
@@ -26,7 +27,8 @@
       copyContents(resources.join(''));
       copyButton.hidden = true;
       countEl.innerText = 'Saved to clipboard!';
-      setTimeout(() => {
+      clearTimeout(hideNotification);
+      hideNotification = setTimeout(() => {
         actionNotificationEl.hidden = true;
       }, 2000);
     });
@@ -104,6 +106,7 @@
     });
   }
 
+  let hideCopyMessage;
   function copyRow(e) {
     const row = e.target.closest('.tr--hover');
     const resourceText = row.querySelector('.copy-text').textContent;
@@ -112,12 +115,14 @@
     const copyIcon = row.getElementsByClassName('copy-resource')[0];
     copyText.style.display = 'block';
     copyIcon.style.display = 'none';
-    setTimeout(() => {
+    clearTimeout(hideCopyMessage);
+    hideCopyMessage = setTimeout(() => {
       copyText.style.display = 'none';
       copyIcon.style.display = 'block';
     }, 2000);
   }
 
+  let triggerSearch;
   function setUpEventListeners() {
     const selectAllCheckboxes = dom.getElementsByClassName('checkbox-input-all');
     for (let index = 0; index < selectAllCheckboxes.length; index++) {
@@ -140,7 +145,8 @@
     const searchInput = document.querySelector('#id_search');
     searchInput.oninput = function(event) {
       event.preventDefault();
-      setTimeout(() => {
+      clearTimeout(triggerSearch);
+      triggerSearch = setTimeout(() => {
         makeQuery();
       }, 1500);
     };
