@@ -6,18 +6,23 @@ from botocore.exceptions import ClientError
 from api.filters import form_letters_filter, reports_accessed_filter, autoresponses_filter, report_cws
 from django.utils.html import mark_safe
 from api.serializers import make_report_serializer, ReportSerializer, ResponseTemplateSerializer, RelatedReportSerializer
+from cts_forms.page_through import pagination
+from django.core.paginator import Paginator
+from django.template.loader import render_to_string
+from cts_forms.sorts import other_sort
 from utils.pdf import convert_html_to_pdf
 from cts_forms.filters import report_filter
 from cts_forms.mail import mail_to_complainant, mail_to_agency, build_letters, build_preview
 from utils.markdown_extensions import CustomHTMLExtension, OptionalExtension
-from cts_forms.models import Report, ResponseTemplate, ReportAttachment
-from cts_forms.views import mark_report_as_viewed, mark_reports_as_viewed
+from cts_forms.models import Report, ResponseTemplate, ReportAttachment, Resource
+from cts_forms.views import mark_report_as_viewed, mark_reports_as_viewed, get_sort_args
 from cts_forms.forms import add_activity, ProformAttachmentActions, PHONE_FORM_CONFIG, PhoneProForm
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, get_object_or_404
 from django.template import Context, Template
+from django.db.models import Q, CharField, TextField
 from rest_framework import generics
 from rest_framework import permissions
 from rest_framework.decorators import api_view
@@ -51,7 +56,8 @@ def api_root(request, format=None):
         'form-letters': reverse('api:form-letters', request=request, format=format),
         'report-cws': reverse('api:report-cws', request=request, format=format),
         'response-action': reverse('api:response-action', request=request, format=format),
-        'proform-attachment-action': reverse('api:proform-attachment-action', request=request, format=format)
+        'proform-attachment-action': reverse('api:proform-attachment-action', request=request, format=format),
+        'resources-list': reverse('api:resources-list', request=request, format=format)
     })
 
 
@@ -563,3 +569,61 @@ class ProformAttachmentView(APIView):
         attachment_id = int(request.GET['attachment_id'])
         attachment = get_object_or_404(ReportAttachment, pk=attachment_id)
         return upload_file(attachment)
+
+
+class ResourcesList(generics.RetrieveAPIView):
+    permission_classes = (IsAuthenticated,)
+    queryset = Resource.objects.all()
+
+    def get(self, request) -> JsonResponse:
+        resources = self.queryset
+        tags = self.request.query_params.getlist('tag', [])
+        tags = [int(tag) for tag in tags]
+        search_term = self.request.query_params.get('search_term')
+        if search_term:
+            fields = [f for f in Resource._meta.fields if isinstance(f, CharField | TextField)]
+            q = [Q(**{f.name + "__icontains": search_term}) for f in fields]
+            qs = Q()
+            for query in q:
+                qs = qs | query
+
+            resources = resources.filter(qs)
+
+        if tags:
+            resources = resources.filter(tags__id__in=tags).order_by('pk')
+        sort_expr, sorts = other_sort(self.request.query_params.getlist('sort'), 'resources')
+        per_page = self.request.query_params.get('per_page', '15')
+        page = self.request.query_params.get('page', 1)
+        page_args = f'?per_page={per_page}'
+        sort_state = {}
+        _, sort_state = get_sort_args(sorts, sort_state)
+        qs = resources.order_by(*sort_expr).prefetch_related('tags', 'contacts')
+        paginator = Paginator(qs, per_page)
+        qs, page_format = pagination(paginator, page, per_page)
+        resource_data = []
+        for _, resource in enumerate(qs):
+            tags = [{'name': str(name),
+                     'section': str(section) if section else '',
+                     'tooltip': str(tooltip) if tooltip else ''
+                     } for name, section, tooltip in resource.tags.values_list('name', 'section', 'tooltip')]
+            contacts = [{
+                'first_name': str(first_name),
+                'last_name': str(last_name),
+                'title': str(title),
+                'email': str(email),
+                'phone': str(phone)
+            } for first_name, last_name, title, email, phone in resource.contacts.values_list('first_name', 'last_name', 'title', 'email', 'phone')]
+            resource_data.append({
+                'tags': tags,
+                'contacts': contacts,
+                'resource': resource,
+                'url': '#',
+            })
+        resources = {
+            'resources': resource_data,
+            'sort_state': sort_state,
+            'page_format': page_format,
+            'page_args': page_args,
+            'per_page': per_page,
+        }
+        return JsonResponse({'html': render_to_string('forms/complaint_view/resources/resources_table.html', context=resources, request=request), 'data': {'has_resources': len(resource_data) > 0}})

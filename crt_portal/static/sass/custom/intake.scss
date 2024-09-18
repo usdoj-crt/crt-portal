@@ -1048,6 +1048,13 @@ label.flex-column span.usa-tooltip {
   }
 }
 
+.resource-filters {
+  .crt-dropdown {
+    border-color: black;
+    border: solid 1px;
+  }
+}
+
 .crt-dropdown {
   align-items: center;
   background: color('white');
