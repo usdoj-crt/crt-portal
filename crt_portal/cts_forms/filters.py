@@ -1,6 +1,5 @@
 # Class to handle filtering Reports by supplied query params,
 # provided they are valid filterable model properties.
-import logging
 from typing import Tuple, Dict, Any
 
 import re
