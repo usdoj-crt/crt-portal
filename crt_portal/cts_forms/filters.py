@@ -1,5 +1,6 @@
 # Class to handle filtering Reports by supplied query params,
 # provided they are valid filterable model properties.
+import logging
 from typing import Tuple, Dict, Any
 
 import re
@@ -200,7 +201,7 @@ def report_filter(querydict):
         filter_list = querydict.getlist(field)
 
         field_options = filter_options[field]
-        if len(filter_list) <= 0:
+        if len(filter_list) <= 0 or (len(filter_list) == 1 and filter_list[0] == ''):
             continue
 
         filters[field] = querydict.getlist(field)
