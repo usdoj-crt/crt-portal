@@ -1440,6 +1440,7 @@ class FormLettersIndexTests(TestCase):
         response = self.client.get(url)
         self.assertEqual(response.status_code, 400)
 
+
 class CRT_Resource_Tests(TestCase):
     def setUp(self):
         # We'll need a report and a handful of actions
