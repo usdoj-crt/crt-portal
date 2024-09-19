@@ -22,7 +22,7 @@ from testfixtures import LogCapture
 
 from ..forms import ComplaintOutreach, ContactEditForm, ReportEditForm, add_activity
 from ..model_variables import PRIMARY_COMPLAINT_CHOICES
-from ..models import Profile, Report, ReportAttachment, ProtectedClass, PROTECTED_MODEL_CHOICES, CommentAndSummary, Campaign, BannerMessage, RetentionSchedule, SavedSearch, NotificationPreference
+from ..models import Profile, Report, ReportAttachment, ProtectedClass, PROTECTED_MODEL_CHOICES, CommentAndSummary, Campaign, BannerMessage, RetentionSchedule, SavedSearch, NotificationPreference, Resource, Tag
 from .test_data import SAMPLE_REPORT_1, SAMPLE_REPORT_3, SAMPLE_REPORT_4
 from .factories import ReportFactory
 from .utils import assertSoupFinds, assertSoupSelects
@@ -1439,3 +1439,44 @@ class FormLettersIndexTests(TestCase):
         url = f'{self.base_url}?assigned_section=CRM&start_date=4-12-2022&end_date=4-13-2022'
         response = self.client.get(url)
         self.assertEqual(response.status_code, 400)
+
+
+class CRT_Resource_Tests(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.superuser = User.objects.create_superuser('superduperuser', 'a@a.com', '')
+        self.tag = Tag.objects.create(name='test tag', section='DRS', show_in_lists=True)
+        self.tag2 = Tag.objects.create(name='test tag 2', section='DRS', show_in_lists=True)
+        self.resource = Resource.objects.create(name="Legal Resource", section="DRS", url="www.resource.test")
+        self.resource.tags.add(self.tag)
+        self.resource.save()
+        self.resource2 = Resource.objects.create(name="Technology Resource", section="DRS", url="www.resource2.test")
+        self.resource2.tags.add(self.tag2)
+        self.resource2.save()
+        self.resource3 = Resource.objects.create(name="Housing Resource", section="DRS", url="www.resource3.test")
+        self.url = reverse('crt_forms:resources')
+        self.resource_api_url = reverse('api:resources-list')
+
+    def test_view_resources_unauthenticated(self):
+        """Unauthenticated attempt to view resource page redirects to login page."""
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 302)
+
+    def test_view_resources_authenticated(self):
+        """Authenticated will return 200 and display "Resources."""
+        self.client.force_login(self.superuser)
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue('Resources' in str(response.content))
+
+    def test_tag_filter(self):
+        """Should only return two resources"""
+        self.client.force_login(self.superuser)
+        api_response = self.client.get(f'{self.resource_api_url}?tag={self.tag.pk}&tag={self.tag2.pk}', content_type='application/json')
+        self.assertTrue('1 to 2 of 2 resources' in str(api_response.json()['html']))
+
+    def test_search(self):
+        """Should only return one resource"""
+        self.client.force_login(self.superuser)
+        api_response = self.client.get(f'{self.resource_api_url}?search_term=legal', content_type='application/json')
+        self.assertTrue('1 to 1 of 1 resources' in str(api_response.json()['html']))
