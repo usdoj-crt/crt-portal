@@ -93,17 +93,18 @@ def _should_execute(schedule):
 
 def _execute_one(schedule, manager) -> Dict:
     path = schedule.get('path')
+    logging.info(f'Pulling source code for {path}')
     try:
         source_code = manager.get(path)
     except Exception as e:
-        logging.error(f'Failed to execute {path}: {e}')
+        logging.warning(f'Failed to execute {path}: {e}')
         return schedule
     if not source_code:
-        logging.error(f'Failed to execute {path}: No source code')
+        logging.warning(f'Failed to execute {path}: No source code')
         return schedule
     content = source_code.get('content')
     if not content:
-        logging.error(f'Failed to execute {path}: No notebook content')
+        logging.warning(f'Failed to execute {path}: No notebook content')
         return schedule
 
     try:
@@ -116,12 +117,14 @@ def _execute_one(schedule, manager) -> Dict:
     metadata = {'metadata': {'path': os.path.dirname(os.path.realpath(__file__))}}
     notebook = nbformat.from_dict(content)
     if not isinstance(notebook, nbformat.NotebookNode):
-        logging.error(f'Failed to execute {path}: Invalid notebook')
+        logging.warning(f'Failed to execute {path}: Invalid notebook')
         return schedule
     try:
+        logging.info(f'Executing notebook {path}')
         result, _ = processor.preprocess(notebook, metadata)
 
         source_code['content'] = result
+        logging.info(f'Saving notebook {path}')
         manager.save(source_code, path)
     except Exception as e:
         logging.error(f'Failed to execute {path}: {e}')
