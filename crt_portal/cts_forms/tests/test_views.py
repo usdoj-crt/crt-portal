@@ -1443,7 +1443,6 @@ class FormLettersIndexTests(TestCase):
 
 class CRT_Resource_Tests(TestCase):
     def setUp(self):
-        # We'll need a report and a handful of actions
         self.client = Client()
         self.superuser = User.objects.create_superuser('superduperuser', 'a@a.com', '')
         self.tag = Tag.objects.create(name='test tag', section='DRS', show_in_lists=True)
