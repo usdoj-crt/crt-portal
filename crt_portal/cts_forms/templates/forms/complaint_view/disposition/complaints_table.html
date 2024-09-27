@@ -181,11 +181,11 @@
       </div>
       <div class="selection-submit">
         <button type="submit" id="actions" label="actions" class="usa-button" value="batch" name="action">Batch <span id="selection-action-count-btn" class="selection-action-count-btn">1 record</span> for Disposal</button>
-        <button type="submit" id="actions" label="actions" class="usa-button" value="batch-all" name="action">Batch 500 records for Disposal</button>
+        <button type="submit" id="actions" label="actions" class="usa-button" value="batch-all" name="action">Batch <span id="selection-action-count-btn" class="selection-action-count-all-btn">2</span> records for Disposal</button>
         <button data-ga-event-name="complaints bulk print" type="submit" name="action" value="print" id="actions" label="actions" class="usa-button bulk-submit-ga">
           <span class="usa-tooltip" data-position="right" data-classes="display-inline" title="This may take a while if many reports are selected.">Print</span>
         </button>
-        <div class="margin-left-4 selection-warning">
+        <div class="selection-warning" hidden>
           <p>Bulk actions are capped at 500 records.</p>
         </div>
       </div>
