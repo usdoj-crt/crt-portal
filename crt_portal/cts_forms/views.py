@@ -83,7 +83,7 @@ def get_section_contacts(purpose: str):
     return {"routing_data": routing_data, "routing_step_one_contacts": routing_step_one_contacts}
 
 
-def reconstruct_query(next_qp):
+def reconstruct_query(next_qp, disposition_status=None):
     """
     Reconstruct the query filter on the previous page using the next
     query parameter. note that if next is empty, the resulting query
@@ -93,8 +93,10 @@ def reconstruct_query(next_qp):
     report_query, _ = report_filter(querydict)
 
     report_query = report_query.annotate(email_count=F('email_report_count__email_count'))
-
-    sort_expr, sorts = report_sort(querydict.getlist('sort'))
+    if disposition_status:
+        sort_expr, sorts = other_sort(querydict.getlist('sort'), 'disposition')
+    else:
+        sort_expr, sorts = report_sort(querydict.getlist('sort'))
     report_query = report_query.order_by(*sort_expr)
 
     return report_query
@@ -1224,13 +1226,13 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
         action = request.GET.get('action', '')
         selected_all = request.GET.get('all', '') == 'all'
         uuid = request.GET.get('uuid', None)
+        disposition_status = request.GET.get('disposition_status', 'past')
         if action == 'batch-all' or (action == 'print' and selected_all):
-            requested_query = reconstruct_query(query_string)
+            requested_query = reconstruct_query(query_string, disposition_status)
             selected_report_args = 'all=all'
         else:
             requested_query = Report.objects.filter(pk__in=ids)
             selected_report_args = reconstruct_id_args(ids)
-        disposition_status = request.GET.get('disposition_status', 'past')
         _, query_filters = report_filter(QueryDict(query_string))
         filter_args = f'{get_filter_args(query_filters)}'
         shared_report_fields = {}
@@ -1242,7 +1244,7 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
         shared_report_fields['date_range'] = self.get_report_date_range(requested_query)
         if action == 'batch-all' or (action == 'print' and selected_all):
             # Limit the count to 500 here because we have to display all the reports we're batching in a table
-            requested_query = requested_query.order_by('-pk')[:500]
+            requested_query = requested_query[:500]
         print_query = requested_query
         all_ids_count = requested_query.count()
         ids_count = len(ids)
