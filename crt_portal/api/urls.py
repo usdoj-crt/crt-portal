@@ -1,6 +1,6 @@
 from django.urls import path
 from rest_framework.urlpatterns import format_suffix_patterns
-from api.views import ResponseList, ResponseDetail, ReportSummary, ReportCountView, ReportCWs, ReportList, ReportDetail, RelatedReports, FormLettersIndex, api_root, ResponseTemplateFilePreview, ResponseTemplateFormPreview, ResponseAction, ProformAttachmentView, ReportEdit
+from api.views import ResponseList, ResponseDetail, ReportSummary, ReportCountView, ReportCWs, ReportList, ReportDetail, RelatedReports, FormLettersIndex, api_root, ResponseTemplateFilePreview, ResponseTemplateFormPreview, ResponseAction, ProformAttachmentView, ReportEdit, ResourcesList
 
 app_name = 'api'
 
@@ -20,6 +20,7 @@ urlpatterns = [
     path('form-letters/', FormLettersIndex.as_view(), name='form-letters'),
     path('response-action/', ResponseAction.as_view(), name='response-action'),
     path('proform-attachment-action/', ProformAttachmentView.as_view(), name='proform-attachment-action'),
+    path('resources-list/', ResourcesList.as_view(), name='resources-list'),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
