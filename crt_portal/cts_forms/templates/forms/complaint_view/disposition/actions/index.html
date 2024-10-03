@@ -29,7 +29,7 @@
         <div class="complaint-actions display-flex flex-justify-center grid-offset-1 margin-top-2">
           {% include 'forms/complaint_view/disposition/actions/bulk_print.html' with reports=print_reports %}
         </div>
-        {% if not action %}
+        {% if action == 'batch' %}
         <div class="grid-row grid-gap-2">
           <div class="complaint-actions tablet:grid-col-5 grid-offset-1">
             {% include 'forms/complaint_view/disposition/actions/bulk_actions.html' %}
