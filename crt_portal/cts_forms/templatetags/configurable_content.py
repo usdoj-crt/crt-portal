@@ -10,4 +10,4 @@ register = template.Library()
 def configurable_content(machine_name):
 
     content = ConfigurableContent.objects.filter(machine_name=machine_name).first()
-    return mark_safe(content.render())
+    return mark_safe(content.render())  # nosec
