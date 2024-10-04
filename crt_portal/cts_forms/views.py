@@ -1401,7 +1401,7 @@ class DispositionBatchActionsView(LoginRequiredMixin, FormView):
             second_reviewer_pk = None
             second_display_name = None
         return {
-            'reviewed': batch.first_reviewer != None,
+            'reviewed': batch.first_reviewer is not None,
             'first_reviewer': first_reviewer.pk,
             'first_display_name': first_display_name,
             'second_reviewer': second_reviewer_pk,
