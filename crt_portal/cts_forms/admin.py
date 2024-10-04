@@ -34,7 +34,7 @@ from .model_variables import SECTION_CHOICES
 from .models import (CommentAndSummary, HateCrimesandTrafficking, Profile,
                      ProtectedClass, Report, ResponseTemplate, DoNotEmail,
                      JudicialDistrict, RetentionSchedule, RoutingSection, RoutingStepOneContact, Tag,
-                     VotingMode, Campaign, ReferralContact, BannerMessage, SavedSearch, NotificationPreference, ScheduledNotification, ApplicationContact, GroupPreferences)
+                     VotingMode, Campaign, ReferralContact, BannerMessage, SavedSearch, NotificationPreference, ScheduledNotification, ApplicationContact, GroupPreferences, ConfigurableContent)
 from utils.request_utils import get_client_ip
 
 logger = logging.getLogger(__name__)
@@ -338,6 +338,10 @@ class ReferralContactAdmin(CrtModelAdmin):
     form = ReferralContactAdminForm
 
 
+class ConfigurableContentAdmin(CrtModelAdmin):
+    list_display = ['machine_name']
+
+
 class BannerMessageAdminForm(forms.ModelForm):
     class Meta:
         model = BannerMessage
@@ -617,6 +621,7 @@ admin.site.register(RoutingStepOneContact, RoutingStepOneContactAdmin)
 admin.site.register(SavedSearch, SavedSearchAdmin)
 admin.site.register(RetentionSchedule, RetentionScheduleAdmin)
 admin.site.register(ScheduledNotification, ScheduledNotificationAdmin)
+admin.site.register(ConfigurableContent, ConfigurableContentAdmin)
 
 # Activity stream already registers an Admin for Action, we want to replace it
 admin.site.unregister(Action)
