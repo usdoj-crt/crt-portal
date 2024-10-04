@@ -715,13 +715,17 @@ def get_batch_data(disposition_batches, all_args_encoded):
 
 
 def get_batch_view_data(request):
+    # clear out any batches that were not completed
+    empty_batches = ReportDispositionBatch.objects.filter(disposed_count=0)
+    for batch in empty_batches:
+        batch.delete()
     disposition_batches = ReportDispositionBatch.objects.all()
     status_filter = request.GET.get('status', request.COOKIES.get('disposition_view_batch_status', ''))
     if status_filter:
         disposition_batches = disposition_batches.filter(status=status_filter)
     per_page = request.GET.get('per_page', request.COOKIES.get('complaint_view_per_page', 15))
     page = request.GET.get('page', 1)
-    sort_expr, sorts = other_sort(request.GET.getlist('sort'), 'batch')
+    sort_expr, sorts = other_sort(request.GET.getlist('sort', ['create_date']), 'batch')
     disposition_batches = disposition_batches.annotate(retention_schedule=Subquery(ReportDisposition.objects.filter(batch=OuterRef("pk")).values_list('schedule', flat=True).distinct()))
     disposition_batches = disposition_batches.annotate(all_rejected=Subquery(ReportDisposition.objects.filter(batch=OuterRef("pk")).order_by('rejected').values_list('rejected', flat=True)[:1]))
     disposition_batches = disposition_batches.order_by(*sort_expr)
@@ -1397,6 +1401,7 @@ class DispositionBatchActionsView(LoginRequiredMixin, FormView):
             second_reviewer_pk = None
             second_display_name = None
         return {
+            'reviewed': batch.first_reviewer != None,
             'first_reviewer': first_reviewer.pk,
             'first_display_name': first_display_name,
             'second_reviewer': second_reviewer_pk,
@@ -1461,6 +1466,14 @@ class DispositionBatchActionsView(LoginRequiredMixin, FormView):
                 report.report_disposition_status = 'rejected'
                 report.save()
                 report_dispo_object.rejected = True
+                report_dispo_object.save()
+            approved_report_dispo_objects = ReportDisposition.objects.filter(batch=batch).exclude(public_id__in=rejected_report_ids)
+            for report_dispo_object in approved_report_dispo_objects:
+                report = Report.objects.filter(public_id=report_dispo_object.public_id).first()
+                report.batched_for_disposal = True
+                report.report_disposition_status = 'approved'
+                report.save()
+                report_dispo_object.rejected = False
                 report_dispo_object.save()
             batch = form.save(commit=False)
             batch.save()
