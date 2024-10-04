@@ -28,12 +28,14 @@ from django.http import Http404, HttpResponse, QueryDict
 from django.shortcuts import get_object_or_404, redirect, render, reverse
 from django.utils.html import mark_safe
 from django.views.generic import FormView, TemplateView, View
+from analytics.models import DashboardGroup, FileGroupAssignment
 from formtools.wizard.views import SessionWizardView
-from analytics.models import AnalyticsFile, get_intake_notebooks
+from analytics.models import AnalyticsFile
 from tms.models import TMSEmail
 from datetime import datetime
 from django.db.models.functions import ExtractYear, Cast, Concat
 from django.contrib.auth.models import Group
+from django.db.models.functions import Lower
 
 from .attachments import ALLOWED_FILE_EXTENSIONS
 from .filters import report_filter, dashboard_filter, report_grouping
@@ -584,13 +586,28 @@ def process_activity_filters(request):
 @login_required
 def data_view(request):
     profile_form = get_profile_form(request)
-
+    notebooks = AnalyticsFile.objects.filter(path__startswith='assignments/intake-dashboard').exclude(path__startswith="assignments/intake-dashboard/draft_").filter(type='notebook').order_by(Lower('name'))
+    intake_notebooks = []
+    for notebook in notebooks:
+        name = notebook.name[:-6]
+        display_name = name.replace("_", " ").capitalize()
+        assignment = FileGroupAssignment.objects.filter(analytics_file=notebook.pk).first()
+        group = None
+        if assignment:
+            group = DashboardGroup.objects.filter(pk=assignment.dashboard_group.pk).first().header
+        intake_notebooks.append({
+            'path': name,
+            'name': display_name,
+            'description': notebook.description if notebook.description else display_name,
+            'last_modified': notebook.last_modified,
+            'group': group
+        })
     return render(
         request,
         'forms/complaint_view/data/index.html',
         {
             'profile_form': profile_form,
-            'intake_notebooks': get_intake_notebooks(),
+            'intake_notebooks': intake_notebooks,
         })
 
 
