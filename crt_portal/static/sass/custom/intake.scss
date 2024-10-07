@@ -176,6 +176,49 @@ hr {
   overflow-y: scroll;
 }
 
+.side-nav .subnav {
+  display: none;
+}
+
+.side-nav.open .subnav {
+  display: block;
+  list-style: none;
+
+  margin-top: 0px;
+  margin-bottom: 0px;
+
+  padding-inline-start: 1.5em;
+
+  a, a:visited {
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+  }
+}
+
+.side-nav .add-modal {
+  position: absolute;
+  left: 5.5em;
+  padding: 1em;
+  border-radius: 5px;
+  background-color: #162e51;
+  a, a:hover, a:visited {
+    color: #fff;
+    text-decoration: none;
+  }
+  font-weight: normal;
+  white-space: nowrap;
+
+  p {
+    margin: 0;
+  }
+
+  hr {
+    margin-top: 0.25em;
+    margin-bottom: 0.25em;
+  }
+}
+
 .side-nav {
   background-color: #162e51;
   color: #fff;
@@ -250,6 +293,7 @@ hr {
     }
 
     .add-record {
+      cursor: pointer;
       padding: 0.5rem 0;
       background-color: transparent;
       margin-top: 0;
