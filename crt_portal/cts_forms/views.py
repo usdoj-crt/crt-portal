@@ -253,8 +253,6 @@ def get_profile_form(request):
 def get_disposition_report_data(requested_reports):
     data = []
     for report in requested_reports:
-        if report.retention_schedule and report.closed_date:
-            report.expiration_date = datetime(report.closed_date.year + report.retention_schedule.retention_years + 1, 1, 1).date()
         url = reverse('crt_forms:crt-forms-show', kwargs={'id': report.pk})
         data.append({
             "report": report,
@@ -478,9 +476,6 @@ def get_report_data(requested_reports, report_url_args, paginated_offset):
         # If a user has an email, it is looked up in the table to see if they are a repeat writer and add the count to the report.
         if report.contact_email:
             report.related_reports_count = _related_reports_count(report)
-       # if report.retention_schedule and report.closed_date:
-           # report.expiration_date = datetime(report.closed_date.year + report.retention_schedule.retention_years + 1, 1, 1).date()
-           # logging.info(report.expiration_date)
         if report.other_class:
             p_class_list.append(report.other_class)
         if len(p_class_list) > 3:
@@ -769,7 +764,7 @@ def disposition_view(request):
         return response
     if params.get('status'):
         params.pop('status')
-    logging.info(params)
+
     report_query, query_filters = report_filter(params)
 
     # Records without these values should _never_ show on the disposition page,
@@ -1188,7 +1183,7 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
         query = query.annotate(
             retention_year=F('retention_schedule__retention_years'),
             expiration_year=F('retention_year') + ExtractYear('closed_date') + 1,
-            expiration_date=Cast(Concat(F('expiration_year'), Value('-01-01'), output_field=CharField()), output_field=DateField())
+            expiration_date=Cast(Concat(F('expiration_year'), Value('-'), Value('01'), Value('-'), Value('01'), output_field=CharField()), output_field=DateField())
         )
         for key in keys:
             values = query.values_list(key, flat=True).distinct()
@@ -1233,7 +1228,10 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
         else:
             requested_query = Report.objects.filter(pk__in=ids)
             selected_report_args = reconstruct_id_args(ids)
-
+        requested_query = requested_query.annotate(retention_year=F('retention_schedule__retention_years'),
+                                                   expiration_year=F('retention_year') + ExtractYear('closed_date') + 1,
+                                                   expiration_date=Cast(Concat(F('expiration_year'), Value('-'), Value('01'), Value('-'), Value('01'), output_field=CharField()), output_field=DateField()),
+                                                   )
         disposition_status = request.GET.get('disposition_status', 'past')
         _, query_filters = report_filter(QueryDict(query_string))
         filter_args = f'{get_filter_args(query_filters)}'
@@ -1351,7 +1349,10 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
             requested_query.count() > 500
             all_ids_count = requested_query.count()
             ids_count = len(ids)
-
+            requested_query = requested_query.annotate(retention_year=F('retention_schedule__retention_years'),
+                                                       expiration_year=F('retention_year') + ExtractYear('closed_date') + 1,
+                                                       expiration_date=Cast(Concat(F('expiration_year'), Value('-'), Value('01'), Value('-'), Value('01'), output_field=CharField()), output_field=DateField()),
+                                                       )
             selected_all = selected_all and all_ids_count != ids_count
             if selected_all:
                 ids_count = all_ids_count
@@ -1413,6 +1414,10 @@ class DispositionBatchActionsView(LoginRequiredMixin, FormView):
         report_dispo_objects = ReportDisposition.objects.filter(batch=batch)
         report_public_ids = report_dispo_objects.values_list('public_id', flat=True)
         reports = Report.objects.filter(public_id__in=report_public_ids).order_by('pk')
+        reports = reports.annotate(retention_year=F('retention_schedule__retention_years'),
+                                   expiration_year=F('retention_year') + ExtractYear('closed_date') + 1,
+                                   expiration_date=Cast(Concat(F('expiration_year'), Value('-'), Value('01'), Value('-'), Value('01'), output_field=CharField()), output_field=DateField()),
+                                   )
         earliest = reports.order_by('closed_date')[0]
         latest = reports.order_by('-closed_date')[0]
         report_ids = list(reports.values_list('pk', flat=True))
@@ -1492,6 +1497,10 @@ class DispositionBatchActionsView(LoginRequiredMixin, FormView):
         report_dispo_objects = ReportDisposition.objects.filter(batch=batch)
         report_public_ids = report_dispo_objects.values_list('public_id', flat=True)
         reports = Report.objects.filter(public_id__in=report_public_ids).order_by('create_date')
+        reports = reports.annotate(retention_year=F('retention_schedule__retention_years'),
+                                   expiration_year=F('retention_year') + ExtractYear('closed_date') + 1,
+                                   expiration_date=Cast(Concat(F('expiration_year'), Value('-'), Value('01'), Value('-'), Value('01'), output_field=CharField()), output_field=DateField()),
+                                   )
         report_ids = list(reports.values_list('pk', flat=True))
         first_report = reports.first()
         page = request.GET.get('page', 1)
