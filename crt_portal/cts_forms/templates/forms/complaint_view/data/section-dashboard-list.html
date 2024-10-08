@@ -1,0 +1,26 @@
+{% extends "forms/complaint_view/show/card.html" %}
+
+{% load i18n %}
+
+{% block title %}Section Requested Dashboards{% endblock %}
+
+{% block extra_classes %}crt-actions-card dashboard-list{% endblock %}
+{% block icon %}
+<img src="{% static icon %}" alt="" class="icon" />
+{% endblock %}
+
+{% block card_content %}
+<table class="usa-table usa-table--borderless complaint-card-table">
+    {% for notebook in intake_notebooks %}
+    {% if notebook.group == 'Section Requested Dashboards' %}
+    <tr>
+        <td>
+        <p class="text-bold">{{ notebook.name }}</p>
+
+        <a href="/form/data/{{notebook.path}}">{{ notebook.description }}</a>
+        </td>
+    </tr>
+    {% endif %}
+    {% endfor %}
+</table>
+{% endblock %}

@@ -28,6 +28,7 @@
               >
               <label class="usa-checkbox__label crt-checkbox__label checkbox-all" aria-label="Select all records"></label>
             </div>
+            <span id="visible_reports" value="{{ page_format.per_page }}"></span>
             <span id="total_reports" value="{{ page_format.count }}"></span>
           </th>
           {% endif %}
@@ -160,7 +161,7 @@
     </table>
   </div>
   <div class="selection-action-notification" hidden>
-    <div class="display-flex flex-align-center">
+    <div class="display-flex flex-align-center selected-some" hidden>
       <div>
         <img src="{% static 'img/ic_successconfirmation-white.svg' %}" alt="action available on selection" class="icon">
       </div>
@@ -168,14 +169,26 @@
         <span id="selection-action-count" class="selection-action-count">1 record</span> selected
       </h2>
       <div class="selection-submit">
-        <button type="submit" id="actions" label="actions" class="usa-button">Batch for Disposal</button>
+        <button type="submit" id="actions" label="actions" class="usa-button" value="batch">Batch for Disposal</button>
         <button data-ga-event-name="complaints bulk print" type="submit" name="action" value="print" id="actions" label="actions" class="usa-button bulk-submit-ga">
           <span class="usa-tooltip" data-position="right" data-classes="display-inline" title="This may take a while if many reports are selected.">Print</span>
         </button>
       </div>
     </div>
-    <div class="margin-left-4 selection-warning" hidden>
-      <p>The count has been adjusted to the bulk change cap of 500 records.</p>
+    <div class="display-flex flex-align-center selected-all" hidden>
+      <div>
+        <img src="{% static 'img/ic_successconfirmation-white.svg' %}" alt="action available on selection" class="icon">
+      </div>
+      <div class="selection-submit">
+        <button type="submit" id="actions" label="actions" class="usa-button" value="batch" name="action">Batch <span id="selection-action-count-btn" class="selection-action-count-btn">1 record</span> for Disposal</button>
+        <button type="submit" id="actions" label="actions" class="usa-button" value="batch-all" name="action">Batch <span id="selection-action-count-btn" class="selection-action-count-all-btn">2</span> records for Disposal</button>
+        <button data-ga-event-name="complaints bulk print" type="submit" name="action" value="print" id="actions" label="actions" class="usa-button bulk-submit-ga">
+          <span class="usa-tooltip" data-position="right" data-classes="display-inline" title="This may take a while if many reports are selected.">Print</span>
+        </button>
+        <div class="selection-warning" hidden>
+          <p>Bulk actions are capped at 500 records.</p>
+        </div>
+      </div>
     </div>
   </div>
 </form>

@@ -25,6 +25,39 @@
     }
   }
 
+  function updateBatchRecordCount(index, parentTable, selectAllCheckbox, visibleReports) {
+    const actionNotificationEls = dom.getElementsByClassName('selection-action-notification');
+    const actionNotificationEl = actionNotificationEls[index];
+    const countEl = actionNotificationEl.getElementsByClassName('selection-action-count')[0];
+    const count = parentTable.querySelectorAll('td input.usa-checkbox__input:checked').length;
+    const selectedAll = dom.querySelector('.selected-all');
+    const selectedSome = dom.querySelector('.selected-some');
+    const totalReports = parentTable.querySelector('#total_reports');
+    const warning = actionNotificationEl.querySelector('.selection-warning');
+    if (count === 0) {
+      actionNotificationEl.hidden = true;
+    } else if (selectAllCheckbox.checked) {
+      const selectedAllBtn = actionNotificationEl.querySelector('.selection-action-count-btn');
+      const selectedAllExtraBtn = actionNotificationEl.querySelector(
+        '.selection-action-count-all-btn'
+      );
+      selectedSome.hidden = true;
+      selectedAll.hidden = false;
+      const numReports = visibleReports.getAttribute('value');
+      selectedAllBtn.innerText = numReports + ' records';
+      const numReportsExtra = totalReports.getAttribute('value');
+      warning.hidden = numReportsExtra < 500;
+      selectedAllExtraBtn.innerText = numReportsExtra > 500 ? 500 : numReportsExtra;
+      actionNotificationEl.hidden = false;
+    } else {
+      selectedSome.hidden = false;
+      selectedAll.hidden = true;
+      const recordsPlural = count === 1 ? ' record' : ' records';
+      countEl.innerText = count + recordsPlural;
+      actionNotificationEl.hidden = false;
+    }
+  }
+
   function addCheckAllListener(selectAllCheckbox, allCheckboxes) {
     selectAllCheckbox.addEventListener('click', event => {
       const checked = event.target.checked;
@@ -37,6 +70,7 @@
   }
 
   function addCheckboxListener(checkbox, index, parentTable, selectAllCheckbox) {
+    const visibleReports = parentTable.querySelector('#visible_reports');
     checkbox.addEventListener('click', event => {
       const target = event.target;
       const parent = target.parentNode.parentNode.parentNode;
@@ -48,7 +82,11 @@
           selectAllCheckboxes[index].checked = false;
         }
       }
-      updateRecordCount(index, parentTable, selectAllCheckbox);
+      if (visibleReports) {
+        updateBatchRecordCount(index, parentTable, selectAllCheckbox, visibleReports);
+      } else {
+        updateRecordCount(index, parentTable, selectAllCheckbox);
+      }
     });
   }
 

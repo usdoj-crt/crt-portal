@@ -17,16 +17,17 @@
 </div>
 
 <div class="intake-content">
-  <p class="margin-left-1">The following are a collection of existing notebooks, meant to help staff understand trends, patterns, and operational insights from complainant reports. Select a notebook below to view it.</p>
-  <p class="margin-left-1">If you can't quite find what you want here, or have ideas for how to improve these, please reach out to {% application_contact_markup %}.</p>
+  <p class="margin-left-1">These dashboards are intended to surface trends, patterns and operational insights from reports found in the portal. They were created based on feedback from portal users like you.</p>
+  <p class="margin-left-1">If you have any questions, ideas for new dashboards or ideas for improvements to current dashboards, please reach out to {% application_contact_markup %}.</p>
 
-  <ul class="notebook-links">
-  {% for notebook in intake_notebooks %}
-  {% with name=notebook.name|slice:":-6" %}
-    <li><a href="/form/data/{{name}}">{{ name }}</a> <small>(updated {{ notebook.last_modified | date:"SHORT_DATETIME_FORMAT"}})</small></li>
-  {% endwith %}
-  {% endfor %}
-  </ul>
+  <div class="complaint-page grid-row grid-gap-2">
+    <div class="complaint-information grid-col-6">
+      {% include 'forms/complaint_view/data/demo-dashboard-list.html' with icon="img/intake-icons/ic_check-circle.svg" %}
+    </div>
+    <div class="complaint-information grid-col-6">
+      {% include 'forms/complaint_view/data/section-dashboard-list.html' with icon="img/intake-icons/ic_check-circle.svg" %}
+    </div>
+  </div>
 </div>
 {% endblock %}
 {% block page_js %}

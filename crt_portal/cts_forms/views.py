@@ -28,12 +28,14 @@ from django.http import Http404, HttpResponse, QueryDict
 from django.shortcuts import get_object_or_404, redirect, render, reverse
 from django.utils.html import mark_safe
 from django.views.generic import FormView, TemplateView, View
+from analytics.models import DashboardGroup, FileGroupAssignment
 from formtools.wizard.views import SessionWizardView
-from analytics.models import AnalyticsFile, get_intake_notebooks
+from analytics.models import AnalyticsFile
 from tms.models import TMSEmail
 from datetime import datetime
 from django.db.models.functions import ExtractYear, Cast, Concat
 from django.contrib.auth.models import Group
+from django.db.models.functions import Lower
 
 from .attachments import ALLOWED_FILE_EXTENSIONS
 from .filters import report_filter, dashboard_filter, report_grouping
@@ -83,7 +85,7 @@ def get_section_contacts(purpose: str):
     return {"routing_data": routing_data, "routing_step_one_contacts": routing_step_one_contacts}
 
 
-def reconstruct_query(next_qp):
+def reconstruct_query(next_qp, disposition_status=None):
     """
     Reconstruct the query filter on the previous page using the next
     query parameter. note that if next is empty, the resulting query
@@ -93,8 +95,10 @@ def reconstruct_query(next_qp):
     report_query, _ = report_filter(querydict)
 
     report_query = report_query.annotate(email_count=F('email_report_count__email_count'))
-
-    sort_expr, sorts = report_sort(querydict.getlist('sort'))
+    if disposition_status:
+        sort_expr, sorts = other_sort(querydict.getlist('sort'), 'disposition')
+    else:
+        sort_expr, sorts = report_sort(querydict.getlist('sort'))
     report_query = report_query.order_by(*sort_expr)
 
     return report_query
@@ -578,13 +582,28 @@ def process_activity_filters(request):
 @login_required
 def data_view(request):
     profile_form = get_profile_form(request)
-
+    notebooks = AnalyticsFile.objects.filter(path__startswith='assignments/intake-dashboard').exclude(path__startswith="assignments/intake-dashboard/draft_").filter(type='notebook').order_by(Lower('name'))
+    intake_notebooks = []
+    for notebook in notebooks:
+        name = notebook.name[:-6]
+        display_name = name.replace("_", " ").capitalize()
+        assignment = FileGroupAssignment.objects.filter(analytics_file=notebook.pk).first()
+        group = None
+        if assignment:
+            group = DashboardGroup.objects.filter(pk=assignment.dashboard_group.pk).first().header
+        intake_notebooks.append({
+            'path': name,
+            'name': display_name,
+            'description': notebook.description if notebook.description else display_name,
+            'last_modified': notebook.last_modified,
+            'group': group
+        })
     return render(
         request,
         'forms/complaint_view/data/index.html',
         {
             'profile_form': profile_form,
-            'intake_notebooks': get_intake_notebooks(),
+            'intake_notebooks': intake_notebooks,
         })
 
 
@@ -1220,10 +1239,12 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
         return_url_args = request.GET.get('next', '')
         return_url_args = urllib.parse.unquote(return_url_args)
         query_string = return_url_args
+        action = request.GET.get('action', '')
         selected_all = request.GET.get('all', '') == 'all'
         uuid = request.GET.get('uuid', None)
-        if selected_all:
-            requested_query = reconstruct_query(query_string)
+        disposition_status = request.GET.get('disposition_status', 'past')
+        if action == 'batch-all' or (action == 'print' and selected_all):
+            requested_query = reconstruct_query(query_string, disposition_status)
             selected_report_args = 'all=all'
         else:
             requested_query = Report.objects.filter(pk__in=ids)
@@ -1242,15 +1263,14 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
                 continue
             shared_report_fields[key] = value
         shared_report_fields['date_range'] = self.get_report_date_range(requested_query)
-        # Limit the count to 500 here because we have to display all the reports we're batching in a table
-        requested_query = requested_query[:500]
+        if action == 'batch-all' or (action == 'print' and selected_all):
+            # Limit the count to 500 here because we have to display all the reports we're batching in a table
+            requested_query = requested_query[:500]
+        print_query = requested_query
         all_ids_count = requested_query.count()
         ids_count = len(ids)
-
         selected_all = selected_all and all_ids_count != ids_count
 
-        if selected_all:
-            ids_count = all_ids_count
         page = request.GET.get('page', 1)
         paginator = Paginator(requested_query, 15)
         requested_query, page_format = pagination(paginator, page, 15)
@@ -1265,7 +1285,7 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
         bulk_disposition_form = BulkDispositionForm(user=request.user, instance=batch)
         display_name = f'{request.user.first_name} {request.user.last_name}' if request.user.first_name and request.user.last_name else request.user.username
         output = {
-            'action': request.GET.get('action', ''),
+            'action': action if action == 'print' else 'batch',
             'rejected_batch_uuid': rejected_batch_uuid,
             'uuid': uuid,
             'display_name': display_name,
@@ -1274,7 +1294,8 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
             'selected_all': 'all' if selected_all else '',
             'ids': ','.join(ids),
             'show_warning': ids_count > 50,
-            'all_ids_count': ids_count,
+            'all_ids_count': all_ids_count,
+            'ids_count': ids_count,
             'shared_report_fields': shared_report_fields,
             'data': data,
             'bulk_disposition_form': bulk_disposition_form,
@@ -1286,7 +1307,7 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
             'disposition_status': disposition_status,
             'print_ids': list(map(int, ids)),
             'print_options': PrintActions(),
-            'print_reports': requested_query,
+            'print_reports': print_query,
         }
         return render(request, 'forms/complaint_view/disposition/actions/index.html', output)
 
@@ -1296,16 +1317,16 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
         ids = request.POST.get('ids', '').split(',')
         selected_all = request.POST.get('all', '') == 'all'
         query_string = request.POST.get('query_string', return_url_args)
+        action = request.GET.get('action', '')
         rejected_batch_uuid = request.POST.get('rejected_batch_uuid')
         uuid = request.POST.get('uuid', None)
         if confirm_all:
             requested_query = reconstruct_query(query_string)
-            requested_query.count() > 500
             selected_report_args = 'all=all'
         else:
             requested_query = Report.objects.filter(pk__in=ids)
             selected_report_args = reconstruct_id_args(ids)
-
+        print_query = requested_query
         if not uuid:
             batch = ReportDispositionBatch.objects.create()
         else:
@@ -1335,7 +1356,6 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
                     target = f' {key}:'
                 error_message = f'Could not batch reports{target} {errors}'
                 messages.add_message(request, messages.ERROR, error_message)
-            _, query_filters = report_filter(QueryDict(query_string))
 
             disposition_status = request.GET.get('disposition_status', 'past')
             _, query_filters = report_filter(QueryDict(query_string))
@@ -1346,7 +1366,7 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
             for key, value in self.get_shared_report_values(requested_query, keys):
                 shared_report_fields[key] = value
             shared_report_fields['date_range'] = self.get_report_date_range(requested_query)
-            requested_query.count() > 500
+
             all_ids_count = requested_query.count()
             ids_count = len(ids)
             requested_query = requested_query.annotate(retention_year=F('retention_schedule__retention_years'),
@@ -1354,8 +1374,7 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
                                                        expiration_date=Cast(Concat(F('expiration_year'), Value('-'), Value('01'), Value('-'), Value('01'), output_field=CharField()), output_field=DateField()),
                                                        )
             selected_all = selected_all and all_ids_count != ids_count
-            if selected_all:
-                ids_count = all_ids_count
+
             page = request.GET.get('page', 1)
             paginator = Paginator(requested_query, 15)
             requested_query, page_format = pagination(paginator, page, 15)
@@ -1363,15 +1382,16 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
             next_args = urllib.parse.quote(f'{filter_args}')
             display_name = f'{request.user.first_name} {request.user.last_name}' if request.user.first_name and request.user.last_name else request.user.username
             output = {
-                'action': request.GET.get('action', ''),
+                'action': action if action == 'print' else 'batch',
                 'uuid': batch.uuid,
                 'display_name': display_name,
                 'disposed_by': request.user.pk,
                 'return_url_args': f'?{filter_args}',
                 'selected_all': 'all' if selected_all else '',
                 'ids': ','.join(ids),
+                'ids_count': ids_count,
                 'show_warning': ids_count > 50,
-                'all_ids_count': ids_count,
+                'all_ids_count': all_ids_count,
                 'shared_report_fields': shared_report_fields,
                 'data': data,
                 'bulk_disposition_form': bulk_disposition_form,
@@ -1383,7 +1403,7 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
                 'disposition_status': disposition_status,
                 'print_ids': list(map(int, ids)),
                 'print_options': PrintActions(),
-                'print_reports': requested_query,
+                'print_reports': print_query,
             }
             return render(request, 'forms/complaint_view/disposition/actions/index.html', output)
 
