@@ -2339,7 +2339,7 @@ class BatchReviewForm(ModelForm, ActivityStreamUpdater):
                     'class': 'display-flex radio-flex',
                 }
             ),
-            required=False,
+            required=True,
         )
 
         self.fields['notes'].disabled = not self.can_review_batch
