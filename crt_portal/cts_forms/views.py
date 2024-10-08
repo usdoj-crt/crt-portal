@@ -478,8 +478,9 @@ def get_report_data(requested_reports, report_url_args, paginated_offset):
         # If a user has an email, it is looked up in the table to see if they are a repeat writer and add the count to the report.
         if report.contact_email:
             report.related_reports_count = _related_reports_count(report)
-        if report.retention_schedule and report.closed_date:
-            report.expiration_date = datetime(report.closed_date.year + report.retention_schedule.retention_years + 1, 1, 1).date()
+       # if report.retention_schedule and report.closed_date:
+           # report.expiration_date = datetime(report.closed_date.year + report.retention_schedule.retention_years + 1, 1, 1).date()
+           # logging.info(report.expiration_date)
         if report.other_class:
             p_class_list.append(report.other_class)
         if len(p_class_list) > 3:
@@ -716,9 +717,7 @@ def get_batch_data(disposition_batches, all_args_encoded):
 
 def get_batch_view_data(request):
     # clear out any batches that were not completed
-    empty_batches = ReportDispositionBatch.objects.filter(disposed_count=0)
-    for batch in empty_batches:
-        batch.delete()
+    ReportDispositionBatch.objects.filter(disposed_count=0).delete()
     disposition_batches = ReportDispositionBatch.objects.all()
     status_filter = request.GET.get('status', request.COOKIES.get('disposition_view_batch_status', ''))
     if status_filter:
@@ -770,6 +769,7 @@ def disposition_view(request):
         return response
     if params.get('status'):
         params.pop('status')
+    logging.info(params)
     report_query, query_filters = report_filter(params)
 
     # Records without these values should _never_ show on the disposition page,
@@ -1458,23 +1458,17 @@ class DispositionBatchActionsView(LoginRequiredMixin, FormView):
         return_url_args = request.POST.get('return_url_args', '')
         return_url_args = urllib.parse.unquote(return_url_args)
         if form.is_valid():
+
             rejected_report_ids = request.POST.get('rejected_report_ids', '').split(',')
-            rejected_report_dispo_objects = ReportDisposition.objects.filter(public_id__in=rejected_report_ids)
-            for report_dispo_object in rejected_report_dispo_objects:
-                report = Report.objects.filter(public_id=report_dispo_object.public_id).first()
-                report.batched_for_disposal = False
-                report.report_disposition_status = 'rejected'
-                report.save()
-                report_dispo_object.rejected = True
-                report_dispo_object.save()
-            approved_report_dispo_objects = ReportDisposition.objects.filter(batch=batch).exclude(public_id__in=rejected_report_ids)
-            for report_dispo_object in approved_report_dispo_objects:
-                report = Report.objects.filter(public_id=report_dispo_object.public_id).first()
-                report.batched_for_disposal = True
-                report.report_disposition_status = 'approved'
-                report.save()
-                report_dispo_object.rejected = False
-                report_dispo_object.save()
+            rejected_report_dispo_queryset = ReportDisposition.objects.filter(public_id__in=rejected_report_ids)
+            rejected_public_ids = rejected_report_dispo_queryset.values_list('public_id', flat=True)
+            Report.objects.filter(public_id__in=rejected_public_ids).update(report_disposition_status='rejected', batched_for_disposal=False)
+
+            approved_report_dispo_queryset = ReportDisposition.objects.filter(batch=batch).exclude(public_id__in=rejected_report_ids)
+            approved_public_ids = approved_report_dispo_queryset.values_list('public_id', flat=True)
+            Report.objects.filter(public_id__in=approved_public_ids).update(report_disposition_status='approved', batched_for_disposal=True)
+            approved_report_dispo_queryset.update(rejected=False)
+
             batch = form.save(commit=False)
             batch.save()
             if batch.status in ['approved', 'verified']:
