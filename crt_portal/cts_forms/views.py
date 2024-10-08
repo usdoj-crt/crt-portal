@@ -42,13 +42,13 @@ from .filters import report_filter, dashboard_filter, report_grouping
 from .forms import (
     BatchReviewForm, BulkActionsForm, BulkDispositionForm, CommentActions, ComplaintActions, ComplaintOutreach,
     ContactEditForm, Filters, PrintActions, ProfileForm,
-    ReportEditForm, ResourceFilter, ResponseActions, SavedSearchActions, SavedSearchFilter, add_activity,
+    ReportEditForm, ResourceActions, ResourceFilter, ResponseActions, SavedSearchActions, SavedSearchFilter, add_activity,
     AttachmentActions, Review, save_form,
     PhoneProForm
 )
 from .mail import mail_to_complainant
 from .model_variables import BATCH_STATUS_CHOICES, HATE_CRIMES_TRAFFICKING_MODEL_CHOICES, NOTIFICATION_PREFERENCE_CHOICES
-from .models import CommentAndSummary, Profile, Report, ReportAttachment, ReportDisposition, ReportDispositionBatch, ReportsData, RetentionSchedule, SavedSearch, Trends, EmailReportCount, Campaign, User, NotificationPreference, RoutingSection, RoutingStepOneContact, RepeatWriterInfo
+from .models import CommentAndSummary, Profile, Report, ReportAttachment, ReportDisposition, ReportDispositionBatch, ReportsData, Resource, RetentionSchedule, SavedSearch, Trends, EmailReportCount, Campaign, User, NotificationPreference, RoutingSection, RoutingStepOneContact, RepeatWriterInfo
 from .page_through import pagination
 from .sorts import other_sort, report_sort
 
@@ -939,6 +939,68 @@ def _notification_change(request):
 @login_required
 def resources_view(request):
     return render(request, 'forms/complaint_view/resources/index.html', {'form': ResourceFilter(request.GET)})
+
+
+class ResourceActionView(LoginRequiredMixin, View):
+
+    form = ResourceActions
+
+    def get(self, request):
+        """
+        Get resource to create or edit
+        """
+        id = request.GET.get('id', None)
+        if id:
+            resource = get_object_or_404(Resource, pk=id)
+        else:
+            resource = Resource()
+        resource_form = ResourceActions(instance=resource)
+        output = {
+            'id': id,
+            'form': resource_form,
+        }
+        return render(request, 'forms/complaint_view/resources/actions/index.html', output)
+
+    def post(self, request):
+        url = reverse('crt_forms:resources')
+        delete = request.POST.get('delete', False)
+        id = request.POST.get('id', None)
+        resource = None
+        if id:
+            resource = get_object_or_404(Resource, pk=id)
+        logging.info(resource)
+        form = ResourceActions(request.POST, instance=resource, user=request.user)
+        if delete:
+            resource.delete()
+            messages.add_message(request, messages.SUCCESS, form.success_message(id, delete))
+            return redirect(url)
+
+        if not (form.is_valid() and form.has_changed()):
+            output = {
+                'form': form,
+                'id': id,
+            }
+            logging.info(form.has_changed())
+            try:
+                fail_message = form.FAIL_MESSAGE
+            except AttributeError:
+                fail_message = 'No updates applied'
+
+            if not form.is_valid():
+                error_items = ''.join([
+                    f'<li>Problem modifying {field if field != "__all__" else "resource"}: {error}</li>'
+                    for field, error
+                    in form.errors.items()
+                ])
+                fail_message += f'<ul>{error_items}</ul>'
+
+            messages.add_message(request,
+                                 messages.ERROR,
+                                 mark_safe(fail_message))
+            return render(request, 'forms/complaint_view/resources/actions/index.html', output)
+        resource = form.save()
+        messages.add_message(request, messages.SUCCESS, form.success_message(id))
+        return redirect(url)
 
 
 class ProfileView(LoginRequiredMixin, FormView):

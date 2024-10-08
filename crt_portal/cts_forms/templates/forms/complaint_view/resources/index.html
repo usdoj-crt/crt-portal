@@ -8,6 +8,13 @@
   <h2 class="intake-section-title padding-bottom-2">Resources</h2>
   <div class="margin-bottom-8">Review, edit, and share contacts, organizations, agencies, and resources.</div>
   </form>
+  <form class="usa-form" method="get" action="{% url 'crt_forms:resource-actions' %}" novalidate>
+    <div class="text-left margin-top-3 margin-bottom-3">
+      <button class="usa-button" type="submit" id="resource-action-button">
+        Add new resource
+      </button>
+    </div>
+  </form>
   <div class="grid-col-auto">
     <div class="intake-table flat">
       <form>
