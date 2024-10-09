@@ -1,4 +1,5 @@
 {% extends "forms/complaint_view/intake_base.html" %}
+{% load configurable_content %}
 {% include "templates/partials/expandable.html" %}
 {{ super }}
 
@@ -125,11 +126,7 @@
   <div class="crt-portal-card margin-top-2">
     <div class="crt-portal-card__content">
       <h2>Quick Links</h2>
-
-      <ul class="usa-list--unstyled margin-bottom-2">
-      {% for text, link in quick_links %}
-        <li><a href="{{link}}" class="usa-link">{{text}}</a></li>
-      {% endfor %}
+        {% configurable_content 'vot-form-links' %}
       </ul>
     </div>
   </div>
