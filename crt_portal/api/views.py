@@ -613,11 +613,13 @@ class ResourcesList(generics.RetrieveAPIView):
                 'email': str(email),
                 'phone': str(phone)
             } for first_name, last_name, title, email, phone in resource.contacts.values_list('first_name', 'last_name', 'title', 'email', 'phone')]
+            base_url = reverse('crt_forms:resource-actions')
+            url = f'{base_url}?id={resource.pk}'
             resource_data.append({
                 'tags': tags,
                 'contacts': contacts,
                 'resource': resource,
-                'url': '#',
+                'url': url,
             })
         resources = {
             'resources': resource_data,
