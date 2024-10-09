@@ -963,12 +963,14 @@ class ResourceActionView(LoginRequiredMixin, View):
 
     def post(self, request):
         url = reverse('crt_forms:resources')
-        delete = request.POST.get('delete', False)
+        delete = request.POST.get('delete', '') == 'delete'
+        update = request.POST.get('update', '') == 'update'
         id = request.POST.get('id', None)
-        resource = None
-        if id:
+        if update or delete:
             resource = get_object_or_404(Resource, pk=id)
-        logging.info(resource)
+        else:
+            resource = Resource()
+            id = resource.pk
         form = ResourceActions(request.POST, instance=resource, user=request.user)
         if delete:
             resource.delete()
@@ -980,7 +982,6 @@ class ResourceActionView(LoginRequiredMixin, View):
                 'form': form,
                 'id': id,
             }
-            logging.info(form.has_changed())
             try:
                 fail_message = form.FAIL_MESSAGE
             except AttributeError:

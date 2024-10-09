@@ -8,7 +8,7 @@
 
 {% block card_content %}
 <form id="resource-actions" class="usa-form" method="post" action="/form/resources/actions" novalidate>
-<input type="hidden" value="{{ id }}" name="id" id="id" />
+  <input type="hidden" value="{{ id }}" name="id" id="id" />
   {% csrf_token %}
   <fieldset name="resource-actions" class="usa-fieldset usa-prose">
     <legend class="usa-sr-only">Resource actions</legend>
@@ -19,11 +19,11 @@
       {{ form.name }}
     </div>
     <div class="margin-bottom-2 crt-dropdown crt-dropdown__shrink-to-contents">
-        <label for="id_section" class="intake-label">
-          {{ form.fields.section.label }}
-        </label>
-        {{ form.section }}
-      </div>
+      <label for="id_section" class="intake-label">
+        {{ form.fields.section.label }}
+      </label>
+      {{ form.section }}
+    </div>
     <div class="margin-bottom-2 crt-dropdown crt-dropdown__shrink-to-contents">
       <label for="id_url" class="intake-label">
         {{ form.fields.url.label }}
@@ -37,10 +37,10 @@
       {{ form.email }}
     </div>
     <div class="margin-bottom-2 crt-dropdown crt-dropdown__shrink-to-contents">
-        <label for="id_secondary_email" class="intake-label display-flex flex-align-center">
-          {{ form.fields.secondary_email.label }}
-        </label>
-        {{ form.secondary_email }}
+      <label for="id_secondary_email" class="intake-label display-flex flex-align-center">
+        {{ form.fields.secondary_email.label }}
+      </label>
+      {{ form.secondary_email }}
     </div>
     <div class="margin-bottom-2 crt-dropdown">
       <label for="id_phone" class="intake-label">
@@ -49,34 +49,34 @@
       {{ form.phone }}
     </div>
     <div class="margin-bottom-2 crt-dropdown">
-        <label for="id_secondary_phone" class="intake-label">
-          {{ form.fields.secondary_phone.label }}
-        </label>
-        {{ form.secondary_phone }}
+      <label for="id_secondary_phone" class="intake-label">
+        {{ form.fields.secondary_phone.label }}
+      </label>
+      {{ form.secondary_phone }}
     </div>
     <div class="margin-bottom-2 crt-dropdown">
-        <label for="id_tags" class="intake-label">
-          Tags
-        </label>
-        {{ form.tags }}
+      <label for="id_tags" class="intake-label">
+        Tags
+      </label>
+      {{ form.tags }}
     </div>
     <div class="margin-bottom-2 crt-dropdown">
-        <label for="id_notes" class="intake-label">
-          {{ form.fields.notes.label }}
-        </label>
-        {{ form.notes }}
+      <label for="id_notes" class="intake-label">
+        {{ form.fields.notes.label }}
+      </label>
+      {{ form.notes }}
     </div>
     <div class="margin-bottom-2 crt-dropdown">
-        <label for="id_outreach_efforts" class="intake-label">
-          {{ form.fields.outreach_efforts.label }}
-        </label>
-        {{ form.outreach_efforts }}
+      <label for="id_outreach_efforts" class="intake-label">
+        {{ form.fields.outreach_efforts.label }}
+      </label>
+      {{ form.outreach_efforts }}
     </div>
     <div class="margin-bottom-2 crt-dropdown">
-        <label for="id_background" class="intake-label">
-          {{ form.fields.background.label }}
-        </label>
-        {{ form.background }}
+      <label for="id_background" class="intake-label">
+        {{ form.fields.background.label }}
+      </label>
+      {{ form.background }}
     </div>
     <div class="margin-bottom-2 crt-checkbox">
       <label class="intake-label margin-top-3">
@@ -87,25 +87,25 @@
       <label for="id_soi_opportunities" class="usa-checkbox__label crt-checkbox__label"></label>
     </div>
     <div class="margin-bottom-2 crt-checkbox">
-        <label class="intake-label margin-top-3">
-          {{ form.fields.need_followup.label }}
-        </label>
-        {{ form.need_followup }}
-        {# empty label for the checkbox to render using the ::before selector #}
-        <label for="id_need_followup" class="usa-checkbox__label crt-checkbox__label"></label>
-      </div>
-      {% if id %}
-      <div class="intake-section apply-discard">
-        <button class="usa-button" type="submit" name='type'>Update</button>
-        <button type="button" class="discard outline-button outline-button--blue">Delete</button>
-      </div>
+      <label class="intake-label margin-top-3">
+        {{ form.fields.need_followup.label }}
+      </label>
+      {{ form.need_followup }}
+      {# empty label for the checkbox to render using the ::before selector #}
+      <label for="id_need_followup" class="usa-checkbox__label crt-checkbox__label"></label>
+    </div>
+    {% if id %}
+    <div class="intake-section apply-discard">
+      <button class="usa-button" value="update" type="submit" name="update">Update</button>
+      <button value="delete" type="submit" class="delete outline-button outline-button--blue" name="delete">Delete</button>
+    </div>
     {% else %}
     <div class="intake-section apply-discard">
-        <button class="usa-button" type="submit" name='type'>Add</button>
-        <button type="button" class="discard outline-button outline-button--blue">Discard</button>
-      </div>
-      {% endif %}
-    <hr/>
+      <button class="usa-button" value="add" type="submit" name="add">Add</button>
+      <button type="button" value="discard" name="discard" class="discard outline-button outline-button--blue">Discard</button>
+    </div>
+    {% endif %}
+    <hr />
   </fieldset>
 </form>
 

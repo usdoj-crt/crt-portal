@@ -3279,6 +3279,7 @@ class ResourceFilter(ModelForm):
         ),
     )
 
+
 class ResourceActions(ModelForm):
     FAIL_MESSAGE = "Failed to update resource."
 
@@ -3460,6 +3461,7 @@ class ResourceActions(ModelForm):
 
     def success_message(self, id=None, delete=False):
         """Prepare update success message for rendering in template"""
+        logging.info(delete)
         if delete:
             return "Successfully deleted resource."
 
