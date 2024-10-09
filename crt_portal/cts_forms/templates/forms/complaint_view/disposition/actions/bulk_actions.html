@@ -109,26 +109,27 @@
             {{ bulk_disposition_form.create_date }}
           </div>
         </div>
-        {% if shared_report_fields.retention_schedule == 'Multiple' or shared_report_fields.expiration_date == 'Multiple' %}
-          <p>The selected reports have multiple retention schedules and/or expiration dates.</p>
-          <p>All reports must have the same retention schedule and expiration date to be batched.</p>
+        {% if shared_report_fields.retention_schedule == 'Multiple' or shared_report_fields.expiration_date == 'Multiple' or shared_report_fields.assigned_section == 'Multiple' %}
+          <p>The selected reports have multiple retention schedules, assigned sections and/or expiration dates.</p>
+          <p>All reports must have the same retention schedule, expiration date and assigned section to be batched.</p>
         {% endif %}
         <input type="hidden" value="{{ all_ids_count }}" name="disposed_count" id="disposed_count" />
         {% if selected_all %}
             <button class="usa-button button--warning display-flex align-center"
                     id="show_warning_section"
+                    {% if shared_report_fields.retention_schedule == 'Multiple' or shared_report_fields.expiration_date == 'Multiple' or shared_report_fields.assigned_section == 'Multiple' %}disabled{% endif %}
             >
             Approve Disposal of {{ all_ids_count }} record{{ all_ids_count|pluralize:"s" }}
             </button>
         {% else %}
           <button class="usa-button{% if show_warning %} button--warning display-flex align-center{% endif %}"
                 {% if show_warning %}id="show_warning_section_partial"{% endif %}
-                {% if shared_report_fields.retention_schedule == 'Multiple' or shared_report_fields.expiration_date == 'Multiple' %}disabled{% endif %}
+                {% if shared_report_fields.retention_schedule == 'Multiple' or shared_report_fields.expiration_date == 'Multiple' or shared_report_fields.assigned_section == 'Multiple' %}disabled{% endif %}
                 type="submit"
                 id="submit_report_count"
                 name="selected_ids"
           >
-            Approve Disposal of {{ all_ids_count }} record{{ all_ids_count|pluralize:"s" }}
+            Approve Disposal of {{ ids_count }} record{{ ids_count|pluralize:"s" }}
           </button>
         {% endif %}
         </div>

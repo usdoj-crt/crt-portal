@@ -43,7 +43,7 @@
                 <label for="id_first_display_name">
                     Primary Authorizing Individual
                 </label>
-                <input type="text" id="id_first_display_name" value="{{ first_display_name }}" class="usa-input" {% if batch.first_reviewer or not can_review_batch %} disabled {% endif %} placeholder="Primary Authorizing Individual">
+                <input type="text" id="id_first_display_name" value="{{ first_display_name }}" class="usa-input" {% if reviewed or not can_review_batch %} disabled {% endif %} placeholder="Primary Authorizing Individual">
                 <input type="hidden" value="{{ first_reviewer }}" name="first_reviewer" id="first_reviewer" />
             </div>
             <div class="margin-bottom-2">
@@ -53,7 +53,7 @@
                 {{ form.first_review_date }}
             </div>
         </div>
-        {% if batch.first_reviewer %}
+        {% if reviewed %}
             <div class="display-flex flex-align-end flex-justify padding-left-2">
                 <div class="margin-bottom-2 margin-right-2">
                     <label for="id_second_display_name">
@@ -72,11 +72,11 @@
         {% endif %}
         <div class="margin-bottom-2 crt-textarea padding-left-2">
             <label for="id_notes">
-            {% if not batch.first_reviewer %} {{ form.notes.label }} {% else %} Primary Authorizing Individual's Notes {% endif %}
+            {% if reviewed %} Primary Authorizing Individual's Notes {% else %} {{ form.notes.label }} {% endif %}
             </label>
             {{ form.notes }}
         </div>
-        {% if batch.first_reviewer %}
+        {% if reviewed %}
             <div class="margin-bottom-2 crt-textarea padding-left-2">
                 <label for="id_second_review_notes">
                 {{ form.second_review_notes.label }}

@@ -163,6 +163,7 @@ class AnalyticsFile(models.Model):
         )
 
     name = models.CharField(max_length=1024, blank=True, null=False, help_text="A human-readable name for the notebook")
+    description = models.CharField(max_length=1024, blank=True, null=True, help_text="A description for the notebook")
     content = models.TextField(blank=True, null=True, help_text="The file contents (not human readable, do not edit)")
     path = models.CharField(max_length=2048, blank=True, null=False, help_text="The full path (including filename) to the file", unique=True)
     type = models.CharField(max_length=32, choices=[("notebook", "notebook"), ("file", "file"), ("directory", "directory")])
