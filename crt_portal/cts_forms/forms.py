@@ -1937,7 +1937,7 @@ class ComplaintActions(LitigationHoldLock, ModelForm, ActivityStreamUpdater):
 
     def __init__(self, *args, user=None, **kwargs):
         self.user = user
-        self.report = kwargs.pop('instance')
+        self.report = kwargs['instance']
         ModelForm.__init__(self, *args, **kwargs)
 
         self.fields['assigned_section'] = ChoiceField(
@@ -1992,14 +1992,6 @@ class ComplaintActions(LitigationHoldLock, ModelForm, ActivityStreamUpdater):
             disabled=not self.can_assign_schedule(),
             widget=get_retention_schedule_widget(),
         )
-
-    def clean_retention_schedule(self):
-        if 'retention_schedule' not in self.changed_data:
-            return None
-        retention_schedule = self.cleaned_data['retention_schedule']
-        if self.contacted_complainant() and retention_schedule == 1:
-            raise ValidationError('A retention schedule of 1 year cannot be assigned to a report where a manual response was sent. This report should be retained for at least 3 years.')
-        return self.cleaned_data['retention_schedule']
 
     def get_actions(self):
         """
@@ -2079,6 +2071,14 @@ class ComplaintActions(LitigationHoldLock, ModelForm, ActivityStreamUpdater):
         if any(not c for c in dj_number.rsplit('-', 2)):
             return None
         return dj_number
+
+    def clean_retention_schedule(self):
+        if 'retention_schedule' not in self.changed_data:
+            return None
+        retention_schedule = self.cleaned_data['retention_schedule']
+        if self.contacted_complainant() and retention_schedule == RetentionSchedule.objects.get(name='1 Year'):
+            raise ValidationError('A retention schedule of 1 year cannot be assigned to a report where a manual response was sent. This report should be retained for at least 3 years.')
+        return self.cleaned_data['retention_schedule']
 
     def save(self, commit=True):
         """
@@ -2616,7 +2616,7 @@ class BulkActionsForm(LitigationHoldLock, Form, ActivityStreamUpdater):
         if not self.can_assign_schedule():
             raise ValidationError('You do not have permission to assign retention schedules.')
         retention_schedule = self.cleaned_data['retention_schedule']
-        if self.contacted_complainant() and retention_schedule == 1:
+        if self.contacted_complainant() and retention_schedule == RetentionSchedule.objects.get(name='1 Year'):
             raise ValidationError('A manual response has been sent to the complainant for one or more of the reports in the queryset. A retention schedule of 1 year cannot be assigned to a report where a response was sent. These reports should be retained for at least 3 years.')
         return self.cleaned_data['retention_schedule']
 
