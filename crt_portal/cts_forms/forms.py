@@ -1918,6 +1918,8 @@ class ComplaintActions(LitigationHoldLock, ModelForm, ActivityStreamUpdater):
         return self.user.has_perm('cts_forms.assign_retentionschedule')
 
     def contacted_complainant(self):
+        if not self.report:
+            return False
         contacted = self.report.activity().filter(verb='Contacted complainant:').exists()
         return contacted
 
@@ -1937,7 +1939,7 @@ class ComplaintActions(LitigationHoldLock, ModelForm, ActivityStreamUpdater):
 
     def __init__(self, *args, user=None, **kwargs):
         self.user = user
-        self.report = kwargs['instance']
+        self.report = kwargs.get('instance', None)
         ModelForm.__init__(self, *args, **kwargs)
 
         self.fields['assigned_section'] = ChoiceField(
