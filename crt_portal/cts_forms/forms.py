@@ -1996,7 +1996,8 @@ class ComplaintActions(LitigationHoldLock, ModelForm, ActivityStreamUpdater):
     def clean_retention_schedule(self):
         if 'retention_schedule' not in self.changed_data:
             return None
-        if self.contacted_complainant():
+        retention_schedule = self.cleaned_data['retention_schedule']
+        if self.contacted_complainant() and retention_schedule == 1:
             raise ValidationError('A retention schedule of 1 year cannot be assigned to a report where a manual response was sent. This report should be retained for at least 3 years.')
         return self.cleaned_data['retention_schedule']
 
@@ -2614,7 +2615,8 @@ class BulkActionsForm(LitigationHoldLock, Form, ActivityStreamUpdater):
             return None
         if not self.can_assign_schedule():
             raise ValidationError('You do not have permission to assign retention schedules.')
-        if self.contacted_complainant():
+        retention_schedule = self.cleaned_data['retention_schedule']
+        if self.contacted_complainant() and retention_schedule == 1:
             raise ValidationError('A manual response has been sent to the complainant for one or more of the reports in the queryset. A retention schedule of 1 year cannot be assigned to a report where a response was sent. These reports should be retained for at least 3 years.')
         return self.cleaned_data['retention_schedule']
 
