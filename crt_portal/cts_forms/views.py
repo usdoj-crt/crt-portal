@@ -36,6 +36,7 @@ from datetime import datetime
 from django.db.models.functions import ExtractYear, Cast, Concat
 from django.contrib.auth.models import Group
 from django.db.models.functions import Lower
+from django.forms import Select
 
 from .attachments import ALLOWED_FILE_EXTENSIONS
 from .filters import report_filter, dashboard_filter, report_grouping
@@ -47,7 +48,7 @@ from .forms import (
     PhoneProForm
 )
 from .mail import mail_to_complainant
-from .model_variables import BATCH_STATUS_CHOICES, HATE_CRIMES_TRAFFICKING_MODEL_CHOICES, NOTIFICATION_PREFERENCE_CHOICES
+from .model_variables import BATCH_STATUS_CHOICES, HATE_CRIMES_TRAFFICKING_MODEL_CHOICES, NOTIFICATION_PREFERENCE_CHOICES, STATES_AND_TERRITORIES
 from .models import CommentAndSummary, Profile, Report, ReportAttachment, ReportDisposition, ReportDispositionBatch, ReportsData, RetentionSchedule, SavedSearch, Trends, EmailReportCount, Campaign, User, NotificationPreference, RoutingSection, RoutingStepOneContact, RepeatWriterInfo
 from .page_through import pagination
 from .sorts import other_sort, report_sort
@@ -2080,6 +2081,11 @@ def phone_pro_form_view(request, report_id=None):
                     'email': 'other@example.com',
                 },
             ],
+
+            'state_resources_selector': Select(
+                attrs={'class': 'usa-select state-hide-show-selector'},
+                choices=STATES_AND_TERRITORIES,
+            ).render('', 'default'),
 
             'form': form,
         }

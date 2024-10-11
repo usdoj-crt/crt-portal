@@ -126,32 +126,30 @@
   <div class="crt-portal-card margin-top-2">
     <div class="crt-portal-card__content">
       <h2>Quick Links</h2>
-        {% configurable_content 'vot-form-links' %}
-      </ul>
+      {% configurable_content 'vot-form-links' %}
     </div>
   </div>
 
-
-  {% include 'partials/start_expandable.html' with title='Specific Contacts' %}
-
-  <ul>
-    {% for contact in specific_contacts %}
-      <li>
-        <p><strong>{{contact.title}}</strong></p>
-
-        {% if contact.email %}
-        <p><a href="mailto:{{contact.email}}" class="usa-link">{{contact.email}}</a></p>
-        {% endif %}
-
-        {% if contact.phone %}
-        <p>{{contact.phone}}</p>
-        {% endif %}
-
-      </li>
-    {% endfor %}
-  </ul>
-
-  {% include 'partials/end_expandable.html' %}
+  <div class="crt-portal-card margin-top-2">
+    <div class="crt-portal-card__content stacked-sidebar-width">
+      <h2>State resources</h2>
+      {{ state_resources_selector }}
+      <div class="width-mobile">
+      <table class="usa-table usa-table--stacked usa-table--borderless">
+        <thead>
+          <tr>
+            <td>Poll Hours</td>
+            <td>Contact - Questions</td>
+            <td>Contact - Complaints</td>
+          </tr>
+        </thead>
+        <tbody>
+          {% configurable_content 'vot-form-states' %}
+        </tbody>
+      </table>
+      </div>
+    </div>
+  </div>
 
   <div class="margin-top-2">
     {% include 'partials/field.html' with field=form.public_id %}
@@ -191,6 +189,7 @@
 <script src="{% static 'vendor/intlTelInput.min.js' %}"></script>
 <script src="{% static 'js/report_phone.min.js' %}"></script>
 <script src="{% static 'js/async_report_edit.min.js' %}"></script>
+<script src="{% static 'js/state_hide_show.min.js' %}"></script>
 {% if ENABLED_FEATURES.nav_updates %}
     <script src="{% static 'js/side_nav_slider.min.js' %}"></script>
 {% endif %}
