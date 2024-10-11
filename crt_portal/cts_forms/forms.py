@@ -2075,9 +2075,9 @@ class ComplaintActions(LitigationHoldLock, ModelForm, ActivityStreamUpdater):
         return dj_number
 
     def clean_retention_schedule(self):
-        if 'retention_schedule' not in self.changed_data:
+        retention_schedule = self.cleaned_data.get('retention_schedule', None)
+        if not retention_schedule:
             return None
-        retention_schedule = self.cleaned_data['retention_schedule']
         if self.contacted_complainant() and retention_schedule == RetentionSchedule.objects.get(name='1 Year'):
             raise ValidationError('A retention schedule of 1 year cannot be assigned to a report where a manual response was sent. This report should be retained for at least 3 years.')
         return self.cleaned_data['retention_schedule']
