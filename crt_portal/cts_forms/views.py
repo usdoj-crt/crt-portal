@@ -2084,7 +2084,10 @@ def phone_pro_form_view(request, report_id=None):
 
             'state_resources_selector': Select(
                 attrs={'class': 'usa-select state-hide-show-selector'},
-                choices=STATES_AND_TERRITORIES,
+                choices=[
+                    ('default', 'Select a state'),
+                    *STATES_AND_TERRITORIES,
+                ],
             ).render('', 'default'),
 
             'form': form,
