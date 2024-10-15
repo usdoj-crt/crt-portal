@@ -59,10 +59,10 @@
       {% if data %}
         <tbody>
           {% for datum in data %}
-            <tr class="stripe {% if datum.report.report_disposition_status == 'rejected' %}removed{% endif %}">
+            <tr class="stripe {% if datum.report.report_disposition_status == 'rejected' and reviewed %}removed{% endif %}">
               {% if batch %}
               <td class="report-control">
-                <a href="#" class="report-batch-control {% if datum.report.report_disposition_status == 'rejected' %}removed{% endif %}" id="{{ datum.report.public_id }}">
+                <a href="#" class="report-batch-control {% if datum.report.report_disposition_status == 'rejected' and reviewed %}removed{% endif %}" id="{{ datum.report.public_id }}">
                   <svg class="icon report-batch-icon remove" fill="#FFF" aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" id="remove" viewBox="0 0 24 24">
                     <path d="M19 13H5v-2h14v2z"/>
                   </svg>

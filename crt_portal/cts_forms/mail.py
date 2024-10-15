@@ -101,7 +101,7 @@ def _render_notification_mail(*,
     md = markdown.markdown(message, extensions=['extra', 'sane_lists', 'admonition', 'nl2br', CustomHTMLExtension(), RelativeToAbsoluteLinkExtension(for_intake=True)])
     html_message = render_to_string('notification.html', {
         'content': md,
-        'unsubscribe_link': '/'.join([get_site_prefix(for_intake=True), 'form/notifications/unsubscribe'])
+        'unsubscribe_link': '/'.join([get_site_prefix(for_intake=True), 'form/notifications']),
     })
 
     allowed_recipients = remove_disallowed_recipients(recipients)
@@ -164,7 +164,7 @@ def _render_scheduled_notification_mail(scheduled: ScheduledNotification) -> Mai
 
     html_message = render_to_string('scheduled_notification.html', {
         'digests': digests,
-        'unsubscribe_link': '/'.join([get_site_prefix(for_intake=True), 'form/notifications/unsubscribe'])
+        'unsubscribe_link': '/'.join([get_site_prefix(for_intake=True), 'form/notifications']),
     })
 
     recipients = [scheduled.recipient.email]

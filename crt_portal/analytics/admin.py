@@ -40,7 +40,7 @@ class NotebookAdmin(CrtModelAdmin):
 
     actions = [export_notebooks_as_zip]
 
-    list_display = ('pk', 'name', 'path', 'last_modified', 'from_command')
+    list_display = ('pk', 'name', 'path', 'last_modified', 'from_command', 'description')
     readonly_fields = ('name', 'path', 'created', 'last_modified', 'last_run', 'results', 'from_command')
     exclude = ('content', 'mimetype', 'format', 'type')
 

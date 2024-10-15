@@ -14,7 +14,7 @@ from django.contrib.postgres.indexes import GinIndex
 from django.contrib.postgres.search import SearchVectorField
 from django.core.exceptions import ValidationError, FieldDoesNotExist
 from django.core.validators import MaxValueValidator, RegexValidator
-from django.db import connection, models, transaction
+from django.db import connection, models, transaction, migrations
 from django.db.models import fields
 from django.template import Context, Template
 from django.urls import reverse
@@ -988,6 +988,33 @@ class ReportsData(models.Model):
 
     def get_absolute_url(self):
         return reverse('crt_forms:get-report-data', kwargs={"report_data_id": self.id})
+
+
+class AddConfigurableContentMigration(migrations.RunPython):
+    def __init__(self, machine_name, *, content='This is placeholder content', **kwargs):
+        if '_' in machine_name:
+            raise ValueError('Underscores are not allowed in machine names. Use dashes instead.')
+
+        def add_configurable_content(apps, schema_editor):
+            drop_configurable_content(apps, schema_editor)
+            ConfigurableContent.objects.create(machine_name=machine_name, content=content)
+
+        def drop_configurable_content(apps, schema_editor):
+            del apps, schema_editor  # unused
+            try:
+                ConfigurableContent.objects.get(machine_name=machine_name).delete()
+            except ConfigurableContent.DoesNotExist:
+                pass
+
+        super().__init__(add_configurable_content, drop_configurable_content, **kwargs)
+
+
+class ConfigurableContent(models.Model):
+    machine_name = models.CharField(max_length=500, null=False, unique=True, blank=False, help_text="A short, non-changing name to be used in template code.")
+    content = models.TextField(null=False, blank=True, help_text="The content to display in the template.")
+
+    def render(self, optionals=None, extensions=None, **kwargs):
+        return markdown.markdown(self.content, extensions=['extra', 'sane_lists', 'admonition', 'nl2br'])
 
 
 class RepeatWriterInfo(models.Model):
