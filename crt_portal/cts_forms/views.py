@@ -1492,6 +1492,25 @@ class DispositionBatchActionsView(LoginRequiredMixin, FormView):
             'second_display_name': second_display_name,
         }
 
+    def get_shared_report_fields(self, reports):
+        earliest = reports.order_by('closed_date')[0]
+        latest = reports.order_by('-closed_date')[0]
+        first_report = reports.first()
+        approval_actions = list(first_report.activity().filter(verb='Disposition:', description__contains='Approved for disposal'))
+        user_display = ''
+        if len(approval_actions):
+            user_id = approval_actions[-1].actor_object_id
+            user = User.objects.filter(pk=user_id).first()
+            user_display = f'{user.first_name} {user.last_name}' if user.first_name and user.last_name else user.username
+        shared_report_fields = {}
+        shared_report_fields['section_reviewer'] = user_display
+        shared_report_fields['earliest'] = earliest.closed_date
+        shared_report_fields['latest'] = latest.closed_date
+        shared_report_fields['assigned_section'] = first_report.assigned_section
+        shared_report_fields['status'] = first_report.status
+        shared_report_fields['retention_schedule'] = first_report.retention_schedule
+        return shared_report_fields
+
     def get(self, request, id=None):
         batch = get_object_or_404(ReportDispositionBatch, pk=id)
         report_dispo_objects = ReportDisposition.objects.filter(batch=batch)
@@ -1501,21 +1520,13 @@ class DispositionBatchActionsView(LoginRequiredMixin, FormView):
                                    expiration_year=F('retention_year') + ExtractYear('closed_date') + 1,
                                    expiration_date=Cast(Concat(F('expiration_year'), Value('-'), Value('01'), Value('-'), Value('01'), output_field=CharField()), output_field=DateField()),
                                    )
-        earliest = reports.order_by('closed_date')[0]
-        latest = reports.order_by('-closed_date')[0]
         report_ids = list(reports.values_list('pk', flat=True))
-        first_report = reports.first()
         page = request.GET.get('page', 1)
         paginator = Paginator(reports, 15)
+        shared_report_fields = self.get_shared_report_fields(reports)
         reports, page_format = pagination(paginator, page, 15)
         return_url_args = request.GET.get('return_url_args', '')
         return_url_args = urllib.parse.unquote(return_url_args)
-        shared_report_fields = {}
-        shared_report_fields['earliest'] = earliest.closed_date
-        shared_report_fields['latest'] = latest.closed_date
-        shared_report_fields['assigned_section'] = first_report.assigned_section
-        shared_report_fields['status'] = first_report.status
-        shared_report_fields['retention_schedule'] = first_report.retention_schedule
         can_review_batch = request.user.has_perm('cts_forms.review_dispositionbatch')
         form = BatchReviewForm(user=request.user, can_review_batch=can_review_batch, instance=batch)
         data = get_disposition_report_data(reports)
@@ -1585,15 +1596,11 @@ class DispositionBatchActionsView(LoginRequiredMixin, FormView):
                                    expiration_date=Cast(Concat(F('expiration_year'), Value('-'), Value('01'), Value('-'), Value('01'), output_field=CharField()), output_field=DateField()),
                                    )
         report_ids = list(reports.values_list('pk', flat=True))
-        first_report = reports.first()
         page = request.GET.get('page', 1)
+        shared_report_fields = self.get_shared_report_fields(reports)
         paginator = Paginator(reports, 15)
         reports, page_format = pagination(paginator, page, 15)
         data = get_disposition_report_data(reports)
-        shared_report_fields = {}
-        shared_report_fields['assigned_section'] = first_report.assigned_section
-        shared_report_fields['status'] = first_report.status
-        shared_report_fields['retention_schedule'] = first_report.retention_schedule
         output = self.get_reviewer_data(request, batch)
         output.update({
             'batch': batch,

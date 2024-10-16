@@ -12,10 +12,13 @@ from django.forms import (BooleanField, CharField, CheckboxInput, ChoiceField,
                           ModelMultipleChoiceField, MultipleChoiceField,
                           Select, SelectMultiple, Textarea, TextInput,
                           TypedChoiceField)
+from django.db.models.functions import Cast
+from django.db.models import IntegerField as IntField
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 from django.utils import timezone as dtimezone
 from django.conf import settings
+from actstream.models import Action
 
 import requests
 
@@ -1914,6 +1917,12 @@ class ComplaintActions(LitigationHoldLock, ModelForm, ActivityStreamUpdater):
             return False
         return self.user.has_perm('cts_forms.assign_retentionschedule')
 
+    def contacted_complainant(self):
+        if not self.report:
+            return False
+        contacted = self.report.activity().filter(verb='Contacted complainant:').exists()
+        return contacted
+
     class Meta:
         model = Report
         fields = [
@@ -1930,7 +1939,7 @@ class ComplaintActions(LitigationHoldLock, ModelForm, ActivityStreamUpdater):
 
     def __init__(self, *args, user=None, **kwargs):
         self.user = user
-
+        self.report = kwargs.get('instance', None)
         ModelForm.__init__(self, *args, **kwargs)
 
         self.fields['assigned_section'] = ChoiceField(
@@ -2064,6 +2073,14 @@ class ComplaintActions(LitigationHoldLock, ModelForm, ActivityStreamUpdater):
         if any(not c for c in dj_number.rsplit('-', 2)):
             return None
         return dj_number
+
+    def clean_retention_schedule(self):
+        retention_schedule = self.cleaned_data.get('retention_schedule', None)
+        if not retention_schedule:
+            return None
+        if self.contacted_complainant() and retention_schedule == RetentionSchedule.objects.get(name='1 Year'):
+            raise ValidationError('A retention schedule of 1 year cannot be assigned to a report where a manual response was sent. This report should be retained for at least 3 years.')
+        return self.cleaned_data['retention_schedule']
 
     def save(self, commit=True):
         """
@@ -2590,11 +2607,19 @@ class BulkActionsForm(LitigationHoldLock, Form, ActivityStreamUpdater):
             return False
         return self.user.has_perm('cts_forms.assign_retentionschedule')
 
+    def contacted_complainant(self):
+        report_ids = list(self.queryset.values_list('pk', flat=True))
+        contacted = Action.objects.all().annotate(report_id=Cast('target_object_id', output_field=IntField())).filter(report_id__in=report_ids, verb='Contacted complainant:').exists()
+        return contacted
+
     def clean_retention_schedule(self):
         if 'retention_schedule' not in self.changed_data:
             return None
         if not self.can_assign_schedule():
             raise ValidationError('You do not have permission to assign retention schedules.')
+        retention_schedule = self.cleaned_data['retention_schedule']
+        if self.contacted_complainant() and retention_schedule == RetentionSchedule.objects.get(name='1 Year'):
+            raise ValidationError('A manual response has been sent to the complainant for one or more of the reports in the queryset. A retention schedule of 1 year cannot be assigned to a report where a response was sent. These reports should be retained for at least 3 years.')
         return self.cleaned_data['retention_schedule']
 
     def clean_dj_number(self):
