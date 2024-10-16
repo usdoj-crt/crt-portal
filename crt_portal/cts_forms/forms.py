@@ -3422,6 +3422,71 @@ class ResourceActions(ModelForm):
             required=False
         )
 
+        self.fields['first_name'] = CharField(
+            label='First Name',
+            widget=TextInput(
+                attrs={
+                    'class': 'usa-input',
+                    'name': 'first_name',
+                    'placeholder': 'First Name',
+                    'aria-label': 'First Name',
+                },
+            ),
+            required=False
+        )
+
+        self.fields['last_name'] = CharField(
+            label='Last Name',
+            widget=TextInput(
+                attrs={
+                    'class': 'usa-input',
+                    'name': 'last_name',
+                    'placeholder': 'Last Name',
+                    'aria-label': 'Last Name',
+                },
+            ),
+            required=False
+        )
+
+        self.fields['title'] = CharField(
+            label='Title',
+            widget=TextInput(
+                attrs={
+                    'class': 'usa-input',
+                    'name': 'title',
+                    'placeholder': 'Title',
+                    'aria-label': 'Title',
+                },
+            ),
+            required=False
+        )
+
+        self.fields['contact_email'] = CharField(
+            label='Email',
+            widget=EmailInput(
+                attrs={
+                    'class': 'usa-input',
+                    'name': 'contact_email',
+                    'placeholder': 'Email',
+                    'aria-label': 'Email',
+                },
+            ),
+            required=False
+        )
+
+        self.fields['contact_phone'] = CharField(
+            label='Phone',
+            widget=TextInput(attrs={
+                'class': 'usa-input phone-input',
+                'pattern': phone_validation_regex,
+                'title': CONTACT_PHONE_INVALID_MESSAGE,
+                'name': 'contact_phone',
+                'placeholder': 'Phone',
+                'aria-label': 'Phone',
+            }),
+            required=False
+        )
+
         self.fields['tags'] = TagsField()
 
         self.fields['notes'] = CharField(
