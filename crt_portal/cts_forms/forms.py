@@ -12,10 +12,13 @@ from django.forms import (BooleanField, CharField, CheckboxInput, ChoiceField,
                           ModelMultipleChoiceField, MultipleChoiceField,
                           Select, SelectMultiple, Textarea, TextInput,
                           TypedChoiceField)
+from django.db.models.functions import Cast
+from django.db.models import IntegerField as IntField
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 from django.utils import timezone as dtimezone
 from django.conf import settings
+from actstream.models import Action
 
 import requests
 
@@ -1914,6 +1917,12 @@ class ComplaintActions(LitigationHoldLock, ModelForm, ActivityStreamUpdater):
             return False
         return self.user.has_perm('cts_forms.assign_retentionschedule')
 
+    def contacted_complainant(self):
+        if not self.report:
+            return False
+        contacted = self.report.activity().filter(verb='Contacted complainant:').exists()
+        return contacted
+
     class Meta:
         model = Report
         fields = [
@@ -1930,7 +1939,7 @@ class ComplaintActions(LitigationHoldLock, ModelForm, ActivityStreamUpdater):
 
     def __init__(self, *args, user=None, **kwargs):
         self.user = user
-
+        self.report = kwargs.get('instance', None)
         ModelForm.__init__(self, *args, **kwargs)
 
         self.fields['assigned_section'] = ChoiceField(
@@ -2064,6 +2073,14 @@ class ComplaintActions(LitigationHoldLock, ModelForm, ActivityStreamUpdater):
         if any(not c for c in dj_number.rsplit('-', 2)):
             return None
         return dj_number
+
+    def clean_retention_schedule(self):
+        retention_schedule = self.cleaned_data.get('retention_schedule', None)
+        if not retention_schedule:
+            return None
+        if self.contacted_complainant() and retention_schedule == RetentionSchedule.objects.get(name='1 Year'):
+            raise ValidationError('A retention schedule of 1 year cannot be assigned to a report where a manual response was sent. This report should be retained for at least 3 years.')
+        return self.cleaned_data['retention_schedule']
 
     def save(self, commit=True):
         """
@@ -2590,11 +2607,19 @@ class BulkActionsForm(LitigationHoldLock, Form, ActivityStreamUpdater):
             return False
         return self.user.has_perm('cts_forms.assign_retentionschedule')
 
+    def contacted_complainant(self):
+        report_ids = list(self.queryset.values_list('pk', flat=True))
+        contacted = Action.objects.all().annotate(report_id=Cast('target_object_id', output_field=IntField())).filter(report_id__in=report_ids, verb='Contacted complainant:').exists()
+        return contacted
+
     def clean_retention_schedule(self):
         if 'retention_schedule' not in self.changed_data:
             return None
         if not self.can_assign_schedule():
             raise ValidationError('You do not have permission to assign retention schedules.')
+        retention_schedule = self.cleaned_data['retention_schedule']
+        if self.contacted_complainant() and retention_schedule == RetentionSchedule.objects.get(name='1 Year'):
+            raise ValidationError('A manual response has been sent to the complainant for one or more of the reports in the queryset. A retention schedule of 1 year cannot be assigned to a report where a response was sent. These reports should be retained for at least 3 years.')
         return self.cleaned_data['retention_schedule']
 
     def clean_dj_number(self):
@@ -3278,3 +3303,214 @@ class ResourceFilter(ModelForm):
             },
         ),
     )
+
+
+class ResourceActions(ModelForm):
+    FAIL_MESSAGE = "Failed to update resource."
+
+    def field_changed(self, field):
+        # if both are Falsy, nothing actually changed (None ~= "")
+        old = self.initial.get(field, None)
+        logging.info(old)
+        new = self.cleaned_data.get(field, None)
+        logging.info(new)
+        if not old and not new:
+            return False
+        return old != new
+
+    @cached_property
+    def changed_data(self):
+        return [
+            field_name
+            for field_name
+            in super().changed_data
+            if self.field_changed(field_name)
+        ]
+
+    class Meta:
+        model = Resource
+        fields = ['name', 'section', 'url', 'email', 'secondary_email', 'phone', 'secondary_phone', 'contacts', 'notes', 'tags', 'outreach_efforts', 'background', 'soi_opportunities', 'need_followup']
+
+    def __init__(self, *args, user=None, **kwargs):
+        self.user = user
+        ModelForm.__init__(self, *args, **kwargs)
+        self.fields['section'] = ChoiceField(
+            label='Section',
+            widget=ComplaintSelect(
+                label='Section',
+                attrs={'class': 'usa-select crt-dropdown__data'},
+            ),
+            choices=SECTION_CHOICES_WITHOUT_LABELS,
+            required=False
+        )
+
+        self.fields['name'] = CharField(
+            label='Name',
+            widget=TextInput(
+                attrs={
+                    'class': 'usa-input',
+                    'name': 'name',
+                    'placeholder': 'Name',
+                    'aria-label': 'Name',
+                },
+            ),
+            required=True
+        )
+
+        self.fields['url'] = CharField(
+            label='Url',
+            widget=TextInput(
+                attrs={
+                    'class': 'usa-input',
+                    'name': 'name',
+                    'placeholder': 'Url',
+                    'aria-label': 'Url',
+                },
+            ),
+            required=False
+        )
+
+        self.fields['email'] = CharField(
+            label='Email',
+            widget=EmailInput(
+                attrs={
+                    'class': 'usa-input',
+                    'name': 'email',
+                    'placeholder': 'Email',
+                    'aria-label': 'Email',
+                },
+            ),
+            required=False
+        )
+
+        self.fields['secondary_email'] = CharField(
+            label='Secondary Email',
+            widget=EmailInput(
+                attrs={
+                    'class': 'usa-input',
+                    'name': 'secondary_email',
+                    'placeholder': 'Secondary Email',
+                    'aria-label': 'Secondary Email',
+                },
+            ),
+            required=False
+        )
+
+        self.fields['phone'] = CharField(
+            label='Phone',
+            widget=TextInput(attrs={
+                'class': 'usa-input phone-input',
+                'pattern': phone_validation_regex,
+                'title': CONTACT_PHONE_INVALID_MESSAGE,
+                'name': 'phone',
+                'placeholder': 'Phone',
+                'aria-label': 'Phone',
+            }),
+            required=False
+        )
+
+        self.fields['secondary_phone'] = CharField(
+            label='Secondary Phone',
+            widget=TextInput(attrs={
+                'class': 'usa-input phone-input',
+                'pattern': phone_validation_regex,
+                'title': CONTACT_PHONE_INVALID_MESSAGE,
+                'name': 'secondary_phone',
+                'placeholder': 'Secondary Phone',
+                'aria-label': 'Secondary Phone',
+            }),
+            required=False
+        )
+
+        self.fields['tags'] = TagsField()
+
+        self.fields['notes'] = CharField(
+            label='Notes',
+            widget=Textarea(
+                attrs={
+                    'rows': 2,
+                    'class': 'usa-textarea',
+                    'aria-label': 'Notes',
+                    'placeholder': 'Notes',
+                },
+            ),
+            max_length=7000,
+            required=False
+        )
+
+        self.fields['outreach_efforts'] = CharField(
+            label='Outreach Efforts',
+            widget=Textarea(
+                attrs={
+                    'rows': 2,
+                    'class': 'usa-textarea',
+                    'aria-label': 'Outreach Efforts',
+                    'placeholder': 'Outreach Efforts',
+                },
+            ),
+            max_length=7000,
+            required=False
+        )
+
+        self.fields['background'] = CharField(
+            label='Background',
+            widget=Textarea(
+                attrs={
+                    'rows': 2,
+                    'class': 'usa-textarea',
+                    'aria-label': 'Background',
+                    'placeholder': 'Background',
+                },
+            ),
+            max_length=7000,
+            required=False
+        )
+
+        self.fields['soi_opportunities'] = BooleanField(
+            label='SOI Opportunities',
+            required=False,
+            widget=CheckboxInput(attrs={
+                'class': 'usa-checkbox__input',
+                'aria-label': 'SOI Opportunities',
+            })
+        )
+
+        self.fields['need_followup'] = BooleanField(
+            label='Need Followup',
+            required=False,
+            widget=CheckboxInput(attrs={
+                'class': 'usa-checkbox__input',
+                'aria-label': 'Need Followup',
+            })
+        )
+
+    def success_message(self, id=None, delete=False):
+        """Prepare update success message for rendering in template"""
+        logging.info(delete)
+        if delete:
+            return "Successfully deleted resource."
+
+        def get_label(field):
+            field = self.fields[field]
+            # Some fields can't support the extra context label, and store it
+            # on their attributes
+            if attrs_label := field.widget.attrs.get('field_label', None):
+                return attrs_label
+            # Most standard fields will have a direct label.
+            if hasattr(field.widget, 'label'):
+                return field.widget.label
+            return field.label
+
+        resource_name = self.cleaned_data['name']
+        if not id:
+            return f"Successfully added new resource: {resource_name}."
+        updated_fields = [get_label(field) for field in self.changed_data]
+        if len(updated_fields) == 1:
+            return f"Successfully updated {updated_fields[0]} in {resource_name}."
+        fields = ', '.join(updated_fields[:-1])
+        fields += f', and {updated_fields[-1]}'
+        return f"Successfully updated {fields} in {resource_name}."
+
+    def save(self):
+        resource = super().save(True)
+        return resource
