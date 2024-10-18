@@ -3,46 +3,35 @@
     "interval": {
       "hours": 1
     },
-    "path": "assignments/intake-dashboard/2data_tables_example.txt"
+    "last_executed": "2024-10-18T14:11:18.406007",
+    "path": "assignments/intake-dashboard/(VOT) Reports by State.ipynb"
   },
   {
     "interval": {
       "hours": 1
     },
-    "last_executed": "2024-08-21T20:01:38.764035",
-    "path": "assignments/intake-dashboard/DRS Dashboard.ipynb"
+    "last_executed": "2024-10-18T14:11:35.556532",
+    "path": "assignments/intake-dashboard/(VOT) Counties.ipynb"
   },
   {
     "interval": {
       "hours": 1
     },
-    "path": "assignments/intake-dashboard/Session.vim"
+    "last_executed": "2024-10-18T14:14:02.538091",
+    "path": "assignments/intake-dashboard/(VOT) Monthly.ipynb"
   },
   {
     "interval": {
       "hours": 1
     },
-    "last_executed": "2024-08-21T20:02:11.348006",
-    "path": "assignments/intake-dashboard/cities.ipynb"
+    "last_executed": "2024-10-18T14:14:59.155713",
+    "path": "assignments/intake-dashboard/(VOT) Yearly.ipynb"
   },
   {
     "interval": {
       "hours": 1
     },
-    "last_executed": "2024-08-21T20:02:33.720859",
-    "path": "assignments/intake-dashboard/draft_data_tables_example.ipynb"
-  },
-  {
-    "interval": {
-      "hours": 1
-    },
-    "last_executed": "2024-08-21T20:02:43.363909",
-    "path": "assignments/intake-dashboard/draft_waffles.ipynb"
-  },
-  {
-    "interval": {
-      "hours": 1
-    },
-    "path": "assignments/intake-dashboard/whats_happening_where2.ipynb"
+    "last_executed": "2024-10-18T14:16:35.182412",
+    "path": "assignments/intake-dashboard/(VOT) Election Week.ipynb"
   }
 ]
