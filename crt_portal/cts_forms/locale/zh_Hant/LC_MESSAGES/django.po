@@ -3006,10 +3006,10 @@ msgstr "911"
 msgid ""
 "After alerting local law enforcement to such emergencies by calling <a "
 "class='external-link--blue' href='tel:911'>911</a>, the public should "
-"contact the Department of Justice"
+"<a href='/report'>contact the Department of Justice</a>"
 msgstr ""
 "撥打<a class='external-link--blue' href='tel:911'>911</a>向地方執法部門報告緊"
-"急情況后，公眾應和司法部聯係"
+"急情況后，<a href='/report'>公眾應和司法部聯係</a>"
 
 #: templates/vot_resources.html:79
 msgid ""

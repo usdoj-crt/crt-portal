@@ -3127,10 +3127,10 @@ msgstr "911"
 msgid ""
 "After alerting local law enforcement to such emergencies by calling <a "
 "class='external-link--blue' href='tel:911'>911</a>, the public should "
-"contact the Department of Justice"
+"<a href='/report'>contact the Department of Justice</a>"
 msgstr ""
 "<a class='external-link--blue' href='tel:911'>911</a>에 전화하셔서 이런 긴급"
-"상황을 지역 법집행기관에 알린 후 법무부에 연락하시길 바랍니다."
+"상황을 지역 법집행기관에 알린 후 <a href='/report'>법무부에 연락하시길 바랍니다</a>."
 
 #: templates/vot_resources.html:79
 msgid ""

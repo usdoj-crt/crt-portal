@@ -2693,7 +2693,7 @@ msgstr ""
 msgid ""
 "After alerting local law enforcement to such emergencies by calling <a "
 "class='external-link--blue' href='tel:911'>911</a>, the public should "
-"contact the Department of Justice"
+"<a href='/report'>contact the Department of Justice</a>"
 msgstr ""
 
 #: templates/vot_resources.html:79

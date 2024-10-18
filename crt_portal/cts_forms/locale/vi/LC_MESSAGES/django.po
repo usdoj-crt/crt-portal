@@ -3275,11 +3275,11 @@ msgstr "911"
 msgid ""
 "After alerting local law enforcement to such emergencies by calling <a "
 "class='external-link--blue' href='tel:911'>911</a>, the public should "
-"contact the Department of Justice"
+"<a href='/report'>contact the Department of Justice</a>"
 msgstr ""
 "Sau khi đã gọi <a class='external-link--blue' href='tel:911'>911</a>để báo "
 "cho cơ quan thi hành pháp luật địa phương về những trường hợp khẩn cấp này, "
-"quần chúng nên liên lạc với Bộ Tư Pháp"
+"quần chúng nên <a href='/report'>liên lạc với Bộ Tư Pháp</a>"
 
 #: templates/vot_resources.html:79
 msgid ""
