@@ -7,7 +7,7 @@ is_html: true
 
 {{ addressee }}:
 
-Thank you for your letter {{ record_locator }}.  The Special Litigation Section relies on information from community members to identify civil rights violations.  Each week, we receive hundreds of reports of potential violations.  We collect and analyze this information to help us select cases, and we may use this information as evidence in an existing case.  We will review your letter to decide whether it is necessary to contact you for additional information.  We do not have the resources to follow-up on every letter.
+Thank you for your {{ date_of_intake }} letter {{ record_locator }}.  The Special Litigation Section relies on information from community members to identify civil rights violations.  Each week, we receive hundreds of reports of potential violations.  We collect and analyze this information to help us select cases, and we may use this information as evidence in an existing case.  We will review your letter to decide whether it is necessary to contact you for additional information.  We do not have the resources to follow-up on every letter.
 
 The Special Litigation Section is part of the Civil Rights Division.  The Special Litigation Section primarily works in five areas:  1) protecting the civil rights of people in state and local institutions; 2) protecting civil rights in people’s interactions with state and local law enforcement agencies; 3) protecting the rights of children in the administration of juvenile justice; 4) protecting access to reproductive health care clinics and places of religious worship free of force or threats of force; and 5) protecting people’s ability to practice their religion while in state and local institutions.
 
