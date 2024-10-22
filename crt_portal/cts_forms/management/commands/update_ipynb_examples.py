@@ -308,6 +308,4 @@ class Command(BaseCommand):  # pragma: no cover
 
         total_created, total_deleted = self._update_files(diff)
 
-        created_groups = self._maybe_remake_dashboard_groups(total_deleted or total_created)
-
-        self.stdout.write(self.style.SUCCESS(f'Added {total_created}, deleted {total_deleted} Jupyter objects from filesystem, and created {created_groups} dashboard groups'))
+        self.stdout.write(self.style.SUCCESS(f'Added {total_created}, deleted {total_deleted} Jupyter objects from filesystem'))
