@@ -1,0 +1,30 @@
+<p class="intake-label">Resource Contacts</p>
+
+<table class="usa-table usa-table--borderless contacts-table width-full">
+    <thead {% if not contacts %}hidden{% endif %}>
+        <th scope='col'>Name</th>
+        <th scope='col'>Title</th>
+        <th scope='col'>Phone</th>
+        <th scope='col'>Email</th>
+        <th scope='col'></th>
+      </thead>
+    <tbody id="contactsTable">
+      {% for resource_contact in resource_contacts %}
+          <tr id="{{ resource_contact.pk }}row">
+          <td> {{ resource_contact.first_name|default:"-" }} {{ resource_contact.last_name|default:"-" }} </td>
+          <td> {{ resource_contact.title|default:"-" }} </td>
+          <td> {{ resource_contact.phone|default:"-" }} </td>
+          <td> {{ resource_contact.email|default:"-" }} </td>
+          <td>
+              <button data-contact-id="{{ resource_contact.pk }}" data-contact-name="{{ resource_contact.first_name }}" class="usa-button usa-button--outline remove-contact-button">
+              <img data-contact-id="{{ resource_contact.pk }}" src="/static/img/trash-2.svg" alt="remove contact" class="icon"></button>
+          </td>
+          </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <input type="hidden" value="{{ form.fields.contacts.initial }}," name="contacts" id="id_contacts" />
+  <div class="usa-alert usa-alert--error usa-alert--slim response-wrapper" hidden></div>
+  <div>
+    {% csrf_token %}
+  </div>

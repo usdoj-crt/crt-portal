@@ -54,6 +54,50 @@
       </label>
       {{ form.secondary_phone }}
     </div>
+    <div class="contact-container margin-top-4 margin-bottom-4">
+      {% include "forms/complaint_view/resources/actions/contacts.html" with title="Contacts" resource_contacts=resource_contacts %}
+      {% include 'partials/start_expandable.html' with title='Add a contact' %}
+      <div class="margin-bottom-2 crt-dropdown">
+        <label for="id_first_name" class="intake-label">
+          {{ form.fields.first_name.label }}
+        </label>
+        {{ form.first_name }}
+      </div>
+
+      <div class="margin-bottom-2 crt-dropdown">
+        <label for="id_last_name" class="intake-label">
+          {{ form.fields.last_name.label }}
+        </label>
+        {{ form.last_name }}
+      </div>
+
+      <div class="margin-bottom-2 crt-dropdown">
+        <label for="id_title" class="intake-label">
+          {{ form.fields.title.label }}
+        </label>
+        {{ form.title }}
+      </div>
+
+      <div class="margin-bottom-2 crt-dropdown">
+        <label for="id_contact_email" class="intake-label">
+          {{ form.fields.contact_email.label }}
+        </label>
+        {{ form.contact_email }}
+      </div>
+
+      <div class="margin-bottom-2 crt-dropdown">
+        <label for="id_contact_phone" class="intake-label">
+          {{ form.fields.contact_phone.label }}
+        </label>
+        {{ form.contact_phone }}
+      </div>
+      <div class="intake-section display-flex flex-align-center">
+        <button class="usa-button" id="add_contact">
+          Add contact
+        </button>
+      </div>
+    {% include 'partials/end_expandable.html' %}
+  </div>
     <div class="margin-bottom-2 crt-dropdown">
       <label for="id_tags" class="intake-label">
         Tags
