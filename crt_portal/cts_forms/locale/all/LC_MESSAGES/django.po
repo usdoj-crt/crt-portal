@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-24 14:33-0400\n"
+"POT-Creation-Date: 2024-10-18 16:38+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,32 +18,29 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: crt_portal/cts_forms/forms.py:388
+#: forms.py:396
 msgid "Submission failed. Please try again."
 msgstr ""
 
 #. Translators: this is the default- blank options for a drop-down menu where a user chooses a state
-#: crt_portal/cts_forms/forms.py:407 crt_portal/cts_forms/forms.py:2608
+#: forms.py:417 forms.py:2802
 msgid " - Select - "
 msgstr ""
 
 #. Translators: This is help text for the question asking if someone is a service member
-#: crt_portal/cts_forms/forms.py:419
-#: crt_portal/cts_forms/templates/printable_intake_form.html:62
+#: forms.py:429 templates/printable_intake_form.html:62
 msgid ""
 "If you’re reporting on behalf of someone else, please select their status."
 msgstr ""
 
-#: crt_portal/cts_forms/forms.py:436
-#: crt_portal/cts_forms/templates/forms/report_contact_info.html:15
-#: crt_portal/cts_forms/templates/printable_intake_form.html:37
+#: forms.py:446 templates/forms/report_contact_info.html:15
+#: templates/printable_intake_form.html:37
 msgid ""
 "If you believe you or someone else has experienced a civil rights violation, "
 "please tell us what happened."
 msgstr ""
 
-#: crt_portal/cts_forms/forms.py:464
-#: crt_portal/cts_forms/templates/printable_intake_form.html:86
+#: forms.py:474 templates/printable_intake_form.html:86
 msgid ""
 "Select the reason that best describes your concern. Each reason lists "
 "examples of civil rights violations that may relate to your incident. In "
@@ -51,17 +48,17 @@ msgid ""
 "your own words."
 msgstr ""
 
-#: crt_portal/cts_forms/forms.py:522 crt_portal/cts_forms/question_text.py:47
+#: forms.py:532 question_text.py:47
 msgid ""
 "Examples: Name of business, school, intersection, prison, polling place, "
 "website, etc."
 msgstr ""
 
-#: crt_portal/cts_forms/forms.py:544 crt_portal/cts_forms/question_text.py:37
+#: forms.py:554 question_text.py:37
 msgid "Where did this happen?"
 msgstr ""
 
-#: crt_portal/cts_forms/forms.py:556
+#: forms.py:566
 msgid ""
 "Please tell us the city, state, and name of the location where this incident "
 "took place. This ensures your report is reviewed by the right people within "
@@ -69,16 +66,15 @@ msgid ""
 msgstr ""
 
 #. Translators: describe the "other" option for commercial or public place question
-#: crt_portal/cts_forms/forms.py:663
+#: forms.py:673
 msgid "Please describe"
 msgstr ""
 
-#: crt_portal/cts_forms/forms.py:741
+#: forms.py:751
 msgid "Please select the type of school or educational program."
 msgstr ""
 
-#: crt_portal/cts_forms/forms.py:764
-#: crt_portal/cts_forms/templates/printable_intake_form.html:199
+#: forms.py:774 templates/printable_intake_form.html:199
 msgid ""
 "There are federal and state laws that protect people from discrimination "
 "based on their personal characteristics. Here is a list of the most common "
@@ -87,139 +83,127 @@ msgid ""
 msgstr ""
 
 #. Translators: This is to explain an "other" choice for personal characteristics
-#: crt_portal/cts_forms/forms.py:769
+#: forms.py:779
 msgid "Please describe \"Other reason\""
 msgstr ""
 
-#: crt_portal/cts_forms/forms.py:957
-#: crt_portal/cts_forms/templates/printable_intake_form.html:182
+#: forms.py:967 templates/printable_intake_form.html:182
 msgid ""
 "It is important for us to know how recently this incident happened so we can "
 "take the appropriate action. If this happened over a period of time or is "
 "still happening, please provide the most recent date."
 msgstr ""
 
-#: crt_portal/cts_forms/forms.py:1286
+#: forms.py:1444
 msgid "Assigned to"
 msgstr ""
 
-#: crt_portal/cts_forms/forms.py:1313
+#: forms.py:1471
 msgid "Campaign"
 msgstr ""
 
-#: crt_portal/cts_forms/forms.py:1336
+#: forms.py:1494
 msgid "Incident state"
 msgstr ""
 
-#: crt_portal/cts_forms/forms.py:1344
+#: forms.py:1502
 msgid "District number"
 msgstr ""
 
-#: crt_portal/cts_forms/forms.py:1354
+#: forms.py:1512
 msgid "Primary classification"
 msgstr ""
 
-#: crt_portal/cts_forms/forms.py:1364
+#: forms.py:1522
 msgid "Records per page"
 msgstr ""
 
-#: crt_portal/cts_forms/forms.py:1375
+#: forms.py:1533
 msgid "Grouping"
 msgstr ""
 
-#: crt_portal/cts_forms/forms.py:1658
+#: forms.py:1816
 msgid "Create date cannot be in the future."
 msgstr ""
 
-#: crt_portal/cts_forms/forms.py:2030
+#: forms.py:2202
 msgid "Comment cannot be empty"
 msgstr ""
 
 #. Translators: This is used as a an empty selection default for drop down menus
-#: crt_portal/cts_forms/model_variables.py:7
+#: model_variables.py:8
 msgid "- Select -"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:10
-#: crt_portal/cts_forms/model_variables.py:202
-#: crt_portal/cts_forms/model_variables.py:424
+#: model_variables.py:11 model_variables.py:203 model_variables.py:425
 msgid "Yes"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:11
-#: crt_portal/cts_forms/model_variables.py:203
-#: crt_portal/cts_forms/model_variables.py:425
+#: model_variables.py:12 model_variables.py:204 model_variables.py:426
 msgid "No"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:14
+#: model_variables.py:15
 msgid "Please select a status as an active duty service member."
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:18
-#: crt_portal/cts_forms/model_variables.py:30
+#: model_variables.py:19 model_variables.py:31
 msgid "Workplace discrimination or other employment-related problem"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:19
-#: crt_portal/cts_forms/model_variables.py:31
+#: model_variables.py:20 model_variables.py:32
 msgid "Housing discrimination or harassment"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:20
-#: crt_portal/cts_forms/model_variables.py:32
+#: model_variables.py:21 model_variables.py:33
 msgid ""
 "Discrimination at a school, educational program or service, or related to "
 "receiving education"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:21
-#: crt_portal/cts_forms/model_variables.py:33
+#: model_variables.py:22 model_variables.py:34
 msgid "Mistreated by police, correctional staff, or inmates"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:22
-#: crt_portal/cts_forms/model_variables.py:29
+#: model_variables.py:23 model_variables.py:30
 msgid "Voting rights or ability to vote affected"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:23
-#: crt_portal/cts_forms/model_variables.py:34
+#: model_variables.py:24 model_variables.py:35
 msgid "Discriminated against in a commercial location or public place"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:24
-#: crt_portal/cts_forms/model_variables.py:35
+#: model_variables.py:25 model_variables.py:36
 msgid "Something else happened"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:60
+#: model_variables.py:61
 msgid "Victim of a hate crime"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:61
+#: model_variables.py:62
 msgid "Victim of human trafficking"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:66
+#: model_variables.py:67
 msgid ""
 "This could include a store, restaurant, bar, hotel, place of worship, "
 "library, medical facility, bank, courthouse, government building, public "
 "park or street, as well as online."
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:67
+#: model_variables.py:68
 msgid ""
 "The examples above reflect some but not all of the civil rights violations "
 "that we address. Select this option if you don’t see an example that applies "
 "to your situation. You will be able to tell us more later."
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:68
+#: model_variables.py:69
 msgid "(Including while in prison)"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:71
+#: model_variables.py:72
 msgid ""
 "To potentially be a hate crime, the situation must include physical harm, or "
 "attempts to cause harm with a dangerous weapon, because of race, color, "
@@ -228,229 +212,201 @@ msgid ""
 "religion or national origin are also potential hate crimes."
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:72
+#: model_variables.py:73
 msgid ""
 "Human trafficking is when someone is forced into labor or sex work for "
 "profit. This can happen in many types of work that include, for example: "
 "agriculture, domestic work, restaurants, cleaning services, and sex work."
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:76
+#: model_variables.py:77
 msgid "Were you forced to work against your will?"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:77
-#: crt_portal/cts_forms/templates/hate_crime_human_trafficking.html:74
+#: model_variables.py:78 templates/hate_crime_human_trafficking.html:74
 msgid "Get help from the National Human Trafficking Hotline"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:81
+#: model_variables.py:82
 msgid "Get help for hate crimes"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:87
+#: model_variables.py:88
 msgid ""
 "To report a threat against voters, threats against election officials, or "
 "election fraud, visit <a href=\"https://tips.fbi.gov\">tips.fbi.gov</a> or "
 "call 800-CALL-FBI"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:91
-#: crt_portal/cts_forms/templates/hate_crime_human_trafficking.html:45
+#: model_variables.py:92 templates/hate_crime_human_trafficking.html:45
 msgid ""
 "A hate crime is violence or threats of violence based on race, color, "
 "national origin, religion, gender, sexual orientation, gender identity, or "
 "disability."
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:101
-#: crt_portal/cts_forms/model_variables.py:143
+#: model_variables.py:102 model_variables.py:144
 msgid ""
 "Fired, not hired, or demoted for reasons unrelated to job performance or "
 "qualifications"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:102
-#: crt_portal/cts_forms/model_variables.py:144
+#: model_variables.py:103 model_variables.py:145
 msgid "Retaliated against for reporting discrimination"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:103
-#: crt_portal/cts_forms/model_variables.py:145
+#: model_variables.py:104 model_variables.py:146
 msgid "Inappropriately asked to provide immigration documentation"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:104
-#: crt_portal/cts_forms/model_variables.py:146
+#: model_variables.py:105 model_variables.py:147
 msgid "Denied reemployment or fired based on military service"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:105
-#: crt_portal/cts_forms/model_variables.py:147
+#: model_variables.py:106 model_variables.py:148
 msgid ""
 "Denied an accommodation for a disability, including not being allowed to "
 "have a service animal <strong>in the workplace</strong>"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:108
-#: crt_portal/cts_forms/model_variables.py:150
+#: model_variables.py:109 model_variables.py:151
 msgid ""
 "Denied housing, a permit, or a loan based on personal characteristics like "
 "race, sex, and/or having children under 18 years old"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:109
-#: crt_portal/cts_forms/model_variables.py:151
+#: model_variables.py:110 model_variables.py:152
 msgid "Harassment by a landlord or another tenant, including sexual harassment"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:110
-#: crt_portal/cts_forms/model_variables.py:152
+#: model_variables.py:111 model_variables.py:153
 msgid "Challenges with terminating a lease due to military status change"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:111
-#: crt_portal/cts_forms/model_variables.py:153
+#: model_variables.py:112 model_variables.py:154
 msgid ""
 "Denied an accommodation for a disability, including not being allowed to "
 "have a service or assistance animal <strong>in public housing</strong>"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:114
-#: crt_portal/cts_forms/model_variables.py:156
+#: model_variables.py:115 model_variables.py:157
 msgid "Harassment based on race, sex, national origin, disability, or religion"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:115
-#: crt_portal/cts_forms/model_variables.py:157
+#: model_variables.py:116 model_variables.py:158
 msgid "Denied admission or segregated in an education program or activity"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:116
-#: crt_portal/cts_forms/model_variables.py:158
+#: model_variables.py:117 model_variables.py:159
 msgid "Denied educational accommodations for a disability or language barrier"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:119
-#: crt_portal/cts_forms/model_variables.py:138
+#: model_variables.py:120 model_variables.py:139
 msgid ""
 "Obstacles to registering to vote, obtaining or submitting a ballot, having "
 "your ballot counted, or entering a polling place to vote"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:120
-#: crt_portal/cts_forms/model_variables.py:139
+#: model_variables.py:121 model_variables.py:140
 msgid ""
 "Denied adequate voting assistance or accommodations for a disability at a "
 "polling place"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:121
-#: crt_portal/cts_forms/model_variables.py:140
+#: model_variables.py:122 model_variables.py:141
 msgid ""
 "Restricted or prevented from participating in an election, including voting, "
 "becoming a candidate, or being elected for office"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:124
-#: crt_portal/cts_forms/model_variables.py:161
+#: model_variables.py:125 model_variables.py:162
 msgid ""
 "Police brutality or use of excessive force, including patterns of police "
 "misconduct"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:125
-#: crt_portal/cts_forms/model_variables.py:162
+#: model_variables.py:126 model_variables.py:163
 msgid ""
 "Searched and arrested under false pretenses, including racial or other "
 "discriminatory profiling"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:126
-#: crt_portal/cts_forms/model_variables.py:163
+#: model_variables.py:127 model_variables.py:164
 msgid "Denied rights while arrested or incarcerated"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:127
-#: crt_portal/cts_forms/model_variables.py:164
+#: model_variables.py:128 model_variables.py:165
 msgid ""
 "Denied access to safe living conditions or accommodations for a disability, "
 "language barrier, or religious practice while incarcerated"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:130
-#: crt_portal/cts_forms/model_variables.py:167
+#: model_variables.py:131 model_variables.py:168
 msgid ""
 "A physical or online location that does not provide disability accommodations"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:131
-#: crt_portal/cts_forms/model_variables.py:168
+#: model_variables.py:132 model_variables.py:169
 msgid ""
 "Denied service or entry because of a perceived personal characteristic like "
 "race, sex, or religion"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:132
-#: crt_portal/cts_forms/model_variables.py:169
+#: model_variables.py:133 model_variables.py:170
 msgid ""
 "Denied an accommodation for a disability, including not being allowed to "
 "have a service animal <strong>in a commercial or public location</strong>"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:175
+#: model_variables.py:176
 msgid ""
 "Physical attack causing injury, or an attempt to cause injury with a "
 "dangerous weapon, because of the above characteristics"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:176
+#: model_variables.py:177
 msgid ""
 "Attacks, threats of violence, or destruction of property at place of worship "
 "(ie: shooting, arson, bombing, smashing windows, writing slurs)"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:179
+#: model_variables.py:180
 msgid ""
 "Coerced into working through threats of harm or deportation, psychological "
 "manipulation, debt manipulation, document confiscation, or confinement"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:180
+#: model_variables.py:181
 msgid ""
 "Forced into sex work for profit through physical abuse or assault, sexual "
 "abuse or assault, other threats of harm, or confinement"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:185
-#: crt_portal/cts_forms/model_variables.py:431
+#: model_variables.py:186 model_variables.py:432
 msgid "Federal"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:186
+#: model_variables.py:187
 msgid "State or local"
 msgstr ""
 
 #. Translators: Both state, federal and local elections
-#: crt_portal/cts_forms/model_variables.py:188
+#: model_variables.py:189
 msgid "Both"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:189
-#: crt_portal/cts_forms/model_variables.py:433
-#: crt_portal/cts_forms/model_variables.py:448
-#: crt_portal/cts_forms/model_variables.py:456
-#: crt_portal/cts_forms/model_variables.py:473
+#: model_variables.py:190 model_variables.py:434 model_variables.py:449
+#: model_variables.py:457 model_variables.py:474
 msgid "I'm not sure"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:195
+#: model_variables.py:196
 msgid ""
 "Physical harm or threats of violence based on race, color, national origin, "
 "religion, gender, sexual orientation, gender identity, or disability"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:196
+#: model_variables.py:197
 msgid ""
 "Threatened, forced, and held against your will for the purposes of "
 "performing work or commercial sex acts. This could include threats of "
@@ -458,732 +414,719 @@ msgid ""
 "contract"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:210
-#: crt_portal/cts_forms/templates/landing.html:229
+#: model_variables.py:211 templates/landing.html:229
 msgid "Age"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:211
+#: model_variables.py:212
 msgid ""
 "Disability (including temporary or recovered and including HIV and drug "
 "addiction)"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:212
+#: model_variables.py:213
 msgid "Family, marital, or parental status"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:213
+#: model_variables.py:214
 msgid "Gender identity (including gender stereotypes)"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:214
+#: model_variables.py:215
 msgid "Genetic information (including family medical history)"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:215
+#: model_variables.py:216
 msgid ""
 "Immigration/citizenship status (choosing this will not share your status)"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:216
+#: model_variables.py:217
 msgid "Language"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:217
+#: model_variables.py:218
 msgid "National origin (including ancestry and ethnicity)"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:218
+#: model_variables.py:219
 msgid "Pregnancy"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:219
-#: crt_portal/cts_forms/templates/landing.html:222
+#: model_variables.py:220 templates/landing.html:222
 msgid "Race/color"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:220
-#: crt_portal/cts_forms/templates/landing.html:224
+#: model_variables.py:221 templates/landing.html:224
 msgid "Religion"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:221
+#: model_variables.py:222
 msgid "Sex"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:222
+#: model_variables.py:223
 msgid "Sexual orientation"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:223
+#: model_variables.py:224
 msgid "None of these apply to me"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:224
+#: model_variables.py:225
 msgid "Other reason"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:237
+#: model_variables.py:238
 msgid ""
 "Please make a selection to continue. If none of these apply to your "
 "situation, please select “None of these apply to me” or \"Other reason\"and "
 "explain."
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:389
+#: model_variables.py:390
 msgid "Place of worship or about a place of worship"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:390
+#: model_variables.py:391
 msgid "Commercial or retail building"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:391
-#: crt_portal/cts_forms/model_variables.py:402
+#: model_variables.py:392 model_variables.py:403
 msgid "Healthcare facility"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:392
-#: crt_portal/cts_forms/model_variables.py:403
+#: model_variables.py:393 model_variables.py:404
 msgid "Financial institution"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:393
+#: model_variables.py:394
 msgid "Public space"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:394
-#: crt_portal/cts_forms/templatetags/commercial_public_space_view.py:17
+#: model_variables.py:395 templatetags/commercial_public_space_view.py:17
 msgid "Other"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:397
+#: model_variables.py:398
 msgid ""
 "Please select the type of location. If none of these apply to your "
 "situation, please select \"Other\"."
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:400
+#: model_variables.py:401
 msgid "Place of worship"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:401
+#: model_variables.py:402
 msgid "Commercial"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:404
+#: model_variables.py:405
 msgid "Public outdoor space"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:408
+#: model_variables.py:409
 msgid "Church, synagogue, temple, religious community center"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:409
+#: model_variables.py:410
 msgid "Store, restaurant, bar, hotel, theater"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:410
+#: model_variables.py:411
 msgid ""
 "Hospital or clinic (including inpatient and outpatient programs), "
 "reproductive care clinic, state developmental institution, nursing home"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:411
+#: model_variables.py:412
 msgid "Bank, credit union, loan services"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:412
+#: model_variables.py:413
 msgid ""
 "Park, sidewalk, street, other public buildings (courthouse, DMV, city "
 "library)"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:417
+#: model_variables.py:418
 msgid ""
 "Public employers include organizations funded by the government like the "
 "military, post office, fire department, courthouse, DMV, or public school. "
 "This could be at the local or state level."
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:418
+#: model_variables.py:419
 msgid ""
 "Private employers are business or non-profits not funded by the government "
 "such as retail stores, banks, or restaurants."
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:421
+#: model_variables.py:422
 msgid ""
 "Includes schools, educational programs, or educational activities, like "
 "training programs, sports teams, clubs, or other school-sponsored activities"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:430
+#: model_variables.py:431
 msgid "State/local"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:432
+#: model_variables.py:433
 msgid "Private"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:438
+#: model_variables.py:439
 msgid "Outside of prison"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:440
+#: model_variables.py:441
 msgid "Prison (Federal)"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:441
+#: model_variables.py:442
 msgid "Prison (Private)"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:442
+#: model_variables.py:443
 msgid "Prison (I'm not sure)"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:446
+#: model_variables.py:447
 msgid "Public employer"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:447
+#: model_variables.py:448
 msgid "Private employer"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:451
+#: model_variables.py:452
 msgid "Please select what type of employer this is."
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:454
+#: model_variables.py:455
 msgid "Fewer than 15 employees"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:455
+#: model_variables.py:456
 msgid "15 or more employees"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:459
+#: model_variables.py:460
 msgid "Please select how large the employer is."
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:471
+#: model_variables.py:472
 msgid "Public school or educational program"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:472
+#: model_variables.py:473
 msgid "Private school or educational program"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:478
+#: model_variables.py:479
 msgid "1 Year"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:479
+#: model_variables.py:480
 msgid "3 Year"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:480
+#: model_variables.py:481
 msgid "10 Year"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:481
+#: model_variables.py:482
 msgid "Permanent"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:485
+#: model_variables.py:486
 msgid "Alabama"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:486
+#: model_variables.py:487
 msgid "Alaska"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:487
+#: model_variables.py:488
 msgid "Arizona"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:488
+#: model_variables.py:489
 msgid "Arkansas"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:489
+#: model_variables.py:490
 msgid "California"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:490
+#: model_variables.py:491
 msgid "Colorado"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:491
+#: model_variables.py:492
 msgid "Connecticut"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:492
+#: model_variables.py:493
 msgid "Delaware"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:493
+#: model_variables.py:494
 msgid "District of Columbia"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:494
+#: model_variables.py:495
 msgid "Florida"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:495
+#: model_variables.py:496
 msgid "Georgia"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:496
+#: model_variables.py:497
 msgid "Hawaii"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:497
+#: model_variables.py:498
 msgid "Idaho"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:498
+#: model_variables.py:499
 msgid "Illinois"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:499
+#: model_variables.py:500
 msgid "Indiana"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:500
+#: model_variables.py:501
 msgid "Iowa"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:501
+#: model_variables.py:502
 msgid "Kansas"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:502
+#: model_variables.py:503
 msgid "Kentucky"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:503
+#: model_variables.py:504
 msgid "Louisiana"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:504
+#: model_variables.py:505
 msgid "Maine"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:505
+#: model_variables.py:506
 msgid "Maryland"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:506
+#: model_variables.py:507
 msgid "Massachusetts"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:507
+#: model_variables.py:508
 msgid "Michigan"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:508
+#: model_variables.py:509
 msgid "Minnesota"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:509
+#: model_variables.py:510
 msgid "Mississippi"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:510
+#: model_variables.py:511
 msgid "Missouri"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:511
+#: model_variables.py:512
 msgid "Montana"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:512
+#: model_variables.py:513
 msgid "Nebraska"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:513
+#: model_variables.py:514
 msgid "Nevada"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:514
+#: model_variables.py:515
 msgid "New Hampshire"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:515
+#: model_variables.py:516
 msgid "New Jersey"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:516
+#: model_variables.py:517
 msgid "New Mexico"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:517
+#: model_variables.py:518
 msgid "New York"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:518
+#: model_variables.py:519
 msgid "North Carolina"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:519
+#: model_variables.py:520
 msgid "North Dakota"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:520
+#: model_variables.py:521
 msgid "Ohio"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:521
+#: model_variables.py:522
 msgid "Oklahoma"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:522
+#: model_variables.py:523
 msgid "Oregon"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:523
+#: model_variables.py:524
 msgid "Pennsylvania"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:524
+#: model_variables.py:525
 msgid "Rhode Island"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:525
+#: model_variables.py:526
 msgid "South Carolina"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:526
+#: model_variables.py:527
 msgid "South Dakota"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:527
+#: model_variables.py:528
 msgid "Tennessee"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:528
+#: model_variables.py:529
 msgid "Texas"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:529
+#: model_variables.py:530
 msgid "Utah"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:530
+#: model_variables.py:531
 msgid "Vermont"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:531
+#: model_variables.py:532
 msgid "Virginia"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:532
+#: model_variables.py:533
 msgid "Washington"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:533
+#: model_variables.py:534
 msgid "West Virginia"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:534
+#: model_variables.py:535
 msgid "Wisconsin"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:535
+#: model_variables.py:536
 msgid "Wyoming"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:536
+#: model_variables.py:537
 msgid "American Samoa"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:537
+#: model_variables.py:538
 msgid "Guam"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:538
+#: model_variables.py:539
 msgid "Northern Mariana Islands"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:539
+#: model_variables.py:540
 msgid "Puerto Rico"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:540
+#: model_variables.py:541
 msgid "Virgin Islands"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:541
+#: model_variables.py:542
 msgid "Armed Forces Africa"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:542
+#: model_variables.py:543
 msgid "Armed Forces Americas"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:543
+#: model_variables.py:544
 msgid "Armed Forces Canada"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:544
+#: model_variables.py:545
 msgid "Armed Forces Europe"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:545
+#: model_variables.py:546
 msgid "Armed Forces Middle East"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:546
+#: model_variables.py:547
 msgid "Armed Forces Pacific"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:549
+#: model_variables.py:550
 msgid "Please provide description to continue"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:550
+#: model_variables.py:551
 msgid "Please select a primary reason to continue."
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:554
+#: model_variables.py:555
 msgid "Please enter the name of the location where this took place."
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:555
+#: model_variables.py:556
 msgid "Please enter the city or town where this took place."
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:556
+#: model_variables.py:557
 msgid "Please select the state where this took place."
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:560
+#: model_variables.py:561
 msgid "Please select where this occurred"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:561
+#: model_variables.py:562
 msgid "Please select the type of location"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:573
+#: model_variables.py:574
 msgid "You must enter a month and year. Please use the format MM/DD/YYYY."
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:576
+#: model_variables.py:577
 msgid "Please enter a month."
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:577
+#: model_variables.py:578
 msgid "Please enter a valid month. Month must be between 1 and 12."
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:579
+#: model_variables.py:580
 msgid ""
 "Please enter a valid day of the month. Day must be between 1 and the last "
 "day of the month."
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:580
+#: model_variables.py:581
 msgid "Please enter a year."
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:581
+#: model_variables.py:582
 msgid "Date can not be in the future."
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:582
+#: model_variables.py:583
 msgid "Please enter a year after 1900."
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:584
+#: model_variables.py:585
 msgid "Please enter a valid date. Use format MM/DD/YYYY."
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:588
+#: model_variables.py:589
 msgid "Please select the type of election or voting activity."
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:739
+#: model_variables.py:740
 msgid ""
 "If you submit a phone number, please make sure to include between 7 and 15 "
 "digits. The characters \"+\", \")\", \"(\", \"-\", and \".\" are allowed. "
 "Please include country code if entering an international phone number."
 msgstr ""
 
-#: crt_portal/cts_forms/question_text.py:6
+#: question_text.py:6
 msgid "Contact information"
 msgstr ""
 
-#: crt_portal/cts_forms/question_text.py:7
+#: question_text.py:7
 msgid ""
 "You are not required to provide your name or contact information. If you "
 "want to remain anonymous, leave this section blank. If you choose to provide "
 "your contact information, we will only use it to respond to your submission."
 msgstr ""
 
-#: crt_portal/cts_forms/question_text.py:8
-#: crt_portal/cts_forms/templates/forms/report_data.html:12
+#: question_text.py:8 templates/forms/report_data.html:12
 msgid "Your name"
 msgstr ""
 
-#: crt_portal/cts_forms/question_text.py:9
+#: question_text.py:9
 msgid "First name"
 msgstr ""
 
-#: crt_portal/cts_forms/question_text.py:10
+#: question_text.py:10
 msgid "Last name"
 msgstr ""
 
-#: crt_portal/cts_forms/question_text.py:11
+#: question_text.py:11
 msgid "Email address"
 msgstr ""
 
-#: crt_portal/cts_forms/question_text.py:12
+#: question_text.py:12
 msgid "Phone number"
 msgstr ""
 
-#: crt_portal/cts_forms/question_text.py:13
+#: question_text.py:13
 msgid "Mailing address 1"
 msgstr ""
 
-#: crt_portal/cts_forms/question_text.py:14
+#: question_text.py:14
 msgid "Mailing address 2"
 msgstr ""
 
-#: crt_portal/cts_forms/question_text.py:15
+#: question_text.py:15
 msgid "City"
 msgstr ""
 
-#: crt_portal/cts_forms/question_text.py:16
-#: crt_portal/cts_forms/question_text.py:42
+#: question_text.py:16 question_text.py:42
 msgid "State"
 msgstr ""
 
-#: crt_portal/cts_forms/question_text.py:17
+#: question_text.py:17
 msgid "Zip code"
 msgstr ""
 
-#: crt_portal/cts_forms/question_text.py:26
+#: question_text.py:26
 msgid "Are you now or have ever been an active duty service member?"
 msgstr ""
 
-#: crt_portal/cts_forms/question_text.py:29
+#: question_text.py:29
 msgid "What is your primary reason for contacting the Civil Rights Division?"
 msgstr ""
 
-#: crt_portal/cts_forms/question_text.py:31
+#: question_text.py:31
 msgid "Primary Issue"
 msgstr ""
 
-#: crt_portal/cts_forms/question_text.py:32
+#: question_text.py:32
 msgid "Does your situation involve physical harm or threats of violence?"
 msgstr ""
 
-#: crt_portal/cts_forms/question_text.py:33
+#: question_text.py:33
 msgid ""
 "To be considered a hate crime, the physical harm or threats of violence must "
 "be based on race, color, national origin, religion, gender, sexual "
 "orientation, gender identity, or disability."
 msgstr ""
 
-#: crt_portal/cts_forms/question_text.py:38
+#: question_text.py:38
 msgid "Organization name"
 msgstr ""
 
-#: crt_portal/cts_forms/question_text.py:39
+#: question_text.py:39
 msgid "Street address 1"
 msgstr ""
 
-#: crt_portal/cts_forms/question_text.py:40
+#: question_text.py:40
 msgid "Street address 2"
 msgstr ""
 
-#: crt_portal/cts_forms/question_text.py:41
+#: question_text.py:41
 msgid "City/town"
 msgstr ""
 
-#: crt_portal/cts_forms/question_text.py:60
+#: question_text.py:60
 msgid "What kind of election or voting activity was this related to?"
 msgstr ""
 
-#: crt_portal/cts_forms/question_text.py:62
+#: question_text.py:62
 msgid "Was this a public or private employer?"
 msgstr ""
 
-#: crt_portal/cts_forms/question_text.py:63
+#: question_text.py:63
 msgid "How large is this employer?"
 msgstr ""
 
-#: crt_portal/cts_forms/question_text.py:65
+#: question_text.py:65
 msgid ""
 "Please choose the type of location that best describes where the incident "
 "happened"
 msgstr ""
 
-#: crt_portal/cts_forms/question_text.py:67
+#: question_text.py:67
 msgid "Did this happen while in custody or incarcerated?"
 msgstr ""
 
-#: crt_portal/cts_forms/question_text.py:68
+#: question_text.py:68
 msgid "What type of prison or correctional facility?"
 msgstr ""
 
-#: crt_portal/cts_forms/question_text.py:70
+#: question_text.py:70
 msgid ""
 "Did this happen at a public or a private school, educational program or "
 "activity?"
 msgstr ""
 
-#: crt_portal/cts_forms/question_text.py:73
+#: question_text.py:73
 msgid ""
 "Do you believe any of these personal characteristics influenced why you were "
 "treated this way?"
 msgstr ""
 
-#: crt_portal/cts_forms/question_text.py:76
+#: question_text.py:76
 msgid "When did this happen?"
 msgstr ""
 
-#: crt_portal/cts_forms/question_text.py:77
+#: question_text.py:77
 msgid "Month"
 msgstr ""
 
-#: crt_portal/cts_forms/question_text.py:78
+#: question_text.py:78
 msgid "Day"
 msgstr ""
 
-#: crt_portal/cts_forms/question_text.py:79
+#: question_text.py:79
 msgid "Year"
 msgstr ""
 
-#: crt_portal/cts_forms/question_text.py:83
-#: crt_portal/cts_forms/templates/printable_intake_form.html:221
+#: question_text.py:83 templates/printable_intake_form.html:221
 msgid "In your own words, describe what happened"
 msgstr ""
 
-#: crt_portal/cts_forms/question_text.py:85
-#: crt_portal/cts_forms/templates/printable_intake_form.html:223
+#: question_text.py:85 templates/printable_intake_form.html:223
 msgid "Please share details like:"
 msgstr ""
 
-#: crt_portal/cts_forms/question_text.py:87
-#: crt_portal/cts_forms/templates/printable_intake_form.html:225
+#: question_text.py:87 templates/printable_intake_form.html:225
 msgid "Time"
 msgstr ""
 
-#: crt_portal/cts_forms/question_text.py:88
-#: crt_portal/cts_forms/templates/printable_intake_form.html:226
+#: question_text.py:88 templates/printable_intake_form.html:226
 msgid "Names of people involved including witnesses if there are any"
 msgstr ""
 
-#: crt_portal/cts_forms/question_text.py:89
-#: crt_portal/cts_forms/templates/printable_intake_form.html:227
+#: question_text.py:89 templates/printable_intake_form.html:227
 msgid "Any supporting materials (please list and describe them)"
 msgstr ""
 
-#: crt_portal/cts_forms/question_text.py:90
+#: question_text.py:90
 msgid ""
 "While you <strong>cannot</strong> submit these materials through this site, "
 "we may request copies of these from you at a later date. If you provide "
@@ -1191,14 +1134,12 @@ msgid ""
 "report."
 msgstr ""
 
-#: crt_portal/cts_forms/templates/base.html:42
-#: crt_portal/cts_forms/templates/base.html:67
-#: crt_portal/cts_forms/templates/forms/report_base.html:10
-#: crt_portal/cts_forms/templates/forms/report_base.html:13
+#: templates/base.html:42 templates/base.html:67
+#: templates/forms/report_base.html:10 templates/forms/report_base.html:13
 msgid "Contact the Civil Rights Division | Department of Justice"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/base.html:55
+#: templates/base.html:55
 msgid ""
 "Have you or someone you know experienced unlawful discrimination? The Civil "
 "Rights Division may be able to help. Civil rights laws can protect you from "
@@ -1207,148 +1148,139 @@ msgid ""
 "spaces, and more."
 msgstr ""
 
-#: crt_portal/cts_forms/templates/base.html:77
+#: templates/base.html:77
 msgid "Skip to main content"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/base.html:136
-#: crt_portal/cts_forms/templates/forms/errors.html:14
-#: crt_portal/cts_forms/templates/forms/report_maintenance.html:12
-#: crt_portal/cts_forms/templates/landing.html:11
-#: crt_portal/cts_forms/templates/landing.html:18
-#: crt_portal/cts_forms/templates/printable_intake_form.html:27
+#: templates/base.html:136 templates/forms/errors.html:14
+#: templates/forms/report_maintenance.html:12 templates/landing.html:11
+#: templates/landing.html:18 templates/printable_intake_form.html:27
 msgid "U.S. Department of Justice"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/base.html:139
-#: crt_portal/cts_forms/templates/forms/confirmation.html:21
-#: crt_portal/cts_forms/templates/forms/errors.html:15
-#: crt_portal/cts_forms/templates/forms/report_maintenance.html:13
-#: crt_portal/cts_forms/templates/landing.html:11
-#: crt_portal/cts_forms/templates/landing.html:21
-#: crt_portal/cts_forms/templates/printable_intake_form.html:28
+#: templates/base.html:139 templates/forms/confirmation.html:21
+#: templates/forms/errors.html:15 templates/forms/report_maintenance.html:13
+#: templates/landing.html:11 templates/landing.html:21
+#: templates/printable_intake_form.html:28
 msgid "Civil Rights Division"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/forms/complaint_view/actions/bulk_actions.html:94
-#: crt_portal/cts_forms/templates/forms/grouped_questions.html:6
-#: crt_portal/cts_forms/templates/forms/question_cards/commercial_public_location.html:5
-#: crt_portal/cts_forms/templates/forms/question_cards/other_question.html:11
-#: crt_portal/cts_forms/templates/forms/question_cards/police_location.html:4
-#: crt_portal/cts_forms/templates/forms/question_cards/single_form.html:16
-#: crt_portal/cts_forms/templates/forms/question_cards/single_question.html:13
-#: crt_portal/cts_forms/templates/forms/report_class.html:13
-#: crt_portal/cts_forms/templates/forms/report_details.html:12
-#: crt_portal/cts_forms/templates/forms/report_location.html:32
-#: crt_portal/cts_forms/templates/forms/report_location.html:38
-#: crt_portal/cts_forms/templates/forms/report_primary_complaint.html:10
-#: crt_portal/cts_forms/templates/forms/snippets/input.html:9
+#: templates/forms/complaint_view/actions/bulk_actions.html:100
+#: templates/forms/grouped_questions.html:6
+#: templates/forms/question_cards/commercial_public_location.html:5
+#: templates/forms/question_cards/other_question.html:11
+#: templates/forms/question_cards/police_location.html:4
+#: templates/forms/question_cards/single_form.html:16
+#: templates/forms/question_cards/single_question.html:13
+#: templates/forms/report_class.html:13 templates/forms/report_details.html:12
+#: templates/forms/report_location.html:32
+#: templates/forms/report_location.html:38
+#: templates/forms/report_primary_complaint.html:10
+#: templates/forms/snippets/input.html:9
 msgid "required"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/forms/confirmation.html:7
+#: templates/forms/confirmation.html:7
 msgid "Submission complete"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/forms/confirmation.html:20
-#: crt_portal/cts_forms/templates/forms/confirmation.html:26
-#: crt_portal/cts_forms/templates/forms/portal/header.html:2
+#: templates/forms/confirmation.html:20 templates/forms/confirmation.html:26
+#: templates/forms/portal/header.html:2
 msgid "United States Department of Justice"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/forms/confirmation.html:29
+#: templates/forms/confirmation.html:29
 msgid "Thank you for submitting a report to the Civil Rights Division."
 msgstr ""
 
-#: crt_portal/cts_forms/templates/forms/confirmation.html:46
+#: templates/forms/confirmation.html:46
 msgid "Report successfully submitted"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/forms/confirmation.html:51
+#: templates/forms/confirmation.html:51
 msgid "Please save your record number for tracking."
 msgstr ""
 
-#: crt_portal/cts_forms/templates/forms/confirmation.html:55
+#: templates/forms/confirmation.html:55
 msgid "Your record number is:"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/forms/confirmation.html:62
+#: templates/forms/confirmation.html:62
 msgid "Print report"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/forms/confirmation.html:63
+#: templates/forms/confirmation.html:63
 msgid "Save report"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/forms/confirmation.html:75
+#: templates/forms/confirmation.html:75
 msgid "What to expect"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/forms/confirmation.html:85
+#: templates/forms/confirmation.html:85
 msgid "We review your report"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/forms/confirmation.html:90
+#: templates/forms/confirmation.html:90
 msgid ""
 "Our specialists in the Civil Rights Division carefully read every report to "
 "identify civil rights violations, spot trends, and determine if we have "
 "authority to help with your report."
 msgstr ""
 
-#: crt_portal/cts_forms/templates/forms/confirmation.html:100
+#: templates/forms/confirmation.html:100
 msgid "Our specialists determine the next step"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/forms/confirmation.html:104
+#: templates/forms/confirmation.html:104
 msgid "We may decide to:"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/forms/confirmation.html:107
+#: templates/forms/confirmation.html:107
 msgid ""
 "<strong>Open an investigation</strong> or take some other action within the "
 "legal authority of the Justice Department."
 msgstr ""
 
-#: crt_portal/cts_forms/templates/forms/confirmation.html:108
+#: templates/forms/confirmation.html:108
 msgid ""
 "<strong>Collect more information</strong> before we can look into your "
 "report."
 msgstr ""
 
-#: crt_portal/cts_forms/templates/forms/confirmation.html:109
+#: templates/forms/confirmation.html:109
 msgid ""
 "<strong>Recommend another government agency</strong> that can properly look "
 "into your report. If so, we’ll let you know."
 msgstr ""
 
-#: crt_portal/cts_forms/templates/forms/confirmation.html:112
+#: templates/forms/confirmation.html:112
 msgid ""
 "In some cases, we may determine that we don’t have legal authority to handle "
 "your report and will recommend that you seek help from a private lawyer or "
 "local legal aid organization."
 msgstr ""
 
-#: crt_portal/cts_forms/templates/forms/confirmation.html:122
+#: templates/forms/confirmation.html:122
 msgid "When possible, we will follow up with you"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/forms/confirmation.html:127
+#: templates/forms/confirmation.html:127
 msgid ""
 "We do our best to let you know about the outcome of our review. However, we "
 "may not always be able to provide you with updates because:"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/forms/confirmation.html:131
+#: templates/forms/confirmation.html:131
 msgid ""
 "We’re actively working on an investigation or case related to your report."
 msgstr ""
 
-#: crt_portal/cts_forms/templates/forms/confirmation.html:134
+#: templates/forms/confirmation.html:134
 msgid "We’re receiving and actively reviewing many requests at the same time."
 msgstr ""
 
-#: crt_portal/cts_forms/templates/forms/confirmation.html:137
-#: crt_portal/cts_forms/templates/landing.html:325
+#: templates/forms/confirmation.html:137 templates/landing.html:325
 msgid ""
 "If we are able to respond, we will contact you using the contact information "
 "you provided in this report. Depending on the type of report, response times "
@@ -1357,26 +1289,26 @@ msgid ""
 "submission."
 msgstr ""
 
-#: crt_portal/cts_forms/templates/forms/confirmation.html:145
+#: templates/forms/confirmation.html:145
 msgid "What you can do next"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/forms/confirmation.html:151
+#: templates/forms/confirmation.html:151
 msgid "1"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/forms/confirmation.html:154
+#: templates/forms/confirmation.html:154
 msgid ""
 "Contact local legal aid organizations or a lawyer if you haven’t already"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/forms/confirmation.html:158
+#: templates/forms/confirmation.html:158
 msgid ""
 "Legal aid offices or members of lawyer associations in your state may be "
 "able to help you with your issue."
 msgstr ""
 
-#: crt_portal/cts_forms/templates/forms/confirmation.html:161
+#: templates/forms/confirmation.html:161
 msgid ""
 "American Bar Association, visit <a class=\"external-link--blue external-"
 "link--popup\" href=\"https://www.americanbar.org/groups/legal_services/flh-"
@@ -1384,7 +1316,7 @@ msgid ""
 "href=\"tel:800-285-2221\">(800) 285-2221</a>"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/forms/confirmation.html:164
+#: templates/forms/confirmation.html:164
 msgid ""
 "Legal Services Corporation (or Legal Aid Offices), to help you find a legal "
 "aid lawyer in your area visit <a aria-label=\"www.lsc.gov/find-legal-aid\" "
@@ -1392,31 +1324,30 @@ msgid ""
 "gov/find-legal-aid\">www.lsc.gov/find-legal-aid</a>"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/forms/confirmation.html:172
+#: templates/forms/confirmation.html:172
 msgid "2"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/forms/confirmation.html:175
+#: templates/forms/confirmation.html:175
 msgid "Get help immediately if you are in danger"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/forms/confirmation.html:180
+#: templates/forms/confirmation.html:180
 msgid ""
 "If you reported an incident where you or someone else has experienced or is "
 "still experiencing physical harm or violence, or are in immediate danger, "
 "please call <a href=\"tel:911\">911</a> and contact the police."
 msgstr ""
 
-#: crt_portal/cts_forms/templates/forms/confirmation.html:193
+#: templates/forms/confirmation.html:193
 msgid "Your submission"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/forms/error_422.html:5
-#: crt_portal/cts_forms/templates/forms/errors.html:32
+#: templates/forms/error_422.html:5 templates/forms/errors.html:32
 msgid "We're sorry, something went wrong"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/forms/error_422.html:8
+#: templates/forms/error_422.html:8
 msgid ""
 "\n"
 "        <p>This error might be associated with an incompatible Internet "
@@ -1427,71 +1358,62 @@ msgid ""
 "    "
 msgstr ""
 
-#: crt_portal/cts_forms/templates/forms/errors.html:34
+#: templates/forms/errors.html:34
 msgid "We hope to fix this issue shortly"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/forms/errors.html:36
+#: templates/forms/errors.html:36
 msgid "Error: "
 msgstr ""
 
-#: crt_portal/cts_forms/templates/forms/errors.html:38
-#: crt_portal/cts_forms/templates/forms/report_maintenance.html:32
+#: templates/forms/errors.html:38 templates/forms/report_maintenance.html:32
 msgid "If you need to contact us immediately, you can reach us by:"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/forms/errors.html:43
-#: crt_portal/cts_forms/templates/forms/report_maintenance.html:37
+#: templates/forms/errors.html:43 templates/forms/report_maintenance.html:37
 msgid "Email"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/forms/errors.html:52
-#: crt_portal/cts_forms/templates/forms/report_maintenance.html:46
-#: crt_portal/cts_forms/templates/partials/footer.html:32
+#: templates/forms/errors.html:52 templates/forms/report_maintenance.html:46
+#: templates/partials/footer.html:32
 msgid "(toll-free)"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/forms/errors.html:53
-#: crt_portal/cts_forms/templates/forms/report_maintenance.html:47
-#: crt_portal/cts_forms/templates/partials/footer.html:33
+#: templates/forms/errors.html:53 templates/forms/report_maintenance.html:47
+#: templates/partials/footer.html:33
 msgid "Telephone Device for the Deaf"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/forms/errors.html:54
-#: crt_portal/cts_forms/templates/forms/report_maintenance.html:48
-#: crt_portal/cts_forms/templates/partials/footer.html:34
+#: templates/forms/errors.html:54 templates/forms/report_maintenance.html:48
+#: templates/partials/footer.html:34
 msgid "(TTY)"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/forms/errors.html:69
-#: crt_portal/cts_forms/templates/forms/report_maintenance.html:63
+#: templates/forms/errors.html:69 templates/forms/report_maintenance.html:63
 msgid "Other information"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/forms/errors.html:70
-#: crt_portal/utils/pdf.py:183
+#: templates/forms/errors.html:70
 msgid "File a complaint"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/forms/errors.html:72
-#: crt_portal/cts_forms/templates/forms/report_maintenance.html:65
-#: crt_portal/cts_forms/templates/landing.html:137
+#: templates/forms/errors.html:72 templates/forms/report_maintenance.html:65
+#: templates/landing.html:137
 msgid "About the Civil Rights Division"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/forms/errors.html:75
-#: crt_portal/cts_forms/templates/forms/report_maintenance.html:68
-#: crt_portal/cts_forms/templates/landing.html:120
+#: templates/forms/errors.html:75 templates/forms/report_maintenance.html:68
+#: templates/landing.html:120
 msgid ""
 "If you or someone else is in immediate danger, <a href=\"tel:911\">please "
 "call 911 or local police.</a>"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/forms/portal/progress-bar.html:5
+#: templates/forms/portal/progress-bar.html:5
 msgid "progress"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/forms/portal/progress-bar.html:7
+#: templates/forms/portal/progress-bar.html:7
 #, python-format
 msgid ""
 "\n"
@@ -1500,26 +1422,26 @@ msgid ""
 "        "
 msgstr ""
 
-#: crt_portal/cts_forms/templates/forms/portal/progress-bar.html:26
+#: templates/forms/portal/progress-bar.html:26
 msgid "not completed"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/forms/portal/progress-bar.html:28
+#: templates/forms/portal/progress-bar.html:28
 msgid "completed"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/forms/report_base.html:8
+#: templates/forms/report_base.html:8
 #, python-format
 msgid ""
 "\n"
 "        Step %(stage_number)s: %(current_step_name)s - "
 msgstr ""
 
-#: crt_portal/cts_forms/templates/forms/report_base.html:26
+#: templates/forms/report_base.html:26
 msgid "Contact the Department of Justice to report a civil rights violation"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/forms/report_base.html:58
+#: templates/forms/report_base.html:58
 #, python-format
 msgid ""
 "\n"
@@ -1532,75 +1454,69 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: crt_portal/cts_forms/templates/forms/report_base.html:88
-#: crt_portal/cts_forms/templates/forms/report_contact_info.html:49
+#: templates/forms/report_base.html:88
+#: templates/forms/report_contact_info.html:49
 msgid "Submit"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/forms/report_base.html:90
-#: crt_portal/cts_forms/templates/forms/report_contact_info.html:43
-#: crt_portal/cts_forms/templates/forms/report_contact_info.html:51
+#: templates/forms/report_base.html:90
+#: templates/forms/report_contact_info.html:43
+#: templates/forms/report_contact_info.html:51
 msgid "Next"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/forms/report_base.html:99
-#: crt_portal/cts_forms/templates/forms/report_review.html:33
+#: templates/forms/report_base.html:99 templates/forms/report_review.html:33
 msgid "previous step"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/forms/report_base.html:102
-#: crt_portal/cts_forms/templates/forms/report_review.html:36
-#: crt_portal/cts_forms/templates/partials/redirect-modal.html:23
+#: templates/forms/report_base.html:102 templates/forms/report_review.html:36
+#: templates/partials/redirect-modal.html:23
 msgid "Back"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/forms/report_data.html:21
-#: crt_portal/cts_forms/templates/forms/report_data.html:111
+#: templates/forms/report_data.html:21 templates/forms/report_data.html:111
 msgid "Address"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/forms/report_data.html:131
-#: crt_portal/cts_forms/templates/forms/report_data.html:137
+#: templates/forms/report_data.html:131 templates/forms/report_data.html:137
 msgid "None selected"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/forms/report_maintenance.html:29
+#: templates/forms/report_maintenance.html:29
 msgid "This page is currently down for maintenance."
 msgstr ""
 
-#: crt_portal/cts_forms/templates/forms/report_maintenance.html:30
+#: templates/forms/report_maintenance.html:30
 msgid ""
 "We expect to be back shortly. We recommend checking back to report a civil "
 "rights violation."
 msgstr ""
 
-#: crt_portal/cts_forms/templates/forms/report_review.html:9
+#: templates/forms/report_review.html:9
 msgid "Before you submit your report, please check your responses"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/forms/report_review.html:11
+#: templates/forms/report_review.html:11
 msgid ""
 "If you need to make any changes, you can go back and edit the previous "
 "pages. Please make sure your information is accurate. This allows us to "
 "respond to your report quickly."
 msgstr ""
 
-#: crt_portal/cts_forms/templates/forms/report_review.html:13
-#: crt_portal/cts_forms/templates/forms/report_review.html:25
+#: templates/forms/report_review.html:13 templates/forms/report_review.html:25
 msgid "Submit report"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/forms/snippets/preview_button.html:5
+#: templates/forms/snippets/preview_button.html:5
 msgid "Edit this page"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/forms/widgets/crt_radio_area_option.html:26
-#: crt_portal/cts_forms/templates/printable_intake_form.html:112
-#: crt_portal/cts_forms/templates/vot_resources.html:57
+#: templates/forms/widgets/crt_radio_area_option.html:26
+#: templates/printable_intake_form.html:112 templates/vot_resources.html:57
 msgid "Examples:"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/forms/word_counter.html:4
+#: templates/forms/word_counter.html:4
 #, python-format
 msgid ""
 "\n"
@@ -1608,8 +1524,7 @@ msgid ""
 "  "
 msgstr ""
 
-#: crt_portal/cts_forms/templates/forms/word_counter.html:16
-#: crt_portal/cts_forms/templates/forms/word_counter.html:21
+#: templates/forms/word_counter.html:16 templates/forms/word_counter.html:21
 #, python-format
 msgid ""
 "\n"
@@ -1617,46 +1532,46 @@ msgid ""
 "        "
 msgstr ""
 
-#: crt_portal/cts_forms/templates/hate_crime_human_trafficking.html:6
-#: crt_portal/cts_forms/templates/hate_crime_human_trafficking.html:13
+#: templates/hate_crime_human_trafficking.html:6
+#: templates/hate_crime_human_trafficking.html:13
 msgid ""
 "Civil Rights Division - Department of Justice - Get help for hate crimes and "
 "human trafficking"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/hate_crime_human_trafficking.html:24
+#: templates/hate_crime_human_trafficking.html:24
 msgid "Get help"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/hate_crime_human_trafficking.html:28
+#: templates/hate_crime_human_trafficking.html:28
 msgid "Report a hate crime or hate incident"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/hate_crime_human_trafficking.html:31
+#: templates/hate_crime_human_trafficking.html:31
 msgid "Report human trafficking"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/hate_crime_human_trafficking.html:38
+#: templates/hate_crime_human_trafficking.html:38
 msgid "Get help for hate crimes and human trafficking"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/hate_crime_human_trafficking.html:43
+#: templates/hate_crime_human_trafficking.html:43
 msgid "Where to report hate crimes and hate incidents"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/hate_crime_human_trafficking.html:49
+#: templates/hate_crime_human_trafficking.html:49
 msgid "In cases of emergency, contact 911"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/hate_crime_human_trafficking.html:54
+#: templates/hate_crime_human_trafficking.html:54
 msgid "Otherwise, contact the FBI online"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/hate_crime_human_trafficking.html:59
+#: templates/hate_crime_human_trafficking.html:59
 msgid "Or a local field office by phone"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/hate_crime_human_trafficking.html:63
+#: templates/hate_crime_human_trafficking.html:63
 msgid ""
 "Not every act of a hate crime involves a crime. <a class='external-link--"
 "blue' href='https://www.justice.gov/hatecrimes/learn-about-hate-crimes'>Acts "
@@ -1668,232 +1583,224 @@ msgid ""
 "using <a href='https://civilrights.justice.gov/'>this reporting portal</a>"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/hate_crime_human_trafficking.html:68
+#: templates/hate_crime_human_trafficking.html:68
 msgid "Where to report human trafficking"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/hate_crime_human_trafficking.html:70
+#: templates/hate_crime_human_trafficking.html:70
 msgid ""
 "Human trafficking includes being forced or coerced to do work, or forced or "
 "coerced to engage in sex acts for something of value."
 msgstr ""
 
-#: crt_portal/cts_forms/templates/hce_resources.html:6
-#: crt_portal/cts_forms/templates/hce_resources.html:13
+#: templates/hce_resources.html:6 templates/hce_resources.html:13
 msgid "Civil Rights Division - Department of Justice - Get resources"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/hce_resources.html:24
+#: templates/hce_resources.html:24
 msgid "Housing Section Resources"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/hce_resources.html:28
-#: crt_portal/cts_forms/templates/hce_resources.html:55
+#: templates/hce_resources.html:28 templates/hce_resources.html:55
 msgid "Credit"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/hce_resources.html:31
-#: crt_portal/cts_forms/templates/hce_resources.html:75
+#: templates/hce_resources.html:31 templates/hce_resources.html:75
 msgid "Disability"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/hce_resources.html:34
-#: crt_portal/cts_forms/templates/hce_resources.html:84
+#: templates/hce_resources.html:34 templates/hce_resources.html:84
 msgid "Housing"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/hce_resources.html:37
+#: templates/hce_resources.html:37
 msgid "Find an attorney"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/hce_resources.html:40
+#: templates/hce_resources.html:40
 msgid "Enforcement of state laws"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/hce_resources.html:43
+#: templates/hce_resources.html:43
 msgid "General assistance"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/hce_resources.html:50
+#: templates/hce_resources.html:50
 msgid "Housing section resources"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/hce_resources.html:58
+#: templates/hce_resources.html:58
 msgid "Consumer Financial Protection Bureau"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/hce_resources.html:59
+#: templates/hce_resources.html:59
 msgid "Submit a complaint about a financial product or service."
 msgstr ""
 
-#: crt_portal/cts_forms/templates/hce_resources.html:65
+#: templates/hce_resources.html:65
 msgid "Credit Bureaus"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/hce_resources.html:66
+#: templates/hce_resources.html:66
 msgid "Find information about credit history or credit scores."
 msgstr ""
 
-#: crt_portal/cts_forms/templates/hce_resources.html:78
+#: templates/hce_resources.html:78
 msgid "Fair Housing Accessibility First"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/hce_resources.html:79
+#: templates/hce_resources.html:79
 msgid ""
 "Information about physical accessibility requirements in multifamily housing."
 msgstr ""
 
-#: crt_portal/cts_forms/templates/hce_resources.html:87
+#: templates/hce_resources.html:87
 msgid "U.S. Department of Housing and Urban Development"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/hce_resources.html:88
+#: templates/hce_resources.html:88
 msgid "Submit a complaint about discrimination in housing."
 msgstr ""
 
-#: crt_portal/cts_forms/templates/hce_resources.html:95
+#: templates/hce_resources.html:95
 msgid "Homelessness Resources"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/hce_resources.html:96
+#: templates/hce_resources.html:96
 msgid "Information on housing assistance."
 msgstr ""
 
-#: crt_portal/cts_forms/templates/hce_resources.html:100
+#: templates/hce_resources.html:100
 msgid "Office of Public &amp; Indian Housing"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/hce_resources.html:101
+#: templates/hce_resources.html:101
 msgid ""
 "Information on public housing authorities, rental assistance, and housing "
 "counseling."
 msgstr ""
 
-#: crt_portal/cts_forms/templates/hce_resources.html:102
+#: templates/hce_resources.html:102
 msgid ""
 "(for inquiries on public housing authorities and housing choice voucher "
 "programs)"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/hce_resources.html:106
+#: templates/hce_resources.html:106
 msgid "Office of Inspector General (OIG)"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/hce_resources.html:107
+#: templates/hce_resources.html:107
 msgid "Report fraud, waste, or abuse in HUD-funded programs."
 msgstr ""
 
-#: crt_portal/cts_forms/templates/hce_resources.html:109
+#: templates/hce_resources.html:109
 msgid "(202) 708-4829 Facsimile"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/hce_resources.html:110
+#: templates/hce_resources.html:110
 msgid "Email: hotline@hudoig.gov"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/hce_resources.html:114
+#: templates/hce_resources.html:114
 msgid "Fair Housing Initiatives Program Agencies"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/hce_resources.html:115
+#: templates/hce_resources.html:115
 msgid ""
 "Information about organizations that assist people who believe they have "
 "been victims of housing discrimination."
 msgstr ""
 
-#: crt_portal/cts_forms/templates/hce_resources.html:119
+#: templates/hce_resources.html:119
 msgid "Fair Housing Assistance Program Agencies"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/hce_resources.html:120
+#: templates/hce_resources.html:120
 msgid ""
 "State and local agencies responsible for receiving reports of discrimination."
 msgstr ""
 
-#: crt_portal/cts_forms/templates/hce_resources.html:124
+#: templates/hce_resources.html:124
 msgid "Rent and Utility Payment Assistance"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/hce_resources.html:125
+#: templates/hce_resources.html:125
 msgid "Information on rental assistance programs in your area."
 msgstr ""
 
-#: crt_portal/cts_forms/templates/hce_resources.html:129
+#: templates/hce_resources.html:129
 msgid "Find an Attorney"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/hce_resources.html:132
+#: templates/hce_resources.html:132
 msgid "American Bar Association"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/hce_resources.html:139
+#: templates/hce_resources.html:139
 msgid "Legal Services Corporation (or Legal Aid Offices)"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/hce_resources.html:140
+#: templates/hce_resources.html:140
 msgid ""
 "Information on non-profit organizations providing legal help to people with "
 "limited income. Visit <a class='external-link--blue external-link--popup' "
 "href='https://www.lsc.gov/find-legal-aid'>www.lsc.gov/find-legal-aid</a>"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/hce_resources.html:144
+#: templates/hce_resources.html:144
 msgid "Enforcement of State Laws"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/hce_resources.html:147
+#: templates/hce_resources.html:147
 msgid "State Attorneys General"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/hce_resources.html:148
+#: templates/hce_resources.html:148
 msgid "Find contact information for your state attorney general."
 msgstr ""
 
-#: crt_portal/cts_forms/templates/hce_resources.html:152
+#: templates/hce_resources.html:152
 msgid "General Assistance"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/hce_resources.html:156
+#: templates/hce_resources.html:156
 msgid ""
 "Assistance with questions about federal agencies, government programs, "
 "services, and more."
 msgstr ""
 
-#: crt_portal/cts_forms/templates/landing.html:31
+#: templates/landing.html:31
 msgid "Menu"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/landing.html:40
+#: templates/landing.html:40
 msgid "About the Division"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/landing.html:45
+#: templates/landing.html:45
 msgid "Your rights"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/landing.html:50
-#: crt_portal/cts_forms/templates/partials/footer.html:70
+#: templates/landing.html:50 templates/partials/footer.html:70
 msgid "Report a violation"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/landing.html:55
+#: templates/landing.html:55
 msgid "Already submitted?"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/landing.html:60
-#: crt_portal/cts_forms/templates/partials/footer.html:8
-#: crt_portal/cts_forms/templates/printable_intake_form.html:50
-#: crt_portal/cts_forms/views_public.py:202
-#: crt_portal/cts_forms/views_public.py:308
-#: crt_portal/cts_forms/views_public.py:326
+#: templates/landing.html:60 templates/partials/footer.html:8
+#: templates/printable_intake_form.html:50 views_public.py:202
+#: views_public.py:322 views_public.py:340
 msgid "Contact"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/landing.html:91
+#: templates/landing.html:91
 msgid "We uphold the civil rights of <em>all</em> people in the United States."
 msgstr ""
 
-#: crt_portal/cts_forms/templates/landing.html:96
+#: templates/landing.html:96
 msgid ""
 "The Civil Rights Division enforces federal laws that protect you from "
 "discrimination based on your race, color, national origin, disability "
@@ -1901,28 +1808,27 @@ msgid ""
 "rights."
 msgstr ""
 
-#: crt_portal/cts_forms/templates/landing.html:99
+#: templates/landing.html:99
 msgid ""
 "If you believe your civil rights, or someone else’s, have been violated, "
 "submit a report using our online form."
 msgstr ""
 
-#: crt_portal/cts_forms/templates/landing.html:101
-#: crt_portal/cts_forms/templates/landing.html:298
+#: templates/landing.html:101 templates/landing.html:298
 msgid "Start a report"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/landing.html:102
+#: templates/landing.html:102
 msgid "Learn your rights"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/landing.html:114
+#: templates/landing.html:114
 msgid ""
 "If you are in danger, contact <a href=\"tel:911\" aria-label=\"9 1 1\">911</"
 "a>"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/landing.html:125
+#: templates/landing.html:125
 msgid ""
 "If you are reporting misconduct by law enforcement or believe you have "
 "experienced a hate crime, please <a aria-label=\"contact the FBI\" "
@@ -1930,21 +1836,21 @@ msgid ""
 "us\">contact the FBI</a>."
 msgstr ""
 
-#: crt_portal/cts_forms/templates/landing.html:139
+#: templates/landing.html:139
 msgid "We protect your rights through:"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/landing.html:142
+#: templates/landing.html:142
 msgid "Enforcement"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/landing.html:144
+#: templates/landing.html:144
 msgid ""
 "We sue or prosecute individuals and organizations who violate civil rights "
 "laws."
 msgstr ""
 
-#: crt_portal/cts_forms/templates/landing.html:147
+#: templates/landing.html:147
 #, python-format
 msgid ""
 "\n"
@@ -1954,38 +1860,38 @@ msgid ""
 "                "
 msgstr ""
 
-#: crt_portal/cts_forms/templates/landing.html:153
+#: templates/landing.html:153
 msgid "Education"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/landing.html:155
+#: templates/landing.html:155
 msgid "We help the public understand how to comply with these laws."
 msgstr ""
 
-#: crt_portal/cts_forms/templates/landing.html:156
+#: templates/landing.html:156
 msgid "We do this through public speaking, technical assistance, and more."
 msgstr ""
 
-#: crt_portal/cts_forms/templates/landing.html:159
+#: templates/landing.html:159
 msgid "Coordination"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/landing.html:161
+#: templates/landing.html:161
 msgid ""
 "We help the entire federal government work together to enforce these laws."
 msgstr ""
 
-#: crt_portal/cts_forms/templates/landing.html:162
+#: templates/landing.html:162
 msgid ""
 "Our teams work with other agencies to promote a consistent approach to civil "
 "rights laws."
 msgstr ""
 
-#: crt_portal/cts_forms/templates/landing.html:174
+#: templates/landing.html:174
 msgid "Understanding your rights"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/landing.html:177
+#: templates/landing.html:177
 msgid ""
 "Civil rights laws can protect you from unlawful discrimination, harassment, "
 "or abuse in a variety of settings like <span class=\"crt-landing--"
@@ -1993,7 +1899,7 @@ msgid ""
 "voting, business, healthcare, public spaces</span>, and more."
 msgstr ""
 
-#: crt_portal/cts_forms/templates/landing.html:180
+#: templates/landing.html:180
 msgid ""
 "If you have been <span class=\"crt-landing--rights_categories\">mistreated "
 "by law enforcement</span> (including while incarcerated), believe you have "
@@ -2003,123 +1909,121 @@ msgid ""
 "right place."
 msgstr ""
 
-#: crt_portal/cts_forms/templates/landing.html:196
+#: templates/landing.html:196
 msgid "Choose from this list to see example civil rights violations:"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/landing.html:208
+#: templates/landing.html:208
 msgid ""
 "If you think you’ve experienced a similar situation, learn <a href=\"#crt-"
 "landing--reporting\">how to report a civil rights violation</a>."
 msgstr ""
 
-#: crt_portal/cts_forms/templates/landing.html:218
+#: templates/landing.html:218
 msgid "Protected by civil rights laws"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/landing.html:220
+#: templates/landing.html:220
 msgid "These are the most common characteristics that are legally protected."
 msgstr ""
 
-#: crt_portal/cts_forms/templates/landing.html:223
+#: templates/landing.html:223
 msgid ""
 "Disability <span class=\"crt-landing--protected\">including temporary or in "
 "recovery</span>"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/landing.html:225
+#: templates/landing.html:225
 msgid "Sex, gender identity, and sexual orientation"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/landing.html:226
+#: templates/landing.html:226
 msgid "Immigration/citizenship status"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/landing.html:227
+#: templates/landing.html:227
 msgid ""
 "Language and national origin <span class=\"crt-landing--"
 "protected\">including ancestry and ethnicity</span>"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/landing.html:228
+#: templates/landing.html:228
 msgid ""
 "Family, marital, or parental status <span class=\"crt-landing--"
 "protected\">including pregnancy</span>"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/landing.html:230
+#: templates/landing.html:230
 msgid "Genetic identification"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/landing.html:231
+#: templates/landing.html:231
 msgid "Servicemember status"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/landing.html:245
+#: templates/landing.html:245
 msgid "How to report a civil rights violation"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/landing.html:250
+#: templates/landing.html:250
 msgid ""
 "If you believe that you or someone else experienced unlawful discrimination, "
 "you can report a civil rights violation."
 msgstr ""
 
-#: crt_portal/cts_forms/templates/landing.html:259
+#: templates/landing.html:259
 msgid "Report using our online form."
 msgstr ""
 
-#: crt_portal/cts_forms/templates/landing.html:260
+#: templates/landing.html:260
 msgid ""
 "By completing the online form, you can provide the details we need to "
 "understand what happened. You will receive a confirmation number and your "
 "report is immediately sent to our staff for review."
 msgstr ""
 
-#: crt_portal/cts_forms/templates/landing.html:268
+#: templates/landing.html:268
 msgid "We review your report."
 msgstr ""
 
-#: crt_portal/cts_forms/templates/landing.html:269
-#: crt_portal/cts_forms/templates/printable_intake_form.html:252
+#: templates/landing.html:269 templates/printable_intake_form.html:252
 msgid ""
 "Teams that specialize in handling your type of issue will review it. If it "
 "needs to be forwarded to another team or agency, we will try to connect your "
 "complaint to the right group."
 msgstr ""
 
-#: crt_portal/cts_forms/templates/landing.html:277
+#: templates/landing.html:277
 msgid "We determine next steps and get back to you."
 msgstr ""
 
-#: crt_portal/cts_forms/templates/landing.html:278
-#: crt_portal/cts_forms/templates/printable_intake_form.html:257
+#: templates/landing.html:278 templates/printable_intake_form.html:257
 msgid ""
 "Possible outcomes include: following up for more information, starting a "
 "mediation or investigation, directing you to another organization for "
 "further help, or informing you that we cannot help."
 msgstr ""
 
-#: crt_portal/cts_forms/templates/landing.html:297
+#: templates/landing.html:297
 msgid "Have you or someone you know experienced a civil rights violation?"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/landing.html:303
+#: templates/landing.html:303
 msgid ""
 "If you cannot access the online form, you can <a href=\"#phone-"
 "footer\">call</a> to report a violation or report a violation by <a "
 "href=\"#address-footer\">mail</a>."
 msgstr ""
 
-#: crt_portal/cts_forms/templates/landing.html:313
+#: templates/landing.html:313
 msgid "Already submitted a report?"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/landing.html:316
+#: templates/landing.html:316
 msgid "Here's what to expect."
 msgstr ""
 
-#: crt_portal/cts_forms/templates/landing.html:320
+#: templates/landing.html:320
 msgid ""
 "<strong>Thank you for your report.</strong> We carefully read each one to "
 "determine if we have the authority to help. We do our best to let you know "
@@ -2127,27 +2031,27 @@ msgid ""
 "provide you with updates because:"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/landing.html:322
+#: templates/landing.html:322
 msgid ""
 "We're actively working on an investigation or case related to your report."
 msgstr ""
 
-#: crt_portal/cts_forms/templates/landing.html:323
+#: templates/landing.html:323
 msgid "We're receiving and actively reviewing many reports at the same time."
 msgstr ""
 
-#: crt_portal/cts_forms/templates/landing.html:330
+#: templates/landing.html:330
 msgid "Need urgent legal help?"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/landing.html:332
+#: templates/landing.html:332
 msgid ""
 "Due to the amount of reports we receive, it can take several weeks for us to "
 "respond to your issue. Local legal aid offices or lawyers in your area may "
 "be able to quickly respond to or help with your concern"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/landing.html:333
+#: templates/landing.html:333
 msgid ""
 "Contact Legal Services Corporation to help you find a legal aid lawyer in "
 "your area at <a aria-label=\"www.lsc.gov/find-legal-aid\" class=\"external-"
@@ -2155,7 +2059,7 @@ msgid ""
 "aid\">lsc.gov/find-legal-aid</a>."
 msgstr ""
 
-#: crt_portal/cts_forms/templates/landing.html:334
+#: templates/landing.html:334
 msgid ""
 "Or visit <a class=\"external-link--blue external-link--popup american-bar-"
 "link\" href=\"https://www.americanbar.org/groups/legal_services/flh-home/"
@@ -2164,50 +2068,50 @@ msgid ""
 "American Bar Association."
 msgstr ""
 
-#: crt_portal/cts_forms/templates/landing.html:348
+#: templates/landing.html:348
 msgid "Image attributions"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/partials/banner/usa_banner_content.html:6
+#: templates/partials/banner/usa_banner_content.html:6
 msgid "Official websites use .gov"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/partials/banner/usa_banner_content.html:7
+#: templates/partials/banner/usa_banner_content.html:7
 msgid ""
 "A <strong>.gov</strong> website belongs to an official government "
 "organization in the United States."
 msgstr ""
 
-#: crt_portal/cts_forms/templates/partials/banner/usa_banner_content.html:15
+#: templates/partials/banner/usa_banner_content.html:15
 msgid "Secure .gov websites use HTTPS"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/partials/banner/usa_banner_content.html:17
+#: templates/partials/banner/usa_banner_content.html:17
 msgid "A <strong>lock</strong> ("
 msgstr ""
 
-#: crt_portal/cts_forms/templates/partials/banner/usa_banner_content.html:19
+#: templates/partials/banner/usa_banner_content.html:19
 msgid ""
 ") or <strong>https://</strong> means you’ve safely connected to the .gov "
 "website. Share sensitive information only on official, secure websites."
 msgstr ""
 
-#: crt_portal/cts_forms/templates/partials/banner/usa_banner_header.html:8
+#: templates/partials/banner/usa_banner_header.html:8
 msgid "An official website of the United States government"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/partials/banner/usa_banner_header.html:9
-#: crt_portal/cts_forms/templates/partials/banner/usa_banner_header.html:12
+#: templates/partials/banner/usa_banner_header.html:9
+#: templates/partials/banner/usa_banner_header.html:12
 msgid "Here’s how you know"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/partials/contact-info-confirmation-modal.html:8
+#: templates/partials/contact-info-confirmation-modal.html:8
 msgid ""
 "You are continuing your complaint without providing email or phone "
 "information."
 msgstr ""
 
-#: crt_portal/cts_forms/templates/partials/contact-info-confirmation-modal.html:13
+#: templates/partials/contact-info-confirmation-modal.html:13
 msgid ""
 "You do not have to provide contact information, however, we will not be able "
 "to contact you for any status updates or potential follow up. Would you like "
@@ -2215,27 +2119,27 @@ msgid ""
 "Step 2."
 msgstr ""
 
-#: crt_portal/cts_forms/templates/partials/contact-info-confirmation-modal.html:18
+#: templates/partials/contact-info-confirmation-modal.html:18
 msgid "No, I don't want to provide it"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/partials/contact-info-confirmation-modal.html:21
+#: templates/partials/contact-info-confirmation-modal.html:21
 msgid "Yes, I'd like to add it"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/partials/example-accordion.html:18
+#: templates/partials/example-accordion.html:18
 msgid "Examples"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/partials/example-accordion.html:40
+#: templates/partials/example-accordion.html:40
 msgid "Note"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/partials/example-accordion.html:51
+#: templates/partials/example-accordion.html:51
 msgid "Learn More"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/partials/footer.html:18
+#: templates/partials/footer.html:18
 msgid ""
 "Send Printed Report Form (<a target=\"_blank\" href=\"https://www.ada.gov/"
 "assets/pdfs/file-a-complaint.pdf\">Regular Format</a> | <a target=\"_blank\" "
@@ -2243,80 +2147,79 @@ msgid ""
 "Format</a>) To:"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/partials/footer.html:47
+#: templates/partials/footer.html:47
 msgid "Availability of Language Assistance Services"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/partials/footer.html:59
+#: templates/partials/footer.html:59
 msgid "Links"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/partials/footer.html:67
+#: templates/partials/footer.html:67
 msgid "About the division"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/partials/footer.html:73
-#: crt_portal/cts_forms/templates/printable_intake_form.html:278
+#: templates/partials/footer.html:73 templates/printable_intake_form.html:278
 msgid "Privacy policy"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/partials/footer.html:76
+#: templates/partials/footer.html:76
 msgid "FOIA"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/partials/footer.html:79
+#: templates/partials/footer.html:79
 msgid "Accessibility"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/partials/footer.html:94
+#: templates/partials/footer.html:94
 msgid "Office of Inspector General"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/partials/footer.html:97
+#: templates/partials/footer.html:97
 msgid "Budget and performance"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/partials/footer.html:100
+#: templates/partials/footer.html:100
 msgid "Legal policies and Disclaimers"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/partials/i8n.html:15
+#: templates/partials/i8n.html:15
 msgid "Go"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/partials/important_message.html:7
-#: crt_portal/cts_forms/templates/partials/message_hate_crime.html:7
+#: templates/partials/important_message.html:7
+#: templates/partials/message_hate_crime.html:7
 msgid "Have you been a victim of a hate crime or human trafficking?"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/partials/important_message.html:9
-#: crt_portal/cts_forms/templates/partials/message_hate_crime.html:9
+#: templates/partials/important_message.html:9
+#: templates/partials/message_hate_crime.html:9
 msgid "Get help NOW!"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/partials/important_message_voting.html:8
-#: crt_portal/cts_forms/templates/vot_resources.html:45
+#: templates/partials/important_message_voting.html:8
+#: templates/vot_resources.html:45
 msgid "Report voting issues"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/partials/important_message_voting.html:9
+#: templates/partials/important_message_voting.html:9
 msgid "including threats against voters and election fraud."
 msgstr ""
 
-#: crt_portal/cts_forms/templates/partials/menu_language_selection.html:35
+#: templates/partials/menu_language_selection.html:35
 msgid "More Language Assistance Services"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/partials/omb-modal.html:13
-#: crt_portal/cts_forms/templates/printable_intake_form.html:298
+#: templates/partials/omb-modal.html:13
+#: templates/printable_intake_form.html:298
 msgid ""
 "According to the Paperwork Reduction Act of 1995, no persons are required to "
 "respond to a collection of information unless such collection displays a "
 "valid OMB control number."
 msgstr ""
 
-#: crt_portal/cts_forms/templates/partials/omb-modal.html:16
-#: crt_portal/cts_forms/templates/printable_intake_form.html:299
+#: templates/partials/omb-modal.html:16
+#: templates/printable_intake_form.html:299
 msgid ""
 "Public reporting burden for this collection of information is estimated to "
 "average 2 minutes per response, including time for reviewing instructions, "
@@ -2324,8 +2227,8 @@ msgid ""
 "and completing and reviewing the collection of information."
 msgstr ""
 
-#: crt_portal/cts_forms/templates/partials/omb-modal.html:19
-#: crt_portal/cts_forms/templates/printable_intake_form.html:300
+#: templates/partials/omb-modal.html:19
+#: templates/printable_intake_form.html:300
 msgid ""
 "The personal description question is estimated to take 10 minutes for the "
 "response, time for reviewing instructions, searching existing data sources, "
@@ -2334,24 +2237,23 @@ msgid ""
 "voluntary."
 msgstr ""
 
-#: crt_portal/cts_forms/templates/partials/omb-modal.html:22
-#: crt_portal/cts_forms/templates/printable_intake_form.html:301
+#: templates/partials/omb-modal.html:22
+#: templates/printable_intake_form.html:301
 msgid ""
 "Send comments regarding the burden estimate or any other aspect of this "
 "collection of information, including suggestions for reducing this burden, "
 "to:"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/partials/omb-modal.html:33
+#: templates/partials/omb-modal.html:33
 msgid "Return to filing a report"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/partials/policy.html:9
+#: templates/partials/policy.html:9
 msgid "Privacy Policy"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/partials/policy.html:16
-#: crt_portal/cts_forms/templates/printable_intake_form.html:281
+#: templates/partials/policy.html:16 templates/printable_intake_form.html:281
 #, python-format
 msgid ""
 "\n"
@@ -2367,45 +2269,40 @@ msgid ""
 "            "
 msgstr ""
 
-#: crt_portal/cts_forms/templates/partials/policy.html:20
-#: crt_portal/cts_forms/templates/printable_intake_form.html:286
+#: templates/partials/policy.html:20 templates/printable_intake_form.html:286
 msgid "contractors who work with us, if they need it to perform a contract;"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/partials/policy.html:21
-#: crt_portal/cts_forms/templates/printable_intake_form.html:287
+#: templates/partials/policy.html:21 templates/printable_intake_form.html:287
 msgid ""
 "a court, magistrate, or administrative tribunal, as well as opposing counsel "
 "during settlement negotiations and/or litigation;"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/partials/policy.html:22
-#: crt_portal/cts_forms/templates/printable_intake_form.html:288
+#: templates/partials/policy.html:22 templates/printable_intake_form.html:288
 msgid "Members of Congress;"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/partials/policy.html:23
-#: crt_portal/cts_forms/templates/printable_intake_form.html:289
+#: templates/partials/policy.html:23 templates/printable_intake_form.html:289
 msgid "Federal, state, or local law enforcement agencies."
 msgstr ""
 
-#: crt_portal/cts_forms/templates/partials/policy.html:27
-#: crt_portal/cts_forms/templates/printable_intake_form.html:293
+#: templates/partials/policy.html:27 templates/printable_intake_form.html:293
 #, python-format
 msgid ""
 "You can find our complete <a href=\"%(privacy_policy_url)s\">Privacy Policy "
 "here</a>."
 msgstr ""
 
-#: crt_portal/cts_forms/templates/partials/redirect-modal.html:8
+#: templates/partials/redirect-modal.html:8
 msgid "You are now leaving the Department of Justice website."
 msgstr ""
 
-#: crt_portal/cts_forms/templates/partials/redirect-modal.html:13
+#: templates/partials/redirect-modal.html:13
 msgid "You will automatically be redirected to:"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/partials/redirect-modal.html:18
+#: templates/partials/redirect-modal.html:18
 msgid ""
 "The Department of Justice does not endorse the organizations or views "
 "represented by this site and takes no responsibility for, and exercises no "
@@ -2413,11 +2310,11 @@ msgid ""
 "or legality of the material contained on this site."
 msgstr ""
 
-#: crt_portal/cts_forms/templates/partials/redirect-modal.html:26
+#: templates/partials/redirect-modal.html:26
 msgid "Continue"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/partials/unsupported-browser-modal.html:9
+#: templates/partials/unsupported-browser-modal.html:9
 msgid ""
 "\n"
 "          <strong>NOTICE: Your mobile browser is not compatible with this "
@@ -2425,7 +2322,7 @@ msgid ""
 "          "
 msgstr ""
 
-#: crt_portal/cts_forms/templates/partials/unsupported-browser-modal.html:14
+#: templates/partials/unsupported-browser-modal.html:14
 msgid ""
 "\n"
 "          Please consider downloading the latest version of Google Chrome, "
@@ -2434,89 +2331,75 @@ msgid ""
 "          "
 msgstr ""
 
-#: crt_portal/cts_forms/templates/printable_intake_form.html:17
+#: templates/printable_intake_form.html:17
 msgid "Page"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/printable_intake_form.html:31
-#: crt_portal/cts_forms/templates/vot_resources.html:28
-#: crt_portal/cts_forms/templates/vot_resources.html:50
+#: templates/printable_intake_form.html:31 templates/vot_resources.html:28
+#: templates/vot_resources.html:50
 msgid "Report a possible civil rights violation"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/printable_intake_form.html:38
+#: templates/printable_intake_form.html:38
 msgid "Before starting, you can also"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/printable_intake_form.html:38
+#: templates/printable_intake_form.html:38
 msgid "read the instructions for this form"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/printable_intake_form.html:38
+#: templates/printable_intake_form.html:38
 msgid "(at the end) and what to expect after submission."
 msgstr ""
 
-#: crt_portal/cts_forms/templates/printable_intake_form.html:77
-#: crt_portal/cts_forms/views_public.py:203
-#: crt_portal/cts_forms/views_public.py:309
-#: crt_portal/cts_forms/views_public.py:327
-#: crt_portal/cts_forms/views_public.py:362
+#: templates/printable_intake_form.html:77 views_public.py:203
+#: views_public.py:323 views_public.py:341 views_public.py:376
 msgid "Primary concern"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/printable_intake_form.html:92
+#: templates/printable_intake_form.html:92
 msgid ""
 "Note: Some primary concerns have follow-up questions. If you select one of "
 "these, we ask that you also answer the follow-up question presented below "
 "the specific primary reason."
 msgstr ""
 
-#: crt_portal/cts_forms/templates/printable_intake_form.html:144
-#: crt_portal/cts_forms/templates/printable_intake_form.html:209
+#: templates/printable_intake_form.html:144
+#: templates/printable_intake_form.html:209
 msgid "Please describe \\"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/printable_intake_form.html:159
-#: crt_portal/cts_forms/views_public.py:328
-#: crt_portal/cts_forms/views_public.py:329
-#: crt_portal/cts_forms/views_public.py:330
-#: crt_portal/cts_forms/views_public.py:331
-#: crt_portal/cts_forms/views_public.py:332
-#: crt_portal/cts_forms/views_public.py:333
+#: templates/printable_intake_form.html:159 views_public.py:342
+#: views_public.py:343 views_public.py:344 views_public.py:345
+#: views_public.py:346 views_public.py:347
 msgid "Location details"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/printable_intake_form.html:178
-#: crt_portal/cts_forms/templates/printable_intake_form.html:186
-#: crt_portal/cts_forms/views_public.py:206
-#: crt_portal/cts_forms/views_public.py:317
-#: crt_portal/cts_forms/views_public.py:335
+#: templates/printable_intake_form.html:178
+#: templates/printable_intake_form.html:186 views_public.py:206
+#: views_public.py:331 views_public.py:349
 msgid "Date"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/printable_intake_form.html:195
-#: crt_portal/cts_forms/views_public.py:205
-#: crt_portal/cts_forms/views_public.py:316
-#: crt_portal/cts_forms/views_public.py:334
+#: templates/printable_intake_form.html:195 views_public.py:205
+#: views_public.py:330 views_public.py:348
 msgid "Personal characteristics"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/printable_intake_form.html:218
-#: crt_portal/cts_forms/views_public.py:207
-#: crt_portal/cts_forms/views_public.py:318
-#: crt_portal/cts_forms/views_public.py:336
+#: templates/printable_intake_form.html:218 views_public.py:207
+#: views_public.py:332 views_public.py:350
 msgid "Personal description"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/printable_intake_form.html:234
+#: templates/printable_intake_form.html:234
 msgid "You may attach further details as extra pages, if necessary"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/printable_intake_form.html:239
+#: templates/printable_intake_form.html:239
 msgid "Instructions"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/printable_intake_form.html:242
+#: templates/printable_intake_form.html:242
 msgid ""
 "The purpose of this form is to assist you in filing a report with the Civil "
 "Rights Division. You are not required to use this form; a letter with the "
@@ -2524,11 +2407,11 @@ msgid ""
 "same information."
 msgstr ""
 
-#: crt_portal/cts_forms/templates/printable_intake_form.html:246
+#: templates/printable_intake_form.html:246
 msgid "Step 1: You can complete and submit this form."
 msgstr ""
 
-#: crt_portal/cts_forms/templates/printable_intake_form.html:247
+#: templates/printable_intake_form.html:247
 msgid ""
 "By completing this form, you can provide the details we need to understand "
 "what happened. You can mail a printed copy of this form via postal service "
@@ -2536,55 +2419,53 @@ msgid ""
 "staff for review"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/printable_intake_form.html:251
+#: templates/printable_intake_form.html:251
 msgid "Step 2: We will review your report."
 msgstr ""
 
-#: crt_portal/cts_forms/templates/printable_intake_form.html:256
+#: templates/printable_intake_form.html:256
 msgid "Step 3: We will determine next steps and get back to you."
 msgstr ""
 
-#: crt_portal/cts_forms/templates/printable_intake_form.html:262
+#: templates/printable_intake_form.html:262
 msgid "To mail a printed copy of the form:"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/printable_intake_form.html:270
+#: templates/printable_intake_form.html:270
 msgid "To reach us by phone:"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/privacy.html:6
-#: crt_portal/cts_forms/templates/privacy.html:12
+#: templates/privacy.html:6 templates/privacy.html:12
 msgid "Civil Rights Division - Department of Justice - Privacy Policy"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/privacy.html:22
-#: crt_portal/cts_forms/templates/privacy.html:35
+#: templates/privacy.html:22 templates/privacy.html:35
 msgid "Privacy Act Statement"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/privacy.html:26
+#: templates/privacy.html:26
 msgid "Your information"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/privacy.html:29
+#: templates/privacy.html:29
 msgid "Our Statutes"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/privacy.html:38
+#: templates/privacy.html:38
 msgid ""
 "The information you provide through this form will help the Department of "
 "Justice’s Civil Rights Division (“us,” “we”) enforce the federal civil "
 "rights statutes within its authority."
 msgstr ""
 
-#: crt_portal/cts_forms/templates/privacy.html:41
+#: templates/privacy.html:41
 msgid ""
 "In addition to our enforcement efforts, we may use the information you "
 "provide on this form for certain routine purposes. These include sharing "
 "with:"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/privacy.html:43
+#: templates/privacy.html:43
 msgid ""
 "\n"
 "                    <li>\n"
@@ -2617,16 +2498,16 @@ msgid ""
 "                    "
 msgstr ""
 
-#: crt_portal/cts_forms/templates/privacy.html:66
+#: templates/privacy.html:66
 msgid ""
 "For a complete list of routine agency uses, please consult the following:"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/privacy.html:75
+#: templates/privacy.html:75
 msgid "You should also know that:"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/privacy.html:77
+#: templates/privacy.html:77
 msgid ""
 "\n"
 "                    <li>Any information you provide to us through this form "
@@ -2642,18 +2523,17 @@ msgid ""
 "                    "
 msgstr ""
 
-#: crt_portal/cts_forms/templates/privacy.html:86
-#: crt_portal/cts_forms/templates/privacy.html:147
+#: templates/privacy.html:86 templates/privacy.html:147
 msgid "Return to top"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/privacy.html:89
+#: templates/privacy.html:89
 msgid ""
 "We are authorized to collect this information pursuant to the following "
 "statutes:"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/privacy.html:91
+#: templates/privacy.html:91
 msgid ""
 "\n"
 "                    <li>Official Misconduct, 18 U.S.C. §§ 241, 242</li>\n"
@@ -2741,7 +2621,7 @@ msgid ""
 "                    "
 msgstr ""
 
-#: crt_portal/cts_forms/templates/privacy.html:143
+#: templates/privacy.html:143
 msgid ""
 "\n"
 "                The full list of routine uses for this correspondence can be "
@@ -2752,75 +2632,71 @@ msgid ""
 "                "
 msgstr ""
 
-#: crt_portal/cts_forms/templates/vot_resources.html:6
-#: crt_portal/cts_forms/templates/vot_resources.html:13
+#: templates/vot_resources.html:6 templates/vot_resources.html:13
 msgid "Civil Rights Division - Department of Justice - Voting resources"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/vot_resources.html:24
+#: templates/vot_resources.html:24
 msgid "How do I..."
 msgstr ""
 
-#: crt_portal/cts_forms/templates/vot_resources.html:31
-#: crt_portal/cts_forms/templates/vot_resources.html:68
+#: templates/vot_resources.html:31 templates/vot_resources.html:68
 msgid "Report a possible federal criminal civil rights violation"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/vot_resources.html:34
-#: crt_portal/cts_forms/templates/vot_resources.html:84
+#: templates/vot_resources.html:34 templates/vot_resources.html:84
 msgid ""
 "Find the election laws, voting hours, or polling place locations in your "
 "state"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/vot_resources.html:38
-#: crt_portal/cts_forms/templates/vot_resources.html:92
+#: templates/vot_resources.html:38 templates/vot_resources.html:92
 msgid "Learn about your voting rights"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/vot_resources.html:53
+#: templates/vot_resources.html:53
 msgid ""
 "To report civil rights violations, go to <a class='link--blue' href='https://"
 "civilrights.justice.gov/report/'>civilrights.justice.gov/report</a>"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/vot_resources.html:60
+#: templates/vot_resources.html:60
 msgid ""
 "Discrimination on the basis of race, color, or membership in a language "
 "minority group while voting or attempting to vote"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/vot_resources.html:61
+#: templates/vot_resources.html:61
 msgid "Voter registration issues"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/vot_resources.html:62
+#: templates/vot_resources.html:62
 msgid "Lack of accessibility while voting"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/vot_resources.html:63
+#: templates/vot_resources.html:63
 msgid "Absentee voting issues for uniformed services or overseas voters"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/vot_resources.html:72
+#: templates/vot_resources.html:72
 msgid ""
 "All complaints related to violence, threats of violence, or intimidation at "
 "a polling place should be reported first to local police authorities by "
 "calling"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/vot_resources.html:74
+#: templates/vot_resources.html:74
 msgid "911"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/vot_resources.html:77
+#: templates/vot_resources.html:77
 msgid ""
 "After alerting local law enforcement to such emergencies by calling <a "
 "class='external-link--blue' href='tel:911'>911</a>, the public should "
-"contact the Department of Justice"
+"<a href='/report'>contact the Department of Justice</a>"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/vot_resources.html:79
+#: templates/vot_resources.html:79
 msgid ""
 "Election-crime complaints should be directed to your local <a "
 "class='external-link--blue' href='https://www.justice.gov/usao/find-your-"
@@ -2829,84 +2705,79 @@ msgid ""
 "office</a>"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/vot_resources.html:87
+#: templates/vot_resources.html:87
 msgid ""
 "Go to <a class='external-link--blue' href='https://usa.gov/election-"
 "office'>usa.gov/election-office</a> to find your state election website"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/vot_resources.html:96
+#: templates/vot_resources.html:96
 msgid ""
 "Find additional information about voting rights laws at <a class='link--"
 "blue' href='https://justice.gov/crt/voting-section'>www.justice.gov/crt/"
 "voting-section</a>."
 msgstr ""
 
-#: crt_portal/cts_forms/templates/vot_resources.html:98
+#: templates/vot_resources.html:98
 msgid ""
 "Learn about federal laws that protect voters with disabilities at <a "
-"class='link--blue' href='https://ada.gov'>ada.gov</a>."
+"class='link--blue' href='https://www.ada.gov/resources/protecting-voter-"
+"rights/'>ada.gov</a>."
 msgstr ""
 
-#: crt_portal/cts_forms/templates/vot_resources.html:101
+#: templates/vot_resources.html:101
 msgid ""
 "Download the Justice Department's new <a class='link--blue' href='https://"
 "www.justice.gov/file/1517936/download'>Know Your Voting Rights</a> guide."
 msgstr ""
 
-#: crt_portal/cts_forms/validators.py:127
+#: validators.py:127
 msgid "Enter a valid email address."
 msgstr ""
 
-#: crt_portal/cts_forms/views_public.py:204
-#: crt_portal/cts_forms/views_public.py:310
-#: crt_portal/cts_forms/views_public.py:311
-#: crt_portal/cts_forms/views_public.py:312
-#: crt_portal/cts_forms/views_public.py:313
-#: crt_portal/cts_forms/views_public.py:314
-#: crt_portal/cts_forms/views_public.py:315
+#: views_public.py:204 views_public.py:324 views_public.py:325
+#: views_public.py:326 views_public.py:327 views_public.py:328
+#: views_public.py:329
 msgid "Location"
 msgstr ""
 
-#: crt_portal/cts_forms/views_public.py:208
-#: crt_portal/cts_forms/views_public.py:319
-#: crt_portal/cts_forms/views_public.py:367
+#: views_public.py:208 views_public.py:333 views_public.py:381
 msgid "Review"
 msgstr ""
 
-#: crt_portal/cts_forms/views_public.py:337
+#: views_public.py:351
 msgid "Review your report"
 msgstr ""
 
-#: crt_portal/cts_forms/views_public.py:353
+#: views_public.py:367
 msgid "word remaining"
 msgstr ""
 
-#: crt_portal/cts_forms/views_public.py:354
+#: views_public.py:368
 msgid " words remaining"
 msgstr ""
 
-#: crt_portal/cts_forms/views_public.py:355
+#: views_public.py:369
 msgid " word limit reached"
 msgstr ""
 
-#: crt_portal/cts_forms/views_public.py:365
+#: views_public.py:379
 msgid "Please select if any that apply to your situation (optional)"
 msgstr ""
 
-#: crt_portal/cts_forms/views_public.py:454
+#: views_public.py:468
 msgid "404 | Page not found"
 msgstr ""
 
-#: crt_portal/cts_forms/views_public.py:455
+#: views_public.py:469
 msgid "We can't find the page you are looking for"
 msgstr ""
 
-#: crt_portal/cts_forms/views_public.py:514
+#: views_public.py:528
 msgid "Your browser couldn't create a secure cookie"
 msgstr ""
 
-#: crt_portal/cts_forms/views_public.py:515
+#: views_public.py:529
 msgid ""
 "We use security cookies to protect your information from attackers. Make "
 "sure you allow cookies for this site. Having the page open for long periods "
