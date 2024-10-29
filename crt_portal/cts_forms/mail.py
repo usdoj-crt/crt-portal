@@ -226,6 +226,7 @@ def send_tms(message: Mail, *, report: Optional[Report], purpose: str, dry_run: 
 def notify_scheduled(scheduled: ScheduledNotification):
     """Sends a set of scheduled notifications as a digest."""
     scheduled.was_sent = True
+    scheduled.save()
 
     if not scheduled.recipient.email:
         logger.info(f'Not sending digest notification (no email address for {scheduled.recipient})')

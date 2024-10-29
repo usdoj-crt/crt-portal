@@ -36,19 +36,20 @@ from datetime import datetime
 from django.db.models.functions import ExtractYear, Cast, Concat
 from django.contrib.auth.models import Group
 from django.db.models.functions import Lower
+from django.forms import Select
 
 from .attachments import ALLOWED_FILE_EXTENSIONS
 from .filters import report_filter, dashboard_filter, report_grouping
 from .forms import (
     BatchReviewForm, BulkActionsForm, BulkDispositionForm, CommentActions, ComplaintActions, ComplaintOutreach,
     ContactEditForm, Filters, PrintActions, ProfileForm,
-    ReportEditForm, ResourceFilter, ResponseActions, SavedSearchActions, SavedSearchFilter, add_activity,
+    ReportEditForm, ResourceActions, ResourceFilter, ResponseActions, SavedSearchActions, SavedSearchFilter, add_activity,
     AttachmentActions, Review, save_form,
     PhoneProForm
 )
 from .mail import mail_to_complainant
-from .model_variables import BATCH_STATUS_CHOICES, HATE_CRIMES_TRAFFICKING_MODEL_CHOICES, NOTIFICATION_PREFERENCE_CHOICES
-from .models import CommentAndSummary, Profile, Report, ReportAttachment, ReportDisposition, ReportDispositionBatch, ReportsData, RetentionSchedule, SavedSearch, Trends, EmailReportCount, Campaign, User, NotificationPreference, RoutingSection, RoutingStepOneContact, RepeatWriterInfo
+from .model_variables import BATCH_STATUS_CHOICES, HATE_CRIMES_TRAFFICKING_MODEL_CHOICES, NOTIFICATION_PREFERENCE_CHOICES, STATES_AND_TERRITORIES
+from .models import CommentAndSummary, Profile, Report, ReportAttachment, ReportDisposition, ReportDispositionBatch, ReportsData, Resource, RetentionSchedule, SavedSearch, Trends, EmailReportCount, Campaign, User, NotificationPreference, RoutingSection, RoutingStepOneContact, RepeatWriterInfo
 from .page_through import pagination
 from .sorts import other_sort, report_sort
 
@@ -940,6 +941,69 @@ def resources_view(request):
     return render(request, 'forms/complaint_view/resources/index.html', {'form': ResourceFilter(request.GET)})
 
 
+class ResourceActionView(LoginRequiredMixin, View):
+
+    form = ResourceActions
+
+    def get(self, request):
+        """
+        Get resource to create or edit
+        """
+        id = request.GET.get('id', None)
+        if id:
+            resource = get_object_or_404(Resource, pk=id)
+        else:
+            resource = Resource()
+        resource_form = ResourceActions(instance=resource)
+        output = {
+            'id': id,
+            'form': resource_form,
+        }
+        return render(request, 'forms/complaint_view/resources/actions/index.html', output)
+
+    def post(self, request):
+        url = reverse('crt_forms:resources')
+        delete = request.POST.get('delete', '') == 'delete'
+        update = request.POST.get('update', '') == 'update'
+        id = request.POST.get('id', None)
+        if update or delete:
+            resource = get_object_or_404(Resource, pk=id)
+        else:
+            resource = Resource()
+            id = resource.pk
+        form = ResourceActions(request.POST, instance=resource, user=request.user)
+        if delete:
+            resource.delete()
+            messages.add_message(request, messages.SUCCESS, form.success_message(id, delete))
+            return redirect(url)
+
+        if not (form.is_valid() and form.has_changed()):
+            output = {
+                'form': form,
+                'id': id,
+            }
+            try:
+                fail_message = form.FAIL_MESSAGE
+            except AttributeError:
+                fail_message = 'No updates applied'
+
+            if not form.is_valid():
+                error_items = ''.join([
+                    f'<li>Problem modifying {field if field != "__all__" else "resource"}: {error}</li>'
+                    for field, error
+                    in form.errors.items()
+                ])
+                fail_message += f'<ul>{error_items}</ul>'
+
+            messages.add_message(request,
+                                 messages.ERROR,
+                                 mark_safe(fail_message))
+            return render(request, 'forms/complaint_view/resources/actions/index.html', output)
+        resource = form.save()
+        messages.add_message(request, messages.SUCCESS, form.success_message(id))
+        return redirect(url)
+
+
 class ProfileView(LoginRequiredMixin, FormView):
     # Can be used for updating section filter for a profile
     form_class = ProfileForm
@@ -1429,6 +1493,25 @@ class DispositionBatchActionsView(LoginRequiredMixin, FormView):
             'second_display_name': second_display_name,
         }
 
+    def get_shared_report_fields(self, reports):
+        earliest = reports.order_by('closed_date')[0]
+        latest = reports.order_by('-closed_date')[0]
+        first_report = reports.first()
+        approval_actions = list(first_report.activity().filter(verb='Disposition:', description__contains='Approved for disposal'))
+        user_display = ''
+        if len(approval_actions):
+            user_id = approval_actions[-1].actor_object_id
+            user = User.objects.filter(pk=user_id).first()
+            user_display = f'{user.first_name} {user.last_name}' if user.first_name and user.last_name else user.username
+        shared_report_fields = {}
+        shared_report_fields['section_reviewer'] = user_display
+        shared_report_fields['earliest'] = earliest.closed_date
+        shared_report_fields['latest'] = latest.closed_date
+        shared_report_fields['assigned_section'] = first_report.assigned_section
+        shared_report_fields['status'] = first_report.status
+        shared_report_fields['retention_schedule'] = first_report.retention_schedule
+        return shared_report_fields
+
     def get(self, request, id=None):
         batch = get_object_or_404(ReportDispositionBatch, pk=id)
         report_dispo_objects = ReportDisposition.objects.filter(batch=batch)
@@ -1438,21 +1521,13 @@ class DispositionBatchActionsView(LoginRequiredMixin, FormView):
                                    expiration_year=F('retention_year') + ExtractYear('closed_date') + 1,
                                    expiration_date=Cast(Concat(F('expiration_year'), Value('-'), Value('01'), Value('-'), Value('01'), output_field=CharField()), output_field=DateField()),
                                    )
-        earliest = reports.order_by('closed_date')[0]
-        latest = reports.order_by('-closed_date')[0]
         report_ids = list(reports.values_list('pk', flat=True))
-        first_report = reports.first()
         page = request.GET.get('page', 1)
         paginator = Paginator(reports, 15)
+        shared_report_fields = self.get_shared_report_fields(reports)
         reports, page_format = pagination(paginator, page, 15)
         return_url_args = request.GET.get('return_url_args', '')
         return_url_args = urllib.parse.unquote(return_url_args)
-        shared_report_fields = {}
-        shared_report_fields['earliest'] = earliest.closed_date
-        shared_report_fields['latest'] = latest.closed_date
-        shared_report_fields['assigned_section'] = first_report.assigned_section
-        shared_report_fields['status'] = first_report.status
-        shared_report_fields['retention_schedule'] = first_report.retention_schedule
         can_review_batch = request.user.has_perm('cts_forms.review_dispositionbatch')
         form = BatchReviewForm(user=request.user, can_review_batch=can_review_batch, instance=batch)
         data = get_disposition_report_data(reports)
@@ -1522,15 +1597,11 @@ class DispositionBatchActionsView(LoginRequiredMixin, FormView):
                                    expiration_date=Cast(Concat(F('expiration_year'), Value('-'), Value('01'), Value('-'), Value('01'), output_field=CharField()), output_field=DateField()),
                                    )
         report_ids = list(reports.values_list('pk', flat=True))
-        first_report = reports.first()
         page = request.GET.get('page', 1)
+        shared_report_fields = self.get_shared_report_fields(reports)
         paginator = Paginator(reports, 15)
         reports, page_format = pagination(paginator, page, 15)
         data = get_disposition_report_data(reports)
-        shared_report_fields = {}
-        shared_report_fields['assigned_section'] = first_report.assigned_section
-        shared_report_fields['status'] = first_report.status
-        shared_report_fields['retention_schedule'] = first_report.retention_schedule
         output = self.get_reviewer_data(request, batch)
         output.update({
             'batch': batch,
@@ -2080,6 +2151,14 @@ def phone_pro_form_view(request, report_id=None):
                     'email': 'other@example.com',
                 },
             ],
+
+            'state_resources_selector': Select(
+                attrs={'class': 'usa-select state-hide-show-selector'},
+                choices=[
+                    ('default', 'Select a state'),
+                    *STATES_AND_TERRITORIES,
+                ],
+            ).render('', 'default'),
 
             'form': form,
         }
