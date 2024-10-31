@@ -76,15 +76,18 @@
       {# empty label for the checkbox to render using the ::before selector #}
       <label for="id_shared" class="usa-checkbox__label crt-checkbox__label"></label>
     </div>
-
-    {% include 'forms/complaint_view/notifications/preference.html' with preferences=notification_preferences choices=notification_choices title="Notifications" key=form.saved_search_field %}
+    <div class="preference-wrapper">
+    {% include 'forms/complaint_view/notifications/preference.html' with preferences=notification_preferences choices=notification_choices title="Notifications" key=form.saved_search_field threshold_name=threshold_field_name %}
+    </div>
     {% if group_data %}
       <div class="group-notifications-container">
         <label class="intake-label margin-top-3">
           Group Notifications
         </label>
       {% for group in group_data %}
-        {% include 'forms/complaint_view/notifications/preference.html' with preferences=group.notification_preferences choices=group.notification_choices title="Notifications" key=group.field_name group=group.group %}
+      <div class="preference-wrapper">
+        {% include 'forms/complaint_view/notifications/preference.html' with preferences=group.notification_preferences choices=group.notification_choices title="Notifications" key=group.field_name group=group.group group_threshold_name=group.threshold_field_name %}
+        </div>
       {% endfor %}
       </div>
     {% endif %}

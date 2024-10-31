@@ -830,6 +830,7 @@ PRIMARY_COMPLAINT_EXTRA_QUESTIONS = {
 NOTIFICATION_PREFERENCE_CHOICES = collections.defaultdict(lambda: [
     ('daily', 'Daily Digest'),
     ('weekly', 'Weekly Digest'),
+    ('threshold', 'Threshold'),
     ('none', 'None'),
 ])
 

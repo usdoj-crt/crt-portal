@@ -3133,10 +3133,14 @@ class SavedSearchActions(ModelForm):
         ModelForm.__init__(self, *args, **kwargs)
         if self.instance and self.instance.id is not None:
             self.saved_search_field = f'saved_search_{self.instance.id}'
+            self.saved_search_threshold_field = f'saved_search_{self.instance.id}_threshold'
             if hasattr(notification_preferences, 'saved_searches'):
                 self.initial[self.saved_search_field] = notification_preferences.saved_searches.get(str(self.instance.id), None)
+            if hasattr(notification_preferences, 'saved_searches_threshold'):
+                self.initial[self.saved_search_threshold_field] = notification_preferences.saved_searches_threshold.get(str(self.instance.id), None)
         else:
             self.saved_search_field = 'saved_search_new'
+            self.saved_search_threshold_field = 'saved_search_new_threshold'
         self.fields[self.saved_search_field] = ChoiceField(
             label='Notification preference',
             choices=NOTIFICATION_PREFERENCE_CHOICES['saved_search'],
@@ -3145,6 +3149,18 @@ class SavedSearchActions(ModelForm):
             ),
             required=False,
             disabled=False,
+        )
+        self.fields[self.saved_search_threshold_field] = IntegerField(
+            label='Threshold',
+            widget=TextInput(
+                attrs={
+                    'class': 'usa-input',
+                    'name': 'threshold',
+                    'placeholder': 'Threshold',
+                    'aria-label': 'threshold',
+                },
+            ),
+            required=self.fields[self.saved_search_field] == 'threshold'
         )
         for group in self.group_data:
             id = group['group'].id
@@ -3159,6 +3175,18 @@ class SavedSearchActions(ModelForm):
                 disabled=False,
             )
             self.initial[field_name] = group['notification_preferences']
+            self.fields[f'group_{id}_{self.saved_search_threshold_field}'] = IntegerField(
+                label='Threshold',
+                widget=TextInput(
+                    attrs={
+                        'class': 'usa-input',
+                        'name': 'threshold',
+                        'placeholder': 'Threshold',
+                        'aria-label': 'threshold',
+                    },
+                ),
+                required=self.fields[field_name] == 'threshold'
+            )
 
         self.fields['section'] = ChoiceField(
             widget=ComplaintSelect(
@@ -3254,7 +3282,7 @@ class SavedSearchActions(ModelForm):
         fields += f', and {updated_fields[-1]}'
         return f"Successfully updated {fields} in {search_name}."
 
-    def set_user_preferences(self, user, saved_search, key, search_field):
+    def set_user_preferences(self, user, saved_search, key, threshold_key, search_field, search_threshold_field):
         if hasattr(user, 'notification_preference'):
             notification_preference = user.notification_preference
         else:
@@ -3262,26 +3290,35 @@ class SavedSearchActions(ModelForm):
         setattr(notification_preference,
                 key,
                 self.cleaned_data[search_field])
+        setattr(notification_preference,
+                threshold_key,
+                self.cleaned_data[search_threshold_field])
+        logging.info(self.cleaned_data[search_threshold_field])
         notification_preference.saved_searches_last_checked[str(saved_search.id)] = datetime.now().isoformat()
+        notification_preference.saved_searches_threshold[str(saved_search.id)] = self.cleaned_data[search_threshold_field]
         notification_preference.save()
 
     def save(self):
         saved_search = super().save(True)
         key = f'saved_search_{saved_search.id}'
-        self.set_user_preferences(self.user, saved_search, key, self.saved_search_field)
+        threshold_key = f'saved_search_{saved_search.id}_threshold'
+        logging.info(self.cleaned_data[self.saved_search_threshold_field])
+        self.set_user_preferences(self.user, saved_search, key, threshold_key, self.saved_search_field, self.saved_search_threshold_field)
         for group in self.group_data:
             group_obj = group['group']
             users = User.objects.filter(groups__name=group_obj.name)
             group_search_field = f'group_{group_obj.id}_{self.saved_search_field}'
+            group_threshold_field = f'group_{group_obj.id}_{self.saved_search_threshold_field}'
             if hasattr(group_obj, 'group_preferences'):
                 group_preferences = group_obj.group_preferences
             else:
                 group_preferences = GroupPreferences(group=group_obj)
-            if self.field_changed(group_search_field):
+            if self.field_changed(group_search_field) or self.field_changed(group_threshold_field):
                 group_preferences.saved_searches[saved_search.id] = self.cleaned_data[group_search_field]
+                group_preferences.saved_searches_threshold[saved_search.id] = self.cleaned_data[group_threshold_field]
                 group_preferences.save()
                 for user in users:
-                    self.set_user_preferences(user, saved_search, key, group_search_field)
+                    self.set_user_preferences(user, saved_search, key, threshold_key, group_search_field, group_threshold_field)
 
         return saved_search
 
