@@ -16,7 +16,6 @@ from django.db.models.functions import Cast
 from django.db.models import IntegerField as IntField
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
-from django.utils import timezone as dtimezone
 from django.conf import settings
 from actstream.models import Action
 
@@ -1057,33 +1056,30 @@ PHONE_FORM_CONFIG = [
                 'What did the person believe happened?'),
     FieldConfig('crt_reciept_month',
                 TextInput(attrs={
-                    'class': 'usa-input usa-input--small',
+                    'class': 'autotoday usa-input usa-input--small',
                     'type': 'text',
                     'maxlength': 2,
                     'pattern': '[0-9]*',
                     'inputmode': 'numeric',
-                    'value': dtimezone.now().month,
                 }),
                 'Month'),
     FieldConfig('crt_reciept_day',
                 TextInput(attrs={
-                    'class': 'usa-input usa-input--small',
+                    'class': 'autotoday usa-input usa-input--small',
                     'type': 'text',
                     'maxlength': 2,
                     'pattern': '[0-9]*',
                     'inputmode': 'numeric',
-                    'value': dtimezone.now().day,
                 }),
                 'Day'),
     FieldConfig('crt_reciept_year',
                 TextInput(attrs={
-                    'class': 'usa-input usa-input--medium',
+                    'class': 'autotoday usa-input usa-input--medium',
                     'type': 'text',
                     'minlength': 4,
                     'maxlength': 4,
                     'pattern': '[0-9]*',
                     'inputmode': 'numeric',
-                    'value': dtimezone.now().year,
                 }),
                 'Year'),
 
