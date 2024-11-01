@@ -9,6 +9,18 @@
     status: Cookies.get('disposition_view_batch_status') || ''
   };
 
+  function clearFilters(tab) {
+    Cookies.remove('disposition_view_batch_status');
+    const updates = {
+      retention_schedule: '',
+      expiration_date: '',
+      status: '',
+      disposition_status: tab.value
+    };
+    root.CRT.mutateFilterDataWithUpdates(root.CRT.filterDataModel, updates);
+    root.CRT.formView.doSearch(root.CRT.formEl);
+  }
+
   function filterController() {
     root.CRT.formEl = dom.getElementById('sort-page-form');
 
@@ -86,6 +98,13 @@
   }
 
   function init() {
+    const tabs = dom.querySelectorAll('li > button[type="submit"]');
+    tabs.forEach(tab => {
+      tab.onclick = (e) => {
+        e.preventDefault();
+        clearFilters(tab);
+      }
+    })
     const search = new URLSearchParams(root.location.search);
     if (search.size === 0) {
       search.set('disposition_status', 'past');
