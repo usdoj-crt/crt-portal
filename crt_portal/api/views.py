@@ -585,22 +585,18 @@ class ResourceContactView(APIView):
     def post(self, request) -> JsonResponse:
         action = request.POST.get('action')
         if action == 'removed':
-            try:
-                resource_contact_id = int(request.POST.get('contact_id'))
-                resource_contact = get_object_or_404(ResourceContact, pk=resource_contact_id)
-                resource_contact.delete()
-                return JsonResponse({'response': f'Contact was successfully {action}', 'id': resource_contact_id, 'type': 'success'})
-            except ValueError:
-                return HttpResponse(status=400)
+            resource_contact_id = int(request.POST.get('contact_id'))
+            resource_contact = get_object_or_404(ResourceContact, pk=resource_contact_id)
+            resource_contact.delete()
+            return JsonResponse({'response': f'Contact was successfully {action}', 'id': resource_contact_id, 'type': 'success'})
         resource_contact_form = self.form_class(request.POST)
         if resource_contact_form.is_valid() and resource_contact_form.has_changed():
             resource_contact = resource_contact_form.save(commit=False)
             resource_contact.save()
             return JsonResponse({'response': f'Contact was successfully {action}', 'id': resource_contact.pk, 'first_name': resource_contact.first_name, 'last_name': resource_contact.last_name, 'title': resource_contact.title, 'phone': resource_contact.phone, 'email': resource_contact.email, 'type': 'success'})
-        else:
-            errors = [value for _, value in resource_contact_form.errors.items()]
-            error_message = f'Could not save contact: {errors}'
-            return JsonResponse({'response': error_message, 'type': 'error'})
+        errors = [value for _, value in resource_contact_form.errors.items()]
+        error_message = f'Could not save contact: {errors}'
+        return JsonResponse({'response': error_message, 'type': 'error'})
 
 
 class ResourcesList(generics.RetrieveAPIView):

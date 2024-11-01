@@ -60,7 +60,7 @@
 
   function removeContact(contactId) {
     const csrf = Cookies.get('csrftoken');
-    let formData = new FormData();
+    const formData = new FormData();
     formData.append('csrfmiddlewaretoken', csrf);
     formData.append('action', 'removed');
     formData.append('contact_id', contactId);
@@ -99,7 +99,7 @@
   function addContact(e) {
     e.preventDefault();
     const csrf = Cookies.get('csrftoken');
-    let formData = new FormData();
+    const formData = new FormData();
     const firstName = contactContainer.querySelector('#id_first_name');
     const lastName = contactContainer.querySelector('#id_last_name');
     const title = contactContainer.querySelector('#id_title');
