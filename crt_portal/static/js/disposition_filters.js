@@ -100,11 +100,11 @@
   function init() {
     const tabs = dom.querySelectorAll('li > button[type="submit"]');
     tabs.forEach(tab => {
-      tab.onclick = (e) => {
+      tab.onclick = e => {
         e.preventDefault();
         clearFilters(tab);
-      }
-    })
+      };
+    });
     const search = new URLSearchParams(root.location.search);
     if (search.size === 0) {
       search.set('disposition_status', 'past');
