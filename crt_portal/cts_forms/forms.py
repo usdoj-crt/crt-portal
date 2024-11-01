@@ -3187,6 +3187,7 @@ class SavedSearchActions(ModelForm):
                 ),
                 required=self.fields[field_name] == 'threshold'
             )
+            self.initial[f'group_{id}_{self.saved_search_threshold_field}'] = group['group_threshold_notification_preference']
 
         self.fields['section'] = ChoiceField(
             widget=ComplaintSelect(
@@ -3258,10 +3259,14 @@ class SavedSearchActions(ModelForm):
 
         def get_label(field):
             if field.startswith('saved_search_'):
+                if field.endswith('_threshold'):
+                    return 'Notification Threshold'
                 return 'Notification Preference'
             if field.startswith('group_'):
                 group_id = field.split('_')[1]
                 group = Group.objects.filter(id=int(group_id)).first()
+                if field.endswith('_threshold'):
+                    return f'{group.name} Notification Threshold'
                 return f'{group.name} Notification Preference'
             field = self.fields[field]
             # Some fields can't support the extra context label, and store it
@@ -3293,7 +3298,6 @@ class SavedSearchActions(ModelForm):
         setattr(notification_preference,
                 threshold_key,
                 self.cleaned_data[search_threshold_field])
-        logging.info(self.cleaned_data[search_threshold_field])
         notification_preference.saved_searches_last_checked[str(saved_search.id)] = datetime.now().isoformat()
         notification_preference.saved_searches_threshold[str(saved_search.id)] = self.cleaned_data[search_threshold_field]
         notification_preference.save()
@@ -3302,7 +3306,6 @@ class SavedSearchActions(ModelForm):
         saved_search = super().save(True)
         key = f'saved_search_{saved_search.id}'
         threshold_key = f'saved_search_{saved_search.id}_threshold'
-        logging.info(self.cleaned_data[self.saved_search_threshold_field])
         self.set_user_preferences(self.user, saved_search, key, threshold_key, self.saved_search_field, self.saved_search_threshold_field)
         for group in self.group_data:
             group_obj = group['group']
@@ -3348,9 +3351,7 @@ class ResourceActions(ModelForm):
     def field_changed(self, field):
         # if both are Falsy, nothing actually changed (None ~= "")
         old = self.initial.get(field, None)
-        logging.info(old)
         new = self.cleaned_data.get(field, None)
-        logging.info(new)
         if not old and not new:
             return False
         return old != new

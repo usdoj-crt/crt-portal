@@ -846,6 +846,7 @@ NOTIFICATION_PREFERENCE_CHOICES.update({
 NOTIFICATION_PREFERENCE_CHOICES.update({
     'group_saved_search': [
         ('weekly', 'Weekly Digest'),
+        ('threshold', 'Threshold'),
         ('none', 'None'),
     ]
 })
