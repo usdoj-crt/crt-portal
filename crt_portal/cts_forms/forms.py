@@ -16,7 +16,6 @@ from django.db.models.functions import Cast
 from django.db.models import IntegerField as IntField
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
-from django.utils import timezone as dtimezone
 from django.conf import settings
 from actstream.models import Action
 
@@ -60,7 +59,7 @@ from .model_variables import (ACTION_CHOICES, CLOSED_STATUS, COMMERCIAL_OR_PUBLI
                               STATUS_CHOICES, STATUTE_CHOICES,
                               VIOLATION_SUMMARY_ERROR, WHERE_ERRORS,
                               HATE_CRIME_CHOICES, GROUPING, RETENTION_SCHEDULE_CHOICES)
-from .models import (CommentAndSummary, ProtectedClass, Report, ReportDispositionBatch, Resource, ResponseTemplate, Profile, ReportAttachment, Campaign, RetentionSchedule, SavedSearch, get_system_user, Tag, NotificationPreference, GroupPreferences)
+from .models import (CommentAndSummary, ProtectedClass, Report, ReportDispositionBatch, Resource, ResourceContact, ResponseTemplate, Profile, ReportAttachment, Campaign, RetentionSchedule, SavedSearch, get_system_user, Tag, NotificationPreference, GroupPreferences)
 from .phone_regex import phone_validation_regex
 from .question_group import QuestionGroup
 from .question_text import (CONTACT_QUESTIONS, DATE_QUESTIONS,
@@ -1057,33 +1056,30 @@ PHONE_FORM_CONFIG = [
                 'What did the person believe happened?'),
     FieldConfig('crt_reciept_month',
                 TextInput(attrs={
-                    'class': 'usa-input usa-input--small',
+                    'class': 'autotoday usa-input usa-input--small',
                     'type': 'text',
                     'maxlength': 2,
                     'pattern': '[0-9]*',
                     'inputmode': 'numeric',
-                    'value': dtimezone.now().month,
                 }),
                 'Month'),
     FieldConfig('crt_reciept_day',
                 TextInput(attrs={
-                    'class': 'usa-input usa-input--small',
+                    'class': 'autotoday usa-input usa-input--small',
                     'type': 'text',
                     'maxlength': 2,
                     'pattern': '[0-9]*',
                     'inputmode': 'numeric',
-                    'value': dtimezone.now().day,
                 }),
                 'Day'),
     FieldConfig('crt_reciept_year',
                 TextInput(attrs={
-                    'class': 'usa-input usa-input--medium',
+                    'class': 'autotoday usa-input usa-input--medium',
                     'type': 'text',
                     'minlength': 4,
                     'maxlength': 4,
                     'pattern': '[0-9]*',
                     'inputmode': 'numeric',
-                    'value': dtimezone.now().year,
                 }),
                 'Year'),
 
@@ -3367,7 +3363,7 @@ class ResourceActions(ModelForm):
 
     class Meta:
         model = Resource
-        fields = ['name', 'section', 'url', 'email', 'secondary_email', 'phone', 'secondary_phone', 'contacts', 'notes', 'tags', 'outreach_efforts', 'background', 'soi_opportunities', 'need_followup']
+        fields = ['name', 'section', 'url', 'email', 'secondary_email', 'phone', 'secondary_phone', 'notes', 'tags', 'outreach_efforts', 'background', 'soi_opportunities', 'need_followup', 'contacts']
 
     def __init__(self, *args, user=None, **kwargs):
         self.user = user
@@ -3460,6 +3456,71 @@ class ResourceActions(ModelForm):
             required=False
         )
 
+        self.fields['first_name'] = CharField(
+            label='First Name',
+            widget=TextInput(
+                attrs={
+                    'class': 'usa-input',
+                    'name': 'first_name',
+                    'placeholder': 'First Name',
+                    'aria-label': 'First Name',
+                },
+            ),
+            required=False
+        )
+
+        self.fields['last_name'] = CharField(
+            label='Last Name',
+            widget=TextInput(
+                attrs={
+                    'class': 'usa-input',
+                    'name': 'last_name',
+                    'placeholder': 'Last Name',
+                    'aria-label': 'Last Name',
+                },
+            ),
+            required=False
+        )
+
+        self.fields['title'] = CharField(
+            label='Title',
+            widget=TextInput(
+                attrs={
+                    'class': 'usa-input',
+                    'name': 'title',
+                    'placeholder': 'Title',
+                    'aria-label': 'Title',
+                },
+            ),
+            required=False
+        )
+
+        self.fields['contact_email'] = CharField(
+            label='Email',
+            widget=EmailInput(
+                attrs={
+                    'class': 'usa-input',
+                    'name': 'contact_email',
+                    'placeholder': 'Email',
+                    'aria-label': 'Email',
+                },
+            ),
+            required=False
+        )
+
+        self.fields['contact_phone'] = CharField(
+            label='Phone',
+            widget=TextInput(attrs={
+                'class': 'usa-input phone-input',
+                'pattern': phone_validation_regex,
+                'title': CONTACT_PHONE_INVALID_MESSAGE,
+                'name': 'contact_phone',
+                'placeholder': 'Phone',
+                'aria-label': 'Phone',
+            }),
+            required=False
+        )
+
         self.fields['tags'] = TagsField()
 
         self.fields['notes'] = CharField(
@@ -3522,9 +3583,21 @@ class ResourceActions(ModelForm):
             })
         )
 
+        self.fields['contacts'] = CharField(
+            widget=HiddenInput(attrs={
+                'field_label': 'Contacts'
+            }),
+            required=False,
+        )
+
+        if self.instance.id and self.instance.contacts:
+            contact_ids = list(map(str, self.instance.contacts.values_list('pk', flat=True)))
+            self.fields['contacts'].initial = ','.join(contact_ids)
+        else:
+            self.fields['contacts'].initial = ''
+
     def success_message(self, id=None, delete=False):
         """Prepare update success message for rendering in template"""
-        logging.info(delete)
         if delete:
             return "Successfully deleted resource."
 
@@ -3549,6 +3622,24 @@ class ResourceActions(ModelForm):
         fields += f', and {updated_fields[-1]}'
         return f"Successfully updated {fields} in {resource_name}."
 
-    def save(self):
+    def save(self, contacts):
+        if 'contacts' in self.changed_data:
+            self.cleaned_data.pop('contacts')
         resource = super().save(True)
+        for contact in contacts:
+            resource.contacts.add(contact)
         return resource
+
+
+class ResourceContactActions(ModelForm):
+    class Meta:
+        model = ResourceContact
+        fields = ['first_name', 'last_name', 'title', 'email', 'phone']
+
+    def save(self, commit=True):
+        instance = ModelForm.save(self, commit=False)
+
+        if commit:
+            instance.save()
+
+        return instance

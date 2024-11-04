@@ -36,6 +36,7 @@ from datetime import datetime
 from django.db.models.functions import ExtractYear, Cast, Concat
 from django.contrib.auth.models import Group
 from django.db.models.functions import Lower
+from django.forms import Select
 
 from .attachments import ALLOWED_FILE_EXTENSIONS
 from .filters import report_filter, dashboard_filter, report_grouping
@@ -47,8 +48,8 @@ from .forms import (
     PhoneProForm
 )
 from .mail import mail_to_complainant
-from .model_variables import BATCH_STATUS_CHOICES, HATE_CRIMES_TRAFFICKING_MODEL_CHOICES, NOTIFICATION_PREFERENCE_CHOICES
-from .models import CommentAndSummary, Profile, Report, ReportAttachment, ReportDisposition, ReportDispositionBatch, ReportsData, Resource, RetentionSchedule, SavedSearch, Trends, EmailReportCount, Campaign, User, NotificationPreference, RoutingSection, RoutingStepOneContact, RepeatWriterInfo
+from .model_variables import BATCH_STATUS_CHOICES, HATE_CRIMES_TRAFFICKING_MODEL_CHOICES, NOTIFICATION_PREFERENCE_CHOICES, STATES_AND_TERRITORIES
+from .models import CommentAndSummary, Profile, Report, ReportAttachment, ReportDisposition, ReportDispositionBatch, ReportsData, Resource, ResourceContact, RetentionSchedule, SavedSearch, Trends, EmailReportCount, Campaign, User, NotificationPreference, RoutingSection, RoutingStepOneContact, RepeatWriterInfo
 from .page_through import pagination
 from .sorts import other_sort, report_sort
 
@@ -954,10 +955,13 @@ class ResourceActionView(LoginRequiredMixin, View):
         id = request.GET.get('id', None)
         if id:
             resource = get_object_or_404(Resource, pk=id)
+            contacts = resource.contacts.all()
         else:
             resource = Resource()
+            contacts = []
         resource_form = ResourceActions(instance=resource)
         output = {
+            'resource_contacts': contacts,
             'id': id,
             'form': resource_form,
         }
@@ -980,7 +984,9 @@ class ResourceActionView(LoginRequiredMixin, View):
             return redirect(url)
 
         if not (form.is_valid() and form.has_changed()):
+            contacts = resource.contacts.all()
             output = {
+                'resource_contacts': contacts,
                 'form': form,
                 'id': id,
             }
@@ -1001,7 +1007,13 @@ class ResourceActionView(LoginRequiredMixin, View):
                                  messages.ERROR,
                                  mark_safe(fail_message))
             return render(request, 'forms/complaint_view/resources/actions/index.html', output)
-        resource = form.save()
+        contacts = self.request.POST.get('contacts', '').split(',')
+
+        contacts = [
+            get_object_or_404(ResourceContact, pk=int(id))
+            for id in contacts if id != ''
+        ]
+        resource = form.save(contacts)
         messages.add_message(request, messages.SUCCESS, form.success_message(id))
         return redirect(url)
 
@@ -2168,6 +2180,14 @@ def phone_pro_form_view(request, report_id=None):
                     'email': 'other@example.com',
                 },
             ],
+
+            'state_resources_selector': Select(
+                attrs={'class': 'usa-select state-hide-show-selector'},
+                choices=[
+                    ('default', 'Select a state'),
+                    *STATES_AND_TERRITORIES,
+                ],
+            ).render('', 'default'),
 
             'form': form,
         }

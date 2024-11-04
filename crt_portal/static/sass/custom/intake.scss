@@ -180,6 +180,21 @@ hr {
   display: none;
 }
 
+.state-hide-show {
+  padding-top: 1em;
+}
+
+.stacked-sidebar-width {
+  .width-mobile {
+    width: unset;
+    max-width: 20em;
+  }
+  a {
+    word-break: break-all;
+    line-break: anywhere;
+  }
+}
+
 .side-nav.open .subnav {
   display: block;
   list-style: none;

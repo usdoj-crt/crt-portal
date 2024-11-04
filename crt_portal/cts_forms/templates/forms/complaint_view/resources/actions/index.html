@@ -15,13 +15,15 @@
         </div>
       </div>
       <div class="complaint-actions tablet:grid-col-9 grid-offset-1">
-          {% include 'forms/complaint_view/resources/actions/action.html' with icon="img/intake-icons/ic_check-circle.svg" %}
+          {% include 'forms/complaint_view/resources/actions/action.html' with icon="img/intake-icons/ic_check-circle.svg" contacts=contacts %}
       </div>
     </div>
   </div>
 {% endblock %}
 {% block page_js %}
 {{ block.super }}
+<script src="{% static 'vendor/js.cookie.min.js' %}"></script>
+<script src="{% static 'js/resource_contacts.min.js' %}"></script>
 <script src="{% static 'js/discard_button.min.js'%}"></script>
 <script src="{% static 'vendor/shepherd.js'%}"></script>
 <script type="module" src="{% static 'js/tour.min.js'%}"></script>
