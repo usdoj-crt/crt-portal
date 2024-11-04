@@ -27,11 +27,11 @@
       </label>
     {% endwith %}
     {% endfor %}
-    <div class="margin-bottom-2 crt-dropdown threshold margin-top-2" {% if not group_threshold_notification_preference %}hidden{% endif %}>
+    <div class="margin-bottom-2 crt-dropdown threshold margin-top-2" {% if not group_threshold_preference %}hidden{% endif %}>
       <label for="{{ group_threshold_name }}" class="intake-label">
         Threshold
       </label>
-      <input value="{{ group_threshold_notification_preference }}" id="{{ group_threshold_name }}" name="{{ group_threshold_name }}" type="number"/>
+      <input value="{{ group_threshold_preference }}" id="{{ group_threshold_name }}" name="{{ group_threshold_name }}" type="number"/>
     </div>
   </td>
   {% else %}
@@ -64,6 +64,15 @@
       </label>
       <input value="{{ threshold_notification_preference }}" id="{{ threshold_name }}" name="{{ threshold_name }}" type="number"/>
     </div>
+  </td>
+  <td>
+    {% if threshold_key %}
+    <div class="margin-bottom-2 crt-dropdown threshold margin-top-2">
+      {% with existing_value=threshold_preferences|get_threshold_preference_value:id %}
+      <input value="{{ existing_value }}" id="{{ threshold_key }}" name="{{ threshold_key }}" type="number"/>
+      {% endwith %}
+    </div>
+    {% endif %}
   </td>
   {% endif %}
 </tr>

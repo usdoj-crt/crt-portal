@@ -77,7 +77,7 @@
       <label for="id_shared" class="usa-checkbox__label crt-checkbox__label"></label>
     </div>
     <div class="preference-wrapper">
-    {% include 'forms/complaint_view/notifications/preference.html' with preferences=notification_preferences choices=notification_choices title="Notifications" key=form.saved_search_field threshold_name=threshold_field_name %}
+    {% include 'forms/complaint_view/notifications/preference.html' with preferences=notification_preferences choices=notification_choices title="Notifications" key=form.saved_search_field threshold_name=threshold_field_name threshold_preference=threshold_notification_preference %}
     </div>
     {% if group_data %}
       <div class="group-notifications-container">
@@ -86,7 +86,7 @@
         </label>
       {% for group in group_data %}
       <div class="preference-wrapper">
-        {% include 'forms/complaint_view/notifications/preference.html' with preferences=group.notification_preferences choices=group.notification_choices title="Notifications" key=group.field_name group=group.group group_threshold_name=group.threshold_field_name group_threshold_notification_preference=group.group_threshold_notification_preference %}
+        {% include 'forms/complaint_view/notifications/preference.html' with preferences=group.notification_preferences choices=group.notification_choices title="Notifications" key=group.field_name group=group.group group_threshold_name=group.threshold_field_name group_threshold_preference=group.threshold_preference %}
         </div>
       {% endfor %}
       </div>

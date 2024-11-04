@@ -3187,7 +3187,7 @@ class SavedSearchActions(ModelForm):
                 ),
                 required=self.fields[field_name] == 'threshold'
             )
-            self.initial[f'group_{id}_{self.saved_search_threshold_field}'] = group['group_threshold_notification_preference']
+            self.initial[f'group_{id}_{self.saved_search_threshold_field}'] = group['threshold_preference']
 
         self.fields['section'] = ChoiceField(
             widget=ComplaintSelect(

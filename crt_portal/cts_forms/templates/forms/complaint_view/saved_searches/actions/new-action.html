@@ -67,7 +67,7 @@
       </div>
       {% for group in group_data %}
       <div class="preference-wrapper">
-        {% include 'forms/complaint_view/notifications/preference.html' with preferences=group.notification_preferences choices=group.notification_choices title="Notifications" key=group.field_name group=group.group group_threshold_name=group.threshold_field_name group_threshold_preference=group.threshold_notification_preference %}
+        {% include 'forms/complaint_view/notifications/preference.html' with preferences=group.notification_preferences choices=group.notification_choices title="Notifications" key=group.field_name group=group.group group_threshold_name=group.threshold_field_name group_threshold_preference=group.threshold_preference %}
       </div>
       {% endfor %}
     {% endif %}

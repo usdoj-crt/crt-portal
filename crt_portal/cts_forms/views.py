@@ -890,6 +890,8 @@ def _notification_get(request):
         preferences = request.user.notification_preference
     else:
         preferences = NotificationPreference(user=request.user)
+
+    threshold_preferences = preferences.saved_searches_threshold
     search_ids = [int(k) for k in preferences.saved_searches.keys()]
     search_names = {
         str(pk): name
@@ -899,6 +901,7 @@ def _notification_get(request):
     return render(request, 'forms/complaint_view/notifications/index.html', {
         'search_names': search_names,
         'preferences': preferences,
+        'threshold_preferences': threshold_preferences,
         'choices': NOTIFICATION_PREFERENCE_CHOICES,
     })
 
@@ -1810,14 +1813,14 @@ class SavedSearchActionView(LoginRequiredMixin, View):
         for group in Group.objects.all():
             if not hasattr(group, 'group_preferences') or not self.is_group_admin(user, group):
                 continue
-            group_notification_preference = group.group_preferences.saved_searches.get(str(id), 'none')
-            group_threshold_notification_preference = group.group_preferences.saved_searches_threshold.get(str(id), 'none')
+            group_notification_preference = group.group_preferences.saved_searches.get(str(id), None)
+            group_threshold_preference = group.group_preferences.saved_searches_threshold.get(str(id), None)
             group_data.append({
                 'group': group,
                 'notification_preferences': group_notification_preference,
                 'field_name': f'group_{group.id}_saved_search_{id}',
                 'threshold_field_name': f'group_{group.id}_saved_search_{id}_threshold',
-                'group_threshold_notification_preference': group_threshold_notification_preference,
+                'threshold_preference': group_threshold_preference,
                 'notification_choices': NOTIFICATION_PREFERENCE_CHOICES['group_saved_search'],
             })
         return group_data
