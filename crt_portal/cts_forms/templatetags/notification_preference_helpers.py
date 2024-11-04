@@ -10,6 +10,7 @@ def get_preference_value(preferences, key):
         return 'none'
     return getattr(preferences, key)
 
+
 @register.filter(name='get_threshold_preference_value')
 def get_threshold_preference_value(preferences, id):
     if not preferences:
