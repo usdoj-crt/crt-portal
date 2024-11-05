@@ -924,8 +924,8 @@ def _notification_change(request):
             threshold_num = changes.getlist(f'{key}_threshold')[0]
             if not threshold_num:
                 messages.add_message(request,
-                             messages.WARNING,
-                             mark_safe("All threshold frequencies must have counts associated with them."))
+                                     messages.WARNING,
+                                     mark_safe("All threshold frequencies must have counts associated with them."))
                 return redirect(reverse('crt_forms:crt-forms-notifications'))
         if getattr(preference, key) == value:
             continue
