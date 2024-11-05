@@ -133,7 +133,7 @@ class NotificationPreference(models.Model):
 
     saved_searches = models.JSONField(default=dict, blank=True, help_text="Contains the notification cadence for each saved search. The key is the saved search ID, and the value is the cadence.")
     saved_searches_last_checked = models.JSONField(default=dict, blank=True, help_text="The last time each search was checked for new reports.")
-    saved_searches_threshold = models.JSONField(default=dict, blank=True, help_text="The threshold of results to trigger a notification for each search defaulting to 0 if none is set.")
+    saved_searches_threshold = models.JSONField(default=dict, blank=True, help_text="The threshold of results to trigger a notification for each search.")
     saved_searches_count = models.JSONField(default=dict, blank=True, help_text="The total result counts of each search since the last threshold notification was sent.")
 
     def __getattr__(self, name):

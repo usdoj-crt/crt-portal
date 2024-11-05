@@ -3156,7 +3156,7 @@ class SavedSearchActions(ModelForm):
                     'aria-label': 'threshold',
                 },
             ),
-            required=self.fields[self.saved_search_field] == 'threshold'
+            required=self.data.get(self.saved_search_field, None) == 'threshold'
         )
         for group in self.group_data:
             id = group['group'].id
@@ -3181,7 +3181,7 @@ class SavedSearchActions(ModelForm):
                         'aria-label': 'threshold',
                     },
                 ),
-                required=self.fields[field_name] == 'threshold'
+                required=self.data.get(field_name, None) == 'threshold'
             )
             self.initial[f'group_{id}_{self.saved_search_threshold_field}'] = group['threshold_preference']
 

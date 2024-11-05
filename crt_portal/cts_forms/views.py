@@ -920,6 +920,13 @@ def _notification_change(request):
             raise BadRequest(f"Not a valid notification setting: {key}")
 
         value = changes.getlist(key)[0]
+        if value == 'threshold':
+            threshold_num = changes.getlist(f'{key}_threshold')[0]
+            if not threshold_num:
+                messages.add_message(request,
+                             messages.WARNING,
+                             mark_safe("All threshold frequencies must have counts associated with them."))
+                return redirect(reverse('crt_forms:crt-forms-notifications'))
         if getattr(preference, key) == value:
             continue
 
@@ -1819,7 +1826,7 @@ class SavedSearchActionView(LoginRequiredMixin, View):
             return True
         return False
 
-    def get_group_data(self, user, id):
+    def get_group_data(self, user, id, search_field_name, threshold_field_name):
         group_data = []
         group_notification_preference = 'none'
         for group in Group.objects.all():
@@ -1830,8 +1837,8 @@ class SavedSearchActionView(LoginRequiredMixin, View):
             group_data.append({
                 'group': group,
                 'notification_preferences': group_notification_preference,
-                'field_name': f'group_{group.id}_saved_search_{id}',
-                'threshold_field_name': f'group_{group.id}_saved_search_{id}_threshold',
+                'field_name': f'group_{group.id}_{search_field_name}',
+                'threshold_field_name': f'group_{group.id}_{threshold_field_name}',
                 'threshold_preference': group_threshold_preference,
                 'notification_choices': NOTIFICATION_PREFERENCE_CHOICES['group_saved_search'],
             })
@@ -1845,10 +1852,11 @@ class SavedSearchActionView(LoginRequiredMixin, View):
         if id:
             saved_search = get_object_or_404(SavedSearch, pk=id)
             _, query_filters = report_filter(QueryDict(saved_search.query))
-            threshold_field_name = f'saved_search_{id}_threshold'
+            search_field_name = f'saved_search_{id}'
         else:
             saved_search = SavedSearch()
-            threshold_field_name = 'saved_search_new_threshold'
+            search_field_name = 'saved_search_new'
+        threshold_field_name = f'{search_field_name}_threshold'
         query = request.GET.get('query', None)
         if query:
             _, query_filters = report_filter(QueryDict(query))
@@ -1856,7 +1864,7 @@ class SavedSearchActionView(LoginRequiredMixin, View):
         section_filter = request.GET.get('section_filter', '')
         saved_search_view = request.GET.get('saved_search_view', 'all')
         name = request.GET.get('name', None)
-        group_data = self.get_group_data(request.user, saved_search.id)
+        group_data = self.get_group_data(request.user, saved_search.id, threshold_field_name, search_field_name)
         if hasattr(request.user, 'notification_preference'):
             notification_preferences = request.user.notification_preference
             threshold_notification_preference = notification_preferences.saved_searches_threshold.get(str(id), None)
@@ -1890,11 +1898,12 @@ class SavedSearchActionView(LoginRequiredMixin, View):
         if not id:
             saved_search = SavedSearch()
             saved_search.created_by = request.user
-            threshold_field_name = 'saved_search_new_threshold'
+            search_field_name = 'saved_search_new'
         else:
             saved_search = get_object_or_404(SavedSearch, pk=id)
-            threshold_field_name = f'saved_search_{id}_threshold'
-        group_data = self.get_group_data(request.user, saved_search.id)
+            search_field_name = f'saved_search_{id}'
+        threshold_field_name = f'{search_field_name}_threshold'
+        group_data = self.get_group_data(request.user, saved_search.id, search_field_name, threshold_field_name)
         if hasattr(request.user, 'notification_preference'):
             notification_preferences = request.user.notification_preference
             threshold_notification_preference = notification_preferences.saved_searches_threshold.get(str(id), None)
