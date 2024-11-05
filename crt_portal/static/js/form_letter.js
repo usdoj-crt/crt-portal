@@ -47,9 +47,6 @@
   };
   contact.addEventListener('click', showModal);
 
-  var cancel_modal = document.getElementById('intake_template_cancel');
-  root.CRT.cancelModal(modal, cancel_modal);
-
   var copy = modal.querySelector('#intake_copy');
   var print = modal.querySelector('#intake_print');
   var letter = modal.querySelector('#intake_letter');
@@ -76,6 +73,9 @@
       send_email.setAttribute('disabled', 'disabled');
     }
   };
+
+  let cancel_modal = document.getElementById('intake_template_cancel');
+  root.CRT.cancelModal(modal, cancel_modal, null, reset);
 
   const description = modal.querySelector('#intake_description');
   const selects = modal.querySelectorAll('.intake-select');
