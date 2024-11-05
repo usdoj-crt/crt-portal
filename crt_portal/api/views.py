@@ -151,6 +151,7 @@ class ReportEdit(generics.CreateAPIView):
         form.update_activity_stream(request.user)
         if created:
             form.instance.district = form.instance.assign_district()
+            form.instance.assigned_section = form.instance.assign_section()
             form.instance.save()
         server_changes = [] if public_id else ['public_id']
         server_data = {'public_id': form.instance.public_id}
