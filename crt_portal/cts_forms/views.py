@@ -1864,7 +1864,7 @@ class SavedSearchActionView(LoginRequiredMixin, View):
         section_filter = request.GET.get('section_filter', '')
         saved_search_view = request.GET.get('saved_search_view', 'all')
         name = request.GET.get('name', None)
-        group_data = self.get_group_data(request.user, saved_search.id, threshold_field_name, search_field_name)
+        group_data = self.get_group_data(request.user, saved_search.id, search_field_name, threshold_field_name)
         if hasattr(request.user, 'notification_preference'):
             notification_preferences = request.user.notification_preference
             threshold_notification_preference = notification_preferences.saved_searches_threshold.get(str(id), None)
