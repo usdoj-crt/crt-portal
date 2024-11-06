@@ -114,6 +114,7 @@ class SavedSearch(models.Model):
 class GroupPreferences(models.Model):
     group = models.OneToOneField(Group, on_delete=models.CASCADE, related_name='group_preferences')
     saved_searches = models.JSONField(default=dict, blank=True, help_text="Contains the notification cadence for each saved search. The key is the saved search ID, and the value is the cadence.")
+    saved_searches_threshold = models.JSONField(default=dict, blank=True, help_text="The threshold of results to trigger a notification for each search defaulting to 0 if none is set.")
     admins = models.ManyToManyField(User, blank=True)
 
 
@@ -132,18 +133,24 @@ class NotificationPreference(models.Model):
 
     saved_searches = models.JSONField(default=dict, blank=True, help_text="Contains the notification cadence for each saved search. The key is the saved search ID, and the value is the cadence.")
     saved_searches_last_checked = models.JSONField(default=dict, blank=True, help_text="The last time each search was checked for new reports.")
+    saved_searches_threshold = models.JSONField(default=dict, blank=True, help_text="The threshold of results to trigger a notification for each search.")
+    saved_searches_count = models.JSONField(default=dict, blank=True, help_text="The total result counts of each search since the last threshold notification was sent.")
 
     def __getattr__(self, name):
-        if name == 'saved_search_new':
+        if name == 'saved_search_new' or name == 'saved_search_new_threshold':
             return 'none'
         if name.startswith('saved_search_'):
             return self.saved_searches.get(name.split('_')[-1], 'none')
         raise AttributeError(name)
 
     def __setattr__(self, name, value):
-        if name == 'saved_search_new':
+        if name == 'saved_search_new' or name == 'saved_search_new_threshold':
             return
-        if name.startswith('saved_search_'):
+        if name.startswith('saved_search_') and name.endswith('_threshold'):
+            search_id = name.split('_')[2]
+            self.saved_searches_threshold[search_id] = value
+            return
+        elif name.startswith('saved_search_'):
             search_id = name.split('_')[-1]
             self.saved_searches[search_id] = value
             return
@@ -182,6 +189,8 @@ class ScheduledNotification(models.Model):
             scheduled_for = datetime.now() + timedelta(days=1)
         elif frequency == 'weekly':
             scheduled_for = datetime.now() + timedelta(days=7)
+        elif frequency == 'threshold':
+            scheduled_for = datetime.now() + timedelta(days=1)
         else:
             raise ValueError(f'Invalid frequency: {frequency}')
 

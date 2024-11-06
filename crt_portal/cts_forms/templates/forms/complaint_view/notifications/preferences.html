@@ -10,6 +10,9 @@
         <th>
           Notification Cadence
         </th>
+        <th>
+          Threshold
+        </th>
       </tr>
     </thead>
     <tbody>
@@ -17,7 +20,7 @@
 
     {% for search_id in preferences.saved_searches %}
     {% with search_name=search_names|get_dict_item:search_id %}
-    {% include 'forms/complaint_view/notifications/preference.html' with preferences=preferences choices=choices title="Saved Search "|add:search_name key="saved_search_"|add:search_id %}
+    {% include 'forms/complaint_view/notifications/preference.html' with id=search_id preferences=preferences threshold_preferences=threshold_preferences threshold_key="saved_search_"|add:search_id|add:"_threshold" choices=choices title="Saved Search "|add:search_name key="saved_search_"|add:search_id %}
     {% endwith %}
     {% endfor %}
     </tbody>
