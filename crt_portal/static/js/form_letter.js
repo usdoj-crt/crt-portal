@@ -74,8 +74,8 @@
     }
   };
 
-  let cancel_modal = document.getElementById('intake_template_cancel');
-  root.CRT.cancelModal(modal, cancel_modal, null, reset);
+  const cancelModal = document.getElementById('intake_template_cancel');
+  root.CRT.cancelModal(modal, cancelModal, null, reset);
 
   const description = modal.querySelector('#intake_description');
   const selects = modal.querySelectorAll('.intake-select');
