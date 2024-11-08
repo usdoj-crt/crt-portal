@@ -35,7 +35,7 @@ def test_contact_complainant_modal(page, *, report):
     assert modal.locator('#intake_letter_html').text_content() == ''
 
     page.locator('button').filter(has_text="Contact complainant").click()
-    
+
     modal.locator('select').filter(has_text='English').select_option('Spanish')
     modal.locator('select').filter(has_text='[Select response letter]').select_option('CRT - No capacity')
 
