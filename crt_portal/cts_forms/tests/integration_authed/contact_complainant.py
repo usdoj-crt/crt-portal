@@ -31,6 +31,17 @@ def test_contact_complainant_modal(page, *, report):
     modal.locator('#intake_letter_html').filter(has_text='Dear Testing Tester').wait_for()
     assert modal.locator('.optionals').is_hidden()
 
+    modal.locator('button').filter(has_text="Cancel").click()
+    assert modal.locator('#intake_letter_html').text_content() == ''
+
+    page.locator('button').filter(has_text="Contact complainant").click()
+
+    modal.locator('select').filter(has_text='English').select_option('Spanish')
+    modal.locator('select').filter(has_text='[Select response letter]').select_option('CRT - No capacity')
+
+    modal.locator('#intake_description').filter(has_text='Your Civil Rights Division Report').wait_for()
+    modal.locator('#intake_letter_html').filter(has_text='Dear Testing Tester').wait_for()
+
     for label in ['Send', 'Print letter', 'Copy letter']:
         assert modal.locator('button').filter(has_text=label).is_enabled()
     report.screenshot(page, full_page=True, caption='Users can select a language and a response letter from the dropdowns. The letter will be populated with the complainant\'s name, the date the report was submitted, etc. The content of these templates can be changed by application administrators.')
