@@ -915,14 +915,15 @@ class ReportDispositionBatch(models.Model):
         # Creating a new queryset by filtering by id so we can update the
         # batched_for_disposal field after limiting the record number to 500
         ids = queryset.values_list('pk', flat=True)
-        Report.objects.filter(pk__in=list(ids)).update(batched_for_disposal=True)
+        queryset = Report.objects.filter(pk__in=list(ids))
+        queryset.update(batched_for_disposal=True)
         ReportDisposition.objects.bulk_create([
             ReportDisposition(
                 schedule=report.retention_schedule,
                 batch=self,
                 public_id=report.public_id)
             for report
-            in queryset.all().select_related('retention_schedule').only('retention_schedule', 'public_id')
+            in queryset.all().only('retention_schedule', 'public_id')
         ])
 
     def redact_reports(self):

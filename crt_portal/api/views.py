@@ -14,9 +14,9 @@ from utils.pdf import convert_html_to_pdf
 from cts_forms.filters import report_filter
 from cts_forms.mail import mail_to_complainant, mail_to_agency, build_letters, build_preview
 from utils.markdown_extensions import CustomHTMLExtension, OptionalExtension
-from cts_forms.models import Report, ResponseTemplate, ReportAttachment, Resource
+from cts_forms.models import Report, ResponseTemplate, ReportAttachment, Resource, ResourceContact
 from cts_forms.views import mark_report_as_viewed, mark_reports_as_viewed, get_sort_args
-from cts_forms.forms import add_activity, ProformAttachmentActions, PHONE_FORM_CONFIG, PhoneProForm
+from cts_forms.forms import add_activity, ProformAttachmentActions, PHONE_FORM_CONFIG, PhoneProForm, ResourceContactActions
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, JsonResponse
@@ -57,7 +57,8 @@ def api_root(request, format=None):
         'report-cws': reverse('api:report-cws', request=request, format=format),
         'response-action': reverse('api:response-action', request=request, format=format),
         'proform-attachment-action': reverse('api:proform-attachment-action', request=request, format=format),
-        'resources-list': reverse('api:resources-list', request=request, format=format)
+        'resources-list': reverse('api:resources-list', request=request, format=format),
+        'resource-contact-action': reverse('api:resource-contact-action', request=request, format=format)
     })
 
 
@@ -150,6 +151,7 @@ class ReportEdit(generics.CreateAPIView):
         form.update_activity_stream(request.user)
         if created:
             form.instance.district = form.instance.assign_district()
+            form.instance.assigned_section = form.instance.assign_section()
             form.instance.save()
         server_changes = [] if public_id else ['public_id']
         server_data = {'public_id': form.instance.public_id}
@@ -571,6 +573,33 @@ class ProformAttachmentView(APIView):
         return upload_file(attachment)
 
 
+class ResourceContactView(APIView):
+    """
+    API endpoint that enables adding contacts to resources
+
+
+    Example: api/resource-contact-action/
+    """
+    form_class = ResourceContactActions
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request) -> JsonResponse:
+        action = request.POST.get('action')
+        if action == 'removed':
+            resource_contact_id = int(request.POST.get('contact_id'))
+            resource_contact = get_object_or_404(ResourceContact, pk=resource_contact_id)
+            resource_contact.delete()
+            return JsonResponse({'response': f'Contact was successfully {action}', 'id': resource_contact_id, 'type': 'success'})
+        resource_contact_form = self.form_class(request.POST)
+        if resource_contact_form.is_valid() and resource_contact_form.has_changed():
+            resource_contact = resource_contact_form.save(commit=False)
+            resource_contact.save()
+            return JsonResponse({'response': f'Contact was successfully {action}', 'id': resource_contact.pk, 'first_name': resource_contact.first_name, 'last_name': resource_contact.last_name, 'title': resource_contact.title, 'phone': resource_contact.phone, 'email': resource_contact.email, 'type': 'success'})
+        errors = [value for _, value in resource_contact_form.errors.items()]
+        error_message = f'Could not save contact: {errors}'
+        return JsonResponse({'response': error_message, 'type': 'error'})
+
+
 class ResourcesList(generics.RetrieveAPIView):
     permission_classes = (IsAuthenticated,)
     queryset = Resource.objects.all()
@@ -607,11 +636,11 @@ class ResourcesList(generics.RetrieveAPIView):
                      'tooltip': str(tooltip) if tooltip else ''
                      } for name, section, tooltip in resource.tags.values_list('name', 'section', 'tooltip')]
             contacts = [{
-                'first_name': str(first_name),
-                'last_name': str(last_name),
-                'title': str(title),
-                'email': str(email),
-                'phone': str(phone)
+                'first_name': str(first_name) if first_name else '-',
+                'last_name': str(last_name) if last_name else '-',
+                'title': str(title) if title else '-',
+                'email': str(email) if email else '-',
+                'phone': str(phone) if phone else '-'
             } for first_name, last_name, title, email, phone in resource.contacts.values_list('first_name', 'last_name', 'title', 'email', 'phone')]
             base_url = reverse('crt_forms:resource-actions')
             url = f'{base_url}?id={resource.pk}'
