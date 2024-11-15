@@ -2,7 +2,7 @@ import io
 import traceback
 import zipfile
 
-from .models import AnalyticsFile, DashboardGroup, FileGroupAssignment
+from .models import AnalyticsFile, DashboardGroup, FileGroupAssignment, AnalyticsFileMetadata
 from utils.admin import CrtModelAdmin
 
 from django.contrib import admin
@@ -28,6 +28,13 @@ def export_notebooks_as_zip(modeladmin, request, queryset):
     return response
 
 
+class NotebookMetadataInline(admin.StackedInline):
+    model = AnalyticsFileMetadata
+    can_delete = False
+    verbose_name_plural = 'AnalyticsFileMetadata'
+    fk_name = 'analytics_file'
+
+
 class NotebookAdmin(CrtModelAdmin):
     class Media:
         css = {
@@ -38,10 +45,14 @@ class NotebookAdmin(CrtModelAdmin):
             'js/admin_notebook_actions.js',
         )
 
+    inlines = (NotebookMetadataInline,)
+
+    list_filter = ('metadata__discoverable', 'metadata__run_frequency')
+
     actions = [export_notebooks_as_zip]
 
-    list_display = ('pk', 'name', 'path', 'last_modified', 'from_command', 'description')
-    readonly_fields = ('name', 'path', 'created', 'last_modified', 'last_run', 'results', 'from_command')
+    list_display = ('pk', 'name', 'path', 'metadata__url', 'metadata__discoverable', 'metadata__last_run', 'metadata__run_frequency', 'last_modified', 'from_command', 'description')
+    readonly_fields = ('name', 'path', 'created', 'last_modified', 'results', 'from_command', 'metadata__last_run')
     exclude = ('content', 'mimetype', 'format', 'type')
 
     change_form_template = "admin/notebook_change_form.html"

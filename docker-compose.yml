@@ -13,7 +13,7 @@ services:
     platform: linux/amd64
     environment:
         # Format needed for Python connections:
-      - DATABASE_URL=postgresql://${POSTGRES_ANALYTICS_USER}:${POSTGRES_ANALYTICS_PASSWORD}@db:${DATABASE_PORT:-5432}/postgres
+      - DATABASE_URL=postgresql://${POSTGRES_ANALYTICS_USER}:${POSTGRES_ANALYTICS_PASSWORD}@db:5432/postgres
         # Format needed for R connections:
       - DATABASE_HOSTNAME=db
       - DATABASE_PORT=${DATABASE_PORT:-5432}

@@ -1,5 +1,5 @@
 from typing import Dict, Tuple, TypeVar, Generic, Callable, List
-from datetime import datetime
+import datetime
 import itertools
 import json
 import os
@@ -9,7 +9,7 @@ from types import SimpleNamespace
 import uuid
 
 from cts_forms.models import RoutingSection
-from analytics.models import AnalyticsFile, DashboardGroup, FileGroupAssignment, get_dashboard_structure_from_db, get_dashboard_structure_from_json
+from analytics.models import AnalyticsFile, AnalyticsFileMetadata, DashboardGroup, FileGroupAssignment, get_dashboard_structure_from_db, get_dashboard_structure_from_json
 
 from django.conf import settings
 from django.core.management.base import BaseCommand
@@ -125,8 +125,8 @@ class Command(BaseCommand):  # pragma: no cover
             'type': 'notebook',
             'format': 'json',
             'mimetype': 'application/json',
-            'created': datetime.fromtimestamp(os.path.getctime(notebook_path), tz=local_tz),
-            'last_modified': datetime.fromtimestamp(os.path.getmtime(notebook_path), tz=local_tz),
+            'created': datetime.datetime.fromtimestamp(os.path.getctime(notebook_path), tz=local_tz),
+            'last_modified': datetime.datetime.fromtimestamp(os.path.getmtime(notebook_path), tz=local_tz),
             'from_command': True
         }
 
@@ -178,8 +178,8 @@ class Command(BaseCommand):  # pragma: no cover
         return {
             'name': os.path.basename(simple_path).strip('/'),
             'path': simple_path.strip('/'),
-            'created': datetime.fromtimestamp(os.path.getctime(directory_path), tz=local_tz),
-            'last_modified': datetime.fromtimestamp(os.path.getmtime(directory_path), tz=local_tz),
+            'created': datetime.datetime.fromtimestamp(os.path.getctime(directory_path), tz=local_tz),
+            'last_modified': datetime.datetime.fromtimestamp(os.path.getmtime(directory_path), tz=local_tz),
             'from_command': True
         }
 
@@ -229,7 +229,23 @@ class Command(BaseCommand):  # pragma: no cover
         ]
         for file in to_delete:
             file.delete()
-        AnalyticsFile.objects.bulk_create(to_create)
+
+        created = AnalyticsFile.objects.bulk_create(to_create)
+
+        metadata = []
+        for file in created:
+            is_dashboard = 'assignments/intake-dashboard' in file.path
+            hourly = datetime.timedelta(hours=1)
+
+            metadata.append(AnalyticsFileMetadata(
+                analytics_file=file,
+                run_frequency=hourly if is_dashboard else None,
+                discoverable=is_dashboard,
+                url=file.path.replace('.ipynb', '').replace('assignments/intake-dashboard/', ''),
+                last_run=None,
+            ))
+        AnalyticsFileMetadata.objects.bulk_create(metadata)
+
         return len(to_create), len(to_delete)
 
     def _are_dashboards_same(self, a: Dict, b: Dict) -> bool:

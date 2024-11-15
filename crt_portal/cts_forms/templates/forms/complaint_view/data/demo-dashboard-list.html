@@ -17,7 +17,7 @@
         <td>
         <p class="text-bold">{{ notebook.name }}</p>
 
-        <a href="/form/data/{{notebook.path}}">{{ notebook.description }}</a>
+        <a href="/form/data/{{notebook.metadata.url}}">{{ notebook.description }}</a>
         </td>
     </tr>
     {% endif %}
