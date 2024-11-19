@@ -13,6 +13,8 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 NOTEBOOK_DIR = os.path.join(BASE_DIR)
 SCHEDULES_PATH = os.path.join(NOTEBOOK_DIR, 'schedules.json')
 
+logging.getLogger().setLevel(logging.INFO)
+
 
 def main(dry_run=False):
     manager = TableContentsManager()
