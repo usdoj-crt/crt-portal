@@ -609,15 +609,10 @@ def data_view(request):
 
 
 @login_required
-def data_piecemeal_view(request, notebook_names):
-    notebook_paths = [
-        f'assignments/intake-dashboard/{name.strip()}.ipynb'
-        for name in notebook_names.split(',')
-    ]
-
+def data_piecemeal_view(request, notebook_urls):
     notebooks = [
-        get_object_or_404(AnalyticsFile, path=path)
-        for path in notebook_paths
+        get_object_or_404(AnalyticsFile, metadata__url=url)
+        for url in notebook_urls.split(',')
     ]
 
     html = [

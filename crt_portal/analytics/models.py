@@ -173,7 +173,22 @@ class AnalyticsFile(models.Model):
     last_modified = models.DateTimeField(null=True, blank=True, help_text="When this was last modified")
 
     from_command = models.BooleanField(default=False, help_text="If true, the notebook was loaded from a command, and should not be modified (e.g., examples)")
-    last_run = models.DateTimeField(null=True, blank=True, help_text="The last time this notebook was run from the Portal admin panel")
+
+    @property
+    def metadata__last_run(self):
+        return self.metadata.last_run
+
+    @property
+    def metadata__discoverable(self):
+        return self.metadata.discoverable
+
+    @property
+    def metadata__run_frequency(self):
+        return self.metadata.run_frequency
+
+    @property
+    def metadata__url(self):
+        return self.metadata.url
 
     @classmethod
     def get_existing(cls, other):
@@ -331,3 +346,19 @@ def get_dashboard_structure_from_db(include_content=True):
             'path': assignment.analytics_file.path,
         })
     return sorted(groups.values(), key=lambda g: g['order'])
+
+
+class AnalyticsFileMetadata(models.Model):
+    class Meta:
+        db_table = 'analytics"."analyticsfilemetadata'
+        managed = True
+
+    analytics_file = models.OneToOneField(AnalyticsFile, on_delete=models.CASCADE, related_name='metadata')
+
+    run_frequency = models.DurationField(null=True, blank=True, help_text="How often to run this notebook - for example, '1 hour' or '5 days'")
+    discoverable = models.BooleanField(default=False, help_text="Whether this notebook should be displayed in the Portal's intake section")
+    url = models.CharField(max_length=2048, unique=True, null=True, help_text="The URL to the notebook from the portal (under /form/data/<the_url>")
+    last_run = models.DateTimeField(null=True, blank=True, help_text="The last time this notebook was run from the Portal admin panel")
+
+    def __str__(self):
+        return str(self.analytics_file.path)

@@ -41,6 +41,14 @@ FILE_FIELDS = [
     'last_modified'
 ]
 
+METADATA_FIELDS = [
+    'run_frequency',
+    'discoverable',
+    'url',
+    'last_run',
+    'analytics_file_id'
+]
+
 
 def _get_path_literals(path):
     path = path.strip('/')
@@ -126,6 +134,70 @@ class TableContentsManager(ContentsManager):
     files_handler_params = {
         'path': '/'
     }
+
+    def __update(self, table, pks, fields_and_values, id_field='id'):
+        fields_sql = sql.SQL(', ').join(
+            sql.SQL("{field} = {value}").format(
+                field=sql.Identifier(field),
+                value=sql.Literal(value)
+            )
+            for field, value in fields_and_values.items()
+        )
+
+        query = sql.SQL("""
+            UPDATE {table}
+            SET {fields}
+            WHERE {id_field} IN ({pks})
+        """).format(table=sql.Identifier('analytics', table),
+                    fields=fields_sql,
+                    id_field=sql.Identifier(id_field),
+                    pks=sql.SQL(', ').join(sql.Literal(pk) for pk in pks))
+
+        with _open_transaction() as (connection, cursor):
+            cursor.execute(query.as_string(connection))
+
+    def update_fields(self, pks, *, fields_and_values=None, metadata_fields_and_values=None):
+        if fields_and_values:
+            self.__update('analyticsfile', pks, fields_and_values, id_field='id')
+
+        if metadata_fields_and_values:
+            self.__update('analyticsfilemetadata', pks, metadata_fields_and_values, id_field='analytics_file_id')
+
+    def list_all_notebooks(self):
+        fields = [
+            *[
+                ('file', field)
+                for field in [*FILE_FIELDS, 'id']
+                if field != 'content'
+            ],
+            *[
+                ('metadata', field)
+                for field in METADATA_FIELDS
+            ],
+        ]
+
+        fields_sql = sql.SQL(', ').join(sql.Identifier(*field) for field in fields)
+
+        query = sql.SQL("""
+            SELECT {fields_sql}
+            FROM analytics.analyticsfile file
+            LEFT JOIN analytics.analyticsfilemetadata metadata
+              ON file.id = metadata.analytics_file_id
+            WHERE file.type = 'notebook'
+        """).format(fields_sql=fields_sql)
+
+        result = None
+        with _open_transaction() as (connection, cursor):
+            cursor.execute(query.as_string(connection))
+            result = cursor.fetchall()
+
+        if not result:
+            return None
+
+        return [
+            dict(zip(fields, row))
+            for row in result
+        ]
 
     def get(self, path, content=True, type=None, format=None):
         fields = FILE_FIELDS.copy()
