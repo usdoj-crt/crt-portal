@@ -67,10 +67,10 @@ def _execute_one(notebook, manager, dry_run=False) -> Optional[int]:
     path = notebook.get(('file', 'path'))
 
     if dry_run:
-        logging.info(f'Dry run - skipping execution of {path}')
+        logging.warning(f'Dry run - skipping execution of {path}')
         return notebook
 
-    logging.info(f'Pulling source code for {path}')
+    logging.warning(f'Pulling source code for {path}')
     try:
         source_code = manager.get(path)
     except Exception as e:
@@ -97,11 +97,11 @@ def _execute_one(notebook, manager, dry_run=False) -> Optional[int]:
         logging.warning(f'Failed to execute {path}: Invalid notebook')
         return None
     try:
-        logging.info(f'Executing notebook {path}')
+        logging.warning(f'Executing notebook {path}')
         result, _ = processor.preprocess(notebook, metadata)
 
         source_code['content'] = result
-        logging.info(f'Saving notebook {path}')
+        logging.warning(f'Saving notebook {path}')
         manager.save(source_code, path)
     except Exception as e:
         logging.error(f'Failed to execute {path}: {e}')
@@ -118,4 +118,4 @@ def _execute_all(notebooks, manager, dry_run=False) -> List[Optional[int]]:
 
 
 if __name__ == '__main__':
-    logging.info('Updated the following notebooks', main())
+    logging.warning('Updated the following notebooks', main())
