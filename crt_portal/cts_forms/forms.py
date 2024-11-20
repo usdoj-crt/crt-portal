@@ -1142,7 +1142,7 @@ class ProForm(
             ['primary_complaint'] +\
             ['hate_crime'] +\
             ['location_name', 'location_address_line_1', 'location_address_line_2',
-                'location_city_town', 'location_state'] +\
+                'location_city_town', 'location_state', 'location_zipcode'] +\
             WorkplaceLocation.Meta.workplace_fields +\
             CommercialPublicLocation.Meta.commercial_fields +\
             PoliceLocation.Meta.police_fields +\
@@ -1178,6 +1178,9 @@ class ProForm(
                 'location_state': Select(attrs={
                     'class': 'usa-select'
                 }),
+                'location_zipcode': TextInput(attrs={
+                    'class': 'usa-input'
+                })
             },
             {'other_commercial_or_public_place': TextInput(
                 attrs={'class': 'usa-input'}
@@ -1342,7 +1345,11 @@ class ProForm(
         self.fields['crt_reciept_month'].required = True
         self.fields['crt_reciept_year'].label = DATE_QUESTIONS['last_incident_year']
         self.fields['crt_reciept_year'].required = True
+
         self.fields['location_name'].label = LOCATION_QUESTIONS['location_name']
+        self.fields['location_zipcode'].required = True
+        self.fields['location_zipcode'].label = LOCATION_QUESTIONS['location_zipcode']
+
         if 'violation_summary' in self.fields:
             self.fields['violation_summary'].widget.attrs['class'] = 'usa-textarea word-count-500'
             self.label_suffix = ''
