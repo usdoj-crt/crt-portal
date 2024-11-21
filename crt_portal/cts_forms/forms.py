@@ -2893,7 +2893,7 @@ class ReportEditForm(LitigationHoldLock, ProForm, ActivityStreamUpdater):
             'violation_summary',
         ]
 
-        fields = ProForm.Meta.fields + ['tags'] + ['location_zipcode']
+        fields = ProForm.Meta.fields + ['tags', 'location_zipcode']
 
     def success_message(self):
         return self.SUCCESS_MESSAGE
