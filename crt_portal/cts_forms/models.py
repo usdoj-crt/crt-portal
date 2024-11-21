@@ -427,7 +427,7 @@ class ReportManager(models.Manager):
 
 class AllReportManager(models.Manager):
     def get_queryset(self):
-        return super(AllReportManager, self).get_queryset().filter(disposed=True)
+        return super(AllReportManager, self).get_queryset()
 
 
 # NOTE: If you add fields to report, they'll automatically be set to empty on the edit form. Make sure to address any additions in ReportEditForm as well!
