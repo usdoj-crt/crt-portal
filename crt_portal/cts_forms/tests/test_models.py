@@ -313,6 +313,7 @@ class ReportTests(TestCase):
             ('location_address_line_2', 'Apt 1', None),
             ('location_city_town', 'Anytown', None),
             ('location_state', 'FL', None),
+            ('location_zipcode', '12345', None),
 
             ('election_details', 'federal', None),
             ('public_or_private_employer', 'private_employer', None),
