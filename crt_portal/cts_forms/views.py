@@ -1532,7 +1532,7 @@ class DispositionBatchActionsView(LoginRequiredMixin, FormView):
         batch = get_object_or_404(ReportDispositionBatch, pk=id)
         report_dispo_objects = ReportDisposition.objects.filter(batch=batch)
         report_public_ids = report_dispo_objects.values_list('public_id', flat=True)
-        reports = Report.objects.filter(public_id__in=report_public_ids).order_by('pk')
+        reports = Report.all_objects.filter(public_id__in=report_public_ids).order_by('pk')
         reports = reports.annotate(retention_year=F('retention_schedule__retention_years'),
                                    expiration_year=F('retention_year') + ExtractYear('closed_date') + 1,
                                    expiration_date=Cast(Concat(F('expiration_year'), Value('-'), Value('01'), Value('-'), Value('01'), output_field=CharField()), output_field=DateField()),
@@ -1578,11 +1578,11 @@ class DispositionBatchActionsView(LoginRequiredMixin, FormView):
             rejected_report_ids = request.POST.get('rejected_report_ids', '').split(',')
             rejected_report_dispo_queryset = ReportDisposition.objects.filter(public_id__in=rejected_report_ids)
             rejected_public_ids = rejected_report_dispo_queryset.values_list('public_id', flat=True)
-            Report.objects.filter(public_id__in=rejected_public_ids).update(report_disposition_status='rejected', batched_for_disposal=False)
+            Report.all_objects.filter(public_id__in=rejected_public_ids).update(report_disposition_status='rejected', batched_for_disposal=False)
 
             approved_report_dispo_queryset = ReportDisposition.objects.filter(batch=batch).exclude(public_id__in=rejected_report_ids)
             approved_public_ids = approved_report_dispo_queryset.values_list('public_id', flat=True)
-            Report.objects.filter(public_id__in=approved_public_ids).update(report_disposition_status='approved', batched_for_disposal=True)
+            Report.all_objects.filter(public_id__in=approved_public_ids).update(report_disposition_status='approved', batched_for_disposal=True)
             approved_report_dispo_queryset.update(rejected=False)
 
             batch = form.save(commit=False)
