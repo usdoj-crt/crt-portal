@@ -92,6 +92,21 @@ class APIPreviewResponseFormTests(TestCase):
         )
 
         self.assertContains(response, 'hello, <span class="variable">Addressee Name</span>')
+    
+        response2 = self.client.post(
+            self.url,
+            {"body": "hello, {{ complainant_name }}"}
+        )
+
+        self.assertContains(response2, 'hello, <span class="variable">Addressee Name</span>')
+        
+        response3 = self.client.post(
+            self.url,
+            {"body": "hello, {{ organization_name }}"}
+        )
+
+        self.assertContains(response3, 'hello, <span class="variable">Location Name</span>')
+
 
     def test_preview_response_html(self):
         """Makes sure our route for previewing markdown files works."""

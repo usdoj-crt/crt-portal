@@ -19,12 +19,14 @@ All of our templates support a few special variables. They are:
 | `addressee`              | Dear John Doe                | The salutation "Dear FirstName LastName" (sans comma) |
 | `contact_address_line_1` | 1 Demo Street                | The recipient's first address line                    |
 | `contact_address_line_2` | Apt 5                        | The recipient's second address line                   |
+| `complainant_name`    | John Doe  | The complainant's first and last name |
 | `contact_email`          | john@civilrights.justice.gov | The recipient's email address                         |
 | `date_of_intake`         | February 29, 1988            | The day the report was submitted                      |
+| `organization_name`   | Santa's Workshop  | The name of the organization or location that is subject to the complaint |
 | `outgoing_date`          | February 31, 1988            | The day this reply is being sent (today)              |
-| `section_name`           | Voting                       | The section of the user sending the reply             |
 | `record_locator`         | 12345-XYZ                    | The identifier (record locator) of the report         |
 | `referral_text`          | Ministry of Magic            | The referral_variable set on the ReferralContact |
+| `section_name`           | Voting                       | The section of the user sending the reply             |
 
 ### How do I use them?
 
