@@ -97,6 +97,7 @@ class APIPreviewResponseFormTests(TestCase):
             self.url,
             {"body": "hello, {{ complainant_name }}"}
         )
+        print("Test: ", str(response2))
 
         self.assertContains(response2, 'hello, <span class="variable">Addressee Name</span>')
         
