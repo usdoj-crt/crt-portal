@@ -1172,6 +1172,8 @@ class ResponseTemplate(models.Model):
         return Context({
             'record_locator': report.public_id,
             'addressee': report.addressee,
+            'complainant_name': report.contact_first_name + " " + report.contact_last_name,
+            'organization_name': report.location_name,
             'date_of_intake': format_date(report_create_date_est, format='long', locale='en_US'),
             'outgoing_date': format_date(today, locale='en_US'),  # required for paper mail
             'section_name': section_choices.get(report.assigned_section, "no section"),
