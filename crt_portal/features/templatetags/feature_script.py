@@ -2,7 +2,8 @@ import json
 
 from django import template
 from django.utils.safestring import mark_safe
-from newrelic.common.async_wrapper import textwrap
+
+import textwrap
 
 from ..models import Feature
 
