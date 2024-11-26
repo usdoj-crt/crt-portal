@@ -157,6 +157,9 @@ class TableContentsManager(ContentsManager):
             cursor.execute(query.as_string(connection))
 
     def update_fields(self, pks, *, fields_and_values=None, metadata_fields_and_values=None):
+        if not pks:
+            return
+
         if fields_and_values:
             self.__update('analyticsfile', pks, fields_and_values, id_field='id')
 
