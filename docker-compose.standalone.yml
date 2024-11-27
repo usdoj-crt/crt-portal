@@ -4,8 +4,6 @@
 # Ports configured here are bound to the containers but not on the host machine, meaning multiple groups of these standalone containers can exist on the same host.
 #
 # Certain containers are excluded from the test env entirely with the "not-tests" profile.
-version: "3.7"
-
 services:
 
   db:
