@@ -55,19 +55,6 @@ nbformat = "*"  # For running Jupyter ipynb files.
 pypdf = "*"
 weasyprint = "*"
 beautifulsoup4 = "*"
-# The following are needed for refreshing Jupyter notebooks:
-jupyter_client = "*"
-jupysql = "*"
-ipykernel = "*"
-sqlalchemy = "<2"
-matplotlib = "*"
-numpy = "*"
-pandas = "*"
-ipywidgets = "*"
-plotly = "*"
-bokeh = "*"
-holoviews = "*"
-cryptography = ">=42.0.4"
 
 [requires]
 python_version = "3.13.0"

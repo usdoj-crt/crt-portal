@@ -672,7 +672,7 @@ workflows:
             - build_and_test
           filters:
             branches:
-              only: develop
+              only: kk/fix-313
 
       - deploy-stage:
           requires:
