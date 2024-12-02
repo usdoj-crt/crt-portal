@@ -55,6 +55,7 @@ nbformat = "*"  # For running Jupyter ipynb files.
 pypdf = "*"
 weasyprint = "*"
 beautifulsoup4 = "*"
+pytz = "*"
 
 [requires]
 python_version = "3.13.0"
