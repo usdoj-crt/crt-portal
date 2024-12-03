@@ -259,7 +259,7 @@ jobs:
       - run:
           name: install cf8
           command: |
-            curl -A "" -L -o cf8.deb 'https://packages.cloudfoundry.org/stable?release=debian64&version=v8&source=github'
+            curl -A "" -L -o cf8.deb 'https://packages.cloudfoundry.org/stable?source=github&release=linux64-binary&version=8.8.3'
             dpkg -i cf8.deb
             rm cf8.deb
             cf8 api https://api.fr.cloud.gov
