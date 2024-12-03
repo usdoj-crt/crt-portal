@@ -1,8 +1,7 @@
 """Automatically refreshes the output of files."""
 
-from typing import Optional, Dict, List
+from typing import Optional, List
 from helpers.table_contents_manager import TableContentsManager
-import copy
 import datetime
 import json
 import logging
@@ -15,32 +14,20 @@ NOTEBOOK_DIR = os.path.join(BASE_DIR)
 SCHEDULES_PATH = os.path.join(NOTEBOOK_DIR, 'schedules.json')
 
 
-def main():
+def main(dry_run=False):
     manager = TableContentsManager()
-    schedules = _read(manager)
-    results = _execute_all(schedules, manager)
-    _write(results, manager)
-
-
-def _read(manager):
-    schedules = json.loads(manager.get('schedules.json').get('content'))
-
-    notebooks = [
-        notebook.get('path')
-        for notebook
-        in manager.get('/assignments/intake-dashboard').get('content', [])
-    ]
-    missing_from_schedules = [
-        found
-        for found in notebooks
-        if not any(known.get('path') == found for known in schedules)
-    ]
+    notebooks = manager.list_all_notebooks()
+    updated_notebooks = _execute_all(notebooks, manager, dry_run=dry_run)
+    updated_pks = [notebook.get(('file', 'id'))
+                   for notebook in updated_notebooks
+                   if notebook is not None]
+    manager.update_fields(
+        [id for id in updated_pks if id is not None],
+        metadata_fields_and_values={'last_run': datetime.datetime.now()},
+    )
     return [
-        *schedules,
-        *[
-            {'path': path, 'interval': {'hours': 1}}
-            for path in missing_from_schedules
-        ]
+        notebook.get(('file', 'path'))
+        for notebook in updated_notebooks
     ]
 
 
@@ -64,48 +51,38 @@ def _write(schedules, manager):
     manager.save(model, 'schedules.json')
 
 
-def _parse_json_date(container, key) -> Optional[datetime.datetime]:
-    raw = container.get(key)
-    if raw is None:
-        return None
-    try:
-        return datetime.datetime.fromisoformat(raw)
-    except (TypeError, ValueError):
-        readable_container = json.dumps(container)
-        logging.error(f'Expected a date but got: {raw} in {readable_container}')
-        return None
-
-
-def _should_execute(schedule):
-    last_executed = _parse_json_date(schedule, 'last_executed')
-    if not last_executed:
-        return True
-
-    interval = schedule.get('interval')
-    try:
-        duration = datetime.timedelta(**interval)
-    except TypeError as more_detail:
-        logging.error(f'Invalid interval: {more_detail}')
+def _should_execute(notebook):
+    run_frequency = notebook.get(('metadata', 'run_frequency'))
+    if not run_frequency:
         return False
 
-    return last_executed + duration < datetime.datetime.now()
+    last_run = notebook.get(('metadata', 'last_run'))
+    if not last_run:
+        return True
+
+    return last_run + run_frequency < datetime.datetime.now(datetime.timezone.utc)
 
 
-def _execute_one(schedule, manager) -> Dict:
-    path = schedule.get('path')
-    logging.info(f'Pulling source code for {path}')
+def _execute_one(notebook, manager, dry_run=False) -> Optional[int]:
+    path = notebook.get(('file', 'path'))
+
+    if dry_run:
+        logging.warning(f'Dry run - skipping execution of {path}')
+        return notebook
+
+    logging.warning(f'Pulling source code for {path}')
     try:
         source_code = manager.get(path)
     except Exception as e:
         logging.warning(f'Failed to execute {path}: {e}')
-        return schedule
+        return None
     if not source_code:
         logging.warning(f'Failed to execute {path}: No source code')
-        return schedule
+        return None
     content = source_code.get('content')
     if not content:
         logging.warning(f'Failed to execute {path}: No notebook content')
-        return schedule
+        return None
 
     try:
         kernel = content.get('metadata', {}).get('kernelspec', {}).get('name', 'python3')
@@ -118,29 +95,27 @@ def _execute_one(schedule, manager) -> Dict:
     notebook = nbformat.from_dict(content)
     if not isinstance(notebook, nbformat.NotebookNode):
         logging.warning(f'Failed to execute {path}: Invalid notebook')
-        return schedule
+        return None
     try:
-        logging.info(f'Executing notebook {path}')
+        logging.warning(f'Executing notebook {path}')
         result, _ = processor.preprocess(notebook, metadata)
 
         source_code['content'] = result
-        logging.info(f'Saving notebook {path}')
+        logging.warning(f'Saving notebook {path}')
         manager.save(source_code, path)
     except Exception as e:
         logging.error(f'Failed to execute {path}: {e}')
 
-    schedule_updates = {'last_executed': datetime.datetime.now().isoformat()}
-    return copy.deepcopy(schedule) | schedule_updates
+    return notebook
 
 
-def _execute_all(schedules, manager) -> List[Dict]:
+def _execute_all(notebooks, manager, dry_run=False) -> List[Optional[int]]:
     return [
-        _execute_one(schedule, manager)
-        if _should_execute(schedule)
-        else schedule
-        for schedule in schedules
+        _execute_one(notebook, manager, dry_run=dry_run)
+        for notebook in notebooks
+        if _should_execute(notebook)
     ]
 
 
 if __name__ == '__main__':
-    main()
+    logging.warning('Updated the following notebooks', main())

@@ -609,15 +609,10 @@ def data_view(request):
 
 
 @login_required
-def data_piecemeal_view(request, notebook_names):
-    notebook_paths = [
-        f'assignments/intake-dashboard/{name.strip()}.ipynb'
-        for name in notebook_names.split(',')
-    ]
-
+def data_piecemeal_view(request, notebook_urls):
     notebooks = [
-        get_object_or_404(AnalyticsFile, path=path)
-        for path in notebook_paths
+        get_object_or_404(AnalyticsFile, metadata__url=url)
+        for url in notebook_urls.split(',')
     ]
 
     html = [
@@ -891,6 +886,8 @@ def _notification_get(request):
         preferences = request.user.notification_preference
     else:
         preferences = NotificationPreference(user=request.user)
+
+    threshold_preferences = preferences.saved_searches_threshold
     search_ids = [int(k) for k in preferences.saved_searches.keys()]
     search_names = {
         str(pk): name
@@ -900,6 +897,7 @@ def _notification_get(request):
     return render(request, 'forms/complaint_view/notifications/index.html', {
         'search_names': search_names,
         'preferences': preferences,
+        'threshold_preferences': threshold_preferences,
         'choices': NOTIFICATION_PREFERENCE_CHOICES,
     })
 
@@ -917,6 +915,13 @@ def _notification_change(request):
             raise BadRequest(f"Not a valid notification setting: {key}")
 
         value = changes.getlist(key)[0]
+        if value == 'threshold':
+            threshold_num = changes.getlist(f'{key}_threshold')[0]
+            if not threshold_num:
+                messages.add_message(request,
+                                     messages.WARNING,
+                                     mark_safe("All threshold frequencies must have counts associated with them."))
+                return redirect(reverse('crt_forms:crt-forms-notifications'))
         if getattr(preference, key) == value:
             continue
 
@@ -1816,17 +1821,20 @@ class SavedSearchActionView(LoginRequiredMixin, View):
             return True
         return False
 
-    def get_group_data(self, user, id):
+    def get_group_data(self, user, id, search_field_name, threshold_field_name):
         group_data = []
         group_notification_preference = 'none'
         for group in Group.objects.all():
             if not hasattr(group, 'group_preferences') or not self.is_group_admin(user, group):
                 continue
-            group_notification_preference = group.group_preferences.saved_searches.get(str(id), 'none')
+            group_notification_preference = group.group_preferences.saved_searches.get(str(id), None)
+            group_threshold_preference = group.group_preferences.saved_searches_threshold.get(str(id), None)
             group_data.append({
                 'group': group,
                 'notification_preferences': group_notification_preference,
-                'field_name': f'group_{group.id}_saved_search_{id}',
+                'field_name': f'group_{group.id}_{search_field_name}',
+                'threshold_field_name': f'group_{group.id}_{threshold_field_name}',
+                'threshold_preference': group_threshold_preference,
                 'notification_choices': NOTIFICATION_PREFERENCE_CHOICES['group_saved_search'],
             })
         return group_data
@@ -1839,8 +1847,11 @@ class SavedSearchActionView(LoginRequiredMixin, View):
         if id:
             saved_search = get_object_or_404(SavedSearch, pk=id)
             _, query_filters = report_filter(QueryDict(saved_search.query))
+            search_field_name = f'saved_search_{id}'
         else:
             saved_search = SavedSearch()
+            search_field_name = 'saved_search_new'
+        threshold_field_name = f'{search_field_name}_threshold'
         query = request.GET.get('query', None)
         if query:
             _, query_filters = report_filter(QueryDict(query))
@@ -1848,11 +1859,13 @@ class SavedSearchActionView(LoginRequiredMixin, View):
         section_filter = request.GET.get('section_filter', '')
         saved_search_view = request.GET.get('saved_search_view', 'all')
         name = request.GET.get('name', None)
-        group_data = self.get_group_data(request.user, saved_search.id)
+        group_data = self.get_group_data(request.user, saved_search.id, search_field_name, threshold_field_name)
         if hasattr(request.user, 'notification_preference'):
             notification_preferences = request.user.notification_preference
+            threshold_notification_preference = notification_preferences.saved_searches_threshold.get(str(id), None)
         else:
             notification_preferences = NotificationPreference(user=request.user)
+            threshold_notification_preference = None
         if name:
             saved_search_form = SavedSearchActions(request.GET, instance=saved_search, user=request.user, group_data=group_data, notification_preferences=notification_preferences)
         else:
@@ -1865,6 +1878,8 @@ class SavedSearchActionView(LoginRequiredMixin, View):
             'notification_choices': NOTIFICATION_PREFERENCE_CHOICES,
             'notification_preferences': notification_preferences,
             'group_data': group_data,
+            'threshold_field_name': threshold_field_name,
+            'threshold_notification_preference': threshold_notification_preference,
         }
         if id:
             return render(request, 'forms/complaint_view/saved_searches/actions/update.html', output)
@@ -1878,13 +1893,18 @@ class SavedSearchActionView(LoginRequiredMixin, View):
         if not id:
             saved_search = SavedSearch()
             saved_search.created_by = request.user
+            search_field_name = 'saved_search_new'
         else:
             saved_search = get_object_or_404(SavedSearch, pk=id)
-        group_data = self.get_group_data(request.user, saved_search.id)
+            search_field_name = f'saved_search_{id}'
+        threshold_field_name = f'{search_field_name}_threshold'
+        group_data = self.get_group_data(request.user, saved_search.id, search_field_name, threshold_field_name)
         if hasattr(request.user, 'notification_preference'):
             notification_preferences = request.user.notification_preference
+            threshold_notification_preference = notification_preferences.saved_searches_threshold.get(str(id), None)
         else:
             notification_preferences = NotificationPreference(user=request.user)
+            threshold_notification_preference = None
         form = SavedSearchActions(request.POST, instance=saved_search, user=request.user, group_data=group_data, notification_preferences=notification_preferences)
         if delete:
             saved_search.delete()
@@ -1900,6 +1920,8 @@ class SavedSearchActionView(LoginRequiredMixin, View):
                 'notification_choices': NOTIFICATION_PREFERENCE_CHOICES,
                 'notification_preferences': notification_preferences,
                 'group_data': group_data,
+                'threshold_field_name': threshold_field_name,
+                'threshold_notification_preference': threshold_notification_preference,
             }
 
             try:

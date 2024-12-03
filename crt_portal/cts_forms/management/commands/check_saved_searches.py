@@ -25,6 +25,14 @@ def _maybe_schedule_for(preference: NotificationPreference, search: SavedSearch)
         return
 
     key = f'saved_search_{search.pk}'
+    if frequency == 'threshold':
+        count = preference.saved_searches_count.get(str(search.pk), 0) + new_reports
+        preference.saved_searches_count[str(search.pk)] = count
+        preference.save()
+        threshold = preference.saved_searches_threshold.get(str(search.pk), 0)
+        if count < threshold:
+            return
+        preference.saved_searches_count[str(search.pk)] = 0
     scheduled = ScheduledNotification.find_for(preference.user, frequency)
     if key not in scheduled.notifications:
         scheduled.notifications[key] = {

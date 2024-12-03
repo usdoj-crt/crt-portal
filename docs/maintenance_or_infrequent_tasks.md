@@ -421,31 +421,16 @@ This must be run whenever postgres is re-created / re-staged:
 ./sync-jupyter-db.sh
 ```
 
-## Scheduling Notebooks to Run
+## Scheduling and controlling notebook visibility
 
-Jupyter notebooks can be scheduled to run using the jupyterhub/schedules.json file.
+Jupyter notebooks:
+- Can be scheduled to run by setting the "Run frequency" in the admin panel.
+  * By default, they will not run automatically
+- Can be made navigable from /form/data/some/url/etc by setting the `url` in the dashboard to the desired path.
+  * By default, they are not navigable
+- Can be made discoverable in the portal by setting the "Discoverable" field in the admin panel.
+  * By default, they are not discoverable
 
-This file expects a list of entries in the following format:
-
-```json
-[
-  {
-    "path": "assignments/intake-dashboard/total_complaints.ipynb",
-    "last_executed": "2023-09-15T15:28:00.984824",
-    "interval": { "days": 2 }
-  }
-]
-```
-
-Where:
-
-- `path` is the path to the notebook relative to the `jupyterhub/` directory
-- `last_executed` can be left blank (this will be updated after each run)
-- `interval` will be unpacked to the constructor of datetime.timedelta. Note that the interval is limited by the frequency at which the circleci/config.yml task (`periodic-tasks-jupyter-*` is run.
-
-Note that any files under `assignments/intake-dashboard` are visible from /form/data/dashboard-name. For example, if you have `assignments/intake-dashboard/test.ipynb`, you can go to `/form/data/test` to view it. The page also accepts commas to view multiple dashboards, e.g.: `/form/data/test_1,test_2,test_3`
-
-If a file under `assignments/intake-dashboard` isn't found in `schedules.json`, an entry will be created for it and it will be run hourly until the schedule is updated.
 
 ## Response templates
 
