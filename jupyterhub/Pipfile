@@ -14,10 +14,7 @@ psycopg2-binary = "*"
 matplotlib = "*"
 numpy = "*"
 pandas = "*"
-ipywidgets = "*"
 plotly = "*"
-bokeh = "*"
-holoviews = "*"
 exceptiongroup = "*"
 
 [requires]
