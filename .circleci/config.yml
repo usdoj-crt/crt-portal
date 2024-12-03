@@ -259,9 +259,10 @@ jobs:
       - run:
           name: install cf8
           command: |
-            curl -A "" -L -o cf8.deb 'https://packages.cloudfoundry.org/stable?source=github&release=linux64-binary&version=8.8.3'
-            dpkg -i cf8.deb
-            rm cf8.deb
+            (apt update && apt install --yes curl gnupg) > /dev/null 2>&1
+            echo "deb [signed-by=/usr/share/keyrings/cloudfoundry-keyring.gpg] https://packages.cloudfoundry.org/debian stable main" | tee /etc/apt/sources.list.d/cloudfoundry.list
+            apt update > /dev/null 2>&1
+            apt install --yes cf8-cli
             cf8 api https://api.fr.cloud.gov
       # - save_cache: # cache Python and Node dependencies using checksum of Pipfile and package.json as the cache-key
       #     key: deps-v4-{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "package.json" }}
