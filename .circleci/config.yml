@@ -668,11 +668,11 @@ workflows:
               only: master
 
       - deploy-dev:
-          # requires:
-          #   - build_and_test
+          requires:
+            - build_and_test
           filters:
             branches:
-              only: kk/fix-313-deploy
+              only: develop
 
       - deploy-stage:
           requires:
