@@ -225,7 +225,7 @@ jobs:
     working_directory: ~/code
     docker:
       # standard docker python image
-      - image: python:3.13.1
+      - image: python:3.13.0
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
@@ -292,7 +292,7 @@ jobs:
   deploy-stage:
     working_directory: ~/code
     docker:
-      - image: python:3.13.1
+      - image: python:3.13.0
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
@@ -355,7 +355,7 @@ jobs:
     working_directory: ~/code
     docker:
       # CircleCI Python images available at: https://hub.docker.com/r/cimg/python/
-      - image: python:3.13.1
+      - image: python:3.13.0
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
@@ -668,11 +668,11 @@ workflows:
               only: master
 
       - deploy-dev:
-          requires:
-            - build_and_test
+          # requires:
+          #   - build_and_test
           filters:
             branches:
-              only: develop
+              only: kk/fix-313-deploy
 
       - deploy-stage:
           requires:
