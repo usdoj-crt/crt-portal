@@ -398,7 +398,7 @@ jobs:
           paths:
             - '.venv'
             - '/usr/local/bin'
-            - '/usr/local/lib/python3.12/site-packages'
+            - '/usr/local/lib/python3.13/site-packages'
       - run:
           name: Login to cloud.gov
           command: cf8 login -u ${CRT_USERNAME_PROD} -p ${CRT_PASSWORD_PROD} -o doj-crtportal -s ${CF_SPACE}
