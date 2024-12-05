@@ -40,6 +40,7 @@ LOCATION_QUESTIONS = collections.OrderedDict([
     ('location_address_line_2', _('Street address 2')),
     ('location_city_town', _('City/town')),
     ('location_state', _('State')),
+    ('location_zipcode', _('Zip code')),
 ])
 
 LOCATION_HELPTEXT = collections.OrderedDict([

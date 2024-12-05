@@ -9,7 +9,7 @@ install-cf8: &install-cf8
   run:
     name: Install CF8
     command: |
-      curl -A "" -L -o cf8.deb 'https://packages.cloudfoundry.org/stable?release=debian64&version=v8&source=github'
+      curl -A "" -L -o cf8.deb 'https://github.com/cloudfoundry/cli/releases/download/v8.8.3/cf8-cli-installer_8.8.3_x86-64.deb'
       sudo dpkg -i cf8.deb
       rm cf8.deb
       cf8 api https://api.fr.cloud.gov
@@ -38,7 +38,7 @@ jobs:
     working_directory: ~/code
     docker:
       # CircleCI Python images available at: https://hub.docker.com/r/cimg/python/
-      - image: cimg/python:3.12.5-browsers
+      - image: cimg/python:3.13-browsers
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
@@ -163,7 +163,7 @@ jobs:
     working_directory: ~/code
     docker:
       # CircleCI Python images available at: https://hub.docker.com/r/cimg/python/
-      - image: cimg/python:3.12.5-browsers
+      - image: cimg/python:3.13-browsers
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
     steps:
@@ -178,7 +178,7 @@ jobs:
     working_directory: ~/code
     docker:
       # CircleCI Python images available at: https://hub.docker.com/r/cimg/python/
-      - image: cimg/python:3.12.5-browsers
+      - image: cimg/python:3.13-browsers
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
     steps:
@@ -199,7 +199,7 @@ jobs:
       - run:
           name: Pull owasp zap docker image and run scan
           command: |
-            docker run -v $(pwd):/zap/wrk/:rw -t softwaresecurityproject/zap-stable zap-baseline.py -t https://crt-portal-django-dev.app.cloud.gov/report/ -c .circleci/zap.conf --autooff -z "-config rules.cookie.ignorelist=django_language"
+            docker run -v $(pwd):/zap/wrk/:rw -t zaproxy/zap-stable zap-baseline.py -t https://crt-portal-django-dev.app.cloud.gov/report/ -c .circleci/zap.conf --autooff -z "-config rules.cookie.ignorelist=django_language"
   owasp-scan-stage:
     machine:
       image: ubuntu-2204:2024.01.1
@@ -209,7 +209,7 @@ jobs:
       - run:
           name: Pull owasp zap docker image and run scan
           command: |
-            docker run -v $(pwd):/zap/wrk/:rw -t softwaresecurityproject/zap-stable zap-baseline.py -t https://crt-portal-django-stage.app.cloud.gov/report/ -c .circleci/zap.conf --autooff -z "-config rules.cookie.ignorelist=django_language"
+            docker run -v $(pwd):/zap/wrk/:rw -t zaproxy/zap-stable zap-baseline.py -t https://crt-portal-django-stage.app.cloud.gov/report/ -c .circleci/zap.conf --autooff -z "-config rules.cookie.ignorelist=django_language"
   owasp-scan-prod:
     machine:
       image: ubuntu-2204:2024.01.1
@@ -219,13 +219,13 @@ jobs:
       - run:
           name: Pull owasp zap docker image and run scan
           command: |
-            docker run -v $(pwd):/zap/wrk/:rw -t softwaresecurityproject/zap-stable zap-baseline.py -t https://civilrights.justice.gov/report -c .circleci/zap.conf --autooff -z "-config rules.cookie.ignorelist=django_language"
+            docker run -v $(pwd):/zap/wrk/:rw -t zaproxy/zap-stable zap-baseline.py -t https://civilrights.justice.gov/report -c .circleci/zap.conf --autooff -z "-config rules.cookie.ignorelist=django_language"
   # deployments
   deploy-dev:
     working_directory: ~/code
     docker:
       # standard docker python image
-      - image: python:3.12.5
+      - image: python:3.13.0
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
@@ -259,7 +259,7 @@ jobs:
       - run:
           name: install cf8
           command: |
-            curl -A "" -L -o cf8.deb 'https://packages.cloudfoundry.org/stable?release=debian64&version=v8&source=github'
+            curl -A "" -L -o cf8.deb 'https://github.com/cloudfoundry/cli/releases/download/v8.8.3/cf8-cli-installer_8.8.3_x86-64.deb'
             dpkg -i cf8.deb
             rm cf8.deb
             cf8 api https://api.fr.cloud.gov
@@ -292,7 +292,7 @@ jobs:
   deploy-stage:
     working_directory: ~/code
     docker:
-      - image: python:3.12.5
+      - image: python:3.13.0
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
@@ -326,7 +326,7 @@ jobs:
       - run:
           name: install cf8
           command: |
-            curl -A "" -L -o cf8.deb 'https://packages.cloudfoundry.org/stable?release=debian64&version=v8&source=github'
+            curl -A "" -L -o cf8.deb 'https://github.com/cloudfoundry/cli/releases/download/v8.8.3/cf8-cli-installer_8.8.3_x86-64.deb'
             dpkg -i cf8.deb
             rm cf8.deb
             cf8 api https://api.fr.cloud.gov
@@ -335,7 +335,7 @@ jobs:
           paths:
             - '.venv'
             - '/usr/local/bin'
-            - '/usr/local/lib/python3.12/site-packages'
+            - '/usr/local/lib/python3.13/site-packages'
       - run:
           name: Login to cloud.gov
           command: cf8 login -u ${CRT_USERNAME_STAGE} -p ${CRT_PASSWORD_STAGE} -o doj-crtportal -s ${CF_SPACE}
@@ -355,7 +355,7 @@ jobs:
     working_directory: ~/code
     docker:
       # CircleCI Python images available at: https://hub.docker.com/r/cimg/python/
-      - image: python:3.12.5
+      - image: python:3.13.0
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
@@ -389,7 +389,7 @@ jobs:
       - run:
           name: install cf8
           command: |
-            curl -A "" -L -o cf8.deb 'https://packages.cloudfoundry.org/stable?release=debian64&version=v8&source=github'
+            curl -A "" -L -o cf8.deb 'https://github.com/cloudfoundry/cli/releases/download/v8.8.3/cf8-cli-installer_8.8.3_x86-64.deb'
             dpkg -i cf8.deb
             rm cf8.deb
             cf8 api https://api.fr.cloud.gov
@@ -398,7 +398,7 @@ jobs:
           paths:
             - '.venv'
             - '/usr/local/bin'
-            - '/usr/local/lib/python3.12/site-packages'
+            - '/usr/local/lib/python3.13/site-packages'
       - run:
           name: Login to cloud.gov
           command: cf8 login -u ${CRT_USERNAME_PROD} -p ${CRT_PASSWORD_PROD} -o doj-crtportal -s ${CF_SPACE}

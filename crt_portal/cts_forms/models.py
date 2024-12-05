@@ -427,7 +427,7 @@ class ReportManager(models.Manager):
 
 class AllReportManager(models.Manager):
     def get_queryset(self):
-        return super(AllReportManager, self).get_queryset().filter(disposed=True)
+        return super(AllReportManager, self).get_queryset()
 
 
 # NOTE: If you add fields to report, they'll automatically be set to empty on the edit form. Make sure to address any additions in ReportEditForm as well!
@@ -498,6 +498,7 @@ class Report(models.Model):
     location_address_line_2 = models.CharField(max_length=225, null=True, blank=True)
     location_city_town = models.CharField(max_length=700, null=True, blank=True)
     location_state = models.CharField(max_length=100, null=True, blank=True, choices=STATES_AND_TERRITORIES)
+    location_zipcode = models.CharField(max_length=10, null=True, blank=True)
 
     # Incident location routing-specific fields
     election_details = models.CharField(max_length=225, null=True, blank=True, default=None, choices=ELECTION_CHOICES)

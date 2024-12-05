@@ -393,7 +393,7 @@ if environment in ['PRODUCTION', 'STAGE', 'DEVELOP']:
 else:
     env_csp_sources = []
 
-allowed_sources = (
+allowed_sources = [
     SELF,
     'www.civilrights.justice.gov',
     'civilrights.justice.gov',
@@ -409,7 +409,7 @@ allowed_sources = (
     'b.tile.openstreetmap.org',  # For loading image tiles in map data
     'c.tile.openstreetmap.org',  # For loading image tiles in map data
     *env_csp_sources,
-)
+]
 # headers required for security
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
@@ -420,10 +420,10 @@ SESSION_COOKIE_HTTPONLY = True
 # Note we are on 4.0+
 
 CONTENT_SECURITY_POLICY = {
-    'EXCLUDE_URL_PREFIXES': ('/admin'),  # Allow admin panel functionality (which is trusted content that uses inline sources)
+    'EXCLUDE_URL_PREFIXES': ['/admin'],  # Allow admin panel functionality (which is trusted content that uses inline sources)
     'DIRECTIVES': {
         'default-src': allowed_sources,
-        'script-src': (
+        'script-src': [
             SELF,
             NONCE,
             'www.civilrights.justice.gov',
@@ -440,8 +440,8 @@ CONTENT_SECURITY_POLICY = {
             'b.tile.openstreetmap.org',  # For loading image tiles in map data
             'c.tile.openstreetmap.org',  # For loading image tiles in map data
             *env_csp_sources,
-        ),
-        'connect-src': (
+        ],
+        'connect-src': [
             SELF,
             'www.civilrights.justice.gov',
             'civilrights.justice.gov',
@@ -457,37 +457,37 @@ CONTENT_SECURITY_POLICY = {
             'b.tile.openstreetmap.org',  # For loading image tiles in map data
             'c.tile.openstreetmap.org',  # For loading image tiles in map data
             *env_csp_sources,
-        ),
-        'img-src': (
+        ],
+        'img-src': [
             *allowed_sources,
             'data:',
             'a.tile.openstreetmap.org',  # For loading image tiles in map data
             'b.tile.openstreetmap.org',  # For loading image tiles in map data
             'c.tile.openstreetmap.org',  # For loading image tiles in map data
-        ),
+        ],
         'media-src': allowed_sources,
         'frame-src': allowed_sources,
-        'worker-src': (
+        'worker-src': [
             *allowed_sources,
             'blob:'
-        ),
+        ],
         'frame-ancestors': allowed_sources,
-        'style-src': (
+        'style-src': [
             SELF,
             'www.civilrights.justice.gov',
             'civilrights.justice.gov',
             "'unsafe-inline'",
             'https://fonts.googleapis.com',
             *env_csp_sources,
-        ),
-        'font-src': (
+        ],
+        'font-src': [
             SELF,
             'www.civilrights.justice.gov',
             'civilrights.justice.gov',
             "'unsafe-inline'",
             'https://fonts.gstatic.com',
             *env_csp_sources,
-        ),
+        ],
     }
 }
 

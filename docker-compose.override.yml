@@ -2,8 +2,6 @@
 # containers to the local machine, meaning that the docker instances are
 # accessible on local ports (for web, database, etc), and code is synced with
 # the containers.
-version: "3.7"
-
 services:
   db:
     ports:

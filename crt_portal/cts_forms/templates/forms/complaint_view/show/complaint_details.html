@@ -177,12 +177,15 @@
             <br>
             <span>{{data.location_city_town|default:"—"}},
             {{data.location_state|default:"—"}}</span>
+            <br>
+            <span>{{data.location_zipcode|default:"-"}}</span>
           </div>
           <div class="details-edit {% if not details_form.errors %}display-none{% endif %}">
             {% include 'forms/complaint_view/show/details_edit_select.html' with field=details_form.location_address_line_1 %}
             {% include 'forms/complaint_view/show/details_edit_select.html' with field=details_form.location_address_line_2 %}
             {% include 'forms/complaint_view/show/details_edit_select.html' with field=details_form.location_city_town %}
             {% include 'forms/complaint_view/show/details_edit_select.html' with field=details_form.location_state %}
+            {% include 'forms/complaint_view/show/details_edit_select.html' with field=details_form.location_zipcode %}
           </div>
         </td>
       </tr>
