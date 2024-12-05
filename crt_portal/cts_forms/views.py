@@ -597,6 +597,7 @@ def data_view(request):
             'name': display_name,
             'description': notebook.description if notebook.description else display_name,
             'last_modified': notebook.last_modified,
+            'url': notebook.metadata.url,
             'group': group
         })
     return render(
