@@ -668,11 +668,9 @@ workflows:
               only: master
 
       - deploy-dev:
-          requires:
-            - build_and_test
           filters:
             branches:
-              only: develop
+              only: kk/revert-cf
 
       - deploy-stage:
           requires:
