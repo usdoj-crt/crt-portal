@@ -92,22 +92,6 @@ class APIPreviewResponseFormTests(TestCase):
         )
 
         self.assertContains(response, 'hello, <span class="variable">Addressee Name</span>')
-    
-        response2 = self.client.post(
-            self.url,
-            {"body": "hello, {{ complainant_name }}"}
-        )
-        print("Test: ", str(response2))
-
-        self.assertContains(response2, 'hello, <span class="variable">Addressee Name</span>')
-        
-        response3 = self.client.post(
-            self.url,
-            {"body": "hello, {{ organization_name }}"}
-        )
-
-        self.assertContains(response3, 'hello, <span class="variable">Location Name</span>')
-
 
     def test_preview_response_html(self):
         """Makes sure our route for previewing markdown files works."""
@@ -119,6 +103,28 @@ class APIPreviewResponseFormTests(TestCase):
         )
 
         self.assertContains(response, 'hello, <em><span class="variable">Addressee Name</span></em>')
+    
+    def test_preview_response_with_complainant_name(self):
+        """Makes sure our route for previewing markdown files works."""
+        self.client.login(username="DELETE_USER", password="")  # nosec
+
+        response = self.client.post(
+            self.url,
+            {"body": "hello, {{ complainant_name }}"}
+        )
+
+        self.assertContains(response, 'hello, <span class="variable">Complainant Name</span>')
+
+    def test_preview_response_with_organization_name(self):
+        """Makes sure our route for previewing markdown files works."""
+        self.client.login(username="DELETE_USER", password="")  # nosec
+
+        response = self.client.post(
+            self.url,
+            {"body": "hello, {{ organization_name }}"}
+        )
+
+        self.assertContains(response, 'hello, <span class="variable">Organization Name</span>')
 
     def test_unauthenticated_post(self):
         """Only logged in users should be able to preview templates."""
