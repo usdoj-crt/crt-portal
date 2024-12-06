@@ -246,8 +246,10 @@ class ResponseTemplatePreviewBase:
     def _make_example_context(self):
         to_be_translated = {
             'addressee': 'Addressee Name',
+            'complainant_name': 'Complainant Name',
             'date_of_intake': 'Date of Intake',
             'outgoing_date': 'Outgoing Date',
+            'organization_name': 'Organization Name',
             'section_name': 'Section',
         }
 
