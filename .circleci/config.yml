@@ -199,7 +199,7 @@ jobs:
       - run:
           name: Pull owasp zap docker image and run scan
           command: |
-            docker run -v $(pwd):/zap/wrk/:rw -t softwaresecurityproject/zap-stable zap-baseline.py -t https://crt-portal-django-dev.app.cloud.gov/report/ -c .circleci/zap.conf --autooff -z "-config rules.cookie.ignorelist=django_language"
+            docker run -v $(pwd):/zap/wrk/:rw -t zaproxy/zap-stable zap-baseline.py -t https://crt-portal-django-dev.app.cloud.gov/report/ -c .circleci/zap.conf --autooff -z "-config rules.cookie.ignorelist=django_language"
   owasp-scan-stage:
     machine:
       image: ubuntu-2204:2024.01.1
@@ -209,7 +209,7 @@ jobs:
       - run:
           name: Pull owasp zap docker image and run scan
           command: |
-            docker run -v $(pwd):/zap/wrk/:rw -t softwaresecurityproject/zap-stable zap-baseline.py -t https://crt-portal-django-stage.app.cloud.gov/report/ -c .circleci/zap.conf --autooff -z "-config rules.cookie.ignorelist=django_language"
+            docker run -v $(pwd):/zap/wrk/:rw -t zaproxy/zap-stable zap-baseline.py -t https://crt-portal-django-stage.app.cloud.gov/report/ -c .circleci/zap.conf --autooff -z "-config rules.cookie.ignorelist=django_language"
   owasp-scan-prod:
     machine:
       image: ubuntu-2204:2024.01.1
@@ -219,7 +219,7 @@ jobs:
       - run:
           name: Pull owasp zap docker image and run scan
           command: |
-            docker run -v $(pwd):/zap/wrk/:rw -t softwaresecurityproject/zap-stable zap-baseline.py -t https://civilrights.justice.gov/report -c .circleci/zap.conf --autooff -z "-config rules.cookie.ignorelist=django_language"
+            docker run -v $(pwd):/zap/wrk/:rw -t zaproxy/zap-stable zap-baseline.py -t https://civilrights.justice.gov/report -c .circleci/zap.conf --autooff -z "-config rules.cookie.ignorelist=django_language"
   # deployments
   deploy-dev:
     working_directory: ~/code
@@ -398,7 +398,7 @@ jobs:
           paths:
             - '.venv'
             - '/usr/local/bin'
-            - '/usr/local/lib/python3.12/site-packages'
+            - '/usr/local/lib/python3.13/site-packages'
       - run:
           name: Login to cloud.gov
           command: cf8 login -u ${CRT_USERNAME_PROD} -p ${CRT_PASSWORD_PROD} -o doj-crtportal -s ${CF_SPACE}
