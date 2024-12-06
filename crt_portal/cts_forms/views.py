@@ -1402,7 +1402,7 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
         rejected_batch_uuid = request.POST.get('rejected_batch_uuid')
         uuid = request.POST.get('uuid', None)
         if confirm_all:
-            requested_query = reconstruct_query(query_string)
+            requested_query = reconstruct_query(query_string)[:500]
             selected_report_args = 'all=all'
         else:
             requested_query = Report.objects.filter(pk__in=ids)

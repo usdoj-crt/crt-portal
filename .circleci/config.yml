@@ -9,7 +9,7 @@ install-cf8: &install-cf8
   run:
     name: Install CF8
     command: |
-      curl -A "" -L -o cf8.deb 'https://github.com/cloudfoundry/cli/releases/download/v8.8.3/cf8-cli-installer_8.8.3_x86-64.deb'
+      curl -A "" -L -o cf8.deb 'https://packages.cloudfoundry.org/stable?release=debian64&version=v8&source=github'
       sudo dpkg -i cf8.deb
       rm cf8.deb
       cf8 api https://api.fr.cloud.gov
@@ -259,7 +259,7 @@ jobs:
       - run:
           name: install cf8
           command: |
-            curl -A "" -L -o cf8.deb 'https://github.com/cloudfoundry/cli/releases/download/v8.8.3/cf8-cli-installer_8.8.3_x86-64.deb'
+            curl -A "" -L -o cf8.deb 'https://packages.cloudfoundry.org/stable?release=debian64&version=v8&source=github'
             dpkg -i cf8.deb
             rm cf8.deb
             cf8 api https://api.fr.cloud.gov
@@ -326,7 +326,7 @@ jobs:
       - run:
           name: install cf8
           command: |
-            curl -A "" -L -o cf8.deb 'https://github.com/cloudfoundry/cli/releases/download/v8.8.3/cf8-cli-installer_8.8.3_x86-64.deb'
+            curl -A "" -L -o cf8.deb 'https://packages.cloudfoundry.org/stable?release=debian64&version=v8&source=github'
             dpkg -i cf8.deb
             rm cf8.deb
             cf8 api https://api.fr.cloud.gov
@@ -389,7 +389,7 @@ jobs:
       - run:
           name: install cf8
           command: |
-            curl -A "" -L -o cf8.deb 'https://github.com/cloudfoundry/cli/releases/download/v8.8.3/cf8-cli-installer_8.8.3_x86-64.deb'
+            curl -A "" -L -o cf8.deb 'https://packages.cloudfoundry.org/stable?release=debian64&version=v8&source=github'
             dpkg -i cf8.deb
             rm cf8.deb
             cf8 api https://api.fr.cloud.gov
