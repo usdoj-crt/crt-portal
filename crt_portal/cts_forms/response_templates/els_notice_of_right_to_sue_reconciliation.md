@@ -12,7 +12,7 @@ show_in_dropdown: false
 
 {{ outgoing_date }}
 
-{{ complainant_name ))
+{{ complainant_name }}
 {{ contact_email }}
 
 Re: {{ complainant_name }} v. {{ organization_name }}, et al.,
