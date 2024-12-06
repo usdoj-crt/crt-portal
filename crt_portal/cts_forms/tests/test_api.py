@@ -103,7 +103,7 @@ class APIPreviewResponseFormTests(TestCase):
         )
 
         self.assertContains(response, 'hello, <em><span class="variable">Addressee Name</span></em>')
-    
+
     def test_preview_response_with_complainant_name(self):
         """Makes sure our route for previewing markdown files works."""
         self.client.login(username="DELETE_USER", password="")  # nosec
