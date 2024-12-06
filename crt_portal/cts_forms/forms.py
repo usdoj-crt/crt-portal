@@ -135,6 +135,24 @@ class TagsField(ModelMultipleChoiceField):
                          required=False,
                          *args, **kwargs)
 
+    def has_changed(self, initial, data):
+        """Overrides default to account for integer comparisons."""
+        if self.disabled:
+            return False
+        if initial is None:
+            initial = []
+        if data is None:
+            data = []
+        if isinstance(initial, int):
+            initial = [initial]
+        if isinstance(data, int):
+            data = [data]
+        if len(initial) != len(data):
+            return True
+        initial_set = {str(value) for value in self.prepare_value(initial)}
+        data_set = {str(value) for value in data}
+        return data_set != initial_set
+
     def label_from_instance(self, obj: Tag):
         chip = f"<span class='section'>{obj.section or 'ALL'}</span> <span class='name'>{obj.name}</span>"
 
@@ -2500,19 +2518,6 @@ class BulkActionsForm(LitigationHoldLock, Form, ActivityStreamUpdater):
             },
         ),
     )
-    retention_schedule = MultipleChoiceField(
-        required=False,
-        label='Retention schedule',
-        choices=[
-            ('', ''),  # Default choice: empty (include everything)
-            ('(none)', 'None'),  # Custom: No assigned schedule.
-            *RETENTION_SCHEDULE_CHOICES,
-        ],
-        widget=UsaCheckboxSelectMultiple(attrs={
-            'name': 'retention_schedule',
-        }),
-        initial='',
-    )
     referred = BooleanField(
         label='Secondary review',
         required=False,
@@ -2574,7 +2579,7 @@ class BulkActionsForm(LitigationHoldLock, Form, ActivityStreamUpdater):
         self.queryset = query
 
         self.fields['retention_schedule'] = ModelChoiceField(
-            queryset=RetentionSchedule.objects.all().order_by('order'),
+            queryset=RetentionSchedule.objects.filter(is_retired=False).order_by('order'),
             empty_label=self.EMPTY_CHOICE,
             label='Retention schedule',
             required=False,
