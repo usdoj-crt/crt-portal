@@ -197,15 +197,11 @@ class PortalOAuthenticator(GenericOAuthenticator):
 
 c.JupyterHub.authenticator_class = PortalOAuthenticator
 
+PortalOAuthenticator.manage_groups = True
+PortalOAuthenticator.user_auth_state_key = "oauth_user"
+PortalOAuthenticator.auth_state_groups_key = 'oauth_user.groups'
 PortalOAuthenticator.allowed_groups = {'jupyter_editor'}
 PortalOAuthenticator.admin_groups = {'jupyter_superuser'}
-
-# Generate a code_challenge, which is an extra security step imposed by django-oauth-toolkit.
-# For more info: https://django-oauth-toolkit.readthedocs.io/en/stable/getting_started.html
-code_verifier = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(random.randint(43, 128)))
-code_verifier = base64.urlsafe_b64encode(code_verifier.encode('utf-8'))
-code_challenge = hashlib.sha256(code_verifier).digest()
-code_challenge = base64.urlsafe_b64encode(code_challenge).decode('utf-8').replace('=', '')
 
 web_external_hostname = os.environ.get('WEB_EXTERNAL_HOSTNAME')
 web_internal_hostname = os.environ.get('WEB_INTERNAL_HOSTNAME')
@@ -217,15 +213,6 @@ jupyter_external_hostname = (
 
 PortalOAuthenticator.client_id = os.environ.get('OAUTH_PROVIDER_CLIENT_ID')
 PortalOAuthenticator.client_secret = os.environ.get('OAUTH_PROVIDER_CLIENT_SECRET')
-
-PortalOAuthenticator.extra_authorize_params = {
-    'code_challenge': code_challenge,
-    'code_challenge_method': 'S256',
-}
-
-PortalOAuthenticator.token_params = {
-    'code_verifier': code_verifier,
-}
 
 PortalOAuthenticator.login_service = 'DOJ CRT Portal'
 PortalOAuthenticator.basic_auth = False

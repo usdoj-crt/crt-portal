@@ -24,9 +24,6 @@ services:
     build:
       dockerfile: jupyterhub.Dockerfile
     command: jupyterhub --config '/srv/jupyterhub/jupyterhub_config.py'
-    depends_on:
-      - db
-      - web
 
   web:
     hostname: web
