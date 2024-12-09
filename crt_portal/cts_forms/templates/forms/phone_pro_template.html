@@ -123,13 +123,16 @@
   </div>
 </div>
 <div class="intake-sidebar grid-col-3 margin-top-3">
+  {% if section == 'VOT' %}
   <div class="crt-portal-card margin-top-2">
     <div class="crt-portal-card__content">
       <h2>Quick Links</h2>
       {% configurable_content 'vot-form-links' %}
     </div>
   </div>
+  {% endif %}
 
+  {% if section == 'VOT' %}
   <div class="crt-portal-card margin-top-2">
     <div class="crt-portal-card__content stacked-sidebar-width">
       <h2>State resources</h2>
@@ -150,6 +153,7 @@
       </div>
     </div>
   </div>
+  {% endif %}
 
   <div class="margin-top-2">
     {% include 'partials/field.html' with field=form.public_id %}
