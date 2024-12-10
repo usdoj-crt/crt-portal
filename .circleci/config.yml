@@ -668,11 +668,11 @@ workflows:
               only: master
 
       - deploy-dev:
-          requires:
-            - build_and_test
+          # requires:
+          #   - build_and_test
           filters:
             branches:
-              only: develop
+              only: crt-better-resources-icons-fix
 
       - deploy-stage:
           requires:
