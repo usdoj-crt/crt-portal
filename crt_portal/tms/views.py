@@ -182,7 +182,7 @@ class PdfReportView(LoginRequiredMixin, View):
         del request  # unused
 
         report = get_object_or_404(Report, id=report_id)
-        combined = pypdf.PdfMerger()
+        combined = pypdf.PdfWriter()
         for email in report.emails.exclude(purpose=TMSEmail.AUTO_EMAIL).order_by('-created_at'):
             try:
                 combined.append(pdf.convert_tms_to_pdf(email))
