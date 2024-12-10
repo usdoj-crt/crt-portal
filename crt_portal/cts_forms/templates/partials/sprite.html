@@ -1,9 +1,5 @@
-{% if fill %}
-<svg class="icon" aria-hidden="true" focusable="false" role="img" fill="{{fill}}">
-  <use xlink:href="/static/img/sprite.svg#{{icon}}"></use>
-</svg>
+{% if style %}
+<img class="icon" style="{{style}}" src="/static/img/usa-icons/{{icon}}.svg" />
 {% else %}
-<svg class="icon" aria-hidden="true" focusable="false" role="img">
-  <use xlink:href="/static/img/sprite.svg#{{icon}}"></use>
-</svg>
+<img class="icon" src="/static/img/usa-icons/{{icon}}.svg" />
 {% endif %}
