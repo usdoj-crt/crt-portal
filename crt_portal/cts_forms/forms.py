@@ -1013,7 +1013,7 @@ class Review(ModelForm):
 FieldConfig = collections.namedtuple('FieldConfig', [
     'name',
     'widget',
-    'label',
+    'field_props',
 ])
 
 
@@ -1026,7 +1026,50 @@ def get_phone_form_config(section):
                             choices=PRIMARY_COMPLAINT_CHOICES,
                             unfolded_options=['voting'],
                         ),
-                        PRIMARY_REASON_QUESTION)
+                        {'label': PRIMARY_REASON_QUESTION, 'initial': next(choice for choice in PRIMARY_COMPLAINT_CHOICES if choice[0] == 'voting'),
+                         }),
+        ],
+        'ELS-CRU': [
+            FieldConfig('primary_complaint',
+                        CrtExpandableRadioSelect(
+                            choices=PRIMARY_COMPLAINT_CHOICES,
+                            unfolded_options=['workplace'],
+                        ),
+                        {
+                            'label': PRIMARY_REASON_QUESTION,
+                            'initial': next(choice for choice in PRIMARY_COMPLAINT_CHOICES if choice[0] == 'workplace'),
+                        }),
+            FieldConfig('public_or_private_employer',
+                        CrtExpandableRadioSelect(
+                            choices=PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES,
+                            unfolded_options=['public_employer'],
+                        ),
+                        {
+                            'label': WORKPLACE_QUESTIONS['public_or_private_employer'],
+                            'initial': next(choice for choice in PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES if choice[0] == 'public_employer'),
+                        }),
+            FieldConfig('employer_size',
+                        CrtExpandableRadioSelect(
+                            choices=EMPLOYER_SIZE_CHOICES,
+                            unfolded_options=['15_or_more'],
+                        ),
+                        {
+                            'label': WORKPLACE_QUESTIONS['employer_size'],
+                            'initial': next(choice for choice in EMPLOYER_SIZE_CHOICES if choice[0] == '15_or_more'),
+                        }),
+            FieldConfig('protected_class',
+                        UsaCheckboxSelectMultiple(),
+                        {
+                            'label': PROTECTED_CLASS_QUESTION,
+                            'queryset': ProtectedClass.objects.filter(code__in=[
+                                'Race/color',
+                                'Sex',
+                                'Religion',
+                                'National origin',
+                                'Age',
+                                'Other',
+                            ])
+                        }),
         ],
     }.get(section, [
         FieldConfig('primary_complaint',
@@ -1034,57 +1077,57 @@ def get_phone_form_config(section):
                         choices=PRIMARY_COMPLAINT_CHOICES,
                         unfolded_options=[],
                     ),
-                    PRIMARY_REASON_QUESTION)
+                    {'label': PRIMARY_REASON_QUESTION})
     ])
 
     return list(sorted(section_specific + [
         FieldConfig('contact_first_name',
                     TextInput(attrs={'class': 'usa-input'}),
-                    CONTACT_QUESTIONS['contact_first_name']),
+                    {'label': CONTACT_QUESTIONS['contact_first_name']}),
         FieldConfig('contact_last_name',
                     TextInput(attrs={'class': 'usa-input'}),
-                    CONTACT_QUESTIONS['contact_last_name']),
+                    {'label': CONTACT_QUESTIONS['contact_last_name']}),
         FieldConfig('contact_phone',
                     TextInput(attrs={'class': 'usa-input phone-input', 'pattern': phone_validation_regex, 'title': CONTACT_PHONE_INVALID_MESSAGE}),
-                    CONTACT_QUESTIONS['contact_phone']),
+                    {'label': CONTACT_QUESTIONS['contact_phone']}),
         FieldConfig('contact_email',
                     EmailInput(attrs={'class': 'usa-input'}),
-                    CONTACT_QUESTIONS['contact_email']),
+                    {'label': CONTACT_QUESTIONS['contact_email']}),
         FieldConfig('contact_address_line_1',
                     TextInput(attrs={'class': 'usa-input'}),
-                    CONTACT_QUESTIONS['contact_address_line_1']),
+                    {'label': CONTACT_QUESTIONS['contact_address_line_1']}),
         FieldConfig('contact_address_line_2',
                     TextInput(attrs={'class': 'usa-input'}),
-                    CONTACT_QUESTIONS['contact_address_line_2']),
+                    {'label': CONTACT_QUESTIONS['contact_address_line_2']}),
         FieldConfig('contact_city',
                     TextInput(attrs={'class': 'usa-input'}),
-                    CONTACT_QUESTIONS['contact_city']),
+                    {'label': CONTACT_QUESTIONS['contact_city']}),
         FieldConfig('contact_state',
                     Select(attrs={'class': 'usa-select'}),
-                    CONTACT_QUESTIONS['contact_state']),
+                    {'label': CONTACT_QUESTIONS['contact_state']}),
         FieldConfig('contact_zip',
                     TextInput(attrs={'class': 'usa-input'}),
-                    CONTACT_QUESTIONS['contact_zip']),
+                    {'label': CONTACT_QUESTIONS['contact_zip']}),
 
         FieldConfig('location_name',
                     TextInput(attrs={'class': 'usa-input'}),
-                    LOCATION_QUESTIONS['location_name']),
+                    {'label': LOCATION_QUESTIONS['location_name']}),
         FieldConfig('location_address_line_1',
                     TextInput(attrs={'class': 'usa-input'}),
-                    LOCATION_QUESTIONS['location_address_line_1']),
+                    {'label': LOCATION_QUESTIONS['location_address_line_1']}),
         FieldConfig('location_address_line_2',
                     TextInput(attrs={'class': 'usa-input'}),
-                    LOCATION_QUESTIONS['location_address_line_2']),
+                    {'label': LOCATION_QUESTIONS['location_address_line_2']}),
         FieldConfig('location_city_town',
                     TextInput(attrs={'class': 'usa-input'}),
-                    LOCATION_QUESTIONS['location_city_town']),
+                    {'label': LOCATION_QUESTIONS['location_city_town']}),
         FieldConfig('location_state',
                     Select(attrs={'class': 'usa-select'}),
-                    LOCATION_QUESTIONS['location_state']),
+                    {'label': LOCATION_QUESTIONS['location_state']}),
 
         FieldConfig('violation_summary',
                     Textarea(attrs={'class': 'usa-textarea word-count-500'}),
-                    'What did the person believe happened?'),
+                    {'label': 'What did the person believe happened?'}),
         FieldConfig('crt_reciept_month',
                     TextInput(attrs={
                         'class': 'autotoday usa-input usa-input--small',
@@ -1093,7 +1136,7 @@ def get_phone_form_config(section):
                         'pattern': '[0-9]*',
                         'inputmode': 'numeric',
                     }),
-                    'Month'),
+                    {'label': 'Month'}),
         FieldConfig('crt_reciept_day',
                     TextInput(attrs={
                         'class': 'autotoday usa-input usa-input--small',
@@ -1102,7 +1145,7 @@ def get_phone_form_config(section):
                         'pattern': '[0-9]*',
                         'inputmode': 'numeric',
                     }),
-                    'Day'),
+                    {'label': 'Day'}),
         FieldConfig('crt_reciept_year',
                     TextInput(attrs={
                         'class': 'autotoday usa-input usa-input--medium',
@@ -1112,18 +1155,18 @@ def get_phone_form_config(section):
                         'pattern': '[0-9]*',
                         'inputmode': 'numeric',
                     }),
-                    'Year'),
+                    {'label': 'Year'}),
 
         FieldConfig('public_id',
                     TextInput(attrs={'class': 'usa-input'}),
-                    'Record Locator (Public ID)'),
+                    {'label': 'Record Locator (Public ID)'}),
 
         FieldConfig('intake_format',
                     HiddenInput(attrs={'value': 'phone'}),
-                    'Intake Format'),
+                    {'label': 'Intake Format'}),
         FieldConfig('district',
                     HiddenInput(),
-                    'District Number'),
+                    {'label': 'District Number'}),
     ]))
 
 
@@ -1146,8 +1189,9 @@ def make_phone_pro_form(section):
             self.label_suffix = ''
 
             for field in phone_form_config:
-                self.fields[field.name].label = field.label
                 self.fields[field.name].required = False
+                for prop, value in field.field_props.items():
+                    setattr(self.fields[field.name], prop, value)
 
         def clean(self):
             """Handles special fields that don't map back to model fields"""

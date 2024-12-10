@@ -83,6 +83,30 @@
         {% include 'partials/field.html' with field=form.primary_complaint strong_label=True %}
       </div>
 
+      {% if form.public_or_private_employer %}
+      <h2>Public or private employer</h2>
+
+      <div class="grid-row margin-top-2">
+        {% include 'partials/field.html' with field=form.public_or_private_employer strong_label=True %}
+      </div>
+      {% endif %}
+
+      {% if form.employer_size %}
+      <h2>Employer size</h2>
+
+      <div class="grid-row margin-top-2">
+        {% include 'partials/field.html' with field=form.employer_size strong_label=True %}
+      </div>
+      {% endif %}
+
+      {% if form.protected_class %}
+      <h2>Protected class</h2>
+
+      <div class="grid-row margin-top-2">
+        {% include 'partials/field.html' with field=form.protected_class strong_label=True %}
+      </div>
+      {% endif %}
+
       <h2>Incident location</h2>
 
       <div class="grid-row margin-top-2">
