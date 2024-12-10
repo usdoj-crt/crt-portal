@@ -93,7 +93,7 @@ def convert_tms_to_pdf(email: TMSEmail) -> io.BytesIO:
      }}
     """)
 
-    pdf = pypdf.PdfMerger()
+    pdf = pypdf.PdfWriter()
     pdf.append(convert_html_to_pdf(cover_page, stylesheets=[header_style]))
     pdf.append(convert_html_to_pdf(email.sent_content, stylesheets=[header_style]))
     out = io.BytesIO()
@@ -144,7 +144,7 @@ The following reports were disposed by the Civil Rights Division on {batch.dispo
      }}
     """)
 
-    pdf = pypdf.PdfMerger()
+    pdf = pypdf.PdfWriter()
     pdf.append(convert_html_to_pdf(page, stylesheets=[header_style]))
     out = io.BytesIO()
     pdf.write(out)
