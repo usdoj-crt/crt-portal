@@ -73,7 +73,7 @@
         {% include 'forms/complaint_view/show/actions.html' with title="Complaint status" icon="img/intake-icons/ic_check-circle.svg" %}
         {% include 'forms/complaint_view/show/related_reports.html' with title="Total Complaints" icon="img/intake-icons/copy.svg" %}
         {% if ENABLED_FEATURES.email_responses_card %}
-          {% include 'forms/complaint_view/show/email_responses_card.html' with data=data title="Email Response(s)" icon="#mail" %}
+          {% include 'forms/complaint_view/show/email_responses_card.html' with data=data title="Email Response(s)" icon="mail" %}
         {% endif %}
         {% if ENABLED_FEATURES.edit_outreach %}
           {% include 'forms/complaint_view/show/outreach.html' with data=data title="Outreach" icon="#campaign" %}
