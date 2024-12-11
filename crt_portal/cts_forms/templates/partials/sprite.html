@@ -1,3 +1,5 @@
-<svg class="icon" fill="{% if fill %}{{ fill }}{% else %}#162e51{% endif %}" aria-hidden="true" focusable="false" role="img">
-  <use xlink:href="{% static 'img/sprite.svg' %}#{{icon}}"></use>
-</svg>
+{% if classes %}
+<img class="icon {{classes}}" src="/static/img/usa-icons/{{icon}}.svg" />
+{% else %}
+<img class="icon" src="/static/img/usa-icons/{{icon}}.svg" />
+{% endif %}

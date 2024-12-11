@@ -3,13 +3,7 @@
 {% block extra_classes %}crt-responses-card{% endblock %}
 
 {% block icon %}
-  {% if icon|first == '#' %}
-    <svg class="icon" fill="#162e51" aria-hidden="true" focusable="false" role="img">
-      <use xlink:href="{% static 'img/sprite.svg' %}{{icon}}"></use>
-    </svg>
-  {% else %}
-    <img src="{% static icon %}" alt="" class="icon" />
-  {% endif %}
+{% include 'partials/sprite.html' with icon=icon %}
 {% endblock %}
 
 {% block card_content %}
@@ -33,9 +27,7 @@
     View them below, or
       <a target="_blank" href="/email/admin/report-pdf/{{data.id}}">
         view a combined PDF
-        <svg class="inline-icon" fill="#162e51" aria-hidden="true" focusable="false" role="img">
-          <use xlink:href="/static/img/sprite.svg?v=1697818165#save_alt"></use>
-        </svg>
+        {% include 'partials/sprite.html' with icon="save_alt" classes="height-2" %}
       </a> (this may take a moment for reports with many responses)
     </small>
   </p>
@@ -87,17 +79,13 @@
       <td>
         {% if response.purpose == 'auto' %}
         <span class="usa-tooltip" data-position="left" title="Automatic Reply">
-          <svg class="icon card-table-icon" fill="#162e51" aria-hidden="true" focusable="false" role="img">
-            <use xlink:href="{% static 'img/sprite.svg' %}#loop"></use>
-          </svg>
+          {% include 'partials/sprite.html' with icon="loop" classes="height-2" %}
         </span>
         {% endif %}
 
         {% if response.status == 'failed' %}
         <span class="usa-tooltip" data-position="left" title="{{response.error_message|default:"This message failed to send"}}">
-          <svg class="icon card-table-icon" fill="#162e51" aria-hidden="true" focusable="false" role="img">
-            <use xlink:href="{% static 'img/sprite.svg' %}#error_outline"></use>
-          </svg>
+          {% include 'partials/sprite.html' with icon="error_outline" classes="height-2" %}
         </span>
         {% endif %}
       </td>

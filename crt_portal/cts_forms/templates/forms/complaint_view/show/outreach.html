@@ -6,13 +6,7 @@ class="edit-toggle-btn usa-button usa-button--unstyled button--edit margin-left-
 {% block extra_classes %}crt-outreach-card crt-toggleable-card{% endblock %}
 
 {% block icon %}
-  {% if icon|first == '#' %}
-    <svg class="icon" fill="#162e51" aria-hidden="true" focusable="false" role="img">
-      <use xlink:href="{% static 'img/sprite.svg' %}{{icon}}"></use>
-    </svg>
-  {% else %}
-    <img src="{% static icon %}" alt="" class="icon" />
-  {% endif %}
+{% include 'partials/sprite.html' with icon=icon %}
 {% endblock %}
 
 {% block card_content %}
