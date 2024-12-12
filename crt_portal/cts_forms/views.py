@@ -45,7 +45,7 @@ from .forms import (
     ContactEditForm, Filters, PrintActions, ProfileForm,
     ReportEditForm, ResourceActions, ResourceFilter, ResponseActions, SavedSearchActions, SavedSearchFilter, add_activity,
     AttachmentActions, Review, save_form,
-    make_phone_pro_form
+    make_phone_pro_form, group_additional_contacts
 )
 from .mail import mail_to_complainant
 from .model_variables import BATCH_STATUS_CHOICES, HATE_CRIMES_TRAFFICKING_MODEL_CHOICES, NOTIFICATION_PREFERENCE_CHOICES, STATES_AND_TERRITORIES
@@ -2196,6 +2196,8 @@ def phone_pro_form_view(request, report_id=None, section=None):
                     *STATES_AND_TERRITORIES,
                 ],
             ).render('', 'default'),
+
+            'additional_contacts': group_additional_contacts(section, form),
 
             'form': form,
 

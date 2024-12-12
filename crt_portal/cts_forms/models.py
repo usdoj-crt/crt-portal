@@ -461,6 +461,54 @@ class Report(models.Model):
     contact_inmate_number = models.CharField(max_length=225, null=True, blank=True)
     by_repeat_writer = models.BooleanField(default=False)
 
+    # Additional contact slots.
+    # Not especially proud of this duplication, but having nested or inline models circumvents things like disposition, form rendering, javascript for editing, etc.
+    # This duplication here reduces the complexity of all of that downstream code:
+    contact_2_kind = models.CharField(max_length=225, null=True, blank=True)
+    contact_2_name = models.CharField(max_length=225, null=True, blank=True)
+    contact_2_email = models.CharField(max_length=225, null=True, blank=True, validators=[validate_email_address])
+    contact_2_phone = models.CharField(
+        validators=[RegexValidator(phone_validation_regex, message=CONTACT_PHONE_INVALID_MESSAGE)],
+        max_length=225,
+        null=True,
+        blank=True
+    )
+    contact_2_address_line_1 = models.CharField(max_length=225, null=True, blank=True)
+    contact_2_address_line_2 = models.CharField(max_length=225, null=True, blank=True)
+    contact_2_city = models.CharField(max_length=700, null=True, blank=True)
+    contact_2_state = models.CharField(max_length=100, null=True, blank=True, choices=STATES_AND_TERRITORIES)
+    contact_2_zip_code = models.CharField(max_length=10, null=True, blank=True)
+
+    contact_3_kind = models.CharField(max_length=225, null=True, blank=True)
+    contact_3_name = models.CharField(max_length=225, null=True, blank=True)
+    contact_3_email = models.CharField(max_length=225, null=True, blank=True, validators=[validate_email_address])
+    contact_3_phone = models.CharField(
+        validators=[RegexValidator(phone_validation_regex, message=CONTACT_PHONE_INVALID_MESSAGE)],
+        max_length=225,
+        null=True,
+        blank=True
+    )
+    contact_3_address_line_1 = models.CharField(max_length=225, null=True, blank=True)
+    contact_3_address_line_2 = models.CharField(max_length=225, null=True, blank=True)
+    contact_3_city = models.CharField(max_length=700, null=True, blank=True)
+    contact_3_state = models.CharField(max_length=100, null=True, blank=True, choices=STATES_AND_TERRITORIES)
+    contact_3_zip_code = models.CharField(max_length=10, null=True, blank=True)
+
+    contact_4_kind = models.CharField(max_length=225, null=True, blank=True)
+    contact_4_name = models.CharField(max_length=225, null=True, blank=True)
+    contact_4_email = models.CharField(max_length=225, null=True, blank=True, validators=[validate_email_address])
+    contact_4_phone = models.CharField(
+        validators=[RegexValidator(phone_validation_regex, message=CONTACT_PHONE_INVALID_MESSAGE)],
+        max_length=225,
+        null=True,
+        blank=True
+    )
+    contact_4_address_line_1 = models.CharField(max_length=225, null=True, blank=True)
+    contact_4_address_line_2 = models.CharField(max_length=225, null=True, blank=True)
+    contact_4_city = models.CharField(max_length=700, null=True, blank=True)
+    contact_4_state = models.CharField(max_length=100, null=True, blank=True, choices=STATES_AND_TERRITORIES)
+    contact_4_zip_code = models.CharField(max_length=10, null=True, blank=True)
+
     servicemember = models.CharField(max_length=4, null=True, blank=True, choices=SERVICEMEMBER_CHOICES)
 
     # Primary Issue
