@@ -1010,6 +1010,40 @@ class Review(ModelForm):
         fields = []
 
 
+def _group_contact(form, kind, form_index):
+    fields = [
+        'kind',
+        'name',
+        'email',
+        'phone',
+        'address_line_1',
+        'address_line_2',
+        'city',
+        'state',
+        'zip_code',
+    ]
+
+    grouped = {
+        field: form[f'contact_{form_index}_{field}']
+        for field in fields
+    }
+    grouped['kind'].initial = kind
+    return grouped
+
+
+ADDITIONAL_CONTACT_KINDS = {
+    'ELS-CRU': ['Charging Party Representative', 'Respondent', 'Respondent Representative']
+}
+
+
+def group_additional_contacts(section, form):
+    kinds = ADDITIONAL_CONTACT_KINDS.get(section, [])
+    return [
+        _group_contact(form, kind, i)
+        for i, kind in enumerate(kinds, 2)
+    ]
+
+
 FieldConfig = collections.namedtuple('FieldConfig', [
     'name',
     'widget',
@@ -1017,8 +1051,50 @@ FieldConfig = collections.namedtuple('FieldConfig', [
 ])
 
 
+def _make_contact_group_config(kind, index):
+    return [
+        FieldConfig(f'contact_{index}_kind',
+                    HiddenInput(),
+                    {}),
+        FieldConfig(f'contact_{index}_name',
+                    TextInput(attrs={'class': 'usa-input'}),
+                    {'label': 'Name'}),
+        FieldConfig(f'contact_{index}_phone',
+                    TextInput(attrs={'class': 'usa-input phone-input', 'pattern': phone_validation_regex, 'title': CONTACT_PHONE_INVALID_MESSAGE}),
+                    {'label': 'Phone'}),
+        FieldConfig(f'contact_{index}_email',
+                    EmailInput(attrs={'class': 'usa-input'}),
+                    {'label': 'Email'}),
+        FieldConfig(f'contact_{index}_address_line_1',
+                    TextInput(attrs={'class': 'usa-input'}),
+                    {'label': 'Address Line 1'}),
+        FieldConfig(f'contact_{index}_address_line_2',
+                    TextInput(attrs={'class': 'usa-input'}),
+                    {'label': 'Address Line 2'}),
+        FieldConfig(f'contact_{index}_city',
+                    TextInput(attrs={'class': 'usa-input'}),
+                    {'label': 'City'}),
+        FieldConfig(f'contact_{index}_state',
+                    Select(attrs={'class': 'usa-select'}),
+                    {'label': 'State'}),
+        FieldConfig(f'contact_{index}_zip_code',
+                    TextInput(attrs={'class': 'usa-input'}),
+                    {'label': 'Zip code'}),
+    ]
+
+
+def _get_contact_config(section):
+    kinds = ADDITIONAL_CONTACT_KINDS.get(section, [])
+    return [
+        config
+        for i, kind in enumerate(kinds, 2)
+        for config in _make_contact_group_config(kind, i)
+    ]
+
+
 def get_phone_form_config(section):
     section = section.upper() if section else None
+    contact_config = _get_contact_config(section)
     section_specific = {
         'VOT': [
             FieldConfig('primary_complaint',
@@ -1080,7 +1156,7 @@ def get_phone_form_config(section):
                     {'label': PRIMARY_REASON_QUESTION})
     ])
 
-    return list(sorted(section_specific + [
+    return list(sorted(contact_config + section_specific + [
         FieldConfig('contact_first_name',
                     TextInput(attrs={'class': 'usa-input'}),
                     {'label': CONTACT_QUESTIONS['contact_first_name']}),
