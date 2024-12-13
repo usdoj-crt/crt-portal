@@ -149,6 +149,27 @@
       </div>
       {% endif %}
 
+      {% if form.eeoc_charge_number %}
+        <h2>EEOC charge number</h2>
+
+        <div class="grid-row margin-top-2">
+        {% include 'partials/field.html' with field=form.eeoc_charge_number strong_label=True %}
+        </div>
+      {% endif %}
+
+      {% if form.eeoc_office %}
+      <h2>EEOC office</h2>
+
+      <div class="margin-bottom-2 crt-dropdown">
+        <label for="id_eeoc_office" class="intake-label display-none">
+          {{ form.fields.eeoc_office.label }}
+        </label>
+        <div class="usa-combo-box" style="width: 100%" data-placeholder="(none)" data-default-value="{{ form.eeoc_office.value }}">
+          {{ form.eeoc_office }}
+        </div>
+      </div>
+      {% endif %}
+
       <h2>Incident location</h2>
 
       <div class="grid-row margin-top-2">
