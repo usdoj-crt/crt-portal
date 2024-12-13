@@ -12,8 +12,8 @@ from django.forms import (BooleanField, CharField, CheckboxInput, ChoiceField,
                           ModelMultipleChoiceField, MultipleChoiceField,
                           Select, SelectMultiple, Textarea, TextInput,
                           TypedChoiceField)
-from django.db.models.functions import Cast
-from django.db.models import IntegerField as IntField
+from django.db.models.functions import Cast, Concat
+from django.db.models import IntegerField as IntField, Value, F
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 from django.conf import settings
@@ -59,7 +59,7 @@ from .model_variables import (ACTION_CHOICES, CLOSED_STATUS, COMMERCIAL_OR_PUBLI
                               STATUS_CHOICES, STATUTE_CHOICES,
                               VIOLATION_SUMMARY_ERROR, WHERE_ERRORS,
                               HATE_CRIME_CHOICES, GROUPING, RETENTION_SCHEDULE_CHOICES)
-from .models import (CommentAndSummary, ProtectedClass, Report, ReportDispositionBatch, Resource, ResourceContact, ResponseTemplate, Profile, ReportAttachment, Campaign, RetentionSchedule, SavedSearch, get_system_user, Tag, NotificationPreference, GroupPreferences)
+from .models import (CommentAndSummary, ProtectedClass, Report, ReportDispositionBatch, Resource, ResourceContact, ResponseTemplate, Profile, ReportAttachment, Campaign, RetentionSchedule, SavedSearch, get_system_user, Tag, NotificationPreference, GroupPreferences, EeocOffice)
 from .phone_regex import phone_validation_regex
 from .question_group import QuestionGroup
 from .question_text import (CONTACT_QUESTIONS, DATE_QUESTIONS,
@@ -1146,6 +1146,16 @@ def get_phone_form_config(section):
                                 'Other',
                             ])
                         }),
+            FieldConfig('eeoc_office',
+                        Select(attrs={'class': 'usa-input usa-select'}),
+                        {
+                            'label': 'EEOC Office',
+                            'choices': EeocOffice.objects.filter(show=True).annotate(display=Concat(F('name'), Value(' '), F('address_line_2'), Value(' '), F('address_city'), Value(', '), F('address_state'))).values_list('pk', 'display').order_by('name'),
+                        }),
+            FieldConfig('eeoc_charge_number',
+                        TextInput(attrs={'class': 'usa-input'}),
+                        {'label': 'EEOC Charge Number'},
+                        ),
         ],
     }.get(section, [
         FieldConfig('primary_complaint',
