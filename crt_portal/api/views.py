@@ -16,7 +16,7 @@ from cts_forms.mail import mail_to_complainant, mail_to_agency, build_letters, b
 from utils.markdown_extensions import CustomHTMLExtension, OptionalExtension
 from cts_forms.models import Report, ResponseTemplate, ReportAttachment, Resource, ResourceContact
 from cts_forms.views import mark_report_as_viewed, mark_reports_as_viewed, get_sort_args
-from cts_forms.forms import add_activity, ProformAttachmentActions, PHONE_FORM_CONFIG, PhoneProForm, ResourceContactActions
+from cts_forms.forms import add_activity, ProformAttachmentActions, get_phone_form_config, make_phone_pro_form, ResourceContactActions
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, JsonResponse
@@ -108,18 +108,25 @@ class ReportEdit(generics.CreateAPIView):
     """
     permission_classes = (IsAuthenticated,)
     queryset = Report.objects.all().order_by('pk')
-    serializer_class = make_report_serializer(['public_id', *[field.name for field in PHONE_FORM_CONFIG]])
+
+    def get_serializer_class(self):
+        config = get_phone_form_config(self.section)
+        return make_report_serializer(['public_id', *[field.name for field in config]])
 
     def create(self, request, *args, **kwargs):
+        # Default to VOT to maintain legacy behavior where VOT had the only pro form
+        section = self.request.query_params.get('section', 'VOT').upper()
+        self.section = section
+
         user_changes = dict(request.data)
         public_id = user_changes.get('public_id')
         if not public_id:
             created = True
-            form = PhoneProForm(user_changes)
+            form = make_phone_pro_form(section)(user_changes)
         else:
             created = False
             report = get_object_or_404(Report, public_id=public_id)
-            form = PhoneProForm(user_changes, instance=report)
+            form = make_phone_pro_form(section)(user_changes, instance=report)
 
         if not form.has_changed():
             return JsonResponse({'messages': [
