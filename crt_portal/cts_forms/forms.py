@@ -1032,7 +1032,7 @@ def _group_contact(form, kind, form_index):
 
 
 ADDITIONAL_CONTACT_KINDS = {
-    'ELS-CRU': ['Charging Party Representative', 'Respondent', 'Respondent Representative']
+    'CRU': ['Charging Party Representative', 'Respondent', 'Respondent Representative']
 }
 
 
@@ -1102,14 +1102,17 @@ def get_phone_form_config(section):
                             choices=PRIMARY_COMPLAINT_CHOICES,
                             unfolded_options=['voting'],
                         ),
-                        {'label': PRIMARY_REASON_QUESTION, 'initial': next(choice for choice in PRIMARY_COMPLAINT_CHOICES if choice[0] == 'voting'),
-                         }),
+                        {
+                            'label': PRIMARY_REASON_QUESTION,
+                            'initial': next(choice for choice in PRIMARY_COMPLAINT_CHOICES if choice[0] == 'voting'),
+                        }),
         ],
-        'ELS-CRU': [
+        'CRU': [
             FieldConfig('primary_complaint',
                         CrtExpandableRadioSelect(
                             choices=PRIMARY_COMPLAINT_CHOICES,
                             unfolded_options=['workplace'],
+                            expandable_title="See more primary concerns"
                         ),
                         {
                             'label': PRIMARY_REASON_QUESTION,
@@ -1119,6 +1122,7 @@ def get_phone_form_config(section):
                         CrtExpandableRadioSelect(
                             choices=PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES,
                             unfolded_options=['public_employer'],
+                            expandable_title="See more employer type options"
                         ),
                         {
                             'label': WORKPLACE_QUESTIONS['public_or_private_employer'],
@@ -1128,6 +1132,7 @@ def get_phone_form_config(section):
                         CrtExpandableRadioSelect(
                             choices=EMPLOYER_SIZE_CHOICES,
                             unfolded_options=['15_or_more'],
+                            expandable_title="See more employer size options"
                         ),
                         {
                             'label': WORKPLACE_QUESTIONS['employer_size'],
@@ -1210,6 +1215,9 @@ def get_phone_form_config(section):
         FieldConfig('location_state',
                     Select(attrs={'class': 'usa-select'}),
                     {'label': LOCATION_QUESTIONS['location_state']}),
+        FieldConfig('location_zipcode',
+                    TextInput(attrs={'class': 'usa-input'}),
+                    {'label': LOCATION_QUESTIONS['location_zipcode']}),
 
         FieldConfig('violation_summary',
                     Textarea(attrs={'class': 'usa-textarea word-count-500'}),

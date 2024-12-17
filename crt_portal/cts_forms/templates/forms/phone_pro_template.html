@@ -32,6 +32,19 @@
 
       {% csrf_token %}
       <h2>Contact</h2>
+ 
+      <!-- 
+        We should probably clean up all of the "if section == ..." stuff 
+       as this is going to become a nightmare in terms of readability
+       and therefore difficult to maintain. I would suggest we split each section's
+       form out into its own template, but that also gets messy because we then are duplicating
+       templates... so I don't really have a good solution at this time. I will think about this
+       more when I have time as right now I am focused on delivering an MVP for the CRU form.
+       -->
+      {% if section == "CRU" %}
+      <hr>
+      {% include 'partials/start_expandable.html' with title='Charging Party of Aggrieved Individual' expanded="true" %}
+      {% endif %}
 
       <div class="grid-row margin-top-2">
         {% include 'partials/field.html' with field=form.contact_first_name %}
@@ -54,26 +67,30 @@
       </p>
       {% endif %}
 
-      <div class="grid-row">
+      <div class="grid-row margin-top-2">
         {% include 'partials/field.html' with field=form.contact_email %}
       </div>
 
-      <div class="grid-row">
+      <div class="grid-row margin-top-2">
         {% include 'partials/field.html' with field=form.contact_address_line_1 %}
       </div>
 
-      <div class="grid-row">
+      <div class="grid-row margin-top-2">
         {% include 'partials/field.html' with field=form.contact_address_line_2 %}
       </div>
 
-      <div class="grid-row">
-        {% include 'partials/field.html' with field=form.contact_city %}
+      <div class="grid-row margin-top-2">
+        {% include 'partials/field.html' with field=form.contact_city field_size=6 extra_class="padding-right-2" %}
         {% include 'partials/field.html' with field=form.contact_state extra_class="padding-right-2" field_size=6 %}
       </div>
 
-      <div class="grid-row">
+      <div class="grid-row margin-top-2">
         {% include 'partials/field.html' with field=form.contact_zip %}
       </div>
+
+      {% if section == "CRU" %}
+      {% include 'partials/end_expandable.html' %}
+      {% endif %}
 
       {% if section == 'VOT' %}
       <hr>
@@ -81,7 +98,6 @@
       {% endif %}
 
       {% for additional_contact in additional_contacts %}
-
         <hr>
         {% include 'partials/start_expandable.html' with title=additional_contact.kind.initial %}
 
@@ -93,24 +109,24 @@
           {% include 'partials/field.html' with field=additional_contact.phone %}
         </div>
 
-        <div class="grid-row">
+        <div class="grid-row margin-top-2">
           {% include 'partials/field.html' with field=additional_contact.email %}
         </div>
 
-        <div class="grid-row">
+        <div class="grid-row margin-top-2">
           {% include 'partials/field.html' with field=additional_contact.address_line_1 %}
         </div>
 
-        <div class="grid-row">
+        <div class="grid-row margin-top-2">
           {% include 'partials/field.html' with field=additional_contact.address_line_2 %}
         </div>
 
-        <div class="grid-row">
-          {% include 'partials/field.html' with field=additional_contact.city %}
+        <div class="grid-row margin-top-2">
+          {% include 'partials/field.html' with field=additional_contact.city field_size=6 extra_class="padding-right-2" %}
           {% include 'partials/field.html' with field=additional_contact.state extra_class="padding-right-2" field_size=6 %}
         </div>
 
-        <div class="grid-row">
+        <div class="grid-row margin-top-2">
           {% include 'partials/field.html' with field=additional_contact.zip_code %}
         </div>
 
@@ -184,9 +200,13 @@
         {% include 'partials/field.html' with field=form.location_address_line_2 %}
       </div>
 
-      <div class="grid-row margin-top-2 margin-bottom-3">
+      <div class="grid-row margin-top-2">
         {% include 'partials/field.html' with field=form.location_city_town field_size=6 extra_class="padding-right-2" %}
-        {% include 'partials/field.html' with field=form.location_state field_size=5 %}
+        {% include 'partials/field.html' with field=form.location_state field_size=6 %}
+      </div>
+
+      <div class="grid-row margin-top-2 margin-bottom-3">
+        {% include 'partials/field.html' with field=form.location_zipcode %}
       </div>
 
       <hr>

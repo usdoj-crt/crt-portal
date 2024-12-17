@@ -2164,11 +2164,16 @@ def phone_pro_form_view(request, report_id=None, section=None):
     else:
         form = make_phone_pro_form(section)()
 
+    title = "Election Call Center Intake Form"
+    match section:
+        case "CRU":
+            title = "CRU Intake Form"
+
     return render(
         request,
         'forms/phone_pro_template.html',
         {
-            'title': 'Election Call Center Intake Form',
+            'title': title,
             'quick_links': [
                 ('State Contacts', '#'),
                 ('Poll Locator', '#'),
