@@ -47,6 +47,7 @@ from .model_variables import (ACTION_CHOICES, CLOSED_STATUS, COMMERCIAL_OR_PUBLI
                               PRIMARY_COMPLAINT_ERROR,
                               PRIMARY_COMPLAINT_PROFORM_CHOICES,
                               PRIMARY_COMPLAINT_PROFORM_CHOICES_VOTING,
+                              PRIMARY_COMPLAINT_CHOICES_CRU,
                               PRINT_CHOICES,
                               PROTECTED_CLASS_ERROR,
                               PROTECTED_MODEL_CHOICES,
@@ -1095,6 +1096,82 @@ def _get_contact_config(section):
 def get_phone_form_config(section):
     section = section.upper() if section else None
     contact_config = _get_contact_config(section)
+
+    # section_specific = {
+    #     'VOT': [
+    #         FieldConfig('primary_complaint',
+    #                     CrtExpandableRadioSelect(
+    #                         choices=PRIMARY_COMPLAINT_CHOICES,
+    #                         unfolded_options=['voting'],
+    #                     ),
+    #                     {
+    #                         'label': PRIMARY_REASON_QUESTION,
+    #                         'initial': next(choice for choice in PRIMARY_COMPLAINT_CHOICES if choice[0] == 'voting'),
+    #                     }),
+    #     ],
+    #     'CRU': [
+    #         FieldConfig('primary_complaint',
+    #                     CrtExpandableRadioSelect(
+    #                         choices=PRIMARY_COMPLAINT_CHOICES_CRU,
+    #                         unfolded_options=['workplace'],
+    #                     ),
+    #                     {
+    #                         'label': PRIMARY_REASON_QUESTION,
+    #                         'initial': next(choice for choice in PRIMARY_COMPLAINT_CHOICES_CRU if choice[0] == 'workplace'),
+    #                     }),
+    #         FieldConfig('public_or_private_employer',
+    #                     CrtExpandableRadioSelect(
+    #                         choices=PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES,
+    #                         unfolded_options=['public_employer'],
+    #                         expandable_title="See more employer type options"
+    #                     ),
+    #                     {
+    #                         'label': WORKPLACE_QUESTIONS['public_or_private_employer'],
+    #                         'initial': next(choice for choice in PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES if choice[0] == 'public_employer'),
+    #                     }),
+    #         FieldConfig('employer_size',
+    #                     CrtExpandableRadioSelect(
+    #                         choices=EMPLOYER_SIZE_CHOICES,
+    #                         unfolded_options=['15_or_more'],
+    #                         expandable_title="See more employer size options"
+    #                     ),
+    #                     {
+    #                         'label': WORKPLACE_QUESTIONS['employer_size'],
+    #                         'initial': next(choice for choice in EMPLOYER_SIZE_CHOICES if choice[0] == '15_or_more'),
+    #                     }),
+    #         FieldConfig('protected_class',
+    #                     UsaCheckboxSelectMultiple(),
+    #                     {
+    #                         'label': PROTECTED_CLASS_QUESTION,
+    #                         'queryset': ProtectedClass.objects.filter(code__in=[
+    #                             'Race/color',
+    #                             'Sex',
+    #                             'Religion',
+    #                             'National origin',
+    #                             'Age',
+    #                             'Other',
+    #                         ])
+    #                     }),
+    #         FieldConfig('eeoc_office',
+    #                     Select(attrs={'class': 'usa-input usa-select'}),
+    #                     {
+    #                         'label': 'EEOC Office',
+    #                         'choices': EeocOffice.objects.filter(show=True).annotate(display=Concat(F('name'), Value(' '), F('address_line_2'), Value(' '), F('address_city'), Value(', '), F('address_state'))).values_list('pk', 'display').order_by('name'),
+    #                     }),
+    #         FieldConfig('eeoc_charge_number',
+    #                     TextInput(attrs={'class': 'usa-input'}),
+    #                     {'label': 'EEOC Charge Number'},
+    #                     ),
+    #     ],
+    # }.get(section, [
+    #     FieldConfig('primary_complaint',
+    #                 CrtExpandableRadioSelect(
+    #                     choices=PRIMARY_COMPLAINT_CHOICES,
+    #                     unfolded_options=[],
+    #                 ),
+    #                 {'label': PRIMARY_REASON_QUESTION})
+    # ])
+
     section_specific = {
         'VOT': [
             FieldConfig('primary_complaint',
@@ -1109,14 +1186,11 @@ def get_phone_form_config(section):
         ],
         'CRU': [
             FieldConfig('primary_complaint',
-                        CrtExpandableRadioSelect(
-                            choices=PRIMARY_COMPLAINT_CHOICES,
-                            unfolded_options=['workplace'],
-                            expandable_title="See more primary concerns"
-                        ),
+                        Select(attrs={'class': 'usa-input usa-select'}),
                         {
                             'label': PRIMARY_REASON_QUESTION,
-                            'initial': next(choice for choice in PRIMARY_COMPLAINT_CHOICES if choice[0] == 'workplace'),
+                            'choices': PRIMARY_COMPLAINT_CHOICES_CRU,
+                            'initial': next(choice for choice in PRIMARY_COMPLAINT_CHOICES_CRU if choice[0] == 'workplace'),
                         }),
             FieldConfig('public_or_private_employer',
                         CrtExpandableRadioSelect(
@@ -1162,16 +1236,9 @@ def get_phone_form_config(section):
                         {'label': 'EEOC Charge Number'},
                         ),
         ],
-    }.get(section, [
-        FieldConfig('primary_complaint',
-                    CrtExpandableRadioSelect(
-                        choices=PRIMARY_COMPLAINT_CHOICES,
-                        unfolded_options=[],
-                    ),
-                    {'label': PRIMARY_REASON_QUESTION})
-    ])
+    }
 
-    return list(sorted(contact_config + section_specific + [
+    return list(sorted(contact_config + section_specific[section] + [
         FieldConfig('contact_first_name',
                     TextInput(attrs={'class': 'usa-input'}),
                     {'label': CONTACT_QUESTIONS['contact_first_name']}),

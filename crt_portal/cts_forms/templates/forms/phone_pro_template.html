@@ -186,6 +186,7 @@
       </div>
       {% endif %}
 
+      {% if section != "CRU" %}
       <h2>Incident location</h2>
 
       <div class="grid-row margin-top-2">
@@ -216,6 +217,8 @@
         {% include "forms/question_cards/single_question.html" with field=form.violation_summary card_title="Personal Description" %}
         {% include "forms/word_counter.html" with word_limit=500 %}
       </div>
+
+      {% endif %}
 
       <hr>
 
