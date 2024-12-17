@@ -1033,7 +1033,7 @@ def _group_contact(form, kind, form_index):
 
 
 ADDITIONAL_CONTACT_KINDS = {
-    'CRU': ['Charging Party Representative', 'Respondent', 'Respondent Representative']
+    'CRU': ['Charging Party Representative', 'Respondent Representative']
 }
 
 

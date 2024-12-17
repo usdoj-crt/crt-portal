@@ -88,12 +88,45 @@
         {% include 'partials/field.html' with field=form.contact_zip %}
       </div>
 
-      {% if section == "CRU" %}
+      {% if section == 'VOT' %}
+      <hr>
       {% include 'partials/end_expandable.html' %}
       {% endif %}
 
-      {% if section == 'VOT' %}
+      {% if section == "CRU" %}
+      {% include 'partials/end_expandable.html' %}
       <hr>
+      {% include 'partials/start_expandable.html' with title='Respondent' %}
+      {% endif %}
+
+      {% if section != "CRU" %}
+      <h2>Incident location</h2>
+      {% endif %}
+
+      <div class="grid-row margin-top-2">
+        {% include 'partials/field.html' with field=form.location_name %}
+      </div>
+
+      <div class="grid-row margin-top-2">
+        {% include 'partials/field.html' with field=form.location_address_line_1 %}
+      </div>
+
+      <div class="grid-row margin-top-2">
+        {% include 'partials/field.html' with field=form.location_address_line_2 %}
+      </div>
+
+      <div class="grid-row margin-top-2">
+        {% include 'partials/field.html' with field=form.location_city_town field_size=6 extra_class="padding-right-2" %}
+        {% include 'partials/field.html' with field=form.location_state field_size=6 %}
+      </div>
+
+      <div class="grid-row margin-top-2 margin-bottom-3">
+        {% include 'partials/field.html' with field=form.location_zipcode %}
+      </div>
+
+      <hr>
+
+      {% if section == "CRU" %}
       {% include 'partials/end_expandable.html' %}
       {% endif %}
 
@@ -187,37 +220,11 @@
       {% endif %}
 
       {% if section != "CRU" %}
-      <h2>Incident location</h2>
-
-      <div class="grid-row margin-top-2">
-        {% include 'partials/field.html' with field=form.location_name %}
-      </div>
-
-      <div class="grid-row margin-top-2">
-        {% include 'partials/field.html' with field=form.location_address_line_1 %}
-      </div>
-
-      <div class="grid-row margin-top-2">
-        {% include 'partials/field.html' with field=form.location_address_line_2 %}
-      </div>
-
-      <div class="grid-row margin-top-2">
-        {% include 'partials/field.html' with field=form.location_city_town field_size=6 extra_class="padding-right-2" %}
-        {% include 'partials/field.html' with field=form.location_state field_size=6 %}
-      </div>
-
-      <div class="grid-row margin-top-2 margin-bottom-3">
-        {% include 'partials/field.html' with field=form.location_zipcode %}
-      </div>
-
-      <hr>
-
       <h2>Summary</h2>
       <div class="margin-top-1 margin-bottom-2">
         {% include "forms/question_cards/single_question.html" with field=form.violation_summary card_title="Personal Description" %}
         {% include "forms/word_counter.html" with word_limit=500 %}
       </div>
-
       {% endif %}
 
       <hr>
