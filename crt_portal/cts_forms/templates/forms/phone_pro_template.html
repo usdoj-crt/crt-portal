@@ -15,7 +15,7 @@
 {% block main_class %} class="margin-top-5 margin-bottom-0"{% endblock %}
 
 {% block content %}
-<form style="all: unset;" action="/api/report-edit/" method="post" id="report-form">
+<form style="all: unset;" action="/api/report-edit/?section={{section}}" method="post" id="report-form">
 <div class="grid-row">
 <h1 class="intake-section-title padding-bottom-2m margin-left-5">{{title}}</h1>
 </div>
@@ -195,6 +195,11 @@
 
       <div class="grid-row margin-top-2">
         {% include 'partials/field.html' with field=form.protected_class strong_label=True %}
+      </div>
+      {% endif %}
+      {% if form.other_class %}
+      <div class="grid-row margin-top-2">
+        {% include 'partials/field.html' with field=form.other_class strong_label=True %}
       </div>
       {% endif %}
 

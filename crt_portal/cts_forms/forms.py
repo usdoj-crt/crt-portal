@@ -1108,6 +1108,25 @@ def get_phone_form_config(section):
                             'label': PRIMARY_REASON_QUESTION,
                             'initial': next(choice for choice in PRIMARY_COMPLAINT_CHOICES if choice[0] == 'voting'),
                         }),
+            FieldConfig('protected_class',
+                        UsaCheckboxSelectMultiple(),
+                        {
+                            'label': PROTECTED_CLASS_QUESTION,
+                            'queryset': ProtectedClass.objects.filter(code__in=[
+                                'Race/color',
+                                'Sex',
+                                'Religion',
+                                'National origin',
+                                'Age',
+                                'Pregnancy',
+                                'Other',
+                            ])
+                        }),
+            FieldConfig('other_class',
+                        TextInput(attrs={'class': 'usa-input'}),
+                        {
+                            'label': 'Please describe "Other reason"',
+                        }),
         ],
         'CRU': [
             FieldConfig('primary_complaint',
@@ -1147,8 +1166,14 @@ def get_phone_form_config(section):
                                 'Religion',
                                 'National origin',
                                 'Age',
+                                'Pregnancy',
                                 'Other',
                             ])
+                        }),
+            FieldConfig('other_class',
+                        TextInput(attrs={'class': 'usa-input'}),
+                        {
+                            'label': 'Please describe "Other reason"',
                         }),
             FieldConfig('eeoc_office',
                         Select(attrs={'class': 'usa-input usa-select'}),
@@ -1264,11 +1289,11 @@ def make_phone_pro_form(section):
 
         class Meta:
             model = Report
-            fields = [field.name for field in phone_form_config]
-            widgets = {
-                field.name: field.widget
-                for field in phone_form_config
-            }
+            fields = []
+            widgets = {}
+            for field in phone_form_config:
+                fields.append(field.name)
+                widgets[field.name] = field.widget
 
         def __init__(self, *args, **kwargs):
             ModelForm.__init__(self, *args, **kwargs)

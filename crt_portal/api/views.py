@@ -115,7 +115,7 @@ class ReportEdit(generics.CreateAPIView):
 
     def create(self, request, *args, **kwargs):
         # Default to VOT to maintain legacy behavior where VOT had the only pro form
-        section = self.request.query_params.get('section', 'VOT').upper()
+        section = request.query_params.get('section', 'VOT').upper()
         self.section = section
 
         user_changes = dict(request.data)
