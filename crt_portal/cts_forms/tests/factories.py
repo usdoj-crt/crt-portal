@@ -57,6 +57,9 @@ class ReportFactory(DjangoModelFactory):
     contact_4_state = Faker('state_abbr')
     contact_4_zip_code = Faker('zipcode')
 
+    eeoc_charge_number = Faker('phone_number')
+    eeoc_office = Faker('company')
+
     location_name = Faker('company')
     location_address_line_1 = Faker('street_address')
     location_address_line_2 = Faker('secondary_address')
