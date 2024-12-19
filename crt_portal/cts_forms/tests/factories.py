@@ -27,8 +27,8 @@ class ReportFactory(DjangoModelFactory):
     contact_city = Faker('city')
     contact_zip = Faker('zipcode')
 
-    contact_2_kind = Faker('kind')
-    contact_2_name = Faker('first_name')
+    contact_2_kind = Faker('company')
+    contact_2_name = Faker('name')
     contact_2_email = Faker('email', domain="example.com")
     contact_2_phone = Faker('phone_number')
     contact_2_address_line_1 = Faker('street_address')
@@ -37,8 +37,8 @@ class ReportFactory(DjangoModelFactory):
     contact_2_state = Faker('state_abbr')
     contact_2_zip_code = Faker('zipcode')
 
-    contact_3_kind = Faker('kind')
-    contact_3_name = Faker('first_name')
+    contact_3_kind = Faker('company')
+    contact_3_name = Faker('name')
     contact_3_email = Faker('email', domain="example.com")
     contact_3_phone = Faker('phone_number')
     contact_3_address_line_1 = Faker('street_address')
@@ -47,8 +47,8 @@ class ReportFactory(DjangoModelFactory):
     contact_3_state = Faker('state_abbr')
     contact_3_zip_code = Faker('zipcode')
 
-    contact_4_kind = Faker('kind')
-    contact_4_name = Faker('first_name')
+    contact_4_kind = Faker('company')
+    contact_4_name = Faker('name')
     contact_4_email = Faker('email', domain="example.com")
     contact_4_phone = Faker('phone_number')
     contact_4_address_line_1 = Faker('street_address')
