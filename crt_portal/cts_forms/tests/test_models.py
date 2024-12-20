@@ -10,7 +10,7 @@ import datetime
 
 from .factories import ReportFactory
 
-from cts_forms.models import JudicialDistrict, Report, ReportDispositionBatch, RetentionSchedule, User, SavedSearch, ScheduledNotification, ProtectedClass, HateCrimesandTrafficking, Tag, ReportAttachment, CommentAndSummary, Campaign
+from cts_forms.models import JudicialDistrict, Report, ReportDispositionBatch, RetentionSchedule, User, SavedSearch, ScheduledNotification, ProtectedClass, HateCrimesandTrafficking, Tag, ReportAttachment, CommentAndSummary, Campaign, EeocOffice
 
 from tms.models import TMSEmail
 
@@ -302,7 +302,6 @@ class ReportTests(TestCase):
             ('contact_2_city', 'Anytown', None),
             ('contact_2_state', 'FL', None),
             ('contact_2_zip_code', '12345', None),
-            ('contact_2_inmate_number', '12345', None),
 
             ('contact_3_kind', 'Bob', None),
             ('contact_3_name', 'Smith', None),
@@ -313,7 +312,6 @@ class ReportTests(TestCase):
             ('contact_3_city', 'Anytown', None),
             ('contact_3_state', 'FL', None),
             ('contact_3_zip_code', '12345', None),
-            ('contact_3_inmate_number', '12345', None),
 
             ('contact_4_kind', 'Bob', None),
             ('contact_4_name', 'Smith', None),
@@ -324,10 +322,9 @@ class ReportTests(TestCase):
             ('contact_4_city', 'Anytown', None),
             ('contact_4_state', 'FL', None),
             ('contact_4_zip_code', '12345', None),
-            ('contact_4_inmate_number', '12345', None),
 
             ('eeoc_charge_number', '123-123-1234', None),
-            ('eeoc_office', 'Test EEOC Office', None),
+            ('eeoc_office', EeocOffice.objects.filter(id=1).first(), None),
 
             ('emails', report.emails.all(), []),
 
