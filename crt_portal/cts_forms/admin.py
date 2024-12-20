@@ -34,7 +34,7 @@ from .model_variables import SECTION_CHOICES
 from .models import (CommentAndSummary, HateCrimesandTrafficking, Profile,
                      ProtectedClass, Report, ResponseTemplate, DoNotEmail,
                      JudicialDistrict, RetentionSchedule, RoutingSection, RoutingStepOneContact, Tag,
-                     VotingMode, Campaign, ReferralContact, BannerMessage, SavedSearch, NotificationPreference, 
+                     VotingMode, Campaign, ReferralContact, BannerMessage, SavedSearch, NotificationPreference,
                      ScheduledNotification, ApplicationContact, GroupPreferences, ConfigurableContent, EeocOffice)
 from utils.request_utils import get_client_ip
 
