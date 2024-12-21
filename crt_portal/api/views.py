@@ -117,8 +117,10 @@ class ReportEdit(generics.CreateAPIView):
         # Default to VOT to maintain legacy behavior where VOT had the only pro form
         section = request.query_params.get('section', 'VOT').upper()
         self.section = section
-
         user_changes = dict(request.data)
+
+        # TODO: Remove this debug statement
+        print("API: Create: request data = ", str(user_changes))
         public_id = user_changes.get('public_id')
         if not public_id:
             created = True
