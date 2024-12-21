@@ -1108,25 +1108,6 @@ def get_phone_form_config(section):
                             'label': PRIMARY_REASON_QUESTION,
                             'initial': next(choice for choice in PRIMARY_COMPLAINT_CHOICES if choice[0] == 'voting'),
                         }),
-            FieldConfig('protected_class',
-                        UsaCheckboxSelectMultiple(),
-                        {
-                            'label': PROTECTED_CLASS_QUESTION,
-                            'queryset': ProtectedClass.objects.filter(code__in=[
-                                'Race/color',
-                                'Sex',
-                                'Religion',
-                                'National origin',
-                                'Age',
-                                'Pregnancy',
-                                'Other',
-                            ])
-                        }),
-            FieldConfig('other_class',
-                        TextInput(attrs={'class': 'usa-input'}),
-                        {
-                            'label': 'Please describe "Other reason"',
-                        }),
         ],
         'CRU': [
             FieldConfig('primary_complaint',
