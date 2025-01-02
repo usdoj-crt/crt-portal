@@ -134,6 +134,13 @@
     for (const [key, value] of formData) {
       debugOutput += `${key}: ${value}\n`;
 
+      /* 
+        This feels sloppy to me but as a quick and dirty fix, it seems functional.
+        I would love to have a more robust solution that doesn't check hard coded field names.
+        If we could maybe check by field type or something? I.E: We know MultiSelectFields need an Array as
+        their value type. I am not sure if we can get the type of field here in a clean way or not.
+        I am also not sure if there are other ways that may be better to go about it.
+      */
       switch (key) {
         case 'protected_class':
           if (!(Array.isArray(formattedData[key]))) {
