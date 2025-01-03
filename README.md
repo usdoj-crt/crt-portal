@@ -549,9 +549,9 @@ That will produce a report locally that you can view in your browser. It will gi
 
 We're using [Playwright](https://github.com/microsoft/playwright-python) for automated end-to-end testing.
 
-To run Playwright tests locally, first install it by running
+To run Playwright tests locally, first ensure it is installed by running
 
-    pipenv install playwright
+    pipenv install --dev
 
 Then, run with the following command.
 
