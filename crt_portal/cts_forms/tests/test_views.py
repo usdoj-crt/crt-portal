@@ -1241,6 +1241,7 @@ class ReportEditApiTests(TestCase):
         response_json = response.json()
 
         public_id = response_json['form']['public_id']
+        section = response_json['form']['section']
         pk = public_id.split('-')[0]
         self.assertGreater(int(pk), 0)
         self.assertEqual(response.status_code, 201)
@@ -1275,7 +1276,7 @@ class ReportEditApiTests(TestCase):
                 {'message': f'Successfully created report {public_id}',
                  'type': 'success'},
             ],
-            'new_url': f'/form/new/phone/{pk}/',
+            'new_url': f'/form/new/pro/{section}/{pk}/',
         })
 
     def test_phone_pro_form_edits(self):
