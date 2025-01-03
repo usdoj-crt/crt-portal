@@ -1033,7 +1033,7 @@ def _group_contact(form, kind, form_index):
 
 
 ADDITIONAL_CONTACT_KINDS = {
-    'CRU': ['Charging Party Representative', 'Respondent Representative']
+    'ELS-CRU': ['Charging Party Representative', 'Respondent Representative']
 }
 
 
@@ -1109,7 +1109,7 @@ def get_phone_form_config(section):
                             'initial': next(choice for choice in PRIMARY_COMPLAINT_CHOICES if choice[0] == 'voting'),
                         }),
         ],
-        'CRU': [
+        'ELS-CRU': [
             FieldConfig('primary_complaint',
                         Select(attrs={'class': 'usa-input usa-select'}),
                         {
