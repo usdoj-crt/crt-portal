@@ -45,7 +45,7 @@ jobs:
           POSTGRES_ANALYTICS_USER: analytics
           POSTGRES_ANALYTICS_PASSWORD: analytics_password
       # CircleCI PostgreSQL images available at: https://hub.docker.com/_/postgres
-      - image: postgres:12.15-alpine
+      - image: postgres:15.10-alpine
         environment:
           POSTGRES_USER: root
           POSTGRES_DB: circle_test
@@ -234,7 +234,9 @@ jobs:
           CF_STARTUP_TIMEOUT: 10
           CF_SPACE: dev
       # CircleCI PostgreSQL images available at: https://hub.docker.com/_/postgres
-      - image: postgres:12.15-alpine
+      # This is the postgres image used for running tests
+      # Deployed postgres versions are based on the cloudfoundry service config
+      - image: postgres:15.10-alpine
         environment:
           POSTGRES_USER: root
           POSTGRES_DB: circle_test
@@ -301,6 +303,9 @@ jobs:
           CF_STARTUP_TIMEOUT: 10
           CF_SPACE: staging
       # CircleCI PostgreSQL images available at: https://hub.docker.com/_/postgres
+      # This is the postgres image used for running tests
+      # Deployed postgres versions are based on the cloudfoundry service config
+      # TODO(2052): Upgrade to postgres 15.10
       - image: postgres:12.15-alpine
         environment:
           POSTGRES_USER: root
@@ -364,6 +369,9 @@ jobs:
           CF_STARTUP_TIMEOUT: 10
           CF_SPACE: prod
       # CircleCI PostgreSQL images available at: https://hub.docker.com/_/postgres
+      # This is the postgres image used for running tests
+      # Deployed postgres versions are based on the cloudfoundry service config
+      # TODO(2052): Upgrade to postgres 15.10
       - image: postgres:12.15-alpine
         environment:
           POSTGRES_USER: root
