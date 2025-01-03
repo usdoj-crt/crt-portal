@@ -52,8 +52,24 @@
       root.history.replaceState({}, '', json.new_url);
       maybeDisablePublicIdField(form);
     }
+
+    if (!json.changed_data) {
+      return;
+    }
+    
     json.changed_data.forEach(key => {
       const value = json.form[key];
+
+      // We are making the assumption that if value is an array, 
+      // we are corresponding to a group of checkbox elements
+      if (Array.isArray(value)) {
+        form.querySelectorAll(`[name="${key}"]`).forEach(box => box.checked = false);
+        value.forEach(val => {
+          form.querySelectorAll(`[name="${key}"][value="${val}"]`).forEach(box => box.checked = true);
+        });
+        return;
+      }
+
       const element = form.querySelector(`[name="${key}"]`);
       if (!element) {
         console.error(`Element with name ${key} not found`);
@@ -71,7 +87,24 @@
     const token = formData.get('csrfmiddlewaretoken');
     formData.delete('csrfmiddlewaretoken');
 
-    console.log(url, method, Object.fromEntries(formData));
+    let formattedData = {};
+
+    for (const [key, value] of formData) {
+      if (Object.keys(formattedData).includes(key)) {
+        if (!(Array.isArray(formattedData[key]))) {
+          let existingValue = formattedData[key];
+          formattedData[key] = [existingValue];
+        }
+        if (!value) {
+          continue;
+        }
+        formattedData[key].push(value);
+      } else {
+        formattedData[key] = value;
+      }
+    }
+
+    console.log(url, method, formattedData);
     window
       .fetch(url, {
         method,
@@ -80,7 +113,7 @@
           'X-CSRFToken': token
         },
         mode: 'same-origin',
-        body: JSON.stringify(Object.fromEntries(formData))
+        body: JSON.stringify(formattedData)
       })
       .then(response => {
         response.json().then(json => {
