@@ -173,7 +173,7 @@ class ReportEdit(generics.CreateAPIView):
         all_changes = form.changed_data + server_changes
         all_data = {**form.data, **server_data}
 
-        new_url = f'/form/new/phone/{form.instance.pk}/' if 'public_id' in all_changes else None
+        new_url = f'/form/new/pro/{section}/{form.instance.pk}/' if 'public_id' in all_changes else None
 
         return JsonResponse({
             'messages': [
