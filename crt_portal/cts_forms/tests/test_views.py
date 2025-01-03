@@ -1059,7 +1059,8 @@ class CRTDispositionTests(TestCase):
 
     def test_filter_by_expiration(self):
         """Should only return two reports, with three year and ten year"""
-        url = f'{self.url}?disposition_status=other&expiration_date=2028-01-01'
+        year = date.today().year + 4
+        url = f'{self.url}?disposition_status=other&expiration_date={year}-01-01'
         self.client.force_login(self.superuser)
         response = self.client.get(url)
         reports = response.context['data_dict']
