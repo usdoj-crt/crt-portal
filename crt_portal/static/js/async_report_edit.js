@@ -1,4 +1,4 @@
-(function(root, dom) {
+(function (root, dom) {
   const ALERT_TEMPLATE = `
     <div class="usa-alert async-response-message usa-alert--ALERT_TYPE usa-alert">
       <div class="usa-alert__body">
@@ -14,7 +14,7 @@
     const alert = dom.createElement('div');
     alert.innerHTML = ALERT_TEMPLATE.replace('ALERT_TYPE', message.type).replace(
       'ALERT_MESSAGE',
-      message.message
+      message.message,
     );
     alert.querySelector('.close-icon').addEventListener('click', () => {
       alert.remove();
@@ -39,9 +39,9 @@
   }
 
   function showResponseMessages(json) {
-    dom.querySelectorAll('.async-response-message').forEach(alert => alert.remove());
+    dom.querySelectorAll('.async-response-message').forEach((alert) => alert.remove());
     if (json.messages) {
-      json.messages.forEach(message => {
+      json.messages.forEach((message) => {
         renderMessage(message);
       });
     }
@@ -56,16 +56,18 @@
     if (!json.changed_data) {
       return;
     }
-    
-    json.changed_data.forEach(key => {
+
+    json.changed_data.forEach((key) => {
       const value = json.form[key];
 
-      // We are making the assumption that if value is an array, 
+      // We are making the assumption that if value is an array,
       // we are corresponding to a group of checkbox elements
       if (Array.isArray(value)) {
-        form.querySelectorAll(`[name="${key}"]`).forEach(box => box.checked = false);
-        value.forEach(val => {
-          form.querySelectorAll(`[name="${key}"][value="${val}"]`).forEach(box => box.checked = true);
+        form.querySelectorAll(`[name="${key}"]`).forEach((box) => (box.checked = false));
+        value.forEach((val) => {
+          form
+            .querySelectorAll(`[name="${key}"][value="${val}"]`)
+            .forEach((box) => (box.checked = true));
         });
         return;
       }
@@ -91,7 +93,7 @@
 
     for (const [key, value] of formData) {
       if (Object.keys(formattedData).includes(key)) {
-        if (!(Array.isArray(formattedData[key]))) {
+        if (!Array.isArray(formattedData[key])) {
           let existingValue = formattedData[key];
           formattedData[key] = [existingValue];
         }
@@ -110,20 +112,20 @@
         method,
         headers: {
           'Content-Type': 'application/json',
-          'X-CSRFToken': token
+          'X-CSRFToken': token,
         },
         mode: 'same-origin',
-        body: JSON.stringify(formattedData)
+        body: JSON.stringify(formattedData),
       })
-      .then(response => {
-        response.json().then(json => {
+      .then((response) => {
+        response.json().then((json) => {
           showResponseMessages(json);
           if (response.ok) {
             displayOk(response, json, form);
           }
         });
       })
-      .catch(error => {
+      .catch((error) => {
         showResponseMessages(json);
       });
   }
@@ -139,11 +141,11 @@
   }
 
   root.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('form').forEach(form => {
+    document.querySelectorAll('form').forEach((form) => {
       maybeDisablePublicIdField(form);
     });
 
-    document.querySelectorAll('button[data-saves]').forEach(saveButton => {
+    document.querySelectorAll('button[data-saves]').forEach((saveButton) => {
       saveButton.addEventListener('click', () => save(saveButton));
     });
   });
