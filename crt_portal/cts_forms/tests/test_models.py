@@ -10,7 +10,7 @@ import datetime
 
 from .factories import ReportFactory
 
-from cts_forms.models import JudicialDistrict, Report, ReportDispositionBatch, RetentionSchedule, User, SavedSearch, ScheduledNotification, ProtectedClass, HateCrimesandTrafficking, Tag, ReportAttachment, CommentAndSummary, Campaign
+from cts_forms.models import JudicialDistrict, Report, ReportDispositionBatch, RetentionSchedule, User, SavedSearch, ScheduledNotification, ProtectedClass, HateCrimesandTrafficking, Tag, ReportAttachment, CommentAndSummary, Campaign, EeocOffice
 
 from tms.models import TMSEmail
 
@@ -292,6 +292,39 @@ class ReportTests(TestCase):
             ('contact_state', 'FL', None),
             ('contact_zip', '12345', None),
             ('contact_inmate_number', '12345', None),
+
+            ('contact_2_kind', 'Bob', None),
+            ('contact_2_name', 'Smith', None),
+            ('contact_2_email', 'bob.smith@test.com', None),
+            ('contact_2_phone', '555-555-5555', None),
+            ('contact_2_address_line_1', '123 Main St', None),
+            ('contact_2_address_line_2', 'Apt 1', None),
+            ('contact_2_city', 'Anytown', None),
+            ('contact_2_state', 'FL', None),
+            ('contact_2_zip_code', '12345', None),
+
+            ('contact_3_kind', 'Bob', None),
+            ('contact_3_name', 'Smith', None),
+            ('contact_3_email', 'bob.smith@test.com', None),
+            ('contact_3_phone', '555-555-5555', None),
+            ('contact_3_address_line_1', '123 Main St', None),
+            ('contact_3_address_line_2', 'Apt 1', None),
+            ('contact_3_city', 'Anytown', None),
+            ('contact_3_state', 'FL', None),
+            ('contact_3_zip_code', '12345', None),
+
+            ('contact_4_kind', 'Bob', None),
+            ('contact_4_name', 'Smith', None),
+            ('contact_4_email', 'bob.smith@test.com', None),
+            ('contact_4_phone', '555-555-5555', None),
+            ('contact_4_address_line_1', '123 Main St', None),
+            ('contact_4_address_line_2', 'Apt 1', None),
+            ('contact_4_city', 'Anytown', None),
+            ('contact_4_state', 'FL', None),
+            ('contact_4_zip_code', '12345', None),
+
+            ('eeoc_charge_number', '123-123-1234', None),
+            ('eeoc_office', EeocOffice.objects.filter(id=1).first(), None),
 
             ('emails', report.emails.all(), []),
 

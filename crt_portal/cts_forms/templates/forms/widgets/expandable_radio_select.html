@@ -11,7 +11,7 @@
 {% endfor %}
 
 <hr>
-{% include 'partials/start_expandable.html' with title='See more primary concerns' %}
+{% include 'partials/start_expandable.html' with title=expandable_title %}
 
 {% for group, options, index in widget.optgroups %}
 {% for option in options %}

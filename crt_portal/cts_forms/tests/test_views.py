@@ -8,6 +8,7 @@ import secrets
 from datetime import date, timedelta
 import pypdf
 import re
+import pytest
 
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
@@ -1166,7 +1167,6 @@ class LoginRequiredTests(TestCase):
                 None,
             )
 
-
 class ReportEditApiTests(TestCase):
 
     report_data = {
@@ -1192,14 +1192,39 @@ class ReportEditApiTests(TestCase):
         "intake_format": "phone",
     }
 
+    section_parameters = [None, "VOT", "ELS-CRU"]
+
     def setUp(self):
         self.client = Client()
         self.user = User.objects.create_user("USER_1", "user@example.com", "")
+        Report.objects.get_or_create(pk=1, public_id='1-XYZ', defaults=self.report_data)
         self.base_url = reverse('api:report-edit')
         self.client.login(username="USER_1", password="")  # nosec
 
     def tearDown(self):
         self.user.delete()
+
+    def test_phone_pro_form_section_phone_existing(self):
+        response = self.client.get('/form/new/phone/1/')
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('State resources', str(response.content))
+        self.assertIn('value="1-', str(response.content))
+
+    def test_phone_pro_form_section_phone(self):
+        response = self.client.get('/form/new/phone/')
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('State resources', str(response.content))
+
+    def test_phone_pro_form_section_vot_existing(self):
+        response = self.client.get('/form/new/pro/vot/1/')
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('State resources', str(response.content))
+        self.assertIn('value="1-', str(response.content))
+
+    def test_phone_pro_form_section_vot(self):
+        response = self.client.get('/form/new/pro/vot/')
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('State resources', str(response.content))
 
     def test_phone_pro_form_404s(self):
         url = self.base_url
@@ -1211,47 +1236,60 @@ class ReportEditApiTests(TestCase):
         self.assertEqual(response.status_code, 404)
 
     def test_phone_pro_form_creates(self):
-        url = self.base_url
+        for section in self.section_parameters:
+            url = self.base_url
+            report_data = self.report_data
 
-        # Just the subset from the phone pro form:
-        response = self.client.post(url, self.report_data, content_type='application/json')
-        response_json = response.json()
+            if section:
+                url = f"{url}?section={section}"
+                match section:
+                    case "ELS-CRU":
+                        report_data["primary_complaint"] = "housing"
+            # Just the subset from the phone pro form:
+            response = self.client.post(url, report_data, content_type='application/json')
+            response_json = response.json()
+            public_id = response_json['form']['public_id']
+            pk = public_id.split('-')[0]
 
-        public_id = response_json['form']['public_id']
-        pk = public_id.split('-')[0]
-        self.assertGreater(int(pk), 0)
-        self.assertEqual(response.status_code, 201)
-        self.maxDiff = None
-        self.assertDictEqual(response_json, {
-            'changed_data': ['contact_first_name',
-                             'contact_last_name',
-                             'contact_phone',
-                             'contact_email',
-                             'contact_address_line_1',
-                             'contact_city',
-                             'contact_state',
-                             'contact_zip',
-                             'primary_complaint',
-                             'location_name',
-                             'location_address_line_1',
-                             'location_city_town',
-                             'location_state',
-                             'violation_summary',
-                             'crt_reciept_month',
-                             'crt_reciept_day',
-                             'crt_reciept_year',
-                             'intake_format',
-                             'public_id'],
-            'form': {
-                **self.report_data,
-                'public_id': public_id,
-            },
-            'messages': [
-                {'message': f'Successfully created report {public_id}',
-                 'type': 'success'},
-            ],
-            'new_url': f'/form/new/phone/{pk}/',
-        })
+            new_url = f'/form/new/pro/VOT/{pk}/'
+            if section:
+                new_url = f'/form/new/pro/{section}/{pk}/'
+
+            self.assertGreater(int(pk), 0)
+            self.assertEqual(response.status_code, 201)
+            self.maxDiff = None
+            self.assertDictEqual(response_json, {
+                'changed_data': [
+                    'contact_address_line_1',
+                    'contact_city',
+                    'contact_email',
+                    'contact_first_name',
+                    'contact_last_name',
+                    'contact_phone',
+                    'contact_state',
+                    'contact_zip',
+                    'crt_reciept_day',
+                    'crt_reciept_month',
+                    'crt_reciept_year',
+                    'intake_format',
+                    'location_address_line_1',
+                    'location_city_town',
+                    'location_name',
+                    'location_state',
+                    'primary_complaint',
+                    'violation_summary',
+                    'public_id',
+                ],
+                'form': {
+                    **self.report_data,
+                    'public_id': public_id,
+                },
+                'messages': [
+                    {'message': f'Successfully created report {public_id}',
+                    'type': 'success'},
+                ],
+                'new_url': new_url,
+            })
 
     def test_phone_pro_form_edits(self):
         public_id = '123-XYZ'
