@@ -8,6 +8,7 @@ import secrets
 from datetime import date, timedelta
 import pypdf
 import re
+import pytest
 
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
@@ -1166,7 +1167,6 @@ class LoginRequiredTests(TestCase):
                 None,
             )
 
-
 class ReportEditApiTests(TestCase):
 
     report_data = {
@@ -1191,6 +1191,8 @@ class ReportEditApiTests(TestCase):
         "crt_reciept_year": 2024,
         "intake_format": "phone",
     }
+
+    section_parameters = [None, "VOT", "ELS-CRU"]
 
     def setUp(self):
         self.client = Client()
@@ -1234,50 +1236,59 @@ class ReportEditApiTests(TestCase):
         self.assertEqual(response.status_code, 404)
 
     def test_phone_pro_form_creates(self):
-        url = self.base_url
+        for section in self.section_parameters:
+            url = self.base_url
+            report_data = self.report_data
 
-        # Just the subset from the phone pro form:
-        response = self.client.post(url, self.report_data, content_type='application/json')
-        response_json = response.json()
+            if section:
+                url = f"{url}?section={section}"
+                match section:
+                    case "ELS-CRU":
+                        report_data["primary_complaint"] = "housing"
+            # Just the subset from the phone pro form:
+            response = self.client.post(url, report_data, content_type='application/json')
+            response_json = response.json()
+            public_id = response_json['form']['public_id']
+            pk = public_id.split('-')[0]
 
-        public_id = response_json['form']['public_id']
-        section = response_json['form']['section']
-        pk = public_id.split('-')[0]
-        self.assertGreater(int(pk), 0)
-        self.assertEqual(response.status_code, 201)
-        self.maxDiff = None
-        self.assertDictEqual(response_json, {
-            'changed_data': [
-                'contact_address_line_1',
-                'contact_city',
-                'contact_email',
-                'contact_first_name',
-                'contact_last_name',
-                'contact_phone',
-                'contact_state',
-                'contact_zip',
-                'crt_reciept_day',
-                'crt_reciept_month',
-                'crt_reciept_year',
-                'intake_format',
-                'location_address_line_1',
-                'location_city_town',
-                'location_name',
-                'location_state',
-                'primary_complaint',
-                'violation_summary',
-                'public_id',
-            ],
-            'form': {
-                **self.report_data,
-                'public_id': public_id,
-            },
-            'messages': [
-                {'message': f'Successfully created report {public_id}',
-                 'type': 'success'},
-            ],
-            'new_url': f'/form/new/pro/{section}/{pk}/',
-        })
+            if section:
+                new_url = f'/form/new/pro/{section}/{pk}/'
+
+            self.assertGreater(int(pk), 0)
+            self.assertEqual(response.status_code, 201)
+            self.maxDiff = None
+            self.assertDictEqual(response_json, {
+                'changed_data': [
+                    'contact_address_line_1',
+                    'contact_city',
+                    'contact_email',
+                    'contact_first_name',
+                    'contact_last_name',
+                    'contact_phone',
+                    'contact_state',
+                    'contact_zip',
+                    'crt_reciept_day',
+                    'crt_reciept_month',
+                    'crt_reciept_year',
+                    'intake_format',
+                    'location_address_line_1',
+                    'location_city_town',
+                    'location_name',
+                    'location_state',
+                    'primary_complaint',
+                    'violation_summary',
+                    'public_id',
+                ],
+                'form': {
+                    **self.report_data,
+                    'public_id': public_id,
+                },
+                'messages': [
+                    {'message': f'Successfully created report {public_id}',
+                    'type': 'success'},
+                ],
+                'new_url': new_url,
+            })
 
     def test_phone_pro_form_edits(self):
         public_id = '123-XYZ'
