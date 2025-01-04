@@ -1251,6 +1251,7 @@ class ReportEditApiTests(TestCase):
             public_id = response_json['form']['public_id']
             pk = public_id.split('-')[0]
 
+            new_url = f'/form/new/pro/VOT/{pk}/'
             if section:
                 new_url = f'/form/new/pro/{section}/{pk}/'
 
