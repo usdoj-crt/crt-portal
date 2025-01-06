@@ -15,7 +15,7 @@
 {% block main_class %} class="margin-top-5 margin-bottom-0"{% endblock %}
 
 {% block content %}
-<form style="all: unset;" action="/api/report-edit/" method="post" id="report-form">
+<form style="all: unset;" action="/api/report-edit/?section={{section}}" method="post" id="report-form">
 <div class="grid-row">
 <h1 class="intake-section-title padding-bottom-2m margin-left-5">{{title}}</h1>
 </div>
@@ -32,6 +32,11 @@
 
       {% csrf_token %}
       <h2>Contact</h2>
+ 
+      {% if section == "ELS-CRU" %}
+      <hr>
+      {% include 'partials/start_expandable.html' with title='Charging Party of Aggrieved Individual' expanded="true" %}
+      {% endif %}
 
       <div class="grid-row margin-top-2">
         {% include 'partials/field.html' with field=form.contact_first_name %}
@@ -45,45 +50,48 @@
         {% include 'partials/field.html' with field=form.contact_phone %}
       </div>
 
+      {% if section == 'VOT' %}
       <hr>
       {% include 'partials/start_expandable.html' with title='See more contact fields' %}
 
       <p>
         <em>Though the reporter is not obligated to provide the following, you may record volunteered information here</em>
       </p>
+      {% endif %}
 
-      <div class="grid-row">
+      <div class="grid-row margin-top-2">
         {% include 'partials/field.html' with field=form.contact_email %}
       </div>
 
-      <div class="grid-row">
+      <div class="grid-row margin-top-2">
         {% include 'partials/field.html' with field=form.contact_address_line_1 %}
       </div>
 
-      <div class="grid-row">
+      <div class="grid-row margin-top-2">
         {% include 'partials/field.html' with field=form.contact_address_line_2 %}
       </div>
 
-      <div class="grid-row">
-        {% include 'partials/field.html' with field=form.contact_city %}
+      <div class="grid-row margin-top-2">
+        {% include 'partials/field.html' with field=form.contact_city field_size=6 extra_class="padding-right-2" %}
         {% include 'partials/field.html' with field=form.contact_state extra_class="padding-right-2" field_size=6 %}
       </div>
 
-      <div class="grid-row">
+      <div class="grid-row margin-top-2">
         {% include 'partials/field.html' with field=form.contact_zip %}
       </div>
 
-      {% include 'partials/end_expandable.html' %}
-
+      {% if section == 'VOT' %}
       <hr>
+      {% include 'partials/end_expandable.html' %}
+      {% endif %}
 
-      <h2>Primary concern</h2>
-
-      <div class="grid-row margin-top-2">
-        {% include 'partials/field.html' with field=form.primary_complaint strong_label=True %}
-      </div>
-
+      {% if section == "ELS-CRU" %}
+      {% include 'partials/end_expandable.html' %}
+      <hr>
+      {% include 'partials/start_expandable.html' with title='Respondent' %}
+      {% else %}
       <h2>Incident location</h2>
+      {% endif %}
 
       <div class="grid-row margin-top-2">
         {% include 'partials/field.html' with field=form.location_name %}
@@ -97,18 +105,124 @@
         {% include 'partials/field.html' with field=form.location_address_line_2 %}
       </div>
 
-      <div class="grid-row margin-top-2 margin-bottom-3">
+      <div class="grid-row margin-top-2">
         {% include 'partials/field.html' with field=form.location_city_town field_size=6 extra_class="padding-right-2" %}
-        {% include 'partials/field.html' with field=form.location_state field_size=5 %}
+        {% include 'partials/field.html' with field=form.location_state field_size=6 %}
       </div>
+
+      <div class="grid-row margin-top-2 margin-bottom-3">
+        {% include 'partials/field.html' with field=form.location_zipcode %}
+      </div>
+
+      {% if section == "VOT" %}
+      <hr>
+      {% endif %}
+
+      {% if section == "ELS-CRU" %}
+      {% include 'partials/end_expandable.html' %}
+      {% endif %}
+
+      {% for additional_contact in additional_contacts %}
+        <hr>
+        {% include 'partials/start_expandable.html' with title=additional_contact.kind.initial %}
+
+        <div class="grid-row margin-top-2">
+          {% include 'partials/field.html' with field=additional_contact.name %}
+        </div>
+
+        <div class="grid-row margin-top-2 margin-bottom-3">
+          {% include 'partials/field.html' with field=additional_contact.phone %}
+        </div>
+
+        <div class="grid-row margin-top-2">
+          {% include 'partials/field.html' with field=additional_contact.email %}
+        </div>
+
+        <div class="grid-row margin-top-2">
+          {% include 'partials/field.html' with field=additional_contact.address_line_1 %}
+        </div>
+
+        <div class="grid-row margin-top-2">
+          {% include 'partials/field.html' with field=additional_contact.address_line_2 %}
+        </div>
+
+        <div class="grid-row margin-top-2">
+          {% include 'partials/field.html' with field=additional_contact.city field_size=6 extra_class="padding-right-2" %}
+          {% include 'partials/field.html' with field=additional_contact.state extra_class="padding-right-2" field_size=6 %}
+        </div>
+
+        <div class="grid-row margin-top-2">
+          {% include 'partials/field.html' with field=additional_contact.zip_code %}
+        </div>
+
+        {% include 'partials/end_expandable.html' %}
+      {% endfor %}
 
       <hr>
 
+      <h2>Primary concern</h2>
+
+      <div class="grid-row margin-top-2">
+        {% include 'partials/field.html' with field=form.primary_complaint strong_label=True %}
+      </div>
+
+      {% if form.public_or_private_employer %}
+      <h2>Public or private employer</h2>
+
+      <div class="grid-row margin-top-2">
+        {% include 'partials/field.html' with field=form.public_or_private_employer strong_label=True %}
+      </div>
+      {% endif %}
+
+      {% if form.employer_size %}
+      <h2>Employer size</h2>
+
+      <div class="grid-row margin-top-2">
+        {% include 'partials/field.html' with field=form.employer_size strong_label=True %}
+      </div>
+      {% endif %}
+
+      {% if form.protected_class %}
+      <h2>Protected class</h2>
+
+      <div class="grid-row margin-top-2">
+        {% include 'partials/field.html' with field=form.protected_class strong_label=True %}
+      </div>
+      {% endif %}
+      {% if form.other_class %}
+      <div class="grid-row margin-top-2">
+        {% include 'partials/field.html' with field=form.other_class strong_label=True %}
+      </div>
+      {% endif %}
+
+      {% if form.eeoc_charge_number %}
+        <h2>EEOC charge number</h2>
+
+        <div class="grid-row margin-top-2">
+        {% include 'partials/field.html' with field=form.eeoc_charge_number strong_label=True %}
+        </div>
+      {% endif %}
+
+      {% if form.eeoc_office %}
+      <h2>EEOC office</h2>
+
+      <div class="margin-bottom-2 crt-dropdown">
+        <label for="id_eeoc_office" class="intake-label display-none">
+          {{ form.fields.eeoc_office.label }}
+        </label>
+        <div class="usa-combo-box" style="width: 100%" data-placeholder="(none)" data-default-value="{{ form.eeoc_office.value }}">
+          {{ form.eeoc_office }}
+        </div>
+      </div>
+      {% endif %}
+
+      {% if section != "ELS-CRU" %}
       <h2>Summary</h2>
       <div class="margin-top-1 margin-bottom-2">
         {% include "forms/question_cards/single_question.html" with field=form.violation_summary card_title="Personal Description" %}
         {% include "forms/word_counter.html" with word_limit=500 %}
       </div>
+      {% endif %}
 
       <hr>
 
@@ -123,13 +237,16 @@
   </div>
 </div>
 <div class="intake-sidebar grid-col-3 margin-top-3">
+  {% if section == 'VOT' %}
   <div class="crt-portal-card margin-top-2">
     <div class="crt-portal-card__content">
       <h2>Quick Links</h2>
       {% configurable_content 'vot-form-links' %}
     </div>
   </div>
+  {% endif %}
 
+  {% if section == 'VOT' %}
   <div class="crt-portal-card margin-top-2">
     <div class="crt-portal-card__content stacked-sidebar-width">
       <h2>State resources</h2>
@@ -150,6 +267,7 @@
       </div>
     </div>
   </div>
+  {% endif %}
 
   <div class="margin-top-2">
     {% include 'partials/field.html' with field=form.public_id %}
