@@ -1240,11 +1240,14 @@ class ReportEditApiTests(TestCase):
             url = self.base_url
             report_data = self.report_data
 
+            # We need to change the primary_complaint to workplace for ELS-CRU Proform
+            # Otherwise the form will fail validation and we get back a 400 response
             if section:
                 url = f"{url}?section={section}"
                 match section:
                     case "ELS-CRU":
                         report_data["primary_complaint"] = "workplace"
+
             # Just the subset from the phone pro form:
             response = self.client.post(url, report_data, content_type='application/json')
             response_json = response.json()
@@ -1260,12 +1263,10 @@ class ReportEditApiTests(TestCase):
             new_url = f'/form/new/pro/VOT/{pk}/'
             if section:
                 new_url = f'/form/new/pro/{section}/{pk}/'
-
-            self.assertGreater(int(pk), 0)
-            self.assertEqual(response.status_code, 201)
-            self.maxDiff = None
-            self.assertDictEqual(response_json, {
-                'changed_data': [
+            
+            expected_changed_data = {
+                # Should be the same as VOT, since we will default to that
+                None: [
                     'contact_address_line_1',
                     'contact_city',
                     'contact_email',
@@ -1286,6 +1287,57 @@ class ReportEditApiTests(TestCase):
                     'violation_summary',
                     'public_id',
                 ],
+                "VOT": [
+                    'contact_address_line_1',
+                    'contact_city',
+                    'contact_email',
+                    'contact_first_name',
+                    'contact_last_name',
+                    'contact_phone',
+                    'contact_state',
+                    'contact_zip',
+                    'crt_reciept_day',
+                    'crt_reciept_month',
+                    'crt_reciept_year',
+                    'intake_format',
+                    'location_address_line_1',
+                    'location_city_town',
+                    'location_name',
+                    'location_state',
+                    'primary_complaint',
+                    'violation_summary',
+                    'public_id',
+                ],
+                "ELS-CRU": [
+                    'contact_address_line_1',
+                    'contact_city',
+                    'contact_email',
+                    'contact_first_name',
+                    'contact_last_name',
+                    'contact_phone',
+                    'contact_state',
+                    'contact_zip',
+                    'crt_reciept_day',
+                    'crt_reciept_month',
+                    'crt_reciept_year',
+-                   'employer_size',
+                    'intake_format',
+                    'location_address_line_1',
+                    'location_city_town',
+                    'location_name',
+                    'location_state',
+                    'primary_complaint',
+-                   'public_or_private_employer',
+                    'violation_summary',
+                    'public_id'
+                ],
+            }
+
+            self.assertGreater(int(pk), 0)
+            self.assertEqual(response.status_code, 201)
+            self.maxDiff = None
+            self.assertDictEqual(response_json, {
+                'changed_data': expected_changed_data[section],
                 'form': {
                     **self.report_data,
                     'public_id': public_id,
