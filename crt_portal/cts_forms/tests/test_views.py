@@ -1064,6 +1064,7 @@ class CRTDispositionTests(TestCase):
         self.client.force_login(self.superuser)
         response = self.client.get(url)
         reports = response.context['data_dict']
+        print("TestFilterByExpiration: Url = ", url)
         print("TestFilterByExpiration: Reports = ", reports)
         report_len = len(reports)
         self.assertEqual(report_len, 1)
