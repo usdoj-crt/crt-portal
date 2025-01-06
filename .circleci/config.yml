@@ -248,6 +248,14 @@ jobs:
       # # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
       #     key: deps-v4-{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "package.json" }}
       - run:
+          name: Install postgres client
+          # Details on https://www.postgresql.org/download/linux/ubuntu/
+          command: |
+            sudo apt-get install -y postgresql-common
+            sudo /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh
+            # This version must match the postgres image major version above
+            sudo apt-get install -y postgresql-client-15
+      - run:
           name: Node install
           command: |
             echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_20.x nodistro main" > /etc/apt/sources.list.d/nodesource.list && \
