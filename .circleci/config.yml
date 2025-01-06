@@ -63,6 +63,14 @@ jobs:
           name: Install gettext
           command: sudo apt-get update && sudo apt-get install -yqq gettext
       - run:
+          name: Install postgres client
+          # Details on https://www.postgresql.org/download/linux/ubuntu/
+          command: |
+            sudo apt-get install -y postgresql-common
+            sudo /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh
+            # This version must match the postgres image major version above
+            sudo apt-get install -y postgresql-client-15
+      - run:
           name: Node install, generate CSS
           command: |
             npm ci
@@ -247,14 +255,6 @@ jobs:
       # - restore_cache:
       # # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
       #     key: deps-v4-{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "package.json" }}
-      - run:
-          name: Install postgres client
-          # Details on https://www.postgresql.org/download/linux/ubuntu/
-          command: |
-            sudo apt-get install -y postgresql-common
-            sudo /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh
-            # This version must match the postgres image major version above
-            sudo apt-get install -y postgresql-client-15
       - run:
           name: Node install
           command: |
