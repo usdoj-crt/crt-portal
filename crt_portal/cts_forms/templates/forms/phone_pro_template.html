@@ -39,9 +39,9 @@
        and therefore difficult to maintain. I would suggest we split each section's
        form out into its own template, but that also gets messy because we then are duplicating
        templates... so I don't really have a good solution at this time. I will think about this
-       more when I have time as right now I am focused on delivering an MVP for the CRU form.
+       more when I have time as right now I am focused on delivering an MVP for the ELS-CRU form.
        -->
-      {% if section == "CRU" %}
+      {% if section == "ELS-CRU" %}
       <hr>
       {% include 'partials/start_expandable.html' with title='Charging Party of Aggrieved Individual' expanded="true" %}
       {% endif %}
@@ -93,13 +93,13 @@
       {% include 'partials/end_expandable.html' %}
       {% endif %}
 
-      {% if section == "CRU" %}
+      {% if section == "ELS-CRU" %}
       {% include 'partials/end_expandable.html' %}
       <hr>
       {% include 'partials/start_expandable.html' with title='Respondent' %}
       {% endif %}
 
-      {% if section != "CRU" %}
+      {% if section != "ELS-CRU" %}
       <h2>Incident location</h2>
       {% endif %}
 
@@ -126,7 +126,7 @@
 
       <hr>
 
-      {% if section == "CRU" %}
+      {% if section == "ELS-CRU" %}
       {% include 'partials/end_expandable.html' %}
       {% endif %}
 
@@ -224,7 +224,7 @@
       </div>
       {% endif %}
 
-      {% if section != "CRU" %}
+      {% if section != "ELS-CRU" %}
       <h2>Summary</h2>
       <div class="margin-top-1 margin-bottom-2">
         {% include "forms/question_cards/single_question.html" with field=form.violation_summary card_title="Personal Description" %}

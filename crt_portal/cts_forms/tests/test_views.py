@@ -1261,7 +1261,7 @@ class ReportEditApiTests(TestCase):
                 new_url = f'/form/new/pro/{section}/{pk}/'
 
             expected_changed_data = {
-                # Should be the same as VOT, since we will default to that
+                # Should be the same as VOT, since we currently default to VOT if section is None
                 None: [
                     'contact_address_line_1',
                     'contact_city',

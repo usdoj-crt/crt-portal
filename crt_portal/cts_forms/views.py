@@ -2166,7 +2166,7 @@ def phone_pro_form_view(request, report_id=None, section=None):
 
     title = "Election Call Center Intake Form"
     match section:
-        case "CRU":
+        case "ELS-CRU":
             title = "CRU Intake Form"
 
     return render(
