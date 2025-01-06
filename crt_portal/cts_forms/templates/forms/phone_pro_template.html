@@ -33,14 +33,6 @@
       {% csrf_token %}
       <h2>Contact</h2>
  
-      <!-- 
-        We should probably clean up all of the "if section == ..." stuff 
-       as this is going to become a nightmare in terms of readability
-       and therefore difficult to maintain. I would suggest we split each section's
-       form out into its own template, but that also gets messy because we then are duplicating
-       templates... so I don't really have a good solution at this time. I will think about this
-       more when I have time as right now I am focused on delivering an MVP for the ELS-CRU form.
-       -->
       {% if section == "ELS-CRU" %}
       <hr>
       {% include 'partials/start_expandable.html' with title='Charging Party of Aggrieved Individual' expanded="true" %}
@@ -97,9 +89,7 @@
       {% include 'partials/end_expandable.html' %}
       <hr>
       {% include 'partials/start_expandable.html' with title='Respondent' %}
-      {% endif %}
-
-      {% if section != "ELS-CRU" %}
+      {% else %}
       <h2>Incident location</h2>
       {% endif %}
 

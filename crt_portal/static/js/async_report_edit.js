@@ -89,7 +89,7 @@
     const token = formData.get('csrfmiddlewaretoken');
     formData.delete('csrfmiddlewaretoken');
 
-    let formattedData = {};
+    const formattedData = {};
 
     for (const [key, value] of formData) {
       if (Object.keys(formattedData).includes(key)) {
