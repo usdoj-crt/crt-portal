@@ -114,7 +114,9 @@
         {% include 'partials/field.html' with field=form.location_zipcode %}
       </div>
 
+      {% if section == "VOT" %}
       <hr>
+      {% endif %}
 
       {% if section == "ELS-CRU" %}
       {% include 'partials/end_expandable.html' %}
