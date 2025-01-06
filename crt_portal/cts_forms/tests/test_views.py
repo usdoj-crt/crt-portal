@@ -1244,7 +1244,7 @@ class ReportEditApiTests(TestCase):
                 url = f"{url}?section={section}"
                 match section:
                     case "ELS-CRU":
-                        report_data["primary_complaint"] = "housing"
+                        report_data["primary_complaint"] = "workplace"
             # Just the subset from the phone pro form:
             response = self.client.post(url, report_data, content_type='application/json')
             response_json = response.json()
