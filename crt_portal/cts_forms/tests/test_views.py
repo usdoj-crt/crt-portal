@@ -1064,6 +1064,7 @@ class CRTDispositionTests(TestCase):
         self.client.force_login(self.superuser)
         response = self.client.get(url)
         reports = response.context['data_dict']
+        print("TestFilterByExpiration: Reports = ", reports)
         report_len = len(reports)
         self.assertEqual(report_len, 1)
         self.assertIn('10 Year', str(response.content))
@@ -1329,7 +1330,7 @@ class ReportEditApiTests(TestCase):
                     'primary_complaint',
                     'public_or_private_employer',
                     'violation_summary',
-                    'public_id'
+                    'public_id',
                 ],
             }
 
