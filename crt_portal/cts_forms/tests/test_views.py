@@ -8,7 +8,6 @@ import secrets
 from datetime import date, timedelta
 import pypdf
 import re
-import pytest
 
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
@@ -1168,6 +1167,7 @@ class LoginRequiredTests(TestCase):
                 None,
             )
 
+
 class ReportEditApiTests(TestCase):
 
     report_data = {
@@ -1259,7 +1259,7 @@ class ReportEditApiTests(TestCase):
             new_url = f'/form/new/pro/VOT/{pk}/'
             if section:
                 new_url = f'/form/new/pro/{section}/{pk}/'
-            
+
             expected_changed_data = {
                 # Should be the same as VOT, since we will default to that
                 None: [
@@ -1339,8 +1339,10 @@ class ReportEditApiTests(TestCase):
                     'public_id': public_id,
                 },
                 'messages': [
-                    {'message': f'Successfully created report {public_id}',
-                    'type': 'success'},
+                    {
+                        'message': f'Successfully created report {public_id}',
+                        'type': 'success'
+                    },
                 ],
                 'new_url': new_url,
             })
