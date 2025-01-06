@@ -1064,8 +1064,6 @@ class CRTDispositionTests(TestCase):
         self.client.force_login(self.superuser)
         response = self.client.get(url)
         reports = response.context['data_dict']
-        print("TestFilterByExpiration: Url = ", url)
-        print("TestFilterByExpiration: Reports = ", reports)
         report_len = len(reports)
         self.assertEqual(report_len, 1)
         self.assertIn('10 Year', str(response.content))
@@ -1253,11 +1251,6 @@ class ReportEditApiTests(TestCase):
             # Just the subset from the phone pro form:
             response = self.client.post(url, report_data, content_type='application/json')
             response_json = response.json()
-
-            print("TestPhoneProFormCreates: Section = ", section)
-            print("TestPhoneProFormCreates: URL = ", url)
-            print("TestPhoneProFormCreates: response = ", response)
-            print("TestPhoneProFormCreates: response_json = ", response_json)
 
             public_id = response_json['form']['public_id']
             pk = public_id.split('-')[0]
