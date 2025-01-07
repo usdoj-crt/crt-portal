@@ -45,7 +45,7 @@ jobs:
           POSTGRES_ANALYTICS_USER: analytics
           POSTGRES_ANALYTICS_PASSWORD: analytics_password
       # CircleCI PostgreSQL images available at: https://hub.docker.com/_/postgres
-      - image: postgres:12.15-alpine
+      - image: postgres:15.10-alpine
         environment:
           POSTGRES_USER: root
           POSTGRES_DB: circle_test
@@ -62,6 +62,16 @@ jobs:
       - run:
           name: Install gettext
           command: sudo apt-get update && sudo apt-get install -yqq gettext
+      - run:
+          name: Install postgres client
+          # Details on https://www.postgresql.org/download/linux/ubuntu/
+          command: |
+            sudo apt-get install -y postgresql-common curl ca-certificates
+            sudo install -d /usr/share/postgresql-common/pgdg
+            sudo curl -o /usr/share/postgresql-common/pgdg/apt.postgresql.org.asc --fail https://www.postgresql.org/media/keys/ACCC4CF8.asc
+            sudo sh -c 'echo "deb [signed-by=/usr/share/postgresql-common/pgdg/apt.postgresql.org.asc] https://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
+            sudo apt update
+            sudo apt-get install -y postgresql-client-15
       - run:
           name: Node install, generate CSS
           command: |
@@ -234,7 +244,9 @@ jobs:
           CF_STARTUP_TIMEOUT: 10
           CF_SPACE: dev
       # CircleCI PostgreSQL images available at: https://hub.docker.com/_/postgres
-      - image: postgres:12.15-alpine
+      # This is the postgres image used for running tests
+      # Deployed postgres versions are based on the cloudfoundry service config
+      - image: postgres:15.10-alpine
         environment:
           POSTGRES_USER: root
           POSTGRES_DB: circle_test
@@ -301,6 +313,9 @@ jobs:
           CF_STARTUP_TIMEOUT: 10
           CF_SPACE: staging
       # CircleCI PostgreSQL images available at: https://hub.docker.com/_/postgres
+      # This is the postgres image used for running tests
+      # Deployed postgres versions are based on the cloudfoundry service config
+      # TODO(2052): Upgrade to postgres 15.10
       - image: postgres:12.15-alpine
         environment:
           POSTGRES_USER: root
@@ -364,6 +379,9 @@ jobs:
           CF_STARTUP_TIMEOUT: 10
           CF_SPACE: prod
       # CircleCI PostgreSQL images available at: https://hub.docker.com/_/postgres
+      # This is the postgres image used for running tests
+      # Deployed postgres versions are based on the cloudfoundry service config
+      # TODO(2052): Upgrade to postgres 15.10
       - image: postgres:12.15-alpine
         environment:
           POSTGRES_USER: root
