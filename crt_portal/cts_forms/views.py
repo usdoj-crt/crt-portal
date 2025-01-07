@@ -45,7 +45,7 @@ from .forms import (
     ContactEditForm, Filters, PrintActions, ProfileForm,
     ReportEditForm, ResourceActions, ResourceFilter, ResponseActions, SavedSearchActions, SavedSearchFilter, add_activity,
     AttachmentActions, Review, save_form,
-    PhoneProForm
+    make_phone_pro_form, group_additional_contacts
 )
 from .mail import mail_to_complainant
 from .model_variables import BATCH_STATUS_CHOICES, HATE_CRIMES_TRAFFICKING_MODEL_CHOICES, NOTIFICATION_PREFERENCE_CHOICES, STATES_AND_TERRITORIES
@@ -2153,19 +2153,27 @@ class SaveCommentView(LoginRequiredMixin, FormView):
 
 
 @login_required
-def phone_pro_form_view(request, report_id=None):
+def phone_pro_form_view(request, report_id=None, section=None):
+    if section is None:
+        section = 'VOT'  # Default /form/phone/new to VOT
+    section = section.upper()
 
     if report_id:
         report = get_object_or_404(Report, pk=report_id)
-        form = PhoneProForm(instance=report)
+        form = make_phone_pro_form(section)(instance=report)
     else:
-        form = PhoneProForm()
+        form = make_phone_pro_form(section)()
+
+    title = "Election Call Center Intake Form"
+    match section:
+        case "ELS-CRU":
+            title = "CRU Intake Form"
 
     return render(
         request,
         'forms/phone_pro_template.html',
         {
-            'title': 'Election Call Center Intake Form',
+            'title': title,
             'quick_links': [
                 ('State Contacts', '#'),
                 ('Poll Locator', '#'),
@@ -2194,7 +2202,11 @@ def phone_pro_form_view(request, report_id=None):
                 ],
             ).render('', 'default'),
 
+            'additional_contacts': group_additional_contacts(section, form),
+
             'form': form,
+
+            'section': section,
         }
     )
 
