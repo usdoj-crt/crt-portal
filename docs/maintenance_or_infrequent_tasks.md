@@ -192,7 +192,17 @@ After the test is done, delete the user you made for testing.
 
 For staging and prod we use the `medium-psql-redundant` database service. These instructions are for updating dev to `medium-psql-redundant` and can be adapted to move prod to a `large-psql-redundant` instance. Check the [cloud.gov docs](https://cloud.gov/docs/services/relational-database/) for any updates or new recommendations.
 
-### Here are instructions of how to upgrade the dev db
+### Upgrading the local db
+
+The easiest way to upgrade locally is to drop the database and recreate it. This will lose all local data.
+
+If you want to upgrade and retain your local data, you can explore pg_upgrade or pg_dump / restore.
+
+To do this:
+- Run `docker compose stop`
+- Run `docker system prune --volumes` to remove the old volume (this will remove all docker volumes, so if you run multiple projects with docker, you may want to be more specific)
+
+### Upgrading the dev db
 
 1. **Install dependencies.**
 

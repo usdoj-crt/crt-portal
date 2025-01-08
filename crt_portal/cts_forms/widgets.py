@@ -24,12 +24,14 @@ class CrtExpandableRadioSelect(UsaRadioSelect):
 
     def __init__(self, *args, **kwargs):
         self.unfolded_options = kwargs.pop('unfolded_options', [])
+        self.expandable_title = kwargs.pop('expandable_title', "See more options")
         super().__init__(*args, **kwargs)
 
     def get_context(self, *args, **kwargs):
         return {
             **super().get_context(*args, **kwargs),
             'unfolded_options': self.unfolded_options,
+            'expandable_title': self.expandable_title
         }
 
 

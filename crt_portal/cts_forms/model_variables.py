@@ -37,6 +37,11 @@ PRIMARY_COMPLAINT_CHOICES_VOTING = (
 )
 PRIMARY_COMPLAINT_DICT_VOTING = dict(PRIMARY_COMPLAINT_CHOICES_VOTING)
 
+PRIMARY_COMPLAINT_CHOICES_CRU = (
+    ('workplace', _('Workplace discrimination or other employment-related problem')),
+)
+PRIMARY_COMPLAINT_DICT_CRU = dict(PRIMARY_COMPLAINT_CHOICES_CRU)
+
 PRIMARY_COMPLAINT_PROFORM_CHOICES = (
     ('workplace', 'Workplace Discrimination'),
     ('housing', 'Housing Discrimination'),
