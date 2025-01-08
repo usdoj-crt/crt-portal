@@ -59,6 +59,10 @@
 
     json.changed_data.forEach(key => {
       const value = json.form[key];
+      // If value is undefined, we don't want to reset the element on the form
+      if (!value) {
+        return;
+      }
 
       const element = form.querySelector(`[name="${key}"]`);
       if (!element) {
