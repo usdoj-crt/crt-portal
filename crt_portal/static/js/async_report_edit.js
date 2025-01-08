@@ -59,25 +59,31 @@
 
     json.changed_data.forEach(key => {
       const value = json.form[key];
-
-      // We are making the assumption that if value is an array,
-      // we are corresponding to a group of checkbox elements
-      if (Array.isArray(value)) {
-        form.querySelectorAll(`[name="${key}"]`).forEach(box => (box.checked = false));
-        value.forEach(val => {
-          form
-            .querySelectorAll(`[name="${key}"][value="${val}"]`)
-            .forEach(box => (box.checked = true));
-        });
+      // If value is undefined, we don't want to reset the element on the form
+      if (!value) {
         return;
       }
 
       const element = form.querySelector(`[name="${key}"]`);
       if (!element) {
-        console.error(`Element with name ${key} not found`);
+        console.error(`On Display OK: Element with name ${key} not found`);
         return;
       }
-      element.value = value;
+
+      switch (element.type) {
+        case 'checkbox':
+          form.querySelectorAll(`[name="${key}"]`).forEach(box => (box.checked = false));
+          if (Array.isArray(value)) {
+            value.forEach(val => {
+              form
+                .querySelectorAll(`[name="${key}"][value="${val}"]`)
+                .forEach(box => (box.checked = true));
+            });
+          }
+          break;
+        default:
+          element.value = value;
+      }
     });
   }
 
@@ -90,19 +96,31 @@
     formData.delete('csrfmiddlewaretoken');
 
     const formattedData = {};
-
     for (const [key, value] of formData) {
-      if (Object.keys(formattedData).includes(key)) {
-        if (!Array.isArray(formattedData[key])) {
-          let existingValue = formattedData[key];
-          formattedData[key] = [existingValue];
-        }
-        if (!value) {
-          continue;
-        }
-        formattedData[key].push(value);
-      } else {
-        formattedData[key] = value;
+      if (!value) {
+        continue;
+      }
+      // We need to do Array.from because document.getElementsByName returns a NodeList, not an Array
+      const elements = Array.from(document.getElementsByName(key));
+
+      // We are assuming that checkbox elements will always be formatted
+      // as a list of values (an Array). We get only the first matching element's type
+      // because we are assuming that all elements with the same name should have the same type.
+      if (!Array.isArray(elements) || !elements.length) {
+        console.error(`On Save: Element with name ${key} not found`);
+        return;
+      }
+
+      const firstElement = elements[0];
+      switch (firstElement.type) {
+        case 'checkbox':
+          if (!Object.keys(formattedData).includes(key)) {
+            formattedData[key] = [];
+          }
+          formattedData[key].push(value);
+          break;
+        default:
+          formattedData[key] = value;
       }
     }
 
