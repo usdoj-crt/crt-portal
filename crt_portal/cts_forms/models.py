@@ -412,6 +412,7 @@ class EeocOffice(models.Model):
     address_state = models.CharField(max_length=100, null=False, blank=False, choices=STATES_AND_TERRITORIES)
     address_zip = models.CharField(max_length=10, null=False, blank=False)
     show = models.BooleanField(default=True, null=False, help_text="Whether to show this office in the list of EEOC offices.")
+    url = models.CharField(max_length=255, null=False, blank=False, help_text="A link to the page that contains the contact information associated with this EEOC Office. Ex: https://www.eeoc.gov/field-office/atlanta/location")
 
     def __str__(self):
         return self.name
