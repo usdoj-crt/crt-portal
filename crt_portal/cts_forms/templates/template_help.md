@@ -22,6 +22,8 @@ All of our templates support a few special variables. They are:
 | `complainant_name`    | John Doe  | The complainant's first and last name |
 | `contact_email`          | john@civilrights.justice.gov | The recipient's email address                         |
 | `date_of_intake`         | February 29, 1988            | The day the report was submitted                      |
+| `eeoc_office_name`    | Atlanta District Office         | The name of the EEOC Office associated with the report |
+| `eeoc_office_url`     | https://www.eeoc.gov/field-office/atlanta/location | The link to the contact information for the EEOC Office that is associated with the report |
 | `organization_name`   | Santa's Workshop  | The name of the organization or location that is subject to the complaint |
 | `outgoing_date`          | February 31, 1988            | The day this reply is being sent (today)              |
 | `record_locator`         | 12345-XYZ                    | The identifier (record locator) of the report         |

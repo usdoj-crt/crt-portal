@@ -1244,6 +1244,8 @@ class ResponseTemplate(models.Model):
             'outgoing_date': format_date(today, locale='en_US'),  # required for paper mail
             'section_name': section_choices.get(report.assigned_section, "no section"),
             'referral_text': referral_text,
+            'eeoc_office_name': report.eeoc_office.name,
+            'eeoc_office_url': report.eeoc_office.url,
             # spanish translations
             'es': {
                 'addressee': report.addressee_es,
