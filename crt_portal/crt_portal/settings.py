@@ -419,6 +419,8 @@ SESSION_COOKIE_HTTPONLY = True
 # See https://django-csp.readthedocs.io/en/latest/configuration.html
 # Note we are on 4.0+
 
+SECURE_CROSS_ORIGIN_OPENER_POLICY = 'same-origin'
+
 CONTENT_SECURITY_POLICY = {
     'EXCLUDE_URL_PREFIXES': ['/admin'],  # Allow admin panel functionality (which is trusted content that uses inline sources)
     'DIRECTIVES': {
