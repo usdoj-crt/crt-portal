@@ -1,5 +1,6 @@
 {% extends "forms/complaint_view/intake_base.html" %}
 {% load configurable_content %}
+{% load get_dict_item %}
 {% include "templates/partials/expandable.html" %}
 {{ super }}
 
@@ -15,7 +16,7 @@
 {% block main_class %} class="margin-top-5 margin-bottom-0"{% endblock %}
 
 {% block content %}
-<form style="all: unset;" action="/api/report-edit/?section={{section}}" method="post" id="report-form">
+<form style="all: unset;" action="/api/report-edit/?working_group={{working_group}}" method="post" id="report-form">
 <div class="grid-row">
 <h1 class="intake-section-title padding-bottom-2m margin-left-5">{{title}}</h1>
 </div>
@@ -33,7 +34,7 @@
       {% csrf_token %}
       <h2>Contact</h2>
  
-      {% if section == "ELS-CRU" %}
+      {% if working_group == "ELS-CRU" %}
       <hr>
       {% include 'partials/start_expandable.html' with title='Charging Party of Aggrieved Individual' expanded="true" %}
       {% endif %}
@@ -50,7 +51,7 @@
         {% include 'partials/field.html' with field=form.contact_phone %}
       </div>
 
-      {% if section == 'VOT' %}
+      {% if working_group == 'VOT' %}
       <hr>
       {% include 'partials/start_expandable.html' with title='See more contact fields' %}
 
@@ -80,12 +81,12 @@
         {% include 'partials/field.html' with field=form.contact_zip %}
       </div>
 
-      {% if section == 'VOT' %}
+      {% if working_group == 'VOT' %}
       <hr>
       {% include 'partials/end_expandable.html' %}
       {% endif %}
 
-      {% if section == "ELS-CRU" %}
+      {% if working_group == "ELS-CRU" %}
       {% include 'partials/end_expandable.html' %}
       <hr>
       {% include 'partials/start_expandable.html' with title='Respondent' %}
@@ -114,45 +115,61 @@
         {% include 'partials/field.html' with field=form.location_zipcode %}
       </div>
 
-      {% if section == "VOT" %}
+      {% if working_group == "VOT" %}
       <hr>
       {% endif %}
 
-      {% if section == "ELS-CRU" %}
+      {% if working_group == "ELS-CRU" %}
       {% include 'partials/end_expandable.html' %}
       {% endif %}
 
-      {% for additional_contact in additional_contacts %}
+      {% for additional_contact_kind, additional_contact_fields in additional_contacts.items %}
         <hr>
-        {% include 'partials/start_expandable.html' with title=additional_contact.kind.initial %}
+        {% include 'partials/start_expandable.html' with title=additional_contact_kind %}
 
         <div class="grid-row margin-top-2">
-          {% include 'partials/field.html' with field=additional_contact.name %}
-        </div>
-
-        <div class="grid-row margin-top-2 margin-bottom-3">
-          {% include 'partials/field.html' with field=additional_contact.phone %}
-        </div>
-
-        <div class="grid-row margin-top-2">
-          {% include 'partials/field.html' with field=additional_contact.email %}
+          {% with field_key=additional_contact_fields.name %}
+          {% include 'partials/field.html' with field=form|get_dict_item:field_key %}
+          {% endwith %}
         </div>
 
         <div class="grid-row margin-top-2">
-          {% include 'partials/field.html' with field=additional_contact.address_line_1 %}
+          {% with field_key=additional_contact_fields.phone %}
+          {% include 'partials/field.html' with field=form|get_dict_item:field_key %}
+          {% endwith %}
         </div>
 
         <div class="grid-row margin-top-2">
-          {% include 'partials/field.html' with field=additional_contact.address_line_2 %}
+          {% with field_key=additional_contact_fields.email %}
+          {% include 'partials/field.html' with field=form|get_dict_item:field_key %}
+          {% endwith %}
         </div>
 
         <div class="grid-row margin-top-2">
-          {% include 'partials/field.html' with field=additional_contact.city field_size=6 extra_class="padding-right-2" %}
-          {% include 'partials/field.html' with field=additional_contact.state extra_class="padding-right-2" field_size=6 %}
+          {% with field_key=additional_contact_fields.address_line_1 %}
+          {% include 'partials/field.html' with field=form|get_dict_item:field_key %}
+          {% endwith %}
         </div>
 
         <div class="grid-row margin-top-2">
-          {% include 'partials/field.html' with field=additional_contact.zip_code %}
+          {% with field_key=additional_contact_fields.address_line_2 %}
+          {% include 'partials/field.html' with field=form|get_dict_item:field_key %}
+          {% endwith %}
+        </div>
+
+        <div class="grid-row margin-top-2">
+          {% with field_key=additional_contact_fields.city %}
+          {% include 'partials/field.html' with field=form|get_dict_item:field_key field_size=6 extra_class="padding-right-2" %}
+          {% endwith %}
+          {% with field_key=additional_contact_fields.state extra_class="padding-right-2" field_size=6 %}
+          {% include 'partials/field.html' with field=form|get_dict_item:field_key %}
+          {% endwith %}
+        </div>
+
+        <div class="grid-row margin-top-2">
+          {% with field_key=additional_contact_fields.zip_code %}
+          {% include 'partials/field.html' with field=form|get_dict_item:field_key %}
+          {% endwith %}
         </div>
 
         {% include 'partials/end_expandable.html' %}
@@ -216,7 +233,7 @@
       </div>
       {% endif %}
 
-      {% if section != "ELS-CRU" %}
+      {% if working_group != "ELS-CRU" %}
       <h2>Summary</h2>
       <div class="margin-top-1 margin-bottom-2">
         {% include "forms/question_cards/single_question.html" with field=form.violation_summary card_title="Personal Description" %}
@@ -231,13 +248,14 @@
       </div>
 
       {# These are hidden inputs: #}
+      {{form.working_group}}
       {{form.intake_format}}
       {{form.pk}}
     </div>
   </div>
 </div>
 <div class="intake-sidebar grid-col-3 margin-top-3">
-  {% if section == 'VOT' %}
+  {% if working_group == 'VOT' %}
   <div class="crt-portal-card margin-top-2">
     <div class="crt-portal-card__content">
       <h2>Quick Links</h2>
@@ -246,7 +264,7 @@
   </div>
   {% endif %}
 
-  {% if section == 'VOT' %}
+  {% if working_group == 'VOT' %}
   <div class="crt-portal-card margin-top-2">
     <div class="crt-portal-card__content stacked-sidebar-width">
       <h2>State resources</h2>

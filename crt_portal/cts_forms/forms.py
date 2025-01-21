@@ -1011,7 +1011,11 @@ class Review(ModelForm):
         fields = []
 
 
-def _group_contact(form, kind, form_index):
+ADDITIONAL_CONTACT_KINDS = {
+    'ELS-CRU': ['Charging Party Representative', 'Respondent Representative', 'EEOC Representative']
+}
+
+def construct_additional_contact_field_mapping(index, kind):
     fields = [
         'kind',
         'name',
@@ -1023,26 +1027,10 @@ def _group_contact(form, kind, form_index):
         'state',
         'zip_code',
     ]
-
-    grouped = {
-        field: form[f'contact_{form_index}_{field}']
-        for field in fields
-    }
-    grouped['kind'].initial = kind
-    return grouped
-
-
-ADDITIONAL_CONTACT_KINDS = {
-    'ELS-CRU': ['Charging Party Representative', 'Respondent Representative']
-}
-
-
-def group_additional_contacts(section, form):
-    kinds = ADDITIONAL_CONTACT_KINDS.get(section, [])
-    return [
-        _group_contact(form, kind, i)
-        for i, kind in enumerate(kinds, 2)
-    ]
+    field_mapping = {}
+    for field in fields:
+        field_mapping[field] = f'contact_{index}_{field}'
+    return field_mapping
 
 
 FieldConfig = collections.namedtuple('FieldConfig', [
@@ -1051,8 +1039,7 @@ FieldConfig = collections.namedtuple('FieldConfig', [
     'field_props',
 ])
 
-
-def _make_contact_group_config(kind, index):
+def construct_additional_contact_field_config(index):
     return [
         FieldConfig(f'contact_{index}_kind',
                     HiddenInput(),
@@ -1083,22 +1070,31 @@ def _make_contact_group_config(kind, index):
                     {'label': 'Zip code'}),
     ]
 
+def get_additional_contacts_field_configs_for_working_group(working_group):
+    kinds = ADDITIONAL_CONTACT_KINDS.get(working_group, [])
+    additional_contacts_field_configs = []
+    for i, kind in enumerate(kinds, 2):
+        additional_contacts_field_configs.extend(construct_additional_contact_field_config(i))
+    return additional_contacts_field_configs
 
-def _get_contact_config(section):
-    kinds = ADDITIONAL_CONTACT_KINDS.get(section, [])
-    return [
-        config
-        for i, kind in enumerate(kinds, 2)
-        for config in _make_contact_group_config(kind, i)
-    ]
+def get_additional_contacts_field_mapping(working_group):
+    kinds = ADDITIONAL_CONTACT_KINDS.get(working_group, [])
+    additional_contacts_field_mapping = {}
+    for i, kind in enumerate(kinds, 2):
+        additional_contacts_field_mapping[kind] = construct_additional_contact_field_mapping(i, kind)
+    return additional_contacts_field_mapping
+    
 
+def get_phone_form_config(working_group):
+    working_group = working_group.upper() if working_group else None
+    additional_contacts_configs = get_additional_contacts_field_configs_for_working_group(working_group)
 
-def get_phone_form_config(section):
-    section = section.upper() if section else None
-    contact_config = _get_contact_config(section)
-
-    section_specific = {
+    working_group_specific = {
         'VOT': [
+            FieldConfig('working_group',
+                    HiddenInput(attrs={'value': 'VOT'}),
+                    {'label': 'Working Group'}
+                    ),
             FieldConfig('primary_complaint',
                         CrtExpandableRadioSelect(
                             choices=PRIMARY_COMPLAINT_CHOICES,
@@ -1110,6 +1106,10 @@ def get_phone_form_config(section):
                         }),
         ],
         'ELS-CRU': [
+            FieldConfig('working_group',
+                        HiddenInput(attrs={'value': 'ELS-CRU'}),
+                        {'label': 'Working Group'}
+                        ),
             FieldConfig('primary_complaint',
                         Select(attrs={'class': 'usa-input usa-select'}),
                         {
@@ -1169,7 +1169,7 @@ def get_phone_form_config(section):
         ],
     }
 
-    return list(sorted(contact_config + section_specific[section] + [
+    return list(sorted(additional_contacts_configs + working_group_specific[working_group] + [
         FieldConfig('contact_first_name',
                     TextInput(attrs={'class': 'usa-input'}),
                     {'label': CONTACT_QUESTIONS['contact_first_name']}),
@@ -1262,9 +1262,9 @@ def get_phone_form_config(section):
     ]))
 
 
-def make_phone_pro_form(section):
-    section = section.upper() if section else None
-    phone_form_config = get_phone_form_config(section)
+def make_phone_pro_form(working_group):
+    working_group = working_group.upper() if working_group else None
+    phone_form_config = get_phone_form_config(working_group)
 
     class PhoneProForm(ModelForm, ActivityStreamUpdater):
 
@@ -3012,6 +3012,40 @@ class ContactEditForm(LitigationHoldLock, ModelForm, ActivityStreamUpdater):
 
     def success_message(self):
         return self.SUCCESS_MESSAGE
+
+def make_additional_contacts_form(working_group):
+    additional_contacts_config = get_additional_contacts_field_configs_for_working_group(working_group)
+
+    class AdditionalContactsEditForm(LitigationHoldLock, ModelForm, ActivityStreamUpdater):
+        CONTEXT_KEY = 'additional_contacts_form'
+        SUCCESS_MESSAGE = "Successfully updated additional contacts information."
+        FAIL_MESSAGE = "Failed to update additional contacts details."
+        
+        class Meta:
+            model = Report
+            fields = []
+            widgets = {}
+            for field in additional_contacts_config:
+                fields.append(field.name)
+                widgets[field.name] = field.widget
+
+        def __init__(self, *args, **kwargs):
+            ModelForm.__init__(self, *args, **kwargs)
+            self.label_suffix = ''
+
+            for field in additional_contacts_config:
+                self.fields[field.name].required = False
+                for prop, value in field.field_props.items():
+                    setattr(self.fields[field.name], prop, value)
+
+        def clean(self):
+            """Handles special fields that don't map back to model fields"""
+            cleaned_data = super().clean()
+            return crt_date_cleaner(self, cleaned_data)
+        
+        def success_message(self):
+            return self.SUCCESS_MESSAGE
+    return AdditionalContactsEditForm
 
 
 class ReportEditForm(LitigationHoldLock, ProForm, ActivityStreamUpdater):
