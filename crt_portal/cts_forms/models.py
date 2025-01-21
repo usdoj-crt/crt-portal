@@ -626,6 +626,7 @@ class Report(models.Model):
     language = models.CharField(default='en', max_length=10, blank=True, null=True)
     viewed = models.BooleanField(default=False)
     batched_for_disposal = models.BooleanField(default=False)
+    working_group = models.CharField(max_length=20, null=True, default=None)
     # Eventually, these reports will be deleted - but for now, we can use this
     # boolean to hide them from view.
     disposed = models.BooleanField(default=False)
