@@ -115,18 +115,18 @@ class ReportEdit(generics.CreateAPIView):
 
     def create(self, request, *args, **kwargs):
         # Default to VOT to maintain legacy behavior where VOT had the only pro form
-        section = request.query_params.get('section', 'VOT').upper()
-        self.section = section
+        working_group = request.query_params.get('working_group', 'VOT').upper()
+        self.working_group = working_group
 
         user_changes = dict(request.data)
         public_id = user_changes.get('public_id')
         if not public_id:
             created = True
-            form = make_phone_pro_form(section)(user_changes)
+            form = make_phone_pro_form(working_group)(user_changes)
         else:
             created = False
             report = get_object_or_404(Report, public_id=public_id)
-            form = make_phone_pro_form(section)(user_changes, instance=report)
+            form = make_phone_pro_form(working_group)(user_changes, instance=report)
 
         if not form.has_changed():
             return JsonResponse({'messages': [
@@ -173,7 +173,7 @@ class ReportEdit(generics.CreateAPIView):
         all_changes = form.changed_data + server_changes
         all_data = {**form.data, **server_data}
 
-        new_url = f'/form/new/pro/{section}/{form.instance.pk}/' if 'public_id' in all_changes else None
+        new_url = f'/form/new/pro/{working_group}/{form.instance.pk}/' if 'public_id' in all_changes else None
 
         return JsonResponse({
             'messages': [
