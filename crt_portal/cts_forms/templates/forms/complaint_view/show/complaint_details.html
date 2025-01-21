@@ -251,7 +251,7 @@
       </tr>
     </table>
     <button aria-label="update complaint details"
-            class="usa-button {% if not details_form.errors and summary %}display-none{% endif %} {% if not summary %}always-display{% endif %}"
+            class="usa-button button--save {% if not details_form.errors and summary %}display-none{% endif %} {% if not summary %}always-display{% endif %}"
             disabled
             type="submit"
             name="type" value="{{details_form.CONTEXT_KEY}}">
