@@ -1282,6 +1282,7 @@ class ReportEditApiTests(TestCase):
                     'primary_complaint',
                     'violation_summary',
                     'public_id',
+                    'working_group',
                 ],
                 "VOT": [
                     'contact_address_line_1',
@@ -1303,6 +1304,7 @@ class ReportEditApiTests(TestCase):
                     'primary_complaint',
                     'violation_summary',
                     'public_id',
+                    'working_group',
                 ],
                 "ELS-CRU": [
                     'contact_address_line_1',
@@ -1326,6 +1328,7 @@ class ReportEditApiTests(TestCase):
                     'public_or_private_employer',
                     'violation_summary',
                     'public_id',
+                    'working_group',
                 ],
             }
 

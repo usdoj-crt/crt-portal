@@ -3089,7 +3089,7 @@ class ReportEditForm(LitigationHoldLock, ProForm, ActivityStreamUpdater):
             'violation_summary',
         ]
 
-        fields = ProForm.Meta.fields + ['tags', 'location_zipcode']
+        fields = ProForm.Meta.fields + ['eeoc_charge_number', 'tags', 'location_zipcode']
 
     def success_message(self):
         return self.SUCCESS_MESSAGE
@@ -3155,6 +3155,12 @@ class ReportEditForm(LitigationHoldLock, ProForm, ActivityStreamUpdater):
         if summary:
             self.fields['summary'].initial = summary.note
             self.fields['summary_id'].initial = summary.pk
+
+        # EEOC Fields
+        self.fields['eeoc_charge_number'].label = 'EEOC Charge Number'
+        self.fields['eeoc_charge_number'].widget = TextInput(attrs={
+            'class': 'usa-input'
+        })
 
     @cached_property
     def changed_data(self):

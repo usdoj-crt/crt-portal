@@ -35,17 +35,17 @@ Edit
             </td>
         </tr>
         <tr>
-            <th>Phone</th>
+            <th>Email</th>
             <td>
-                {% with field_key=additional_contact_fields.phone %}
+                {% with field_key=additional_contact_fields.email %}
                 {{ data|get_attribute:field_key|default:"—" }}
                 {% endwith %}
             </td>
         </tr>
         <tr>
-            <th>Email</th>
+            <th>Phone</th>
             <td>
-                {% with field_key=additional_contact_fields.email %}
+                {% with field_key=additional_contact_fields.phone %}
                 {{ data|get_attribute:field_key|default:"—" }}
                 {% endwith %}
             </td>

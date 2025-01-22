@@ -14,15 +14,15 @@
         </div>
 
         <div class="grid-row margin-top-2">
-        {% with field_key=additional_contact_fields.phone %}
+        {% with field_key=additional_contact_fields.email %}
         {% include 'partials/field.html' with field=additional_contacts_form|get_dict_item:field_key %}
         {% endwith %}
         </div>
 
         <div class="grid-row margin-top-2">
-        {% with field_key=additional_contact_fields.email %}
-        {% include 'partials/field.html' with field=additional_contacts_form|get_dict_item:field_key %}
-        {% endwith %}
+            {% with field_key=additional_contact_fields.phone %}
+            {% include 'partials/field.html' with field=additional_contacts_form|get_dict_item:field_key %}
+            {% endwith %}
         </div>
 
         <div class="grid-row margin-top-2">
