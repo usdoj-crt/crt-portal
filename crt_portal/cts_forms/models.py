@@ -1235,6 +1235,9 @@ class ResponseTemplate(models.Model):
             referral_translated = referral_translations.get(self.language)
             referral_text = referral_translated or referral_en or ''
 
+        contact_email = ''
+        if report.contact_email:
+            contact_email = report.contact_email
         eeoc_office_name = ''
         if report.eeoc_office.name:
             eeoc_office_name = report.eeoc_office_name
@@ -1246,6 +1249,7 @@ class ResponseTemplate(models.Model):
             'record_locator': report.public_id,
             'addressee': report.addressee,
             'complainant_name': f'{report.contact_first_name} {report.contact_last_name}',
+            'contact_email': contact_email,
             'organization_name': report.location_name,
             'date_of_intake': format_date(report_create_date_est, format='long', locale='en_US'),
             'outgoing_date': format_date(today, locale='en_US'),  # required for paper mail
