@@ -46,7 +46,7 @@ Edit
             <th>Phone</th>
             <td>
                 {% with field_key=additional_contact_fields.phone %}
-                {{ data|get_attribute:field_key|default:"—" }}
+                <input disabled class="usa-input phone-input" value="{{ data|get_attribute:field_key|default:"" }}"/>
                 {% endwith %}
             </td>
         </tr>
