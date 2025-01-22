@@ -45,7 +45,7 @@ from .forms import (
     ContactEditForm, Filters, PrintActions, ProfileForm,
     ReportEditForm, ResourceActions, ResourceFilter, ResponseActions, SavedSearchActions, SavedSearchFilter, add_activity,
     AttachmentActions, Review, save_form,
-    make_phone_pro_form, get_additional_contacts_field_mapping, make_additional_contacts_form
+    AdditionalContactsEditForm, make_phone_pro_form, get_additional_contacts_field_mapping
 )
 from .mail import mail_to_complainant
 from .model_variables import BATCH_STATUS_CHOICES, HATE_CRIMES_TRAFFICKING_MODEL_CHOICES, NOTIFICATION_PREFERENCE_CHOICES, STATES_AND_TERRITORIES
@@ -1166,8 +1166,8 @@ class ShowView(LoginRequiredMixin, View):
         if report.working_group:
             additional_contacts = get_additional_contacts_field_mapping(report.working_group)
             if additional_contacts != {}:
-                additional_contacts_form = make_additional_contacts_form(report.working_group)(instance=report)
-                self.forms[additional_contacts_form.CONTEXT_KEY] = additional_contacts_form
+                self.forms[AdditionalContactsEditForm.CONTEXT_KEY] = AdditionalContactsEditForm
+                additional_contacts_form = AdditionalContactsEditForm(working_group=report.working_group, instance=report)
         contact_form = ContactEditForm(instance=report)
         details_form = ReportEditForm(instance=report)
         filter_output = setup_filter_parameters(report, request.GET)
@@ -1192,7 +1192,11 @@ class ShowView(LoginRequiredMixin, View):
         form_type = request.POST.get('type')
         if not form_type:
             raise SuspiciousOperation("Invalid form data")
-        return self.forms[form_type](request.POST, request.FILES, instance=report, user=request.user), form_type
+
+        working_group = None
+        if report.working_group:
+            working_group = report.working_group
+        return self.forms[form_type](request.POST, request.FILES, instance=report, user=request.user, working_group=working_group), form_type
 
     def post(self, request, id):
         """

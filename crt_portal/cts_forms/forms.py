@@ -1064,7 +1064,10 @@ def construct_additional_contact_field_config(index):
                     {'label': 'City'}),
         FieldConfig(f'contact_{index}_state',
                     Select(attrs={'class': 'usa-select'}),
-                    {'label': 'State'}),
+                    {
+                        'label': 'State',
+                        'choices': add_empty_choice(STATES_AND_TERRITORIES),
+                    }),
         FieldConfig(f'contact_{index}_zip_code',
                     TextInput(attrs={'class': 'usa-input'}),
                     {'label': 'Zip code'}),
@@ -2108,6 +2111,7 @@ class ComplaintActions(LitigationHoldLock, ModelForm, ActivityStreamUpdater):
 
     def __init__(self, *args, user=None, **kwargs):
         self.user = user
+        self.working_group = kwargs.pop('working_group', None)
         self.report = kwargs.get('instance', None)
         ModelForm.__init__(self, *args, **kwargs)
 
@@ -2307,6 +2311,7 @@ class ComplaintOutreach(LitigationHoldLock, ModelForm, ActivityStreamUpdater):
 
     def __init__(self, *args, user=None, **kwargs):
         self.user = user
+        self.working_group = kwargs.pop('working_group', None)
         ModelForm.__init__(self, *args, **kwargs)
         for name, field in self.fields.items():
             field.help_text = Report._meta.get_field(name).help_text
@@ -3004,8 +3009,10 @@ class ContactEditForm(LitigationHoldLock, ModelForm, ActivityStreamUpdater):
             }),
         }
 
-    def __init__(self, *args, user=None, **kwargs):
-        self.user = user
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user', None)
+        self.working_group = kwargs.pop('working_group', None)
+
         ModelForm.__init__(self, *args, **kwargs)
 
         self.fields['contact_phone'].error_messages = {'invalid': CONTACT_PHONE_INVALID_MESSAGE}
@@ -3013,39 +3020,36 @@ class ContactEditForm(LitigationHoldLock, ModelForm, ActivityStreamUpdater):
     def success_message(self):
         return self.SUCCESS_MESSAGE
 
-def make_additional_contacts_form(working_group):
-    additional_contacts_config = get_additional_contacts_field_configs_for_working_group(working_group)
 
-    class AdditionalContactsEditForm(LitigationHoldLock, ModelForm, ActivityStreamUpdater):
-        CONTEXT_KEY = 'additional_contacts_form'
-        SUCCESS_MESSAGE = "Successfully updated additional contacts information."
-        FAIL_MESSAGE = "Failed to update additional contacts details."
-        
-        class Meta:
-            model = Report
-            fields = []
-            widgets = {}
-            for field in additional_contacts_config:
-                fields.append(field.name)
-                widgets[field.name] = field.widget
+class AdditionalContactsEditForm(LitigationHoldLock, ModelForm, ActivityStreamUpdater):
+    CONTEXT_KEY = 'additional_contacts_form'
+    SUCCESS_MESSAGE = "Successfully updated additional contacts information."
+    FAIL_MESSAGE = "Failed to update additional contacts details."
 
-        def __init__(self, *args, **kwargs):
-            ModelForm.__init__(self, *args, **kwargs)
-            self.label_suffix = ''
+    class Meta:
+        model = Report
+        # Initialize with all fields to satisfy Django. We will remove unneccessary ones in form init
+        fields = '__all__'
 
-            for field in additional_contacts_config:
-                self.fields[field.name].required = False
-                for prop, value in field.field_props.items():
-                    setattr(self.fields[field.name], prop, value)
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user', None)
+        self.working_group = kwargs.pop('working_group', None)
 
-        def clean(self):
-            """Handles special fields that don't map back to model fields"""
-            cleaned_data = super().clean()
-            return crt_date_cleaner(self, cleaned_data)
-        
-        def success_message(self):
-            return self.SUCCESS_MESSAGE
-    return AdditionalContactsEditForm
+        ModelForm.__init__(self, *args, **kwargs)
+
+        additional_contacts_config = get_additional_contacts_field_configs_for_working_group(self.working_group)
+
+        fields_to_keep = {}
+        for field in additional_contacts_config:
+            fields_to_keep[field.name] = self.fields[field.name]
+            fields_to_keep[field.name].required = False
+            fields_to_keep[field.name].widget = field.widget
+            for prop, value in field.field_props.items():
+                setattr(fields_to_keep[field.name], prop, value)
+        self.fields = fields_to_keep
+
+    def success_message(self):
+        return self.SUCCESS_MESSAGE
 
 
 class ReportEditForm(LitigationHoldLock, ProForm, ActivityStreamUpdater):
@@ -3103,6 +3107,7 @@ class ReportEditForm(LitigationHoldLock, ProForm, ActivityStreamUpdater):
         Proform initializes all component forms, we'll skip that and define only the fields need for this form
         """
         self.user = user
+        self.working_group = kwargs.pop('working_group', None)
         ModelForm.__init__(self, *args, **kwargs)
 
         self.fields['tags'] = TagsField()
