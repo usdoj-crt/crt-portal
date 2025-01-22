@@ -1235,6 +1235,13 @@ class ResponseTemplate(models.Model):
             referral_translated = referral_translations.get(self.language)
             referral_text = referral_translated or referral_en or ''
 
+        eeoc_office_name = ''
+        if report.eeoc_office.name:
+            eeoc_office_name = report.eeoc_office_name
+        eeoc_office_url = ''
+        if report.eeoc_office.url:
+            eeoc_office_url = report.eeoc_office.url
+
         return Context({
             'record_locator': report.public_id,
             'addressee': report.addressee,
@@ -1244,8 +1251,8 @@ class ResponseTemplate(models.Model):
             'outgoing_date': format_date(today, locale='en_US'),  # required for paper mail
             'section_name': section_choices.get(report.assigned_section, "no section"),
             'referral_text': referral_text,
-            'eeoc_office_name': report.eeoc_office.name,
-            'eeoc_office_url': report.eeoc_office.url,
+            'eeoc_office_name': eeoc_office_name,
+            'eeoc_office_url': eeoc_office_url,
             # spanish translations
             'es': {
                 'addressee': report.addressee_es,
