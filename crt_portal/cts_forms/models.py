@@ -1238,12 +1238,14 @@ class ResponseTemplate(models.Model):
         contact_email = ''
         if report.contact_email:
             contact_email = report.contact_email
-        eeoc_office_name = ''
-        if report.eeoc_office.name:
-            eeoc_office_name = report.eeoc_office_name
-        eeoc_office_url = ''
-        if report.eeoc_office.url:
-            eeoc_office_url = report.eeoc_office.url
+        
+        if report.eeoc_office:
+            eeoc_office_name = ''
+            if report.eeoc_office.name:
+                eeoc_office_name = report.eeoc_office_name
+            eeoc_office_url = ''
+            if report.eeoc_office.url:
+                eeoc_office_url = report.eeoc_office.url
 
         return Context({
             'record_locator': report.public_id,
