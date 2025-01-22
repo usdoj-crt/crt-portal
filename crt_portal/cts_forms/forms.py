@@ -1160,7 +1160,7 @@ def get_phone_form_config(section):
                         Select(attrs={'class': 'usa-input usa-select'}),
                         {
                             'label': 'EEOC Office',
-                            'choices': EeocOffice.objects.filter(show=True).annotate(display=Concat(F('name'), Value(' '), F('address_line_2'), Value(' '), F('address_city'), Value(', '), F('address_state'))).values_list('pk', 'display').order_by('name'),
+                            'choices': EeocOffice.objects.filter(show=True).annotate(display=Concat(F('name'), Value(' '), F('address_line_2'), Value(' '), F('address_city'), Value(', '), F('address_state'))).values_list('pk', 'display').order_by('order'),
                         }),
             FieldConfig('eeoc_charge_number',
                         TextInput(attrs={'class': 'usa-input'}),
