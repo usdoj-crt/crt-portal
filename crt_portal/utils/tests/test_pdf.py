@@ -19,16 +19,18 @@ class PdfTests(TestCase):
         contents = reader.pages[0].extract_text()
         self.assertEqual(contents, 'this is a test')
 
+    test_user = User(username='pdf_test_user')
+
     def test_tms_converts(self):
         self.maxDiff = 9999999999
         report = Report(**SAMPLE_REPORT_1)
-        report.public_id = 123
+        report.id = 123
         email = TMSEmail(tms_id=456,
                          report=report,
                          subject='Foo subject',
                          body='Foo body',
                          html_body='<ul><li>Foo body</li></ul>',
-                         recipient='Foo recipient',
+                         recipient='foo@example.com',
                          created_at=datetime.datetime.now(),
                          completed_at=datetime.datetime.now(),
                          status=TMSEmail.SENT,
@@ -46,13 +48,35 @@ class PdfTests(TestCase):
         self.assertIn('TMS ID 456', cover)
         self.assertIn('Report ID 123', cover)
         self.assertIn('Subject Foo subject', cover)
-        self.assertIn('Recipient Foo recipient', cover)
+        self.assertIn('Recipient(s)foo@example.com', cover)
         self.assertIn('Status sent', cover)
         self.assertIn('Purpose manual', cover)
         self.assertIn('Error message oh no bad thing', cover)
         self.assertIn('Foo body', contents)
 
-    test_user = User(username='pdf_test_user')
+    def test_tms_converts_multiple_recipients(self):
+        self.maxDiff = 9999999999
+        report = Report(**SAMPLE_REPORT_1)
+        report.public_id = 123
+        email = TMSEmail(tms_id=456,
+                         report=report,
+                         subject='Foo subject',
+                         body='Foo body',
+                         html_body='<ul><li>Foo body</li></ul>',
+                         recipient=['foo@example.com', 'bar@example.com'],
+                         created_at=datetime.datetime.now(),
+                         completed_at=datetime.datetime.now(),
+                         status=TMSEmail.SENT,
+                         purpose=TMSEmail.MANUAL_EMAIL,
+                         error_message='oh no bad thing')
+
+        converted = pdf.convert_tms_to_pdf(email)
+
+        reader = pypdf.PdfReader(converted)
+        self.assertEqual(len(reader.pages), 2)
+        cover = reader.pages[0].extract_text()
+
+        self.assertIn('foo@example.com, bar@example.com', cover)
 
     @classmethod
     def setUpTestData(cls):
@@ -84,7 +108,7 @@ class PdfTests(TestCase):
         self.assertEqual(len(reader.pages), 1)
         contents = reader.pages[0].extract_text()
         self.assertIn('Civil Rights Division', contents)
-        self.assertIn('Disposed Reports (1 Year) 0-ABC', contents)
-        self.assertIn('Disposed Reports (3 Year) 1-ABC, 2-ABC', contents)
+        self.assertIn('Disposed Reports (1 Year)0-ABC', contents)
+        self.assertIn('Disposed Reports (3 Year)1-ABC, 2-ABC', contents)
         self.assertIn('Disposed by pdf_test_user', contents)
         self.assertIn(f'Date of destruction {batch.disposed_date}', contents)
