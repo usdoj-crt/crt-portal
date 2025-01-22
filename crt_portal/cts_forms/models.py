@@ -1238,7 +1238,7 @@ class ResponseTemplate(models.Model):
         contact_email = ''
         if report.contact_email:
             contact_email = report.contact_email
-        
+
         eeoc_office_name = ''
         eeoc_office_url = ''
         if report.eeoc_office:
