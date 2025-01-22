@@ -67,10 +67,7 @@ def render_complainant_mail(*, report, template, action) -> Mail:
     html_message = render_to_string(html_source,
                                     {'content': content, 'report': report})
 
-    if not report.contact_email:
-        all_recipients = []
-    else:
-        all_recipients = [report.contact_email]
+    all_recipients = report.contact_emails
 
     allowed_recipients = remove_disallowed_recipients(all_recipients)
     disallowed_recipients = list(set(all_recipients) - set(allowed_recipients))
@@ -302,8 +299,8 @@ def mail_to_complainant(report, template, purpose=TMSEmail.MANUAL_EMAIL, dry_run
     """
     if not rendered:
         rendered = render_complainant_mail(report=report, template=template, action='email')
-    if not rendered.recipients:
-        logger.info(f'{report.contact_email} not in allowed domains, not attempting to deliver email response template #{template.id} to report: {report.id}')
+    if rendered.disallowed_recipients:
+        logger.info(f'Some recipients were not in allowed domains for #{template.id} for report: {report.id}')
 
     send_results = send_tms(rendered, report=report, purpose=purpose, dry_run=dry_run)
     logger.info(f'Sent email response template #{template.id} to report: {report.id}')

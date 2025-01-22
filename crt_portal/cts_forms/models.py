@@ -1,5 +1,6 @@
 """All models need to be added to signals.py for proper logging."""
-from typing import Optional
+from typing import Optional, List
+import itertools
 import logging
 import time
 import uuid
@@ -716,6 +717,19 @@ class Report(models.Model):
         print(f'Redacted report {self.public_id}')
         self.save()
         return
+
+    @cached_property
+    def contact_emails(self) -> List[str]:
+        emails = [self.contact_email] if self.contact_email else []
+        for additional_contact in itertools.count(2):
+            try:
+                email = getattr(self, f'contact_{additional_contact}_email')
+            except AttributeError:
+                break
+            if not email:
+                continue
+            emails.append(email)
+        return emails
 
     @cached_property
     def last_incident_date(self):

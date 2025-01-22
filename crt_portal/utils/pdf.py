@@ -59,11 +59,16 @@ def _render_markdown(content: str) -> str:
 
 
 def _make_cover_page(email: TMSEmail) -> str:
+    if isinstance(email.recipient, list):
+        formatted_recipient = ', '.join(email.recipient)
+    else:
+        formatted_recipient = email.recipient
+
     meta = {
         'TMS ID': email.tms_id,
         'Report ID': email.report.id,
         'Subject': email.subject,
-        'Recipient': email.recipient,
+        'Recipient(s)': formatted_recipient,
         'Created at': email.created_at,
         'Completed at': email.completed_at,
         'Status': email.status,
@@ -75,8 +80,9 @@ def _make_cover_page(email: TMSEmail) -> str:
         '|--------|--------|',
         *[f'| {key} | {value} |' for key, value in meta.items()],
     ])
+
     return _render_markdown(f"""
-The following email message (with Granicus TMS id {email.tms_id}) was sent by the Civil Rights Division to {email.recipient} on {email.completed_at}:
+The following email message (with Granicus TMS id {email.tms_id}) was sent by the Civil Rights Division to {formatted_recipient} on {email.completed_at}:
 
 {meta_template}
     """)

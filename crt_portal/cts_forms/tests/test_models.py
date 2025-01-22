@@ -55,6 +55,39 @@ class ReportSimpleTests(SimpleTestCase):
         expected = "Thank you for your report"
         self.assertEqual(report.addressee, expected)
 
+    def test_contact_emails(self):
+        report: Report = ReportFactory.build()
+        report.contact_email = 'one@example.com'
+        report.contact_2_email = 'two@example.com'
+        report.contact_3_email = 'three@example.com'
+        report.contact_4_email = 'four@example.com'
+        self.assertEqual(report.contact_emails, [
+            'one@example.com',
+            'two@example.com',
+            'three@example.com',
+            'four@example.com',
+        ])
+
+    def test_missing_contact_emails(self):
+        report: Report = ReportFactory.build()
+        report.contact_email = 'one@example.com'
+        report.contact_2_email = ''
+        report.contact_3_email = ''
+        report.contact_4_email = 'four@example.com'
+        self.assertEqual(report.contact_emails, [
+            'one@example.com',
+            'four@example.com',
+        ])
+
+    def test_no_contact_emails(self):
+        report: Report = ReportFactory.build()
+        report.contact_email = ''
+        report.contact_2_email = ''
+        report.contact_3_email = ''
+        report.contact_4_email = ''
+
+        self.assertEqual(report.contact_emails, [])
+
 
 class ScheduledNotificationTests(TestCase):
     @classmethod
