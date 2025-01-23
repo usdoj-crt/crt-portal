@@ -413,6 +413,7 @@ class EeocOffice(models.Model):
     address_state = models.CharField(max_length=100, null=False, blank=False, choices=STATES_AND_TERRITORIES)
     address_zip = models.CharField(max_length=10, null=False, blank=False)
     show = models.BooleanField(default=True, null=False, help_text="Whether to show this office in the list of EEOC offices.")
+    url = models.CharField(max_length=255, null=False, blank=False, help_text="A link to the page that contains the contact information associated with this EEOC Office. Ex: https://www.eeoc.gov/field-office/atlanta/location")
 
     def __str__(self):
         return self.name
@@ -1248,15 +1249,27 @@ class ResponseTemplate(models.Model):
             referral_translated = referral_translations.get(self.language)
             referral_text = referral_translated or referral_en or ''
 
+        contact_email = report.contact_email or ''
+
+        eeoc_office = report.eeoc_office
+        eeoc_office_name = ''
+        eeoc_office_url = ''
+        if eeoc_office:
+            eeoc_office_name = eeoc_office.name or ''
+            eeoc_office_url = eeoc_office.url or ''
+
         return Context({
             'record_locator': report.public_id,
             'addressee': report.addressee,
             'complainant_name': f'{report.contact_first_name} {report.contact_last_name}',
+            'contact_email': contact_email,
             'organization_name': report.location_name,
             'date_of_intake': format_date(report_create_date_est, format='long', locale='en_US'),
             'outgoing_date': format_date(today, locale='en_US'),  # required for paper mail
             'section_name': section_choices.get(report.assigned_section, "no section"),
             'referral_text': referral_text,
+            'eeoc_office_name': eeoc_office_name,
+            'eeoc_office_url': eeoc_office_url,
             # spanish translations
             'es': {
                 'addressee': report.addressee_es,
