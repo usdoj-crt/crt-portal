@@ -1193,7 +1193,7 @@ class ReportEditApiTests(TestCase):
         "intake_format": "phone",
     }
 
-    section_parameters = [None, "VOT", "ELS-CRU"]
+    working_group_parameters = [None, "VOT", "ELS-CRU"]
 
     def setUp(self):
         self.client = Client()
@@ -1237,15 +1237,15 @@ class ReportEditApiTests(TestCase):
         self.assertEqual(response.status_code, 404)
 
     def test_phone_pro_form_creates(self):
-        for section in self.section_parameters:
+        for working_group in self.working_group_parameters:
             url = self.base_url
             report_data = self.report_data
 
             # We need to change the primary_complaint to workplace for ELS-CRU Proform
             # Otherwise the form will fail validation and we get back a 400 response
-            if section:
-                url = f"{url}?section={section}"
-                match section:
+            if working_group:
+                url = f"{url}?working_group={working_group}"
+                match working_group:
                     case "ELS-CRU":
                         report_data["primary_complaint"] = "workplace"
 
@@ -1257,11 +1257,10 @@ class ReportEditApiTests(TestCase):
             pk = public_id.split('-')[0]
 
             new_url = f'/form/new/pro/VOT/{pk}/'
-            if section:
-                new_url = f'/form/new/pro/{section}/{pk}/'
+            if working_group:
+                new_url = f'/form/new/pro/{working_group}/{pk}/'
 
             expected_changed_data = {
-                # Should be the same as VOT, since we currently default to VOT if section is None
                 None: [
                     'contact_address_line_1',
                     'contact_city',
@@ -1282,7 +1281,6 @@ class ReportEditApiTests(TestCase):
                     'primary_complaint',
                     'violation_summary',
                     'public_id',
-                    'working_group',
                 ],
                 "VOT": [
                     'contact_address_line_1',
@@ -1304,7 +1302,6 @@ class ReportEditApiTests(TestCase):
                     'primary_complaint',
                     'violation_summary',
                     'public_id',
-                    'working_group',
                 ],
                 "ELS-CRU": [
                     'contact_address_line_1',
@@ -1328,7 +1325,6 @@ class ReportEditApiTests(TestCase):
                     'public_or_private_employer',
                     'violation_summary',
                     'public_id',
-                    'working_group',
                 ],
             }
 
@@ -1336,7 +1332,7 @@ class ReportEditApiTests(TestCase):
             self.assertEqual(response.status_code, 201)
             self.maxDiff = None
             self.assertDictEqual(response_json, {
-                'changed_data': expected_changed_data[section],
+                'changed_data': expected_changed_data[working_group],
                 'form': {
                     **self.report_data,
                     'public_id': public_id,

@@ -373,6 +373,7 @@ class ReportTests(TestCase):
             ('status', 'closed', 'new'),
             ('report_disposition_status', 'approved', None),
             ('assigned_section', 'DRS', 'ADM'),
+            ('working_group', None, 'VOT', 'ELS-CRU'),
 
             ('location_name', 'Test Location', None),
             ('location_address_line_1', '123 Main St', None),

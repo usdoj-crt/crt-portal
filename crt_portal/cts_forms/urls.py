@@ -22,7 +22,7 @@ urlpatterns = [
     path('view/search-examples', SearchHelperView.as_view(), name='cts-forms-search-help'),
     path('new/', ProFormView.as_view([ProForm]), name='crt-pro-form'),
     path('new/phone/', phone_pro_form_view, name='crt-phone-pro-form', kwargs={'working_group': 'VOT'}),  # Legacy url for the vot-specific form
-    path('new/phone/<int:report_id>/', phone_pro_form_view, name='crt-phone-pro-form', kwargs={'section': 'VOT'}),  # Legacy url for the vot-specific form
+    path('new/phone/<int:report_id>/', phone_pro_form_view, name='crt-phone-pro-form', kwargs={'working_group': 'VOT'}),  # Legacy url for the vot-specific form
     path('new/pro/<str:working_group>/', phone_pro_form_view, name='crt-phone-pro-form'),
     path('new/pro/<str:working_group>/<int:report_id>/', phone_pro_form_view, name='crt-phone-pro-form'),
     path('actions/', ActionsView.as_view(), name='crt-forms-actions'),
