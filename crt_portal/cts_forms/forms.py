@@ -1015,6 +1015,7 @@ ADDITIONAL_CONTACT_KINDS = {
     'ELS-CRU': ['Charging Party Representative', 'Respondent Representative', 'EEOC Representative']
 }
 
+
 def construct_additional_contact_field_mapping(index, kind):
     fields = [
         'kind',
@@ -1038,6 +1039,7 @@ FieldConfig = collections.namedtuple('FieldConfig', [
     'widget',
     'field_props',
 ])
+
 
 def construct_additional_contact_field_config(index):
     return [
@@ -1067,11 +1069,12 @@ def construct_additional_contact_field_config(index):
                     {
                         'label': 'State',
                         'choices': add_empty_choice(STATES_AND_TERRITORIES),
-                    }),
+        }),
         FieldConfig(f'contact_{index}_zip_code',
                     TextInput(attrs={'class': 'usa-input'}),
                     {'label': 'Zip code'}),
     ]
+
 
 def get_additional_contacts_field_configs_for_working_group(working_group):
     kinds = ADDITIONAL_CONTACT_KINDS.get(working_group, [])
@@ -1080,13 +1083,14 @@ def get_additional_contacts_field_configs_for_working_group(working_group):
         additional_contacts_field_configs.extend(construct_additional_contact_field_config(i))
     return additional_contacts_field_configs
 
+
 def get_additional_contacts_field_mapping(working_group):
     kinds = ADDITIONAL_CONTACT_KINDS.get(working_group, [])
     additional_contacts_field_mapping = {}
     for i, kind in enumerate(kinds, 2):
         additional_contacts_field_mapping[kind] = construct_additional_contact_field_mapping(i, kind)
     return additional_contacts_field_mapping
-    
+
 
 def get_phone_form_config(working_group):
     working_group = working_group.upper() if working_group else None
@@ -1095,9 +1099,9 @@ def get_phone_form_config(working_group):
     working_group_specific = {
         'VOT': [
             FieldConfig('working_group',
-                    HiddenInput(attrs={'value': 'VOT'}),
-                    {'label': 'Working Group'}
-                    ),
+                        HiddenInput(attrs={'value': 'VOT'}),
+                        {'label': 'Working Group'}
+                        ),
             FieldConfig('primary_complaint',
                         CrtExpandableRadioSelect(
                             choices=PRIMARY_COMPLAINT_CHOICES,
