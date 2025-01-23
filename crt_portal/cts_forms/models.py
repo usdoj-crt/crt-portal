@@ -1241,10 +1241,8 @@ class ResponseTemplate(models.Model):
         eeoc_office_name = ''
         eeoc_office_url = ''
         if eeoc_office:
-            if eeoc_office.name:
-                eeoc_office_name = eeoc_office.name
-            if eeoc_office.url:
-                eeoc_office_url = eeoc_office.url
+            eeoc_office_name = eeoc_office.name or ''
+            eeoc_office_url = eeoc_office.url or ''
 
         return Context({
             'record_locator': report.public_id,
