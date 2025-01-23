@@ -1235,9 +1235,7 @@ class ResponseTemplate(models.Model):
             referral_translated = referral_translations.get(self.language)
             referral_text = referral_translated or referral_en or ''
 
-        contact_email = ''
-        if report.contact_email:
-            contact_email = report.contact_email
+        contact_email = report.contact_email or ''
 
         eeoc_office = report.eeoc_office
         eeoc_office_name = ''
