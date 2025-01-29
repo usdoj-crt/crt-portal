@@ -96,6 +96,10 @@
         {% include 'forms/complaint_view/print/complaint_details.html' with data=data questions=questions %}
         {% include 'forms/complaint_view/show/complaint_details.html' with data=data summary=summary %}
 
+        {% if additional_contacts_form %}
+        {% include 'forms/complaint_view/show/additional_contacts.html' with data=data %}
+        {% endif %}
+
         {% include 'forms/complaint_view/show/description.html' with description=data.violation_summary %}
 
         {% include 'forms/complaint_view/show/attachments.html' with title="Attachments" icon="img/intake-icons/ic_check-circle.svg" %}

@@ -1,0 +1,61 @@
+{% load get_dict_item %}
+
+<form id="additional-contacts-edit-form" class="toggle-edit-form usa-form {% if not additional_contacts_form.errors %}display-none{% endif %}" method="post" novalidate>
+    {% csrf_token %}
+    <input type="hidden" value="{{ return_url_args }}" name="next" id="next" />
+    <input type="hidden" value="{{ index }}" name="index" id="index" />
+    {% for additional_contact_kind, additional_contact_fields in additional_contacts.items %}
+        {% include 'partials/start_expandable.html' with title=additional_contact_kind %}
+
+        <div class="grid-row margin-top-2">
+        {% with field_key=additional_contact_fields.name %}
+        {% include 'partials/field.html' with field=additional_contacts_form|get_dict_item:field_key %}
+        {% endwith %}
+        </div>
+
+        <div class="grid-row margin-top-2">
+        {% with field_key=additional_contact_fields.email %}
+        {% include 'partials/field.html' with field=additional_contacts_form|get_dict_item:field_key %}
+        {% endwith %}
+        </div>
+
+        <div class="grid-row margin-top-2">
+            {% with field_key=additional_contact_fields.phone %}
+            {% include 'partials/field.html' with field=additional_contacts_form|get_dict_item:field_key %}
+            {% endwith %}
+        </div>
+
+        <div class="grid-row margin-top-2">
+        {% with field_key=additional_contact_fields.address_line_1 %}
+        {% include 'partials/field.html' with field=additional_contacts_form|get_dict_item:field_key %}
+        {% endwith %}
+        </div>
+
+        <div class="grid-row margin-top-2">
+        {% with field_key=additional_contact_fields.address_line_2 %}
+        {% include 'partials/field.html' with field=additional_contacts_form|get_dict_item:field_key %}
+        {% endwith %}
+        </div>
+
+        <div class="grid-row margin-top-2">
+        {% with field_key=additional_contact_fields.city %}
+        {% include 'partials/field.html' with field=additional_contacts_form|get_dict_item:field_key field_size=6 extra_class="padding-right-2" %}
+        {% endwith %}
+        {% with field_key=additional_contact_fields.state extra_class="padding-right-2" field_size=6 %}
+        {% include 'partials/field.html' with field=additional_contacts_form|get_dict_item:field_key %}
+        {% endwith %}
+        </div>
+
+        <div class="grid-row margin-top-2">
+        {% with field_key=additional_contact_fields.zip_code %}
+        {% include 'partials/field.html' with field=additional_contacts_form|get_dict_item:field_key %}
+        {% endwith %}
+        </div>
+
+        {% include 'partials/end_expandable.html' %}
+    {% endfor %}
+    <div class="margin-top-2">
+        <button aria-label="update additional contacts details" class="usa-button button--save" disabled type="submit" name="type" value="{{additional_contacts_form.CONTEXT_KEY}}">Save</button>
+        <button class="usa-button usa-button--unstyled button--cancel" type="button">Cancel</button>
+    </div>
+</form>

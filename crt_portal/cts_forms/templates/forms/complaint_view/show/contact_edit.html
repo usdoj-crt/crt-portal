@@ -5,6 +5,6 @@
     {% for field in contact_form %}
         {% include "forms/snippets/input.html" with field=field %}
     {% endfor %}
-    <button aria-label="update contact details" class="usa-button" disabled type="submit" name="type" value="{{contact_form.CONTEXT_KEY}}">Save</button>
+    <button aria-label="update contact details" class="usa-button button--save" disabled type="submit" name="type" value="{{contact_form.CONTEXT_KEY}}">Save</button>
     <button class="usa-button usa-button--unstyled button--cancel" type="button">Cancel</button>
 </form>

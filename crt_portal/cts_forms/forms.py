@@ -1011,7 +1011,12 @@ class Review(ModelForm):
         fields = []
 
 
-def _group_contact(form, kind, form_index):
+ADDITIONAL_CONTACT_KINDS = {
+    'ELS-CRU': ['Charging Party Representative', 'Respondent Representative', 'EEOC Representative']
+}
+
+
+def construct_additional_contact_field_mapping(index, kind):
     fields = [
         'kind',
         'name',
@@ -1023,26 +1028,10 @@ def _group_contact(form, kind, form_index):
         'state',
         'zip_code',
     ]
-
-    grouped = {
-        field: form[f'contact_{form_index}_{field}']
+    return {
+        field: f'contact_{index}_{field}'
         for field in fields
     }
-    grouped['kind'].initial = kind
-    return grouped
-
-
-ADDITIONAL_CONTACT_KINDS = {
-    'ELS-CRU': ['Charging Party Representative', 'Respondent Representative']
-}
-
-
-def group_additional_contacts(section, form):
-    kinds = ADDITIONAL_CONTACT_KINDS.get(section, [])
-    return [
-        _group_contact(form, kind, i)
-        for i, kind in enumerate(kinds, 2)
-    ]
 
 
 FieldConfig = collections.namedtuple('FieldConfig', [
@@ -1052,7 +1041,7 @@ FieldConfig = collections.namedtuple('FieldConfig', [
 ])
 
 
-def _make_contact_group_config(kind, index):
+def construct_additional_contact_field_config(index):
     return [
         FieldConfig(f'contact_{index}_kind',
                     HiddenInput(),
@@ -1077,28 +1066,42 @@ def _make_contact_group_config(kind, index):
                     {'label': 'City'}),
         FieldConfig(f'contact_{index}_state',
                     Select(attrs={'class': 'usa-select'}),
-                    {'label': 'State'}),
+                    {
+                        'label': 'State',
+                        'choices': add_empty_choice(STATES_AND_TERRITORIES),
+        }),
         FieldConfig(f'contact_{index}_zip_code',
                     TextInput(attrs={'class': 'usa-input'}),
                     {'label': 'Zip code'}),
     ]
 
 
-def _get_contact_config(section):
-    kinds = ADDITIONAL_CONTACT_KINDS.get(section, [])
-    return [
-        config
-        for i, kind in enumerate(kinds, 2)
-        for config in _make_contact_group_config(kind, i)
-    ]
+def get_additional_contacts_field_configs_for_working_group(working_group):
+    kinds = ADDITIONAL_CONTACT_KINDS.get(working_group, [])
+    additional_contacts_field_configs = []
+    for i, kind in enumerate(kinds, 2):
+        additional_contacts_field_configs.extend(construct_additional_contact_field_config(i))
+    return additional_contacts_field_configs
 
 
-def get_phone_form_config(section):
-    section = section.upper() if section else None
-    contact_config = _get_contact_config(section)
+def get_additional_contacts_field_mapping(working_group):
+    kinds = ADDITIONAL_CONTACT_KINDS.get(working_group, [])
+    additional_contacts_field_mapping = {}
+    for i, kind in enumerate(kinds, 2):
+        additional_contacts_field_mapping[kind] = construct_additional_contact_field_mapping(i, kind)
+    return additional_contacts_field_mapping
 
-    section_specific = {
+
+def get_phone_form_config(working_group):
+    working_group = working_group.upper() if working_group else None
+    additional_contacts_configs = get_additional_contacts_field_configs_for_working_group(working_group)
+
+    working_group_specific = {
         'VOT': [
+            FieldConfig('working_group',
+                        HiddenInput(attrs={'value': 'VOT'}),
+                        {'label': 'Working Group'}
+                        ),
             FieldConfig('primary_complaint',
                         CrtExpandableRadioSelect(
                             choices=PRIMARY_COMPLAINT_CHOICES,
@@ -1110,6 +1113,10 @@ def get_phone_form_config(section):
                         }),
         ],
         'ELS-CRU': [
+            FieldConfig('working_group',
+                        HiddenInput(attrs={'value': 'ELS-CRU'}),
+                        {'label': 'Working Group'}
+                        ),
             FieldConfig('primary_complaint',
                         Select(attrs={'class': 'usa-input usa-select'}),
                         {
@@ -1169,7 +1176,7 @@ def get_phone_form_config(section):
         ],
     }
 
-    return list(sorted(contact_config + section_specific[section] + [
+    return list(sorted(additional_contacts_configs + working_group_specific[working_group] + [
         FieldConfig('contact_first_name',
                     TextInput(attrs={'class': 'usa-input'}),
                     {'label': CONTACT_QUESTIONS['contact_first_name']}),
@@ -1262,9 +1269,9 @@ def get_phone_form_config(section):
     ]))
 
 
-def make_phone_pro_form(section):
-    section = section.upper() if section else None
-    phone_form_config = get_phone_form_config(section)
+def make_phone_pro_form(working_group):
+    working_group = working_group.upper() if working_group else None
+    phone_form_config = get_phone_form_config(working_group)
 
     class PhoneProForm(ModelForm, ActivityStreamUpdater):
 
@@ -2108,6 +2115,7 @@ class ComplaintActions(LitigationHoldLock, ModelForm, ActivityStreamUpdater):
 
     def __init__(self, *args, user=None, **kwargs):
         self.user = user
+        self.working_group = kwargs.pop('working_group', None)
         self.report = kwargs.get('instance', None)
         ModelForm.__init__(self, *args, **kwargs)
 
@@ -2307,6 +2315,7 @@ class ComplaintOutreach(LitigationHoldLock, ModelForm, ActivityStreamUpdater):
 
     def __init__(self, *args, user=None, **kwargs):
         self.user = user
+        self.working_group = kwargs.pop('working_group', None)
         ModelForm.__init__(self, *args, **kwargs)
         for name, field in self.fields.items():
             field.help_text = Report._meta.get_field(name).help_text
@@ -3004,11 +3013,44 @@ class ContactEditForm(LitigationHoldLock, ModelForm, ActivityStreamUpdater):
             }),
         }
 
-    def __init__(self, *args, user=None, **kwargs):
-        self.user = user
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user', None)
+        self.working_group = kwargs.pop('working_group', None)
+
         ModelForm.__init__(self, *args, **kwargs)
 
         self.fields['contact_phone'].error_messages = {'invalid': CONTACT_PHONE_INVALID_MESSAGE}
+
+    def success_message(self):
+        return self.SUCCESS_MESSAGE
+
+
+class AdditionalContactsEditForm(LitigationHoldLock, ModelForm, ActivityStreamUpdater):
+    CONTEXT_KEY = 'additional_contacts_form'
+    SUCCESS_MESSAGE = "Successfully updated additional contacts information."
+    FAIL_MESSAGE = "Failed to update additional contacts details."
+
+    class Meta:
+        model = Report
+        # Initialize with all fields to satisfy Django. We will remove unneccessary ones in form init
+        fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user', None)
+        self.working_group = kwargs.pop('working_group', None)
+
+        ModelForm.__init__(self, *args, **kwargs)
+
+        additional_contacts_config = get_additional_contacts_field_configs_for_working_group(self.working_group)
+
+        fields_to_keep = {}
+        for field in additional_contacts_config:
+            fields_to_keep[field.name] = self.fields[field.name]
+            fields_to_keep[field.name].required = False
+            fields_to_keep[field.name].widget = field.widget
+            for prop, value in field.field_props.items():
+                setattr(fields_to_keep[field.name], prop, value)
+        self.fields = fields_to_keep
 
     def success_message(self):
         return self.SUCCESS_MESSAGE
@@ -3051,7 +3093,7 @@ class ReportEditForm(LitigationHoldLock, ProForm, ActivityStreamUpdater):
             'violation_summary',
         ]
 
-        fields = ProForm.Meta.fields + ['tags', 'location_zipcode']
+        fields = ProForm.Meta.fields + ['eeoc_charge_number', 'tags', 'location_zipcode']
 
     def success_message(self):
         return self.SUCCESS_MESSAGE
@@ -3069,6 +3111,7 @@ class ReportEditForm(LitigationHoldLock, ProForm, ActivityStreamUpdater):
         Proform initializes all component forms, we'll skip that and define only the fields need for this form
         """
         self.user = user
+        self.working_group = kwargs.pop('working_group', None)
         ModelForm.__init__(self, *args, **kwargs)
 
         self.fields['tags'] = TagsField()
@@ -3116,6 +3159,12 @@ class ReportEditForm(LitigationHoldLock, ProForm, ActivityStreamUpdater):
         if summary:
             self.fields['summary'].initial = summary.note
             self.fields['summary_id'].initial = summary.pk
+
+        # EEOC Fields
+        self.fields['eeoc_charge_number'].label = 'EEOC Charge Number'
+        self.fields['eeoc_charge_number'].widget = TextInput(attrs={
+            'class': 'usa-input'
+        })
 
     @cached_property
     def changed_data(self):

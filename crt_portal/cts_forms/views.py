@@ -45,7 +45,7 @@ from .forms import (
     ContactEditForm, Filters, PrintActions, ProfileForm,
     ReportEditForm, ResourceActions, ResourceFilter, ResponseActions, SavedSearchActions, SavedSearchFilter, add_activity,
     AttachmentActions, Review, save_form,
-    make_phone_pro_form, group_additional_contacts
+    AdditionalContactsEditForm, make_phone_pro_form, get_additional_contacts_field_mapping
 )
 from .mail import mail_to_complainant
 from .model_variables import BATCH_STATUS_CHOICES, HATE_CRIMES_TRAFFICKING_MODEL_CHOICES, NOTIFICATION_PREFERENCE_CHOICES, STATES_AND_TERRITORIES
@@ -1160,6 +1160,14 @@ class ShowView(LoginRequiredMixin, View):
         output = serialize_data(report, request, id)
         if not report.viewed:
             mark_report_as_viewed(report, request.user)
+
+        additional_contacts = None
+        additional_contacts_form = None
+        if report.working_group:
+            additional_contacts = get_additional_contacts_field_mapping(report.working_group)
+            if additional_contacts != {}:
+                self.forms[AdditionalContactsEditForm.CONTEXT_KEY] = AdditionalContactsEditForm
+                additional_contacts_form = AdditionalContactsEditForm(working_group=report.working_group, instance=report)
         contact_form = ContactEditForm(instance=report)
         details_form = ReportEditForm(instance=report)
         filter_output = setup_filter_parameters(report, request.GET)
@@ -1167,6 +1175,8 @@ class ShowView(LoginRequiredMixin, View):
         output.update({
             'contact_form': contact_form,
             'details_form': details_form,
+            'additional_contacts_form': additional_contacts_form,
+            'additional_contacts': additional_contacts,
             'email_enabled': settings.EMAIL_ENABLED,
             'allowed_file_types': ALLOWED_FILE_EXTENSIONS,
             'autoresponse_email': autoresponse_email,
@@ -1182,7 +1192,11 @@ class ShowView(LoginRequiredMixin, View):
         form_type = request.POST.get('type')
         if not form_type:
             raise SuspiciousOperation("Invalid form data")
-        return self.forms[form_type](request.POST, request.FILES, instance=report, user=request.user), form_type
+
+        working_group = None
+        if report.working_group:
+            working_group = report.working_group
+        return self.forms[form_type](request.POST, request.FILES, instance=report, user=request.user, working_group=working_group), form_type
 
     def post(self, request, id):
         """
@@ -2153,19 +2167,19 @@ class SaveCommentView(LoginRequiredMixin, FormView):
 
 
 @login_required
-def phone_pro_form_view(request, report_id=None, section=None):
-    if section is None:
-        section = 'VOT'  # Default /form/phone/new to VOT
-    section = section.upper()
+def phone_pro_form_view(request, report_id=None, working_group=None):
+    if working_group is None:
+        working_group = 'VOT'  # Default /form/phone/new to VOT
+    working_group = working_group.upper()
 
     if report_id:
         report = get_object_or_404(Report, pk=report_id)
-        form = make_phone_pro_form(section)(instance=report)
+        form = make_phone_pro_form(working_group)(instance=report)
     else:
-        form = make_phone_pro_form(section)()
+        form = make_phone_pro_form(working_group)()
 
     title = "Election Call Center Intake Form"
-    match section:
+    match working_group:
         case "ELS-CRU":
             title = "CRU Intake Form"
 
@@ -2202,11 +2216,11 @@ def phone_pro_form_view(request, report_id=None, section=None):
                 ],
             ).render('', 'default'),
 
-            'additional_contacts': group_additional_contacts(section, form),
+            'additional_contacts': get_additional_contacts_field_mapping(working_group),
 
             'form': form,
 
-            'section': section,
+            'working_group': working_group,
         }
     )
 
