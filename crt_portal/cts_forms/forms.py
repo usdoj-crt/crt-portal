@@ -1028,10 +1028,10 @@ def construct_additional_contact_field_mapping(index, kind):
         'state',
         'zip_code',
     ]
-    field_mapping = {}
-    for field in fields:
-        field_mapping[field] = f'contact_{index}_{field}'
-    return field_mapping
+    return {
+        field: f'contact_{index}_{field}'
+        for field in fields
+    }
 
 
 FieldConfig = collections.namedtuple('FieldConfig', [
