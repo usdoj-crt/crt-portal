@@ -38,10 +38,9 @@
 
     const info = wrapper.querySelector('.toggle-info');
     const form = wrapper.querySelector('.toggle-edit-form');
-    const saveButton = form.getElementsByTagName('button')[0];
+    const saveButton = form.getElementsByClassName('button--save')[0];
     const cancelButton = form.getElementsByClassName('button--cancel')[0];
     const editButton = wrapper.querySelector('.edit-toggle-btn');
-
     addFormUpdateEvents(form, saveButton);
     cancelButton.addEventListener('click', () => hideForm(form, info));
     editButton.addEventListener('click', () => showForm(form, info));

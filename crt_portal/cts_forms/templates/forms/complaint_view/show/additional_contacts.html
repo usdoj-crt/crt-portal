@@ -1,0 +1,88 @@
+{% extends "forms/complaint_view/show/card.html" %}
+
+{% load get_attribute %}
+
+{% block title %}Additional Contacts{% endblock %}
+{% block extra_title %}
+<button
+    aria-label="edit addtional contacts information"
+    id="edit-additional-contacts-info-btn"
+    class="edit-toggle-btn usa-button usa-button--unstyled button--edit margin-left-auto"
+    type="button"
+>
+Edit
+</button>
+{% endblock %}
+{% block extra_classes %}crt-additional-contacts-card crt-toggleable-card{% endblock %}
+
+{% block icon %}
+  <img src="{% static "img/intake-icons/ic_contact.svg" %}" alt="" class="icon" />
+{% endblock %}
+
+{% block card_content %}
+<div id="additional-contacts-info" class="{% if additional_contacts_form.errors %}display-none{% endif %} toggle-info">
+    {% for additional_contact_kind, additional_contact_fields in additional_contacts.items %}
+    {% include 'partials/start_expandable.html' with title=additional_contact_kind %}
+    <table class="usa-table usa-table--borderless complaint-card-table">
+        <tr>
+            <th>Name</th>
+            <td>
+            <strong>
+                {% with field_key=additional_contact_fields.name %}
+                {{ data|get_attribute:field_key|default:"—" }}
+                {% endwith %}
+            </strong>
+            </td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td>
+                {% with field_key=additional_contact_fields.email %}
+                {{ data|get_attribute:field_key|default:"—" }}
+                {% endwith %}
+            </td>
+        </tr>
+        <tr>
+            <th>Phone</th>
+            <td>
+                {% with field_key=additional_contact_fields.phone %}
+                <input disabled class="usa-input phone-input" value="{{ data|get_attribute:field_key|default:"" }}"/>
+                {% endwith %}
+            </td>
+        </tr>
+        <tr>
+            <th>Address</th>
+            <td>
+            <span>
+                {% with field_key=additional_contact_fields.address_line_1 %}
+                {{ data|get_attribute:field_key|default:"—" }}
+                {% endwith %}
+            </span>
+            <br>
+            <span>
+                {% with field_key=additional_contact_fields.address_line_2 %}
+                {{ data|get_attribute:field_key|default:"—" }}
+                {% endwith %} 
+            </span>
+            <br>
+            <span>
+                {% with city_field_key=additional_contact_fields.city state_field_key=additional_contact_fields.state zip_field_key=additional_contact_fields.zip_code %}
+                {{ data|get_attribute:city_field_key|default:"—" }},
+                {{ data|get_attribute:state_field_key|default:"—" }},
+                {{ data|get_attribute:zip_field_key|default:"—" }}
+                {% endwith %} 
+            </span>
+            </td>
+        </tr>
+    </table>
+    {% include 'partials/end_expandable.html' %}
+    {% endfor %}
+</div>
+
+{% if not disable_edit %}
+<div class="edit-additional_contacts">
+  {% include 'forms/complaint_view/show/additional_contacts_edit.html' %}
+</div>
+{% endif %}
+
+{% endblock %}
