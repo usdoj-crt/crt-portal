@@ -230,11 +230,7 @@ PROTECTED_CLASS_FIELDS = [
     (14, 'Other', _('Other reason')),
 ]
 # PROTECTED_CLASS_CHOICES refers to the choices that will be displayed on the form front-end.
-PROTECTED_CLASS_CHOICES = [
-    field[2]
-    for field in PROTECTED_CLASS_FIELDS
-    if field[1] != 'Gender'
-]
+PROTECTED_CLASS_CHOICES = [field[2] for field in PROTECTED_CLASS_FIELDS]
 PROTECTED_CLASS_DICT = {
     field[1]: field[2]
     for field in PROTECTED_CLASS_FIELDS
