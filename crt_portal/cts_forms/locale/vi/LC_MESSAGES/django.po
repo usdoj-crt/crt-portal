@@ -229,7 +229,7 @@ msgstr "(Kể cả khi ở trong tù)"
 msgid ""
 "To potentially be a hate crime, the situation must include physical harm, or "
 "attempts to cause harm with a dangerous weapon, because of race, color, "
-"national origin, religion, gender, sexual orientation, gender identity, or "
+"national origin, religion, sex, sexual orientation, or "
 "disability.  Threats of force or physical harm because of race, color, "
 "religion or national origin are also potential hate crimes."
 msgstr ""
@@ -276,7 +276,7 @@ msgstr ""
 #: model_variables.py:92 templates/hate_crime_human_trafficking.html:45
 msgid ""
 "A hate crime is violence or threats of violence based on race, color, "
-"national origin, religion, gender, sexual orientation, gender identity, or "
+"national origin, religion, sex, sexual orientation, or "
 "disability."
 msgstr ""
 "Tội ác do thù hận là bạo lực hoặc đe dọa bạo lực dựa trên chủng tộc, màu da, "
@@ -488,7 +488,7 @@ msgstr "Tôi không chắc"
 #: model_variables.py:196
 msgid ""
 "Physical harm or threats of violence based on race, color, national origin, "
-"religion, gender, sexual orientation, gender identity, or disability"
+"religion, sex, sexual orientation, or disability"
 msgstr ""
 "Gây tổn hại về thể chất hoặc đe dọa bạo lực dựa trên chủng tộc, màu da, quốc "
 "gia xuất xứ, tôn giáo, giới tính, khuynh hướng tình dục, nhận dạng giới "
@@ -521,10 +521,6 @@ msgstr ""
 #: model_variables.py:213
 msgid "Family, marital, or parental status"
 msgstr "Tình trạng gia đình, hôn nhân, hay làm cha mẹ"
-
-#: model_variables.py:214
-msgid "Gender identity (including gender stereotypes)"
-msgstr "Nhận dạng giới tính (bao gồm cả định kiến về giới tính)"
 
 #: model_variables.py:215
 msgid "Genetic information (including family medical history)"
@@ -1165,8 +1161,8 @@ msgstr ""
 #: question_text.py:33
 msgid ""
 "To be considered a hate crime, the physical harm or threats of violence must "
-"be based on race, color, national origin, religion, gender, sexual "
-"orientation, gender identity, or disability."
+"be based on race, color, national origin, religion, sex, sexual "
+"orientation, or disability."
 msgstr ""
 "Để bị coi là một hành vi phạm tội do thù ghét, việc gây tổn hại về thể chất "
 "hoặc đe dọa bạo lực phải dựa trên chủng tộc, màu da, quốc gia xuất xứ, tôn "
@@ -2257,7 +2253,7 @@ msgstr ""
 "thời hoặc đang phục hồi</span>"
 
 #: templates/landing.html:225
-msgid "Sex, gender identity, and sexual orientation"
+msgid "Sex, and sexual orientation"
 msgstr "Giới tính, nhận dạng giới tính, và xu hướng tình dục"
 
 #: templates/landing.html:226

@@ -207,7 +207,7 @@ msgstr ""
 msgid ""
 "To potentially be a hate crime, the situation must include physical harm, or "
 "attempts to cause harm with a dangerous weapon, because of race, color, "
-"national origin, religion, gender, sexual orientation, gender identity, or "
+"national origin, religion, sex, sexual orientation, or "
 "disability.  Threats of force or physical harm because of race, color, "
 "religion or national origin are also potential hate crimes."
 msgstr ""
@@ -241,7 +241,7 @@ msgstr ""
 #: model_variables.py:92 templates/hate_crime_human_trafficking.html:45
 msgid ""
 "A hate crime is violence or threats of violence based on race, color, "
-"national origin, religion, gender, sexual orientation, gender identity, or "
+"national origin, religion, sex, sexual orientation, or "
 "disability."
 msgstr ""
 
@@ -403,7 +403,7 @@ msgstr ""
 #: model_variables.py:196
 msgid ""
 "Physical harm or threats of violence based on race, color, national origin, "
-"religion, gender, sexual orientation, gender identity, or disability"
+"religion, sex, sexual orientation, or disability"
 msgstr ""
 
 #: model_variables.py:197
@@ -426,10 +426,6 @@ msgstr ""
 
 #: model_variables.py:213
 msgid "Family, marital, or parental status"
-msgstr ""
-
-#: model_variables.py:214
-msgid "Gender identity (including gender stereotypes)"
 msgstr ""
 
 #: model_variables.py:215
@@ -1032,8 +1028,8 @@ msgstr ""
 #: question_text.py:33
 msgid ""
 "To be considered a hate crime, the physical harm or threats of violence must "
-"be based on race, color, national origin, religion, gender, sexual "
-"orientation, gender identity, or disability."
+"be based on race, color, national origin, religion, sex, sexual "
+"orientation, or disability."
 msgstr ""
 
 #: question_text.py:38
@@ -1934,7 +1930,7 @@ msgid ""
 msgstr ""
 
 #: templates/landing.html:225
-msgid "Sex, gender identity, and sexual orientation"
+msgid "Sex, and sexual orientation"
 msgstr ""
 
 #: templates/landing.html:226

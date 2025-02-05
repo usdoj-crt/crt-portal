@@ -209,7 +209,7 @@ msgstr "（包括在狱中）"
 msgid ""
 "To potentially be a hate crime, the situation must include physical harm, or "
 "attempts to cause harm with a dangerous weapon, because of race, color, "
-"national origin, religion, gender, sexual orientation, gender identity, or "
+"national origin, religion, sex, sexual orientation, or "
 "disability.  Threats of force or physical harm because of race, color, "
 "religion or national origin are also potential hate crimes."
 msgstr ""
@@ -250,7 +250,7 @@ msgstr ""
 #: model_variables.py:92 templates/hate_crime_human_trafficking.html:45
 msgid ""
 "A hate crime is violence or threats of violence based on race, color, "
-"national origin, religion, gender, sexual orientation, gender identity, or "
+"national origin, religion, sex, sexual orientation, or "
 "disability."
 msgstr ""
 "仇恨犯罪是基于种族、肤色、国籍、宗教、性别、性取向、性别认同或残疾的暴力行为"
@@ -427,7 +427,7 @@ msgstr "我不确定"
 #: model_variables.py:196
 msgid ""
 "Physical harm or threats of violence based on race, color, national origin, "
-"religion, gender, sexual orientation, gender identity, or disability"
+"religion, sex, sexual orientation, or disability"
 msgstr ""
 "基于种族、肤色、原籍国、宗教、性别、性取向、性别认同或残疾的而遭受身体伤害或"
 "暴力威胁"
@@ -455,10 +455,6 @@ msgstr "残疾（包括暂时的或已康复的，也包括艾滋病和药物/�
 #: model_variables.py:213
 msgid "Family, marital, or parental status"
 msgstr "家庭、婚姻或父母身份"
-
-#: model_variables.py:214
-msgid "Gender identity (including gender stereotypes)"
-msgstr "性别认同（包括性别定型观念）"
 
 #: model_variables.py:215
 msgid "Genetic information (including family medical history)"
@@ -1077,8 +1073,8 @@ msgstr "您的处境是否涉及身体伤害或暴力威胁？"
 #: question_text.py:33
 msgid ""
 "To be considered a hate crime, the physical harm or threats of violence must "
-"be based on race, color, national origin, religion, gender, sexual "
-"orientation, gender identity, or disability."
+"be based on race, color, national origin, religion, sex, sexual "
+"orientation, or disability."
 msgstr ""
 "要被视为仇恨犯罪，身体伤害或暴力威胁必须基于种族、肤色、原籍国、宗教、性别、"
 "性取向、性别认同或残疾的理由。"
@@ -2072,7 +2068,7 @@ msgstr ""
 "span>"
 
 #: templates/landing.html:225
-msgid "Sex, gender identity, and sexual orientation"
+msgid "Sex, and sexual orientation"
 msgstr "性别、性别认同和性取向"
 
 #: templates/landing.html:226

@@ -74,7 +74,7 @@ PRIMARY_COMPLAINT_CHOICES_TO_HELPTEXT = {
     'police': _('(Including while in prison)')
 }
 LANDING_COMPLAINT_CHOICES_TO_HELPTEXT = {
-    'hate_crime': _('To potentially be a hate crime, the situation must include physical harm, or attempts to cause harm with a dangerous weapon, because of race, color, national origin, religion, gender, sexual orientation, gender identity, or disability.  Threats of force or physical harm because of race, color, religion or national origin are also potential hate crimes.'),
+    'hate_crime': _('To potentially be a hate crime, the situation must include physical harm, or attempts to cause harm with a dangerous weapon, because of race, color, national origin, religion, sex, sexual orientation, or disability.  Threats of force or physical harm because of race, color, religion or national origin are also potential hate crimes.'),
     'human_trafficking': _('Human trafficking is when someone is forced into labor or sex work for profit. This can happen in many types of work that include, for example: agriculture, domestic work, restaurants, cleaning services, and sex work.')
 }
 LANDING_COMPLAINT_CHOICES_TO_HELPLINK = {
@@ -94,7 +94,7 @@ LANDING_COMPLAINT_CHOICES_TO_NOTE = {
 }
 
 LANDING_COMPLAINT_CHOICES_TO_PREAMBLE = {
-    'hate_crime': _('A hate crime is violence or threats of violence based on race, color, national origin, religion, gender, sexual orientation, gender identity, or disability.'),
+    'hate_crime': _('A hate crime is violence or threats of violence based on race, color, national origin, religion, sex, sexual orientation, or disability.'),
 }
 
 LANDING_COMPLAINT_CHOICES_TO_LEARNMORE = {
@@ -198,7 +198,7 @@ ELECTION_DICT = dict(ELECTION_CHOICES)
 
 # preserving archival data
 HATE_CRIMES_TRAFFICKING_MODEL_CHOICES = (
-    ('physical_harm', _('Physical harm or threats of violence based on race, color, national origin, religion, gender, sexual orientation, gender identity, or disability')),
+    ('physical_harm', _('Physical harm or threats of violence based on race, color, national origin, religion, sex, sexual orientation, or disability')),
     ('trafficking', _('Threatened, forced, and held against your will for the purposes of performing work or commercial sex acts. This could include threats of physical harm, withholding promised wages, or being held under a false work contract')),
 )
 HATE_CRIMES_TRAFFICKING_CHOICES = [choice[1] for choice in HATE_CRIMES_TRAFFICKING_MODEL_CHOICES]
@@ -230,7 +230,11 @@ PROTECTED_CLASS_FIELDS = [
     (14, 'Other', _('Other reason')),
 ]
 # PROTECTED_CLASS_CHOICES refers to the choices that will be displayed on the form front-end.
-PROTECTED_CLASS_CHOICES = [field[2] for field in PROTECTED_CLASS_FIELDS]
+PROTECTED_CLASS_CHOICES = [
+    field[2]
+    for field in PROTECTED_CLASS_FIELDS
+    if field[1] != 'Gender'
+]
 PROTECTED_CLASS_DICT = {
     field[1]: field[2]
     for field in PROTECTED_CLASS_FIELDS

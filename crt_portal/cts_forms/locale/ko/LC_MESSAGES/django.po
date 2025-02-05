@@ -218,7 +218,7 @@ msgstr "(감옥에 있는 동안도 포함)"
 msgid ""
 "To potentially be a hate crime, the situation must include physical harm, or "
 "attempts to cause harm with a dangerous weapon, because of race, color, "
-"national origin, religion, gender, sexual orientation, gender identity, or "
+"national origin, religion, sex, sexual orientation, or "
 "disability.  Threats of force or physical harm because of race, color, "
 "religion or national origin are also potential hate crimes."
 msgstr ""
@@ -262,7 +262,7 @@ msgstr ""
 #: model_variables.py:92 templates/hate_crime_human_trafficking.html:45
 msgid ""
 "A hate crime is violence or threats of violence based on race, color, "
-"national origin, religion, gender, sexual orientation, gender identity, or "
+"national origin, religion, sex, sexual orientation, or "
 "disability."
 msgstr ""
 "증오범죄란 인종, 피부색, 출신 국가, 종교, 성별, 성적 지향, 성정체성, 혹은 장"
@@ -455,7 +455,7 @@ msgstr "확실하지 않음"
 #: model_variables.py:196
 msgid ""
 "Physical harm or threats of violence based on race, color, national origin, "
-"religion, gender, sexual orientation, gender identity, or disability"
+"religion, sex, sexual orientation, or disability"
 msgstr ""
 "인종, 피부색, 출신 국가, 종교, 성별, 성적 지향, 성 정체성 또는 장애를 기반으"
 "로 한 물리적 위해 또는 폭력 위협"
@@ -484,10 +484,6 @@ msgstr "장애(HIV 및 약물 중독 포함하여 일시적이거나 회복된 �
 #: model_variables.py:213
 msgid "Family, marital, or parental status"
 msgstr "가족, 결혼 또는 자녀 유무 상태"
-
-#: model_variables.py:214
-msgid "Gender identity (including gender stereotypes)"
-msgstr "성 정체성(정형화된 성 고정관념 포함)"
 
 #: model_variables.py:215
 msgid "Genetic information (including family medical history)"
@@ -1116,8 +1112,8 @@ msgstr "귀하의 상황에 물리적 위해 또는 폭력 위협이 포함되�
 #: question_text.py:33
 msgid ""
 "To be considered a hate crime, the physical harm or threats of violence must "
-"be based on race, color, national origin, religion, gender, sexual "
-"orientation, gender identity, or disability."
+"be based on race, color, national origin, religion, sex, sexual "
+"orientation, or disability."
 msgstr ""
 "증오 범죄로 간주되려면, 물리적 위해 또는 폭력 위협이 인종, 피부색, 출신 국"
 "가, 종교, 성별, 성적 지향, 성 정체성 또는 장애를 기반으로 해야 합니다."
@@ -2139,7 +2135,7 @@ msgstr ""
 "span> 장애"
 
 #: templates/landing.html:225
-msgid "Sex, gender identity, and sexual orientation"
+msgid "Sex, and sexual orientation"
 msgstr "성별, 성 정체성, 성적 지향"
 
 #: templates/landing.html:226
