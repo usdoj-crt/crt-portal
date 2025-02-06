@@ -25,7 +25,7 @@ NOTE: There are strict time limits for filing complaints related to employment d
 
 I EXPERIENCED...
 
-Employment discrimination based on: race, color, national origin, religion, sex (including pregnancy, sexual orientation and gender identity), age, disability, or retaliation.
+Employment discrimination based on: race, color, national origin, religion, sex (including pregnancy and sexual orientation), age, disability, or retaliation.
 
 AGENCY THAT MAY BE ABLE TO HELP
 
