@@ -11,7 +11,12 @@ class ActiveProtectedClassChoiceManager(models.Manager):
 
     @staticmethod
     def get_active_choices():
-        return [choice[0] for choice in PROTECTED_MODEL_CHOICES]
+        return [
+            choice[0]
+            for choice
+            in PROTECTED_MODEL_CHOICES
+            if 'gender' not in choice[1]
+        ]
 
     def get_queryset(self):
         return super().get_queryset().filter(value__in=self.get_active_choices())
