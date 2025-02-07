@@ -39,33 +39,49 @@
       </div>
     </div>
     <hr>
-    {{ intake_notebooks_by_section|json_script:"dashboards-by-section-data" }}
-    {% for section, notebook_list in intake_notebooks_by_section.items %}
-    <div class="grid-row" id="{{section}}-dashboards-container" name="section-dashboards-container">
-      <div class="margin-left-1">
-        <h3>{{section}}</h3>
-        <div class="display-flex">
-          <a id="{{section}}-dashboards-previous" class="usa-pagination__link usa-pagination__previous-page">
-            <img src="/static/img/usa-icons/navigate_before.svg"></img>
-            <span class="usa-pagination__link-text" aria-label="Previous page">Previous</span>
-          </a>
-          <p id="{{section}}-dashboards-page-number">1</p>
-          <a id="{{section}}-dashboards-next" class="usa-pagination__link usa-pagination__next-page">
-            <span class="usa-pagination__link-text" aria-label="Next page">Next </span>
-            <img src="/static/img/usa-icons/navigate_next.svg"></img>
-          </a>
+    <div class="grid-row">
+      <div class="grid-col-3">
+        <div class="bg-primary-lighter margin-left-1 padding-bottom-1">
+          <div class="margin-left-1 margin-right-1">
+            <h3 class="text-primary-darker">Contact</h3>
+            <p>For questions or feedback, contact:</p>
+            <div>
+              {% application_contact_email_list %}
+            </div>
+          </div>
         </div>
-        <ul
-          id="{{section}}-dashboards-cards-container" 
-          name="section-dashboards-cards-container" 
-          class="grid-row usa-list usa-list--unstyled"
-          data-page-number="0"
-          data-page-size="3"
-        >
-        </ul>
+      </div>
+      <div class="grid-col-9">
+        {{ intake_notebooks_by_section|json_script:"dashboards-by-section-data" }}
+        {% for section, notebook_list in intake_notebooks_by_section.items %}
+        <div class="grid-row display-block" id="{{section}}-dashboards-container" name="section-dashboards-container">
+          <div class="margin-left-1">
+            <h3 class="text-primary-darker">{{section}} Dashboards:</h3>
+            <div class="display-flex">
+              <a id="{{section}}-dashboards-previous" class="usa-pagination__link usa-pagination__previous-page">
+                <img src="/static/img/usa-icons/navigate_before.svg"></img>
+                <span class="usa-pagination__link-text" aria-label="Previous page">Previous</span>
+              </a>
+              <p id="{{section}}-dashboards-page-number">1</p>
+              <a id="{{section}}-dashboards-next" class="usa-pagination__link usa-pagination__next-page">
+                <span class="usa-pagination__link-text" aria-label="Next page">Next </span>
+                <img src="/static/img/usa-icons/navigate_next.svg"></img>
+              </a>
+            </div>
+            <ul
+              id="{{section}}-dashboards-cards-container" 
+              name="section-dashboards-cards-container" 
+              class="display-flex usa-list usa-list--unstyled"
+              data-page-number="0"
+              data-page-size="2"
+            >
+            </ul>
+          </div>
+          <hr>
+        </div>
+        {% endfor %}
       </div>
     </div>
-    {% endfor %}
   </div>
 </div>
 {% endblock %}
