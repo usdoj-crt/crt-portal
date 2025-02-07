@@ -23,10 +23,10 @@
   <div class="bg-white width-full padding-bottom-2 padding-top-1">
     <div class="grid-row">
       <div class="grid-col-3">
-        <select class="margin-left-1 usa-select" name="options" id="options">
+        <select class="margin-left-1 usa-select" name="dashboards-filter-section-select" id="dashboards-filter-section-select">
           <option value>All Dashboards</option>
-          {% for notebook in intake_notebooks %}
-          <option value="{{notebook.group}}">{{notebook.group}}</option>
+          {% for section, notebook_list in intake_notebooks_by_section.items %}
+          <option value="{{section}}">{{section}}</option>
           {% endfor %}
         </select>
       </div>
@@ -41,7 +41,7 @@
     <hr>
     {{ intake_notebooks_by_section|json_script:"dashboards-by-section-data" }}
     {% for section, notebook_list in intake_notebooks_by_section.items %}
-    <div class="grid-row">
+    <div class="grid-row" id="{{section}}-dashboards-container" name="section-dashboards-container">
       <div class="margin-left-1">
         <h3>{{section}}</h3>
         <div class="display-flex">
@@ -56,8 +56,8 @@
           </a>
         </div>
         <ul
-          id="{{section}}-dashboards-container" 
-          name="section-dashboards-container" 
+          id="{{section}}-dashboards-cards-container" 
+          name="section-dashboards-cards-container" 
           class="grid-row usa-list usa-list--unstyled"
           data-page-number="0"
           data-page-size="3"
