@@ -590,17 +590,23 @@ def data_view(request):
         display_name = name.replace("_", " ").capitalize()
         assignment = FileGroupAssignment.objects.filter(analytics_file=notebook.pk).first()
         group = None
-        sections = None
+        sections = []
         if assignment:
             group = DashboardGroup.objects.filter(pk=assignment.dashboard_group.pk).first().header
-            # sections = assignment.show_only_for_sections
-            print("NotebookSections = ", sections)
+            section_objects = assignment.show_only_for_sections.all()
+            for section_object in section_objects:
+                sections.append(section_object.section)
+        url = None
+        if hasattr(notebook, 'metadata'):
+            if notebook.metadata.url:
+                url = notebook.metadata.url
+
         intake_notebooks.append({
             'path': name,
             'name': display_name,
             'description': notebook.description if notebook.description else display_name,
             'last_modified': notebook.last_modified,
-            'url': notebook.metadata.url,
+            'url': url,
             'group': group,
             'sections': sections
         })
@@ -608,15 +614,13 @@ def data_view(request):
     intake_notebooks_by_section = {}
     for notebook in intake_notebooks:
         sections = ["Unassigned"]
-        if notebook.get('sections') is not None:
-            sections = notebook.sections
+        if notebook.get('sections'):
+            sections = notebook.get('sections')
         for section in sections:
             if section not in intake_notebooks_by_section.keys():
                 intake_notebooks_by_section[section] = [notebook]
             else:
                 intake_notebooks_by_section[section].append(notebook)
-
-    print("CtsForms-Views: Data View: intake_notebooks_by_section = ", intake_notebooks_by_section)
     return render(
         request,
         'forms/complaint_view/data/index.html',
