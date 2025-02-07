@@ -1,7 +1,7 @@
 (function(root, dom) {
     function buildDashboardCardHTML(dashboardData) {
-        let dashboardCardElement = document.createElement('li');
-        dashboardCardElement.classList.add("usa-card", "tablet-lg:grid-col-6", "widescreen:grid-col-4");
+        const dashboardCardElement = document.createElement('li');
+        dashboardCardElement.classList.add("usa-card");
 
         const dashboardHTML = `
             <div class="usa-card__container">
@@ -27,82 +27,53 @@
         return dashboardCardElement;
     }
 
-    function buildDashboardPaginationButton(type, number) {
-        let paginationElement = document.createElement('a');
-
-        switch(type) {
-            case "forward":
-                paginationElement.classList.add("usa-pagination__link", "usa-pagination__next-page");
-                const paginationNextHTML = `
-                    <span class="usa-pagination__link-text" aria-label="Next page">Next </span>
-                    <img src="/static/img/usa-icons/navigate_next.svg"></img>
-                `;
-                paginationElement.innerHTML = paginationNextHTML;
-                break;
-            case "backward":
-                paginationElement.classList.add("usa-pagination__link", "usa-pagination__previous-page");
-                const paginationPreviousHTML = `
-                    <img src="/static/img/usa-icons/navigate_before.svg"></img>
-                    <span class="usa-pagination__link-text" aria-label="Previous page">Previous</span>
-                `;
-                paginationElement.innerHTML = paginationPreviousHTML;
-                break;
-            case "number":
-                paginationElement.classList.add("usa-pagination__button");
-                paginationElement.textContent = number.toString();
-                break;
-        }
-        return paginationElement;
-    }
-
     function paginateSectionDashboards(section, dashboardsList, pageSize, pageNumber) {
-        console.log("Paginating Dashboards for section: ", section);
-        console.log("dashboardsList = ", dashboardsList);
-        console.log("pageSize = ", pageSize);
-        console.log("pageNumber = ", pageNumber);
-
         const startIndex = pageNumber * pageSize;
         const endIndex = (pageNumber + 1) * pageSize;
-
-        let numberOfPages = Math.ceil(dashboardsList.length / pageSize);
-
-        console.log("numberOfPages = ", numberOfPages);
+        const numberOfPages = Math.ceil(dashboardsList.length / pageSize);
 
         const sectionDashboardsContainerElement = document.getElementById(section + "-dashboards-container");
         sectionDashboardsContainerElement.innerHTML = "";
 
+        const paginationPrevious = document.getElementById(section + "-dashboards-previous");
+        paginationPrevious.style.display = "none";
         if (pageNumber > 0) {
-            let paginationPrevious = buildDashboardPaginationButton("backward");
-            paginationPrevious.addEventListener('click', function(event) {
+            paginationPrevious.addEventListener('click', function thisCallback() {
                 paginateSectionDashboards(section, dashboardsList, pageSize, pageNumber - 1);
+                this.removeEventListener('click', thisCallback);
             });
-
-            sectionDashboardsContainerElement.appendChild(paginationPrevious);
+            paginationPrevious.style.display = "flex"
         }
 
         dashboardsList.slice(startIndex, endIndex).forEach((dashboardData) => {
             sectionDashboardsContainerElement.appendChild(buildDashboardCardHTML(dashboardData));
         });
 
+        const paginationNext = document.getElementById(section + "-dashboards-next");
+        paginationNext.style.display = "none";
         if (pageNumber < numberOfPages - 1) {
-            let paginationNext = buildDashboardPaginationButton("forward");
-            paginationNext.addEventListener('click', function(event){
+            paginationNext.addEventListener('click', function thisCallback(){
                 paginateSectionDashboards(section, dashboardsList, pageSize, pageNumber + 1);
+                this.removeEventListener('click', thisCallback);
             });
-            
-            sectionDashboardsContainerElement.appendChild(paginationNext);
+            paginationNext.style.display = "flex";
         }
+
+        const pageNumberElement = document.getElementById(section + "-dashboards-page-number");
+        if (numberOfPages != 1) {
+            const displayedPageNumber = pageNumber + 1;
+            pageNumberElement.textContent = displayedPageNumber.toLocaleString();
+            pageNumberElement.style.display = "flex";
+        } else {
+            pageNumberElement.style.display = "none";
+        }
+        sectionDashboardsContainerElement.dataset.pageNumber = pageNumber;
     }
 
     function populateInitialSectionDashboards() {
-        console.log("Doing Initial Pagination of Section Dashboards...");
         const containers = document.getElementsByName("section-dashboards-container");
-
         const dashboardDataBySection = JSON.parse(document.getElementById('dashboards-by-section-data').textContent);
-        console.log("Dashboards Data = ", dashboardDataBySection);
-
         for(element of containers) {
-            console.log("Element = ", element);
             const sectionName = element.id.split("-")[0];
             if (sectionName in dashboardDataBySection) {
                 paginateSectionDashboards(sectionName, dashboardDataBySection[sectionName], parseInt(element.dataset.pageSize), parseInt(element.dataset.pageNumber));
