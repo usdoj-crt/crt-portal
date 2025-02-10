@@ -39,40 +39,39 @@
       section + '-dashboards-cards-container'
     );
     sectionDashboardsCardsContainerElement.innerHTML = '';
-
-    const paginationPrevious = document.getElementById(section + '-dashboards-previous');
-    paginationPrevious.style.display = 'none';
-    if (pageNumber > 0) {
-      paginationPrevious.addEventListener('click', function thisCallback() {
-        paginateSectionDashboards(section, dashboardsList, pageSize, pageNumber - 1);
-        this.removeEventListener('click', thisCallback);
-      });
-      paginationPrevious.style.display = 'flex';
-    }
-
     dashboardsList.slice(startIndex, endIndex).forEach(dashboardData => {
       sectionDashboardsCardsContainerElement.appendChild(buildDashboardCardHTML(dashboardData));
     });
 
-    const paginationNext = document.getElementById(section + '-dashboards-next');
-    paginationNext.style.display = 'none';
-    if (pageNumber < numberOfPages - 1) {
-      paginationNext.addEventListener('click', function thisCallback() {
-        paginateSectionDashboards(section, dashboardsList, pageSize, pageNumber + 1);
-        this.removeEventListener('click', thisCallback);
-      });
-      paginationNext.style.display = 'flex';
-    }
-
-    const pageNumberElement = document.getElementById(section + '-dashboards-page-number');
+    const sectionPaginationContainer = document.getElementById(
+      section + '-dashboards-pagination-container'
+    );
+    const pageNumberElement = document.getElementById(section + '-dashboards-current-page');
+    sectionPaginationContainer.style.display = 'none';
+    pageNumberElement.style.display = 'none';
     if (numberOfPages != 1) {
+      sectionPaginationContainer.style.display = 'flex';
+      const lastPageElement = document.getElementById(section + '-dashboards-last-page');
+      lastPageElement.textContent = numberOfPages.toString();
+
       const displayedPageNumber = pageNumber + 1;
       pageNumberElement.textContent = displayedPageNumber.toLocaleString();
       pageNumberElement.style.display = 'flex';
-    } else {
-      pageNumberElement.style.display = 'none';
     }
-    sectionDashboardsCardsContainerElement.dataset.pageNumber = pageNumber;
+
+    const paginationPrevious = document.getElementById(section + '-dashboards-previous');
+    paginationPrevious.style.display = 'none';
+    if (pageNumber > 0) {
+      paginationPrevious.style.display = 'flex';
+    }
+
+    const paginationNext = document.getElementById(section + '-dashboards-next');
+    paginationNext.style.display = 'none';
+    if (pageNumber < numberOfPages - 1) {
+      paginationNext.style.display = 'flex';
+    }
+    sectionDashboardsCardsContainerElement.dataset.currentPage = pageNumber;
+    sectionDashboardsCardsContainerElement.dataset.lastPage = numberOfPages - 1;
   }
 
   function handleFilterBySection(section) {
@@ -91,6 +90,66 @@
     }
   }
 
+  function handleDashboardsPaginationNextPrevious(section, forward = true) {
+    const dashboardDataBySection = JSON.parse(
+      document.getElementById('dashboards-by-section-data').textContent
+    );
+    const dashboardsList = dashboardDataBySection[section];
+
+    const sectionDashboardsCardsContainerElement = document.getElementById(
+      section + '-dashboards-cards-container'
+    );
+    const currentPageNumber = parseInt(sectionDashboardsCardsContainerElement.dataset.currentPage);
+    const pageSize = parseInt(sectionDashboardsCardsContainerElement.dataset.pageSize);
+
+    if (forward) {
+      paginateSectionDashboards(section, dashboardsList, pageSize, currentPageNumber + 1);
+    } else {
+      paginateSectionDashboards(section, dashboardsList, pageSize, currentPageNumber - 1);
+    }
+  }
+
+  function handleDashboardsPaginateToPage(section, page) {
+    const dashboardDataBySection = JSON.parse(
+      document.getElementById('dashboards-by-section-data').textContent
+    );
+    const dashboardsList = dashboardDataBySection[section];
+
+    const sectionDashboardsCardsContainerElement = document.getElementById(
+      section + '-dashboards-cards-container'
+    );
+    const pageSize = parseInt(sectionDashboardsCardsContainerElement.dataset.pageSize);
+    paginateSectionDashboards(section, dashboardsList, pageSize, page);
+  }
+
+  function setupSectionPaginationButtons(section) {
+    const paginationPrevious = document.getElementById(section + '-dashboards-previous');
+    paginationPrevious.addEventListener('click', () => {
+      handleDashboardsPaginationNextPrevious(section, false);
+    });
+
+    const paginationFirst = document.getElementById(section + '-dashboards-first-page');
+    paginationFirst.addEventListener('click', () => {
+      handleDashboardsPaginateToPage(section, 0);
+    });
+
+    const sectionDashboardsCardsContainerElement = document.getElementById(
+      section + '-dashboards-cards-container'
+    );
+    const paginationLast = document.getElementById(section + '-dashboards-last-page');
+    paginationLast.addEventListener('click', () => {
+      handleDashboardsPaginateToPage(
+        section,
+        parseInt(sectionDashboardsCardsContainerElement.dataset.lastPage)
+      );
+    });
+
+    const paginationNext = document.getElementById(section + '-dashboards-next');
+    paginationNext.addEventListener('click', () => {
+      handleDashboardsPaginationNextPrevious(section);
+    });
+  }
+
   function populateInitialSectionDashboards() {
     const dashboardDataBySection = JSON.parse(
       document.getElementById('dashboards-by-section-data').textContent
@@ -103,8 +162,9 @@
           sectionName,
           dashboardDataBySection[sectionName],
           parseInt(cardsContainerElement.dataset.pageSize),
-          parseInt(cardsContainerElement.dataset.pageNumber)
+          parseInt(cardsContainerElement.dataset.currentPage)
         );
+        setupSectionPaginationButtons(sectionName);
       }
     }
   }
