@@ -35,3 +35,13 @@ def application_contact_email_list():
     if len(contacts) > 0:
         return mark_safe(contacts)
     return mark_safe("your application's administrator") 
+
+
+@register.simple_tag
+def application_contact_mailto_string():
+    mailto = ",".join([
+        f'{contact.email}'
+        for contact in ApplicationContact.objects.all()
+    ])
+
+    return mark_safe(mailto)
