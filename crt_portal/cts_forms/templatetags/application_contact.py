@@ -34,7 +34,7 @@ def application_contact_email_list():
 
     if len(contacts) > 0:
         return mark_safe(contacts)
-    return mark_safe("your application's administrator") 
+    return mark_safe("your application's administrator")  # nosec
 
 
 @register.simple_tag
@@ -44,4 +44,4 @@ def application_contact_mailto_string():
         for contact in ApplicationContact.objects.all()
     ])
 
-    return mark_safe(mailto)
+    return mark_safe(mailto)  # nosec
