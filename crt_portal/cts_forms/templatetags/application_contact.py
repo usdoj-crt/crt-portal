@@ -33,7 +33,7 @@ def application_contact_email_list():
     ])
 
     if len(contacts) > 0:
-        return mark_safe(contacts)
+        return mark_safe(contacts)  # nosec
     return mark_safe("your application's administrator")  # nosec
 
 
