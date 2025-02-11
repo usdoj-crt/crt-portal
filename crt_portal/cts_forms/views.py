@@ -610,7 +610,7 @@ def data_view(request):
             'group': group,
             'sections': sections
         })
-    
+
     intake_notebooks_by_section = {}
     for notebook in intake_notebooks:
         sections = ["Unassigned"]
