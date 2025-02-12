@@ -4,20 +4,19 @@
     dashboardCardElement.classList.add('usa-card', 'flex-fill');
 
     const dashboardHTML = `
-            <div class="usa-card__container">
+            <div class="usa-card__container margin-left-0">
                 <div class="usa-card__header">
                     <a href="${dashboardData.url}" class="usa-card__heading usa-link">
                     ${dashboardData.name}
                     </a>
                 </div>
                 <div class="usa-card__body">
-                    <p>
+                    <p class="font-body-md">
                     ${dashboardData.description}
                     </p>
                 </div>
                 <div class="usa-card__footer">
-                    <hr>
-                    <p>
+                    <p class="font-body-3xs">
                         Last Modified: ${new Date(dashboardData.last_modified).toLocaleString(
                           'en-US',
                           { hour12: false }
