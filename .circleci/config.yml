@@ -52,11 +52,11 @@ jobs:
           POSTGRES_PASSWORD: password
     steps:
       - checkout
-      # Removing chache for now, we either need to build our image or move the cache location
+      # Removing cache for now, we either need to build our image or move the cache location
       # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
-      - restore_cache:
-          keys:
-            - node-v4-{{ .Branch }}-{{ checksum "package-lock.json" }}-{{ checksum "gulpfile.js" }}
+      # - restore_cache:
+      #     keys:
+      #       - node-v4-{{ .Branch }}-{{ checksum "package-lock.json" }}-{{ checksum "gulpfile.js" }}
       #      - node-v4-{{ .Branch }}-
       #      - node-v4-
       - run:
