@@ -40,6 +40,7 @@ from .models import Report, ResponseTemplate, EmailReportCount, Campaign
 from .forms import save_form, Review, Contact
 from .mail import mail_to_complainant
 from utils.voting_mode import is_voting_mode
+from utils.shutdown_mode import is_shutdown_mode
 from utils import pdf
 
 
@@ -252,7 +253,7 @@ class CRTReportWizard(SessionWizardView):
         return super().post(*args, **kwargs)
 
     def get(self, request):
-        if settings.MAINTENANCE_MODE:
+        if settings.MAINTENANCE_MODE or is_shutdown_mode():
             return render(self.request, 'forms/report_maintenance.html', status=503)
         return super().get(request)
 

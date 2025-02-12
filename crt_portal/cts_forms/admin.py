@@ -34,7 +34,7 @@ from .model_variables import SECTION_CHOICES
 from .models import (CommentAndSummary, HateCrimesandTrafficking, Profile,
                      ProtectedClass, Report, ResponseTemplate, DoNotEmail,
                      JudicialDistrict, RetentionSchedule, RoutingSection, RoutingStepOneContact, Tag,
-                     VotingMode, Campaign, ReferralContact, BannerMessage, SavedSearch, NotificationPreference,
+                     VotingMode, ShutdownMode, Campaign, ReferralContact, BannerMessage, SavedSearch, NotificationPreference,
                      ScheduledNotification, ApplicationContact, GroupPreferences, ConfigurableContent, EeocOffice)
 from utils.request_utils import get_client_ip
 
@@ -322,6 +322,16 @@ class VotingModeAdmin(CrtModelAdmin):
         if obj.toggle:
             return 'Voting Mode: True'
         return 'Voting Mode: False'
+
+
+class ShutdownModeAdmin(CrtModelAdmin):
+    list_display = ['shutdown_toggle_display_name']
+
+    @admin.display(description='Shutdown Mode Toggle')
+    def shutdown_toggle_display_name(self, obj):
+        if obj.toggle:
+            return 'Shutdown Mode: True'
+        return 'Shutdown Mode: False'
 
 
 class ReferralContactAdminForm(forms.ModelForm):
@@ -614,6 +624,7 @@ admin.site.register(JudicialDistrict, JudicialDistrictAdmin)
 admin.site.register(RoutingSection, RoutingSectionAdmin)
 admin.site.register(ApplicationContact, ApplicationContactAdmin)
 admin.site.register(VotingMode, VotingModeAdmin)
+admin.site.register(ShutdownMode, ShutdownModeAdmin)
 admin.site.register(Campaign, CampaignAdmin)
 admin.site.register(Tag, TagAdmin)
 admin.site.register(ReferralContact, ReferralContactAdmin)

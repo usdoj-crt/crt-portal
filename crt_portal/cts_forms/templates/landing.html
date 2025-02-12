@@ -2,6 +2,7 @@
 
 {% load i18n %}
 {% load get_voting_mode %}
+{% load get_shutdown_mode %}
 {% load banner_message %}
 
 {% block page_header %}
@@ -74,6 +75,7 @@
 {% block main_class %} class="margin-top-0 margin-bottom-0"{% endblock %}
 
 {% block content %}
+  {% get_shutdown_mode as shutdown_mode %}
   {% voting_banner as votbanner %}
   {% if votbanner == 'True' %}
   <!-- display only when voting toggle is on -->
@@ -98,7 +100,13 @@
           <p class="crt-landing--largetext">
             <strong>{% trans "If you believe your civil rights, or someone else’s, have been violated, submit a report using our online form." %}</strong>
           </p>
+          {% if shutdown_mode == True %}
+          <p>Shutdown Mode is ON</p>
+          <a class="usa-button usa-button--big crt-button--large" href="{% url 'crt_report_form' %}" aria-disabled="true">{% trans "Start a report" %}</a>
+          {% else %}
+          <p>Shutdown Mode is OFF</p>
           <a class="usa-button usa-button--big crt-button--large" href="{% url 'crt_report_form' %}">{% trans "Start a report" %}</a>
+          {% endif %}
           <a class="usa-button usa-button--outline usa-button--big crt-button--large" id="info-link" data-ga-event-name="learn more about your rights" href="#your-rights">{% trans "Learn your rights" %}</a>
         </div>
       </div>
