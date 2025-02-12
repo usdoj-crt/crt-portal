@@ -102,7 +102,7 @@
           </p>
           {% if shutdown_mode == True %}
           <p>Shutdown Mode is ON</p>
-          <a class="usa-button usa-button--big crt-button--large" href="{% url 'crt_report_form' %}" aria-disabled="true">{% trans "Start a report" %}</a>
+          <a class="usa-button usa-button--big crt-button--large" href="" aria-disabled="true">{% trans "Start a report" %}</a>
           {% else %}
           <p>Shutdown Mode is OFF</p>
           <a class="usa-button usa-button--big crt-button--large" href="{% url 'crt_report_form' %}">{% trans "Start a report" %}</a>
@@ -302,7 +302,11 @@
       <div class="grid-row grid-gap">
         <div class="tablet:grid-col-8">
           <h2 class="h2__display">{% trans "Have you or someone you know experienced a civil rights violation?" %}</h2>
+          {% if shutdown_mode == True %}
+          <a class="usa-button usa-button--big crt-button--large" href="" aria-disabled="true">{% trans "Start a report" %}</a>
+          {% else %}
           <a class="usa-button usa-button--big crt-button--large" href="{% url 'crt_report_form' %}">{% trans "Start a report" %}</a>
+          {% endif %}
         </div>
       </div>
       <div class="grid-row grid-gap">
