@@ -52,7 +52,7 @@ jobs:
           POSTGRES_PASSWORD: password
     steps:
       - checkout
-      # Removing chache for now, we either need to build our image or move the cache location
+      # Removing cache for now, we either need to build our image or move the cache location
       # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
       - restore_cache:
           keys:
@@ -81,9 +81,10 @@ jobs:
           paths:
             - /home/circleci/code/node_modules/
           key: node-v4-{{ .Branch }}-{{ checksum "package-lock.json" }}-{{ checksum "gulpfile.js" }}
-      - restore_cache:
-          keys:
-            - pip-packages-v4-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
+      # Temporarily disabling caching as it is breaking dev build
+      # - restore_cache:
+      #     keys:
+      #       - pip-packages-v4-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
       #      - pip-packages-v4-{{ .Branch }}-
       #      - pip-packages-v4-
       - *install-python-dev-dependencies
