@@ -27,7 +27,7 @@ def application_contact_markup():
 
 @register.simple_tag
 def application_contact_email_list():
-    contacts = "</br>".join([
+    contacts = "</br></br>".join([
         f'<a href="mailto:{contact.email}">{contact.name}</a>'
         for contact in ApplicationContact.objects.all()
     ])
