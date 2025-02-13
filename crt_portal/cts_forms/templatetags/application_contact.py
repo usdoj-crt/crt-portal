@@ -27,9 +27,9 @@ def application_contact_markup():
 
 @register.simple_tag
 def application_contact_email_list():
-    contacts = "</br></br>".join([
-        f'<a href="mailto:{contact.email}">{contact.name}</a>'
-        for contact in ApplicationContact.objects.all()
+    contacts = "".join([
+        f'<a class="display-block margin-bottom-1" href="mailto:{contact.email}">{contact.name}</a>'
+        for contact in ApplicationContact.objects.all().order_by('order')
     ])
 
     if len(contacts) > 0:
@@ -40,8 +40,8 @@ def application_contact_email_list():
 @register.simple_tag
 def application_contact_mailto_string():
     mailto = ",".join([
-        f'{contact.email}'
-        for contact in ApplicationContact.objects.all()
+        contact.email
+        for contact in ApplicationContact.objects.all().order_by('order')
     ])
 
     return mark_safe(mailto)  # nosec
