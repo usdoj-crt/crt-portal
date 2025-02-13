@@ -101,10 +101,9 @@
             <strong>{% trans "If you believe your civil rights, or someone else’s, have been violated, submit a report using our online form." %}</strong>
           </p>
           {% if shutdown_mode == True %}
-          <p>Shutdown Mode is ON</p>
-          <a class="usa-button usa-button--big crt-button--large" href="" aria-disabled="true">{% trans "Start a report" %}</a>
+          <p>We are currently not accepting reports. See the page banner for more information.</p>
+          <a class="usa-button usa-button--big crt-button--large" aria-disabled="true">{% trans "Start a report" %}</a>
           {% else %}
-          <p>Shutdown Mode is OFF</p>
           <a class="usa-button usa-button--big crt-button--large" href="{% url 'crt_report_form' %}">{% trans "Start a report" %}</a>
           {% endif %}
           <a class="usa-button usa-button--outline usa-button--big crt-button--large" id="info-link" data-ga-event-name="learn more about your rights" href="#your-rights">{% trans "Learn your rights" %}</a>
@@ -303,17 +302,20 @@
         <div class="tablet:grid-col-8">
           <h2 class="h2__display">{% trans "Have you or someone you know experienced a civil rights violation?" %}</h2>
           {% if shutdown_mode == True %}
-          <a class="usa-button usa-button--big crt-button--large" href="" aria-disabled="true">{% trans "Start a report" %}</a>
+          <p>We are currently not accepting reports. See the page banner for more information.</p>
+          <a class="usa-button usa-button--big crt-button--large" aria-disabled="true">{% trans "Start a report" %}</a>
           {% else %}
           <a class="usa-button usa-button--big crt-button--large" href="{% url 'crt_report_form' %}">{% trans "Start a report" %}</a>
           {% endif %}
         </div>
       </div>
+      {% if shutdown_mode == False %}
       <div class="grid-row grid-gap">
         <div class="tablet:grid-col-6">
           <p class="crt-landing--text"><em>{% trans 'If you cannot access the online form, you can <a href="#phone-footer">call</a> to report a violation.' %}</em></p>
         </div>
       </div>
+      {% endif %}
     </div>
   </div>
 

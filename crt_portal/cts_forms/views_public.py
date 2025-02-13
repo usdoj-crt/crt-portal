@@ -9,7 +9,7 @@ import logging
 from django import forms
 from django.conf import settings
 from django.core.exceptions import PermissionDenied, ValidationError
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.cache import never_cache
@@ -253,8 +253,11 @@ class CRTReportWizard(SessionWizardView):
         return super().post(*args, **kwargs)
 
     def get(self, request):
-        if settings.MAINTENANCE_MODE or is_shutdown_mode():
+        if settings.MAINTENANCE_MODE:
             return render(self.request, 'forms/report_maintenance.html', status=503)
+
+        if is_shutdown_mode():
+            return redirect('crt_landing_page')
         return super().get(request)
 
     def process_step(self, form):
