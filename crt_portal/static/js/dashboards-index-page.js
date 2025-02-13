@@ -75,18 +75,9 @@
 
   function handleFilterBySection(section) {
     const containers = document.getElementsByName('section-dashboards-container');
-    for (const containerElement of containers) {
-      if (!section) {
-        containerElement.style.display = 'block';
-        continue;
-      }
-
-      if (containerElement === document.getElementById(section + '-dashboards-container')) {
-        containerElement.style.display = 'block';
-      } else {
-        containerElement.style.display = 'none';
-      }
-    }
+    containers.forEach(c => (c.hidden = !!section));
+    if (!section) return;
+    document.getElementById(`${section}-dashboards-container`).hidden = false;
   }
 
   function handleDashboardsPaginationNextPrevious(section, forward = true) {
@@ -101,11 +92,8 @@
     const currentPageNumber = parseInt(sectionDashboardsCardsContainerElement.dataset.currentPage);
     const pageSize = parseInt(sectionDashboardsCardsContainerElement.dataset.pageSize);
 
-    if (forward) {
-      paginateSectionDashboards(section, dashboardsList, pageSize, currentPageNumber + 1);
-    } else {
-      paginateSectionDashboards(section, dashboardsList, pageSize, currentPageNumber - 1);
-    }
+    const direction = forward ? 1 : -1;
+    paginateSectionDashboards(section, dashboardsList, pageSize, currentPageNumber + direction);
   }
 
   function handleDashboardsPaginateToPage(section, page) {
@@ -156,7 +144,7 @@
     const containers = document.getElementsByName('section-dashboards-cards-container');
     for (const cardsContainerElement of containers) {
       const sectionName = cardsContainerElement.id.split('-')[0];
-      if (sectionName in dashboardDataBySection) {
+      if (dashboardDataBySection.hasOwnProperty(sectionName)) {
         paginateSectionDashboards(
           sectionName,
           dashboardDataBySection[sectionName],

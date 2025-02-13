@@ -1,0 +1,46 @@
+<div class="grid-row display-block" id="{{section}}-dashboards-container" name="section-dashboards-container">
+    <div class="margin-left-1">
+        <h3 class="text-primary-darker">{{section}} Dashboards:</h3>
+        <ul
+        id="{{section}}-dashboards-cards-container" 
+        name="section-dashboards-cards-container" 
+        class="display-flex usa-list usa-list--unstyled"
+        data-current-page="0"
+        data-last-page="0"
+        data-page-size="2"
+        >
+        </ul>
+        <nav aria-label="Pagination" class="usa-pagination">
+            <ul id="{{section}}-dashboards-pagination-container" class="usa-pagination__list">
+                <li class="usa-pagination__item usa-pagination__arrow">
+                    <a id="{{section}}-dashboards-previous" class="usa-pagination__link usa-pagination__previous-page">
+                        <img src="/static/img/usa-icons/navigate_before.svg"></img>
+                        <span class="usa-pagination__link-text" aria-label="Previous page">Previous</span>
+                    </a>
+                </li>
+                <li class="usa-pagination__item usa-pagination__page-no">
+                    <a id="{{section}}-dashboards-first-page" class="usa-pagination__button" aria-label="First Page">1</a>
+                </li>
+                <li class="usa-pagination__item usa-pagination__overflow" aria-label="ellipsis indicating non-visible pages">
+                    <span>…</span>
+                </li>
+                <li class="usa-pagination__item" aria-label="Current Page">
+                    <span id="{{section}}-dashboards-current-page" class="flex-align-self-center"></span>
+                </li>
+                <li class="usa-pagination__item usa-pagination__overflow" aria-label="ellipsis indicating non-visible pages">
+                    <span>…</span>
+                </li>
+                <li class="usa-pagination__item usa-pagination__page-no">
+                    <a id="{{section}}-dashboards-last-page" class="usa-pagination__button" aria-label="Last Page">2</a>
+                </li>
+                <li class="usa-pagination__item usa-pagination__arrow">
+                    <a id="{{section}}-dashboards-next" class="usa-pagination__link usa-pagination__next-page">
+                        <span class="usa-pagination__link-text" aria-label="Next page">Next </span>
+                        <img src="/static/img/usa-icons/navigate_next.svg"></img>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <hr>
+</div>
