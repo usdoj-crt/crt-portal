@@ -1572,6 +1572,8 @@ def reported_reason_proform():
     Strip parentheses from the value description.
     """
     for (key, value) in PROTECTED_MODEL_CHOICES:
+        if key == 'gender':
+            continue
         new_value = value[:value.find('(') - 1] if '(' in value else value
         yield (key, new_value)
 
