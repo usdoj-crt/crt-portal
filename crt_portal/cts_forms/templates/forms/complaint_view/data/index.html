@@ -20,13 +20,45 @@
   <p class="margin-left-1">These dashboards are intended to surface trends, patterns and operational insights from reports found in the portal. They were created based on feedback from portal users like you.</p>
   <p class="margin-left-1">The data in these dashboards is updated every four hours.</p>
   <p class="margin-left-1">If you have any questions, ideas for new dashboards or ideas for improvements to current dashboards, please reach out to {% application_contact_markup %}.</p>
-
-  <div class="complaint-page grid-row grid-gap-2">
-    <div class="complaint-information grid-col-6">
-      {% include 'forms/complaint_view/data/demo-dashboard-list.html' with icon="img/intake-icons/ic_check-circle.svg" %}
+  <div class="bg-white width-full padding-bottom-2 padding-top-1">
+    <div class="grid-row">
+      <div class="grid-col-3 display-flex">
+        <select class="margin-left-1 usa-select" name="dashboards-filter-section-select" id="dashboards-filter-section-select">
+          <option value>All Dashboards</option>
+          {% for section, notebook_list in intake_notebooks_by_section.items %}
+          <option value="{{section}}">{{section}}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="grid-col-6">
+      </div>
+      <div class="grid-col-3">
+        <div class="display-flex flex-justify-end">
+          <a href="mailto:{% application_contact_mailto_string %}" class="margin-top-1" id="request-new-dashboard-button">
+            <button class="usa-button">+ Request New Dashboard</button>
+          </a>
+        </div>
+      </div>
     </div>
-    <div class="complaint-information grid-col-6">
-      {% include 'forms/complaint_view/data/section-dashboard-list.html' with icon="img/intake-icons/ic_check-circle.svg" %}
+    <hr>
+    <div class="grid-row">
+      <div class="grid-col-3">
+        <div class="bg-primary-lighter margin-left-1 padding-bottom-1">
+          <div class="margin-left-1 margin-right-1">
+            <h3 class="text-primary-darker">Contact</h3>
+            <p>For questions or feedback, contact:</p>
+            <div>
+              {% application_contact_email_list %}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="grid-col-9">
+        {{ intake_notebooks_by_section|json_script:"dashboards-by-section-data" }}
+        {% for section_key, notebook_list in intake_notebooks_by_section.items %}
+          {% include 'forms/complaint_view/data/section-dashboards-container.html' with section=section_key %}
+        {% endfor %}
+      </div>
     </div>
   </div>
 </div>
@@ -35,4 +67,5 @@
 {{ block.super }}
 <script src="{% static 'js/ga_util.min.js' %}"></script>
 <script src="{% static 'js/data-tables.min.js' %}"></script>
+<script src="{% static 'js/dashboards-index-page.min.js' %}"></script>
 {% endblock %}

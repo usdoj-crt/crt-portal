@@ -16,6 +16,8 @@ import boto3
 from botocore.client import Config
 from botocore.exceptions import ClientError
 
+from collections import defaultdict
+
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -590,22 +592,39 @@ def data_view(request):
         display_name = name.replace("_", " ").capitalize()
         assignment = FileGroupAssignment.objects.filter(analytics_file=notebook.pk).first()
         group = None
+        sections = []
         if assignment:
             group = DashboardGroup.objects.filter(pk=assignment.dashboard_group.pk).first().header
+            section_objects = assignment.show_only_for_sections.all().order_by('section')
+            for section_object in section_objects:
+                sections.append(section_object.section)
+        url = None
+        if hasattr(notebook, 'metadata') and notebook.metadata.url:
+            url = notebook.metadata.url
+
         intake_notebooks.append({
             'path': name,
             'name': display_name,
             'description': notebook.description if notebook.description else display_name,
             'last_modified': notebook.last_modified,
-            'url': notebook.metadata.url,
-            'group': group
+            'url': url,
+            'group': group,
+            'sections': sections
         })
+
+    intake_notebooks_by_section = defaultdict(list)
+    for notebook in intake_notebooks:
+        sections = ["Unassigned"]
+        if notebook.get('sections'):
+            sections = notebook.get('sections')
+        for section in sections:
+            intake_notebooks_by_section[section].append(notebook)
     return render(
         request,
         'forms/complaint_view/data/index.html',
         {
             'profile_form': profile_form,
-            'intake_notebooks': intake_notebooks,
+            'intake_notebooks_by_section': dict(intake_notebooks_by_section),
         })
 
 
