@@ -6,6 +6,4 @@ register = template.Library()
 
 @register.simple_tag
 def get_shutdown_mode():
-    mode = is_shutdown_mode()
-    print("ShutdownMode = ", mode)
-    return mode
+    return is_shutdown_mode()

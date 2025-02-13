@@ -100,7 +100,7 @@
           <p class="crt-landing--largetext">
             <strong>{% trans "If you believe your civil rights, or someone else’s, have been violated, submit a report using our online form." %}</strong>
           </p>
-          {% if shutdown_mode == True %}
+          {% if shutdown_mode %}
           <p>We are currently not accepting reports. See the page banner for more information.</p>
           <a class="usa-button usa-button--big crt-button--large" aria-disabled="true">{% trans "Start a report" %}</a>
           {% else %}
@@ -301,7 +301,7 @@
       <div class="grid-row grid-gap">
         <div class="tablet:grid-col-8">
           <h2 class="h2__display">{% trans "Have you or someone you know experienced a civil rights violation?" %}</h2>
-          {% if shutdown_mode == True %}
+          {% if shutdown_mode %}
           <p>We are currently not accepting reports. See the page banner for more information.</p>
           <a class="usa-button usa-button--big crt-button--large" aria-disabled="true">{% trans "Start a report" %}</a>
           {% else %}
@@ -309,7 +309,7 @@
           {% endif %}
         </div>
       </div>
-      {% if shutdown_mode == False %}
+      {% if not shutdown_mode %}
       <div class="grid-row grid-gap">
         <div class="tablet:grid-col-6">
           <p class="crt-landing--text"><em>{% trans 'If you cannot access the online form, you can <a href="#phone-footer">call</a> to report a violation.' %}</em></p>

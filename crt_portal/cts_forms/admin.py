@@ -329,9 +329,7 @@ class ShutdownModeAdmin(CrtModelAdmin):
 
     @admin.display(description='Shutdown Mode Toggle')
     def shutdown_toggle_display_name(self, obj):
-        if obj.toggle:
-            return 'Shutdown Mode: True'
-        return 'Shutdown Mode: False'
+        return f'Shutdown Mode: {bool(obj.toggle)}'
 
 
 class ReferralContactAdminForm(forms.ModelForm):
