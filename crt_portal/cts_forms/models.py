@@ -302,6 +302,10 @@ class VotingMode(models.Model):
     toggle = models.BooleanField(default=False)
 
 
+class ShutdownMode(models.Model):
+    toggle = models.BooleanField(default=False)
+
+
 def get_translation(translated_text_json, language=None):
     """Gets a translated string from translated text (see make_translated_text)."""
     if not language:
