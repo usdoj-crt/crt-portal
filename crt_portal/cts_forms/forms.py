@@ -1148,7 +1148,7 @@ def get_phone_form_config(working_group):
                         UsaCheckboxSelectMultiple(),
                         {
                             'label': PROTECTED_CLASS_QUESTION,
-                            'queryset': ProtectedClass.objects.filter(code__in=[
+                            'queryset': ProtectedClass.active_choices.filter(code__in=[
                                 'Race/color',
                                 'Sex',
                                 'Religion',
@@ -3124,7 +3124,7 @@ class ReportEditForm(LitigationHoldLock, ProForm, ActivityStreamUpdater):
 
         # required fields
         self.fields['primary_complaint'].widget = Select(choices=self.fields['primary_complaint'].choices, attrs={'class': 'usa-select'})
-        self.fields['protected_class'].widget = SelectMultiple(choices=self.fields['protected_class'].choices, attrs={'class': 'height-10 width-mobile'})
+        self.fields['protected_class'].widget = SelectMultiple(choices=reported_reason_proform(), attrs={'class': 'height-10 width-mobile'})
         self.fields['servicemember'].widget = Select(choices=self.fields['servicemember'].choices, attrs={'class': 'usa-select'})
 
         # primary_complaint dependents, optional

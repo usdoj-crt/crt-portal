@@ -233,7 +233,7 @@ class ProtectedClass(models.Model):
     # used for ordering the choices on the form displays
     form_order = models.IntegerField(null=True, blank=True)
 
-    objects = ActiveProtectedClassChoiceManager()
+    objects = models.Manager()
     active_choices = ActiveProtectedClassChoiceManager()
 
     def __str__(self):
