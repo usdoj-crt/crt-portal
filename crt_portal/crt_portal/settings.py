@@ -325,7 +325,8 @@ if environment in ['PRODUCTION', 'STAGE']:
                           "email": "emailaddress"},
         "USERNAME_CLAIM": AUTH_USERNAME_CLAIM,
         # Explicitly DON'T set a group claim, as it will undo our native groups.
-        "GROUP_CLAIM": None
+        "GROUP_CLAIM": None,
+        "LOGIN_EXEMPT_URLS": ['.*']
     }
 
     # OKTA Configuration
