@@ -349,7 +349,7 @@ if environment in ['PRODUCTION', 'STAGE']:
     else:
         login_base_url = 'https://crt-portal-django-prod.app.cloud.gov'
     # Configure django to redirect users to the right URL for login
-    LOGIN_URL = f"{login_base_url}/oauth2/login"
+    LOGIN_URL = f"{login_base_url}/accounts/login"
     # The url where the AUTH server calls back to our app
     LOGIN_REDIRECT_URL = f"{login_base_url}/oauth2/callback"
 
