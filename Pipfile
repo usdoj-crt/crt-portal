@@ -57,6 +57,7 @@ pypdf = "*"
 weasyprint = "*"
 beautifulsoup4 = "*"
 pytz = "*"
+mozilla-django-oidc = "*"
 
 [requires]
 python_version = "3.13"
