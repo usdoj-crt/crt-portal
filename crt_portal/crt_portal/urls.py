@@ -45,7 +45,7 @@ environment = os.environ.get('ENV', 'UNDEFINED')
 if environment in ['PRODUCTION', 'STAGE']:
     auth = [
         # ADFS
-        path('oauth2/', include('django_auth_adfs.urls'), name='django_auth_adfs_login'),
+        path('oauth2/', include('django_auth_adfs.urls')),
 
         # OKTA
         path("authorization-code/authenticate/", oidc_views.OIDCAuthenticationRequestView.as_view(), name="oidc_authentication_init"),
