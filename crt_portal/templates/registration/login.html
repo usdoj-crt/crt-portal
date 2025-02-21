@@ -14,11 +14,6 @@
         <button label="login" type="submit" id="login" class="usa-button">Login</button>
       </form>
       {% else %}
-      <div class="display-flex flex-align-center">
-        <hr class="flex-fill margin-0" />
-        <p class="margin-left-1 margin-right-1">or</p>
-        <hr class="flex-fill margin-0" />
-      </div>
       <div>
         <a href="{% url 'django_auth_adfs:login' %}">
           <button class="usa-button" type="button">Log In with ADFS</button>
