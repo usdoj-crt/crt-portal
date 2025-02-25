@@ -565,6 +565,9 @@ LOGGING = {
             # django also has database level logging
             'level': 'INFO'
         },
+        'mozilla_django_oidc': {
+            'level': 'DEBUG'
+        },
     },
 }
 
