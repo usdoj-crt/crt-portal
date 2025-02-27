@@ -345,6 +345,8 @@ if environment in ['PRODUCTION', 'STAGE']:
     OIDC_OP_TOKEN_ENDPOINT = f"https://{OKTA_DOMAIN}/oauth2/default/v1/token"  # The OIDC token endpoint
     OIDC_OP_JWKS_ENDPOINT = f"https://{OKTA_DOMAIN}/oauth2/default/v1/keys"  # The OIDC JWKS endpoint
 
+    OIDC_RP_SCOPES = "openid email profile"
+
     if environment == 'STAGE':
         login_base_url = 'https://crt-portal-django-stage.app.cloud.gov'
     else:
