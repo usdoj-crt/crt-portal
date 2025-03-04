@@ -258,7 +258,7 @@ msgstr ""
 msgid ""
 "A hate crime is violence or threats of violence based on race, color, "
 "national origin, religion, sex, sexual orientation, or disability."
-msgstr ""
+msgstr "증오 범죄는 인종, 피부색, 출신 국가, 종교, 성별, 성적 지향 또는 장애에 기반한 폭력 또는 폭력 위협입니다"
 
 #: model_variables.py:107 model_variables.py:149
 msgid ""

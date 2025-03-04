@@ -12,6 +12,19 @@
       <div id="contact-crt" class="usa-footer__contact">
         <div class="usa-footer__section">
           <div class="usa-footer__icon">
+            <img src="{% static "img/mail.svg" %}" alt="mail" class="icon">
+          </div>
+          <div id="address-footer" class="usa-footer__links">
+            <p>{% trans 'Send Printed Report Form (<a target="_blank" href="https://www.ada.gov/assets/pdfs/file-a-complaint.pdf">Regular Format</a> | <a target="_blank" href="https://www.ada.gov/assets/pdfs/file-a-complaint-lg.pdf">Large Format</a>) To:' %}</p>
+            <p>U.S. Department of Justice</p>
+            <p>Civil Rights Division</p>
+            <p>950 Pennsylvania Avenue, NW</p>
+            <p>Washington, D.C. 20530-0001</p>
+          </div>
+        </div>
+
+        <div class="usa-footer__section">
+          <div class="usa-footer__icon">
             <img src="{% static "img/phone.svg" %}" alt="phone" class="icon">
           </div>
           <div id="phone-footer" class="usa-footer__links">
@@ -62,7 +75,7 @@
             <a href="https://www.justice.gov/crt/freedom-information-act-0">
               {% trans "FOIA" %}
             </a>
-            <a href="https://www.justice.gov/accessibility/accessibility-information">
+            <a href="https://bidenwhitehouse.archives.gov/omb/management/ofcio/m-24-08-strengthening-digital-accessibility-and-the-management-of-section-508-of-the-rehabilitation-act/">
               {% trans "Accessibility" %}
             </a>
             <a href="https://www.justice.gov">

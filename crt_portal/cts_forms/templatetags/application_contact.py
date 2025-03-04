@@ -23,3 +23,25 @@ def application_contact_markup():
         return mark_safe(contacts[0])  # nosec
 
     return mark_safe("your application's administrator")  # nosec
+
+
+@register.simple_tag
+def application_contact_email_list():
+    contacts = "".join([
+        f'<a class="display-block margin-bottom-1" href="mailto:{contact.email}">{contact.name}</a>'
+        for contact in ApplicationContact.objects.all().order_by('order')
+    ])
+
+    if len(contacts) > 0:
+        return mark_safe(contacts)  # nosec
+    return mark_safe("your application's administrator")  # nosec
+
+
+@register.simple_tag
+def application_contact_mailto_string():
+    mailto = ",".join([
+        contact.email
+        for contact in ApplicationContact.objects.all().order_by('order')
+    ])
+
+    return mark_safe(mailto)  # nosec
