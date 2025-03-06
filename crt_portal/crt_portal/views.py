@@ -23,14 +23,9 @@ class CrtLoginView(LoginView):
         self.save_next_url(request)
         return super(CrtLoginView, self).get(request, *args, **kwargs)
 
-    def post(self, request, *args, **kwargs):
-        print("CrtLoginView: Post")
-        self.save_next_url(request)
-        return super(CrtLoginView, self).post(request, *args, **kwargs)
-
     def save_next_url(self, request):
         print("CrtLoginView: Saving Next Url...")
-        next_url = super(CrtLoginView, self).get_default_redirect_url()
+        next_url = request.GET.get('next', '/')
         print("Next Url = ", next_url)
         request.session['next_page'] = next_url
         print("Request Session = ", request.session.__dict__)
