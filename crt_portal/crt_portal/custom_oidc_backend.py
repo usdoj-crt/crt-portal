@@ -12,14 +12,17 @@ class CrtAuthenticationBackend(OIDCAuthenticationBackend):
     def verify_claims(self, claims):
         print("CrtAuthenticationBackend: VerifyClaims: Claims = ", claims)
         verified = super(CrtAuthenticationBackend, self).verify_claims(claims)
+        user_exists = User.objects.filter(email=claims.get('email')).exists()
 
-        return verified
+        if verified and user_exists:
+            return True
+        return False
 
     def create_user(self, claims):
         print("CrtAuthenticationBackend: CreateUser: Claims = ", claims)
 
         print("CrtAuthenticationBackend: Checking if user already exists before we create a new one...")
-        user_exists = User.objects.filter(username=claims.get('sam_account_name'))
+        user_exists = User.objects.filter(username=claims.get('sam_account_name')).exists()
         if not user_exists:
             print("CrtAuthenticationBackend: User does not exist, creating a new one.")
             user = super(CrtAuthenticationBackend, self).create_user(claims)
