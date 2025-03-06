@@ -39,6 +39,8 @@ from django.shortcuts import redirect
 from django.urls import include, path, re_path
 from django.views.generic import TemplateView
 
+from .views import crt_loggedin_view, CrtLoginView
+
 environment = os.environ.get('ENV', 'UNDEFINED')
 if environment in ['PRODUCTION', 'STAGE']:
     from mozilla_django_oidc import views as oidc_views
@@ -48,7 +50,11 @@ if environment in ['PRODUCTION', 'STAGE']:
 
         # OKTA
         path("authorization-code/authenticate/", oidc_views.OIDCAuthenticationRequestView.as_view(), name="oidc_authentication_init"),
-        path("authorization-code/callback/", oidc_views.OIDCAuthenticationCallbackView.as_view(), name="oidc_authentication_callback")
+        path("authorization-code/callback/", oidc_views.OIDCAuthenticationCallbackView.as_view(), name="oidc_authentication_callback"),
+
+        # Custom Login
+        path("crt-login/login/", CrtLoginView.as_view(), name="login"),
+        path("crt-login/loggedin/", crt_loggedin_view, name="logged-in-view")
     ]
 else:
     auth = []
