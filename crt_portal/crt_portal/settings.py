@@ -331,13 +331,13 @@ if environment in ['PRODUCTION', 'STAGE']:
 
     # OKTA Configuration
     INSTALLED_APPS.append('mozilla_django_oidc')
-    # AUTHENTICATION_BACKENDS_LIST.append('mozilla_django_oidc.auth.OIDCAuthenticationBackend')
     AUTHENTICATION_BACKENDS_LIST.append('crt_portal.custom_oidc_backend.CrtAuthenticationBackend')
 
     OKTA_DOMAIN = os.environ['OKTA_DOMAIN']
     OIDC_RP_CLIENT_ID = os.environ['OIDC_RP_CLIENT_ID']
     OIDC_RP_CLIENT_SECRET = os.environ['OIDC_RP_CLIENT_SECRET']
 
+    OIDC_USERNAME_ALGO = 'crt_portal.custom_oidc_backend.generate_username'
     OIDC_RP_SIGN_ALGO = "RS256"
     OIDC_OP_AUTHORIZATION_ENDPOINT = f"https://{OKTA_DOMAIN}/oauth2/default/v1/authorize"  # The OIDC authorization endpoint
     OIDC_RP_TOKEN_ENDPOINT = f"https://{OKTA_DOMAIN}/oauth2/default/v1/token"  # The OIDC token endpoint

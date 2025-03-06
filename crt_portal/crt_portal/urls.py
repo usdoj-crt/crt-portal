@@ -39,10 +39,9 @@ from django.shortcuts import redirect
 from django.urls import include, path, re_path
 from django.views.generic import TemplateView
 
-from mozilla_django_oidc import views as oidc_views
-
 environment = os.environ.get('ENV', 'UNDEFINED')
 if environment in ['PRODUCTION', 'STAGE']:
+    from mozilla_django_oidc import views as oidc_views
     auth = [
         # ADFS
         path('oauth2/', include('django_auth_adfs.urls')),
