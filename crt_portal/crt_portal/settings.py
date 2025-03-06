@@ -353,7 +353,7 @@ if environment in ['PRODUCTION', 'STAGE']:
         login_base_url = 'https://crt-portal-django-prod.app.cloud.gov'
     # Configure django to redirect users to the right URL for login
     LOGIN_URL = f"{login_base_url}/accounts/login"
-    LOGIN_REDIRECT_URL = f"{login_base_url}/accounts/login"
+    LOGIN_REDIRECT_URL = f"{login_base_url}/authorization-code/callback/"
 
     ALLOWED_HOSTS = [
         'civilrights.justice.gov',
