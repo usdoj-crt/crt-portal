@@ -285,7 +285,8 @@ else:
     PRIV_S3_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY', 'AWSSAK')
     PRIV_S3_ENDPOINT_URL = 'http://localhost:4566'
 
-# for AUTH, in prod and stage
+AUTHENTICATION_BACKENDS_LIST = []
+# for ADFS AUTH, in prod and stage
 if environment in ['PRODUCTION', 'STAGE']:
     for service in vcap['user-provided']:
         if service['instance_name'] == "VCAP_SERVICES":
@@ -297,8 +298,8 @@ if environment in ['PRODUCTION', 'STAGE']:
             AUTH_GROUP_CLAIM = creds['AUTH_GROUP_CLAIM']
 
     INSTALLED_APPS.append('django_auth_adfs')
-    AUTHENTICATION_BACKENDS = (
-        'django_auth_adfs.backend.AdfsAuthCodeBackend',
+    AUTHENTICATION_BACKENDS_LIST.append(
+        'django_auth_adfs.backend.AdfsAuthCodeBackend'
     )
     MIDDLEWARE.append('django_auth_adfs.middleware.LoginRequiredMiddleware')
 
@@ -325,31 +326,34 @@ if environment in ['PRODUCTION', 'STAGE']:
         "USERNAME_CLAIM": AUTH_USERNAME_CLAIM,
         # Explicitly DON'T set a group claim, as it will undo our native groups.
         "GROUP_CLAIM": None,
-        'LOGIN_EXEMPT_URLS': [
-            '^$',
-            '^report',
-            '^link',
-            '^robots.txt',
-            '^privacy-policy',
-            '^hate-crime-human-trafficking',
-            '^i18n',
-            '^email',
-            '^housing-resources',
-            '^voting-resources',
-            '^oauth2_provider/token/',
-            '^oauth2_provider/userinfo/',
-            '^static/'
-        ],
+        "LOGIN_EXEMPT_URLS": ['.*']
     }
+
+    # OKTA Configuration
+    INSTALLED_APPS.append('mozilla_django_oidc')
+    AUTHENTICATION_BACKENDS_LIST.append('crt_portal.custom_oidc_backend.CrtAuthenticationBackend')
+
+    OKTA_DOMAIN = os.environ['OKTA_DOMAIN']
+    OIDC_RP_CLIENT_ID = os.environ['OIDC_RP_CLIENT_ID']
+    OIDC_RP_CLIENT_SECRET = os.environ['OIDC_RP_CLIENT_SECRET']
+
+    OIDC_USERNAME_ALGO = 'crt_portal.custom_oidc_backend.generate_username'
+    OIDC_RP_SIGN_ALGO = "RS256"
+    OIDC_OP_AUTHORIZATION_ENDPOINT = f"https://{OKTA_DOMAIN}/oauth2/default/v1/authorize"  # The OIDC authorization endpoint
+    OIDC_RP_TOKEN_ENDPOINT = f"https://{OKTA_DOMAIN}/oauth2/default/v1/token"  # The OIDC token endpoint
+    OIDC_OP_USER_ENDPOINT = f"https://{OKTA_DOMAIN}/oauth2/default/v1/userinfo"  # The OIDC userinfo endpoint
+    OIDC_OP_TOKEN_ENDPOINT = f"https://{OKTA_DOMAIN}/oauth2/default/v1/token"  # The OIDC token endpoint
+    OIDC_OP_JWKS_ENDPOINT = f"https://{OKTA_DOMAIN}/oauth2/default/v1/keys"  # The OIDC JWKS endpoint
+
+    OIDC_RP_SCOPES = "openid email profile"
 
     if environment == 'STAGE':
         login_base_url = 'https://crt-portal-django-stage.app.cloud.gov'
     else:
         login_base_url = 'https://crt-portal-django-prod.app.cloud.gov'
     # Configure django to redirect users to the right URL for login
-    LOGIN_URL = f"{login_base_url}/oauth2/login"
-    # The url where the ADFS server calls back to our app
-    LOGIN_REDIRECT_URL = f"{login_base_url}/oauth2/callback"
+    LOGIN_URL = f"{login_base_url}/crt-login/login/"
+    LOGIN_REDIRECT_URL = f"{login_base_url}/crt-login/loggedin/"
 
     ALLOWED_HOSTS = [
         'civilrights.justice.gov',
@@ -359,6 +363,9 @@ if environment in ['PRODUCTION', 'STAGE']:
         'crt-portal-django-prod.apps.internal',
         'crt-portal-django-stage.apps.internal',
     ]
+
+    # Set AUTHENTICATION_BACKENDS
+    AUTHENTICATION_BACKENDS = tuple(AUTHENTICATION_BACKENDS_LIST)
 
 STATIC_URL = '/static/'
 
@@ -561,6 +568,9 @@ LOGGING = {
         'django.db': {
             # django also has database level logging
             'level': 'INFO'
+        },
+        'mozilla_django_oidc': {
+            'level': 'DEBUG'
         },
     },
 }
