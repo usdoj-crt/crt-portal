@@ -43,12 +43,14 @@ from .views import crt_loggedin_view, CrtLoginView, CrtAdminLoginView
 
 environment = os.environ.get('ENV', 'UNDEFINED')
 if environment in ['PRODUCTION', 'STAGE']:
+    from mozilla_django_oidc import views as oidc_views
     auth = [
         # ADFS
         path('oauth2/', include('django_auth_adfs.urls')),
 
         # OKTA
-        path('oidc/', include('mozilla_django_oidc.urls')),
+        path("authorization-code/authenticate/", oidc_views.OIDCAuthenticationRequestView.as_view(), name="oidc_authentication_init"),
+        path("authorization-code/callback/", oidc_views.OIDCAuthenticationCallbackView.as_view(), name="oidc_authentication_callback"),
 
         # Custom Login
         path('admin/login/', CrtAdminLoginView.as_view(), name='admin_login'),
