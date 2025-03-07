@@ -39,22 +39,21 @@ from django.shortcuts import redirect
 from django.urls import include, path, re_path
 from django.views.generic import TemplateView
 
-from .views import crt_loggedin_view, CrtLoginView
+from .views import crt_loggedin_view, CrtLoginView, CrtAdminLoginView
 
 environment = os.environ.get('ENV', 'UNDEFINED')
 if environment in ['PRODUCTION', 'STAGE']:
-    from mozilla_django_oidc import views as oidc_views
     auth = [
         # ADFS
         path('oauth2/', include('django_auth_adfs.urls')),
 
         # OKTA
-        path("authorization-code/authenticate/", oidc_views.OIDCAuthenticationRequestView.as_view(), name="oidc_authentication_init"),
-        path("authorization-code/callback/", oidc_views.OIDCAuthenticationCallbackView.as_view(), name="oidc_authentication_callback"),
+        path('oidc/', include('mozilla_django_oidc.urls')),
 
         # Custom Login
-        path("crt-login/login/", CrtLoginView.as_view(), name="login"),
-        path("crt-login/loggedin/", crt_loggedin_view, name="logged-in-view")
+        path('admin/login/', CrtAdminLoginView.as_view(), name='admin_login'),
+        path('crt-login/login/', CrtLoginView.as_view(), name="login"),
+        path('crt-login/loggedin/', crt_loggedin_view, name='logged-in-view')
     ]
 else:
     auth = []
