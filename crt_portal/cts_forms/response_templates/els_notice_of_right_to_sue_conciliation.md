@@ -16,7 +16,7 @@ show_in_dropdown: true
 {{ contact_email }}
 
 Re: {{ complainant_name }} v. {{ organization_name }}, et al.,
-EEOC Charge No. {{ charge_number }}
+EEOC Charge No. {{ eeoc_charge_number }}
 
 {{ addressee }},         
 
