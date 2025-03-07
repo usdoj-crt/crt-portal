@@ -2,7 +2,9 @@
 title: ELS - Form letter
 subject: "Response: Your Civil Rights Division Report - {{ record_locator }} from the {{ section_name }} Section"
 language: en
+show_in_dropdown: true
 ---
+
 {{ addressee }},
 
 You contacted the Department of Justice on {{ date_of_intake }}. After careful review of what you submitted, we have determined that your report would more appropriately be handled by another federal agency.
@@ -139,4 +141,3 @@ Sincerely,
 
 U.S. Department of Justice
 Civil Rights Division
-

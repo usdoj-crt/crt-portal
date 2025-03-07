@@ -1275,6 +1275,7 @@ class ResponseTemplate(models.Model):
             'referral_text': referral_text,
             'eeoc_office_name': eeoc_office_name,
             'eeoc_office_url': eeoc_office_url,
+            'eeoc_charge_number': report.eeoc_charge_number,
             # spanish translations
             'es': {
                 'addressee': report.addressee_es,

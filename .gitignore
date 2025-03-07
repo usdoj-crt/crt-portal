@@ -9,6 +9,7 @@ node_modules/
 *.DS_Store
 *.env
 .python-version
+.idea
 # this is where collect static puts the files
 staticfiles/
 pa11y-screenshots/
