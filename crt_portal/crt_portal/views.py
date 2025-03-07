@@ -2,8 +2,10 @@ from django.contrib.auth.views import LoginView
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 
-from django.utils.http import is_safe_url
+from django.utils.http import url_has_allowed_host_and_scheme
+from django.utils.encoding import iri_to_uri
 from django.shortcuts import redirect
+from django.urls import reverse
 
 
 def retrieve_and_save_next_url_in_session(request):
@@ -15,9 +17,12 @@ def retrieve_and_save_next_url_in_session(request):
 
 @login_required
 def crt_loggedin_view(request):
-    next_url = request.session.get("next_page")
-    if next_url and is_safe_url(next_url, allowed_hosts={request.get_host()}):
-        return redirect(next_url)
+    next_page = request.session.get("next_page")
+    if next_page:
+        next_url = reverse('crt_landing_page') + next_page
+        if url_has_allowed_host_and_scheme(next_url, None):
+            safe_url = iri_to_uri(next_url)
+            return redirect(safe_url)
     return redirect('crt_landing_page')
 
 
