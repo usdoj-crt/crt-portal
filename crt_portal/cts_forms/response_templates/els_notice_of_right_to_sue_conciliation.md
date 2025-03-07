@@ -3,7 +3,7 @@ title: ELS - Notice of Right to Sue (Conciliation Failure) form letter
 subject: 'Response: Your Civil Rights Division Report - {{ record_locator }} from the {{ section_name }} Section'
 language: en
 is_html: true
-show_in_dropdown: false
+show_in_dropdown: true
 ---
 
 {{ record_locator }}
