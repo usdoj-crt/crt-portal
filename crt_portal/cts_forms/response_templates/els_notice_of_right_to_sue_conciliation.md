@@ -37,7 +37,7 @@ Therefore, you are hereby notified that you have a right to file a lawsuit comme
 <br/>
 [%endoptional]
 
-If you decide to file a lawsuit under the statute(s) identified above, **<ins>you must file it in the appropriate court within 90 days of receiving this Notice<ins/>**. If you haven’t already, you may want to consult with a private attorney of your own choosing and expense. 
+If you decide to file a lawsuit under the statute(s) identified above, **<ins>you must file it in the appropriate court within 90 days of receiving this Notice</ins>**. If you haven’t already, you may want to consult with a private attorney of your own choosing and expense. 
 
 If you have questions or wish to inspect the investigative file pertaining to this matter, please address your inquiry to the following EEOC office: {{ eeoc_office_name }}. Contact information for this office can be located at {{ eeoc_office_url }}.
 
