@@ -2,142 +2,117 @@
 title: ELS - Form letter
 subject: "Response: Your Civil Rights Division Report - {{ record_locator }} from the {{ section_name }} Section"
 language: en
+is_html: true
 show_in_dropdown: true
 ---
 
 {{ addressee }},
 
-You contacted the Department of Justice on {{ date_of_intake }}. After careful review of what you submitted, we have determined that your report would more appropriately be handled by another federal agency.
+Thank you for contacting the Department of Justice on {{ date_of_intake }}. We reviewed the information you provided and determined your report of a civil rights violation would more appropriately be handled by another federal agency.
 
-What we did:
+##What we did:
 
-Your record number is {{ record_locator }}.
+Your record number is {{ record_locator }}.        
 
-Team members from the Civil Rights Division reviewed the information you submitted.  Based on your report, our team determined that you alleged employment discrimination or other employment-related issues.
+Team members from the Civil Rights Division reviewed the information you submitted.  Based on your report, our team determined that you allege employment discrimination or raise other employment-related issues.
 
-Federal law limits the Department of Justice’s ability to take direct action under certain situations. Based on our team’s review of your report, this includes your matter.
+Federal law limits the Department of Justice’s ability to take direct action under certain situations.  Based on our team’s review of your report, this includes your matter.
 
-What you can do:
+##What you can do:
 
-We are not determining that your report lacks merit.  Rather, another federal agency may be able to help in your situation.
+While we will not do anything more on this matter, you can contact the agency below to get more information or to file a formal complaint about employment discrimination or other employment-related issues. There are strict time limits for filing formal complaints about employment discrimination. **<ins>Your report to us of a civil rights violation is not the same as filing a formal complaint and will not protect your legal rights</ins>**. If you feel you have been discriminated against in employment, you should contact the agency below right away to make sure that your legal rights are protected and that you meet the time limits.
 
-We have included a list of federal agencies that may be able to help. You should reach out to the appropriate agency if you want to pursue this further.
+[%optional group="Agency" name="U.S. Equal Employment Opportunity Commission"]
 
-NOTE: There are strict time limits for filing complaints related to employment discrimination. If you feel you have been discriminated against in employment, you should contact the appropriate agency as soon as possible.
+Because your report indicates that you may have experienced employment discrimination based on race, color, national origin, religion, sex, age, disability or retaliation and/or allegations of an employer’s failure to accommodate known limitations because of pregnancy, childbirth, or related medical conditions, contact:
 
-I EXPERIENCED...
+U.S. Equal Employment Opportunity Commission
+1-800-669-4000
+1-800-669-6820 (TTY for Deaf/Hard of Hearing callers only)
+1-844-234-5122 (ASL Video Phone for Deaf/Hard of Hearing callers only)
+[https://www.eeoc.gov/](https://www.eeoc.gov/)
+<br/>
+[%endoptional]
 
-Employment discrimination based on: race, color, national origin, religion, sex (including pregnancy and sexual orientation), age, disability, or retaliation.
+[%optional group="Agency" name="Federal Employer EEO Counselor"]
 
-AGENCY THAT MAY BE ABLE TO HELP
+Because you are a federal employee and your report indicates that you may have experienced employment discrimination based on race, color, national origin, religion, sex, age, disability or retaliation and/or their employer’s failure to accommodate known limitations because of pregnancy, childbirth, or related medical conditions, contact:
 
-Equal Employment Opportunity Commission (EEOC)
+Your federal employer’s Equal Employment Opportunity counselor at: [https://www.eeoc.gov/federal-sector/federal-agency-eeo-directors](https://www.eeoc.gov/federal-sector/federal-agency-eeo-directors)
+<br/>
+[%endoptional]
 
-    File online: eeoc.gov/filing-charge-discrimination
-    Contact by phone: 1-800-669-4000
-    File in-person at your nearest EEOC Office: www.eeoc.gov/field-office
+[%optional group="Agency" name="Dept. of Labor, VETS"]
 
-I EXPERIENCED...
+Because your report indicates that you may have experienced employment discrimination based on military service, including retaliation and failure to reemploy, contact:
 
-Employment discrimination based on military service, including retaliation and failure to reemploy.
+U.S. Department of Labor, Veterans Employment Training Service (VETS)
+1-866-487-2365
+[https://www.dol.gov/agencies/vets](https://www.dol.gov/agencies/vets)
+<br/>
+[%endoptional]
 
-AGENCY THAT MAY BE ABLE TO HELP
+[%optional group="Agency" name="Dept. of Labor, (OWCP)"]
 
-U.S. Department of Labor
-Veterans Employment Training Service (VETS)
+Because your report indicates that you may have experienced issues related to workers’ compensation, contact:
 
-    File online or contact VETS in-person: www.dol.gov/agencies/vets/
-    Contact by phone: 1-866-487-2365
+U.S. Department of Labor, Office of Workers’ Compensation Programs (OWCP)
+[https://www.dol.gov/agencies/owcp](https://www.dol.gov/agencies/owcp)
+<br/>
+[%endoptional]
 
-I EXPERIENCED...
+[%optional group="Agency" name="Dept. of Labor, Wage and Hour Division"]
 
-Employment discrimination by the federal government
+Because your report indicates that you may have experienced issues related to wages and/or work hours, contact:
 
-AGENCY THAT MAY BE ABLE TO HELP
+U.S. Department of Labor, Wage and Hour Division
+1-866-4-USWAGE (1-866-487-9243)
+[https://www.dol.gov/agencies/whd](https://www.dol.gov/agencies/whd)
+<br/>
+[%endoptional]
 
-The equal employment opportunity officer at your federal agency
+[%optional group="Agency" name="Dept. of Labor, (OSHA)"]
 
-    Find your federal EEO officer: www.eeoc.gov/federal-sector/federal-agency-eeo-directors
+Because your report indicates that you may have experienced issues related to worker safety, contact:
 
-I EXPERIENCED...
+U.S. Department of Labor, Occupational Health and Safety Administration (OSHA)
 
-A workers’ compensation issue
+1-800-321-OSHA (1-800-321-6472
+[https://www.osha.gov/](https://www.osha.gov/)
+<br/>
+[%endoptional]
 
-AGENCY THAT MAY BE ABLE TO HELP
+[%optional group="Agency" name="Equal Employment Opportunity Commission"]
 
-U.S. Department of Labor
-Office of Workers’ Compensation Programs (OWCP)
-
-    Phone and in-person options:
-    https://www.dol.gov/owcp/owcpkeyp.htm
-
-I EXPERIENCED...
-
-An issue with wages and/or work hours
-
-AGENCY THAT MAY BE ABLE TO HELP
-
-U.S. Department of Labor
-Employment Standards Administration, Wage and Hour Division
-
-    How to file a complaint: www.dol.gov/agencies/whd/contact/complaints
-    Contact by phone: 1-866-487-2365
-
-I EXPERIENCED...
-
-An issue with worker safety
-
-AGENCY THAT MAY BE ABLE TO HELP
-
-U.S. Department of Labor
-Occupational Health and Safety Administration (OSHA)
-
-    File online: www.osha.gov/workers/
-    Contact by phone: 1-800-321-6742
-
-I EXPERIENCED...
-
-A problem with the Equal Employment Opportunity Commission
-
-AGENCY THAT MAY BE ABLE TO HELP
+Because your report indicates that you may have experienced issues with the EEOC, contact:
 
 Equal Employment Opportunity Commission
 Director, Office of Field Management Programs
+131 M Street, NE
+Washington, DC  20507
+<br/>
+[%endoptional]
 
-    131 M Street, NE
-    Washington, DC 20507
+Also, your state bar association, which is a group of local lawyers, or your local legal aid office may be able to help you even though the Department of Justice cannot.
 
-In addition, your state bar association or local legal aid office may be able to help with your issue even though the Department of Justice cannot.
+You can find a personal attorney at:
 
-TO FIND...
+**American Bar Association**
+[https://www.americanbar.org/groups/legal\_services/flh-home/](https://www.americanbar.org/groups/legal\_services/flh-home/)
 
-A personal attorney
+You can find a personal attorney for low-income individuals at:
 
-ORGANIZATION THAT MAY BE ABLE TO HELP
+    **Legal Services Corporation** can help you find a legal aid lawyer in your area
+[https://lsc.gov/about-lsc/what-legal-aid/i-need-legal-help](https://lsc.gov/about-lsc/what-legal-aid/i-need-legal-help)
 
-American Bar Association
+##How you have helped:
 
-    www.americanbar.org/groups/legal_services/flh-home
-    Contact by phone: 1-800-285-2221
+Although we will not do anything more on this matter, your report can help us find issues affecting multiple people or communities. It also helps us understand emerging trends and topics.
 
-TO FIND...
-
-A personal attorney for low-income individuals
-
-ORGANIZATION THAT MAY BE ABLE TO HELP
-
-Legal Services Corporation (or Legal Aid Offices)
-To help you find a legal aid lawyer in your area
-
-    www.lsc.gov/find-legal-aid
-
-How you helped:
-
-While we cannot act in this specific instance, your report will help us advance civil rights. Information from reports such as yours helps us understand emerging and urgent issues.  This helps inform how we protect the civil rights of all people in this country.
-
-Thank you for taking the time to contact the Department of Justice about your concerns.
+Thank you for taking the time to contact the Department of Justice about these issues.
 
 Sincerely,
 
 U.S. Department of Justice
+
 Civil Rights Division
