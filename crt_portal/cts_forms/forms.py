@@ -3095,7 +3095,7 @@ class ReportEditForm(LitigationHoldLock, ProForm, ActivityStreamUpdater):
             'violation_summary',
         ]
 
-        fields = ProForm.Meta.fields + ['eeoc_charge_number', 'tags', 'location_zipcode']
+        fields = ProForm.Meta.fields + ['eeoc_charge_number', 'eeoc_office', 'tags', 'location_zipcode']
 
     def success_message(self):
         return self.SUCCESS_MESSAGE
@@ -3167,6 +3167,9 @@ class ReportEditForm(LitigationHoldLock, ProForm, ActivityStreamUpdater):
         self.fields['eeoc_charge_number'].widget = TextInput(attrs={
             'class': 'usa-input'
         })
+        self.fields['eeoc_office'].label = 'EEOC Office'
+        # TODO: Add the correct widget for eeoc_office
+        # Look at make_phone_pro_form and get_phone_form_config and how that sets up the widget
 
     @cached_property
     def changed_data(self):

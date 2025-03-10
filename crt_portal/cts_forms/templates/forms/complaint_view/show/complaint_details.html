@@ -249,7 +249,7 @@
           </div>
         </td>
       </tr>
-      {% if data.eeoc_charge_number %}
+      {% if data.working_group == "ELS-CRU" %}
       <tr>
         <th>EEOC Charge Number</th>
         <td>
@@ -258,6 +258,17 @@
           </div>
           <div class="details-edit {% if not details_form.errors %}display-none{% endif %}">
             {{ details_form.eeoc_charge_number }}
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <th>EEOC Office</th>
+        <td>
+          <div class="details {% if details_form.errors %}display-none{% endif %}">
+            {{ data.eeoc_office.name|default:"—" }}
+          </div>
+          <div class="details-edit {% if not details_form.errors %}display-none{% endif %}">
+            {{ details_form.eeoc_office }}
           </div>
         </td>
       </tr>
