@@ -354,6 +354,8 @@ if environment in ['PRODUCTION', 'STAGE']:
     # Configure django to redirect users to the right URL for login
     LOGIN_URL = f"{login_base_url}/crt-login/login/"
     LOGIN_REDIRECT_URL = f"{login_base_url}/crt-login/loggedin/"
+    LOGIN_REDIRECT_URL_FAILURE = f"{login_base_url}/crt-login/login/"
+    LOGOUT_REDIRECT_URL = f"{login_base_url}"
 
     ALLOWED_HOSTS = [
         'civilrights.justice.gov',
