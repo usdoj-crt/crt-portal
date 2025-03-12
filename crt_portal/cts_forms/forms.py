@@ -3175,9 +3175,6 @@ class ReportEditForm(LitigationHoldLock, ProForm, ActivityStreamUpdater):
             attrs={'class': 'usa-input usa-select'},
         )
 
-        # TODO: Add the correct widget for eeoc_office
-        # Look at make_phone_pro_form and get_phone_form_config and how that sets up the widget
-
     @cached_property
     def changed_data(self):
         changed_data = super().changed_data
