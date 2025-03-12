@@ -3167,13 +3167,15 @@ class ReportEditForm(LitigationHoldLock, ProForm, ActivityStreamUpdater):
         self.fields['eeoc_charge_number'].widget = TextInput(attrs={
             'class': 'usa-input'
         })
-        self.fields['eeoc_office'].label = 'EEOC Office'
-        self.fields['eeoc_office'].widget = Select(
-            choices=EeocOffice.objects.filter(show=True).annotate(
-                display=Concat(F('name'), Value(' '), F('address_line_2'), Value(' '), F('address_city'), Value(', '),
-                               F('address_state'))).values_list('pk', 'display').order_by('order'),
-            attrs={'class': 'usa-input usa-select'},
+        self.fields['eeoc_office'] = ChoiceField(
+            label='EEOC Office',
+            choices=EeocOffice.objects.filter(show=True).annotate(display=Concat(F('name'), Value(' '), F('address_line_2'), Value(' '), F('address_city'), Value(', '), F('address_state'))).values_list('pk', 'display').order_by('order'),
+            widget=Select(
+                attrs={'class': 'usa-input usa-select'},
+            ),
+            required=False
         )
+        self.fields['eeoc_office'].widget.required = False
 
     @cached_property
     def changed_data(self):
@@ -3193,6 +3195,23 @@ class ReportEditForm(LitigationHoldLock, ProForm, ActivityStreamUpdater):
 
         return changed_data
 
+    def assign_eeoc_office(self, cleaned_data):
+        if 'eeoc_office' in self.changed_data:
+            value = self.cleaned_data.get('eeoc_office')
+            if not value or value == '':
+                cleaned_data['eeoc_office'] = None
+                return cleaned_data
+
+            eeoc_office_key = int(value)
+            try:
+                eeoc_office = EeocOffice.objects.get(id=eeoc_office_key)
+            except EeocOffice.DoesNotExist:
+                eeoc_office = None
+            cleaned_data['eeoc_office'] = eeoc_office
+        else:
+            cleaned_data['eeoc_office'] = self.instance.eeoc_office
+        return cleaned_data
+
     def clean_dependent_fields(self, cleaned_data):
         """
         If primary complaint is changed, set any dependent fields associated with initial value to None
@@ -3206,6 +3225,7 @@ class ReportEditForm(LitigationHoldLock, ProForm, ActivityStreamUpdater):
 
     def clean(self):
         cleaned_data = super().clean()
+        cleaned_data = self.assign_eeoc_office(cleaned_data)
         return self.clean_dependent_fields(cleaned_data)
 
     def update_activity_stream(self, user):

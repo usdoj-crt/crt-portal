@@ -268,7 +268,12 @@
             {{ data.eeoc_office|default:"—" }}
           </div>
           <div class="details-edit {% if not details_form.errors %}display-none{% endif %}">
-            {{ details_form.eeoc_office }}
+            <label for="id_eeoc_office" class="intake-label display-none">
+              {{ details_form.fields.eeoc_office.label }}
+            </label>
+            <div class="usa-combo-box" style="width: 100%" data-placeholder="(none)" data-default-value="{{ details_form.eeoc_office.value }}">
+              {{ details_form.eeoc_office }}
+            </div>
           </div>
         </td>
       </tr>
