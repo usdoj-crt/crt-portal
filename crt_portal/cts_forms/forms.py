@@ -3168,6 +3168,13 @@ class ReportEditForm(LitigationHoldLock, ProForm, ActivityStreamUpdater):
             'class': 'usa-input'
         })
         self.fields['eeoc_office'].label = 'EEOC Office'
+        self.fields['eeoc_office'].widget = Select(
+            choices=EeocOffice.objects.filter(show=True).annotate(
+                display=Concat(F('name'), Value(' '), F('address_line_2'), Value(' '), F('address_city'), Value(', '),
+                               F('address_state'))).values_list('pk', 'display').order_by('order'),
+            attrs={'class': 'usa-input usa-select'},
+        )
+
         # TODO: Add the correct widget for eeoc_office
         # Look at make_phone_pro_form and get_phone_form_config and how that sets up the widget
 

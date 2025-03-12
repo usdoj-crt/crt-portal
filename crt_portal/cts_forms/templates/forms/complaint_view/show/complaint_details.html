@@ -265,7 +265,7 @@
         <th>EEOC Office</th>
         <td>
           <div class="details {% if details_form.errors %}display-none{% endif %}">
-            {{ data.eeoc_office.name|default:"—" }}
+            {{ data.eeoc_office|default:"—" }}
           </div>
           <div class="details-edit {% if not details_form.errors %}display-none{% endif %}">
             {{ details_form.eeoc_office }}
