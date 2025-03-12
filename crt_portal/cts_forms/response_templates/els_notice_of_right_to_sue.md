@@ -43,7 +43,7 @@ Because either 180 days have passed since you filed the above charge(s), or beca
 <br/>
 [%endoptional]
 
-If you decide to file a lawsuit under the statute(s) identified above, **you must file it in the appropriate court within 90 days of receiving this Notice**.  This Notice should not be taken to mean that the Department of Justice has made a judgment as to whether your charge is meritorious.  If you haven’t already, you may want to consult with a private attorney of your own choosing and expense. 
+If you decide to file a lawsuit under the statute(s) identified above, **<u>you must file it in the appropriate court within 90 days of receiving this Notice</u>**.  This Notice should not be taken to mean that the Department of Justice has made a judgment as to whether your charge is meritorious.  If you haven’t already, you may want to consult with a private attorney of your own choosing and expense. 
 
 If you have questions or wish to inspect the investigative file pertaining to this matter, please address your inquiry to the following EEOC office: {{ eeoc_office_name }}. Contact information for this office can be located at {{ eeoc_office_url }}.
 
