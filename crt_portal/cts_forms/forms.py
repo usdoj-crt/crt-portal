@@ -3124,14 +3124,7 @@ class ReportEditForm(LitigationHoldLock, ProForm, ActivityStreamUpdater):
 
         # required fields
         self.fields['primary_complaint'].widget = Select(choices=self.fields['primary_complaint'].choices, attrs={'class': 'usa-select'})
-
-        self.fields['protected_class'] = ModelMultipleChoiceField(
-            error_messages={'required': PROTECTED_CLASS_ERROR},
-            required=True,
-            label=PROTECTED_CLASS_QUESTION,
-            help_text=_('There are federal and state laws that protect people from discrimination based on their personal characteristics. Here is a list of the most common characteristics that are legally protected. Select any that apply to your incident.'),
-            queryset=ProtectedClass.active_choices.all().order_by('form_order')
-        )
+        self.fields['protected_class'].queryset = ProtectedClass.active_choices.all().order_by('form_order')
         self.fields['protected_class'].widget = SelectMultiple(choices=self.fields['protected_class'].choices, attrs={'class': 'height-10 width-mobile'})
         self.fields['servicemember'].widget = Select(choices=self.fields['servicemember'].choices, attrs={'class': 'usa-select'})
 
@@ -3175,12 +3168,7 @@ class ReportEditForm(LitigationHoldLock, ProForm, ActivityStreamUpdater):
         self.fields['eeoc_charge_number'].widget = TextInput(attrs={
             'class': 'usa-input'
         })
-
-        self.fields['eeoc_office'] = ModelChoiceField(
-            queryset=EeocOffice.objects.filter(show=True).order_by('order'),
-            label='EEOC Office',
-            required=False,
-        )
+        self.fields['eeoc_office'].queryset = EeocOffice.objects.filter(show=True).order_by('order')
         self.fields['eeoc_office'].widget = Select(
             attrs={'class': 'usa-input usa-select'},
             choices=EeocOffice.objects.filter(show=True).annotate(display=Concat(F('name'), Value(' '), F('address_line_2'), Value(' '), F('address_city'), Value(', '), F('address_state'))).values_list('pk', 'display').order_by('order')
