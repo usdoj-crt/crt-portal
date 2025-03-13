@@ -3217,8 +3217,7 @@ class ReportEditForm(LitigationHoldLock, ProForm, ActivityStreamUpdater):
 
     def clean(self):
         cleaned_data = super().clean()
-        cleaned_data = self.clean_dependent_fields(cleaned_data)
-        return cleaned_data
+        return self.clean_dependent_fields(cleaned_data)
 
     def update_activity_stream(self, user):
         """Generate activity log entry for summary if it was updated"""
