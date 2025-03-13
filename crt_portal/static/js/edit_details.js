@@ -57,22 +57,56 @@
   }
 
   function getFormState(form) {
-    //  Serialize form values into a comma delimited string
-    const serializedForm = new Array();
+    // Pull all formData out into a JS object
+    // Specific check to handle the tags field as that has special logic
+    // See usa_tag_select.html and usa_tag_select.js
+    const formData = {};
     [...form.elements].forEach(field => {
-      if (field.type != 'checkbox') {
-        serializedForm.push(field.value);
+      if (field.name == 'tags') {
+        if (!Object.hasOwn(formData, 'tags')) {
+          formData[field.name] = [];
+        }
+        formData[field.name].push(field.checked);
       } else {
-        serializedForm.push(field.checked);
+        if (field.type == 'checkbox') {
+          formData[field.name] = field.checked;
+        } else {
+          formData[field.name] = field.value;
+        }
       }
     });
-    return serializedForm.join(',');
+    return formData;
+  }
+
+  function hasFormStateChanged() {
+    // Check the current form state against the initial form state
+    // We want to check for Arrays specifically so we can sort them
+    // ensuring the values are the same regardless of order.
+    const currentState = getFormState(detailsForm);
+    for (const [key, value] of Object.entries(currentState)) {
+      if (Array.isArray(value)) {
+        const initialArray = initialState[key].slice().sort();
+        if (value.length != initialArray.length) {
+          return true;
+        }
+        const currentValueArray = value.slice().sort();
+        for (let i = 0; i < currentValueArray.length; i++) {
+          if (currentValueArray[i] !== initialArray[i]) {
+            return true;
+          }
+        }
+      } else {
+        if (value !== initialState[key]) {
+          return true;
+        }
+      }
+    }
+    return false;
   }
 
   function setButtonDisabled() {
     // Save Button only enabled if form has been modified
-    const currentState = getFormState(detailsForm);
-    if (initialState === currentState) {
+    if (!hasFormStateChanged()) {
       saveButton.setAttribute('disabled', true);
     } else {
       saveButton.removeAttribute('disabled');
@@ -89,7 +123,13 @@
       if (field.nodeName == 'INPUT' || field.nodeName == 'TEXTAREA') {
         field.addEventListener('input', setButtonDisabled);
       } else if (field.nodeName == 'SELECT') {
-        field.addEventListener('change', setButtonDisabled);
+        field.addEventListener('change', () => {
+          // Add a timeout here because sometimes setButtonDisabled was being called
+          // before the value actually updated in the field, resulting in incorrect state
+          setTimeout(() => {
+            setButtonDisabled(field);
+          });
+        });
       }
     });
   }
@@ -143,7 +183,7 @@
   }
 
   const detailsForm = document.getElementById('details-edit-form');
-  const saveButton = detailsForm.getElementsByTagName('button')[0];
+  const saveButton = detailsForm.getElementsByClassName('button--save')[0];
   const cancelButton = detailsForm.getElementsByClassName('button--cancel')[0];
   const primaryIssues = document.getElementById('id_primary_complaint');
 
@@ -152,6 +192,7 @@
   cancelButton.addEventListener('click', () => hideForm(detailsForm));
 
   const initialState = getFormState(detailsForm);
+  console.log('EditDetails: InitialState = ', initialState);
 
   addFormUpdateEvents(detailsForm);
   addShowFormHandler(detailsForm);
