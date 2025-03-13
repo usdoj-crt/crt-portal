@@ -16,13 +16,10 @@ def retrieve_and_save_next_url_in_session(request):
 
 @login_required
 def crt_loggedin_view(request):
-    print("CrtLogin: Logged In")
     next_page = request.session.pop("next_page")
     if next_page:
-        print("CrtLogin: Next Url = ", next_page)
         if url_has_allowed_host_and_scheme(next_page, None):
             safe_url = iri_to_uri(next_page)
-            print("CrtLogin: Safe Url = ", safe_url)
             return redirect(safe_url)
     return redirect('crt_landing_page')
 
