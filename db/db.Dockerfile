@@ -1,4 +1,4 @@
-FROM postgres:15.10-alpine
+FROM postgres:15.12-alpine
 RUN apk update
 
 # added for openssl vulnerability remediation
