@@ -192,7 +192,6 @@
   cancelButton.addEventListener('click', () => hideForm(detailsForm));
 
   const initialState = getFormState(detailsForm);
-  console.log('EditDetails: InitialState = ', initialState);
 
   addFormUpdateEvents(detailsForm);
   addShowFormHandler(detailsForm);
