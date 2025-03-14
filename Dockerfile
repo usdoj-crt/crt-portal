@@ -2,9 +2,9 @@
 FROM python:3.13.1
 
 # Set environment varibles,
-ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONDONTWRITEBYTECODE=1
 # brings output to the terminal
-ENV PYTHONUNBUFFERED 1
+ENV PYTHONUNBUFFERED=1
 
 # Set work directory
 WORKDIR /code
