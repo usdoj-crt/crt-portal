@@ -128,7 +128,8 @@ class ReportEdit(generics.CreateAPIView):
             report = get_object_or_404(Report, public_id=public_id)
             form = make_phone_pro_form(working_group)(user_changes, instance=report)
 
-        if not form.has_changed():
+        attachment_ids = user_changes.get('pro_form_attachment', None)
+        if not form.has_changed() and not attachment_ids:
             return JsonResponse({'messages': [
                 {
                     'message': 'No changes were made to the report.',
@@ -169,6 +170,22 @@ class ReportEdit(generics.CreateAPIView):
                 'type': 'success',
             }
         ]
+
+        # Assign associated report to any uploaded attachments
+        form_id = form.instance.public_id
+        if attachment_ids:
+            attachment_ids = attachment_ids.split(',')
+            # Pop the last element because we are appending a comma to the end of every id, including the last one
+            # Without popping the list removes the last value, which will always be ''.
+            attachment_ids.pop()
+            for attachment_id in attachment_ids:
+                try:
+                    attachment = ReportAttachment.objects.get(id=attachment_id)
+                    report = self.queryset.get(public_id=form_id)
+                    attachment.report = report
+                    attachment.save()
+                except ReportAttachment.DoesNotExist:
+                    continue
 
         all_changes = form.changed_data + server_changes
         all_data = {**form.data, **server_data}
