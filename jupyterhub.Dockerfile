@@ -2,8 +2,8 @@
 FROM python:3.13.1
 
 # Brings output to the terminal
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
 
 # Use a shared notebook directory
 RUN mkdir -p ./srv/jupyterhub
