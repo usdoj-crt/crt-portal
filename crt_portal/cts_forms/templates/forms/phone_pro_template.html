@@ -36,7 +36,7 @@
  
       {% if working_group == "ELS-CRU" %}
       <hr>
-      {% include 'partials/start_expandable.html' with title='Charging Party of Aggrieved Individual' expanded="true" %}
+      {% include 'partials/start_expandable.html' with title='Charging Party or Aggrieved Individual' expanded="true" %}
       {% endif %}
 
       <div class="grid-row margin-top-2">
@@ -251,6 +251,9 @@
       {{form.working_group}}
       {{form.intake_format}}
       {{form.pk}}
+      {% if working_group == "ELS-CRU" %}
+      <input type="hidden" id="pro_form_attachment" name="pro_form_attachment"></input>
+      {% endif %}
     </div>
   </div>
 </div>
@@ -297,6 +300,21 @@
 </div>
 </div>
 </form>
+{% if working_group == "ELS-CRU" %}
+<div class="grid-row">
+  <div class="intake-content grid-col-8">
+    <div class="response-wrapper"></div>
+    <div class="crt-portal-card">
+      <div class="crt-portal-card__content">
+        <h2 class="text-primary-darker" id="date">Attachments</h2>
+        <div class="display-flex flex-align-end grid-row">
+          {% include "forms/snippets/file_upload.html" with title="Attachments" %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
 
 {% endblock %}
 {% if ENABLED_FEATURES.nav_updates %}
@@ -325,6 +343,7 @@
 <script src="{% static 'js/report_phone.min.js' %}"></script>
 <script src="{% static 'js/async_report_edit.min.js' %}"></script>
 <script src="{% static 'js/state_hide_show.min.js' %}"></script>
+<script src="{% static 'js/pro_form_attachments.min.js' %}"></script>
 {% if ENABLED_FEATURES.nav_updates %}
     <script src="{% static 'js/side_nav_slider.min.js' %}"></script>
 {% endif %}
