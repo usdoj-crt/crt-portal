@@ -3,33 +3,49 @@ title: ELS - Notice of Right to Sue
 subject: 'Response: Your Civil Rights Division Report - {{ record_locator }} from the {{ section_name }} Section'
 language: en
 is_html: true
-show_in_dropdown: false
+show_in_dropdown: true
 ---
 
-{{ record_locator}}
+{{ record_locator }}
 
 **NOTICE OF RIGHT TO SUE WITHIN 90 DAYS**
 
 {{ outgoing_date }}
 
 {{ complainant_name }}
+
 {{ contact_email }}
 
 Re:       {{ complainant_name }} v. {{ organization_name }}, et al.,
-EEOC Charge No. {{ charge_number }}
+EEOC Charge No. {{ eeoc_charge_number }}
 
 {{ addressee }},
 
-The Department of Justice (DOJ) received the referral of your request for a Notice of Right to Sue from the Equal Employment Opportunity Commission (EEOC).
+You are receiving this notice because you filed the above charge(s) with the Equal Employment Opportunity Commission (EEOC), and you or your attorney specifically requested this notice. 
 
-This is to notify you that you have the right to file a lawsuit under Title VII of the Civil Rights Act of 1964, as amended, 42 U.S.C. Section 2000e et seq., against {{ organization_name }} because:
+Because either 180 days have passed since you filed the above charge(s), or because the EEOC has determined that it will not be able to conclude its administrative process within 180 days of the date it assumed jurisdiction of the charge(s), you are hereby notified that you have the right to file a lawsuit commencing a civil action based on the charge(s) under the following statute(s):
 
-- 180 days have passed since the date your charge of discrimination was filed with the EEOC, and
-- you requested a Notice of Right to Sue.
+[%optional group="Statute" name="Title VII"]
 
-This Notice is not a determination by DOJ of whether your charge of discrimination is meritorious.  If you decide to file a lawsuit under Title VII, you must file it in the appropriate court within 90 days of receiving this Notice.  If you haven’t already, you may want to consult with a private attorney of your own choosing and expense.  If you need assistance locating an attorney, you may contact the [EEOC](https://www.eeoc.gov/filing-lawsuit) or contact the appropriate court, since that court may appoint an attorney in certain circumstances under Section 706(f)(1) of Title VII, 42 U.S.C. 2000e-5(f)(1).
+- Title VII of the Civil Rights Act of 1964, 42 USC. 42 U.S.C. § 2000e, et seq.
+<br/>
+[%endoptional]
 
-If you have questions or need additional information, the investigative file pertaining to this matter is located at {{eeoc_district_office}}.
+[%optional group="Statute" name="PWFA"]
+
+- The Pregnant Workers Fairness Act, 42 U.S.C. § 2000gg, et seq.
+<br/>
+[%endoptional]
+
+[%optional group="Statute" name="Title I"]
+
+- Title I of the Americans with Disabilities Act, 42 U.S.C. § 12111, et seq.
+<br/>
+[%endoptional]
+
+If you decide to file a lawsuit under the statute(s) identified above, **<u>you must file it in the appropriate court within 90 days of receiving this Notice</u>**.  This Notice should not be taken to mean that the Department of Justice has made a judgment as to whether your charge is meritorious.  If you haven’t already, you may want to consult with a private attorney of your own choosing and expense. 
+
+If you have questions or wish to inspect the investigative file pertaining to this matter, please address your inquiry to the following EEOC office: {{ eeoc_office_name }}. Contact information for this office can be located at {{ eeoc_office_url }}.
 
 Sincerely,
 

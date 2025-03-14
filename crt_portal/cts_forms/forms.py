@@ -3095,7 +3095,7 @@ class ReportEditForm(LitigationHoldLock, ProForm, ActivityStreamUpdater):
             'violation_summary',
         ]
 
-        fields = ProForm.Meta.fields + ['eeoc_charge_number', 'tags', 'location_zipcode']
+        fields = ProForm.Meta.fields + ['eeoc_charge_number', 'eeoc_office', 'tags', 'location_zipcode']
 
     def success_message(self):
         return self.SUCCESS_MESSAGE
@@ -3124,7 +3124,8 @@ class ReportEditForm(LitigationHoldLock, ProForm, ActivityStreamUpdater):
 
         # required fields
         self.fields['primary_complaint'].widget = Select(choices=self.fields['primary_complaint'].choices, attrs={'class': 'usa-select'})
-        self.fields['protected_class'].widget = SelectMultiple(choices=reported_reason_proform(), attrs={'class': 'height-10 width-mobile'})
+        self.fields['protected_class'].queryset = ProtectedClass.active_choices.all().order_by('form_order')
+        self.fields['protected_class'].widget = SelectMultiple(choices=self.fields['protected_class'].choices, attrs={'class': 'height-10 width-mobile'})
         self.fields['servicemember'].widget = Select(choices=self.fields['servicemember'].choices, attrs={'class': 'usa-select'})
 
         # primary_complaint dependents, optional
@@ -3167,6 +3168,12 @@ class ReportEditForm(LitigationHoldLock, ProForm, ActivityStreamUpdater):
         self.fields['eeoc_charge_number'].widget = TextInput(attrs={
             'class': 'usa-input'
         })
+        self.fields['eeoc_office'].queryset = EeocOffice.objects.filter(show=True).order_by('order')
+        self.fields['eeoc_office'].widget = Select(
+            attrs={'class': 'usa-input usa-select'},
+            choices=EeocOffice.objects.filter(show=True).annotate(display=Concat(F('name'), Value(' '), F('address_line_2'), Value(' '), F('address_city'), Value(', '), F('address_state'))).values_list('pk', 'display').order_by('order')
+        )
+        self.fields['eeoc_office'].widget.required = False
 
     @cached_property
     def changed_data(self):
@@ -3183,7 +3190,6 @@ class ReportEditForm(LitigationHoldLock, ProForm, ActivityStreamUpdater):
                     # the modification
                     if self[field].initial:
                         changed_data.append(field)
-
         return changed_data
 
     def clean_dependent_fields(self, cleaned_data):
