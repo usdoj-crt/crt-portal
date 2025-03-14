@@ -185,6 +185,7 @@ class ReportEdit(generics.CreateAPIView):
                     attachment.report = report
                     attachment.save()
                 except ReportAttachment.DoesNotExist:
+                    print(f"ReportEdit: WARNING: Failed to assign attachment: {attachment_id} to report: {form_id}. The ReportAttachment object does not exist.")
                     continue
 
         all_changes = form.changed_data + server_changes
