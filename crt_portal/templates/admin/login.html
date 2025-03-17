@@ -1,0 +1,7 @@
+{% extends "admin/login.html" %}
+{% load get_env %}
+
+{% block content %}
+{% environment as env %}
+{% include "authentication_page.html" %}
+{% endblock %}
