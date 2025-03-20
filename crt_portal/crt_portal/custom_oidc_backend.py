@@ -9,21 +9,20 @@ def generate_username(email, claims):
 
 
 class CrtAuthenticationBackend(OIDCAuthenticationBackend):
-    def verify_claims(self, claims):
-        verified = super(CrtAuthenticationBackend, self).verify_claims(claims)
-        user_exists = User.objects.filter(email=claims.get('email')).exists()
-
-        if verified and user_exists:
-            return True
-        return False
-
     def create_user(self, claims):
-        user_exists = User.objects.filter(username=claims.get('sam_account_name')).exists()
-        if not user_exists:
+        user = None
+        account_name = claims.get('adsamAccountName')
+        user_exists = User.objects.filter(username=account_name).exists()
+
+        if user_exists:
+            print(f"CustomOidcBackend: INFO: User with {account_name} found.")
+            user = User.objects.get(username=account_name)
+        else:
+            print(f"CustomOidcBackend: INFO: User with {account_name} does not exist. Creating a new user with email instead.")
             user = super(CrtAuthenticationBackend, self).create_user(claims)
-            return user
-        user = User.objects.get(username=claims.get('sam_account_name'))
+
         user.email = claims.get('email')
         user.save()
 
+        print(f"CustomOidcBackend: INFO: Updated user info: {user}")
         return user
