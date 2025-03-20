@@ -306,6 +306,7 @@ class ResponseTemplatePreviewBase:
             extra_markdown_extensions = []
         if isinstance(body, list):
             body = ''.join(body)
+        body = ResponseTemplate.allow_whitelisted_template_code(body)
         body = self._add_css(body)
         del kwargs  # Allow for extra, unused render variables.
         context = self._make_example_context()
