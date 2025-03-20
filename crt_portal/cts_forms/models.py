@@ -2,6 +2,7 @@
 from typing import Optional, List
 import itertools
 import logging
+import re
 import time
 import uuid
 from datetime import datetime, timedelta
@@ -59,6 +60,7 @@ from .validators import validate_file_attachment, validate_email_address, valida
 
 logger = logging.getLogger(__name__)
 User = get_user_model()
+template_code_re = re.compile("({+%+|%+}+)")
 
 
 def get_system_user():
@@ -1213,7 +1215,7 @@ class ResponseTemplate(models.Model):
 
     @staticmethod
     def allow_whitelisted_template_code(b):
-        b = b.replace("{%", "").replace("%}", "")
+        b = template_code_re.sub("", b)
         allowed_codes = {
             "%%load_app_contact": "{% load application_contact %}",
             "%%assigned_report_list": """
