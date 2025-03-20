@@ -16,8 +16,9 @@ def retrieve_and_save_next_url_in_session(request):
 
 @login_required
 def crt_loggedin_view(request):
-    next_page = request.session.pop("next_page")
+    next_page = request.session.get("next_page")
     if next_page:
+        request.session.pop("next_page")
         if url_has_allowed_host_and_scheme(next_page, None):
             safe_url = iri_to_uri(next_page)
             return redirect(safe_url)
