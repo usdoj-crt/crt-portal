@@ -1217,6 +1217,8 @@ class ResponseTemplate(models.Model):
     def allow_whitelisted_template_code(b):
         b = template_code_re.sub("", b)
         allowed_codes = {
+            "%%verbatim_start": "{% verbatim %}",
+            "%%verbatim_end": "{% endverbatim %}",
             "%%load_app_contact": "{% load application_contact %}",
             "%%assigned_report_list": """
             {% for r in reports %}

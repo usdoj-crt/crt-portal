@@ -33,7 +33,7 @@ All of our templates support a few special variables. They are:
 
 ### How do I use them?
 
-{% verbatim %}
+%%verbatim_start
 To use a variable, you need to surround it with `{{ }}`.
 
 For instance, considering the above examples, to show:
@@ -48,7 +48,7 @@ you'd write:
 {{ addressee }} who lives at {{ contact_address_line_1 }}
 ```
 
-{% endverbatim %}
+%%verbatim_end
 
 ### How do I know they're working?
 
