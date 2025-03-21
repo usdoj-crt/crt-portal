@@ -2,6 +2,7 @@
 from typing import Optional, List
 import itertools
 import logging
+import re
 import time
 import uuid
 from datetime import datetime, timedelta
@@ -59,6 +60,7 @@ from .validators import validate_file_attachment, validate_email_address, valida
 
 logger = logging.getLogger(__name__)
 User = get_user_model()
+template_code_re = re.compile("({+%+|%+}+)")
 
 
 def get_system_user():
@@ -1211,6 +1213,25 @@ class ResponseTemplate(models.Model):
 
     optionals = None
 
+    @staticmethod
+    def allow_whitelisted_template_code(b):
+        b = template_code_re.sub("", b)
+        allowed_codes = {
+            "%%verbatim_start": "{% verbatim %}",
+            "%%verbatim_end": "{% endverbatim %}",
+            "%%load_app_contact": "{% load application_contact %}",
+            "%%assigned_report_list": """
+            {% for r in reports %}
+            - [Report {{r.id}}](/form/view/{{r.id}})
+            {% endfor %}
+            """,
+        }
+
+        for k in allowed_codes:
+            b = b.replace(k, allowed_codes[k])
+
+        return b
+
     def utc_timezone_to_est(self, utc_dt):
         local_tz = pytz.timezone('US/Eastern')
         local_dt = utc_dt.replace(tzinfo=pytz.utc).astimezone(local_tz)
@@ -1316,7 +1337,7 @@ class ResponseTemplate(models.Model):
         })
 
     def render_subject(self, report, **kwargs):
-        template = Template(self.subject)
+        template = Template(self.allow_whitelisted_template_code(self.subject))
         context = self.available_report_fields(report)
         context.update({**kwargs, 'report': report})
         return escape(template.render(context))
@@ -1326,7 +1347,7 @@ class ResponseTemplate(models.Model):
             extensions = []
         if optionals is None:
             optionals = self.optionals
-        template = Template(self.body)
+        template = Template(self.allow_whitelisted_template_code(self.body))
         context = self.available_report_fields(report)
         context.update({**kwargs, 'report': report})
         rendered = template.render(context)
@@ -1335,7 +1356,7 @@ class ResponseTemplate(models.Model):
         return rendered.replace('\n', '<br>')
 
     def render_body(self, report, **kwargs):
-        template = Template(self.body)
+        template = Template(self.allow_whitelisted_template_code(self.body))
         context = self.available_report_fields(report)
         context.update({**kwargs, 'report': report})
         return escape(template.render(context))
@@ -1343,7 +1364,7 @@ class ResponseTemplate(models.Model):
     def render_plaintext(self, report, optionals=None, **kwargs):
         if optionals is None:
             optionals = self.optionals
-        template = Template(self.body)
+        template = Template(self.allow_whitelisted_template_code(self.body))
         context = self.available_report_fields(report)
         context.update({**kwargs, 'report': report})
         rendered = template.render(context)
@@ -1351,13 +1372,13 @@ class ResponseTemplate(models.Model):
         return escape('\n'.join(optional_processor.run(rendered.split('\n'))))
 
     def render_bulk_subject(self, report, reports, **kwargs):
-        template = Template(self.subject)
+        template = Template(self.allow_whitelisted_template_code(self.subject))
         context = self.available_report_fields(report)
         context.update({**kwargs, 'report': report, 'reports': reports})
         return escape(template.render(context))
 
     def render_bulk_body(self, report, reports, **kwargs):
-        template = Template(self.body)
+        template = Template(self.allow_whitelisted_template_code(self.body))
         context = self.available_report_fields(report)
         context.update({**kwargs, 'report': report, 'reports': reports})
         return escape(template.render(context))

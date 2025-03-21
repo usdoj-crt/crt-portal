@@ -10,9 +10,7 @@ Hello,
 
 You have been assigned {{reports|length}} reports in the CRT Reporting Portal, which takes in reports from the public at [civilrights.justice.gov](https://civilrights.justice.gov):
 
-{% for r in reports %}
-- [Report {{r.id}}](/form/view/{{r.id}})
-{% endfor %}
+%%assigned_report_list
 
 After reviewing the links above, you can:
 
