@@ -480,7 +480,7 @@ class ResponseAction(APIView):
         template_id = request.data.get('template_id')
         if template_id is None:
             return JsonResponse({'response': 'Referral email failed to send: No template id provided!'}, status=400)
-        template = get_object_or_404(ResponseTemplate, pk=template_id)
+        template = get_object_or_404(ResponseTemplate, pk=template_id, show_in_dropdown=True)
         action = request.data['action']
         recipient = request.data.get('recipient', None)
         complainant_letter, agency_letter = build_letters(
