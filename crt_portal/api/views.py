@@ -366,7 +366,7 @@ class ResponseList(generics.ListAPIView):
 
 
 class ResponseDetail(generics.RetrieveAPIView):
-    queryset = ResponseTemplate.objects.all()
+    queryset = ResponseTemplate.objects.filter(show_in_dropdown=True).all()
     serializer_class = ResponseTemplateSerializer
     permission_classes = (IsAuthenticated,)
 
