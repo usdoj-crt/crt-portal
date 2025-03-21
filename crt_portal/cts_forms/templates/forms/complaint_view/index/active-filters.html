@@ -14,7 +14,7 @@
     data-filter-name="{{key}}"
     data-filter-value="{{item}}"
   >
-    <span>{{ 'Report'|get_field_label:key }}: {{markup | safe}}</span>
+    <span>{{ 'Report'|get_field_label:key }}: {{markup}}</span>
     <img src="{% static 'img/intake-icons/ic_close.svg' %}" class="icon right" alt="close">
   </button>
 {% endwith %}
