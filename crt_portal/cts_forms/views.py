@@ -2202,6 +2202,12 @@ def phone_pro_form_view(request, report_id=None, working_group=None):
         case "ELS-CRU":
             title = "CRU Intake Form"
 
+    attachment_data = request.POST.get('pro_form_attachment', None)
+    attachments = None
+    if attachment_data:
+        attachment_ids = attachment_data.split(',')[:-1]
+        attachments = list(map(lambda id: get_object_or_404(ReportAttachment, pk=int(id)), attachment_ids))
+
     return render(
         request,
         'forms/phone_pro_template.html',
@@ -2240,6 +2246,9 @@ def phone_pro_form_view(request, report_id=None, working_group=None):
             'form': form,
 
             'working_group': working_group,
+
+            'pro_form_attachments': attachments,
+
         }
     )
 

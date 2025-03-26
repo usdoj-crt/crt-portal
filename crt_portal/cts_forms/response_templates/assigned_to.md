@@ -6,7 +6,7 @@ is_html: true
 is_notification: true
 ---
 
-{% load application_contact %}
+%%load_app_contact
 
 Hello,
 

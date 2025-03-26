@@ -1,18 +1,4 @@
 {% extends "base.html" %}
-
 {% block content %}
-<div class="grid-container">
-  <div class="grid-row">
-    <div class="tablet:grid-col-7 tablet:grid-offset-3">
-      <h2>Login</h2>
-      <p>Please note this process will be replaced with DOJ single sign on.</p>
-      <form label="log in form" method="post">
-        {% csrf_token %}
-        <input type="hidden" name="next" value="{{ next }}" />
-        {{ form.as_p }}
-        <button label="login" type="submit" id="login" class="usa-button">Login</button>
-      </form>
-    </div>
-  </div>
-</div>
+{% include "authentication_page.html" %}
 {% endblock %}
