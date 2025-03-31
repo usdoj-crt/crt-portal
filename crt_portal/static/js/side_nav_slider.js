@@ -30,4 +30,11 @@
   }
 
   window.addEventListener('DOMContentLoaded', setUpSideNav);
+  window.addEventListener('click', ({ target }) => {
+    const addModal = document.querySelector('.add-modal');
+    const addRecord = document.querySelector('.add-record-target');
+    if (target != addModal && target != addRecord) {
+      addModal.hidden = true
+    }
+  });
 })(window, document);
