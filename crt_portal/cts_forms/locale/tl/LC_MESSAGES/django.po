@@ -3419,6 +3419,66 @@ msgstr ""
 "panibagong tab o window ng browser. Magbibigay ito ng isang panibagong "
 "security cookie sayo at maaaring maglutas sa problema."
 
+#: templates/partials/message_dei_discrimination.html:7
+msgid "Do you believe you have been discriminated against because of diversity, equity and inclusion?"
+msgstr "Naniniwala ka ba na nadiskrimina ka dahil sa pagkakaiba-iba, pagkakapantay-pantay at pagsasama-sama?"
+
+#: templates/dei-discrimination.html:6 templates/dei-discrimination.html:13
+# msgid "Civil Rights Division - Department of Justice - Get help for discrimination from DEI programs"
+# msgstr "La División de Derechos Civiles - Departamento de Justicia - Consiga ayuda para discriminación resultando de un programa de diversidad, equidad e inclusión"
+
+#: templates/dei-discrimination.html:28
+msgid "Report to Civil Rights Division"
+msgstr "Mag-ulat sa Dibisyon ng Mga Karapatang Sibil"
+
+#: templates/dei-discrimination.html:31
+msgid "Report to Another Agency"
+msgstr "Mag-ulat sa Ibang Ahensya"
+
+#: templates/dei-discrimination.html:38
+msgid "Get help for illegal discrimination resulting from diversity, equity, and inclusion programs."
+msgstr "Kumuha ng tulong para sa iligal na diskriminasyon na nagreresulta mula sa pagkakaiba-iba (diversity), pagkakapantay-pantay (equity), at mga programa sa pagsasama-sama (inclusion programs)."
+
+#: templates/dei-discrimination.html:45
+msgid "Illegal discrimination is the denial of equal opportunity to access employment, housing, lending, schooling, public accommodations, or federally funded programs or activities because of protected traits like race, sex, national origin, or religion."
+msgstr "Ang iligal na diskriminasyon ay ang pagtanggi ng pantay na pagkakataon na magkaroon ng access sa trabaho, pabahay, pagpapautang, pag-aaral, pampublikong akomodasyon, o mga programa o mga pinondohang pederal na mga aktibidad dahil sa mga protektadong katangian katulad ng lahi, kasarian, bansang pinagmulan, o relihiyon."
+
+#: templates/dei-discrimination.html:48
+msgid "If you believe you may have experienced such discrimination as the result of diversity, equity, and inclusion preferences, mandates, policies, programs, or activities, you can report it to the Civil Rights Division using <a class='external-link--blue' href='https://civilrights.justice.gov/link/diversity_equity_inclusion_illegal_discrimination'>this reporting portal</a>. Or you can report it to one of the agencies listed below:"
+msgstr "Kung naniniwala ka na nakaranas ng naturang diskriminasyon bilang resulta ng mga pagkakaiba-iba, pagkakapantay-pantay, at mga kagustuhan sa pagsasama-sama, utos, patakaran, programa, o aktibidad, maaari mo itong iulat sa Dibisyon ng Mga Karapatang Sibil (Civil Rights Division) gamit ang <a class='external-link--blue' href='https://civilrights.justice.gov/link/diversity_equity_inclusion_illegal_discrimination'>portal ng pag-uulat na ito</a>. O maaari mo itong iulat sa isa sa mga ahensyang nakalista sa ibaba:"
+
+#: templates/dei-discrimination.html:54
+msgid "In education programs or activities:"
+msgstr "Sa mga programa o aktibidad sa edukasyon:"
+
+#: templates/dei-discrimination.html:56
+msgid "If you are a parent, student, or teacher who believes your rights have been violated as a result of a diversity, equity, and inclusion policy, program, or practice in a publicly funded K–12 school, college, or university, you may submit a report to the U.S. Department of Education at <a class='external-link--blue' href='https://enddei.ed.gov/'>EndDEI.Ed.Gov</a>."
+msgstr "Kung ikaw ay isang magulang, mag-aaral, o guro na naniniwala na ang iyong mga karapatan ay nilabag bilang resulta ng isang pagkakaiba-iba, pagkakapantay-pantay, at patakaran sa pagsasama, programa, o kasanayan sa isang K–12 na paaralan, kolehiyo, o unibersidad na pinondohan ng publiko, maaari kang magsumite ng ulat sa U.S. Department of Education sa <a class='external-link--blue' href='https://enddei.ed.gov/'>EndDEI.Ed.Gov</a>."
+
+#: templates/dei-discrimination.html:58
+msgid "In employment:"
+msgstr "Sa trabaho:"
+
+#: templates/dei-discrimination.html:60
+msgid "If you believe your employment rights have been violated as a result of a diversity, equity, and inclusion workplace policy, program, or practice, you may <a class='external-link--blue' href='https://www.eeoc.gov/filing-charge-discrimination'>file a charge</a> with the EEOC. For more information about how civil rights laws may apply to employment policies, programs, and practices resulting from unlawful DEI, see the following resources:"
+msgstr "Kung naniniwala kang nalabag ang iyong mga karapatan sa pagtatrabaho bilang resulta ng pagkakaiba-iba, pagkakapantay-pantay, at pagsasama-sama ng patakaran, programa, o kasanayan sa lugar ng trabaho, maaari kang <a class='external-link--blue' href='https://www.eeoc.gov/filing-charge-discrimination'>magsampa ng kaso</a> sa Equal Employment Opportunity Commission (EEOC). Para sa higit pang impormasyon tungkol sa kung paano maaaring ilapat ang mga batas sa karapatang sibil sa mga patakaran, programa, at kasanayan sa pagtatrabaho na nagreresulta mula sa labag sa batas na pagkakaiba-iba, pagkakapantay-pantay at pagsasama-sama (Diversity, Equity and Inclusion, DEI), tingnan ang mga sumusunod na mapagkukunan:"
+
+#: templates/dei-discrimination.html:64
+msgid "What To Do If You Experience Discrimination Related to DEI at Work"
+msgstr "Ano ang Gagawin Kung Nakaranas ka ng Diskriminasyong Kaugnay sa DEI sa Trabaho"
+
+#: templates/dei-discrimination.html:69
+msgid "What You Should Know About DEI-Related Discrimination at Work"
+msgstr "Ano ang Dapat Mong Malaman Tungkol sa Diskriminasyon na Kaugnay ng DEI sa Trabaho"
+
+#: templates/dei-discrimination.html:72
+msgid "In housing or lending:"
+msgstr "Sa pabahay o pagpapautang:"
+
+#: templates/dei-discrimination.html:74
+msgid "If you believe your housing or lending rights have been violated as a result of a diversity, equity, and inclusion policy, program, or practice, you may file a complaint with the Department of Housing and Urban Development <a class='external-link--blue' href='https://www.hud.gov/i_want_to/file_a_fair_housing_discrimination_complaint'>here</a> or the Consumer Financial Protection Bureau <a class='external-link--blue' href='https://www.consumerfinance.gov/complaint/'>here</a>."
+msgstr "Kung naniniwala kang nalabag ang iyong mga karapatan sa pabahay o pagpapautang bilang resulta ng pagkakaiba-iba, pagkakapantay-pantay, at patakaran sa pagsasama-sama, programa, o kasanayan, maaari kang magsampa ng reklamo sa Department of Housing and Urban Development <a class='external-link--blue' href='https://www.hud.gov/i_want_to/file_a_fair_housing_discrimination_complaint'>dito</a> o sa Consumer Financial Protection Bureau <a class='external-link--blue' href='https://www.consumerfinance.gov/complaint/'>dito</a>."
+
 #~ msgid "Sex, and sexual orientation"
 #~ msgstr "Kasarian, pagkakakilanlan ng kasarian, at orientasyong sekswal"
 
