@@ -176,7 +176,7 @@ hr {
   overflow-y: scroll;
 }
 
-.side-nav .subnav {
+.side-nav .subnav, .side-nav .sign-out {
   display: none;
 }
 
@@ -209,6 +209,10 @@ hr {
     text-decoration: none;
     font-size: 14px;
   }
+}
+
+.side-nav.open .sign-out {
+  display: block;
 }
 
 .side-nav .add-modal {

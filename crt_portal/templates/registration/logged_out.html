@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="grid-container">
+    <div class="grid-row">
+      <div class="tablet:grid-col-7 tablet:grid-offset-3">
+        <h2>Logged out</h2>
+        <p>You have been successfully logged out.</p>
+        {% if env != "PRODUCTION" and env != "STAGE" %}
+        <p><a href="/accounts/login/?next=/form/view/">Log in again</a></p>
+        {% else %}
+        <p><a href="/crt-login/login/?next=/form/view/">Log in again</a></p>
+        {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
