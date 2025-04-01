@@ -1,0 +1,88 @@
+{% extends "landing.html" %}
+
+{% load i18n %}
+
+{% block meta_title %}
+  {% trans "Civil Rights Division - Department of Justice - Get help for discrimination from DEI programs" as meta_title %}
+  <meta property="og:title" content="{{meta_title}}" />
+  <meta property="name" content="{{meta_title}}" />
+{% endblock meta_title %}
+
+{% block page_title %}
+  <title>
+    {% trans "Civil Rights Division - Department of Justice - Get help for discrimination from DEI programs" %}
+  </title>
+{% endblock %}
+
+{% block content %}
+<div class="crt-landing--section crt-landing--pale crt-subpage">
+  <div class="grid-container">
+    <div class="grid-row grid-gap">
+      <div class="tablet:grid-col-4">
+        <ul class="usa-sidenav crt-subpage--nav" id="toc">
+          <li class="usa-sidenav__item">
+            <a href="#get-help" class="usa-current">{% trans "Get help" %}</a>
+          </li>
+          <ul class="sublist">
+            <li class="usa-sidenav__item">
+              <a href="#report-to-civil-rights-division">{% trans "Report to Civil Rights Division" %}</a>
+            </li>
+            <li class="usa-sidenav__item">
+              <a href="#report-to-another-agency">{% trans "Report to Another Agency" %}</a>
+            </li>
+          </ul>
+        </ul>
+      </div>
+      <div class="tablet:grid-col-8">
+        <h1 id="get-help">
+          {% trans "Get help for illegal discrimination resulting from diversity, equity, and inclusion programs." %}
+        </h1>
+        <div class="crt-landing--separator"></div>
+
+        <section id="report-to-civil-rights-division">
+          <h2>{% trans "Report to Civil Rights Division" %}</h2>
+          <p>
+            {% trans "Illegal discrimination is the denial of equal opportunity to access employment, housing, lending, schooling, public accommodations, or federally funded programs or activities because of protected traits like race, sex, national origin, or religion." %}
+          </p>
+          <p>
+            {% trans "If you believe you may have experienced such discrimination as the result of diversity, equity, and inclusion preferences, mandates, policies, programs, or activities, you can report it to the Civil Rights Division using <a class='external-link--blue' href='https://civilrights.justice.gov/link/diversity_equity_inclusion_illegal_discrimination'>this reporting portal</a>. Or you can report it to one of the agencies listed below:" %}
+          </p>
+        </section>
+
+        <section id="report-to-another-agency">
+          <h2>{% trans "Report to Another Agency" %}</h2>
+          <h3>{% trans "In education programs or activities:" %}</h3>
+          <p>
+            {% trans "If you are a parent, student, or teacher who believes your rights have been violated as a result of a diversity, equity, and inclusion policy, program, or practice in a publicly funded K–12 school, college, or university, you may submit a report to the U.S. Department of Education at <a class='external-link--blue' href='https://enddei.ed.gov/'>EndDEI.Ed.Gov</a>." %}
+          </p>
+          <h3>{% trans "In employment:" %}</h3>
+          <p>
+            {% trans "If you believe your employment rights have been violated as a result of a diversity, equity, and inclusion workplace policy, program, or practice, you may <a class='external-link--blue' href='https://www.eeoc.gov/filing-charge-discrimination'>file a charge</a> with the EEOC. For more information about how civil rights laws may apply to employment policies, programs, and practices resulting from unlawful DEI, see the following resources:" %}
+          </p>
+          <p>
+            <a class="external-link--blue" href="https://www.eeoc.gov/what-do-if-you-experience-discrimination-related-dei-work?utm_medium=email&utm_source=govdelivery">
+              {% trans "What To Do If You Experience Discrimination Related to DEI at Work" %}
+            </a>
+          </p>
+          <p>
+            <a class="external-link--blue" href="https://www.eeoc.gov/wysk/what-you-should-know-about-dei-related-discrimination-work?utm_medium=email&utm_source=govdelivery">
+              {% trans "What You Should Know About DEI-Related Discrimination at Work" %}
+            </a>
+          </p>
+          <h3>{% trans "In housing or lending:" %}</h3>
+          <p>
+            {% trans "If you believe your housing or lending rights have been violated as a result of a diversity, equity, and inclusion policy, program, or practice, you may file a complaint with the Department of Housing and Urban Development <a class='external-link--blue' href='https://www.hud.gov/i_want_to/file_a_fair_housing_discrimination_complaint'>here</a> or the Consumer Financial Protection Bureau <a class='external-link--blue' href='https://www.consumerfinance.gov/complaint/'>here</a>." %}
+          </p>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block page_js %}
+<script src="{% static 'js/modal.min.js' %}"></script>
+<script src="{% static 'js/redirect-modal.min.js' %}"></script>
+<script src="{% static 'vendor/gumshoe.min.js' %}"></script>
+<script src="{% static 'js/highlight_active_header.js' %}"></script>
+{% endblock %}

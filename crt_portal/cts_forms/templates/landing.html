@@ -81,8 +81,10 @@
   <!-- display only when voting toggle is on -->
       {% include "partials/important_message_voting.html" %}
       {% include "partials/message_hate_crime.html" %}
+      {% include "partials/message_dei_discrimination.html" %}
   {% else %}
       {% include "partials/important_message.html" %}
+      {% include "partials/message_dei_discrimination.html" %}
   {% endif %}
 
 
