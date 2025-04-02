@@ -3369,6 +3369,66 @@ msgstr ""
 "này trong cửa sổ hoặc tab trình duyệt mới. Điều đó sẽ tạo cho quý vị một "
 "cookie bảo mật mới và sẽ giải quyết được sự cố."
 
+#: templates/partials/message_dei_discrimination.html:7
+msgid "Do you believe you have been discriminated against because of diversity, equity and inclusion?"
+msgstr "Quý vị có tin rằng mình đã bị phân biệt đối xử do các hoạt động về sự đa dạng, bình đẳng và hòa nhập không?"
+
+#: templates/dei-discrimination.html:6 templates/dei-discrimination.html:13
+msgid "Civil Rights Division - Department of Justice - Get help for illegal discrimination resulting from diversity, equity, and inclusion programs"
+msgstr "Ban Dân Quyền - Bộ Tư pháp - Tìm kiếm sự trợ giúp giải quyết tình trạng phân biệt đối xử trái phép từ các chương trình đa dạng, bình đẳng và hòa nhập"
+
+#: templates/dei-discrimination.html:28
+msgid "Report to Civil Rights Division"
+msgstr "Báo Cáo cho Bộ Phận Dân Quyền"
+
+#: templates/dei-discrimination.html:31
+msgid "Report to Another Agency"
+msgstr "Báo Cáo cho Cơ Quan Khác"
+
+#: templates/dei-discrimination.html:38
+msgid "Get help for illegal discrimination resulting from diversity, equity, and inclusion programs."
+msgstr "Tìm kiếm sự trợ giúp giải quyết tình trạng phân biệt đối xử trái phép từ các chương trình đa dạng, bình đẳng và hòa nhập."
+
+#: templates/dei-discrimination.html:45
+msgid "Illegal discrimination is the denial of equal opportunity to access employment, housing, lending, schooling, public accommodations, or federally funded programs or activities because of protected traits like race, sex, national origin, or religion."
+msgstr "Hành vi phân biệt đối xử trái phép là hành vi phủ nhận cơ hội bình đẳng trong việc tiếp cận việc làm, nhà ở, vay mượn, trường học, tạo điều kiện nơi công cộng hoặc các chương trình hay hoạt động do liên bang tài trợ vì những đặc điểm được bảo vệ như chủng tộc, giới tính, quốc tịch hoặc tôn giáo."
+
+#: templates/dei-discrimination.html:48
+msgid "If you believe you may have experienced such discrimination as the result of diversity, equity, and inclusion preferences, mandates, policies, programs, or activities, you can report it to the Civil Rights Division using <a class='external-link--blue' href='https://civilrights.justice.gov/link/diversity_equity_inclusion_illegal_discrimination'>this reporting portal</a>. Or you can report it to one of the agencies listed below:"
+msgstr "Nếu quý vị tin rằng mình đã bị phân biệt đối xử như vậy do sự ưu tiên, quy định, chính sách, chương trình hoặc hoạt động liên quan đến đa dạng, bình đẳng và hòa nhập, quý vị có thể báo cáo trường hợp này cho Bộ Phận Dân Quyền thông qua <a class='external-link--blue' href='https://civilrights.justice.gov/link/diversity_equity_inclusion_illegal_discrimination'>cổng thông tin báo cáo này</a>. Hoặc quý vị có thể báo cáo cho một trong các cơ quan được liệt kê bên dưới:"
+
+#: templates/dei-discrimination.html:54
+msgid "In education programs or activities:"
+msgstr "Về các chương trình hoặc hoạt động giáo dục:"
+
+#: templates/dei-discrimination.html:56
+msgid "If you are a parent, student, or teacher who believes your rights have been violated as a result of a diversity, equity, and inclusion policy, program, or practice in a publicly funded K–12 school, college, or university, you may submit a report to the U.S. Department of Education at <a class='external-link--blue' href='https://enddei.ed.gov/'>EndDEI.Ed.Gov</a>."
+msgstr "Nếu quý vị là cha mẹ, học sinh hoặc giáo viên và quý vị tin rằng mình đã bị xâm phạm quyền hạn do chính sách, chương trình hoặc hoạt động về đa dạng, bình đẳng và hòa nhập ở một trường học từ mẫu giáo đến lớp 12, cao đẳng hoặc đại học công lập thì quý vị có thể gửi báo cáo cho Bộ Giáo Dục Hoa Kỳ tại địa chỉ <a class='external-link--blue' href='https://enddei.ed.gov/'>EndDEI.Ed.Gov</a>."
+
+#: templates/dei-discrimination.html:58
+msgid "In employment:"
+msgstr "Về việc làm:"
+
+#: templates/dei-discrimination.html:60
+msgid "If you believe your employment rights have been violated as a result of a diversity, equity, and inclusion workplace policy, program, or practice, you may <a class='external-link--blue' href='https://www.eeoc.gov/filing-charge-discrimination'>file a charge</a> with the EEOC. For more information about how civil rights laws may apply to employment policies, programs, and practices resulting from unlawful DEI, see the following resources:"
+msgstr "Nếu quý vị tin rằng quyền lao động của mình bị xâm phạm do chính sách, chương trình hoặc hoạt động về đa dạng, bình đẳng và hòa nhập thì quý vị có thể <a class='external-link--blue' href='https://www.eeoc.gov/filing-charge-discrimination'>nộp đơn khiếu nại</a> cho Ủy Ban Cơ Hội Việc Làm Công Bằng (Equal Employment Opportunity Commission, EEOC). Để biết thêm thông tin về cách áp dụng luật dân quyền vào các chính sách, chương trình và hoạt động liên quan đến việc làm do có hành vi trái pháp luật về Đa Dạng, Bình Đẳng và Hòa Nhập (Diversity, Equity and Inclusion, DEI), hãy xem các nguồn lực sau:"
+
+#: templates/dei-discrimination.html:64
+msgid "What To Do If You Experience Discrimination Related to DEI at Work"
+msgstr "Nên Làm Gì Nếu Quý Vị Bị Phân Biệt Đối Xử Liên Quan Đến DEI Tại Nơi Làm Việc"
+
+#: templates/dei-discrimination.html:69
+msgid "What You Should Know About DEI-Related Discrimination at Work"
+msgstr "Quý Vị Nên Biết Điều Gì Về Hành Vi Phân Biệt Đối Xử Liên Quan Đến DEI Tại Nơi Làm Việc"
+
+#: templates/dei-discrimination.html:72
+msgid "In housing or lending:"
+msgstr "Về nhà ở hoặc vay mượn:"
+
+#: templates/dei-discrimination.html:74
+msgid "If you believe your housing or lending rights have been violated as a result of a diversity, equity, and inclusion policy, program, or practice, you may file a complaint with the Department of Housing and Urban Development <a class='external-link--blue' href='https://www.hud.gov/i_want_to/file_a_fair_housing_discrimination_complaint'>here</a> or the Consumer Financial Protection Bureau <a class='external-link--blue' href='https://www.consumerfinance.gov/complaint/'>here</a>."
+msgstr "Nếu quý vị tin rằng quyền nhà ở hoặc vay mượn của mình bị xâm phạm do chính sách, chương trình hoặc hoạt động về đa dạng, bình đẳng và hòa nhập thì quý vị có thể nộp đơn khiếu nại cho Bộ Gia Cư và Phát Triển Đô Thị <a class='external-link--blue' href='https://www.hud.gov/i_want_to/file_a_fair_housing_discrimination_complaint'>qua đây</a> hoặc Cục Bảo Vệ Tài Chính Người Tiêu Dùng <a class='external-link--blue' href='https://www.consumerfinance.gov/complaint/'>qua đây</a>."
+
 #~ msgid "Sex, and sexual orientation"
 #~ msgstr "Giới tính, nhận dạng giới tính, và xu hướng tình dục"
 

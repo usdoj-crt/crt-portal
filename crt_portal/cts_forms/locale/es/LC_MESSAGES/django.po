@@ -3417,6 +3417,66 @@ msgstr ""
 "acceder a esta página en otra pestaña o ventana en su navegador. Eso le "
 "creará otra cookie de seguridad y debería resolver el problema."
 
+#: templates/partials/message_dei_discrimination.html:7
+msgid "Do you believe you have been discriminated against because of diversity, equity and inclusion?"
+msgstr "¿Usted cree haber sido discriminado/a por motivos de la diversidad, equidad e inclusión?"
+
+#: templates/dei-discrimination.html:6 templates/dei-discrimination.html:13
+msgid "Civil Rights Division - Department of Justice - Get help for illegal discrimination resulting from diversity, equity, and inclusion programs"
+msgstr "La División de Derechos Civiles - Departamento de Justicia - Consiga ayuda para discriminación ilegal que sea el resultado de un programa de diversidad, equidad e inclusión (DEI, por sus siglas en inglés)"
+
+#: templates/dei-discrimination.html:28
+msgid "Report to Civil Rights Division"
+msgstr "Presente un informe ante la División de Derechos Civiles"
+
+#: templates/dei-discrimination.html:31
+msgid "Report to Another Agency"
+msgstr "Presente un informe ante otra agencia"
+
+#: templates/dei-discrimination.html:38
+msgid "Get help for illegal discrimination resulting from diversity, equity, and inclusion programs."
+msgstr "Consiga ayuda para discriminación ilegal que sea el resultado de un programa de diversidad, equidad e inclusión (DEI, por sus siglas en inglés)."
+
+#: templates/dei-discrimination.html:45
+msgid "Illegal discrimination is the denial of equal opportunity to access employment, housing, lending, schooling, public accommodations, or federally funded programs or activities because of protected traits like race, sex, national origin, or religion."
+msgstr "La discriminación ilegal consiste en la denegación de la igualdad de oportunidades para acceder al empleo, la vivienda, los préstamos, la educación, acomodos públicos o actividades o programas financiados a nivel federal, por motivos de rasgos protegidos como la raza, el sexo, el origen nacional o la religión."
+
+#: templates/dei-discrimination.html:48
+msgid "If you believe you may have experienced such discrimination as the result of diversity, equity, and inclusion preferences, mandates, policies, programs, or activities, you can report it to the Civil Rights Division using <a class='external-link--blue' href='https://civilrights.justice.gov/link/diversity_equity_inclusion_illegal_discrimination'>this reporting portal</a>. Or you can report it to one of the agencies listed below:"
+msgstr "Si usted cree haber experimentado tal discriminación como resultado de preferencias, órdenes, políticas, actividades o programas relacionados con la diversidad, equidad e inclusión, puede informárselo a la División de Derechos Civiles mediante <a class='external-link--blue' href='https://civilrights.justice.gov/link/diversity_equity_inclusion_illegal_discrimination'>este portal para la presentación de informes</a>. También puede informárselo a una de las agencias que aparecen a continuación:"
+
+#: templates/dei-discrimination.html:54
+msgid "In education programs or activities:"
+msgstr "En programas o actividades educativos:"
+
+#: templates/dei-discrimination.html:56
+msgid "If you are a parent, student, or teacher who believes your rights have been violated as a result of a diversity, equity, and inclusion policy, program, or practice in a publicly funded K–12 school, college, or university, you may submit a report to the U.S. Department of Education at <a class='external-link--blue' href='https://enddei.ed.gov/'>EndDEI.Ed.Gov</a>."
+msgstr "Si usted es padre, estudiante o maestro y cree que sus derechos han sido vulnerados como resultado de una política, un programa o una práctica de diversidad, equidad e inclusión en una escuela primaria o secundaria o una universidad financiada con fondos públicos, puede informárselo al Departamento de Educación de los EE. UU. en <a class='external-link--blue' href='https://enddei.ed.gov/'>EndDEI.Ed.Gov</a>."
+
+#: templates/dei-discrimination.html:58
+msgid "In employment:"
+msgstr "En el empleo:"
+
+#: templates/dei-discrimination.html:60
+msgid "If you believe your employment rights have been violated as a result of a diversity, equity, and inclusion workplace policy, program, or practice, you may <a class='external-link--blue' href='https://www.eeoc.gov/filing-charge-discrimination'>file a charge</a> with the EEOC. For more information about how civil rights laws may apply to employment policies, programs, and practices resulting from unlawful DEI, see the following resources:"
+msgstr "Si usted cree que sus derechos de empleo han sido vulnerados como resultado de una política, un programa o una práctica de diversidad, equidad e inclusión en el lugar de trabajo, puede <a class='external-link--blue' href='https://www.eeoc.gov/filing-charge-discrimination'>presentar una denuncia</a> ante la EEOC. Para más información sobre cómo las leyes de derechos civiles pueden ser aplicadas a los programas, políticas y prácticas de empleo que resulten de la DEI ilegal, puede consultar los siguientes recursos:"
+
+#: templates/dei-discrimination.html:64
+msgid "What To Do If You Experience Discrimination Related to DEI at Work"
+msgstr "¿Qué debo hacer si he experimentado discriminación relacionada con la DEI en el trabajo?"
+
+#: templates/dei-discrimination.html:69
+msgid "What You Should Know About DEI-Related Discrimination at Work"
+msgstr "¿Qué debo saber sobre la discriminación relacionada con la DEI en el trabajo?"
+
+#: templates/dei-discrimination.html:72
+msgid "In housing or lending:"
+msgstr "En la vivienda o el ámbito crediticio:"
+
+#: templates/dei-discrimination.html:74
+msgid "If you believe your housing or lending rights have been violated as a result of a diversity, equity, and inclusion policy, program, or practice, you may file a complaint with the Department of Housing and Urban Development <a class='external-link--blue' href='https://www.hud.gov/i_want_to/file_a_fair_housing_discrimination_complaint'>here</a> or the Consumer Financial Protection Bureau <a class='external-link--blue' href='https://www.consumerfinance.gov/complaint/'>here</a>."
+msgstr "Si usted cree que sus derechos en la vivienda o el ámbito crediticio han sido vulnerados como resultado de una política, un programa o una práctica de diversidad, equidad e inclusión en el lugar de trabajo, puede informárselo al Departamento de Vivienda y Desarrollo Urbano <a class='external-link--blue' href='https://www.hud.gov/i_want_to/file_a_fair_housing_discrimination_complaint'>aquí</a> o la Oficina para la Protección Financiera del Consumidor <a class='external-link--blue' href='https://www.consumerfinance.gov/complaint/'>aquí</a>."
+
 #~ msgid "Sex, and sexual orientation"
 #~ msgstr "Género, identidad de género y orientación sexual"
 

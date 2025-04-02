@@ -3219,6 +3219,66 @@ msgstr ""
 "면, 새로운 브라우저 탭이나 창에서 이 페이지로 가 보십시오. 이렇게 하면 새로"
 "운 보안 쿠키를 만들어 문제가 해결될 것입니다."
 
+#: templates/partials/message_dei_discrimination.html:7
+msgid "Do you believe you have been discriminated against because of diversity, equity and inclusion?"
+msgstr "다양성, 형펑성, 포용성에 의해 차별을 당했다고 생각되십니까?"
+
+#: templates/dei-discrimination.html:6 templates/dei-discrimination.html:13
+msgid "Civil Rights Division - Department of Justice - Get help for illegal discrimination resulting from diversity, equity, and inclusion programs"
+msgstr "민권국 - 법무부 - 다양성, 형펑성, 포용성 프로그램으로 인한 불법 차별에 대해 도움을 구하세요"
+
+#: templates/dei-discrimination.html:28
+msgid "Report to Civil Rights Division"
+msgstr "민권과에 신고하기"
+
+#: templates/dei-discrimination.html:31
+msgid "Report to Another Agency"
+msgstr "타 기관에 신고하기"
+
+#: templates/dei-discrimination.html:38
+msgid "Get help for illegal discrimination resulting from diversity, equity, and inclusion programs."
+msgstr "다양성, 형펑성, 포용성 프로그램으로 인한 불법 차별에 대해 도움을 구하세요."
+
+#: templates/dei-discrimination.html:45
+msgid "Illegal discrimination is the denial of equal opportunity to access employment, housing, lending, schooling, public accommodations, or federally funded programs or activities because of protected traits like race, sex, national origin, or religion."
+msgstr "불법 차별은 인종, 성별, 출신 국가 또는 종교와 같이 보호된 특성의 사유로 채용, 주택, 대출, 학교, 공공 편의 지원 또는 연방 기금 프로그램이나 활동에 대한 평등한 기회의 접근을 거부하는 것입니다."
+
+#: templates/dei-discrimination.html:48
+msgid "If you believe you may have experienced such discrimination as the result of diversity, equity, and inclusion preferences, mandates, policies, programs, or activities, you can report it to the Civil Rights Division using <a class='external-link--blue' href='https://civilrights.justice.gov/link/diversity_equity_inclusion_illegal_discrimination'>this reporting portal</a>. Or you can report it to one of the agencies listed below:"
+msgstr "귀하께서 다양성, 형평성, 포용성 선호 사항, 지시, 정책, 프로그램 또는 활동으로 인해 차별을 겪었다고 생각되는 경우 <a class='external-link--blue' href='https://civilrights.justice.gov/link/diversity_equity_inclusion_illegal_discrimination'>이 신고 포털</a>을 사용하여 민권과에 신고하실 수 있습니다. 또는 아래의 기관에 신고하실 수 있습니다."
+
+#: templates/dei-discrimination.html:54
+msgid "In education programs or activities:"
+msgstr "교육 프로그램 또는 활동에서,"
+
+#: templates/dei-discrimination.html:56
+msgid "If you are a parent, student, or teacher who believes your rights have been violated as a result of a diversity, equity, and inclusion policy, program, or practice in a publicly funded K–12 school, college, or university, you may submit a report to the U.S. Department of Education at <a class='external-link--blue' href='https://enddei.ed.gov/'>EndDEI.Ed.Gov</a>."
+msgstr "다양성, 형평성, 포용성 정책, 프로그램 또는 관행으로 공립 K-12 학교 또는 대학교에서 차별을 겪은 부모, 학생 또는 교사일 경우 미국 교육부에 <a class='external-link--blue' href='https://enddei.ed.gov/'>EndDEI.Ed.Gov</a>로 신고를 접수할 수 있습니다."
+
+#: templates/dei-discrimination.html:58
+msgid "In employment:"
+msgstr "직장에서,"
+
+#: templates/dei-discrimination.html:60
+msgid "If you believe your employment rights have been violated as a result of a diversity, equity, and inclusion workplace policy, program, or practice, you may <a class='external-link--blue' href='https://www.eeoc.gov/filing-charge-discrimination'>file a charge</a> with the EEOC. For more information about how civil rights laws may apply to employment policies, programs, and practices resulting from unlawful DEI, see the following resources:"
+msgstr "직장에서의 다양성, 형평성, 포용성 정책, 프로그램 또는 관행으로 인해 귀하의 고용 권리가 위반되었다고 생각되시는 경우 평등 고용 기회 위원회(Equal Employment Opportunity Commission, EEOC)에 <a class='external-link--blue' href='https://www.eeoc.gov/filing-charge-discrimination'>혐의를 고발</a>할 수 있습니다. 민권법이 불법 다양성, 형평성, 포용성(Diversity, Equity and Inclusion, DEI)으로 인한 채용 정책, 프로그램 및 관행에 적용될 수 있는 방법에 대한 추가 정보는 다음 자원을 확인하십시오."
+
+#: templates/dei-discrimination.html:64
+msgid "What To Do If You Experience Discrimination Related to DEI at Work"
+msgstr "직장에서 DEI 관련 차별을 당한 경우 해야 할 일"
+
+#: templates/dei-discrimination.html:69
+msgid "What You Should Know About DEI-Related Discrimination at Work"
+msgstr "직장에서의 DEI 관련 차별에 대해 알아야 할 것"
+
+#: templates/dei-discrimination.html:72
+msgid "In housing or lending:"
+msgstr "주택 또는 대출에서,"
+
+#: templates/dei-discrimination.html:74
+msgid "If you believe your housing or lending rights have been violated as a result of a diversity, equity, and inclusion policy, program, or practice, you may file a complaint with the Department of Housing and Urban Development <a class='external-link--blue' href='https://www.hud.gov/i_want_to/file_a_fair_housing_discrimination_complaint'>here</a> or the Consumer Financial Protection Bureau <a class='external-link--blue' href='https://www.consumerfinance.gov/complaint/'>here</a>."
+msgstr "다양성, 형평성, 포용성 정책, 프로그램 또는 관행으로 인해 귀하의 주택 또는 대출 권리가 위반되었다고 생각되는 경우 주택도시 개발부에 <a class='external-link--blue' href='https://www.hud.gov/i_want_to/file_a_fair_housing_discrimination_complaint'>여기</a> 또는 소비자 금융 보호국에 <a class='external-link--blue' href='https://www.consumerfinance.gov/complaint/'>여기</a>로 민원을 접수할 수 있습니다."
+
 #~ msgid "Sex, and sexual orientation"
 #~ msgstr "성별, 성 정체성, 성적 지향"
 

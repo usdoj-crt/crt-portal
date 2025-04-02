@@ -1,0 +1,14 @@
+{% load i18n %}
+
+<div class="crt-landing--important-message bg-white padding-y-1">
+  <div class="grid-container">
+    <div class="grid-row grid-gap">
+      <div class="tablet:grid-col-12">
+        {% trans "Do you believe you have been discriminated against because of diversity, equity and inclusion?" %}
+        <a href="{% url 'dei_discrimination' %}" class="text-bold text-ink hover:text-ink hover:text-no-underline">
+          {% trans "Get help NOW!" %}
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
