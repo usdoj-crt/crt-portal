@@ -85,11 +85,11 @@
     const currentState = getFormState(detailsForm);
     for (const [key, value] of Object.entries(currentState)) {
       if (Array.isArray(value)) {
-        const initialArray = initialState[key].slice().sort();
+        const initialArray = initialState[key].slice();
         if (value.length != initialArray.length) {
           return true;
         }
-        const currentValueArray = value.slice().sort();
+        const currentValueArray = value.slice();
         for (let i = 0; i < currentValueArray.length; i++) {
           if (currentValueArray[i] !== initialArray[i]) {
             return true;
