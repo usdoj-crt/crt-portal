@@ -3115,7 +3115,7 @@ msgid "Do you believe you have been discriminated against because of diversity, 
 msgstr "您是否认为自己因多样性、公平性和包容性而遭受歧视？"
 
 #: templates/dei-discrimination.html:6 templates/dei-discrimination.html:13
-msgid "Civil Rights Division - Department of Justice - Get help for illegal discrimination resulting from diversity, equity, and inclusion programss"
+msgid "Civil Rights Division - Department of Justice - Get help for illegal discrimination resulting from diversity, equity, and inclusion programs"
 msgstr "民权司 - 司法部 - 获取帮助应对因多样性、公平性和包容性计划而遭受的受非法歧视"
 
 #: templates/dei-discrimination.html:28
