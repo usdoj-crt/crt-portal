@@ -3424,8 +3424,8 @@ msgid "Do you believe you have been discriminated against because of diversity, 
 msgstr "Naniniwala ka ba na nadiskrimina ka dahil sa pagkakaiba-iba, pagkakapantay-pantay at pagsasama-sama?"
 
 #: templates/dei-discrimination.html:6 templates/dei-discrimination.html:13
-# msgid "Civil Rights Division - Department of Justice - Get help for discrimination from DEI programs"
-# msgstr "La División de Derechos Civiles - Departamento de Justicia - Consiga ayuda para discriminación resultando de un programa de diversidad, equidad e inclusión"
+msgid "Civil Rights Division - Department of Justice - Get help for illegal discrimination resulting from diversity, equity, and inclusion programs"
+msgstr "Dibisyon sa mga Karapatang Sibil - Kagawaran ng Katarungan - Kumuha ng tulong para sa iligal na diskriminasyon na nagreresulta mula sa pagkakaiba-iba (diversity), pagkakapantay-pantay (equity), at mga programa sa pagsasama-sama (inclusion programs)"
 
 #: templates/dei-discrimination.html:28
 msgid "Report to Civil Rights Division"

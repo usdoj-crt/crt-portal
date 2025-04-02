@@ -3100,8 +3100,8 @@ msgid "Do you believe you have been discriminated against because of diversity, 
 msgstr "您是否認為自己因多樣性、公平性和包容性而遭受歧視？"
 
 #: templates/dei-discrimination.html:6 templates/dei-discrimination.html:13
-# msgid "Civil Rights Division - Department of Justice - Get help for discrimination from DEI programs"
-# msgstr "La División de Derechos Civiles - Departamento de Justicia - Consiga ayuda para discriminación resultando de un programa de diversidad, equidad e inclusión"
+msgid "Civil Rights Division - Department of Justice - Get help for illegal discrimination resulting from diversity, equity, and inclusion programs"
+msgstr "民權司 - 司法部 - 獲取幫助應對因多樣性、公平性和包容性計畫而遭受的受非法歧視"
 
 #: templates/dei-discrimination.html:28
 msgid "Report to Civil Rights Division"
