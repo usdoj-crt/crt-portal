@@ -1,6 +1,20 @@
 {% extends "forms/complaint_view/intake_base.html" %}
 {% load application_contact %}
 
+{% block head %}
+{{ block.super }}
+<style>
+ul[id*="-dashboards-cards-container"] {
+    display: flex;
+    flex-wrap: wrap;
+}
+ul[id*="-dashboards-cards-container"] li {
+    padding-top: 25px;
+    max-width: 33% !important;
+    flex: 1 1 33%;
+}
+</style>
+{% endblock %}
 {% block page_header %}
 {% include 'forms/complaint_view/data/header.html' with profile_form=profile_form%}
 {% endblock %}
