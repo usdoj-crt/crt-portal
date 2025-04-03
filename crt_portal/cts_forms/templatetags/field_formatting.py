@@ -68,14 +68,7 @@ def _get_tag_attrs(tag_id, *attrs):
 
 def _get_tags_markup(field_content):
     section, name, tooltip = _get_tag_attrs(field_content, 'section', 'name', 'tooltip')
-    return f'''
-    <span class="usa-tooltip" data-position="right" data-classes="display-inline" title="{tooltip}">
-        <span class="usa-tag usa-tag--big">
-            <span class="section">{section}</span>
-            <span class="name">{name}</span>
-        </span>
-    </span>
-    '''
+    return f"{section}|{name}"
 
 
 def _prepare_fuzzy_for_chip(key, filters):
