@@ -368,6 +368,7 @@ if environment in ['PRODUCTION', 'STAGE']:
             '^robots.txt',
             '^privacy-policy',
             '^hate-crime-human-trafficking',
+            '^diversity-equity-inclusion-illegal-discrimination',
             '^i18n',
             '^email',
             '^housing-resources',

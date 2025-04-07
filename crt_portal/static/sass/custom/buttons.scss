@@ -17,6 +17,10 @@ button,
   }
 }
 
+.usa-button--secondary {
+  background-color: color($theme-color-secondary);
+}
+
 /* Override above style to make sure unstyled buttons don't pick up background-color */
 .usa-button--unstyled {
   background-color: transparent !important;
