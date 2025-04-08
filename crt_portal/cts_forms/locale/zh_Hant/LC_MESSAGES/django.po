@@ -3152,8 +3152,8 @@ msgid "In housing or lending:"
 msgstr "關於住房或貸款："
 
 #: templates/dei-discrimination.html:74
-msgid "If you believe your housing or lending rights have been violated as a result of a diversity, equity, and inclusion policy, program, or practice, you may file a complaint with the Department of Housing and Urban Development <a class='external-link--blue' href='https://www.hud.gov/i_want_to/file_a_fair_housing_discrimination_complaint'>here</a> or the Consumer Financial Protection Bureau <a class='external-link--blue' href='https://www.consumerfinance.gov/complaint/'>here</a>."
-msgstr "如果您認為您的住房或貸款權利因多樣性、公平性和包容性政策、計畫或實踐而遭受侵犯，您可以<a class='external-link--blue' href='https://www.hud.gov/i_want_to/file_a_fair_housing_discrimination_complaint'>點擊此處</a>向住房和城市發展部（Department of Housing and Urban Development）投訴，或<a class='external-link--blue' href='https://www.consumerfinance.gov/complaint/'>點擊此處</a>向消費者金融保護局（Consumer Financial Protection Bureau）投訴。"
+msgid "If you believe your housing or lending rights have been violated as a result of a diversity, equity, and inclusion policy, program, or practice, you may file a complaint with the Department of Housing and Urban Development <a class='external-link--blue' href='https://www.hud.gov/helping-americans#ReportIssue'>here</a> or the Consumer Financial Protection Bureau <a class='external-link--blue' href='https://www.consumerfinance.gov/complaint/'>here</a>."
+msgstr "如果您認為您的住房或貸款權利因多樣性、公平性和包容性政策、計畫或實踐而遭受侵犯，您可以<a class='external-link--blue' href='https://www.hud.gov/helping-americans#ReportIssue'>點擊此處</a>向住房和城市發展部（Department of Housing and Urban Development）投訴，或<a class='external-link--blue' href='https://www.consumerfinance.gov/complaint/'>點擊此處</a>向消費者金融保護局（Consumer Financial Protection Bureau）投訴。"
 
 #~ msgid "Sex, and sexual orientation"
 #~ msgstr "性別、性別認同及性取向"
