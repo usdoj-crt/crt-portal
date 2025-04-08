@@ -3426,8 +3426,8 @@ msgid "In housing or lending:"
 msgstr "Về nhà ở hoặc vay mượn:"
 
 #: templates/dei-discrimination.html:74
-msgid "If you believe your housing or lending rights have been violated as a result of a diversity, equity, and inclusion policy, program, or practice, you may file a complaint with the Department of Housing and Urban Development <a class='external-link--blue' href='https://www.hud.gov/i_want_to/file_a_fair_housing_discrimination_complaint'>here</a> or the Consumer Financial Protection Bureau <a class='external-link--blue' href='https://www.consumerfinance.gov/complaint/'>here</a>."
-msgstr "Nếu quý vị tin rằng quyền nhà ở hoặc vay mượn của mình bị xâm phạm do chính sách, chương trình hoặc hoạt động về đa dạng, bình đẳng và hòa nhập thì quý vị có thể nộp đơn khiếu nại cho Bộ Gia Cư và Phát Triển Đô Thị <a class='external-link--blue' href='https://www.hud.gov/i_want_to/file_a_fair_housing_discrimination_complaint'>qua đây</a> hoặc Cục Bảo Vệ Tài Chính Người Tiêu Dùng <a class='external-link--blue' href='https://www.consumerfinance.gov/complaint/'>qua đây</a>."
+msgid "If you believe your housing or lending rights have been violated as a result of a diversity, equity, and inclusion policy, program, or practice, you may file a complaint with the Department of Housing and Urban Development <a class='external-link--blue' href='https://www.hud.gov/helping-americans#ReportIssue'>here</a> or the Consumer Financial Protection Bureau <a class='external-link--blue' href='https://www.consumerfinance.gov/complaint/'>here</a>."
+msgstr "Nếu quý vị tin rằng quyền nhà ở hoặc vay mượn của mình bị xâm phạm do chính sách, chương trình hoặc hoạt động về đa dạng, bình đẳng và hòa nhập thì quý vị có thể nộp đơn khiếu nại cho Bộ Gia Cư và Phát Triển Đô Thị <a class='external-link--blue' href='https://www.hud.gov/helping-americans#ReportIssue'>qua đây</a> hoặc Cục Bảo Vệ Tài Chính Người Tiêu Dùng <a class='external-link--blue' href='https://www.consumerfinance.gov/complaint/'>qua đây</a>."
 
 #~ msgid "Sex, and sexual orientation"
 #~ msgstr "Giới tính, nhận dạng giới tính, và xu hướng tình dục"
