@@ -330,7 +330,7 @@ if environment in ['PRODUCTION', 'STAGE']:
         # Explicitly DON'T set a group claim, as it will undo our native groups.
         "GROUP_CLAIM": None,
     }
-    if environment == 'STAGE':
+    if environment in ['STAGE', 'PRODUCTION']:
         # ADFS Config
         AUTH_ADFS["LOGIN_EXEMPT_URLS"] = ['.*']
 
@@ -352,36 +352,13 @@ if environment in ['PRODUCTION', 'STAGE']:
 
         OIDC_RP_SCOPES = "openid email profile"
 
-        login_base_url = 'https://crt-portal-django-stage.app.cloud.gov'
+        login_base_url = f"https://crt-portal-django-{'stage' if environment == 'STAGE' else 'prod'}.app.cloud.gov"
 
         # Configure django to redirect users for ADFS and OKTA
         LOGIN_URL = f"{login_base_url}/crt-login/login/"
         LOGIN_REDIRECT_URL = f"{login_base_url}/crt-login/loggedin/"
         LOGIN_REDIRECT_URL_FAILURE = f"{login_base_url}/crt-login/login/"
         LOGOUT_REDIRECT_URL = f"{login_base_url}"
-    else:
-        # ADFS Config
-        AUTH_ADFS["LOGIN_EXEMPT_URLS"] = [
-            '^$',
-            '^report',
-            '^link',
-            '^robots.txt',
-            '^privacy-policy',
-            '^hate-crime-human-trafficking',
-            '^diversity-equity-inclusion-illegal-discrimination',
-            '^i18n',
-            '^email',
-            '^housing-resources',
-            '^voting-resources',
-            '^oauth2_provider/token/',
-            '^oauth2_provider/userinfo/',
-            '^static/'
-        ]
-
-        login_base_url = 'https://crt-portal-django-prod.app.cloud.gov'
-        # Configure django to redirect users for ADFS
-        LOGIN_URL = f"{login_base_url}/oauth2/login"
-        LOGIN_REDIRECT_URL = f"{login_base_url}/oauth2/callback"
 
     ALLOWED_HOSTS = [
         'civilrights.justice.gov',
