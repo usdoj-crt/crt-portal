@@ -14,7 +14,7 @@ from utils.pdf import convert_html_to_pdf
 from cts_forms.filters import report_filter
 from cts_forms.mail import mail_to_complainant, mail_to_agency, build_letters, build_preview
 from utils.markdown_extensions import CustomHTMLExtension, OptionalExtension
-from cts_forms.models import Report, ResponseTemplate, ReportAttachment, Resource, ResourceContact
+from cts_forms.models import Report, ResponseTemplate, ReportAttachment, Resource, ResourceContact, CommentAndSummary
 from cts_forms.views import mark_report_as_viewed, mark_reports_as_viewed, get_sort_args
 from cts_forms.forms import add_activity, ProformAttachmentActions, get_phone_form_config, make_phone_pro_form, ResourceContactActions
 from django.conf import settings
@@ -173,6 +173,16 @@ class ReportEdit(generics.CreateAPIView):
 
         # Assign associated report to any uploaded attachments
         form_id = form.instance.public_id
+        report = self.queryset.get(public_id=form_id)
+
+        if working_group == 'VOT':
+            summary = CommentAndSummary.objects.create(**{
+                'is_summary': True,
+                'note': f"Complainant summary:\n{form.instance.violation_summary}\n---\n",
+                'author': "Complainant",
+            })
+            report.internal_comments.add(summary)
+
         if attachment_ids:
             attachment_ids = attachment_ids.split(',')
             # Pop the last element because we are appending a comma to the end of every id, including the last one
@@ -181,7 +191,6 @@ class ReportEdit(generics.CreateAPIView):
             for attachment_id in attachment_ids:
                 try:
                     attachment = ReportAttachment.objects.get(id=attachment_id)
-                    report = self.queryset.get(public_id=form_id)
                     attachment.report = report
                     attachment.save()
                 except ReportAttachment.DoesNotExist:
