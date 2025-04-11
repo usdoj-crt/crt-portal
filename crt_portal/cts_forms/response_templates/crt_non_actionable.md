@@ -22,10 +22,6 @@ Your state bar association or local legal aid office may be able to help with yo
 
 ## To find a local office:
 
-American Bar Association
-[https://www.americanbar.org/groups/legal_services/flh-home](https://www.americanbar.org/groups/legal_services/flh-home)
-(800) 285-2221
-
 Legal Services Corporation (or Legal Aid Offices)
 [https://www.lsc.gov/find-legal-aid](https://www.lsc.gov/find-legal-aid)
 

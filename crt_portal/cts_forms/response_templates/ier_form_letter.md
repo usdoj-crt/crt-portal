@@ -141,18 +141,6 @@ In addition, your state bar association or local legal aid office may be able to
 
 TO FIND…
 
-A personal attorney
-
-ORGANIZATION THAT MAY BE ABLE TO HELP
-
-American Bar Association
-
-    www.americanbar.org/groups/legal_services/flh-home
-    Contact by phone: 1-800-285-2221
-
-
-TO FIND…
-
 A personal attorney for low-income individuals
 
 ORGANIZATION THAT MAY BE ABLE TO HELP

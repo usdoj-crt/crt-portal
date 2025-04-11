@@ -38,7 +38,7 @@ HUD에 [www.hud.gov/program_offices/fair_housing_equal_opp/‌online-complaint](
 
 **변호사를 고용하고 싶다면:**
 
-다른 연방 및 주 법에 따라 귀하께 어떤 권리가 있는지 확인하기 위해 개인 변호사와 상의하실 수 있습니다. 변호사가 없는 경우 주 변호사 협회나 지역 법률 지원 기관이 도움을 줄 수 있습니다. [www.americanbar.org/groups/‌legal_‌services/flh-home](http://www.americanbar.org/groups/legal_services/flh-home/)에서 또는 [www.lsc.gov/find-legal-aid](http://www.lsc.gov/find-legal-aid)에서 지역 변호사를 검색하십시오.
+다른 연방 및 주 법에 따라 귀하께 어떤 권리가 있는지 확인하기 위해 개인 변호사와 상의하실 수 있습니다. 변호사가 없는 경우 주 변호사 협회나 지역 법률 지원 기관이 도움을 줄 수 있습니다. [www.lsc.gov/find-legal-aid](http://www.lsc.gov/find-legal-aid)에서 지역 변호사를 검색하십시오.
 
 신용, 장애인 권리 및 주거 권리에 대한 자세한 내용은[https://civilrights.justice.gov/housing-resources](https://civilrights.justice.gov/housing-resources)의 주택 자원 페이지를 참조하십시오.
 

@@ -38,7 +38,7 @@ Puede presentar una queja ante HUD en [File a Complaint – Main Page | HUD.gov 
 
 **Si desea contratar a un abogado:**
 
-Puede consultar a un abogado privado para averiguar si tiene algún derecho en virtud de otras leyes federales y estatales. Si no tiene abogado, el colegio de abogados de su estado o la agencia local de asistencia jurídica pueden ayudarle. Busque un abogado local en [www.americanbar.org/groups/legal_services/flh-home](http://www.americanbar.org/groups/legal_services/flh-home/) (solo en inglés) o [https://www.lsc.gov/about-lsc/what-legal-aid/get-legal-help](https://www.lsc.gov/about-lsc/what-legal-aid/get-legal-help).
+Puede consultar a un abogado privado para averiguar si tiene algún derecho en virtud de otras leyes federales y estatales. Si no tiene abogado, el colegio de abogados de su estado o la agencia local de asistencia jurídica pueden ayudarle. Busque un abogado local en [https://www.lsc.gov/about-lsc/what-legal-aid/get-legal-help](https://www.lsc.gov/about-lsc/what-legal-aid/get-legal-help).
 
 Para obtener más información sobre crédito, derechos de discapacidad y derechos de vivienda, visite nuestra página web de recursos de vivienda en [https://civilrights.justice.gov/housing-resources](https://civilrights.justice.gov/housing-resources).
 

@@ -23,19 +23,6 @@ Esta carta no es una determinación que su reporte carece de mérito. Es posible
 
 PARA LOCALIZAR A...
 
-Un abogado particular
-
-UNA ORGANIZACIÓN QUE PODRÍA AYUDARLE
-
-American Bar Association [Colegio de Abogados de los Estados Unidos]
-
-    En Internet:
-    www.americanbar.org/groups/legal_services/flh-home (solo en inglés)
-
-    Por teléfono: (800) 285-2221
-
-PARA LOCALIZAR A...
-
 Un abogado particular para personas de bajos ingresos
 
 UNA ORGANIZACIÓN QUE PODRÍA AYUDARLE
