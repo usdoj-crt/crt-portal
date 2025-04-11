@@ -22,10 +22,6 @@ show_in_dropdown: true
 
     지역 사무소 찾기:
 
-    미국 변호사 협회(American Bar Association)
-    www.americanbar.org/groups/legal_services/flh-home
-    (800) 285-2221
-
     법률서비스 법인(Legal Services Corporation) (또는 법률구조공사(Legal Aid Offices))
     www.lsc.gov/find-legal-aid
 

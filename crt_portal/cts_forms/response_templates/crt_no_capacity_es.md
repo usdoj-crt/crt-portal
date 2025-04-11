@@ -17,11 +17,6 @@ Lo que usted puede hacer:
 
 No hemos determinado que su presentación carece de mérito. Es posible que otra entidad pueda tomar medidas. En concreto, el colegio de abogados de su estado o su oficina local de asistencia legal podrían ayudarle.
 
-    Para localizar a una oficina local:
-    American Bar Association [Colegio de Abogados de los Estados Unidos]
-    www.americanbar.org/groups/legal_services/flh-home (solo en inglés)
-    (800) 285-2221
-
     Legal Services Corporation [Corporación de Servicios Legales] (o Legal Aid Offices [Oficinas de Asistencia Legal])
     www.lsc.gov/find-legal-aid (solo en inglés)
 

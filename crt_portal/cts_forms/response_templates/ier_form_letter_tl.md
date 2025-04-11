@@ -141,18 +141,6 @@ Sa karagdagan, ang iyong pang-estadong kalipunan ng bar o lokal na tanggapan ng 
 
 UPANG MAKAHANAP NG…
 
-Isang personal na abogado
-
-SAMAHAN NA MAAARING MAKATULONG
-
-Kalipunan ng Bar ng Amerikano
-
-    www.americanbar.org/groups/legal_services/flh-home
-    Makipag-ugnay sa pamamagitan ng telepono: 1-800-285-2221
-
-
-UPANG MAKAHANAP NG…
-
 Isang personal na abogado para sa mga taong mababa ang kinikita
 
 SAMAHAN NA MAAARING MAKATULONG

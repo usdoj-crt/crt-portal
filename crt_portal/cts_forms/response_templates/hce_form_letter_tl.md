@@ -38,7 +38,7 @@ Maaari kang magsampa ng karaingan sa HUD sa [www.hud.gov/program_offices/fair_ho
 
 **Kung nais mong kumuha ng abogado:**
 
-Maaari mong naisin na kumonsulta sa isang pribadong abogado upang malaman kung ikaw ay mayroong mga karapatan sa ilalim ng iba pang mga batas na pampederal at pang-estado.  Kung wala kang abogado, ang iyong asosasyon ng bar ng estado o lokal na ahensiya para sa tulong legal ay maaaring makatulong.  Maghanap ng isang lokal na abogado sa [www.americanbar.org/groups/legal_services/flh-home](http://www.americanbar.org/groups/legal_services/flh-home) o [www.lsc.gov/find-legal-aid](http://www.lsc.gov/find-legal-aid).
+Maaari mong naisin na kumonsulta sa isang pribadong abogado upang malaman kung ikaw ay mayroong mga karapatan sa ilalim ng iba pang mga batas na pampederal at pang-estado.  Kung wala kang abogado, ang iyong asosasyon ng bar ng estado o lokal na ahensiya para sa tulong legal ay maaaring makatulong.  Maghanap ng isang lokal na abogado sa [www.lsc.gov/find-legal-aid](http://www.lsc.gov/find-legal-aid).
 
 Para sa karagdagang impormasyon tungkol sa pautang, mga karapatan sa kapansanan, at mga karapatan sa pabahay, mangyaring bisitahin ang aming pahina tungkol sa mga mapagkukunan sa pabahay sa [https://civilrights.justice.gov/housing-resources](https://civilrights.justice.gov/housing-resources).
 

@@ -43,7 +43,7 @@ You can file a complaint with HUD at [https://www.hud.gov/program_offices/fair_h
 If you would like to hire an attorney:
 ======================================
 
-You may want to consult a private attorney to see if you have any rights under other federal and state laws. If you do not have an attorney, your state bar association or local legal assistance agency may be able to help. Search for a local attorney at [www.americanbar.org/groups/‌legal_services/flh-home](http://www.americanbar.org/groups/legal_services/flh-home/) or [www.lsc.gov/find-legal-aid](http://www.lsc.gov/find-legal-aid).
+You may want to consult a private attorney to see if you have any rights under other federal and state laws. If you do not have an attorney, your state bar association or local legal assistance agency may be able to help. Search for a local attorney at [www.lsc.gov/find-legal-aid](http://www.lsc.gov/find-legal-aid).
 
 For more information about credit, disability rights, and housing rights, please visit our housing resources page at [https://civilrights.justice.gov/housing-resources](https://civilrights.justice.gov/housing-resources).
 

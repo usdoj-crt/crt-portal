@@ -16,13 +16,9 @@ Your report number was {{record_locator}}.
 
 # What you can do:
 
-We are not determining that your report lacks merit. Your issue may still be actionable by others - your state bar association or local legal aid office may be able to help.
+We are not determining that your report lacks merit. Your issue may still be actionable by others - your local legal aid office may be able to help.
 
 ## To find a local office:
-
-American Bar Association
-[https://www.americanbar.org/groups/legal_services/flh-home](https://www.americanbar.org/groups/legal_services/flh-home)
-(800) 285-2221
 
 Legal Services Corporation (or Legal Aid Offices)
 [https://www.lsc.gov/find-legal-aid](https://www.lsc.gov/find-legal-aid)

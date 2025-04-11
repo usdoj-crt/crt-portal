@@ -28,10 +28,10 @@ We are not determining that your report lacks merit. Your issue may still be act
 
 ## To find a local office:
 
-[%optional group="Finding help" name="American Bar"]
-American Bar Association
-[https://www.americanbar.org/groups/legal_services/flh-home](https://www.americanbar.org/groups/legal_services/flh-home)
-(800) 285-2221
+[%optional group="Finding help" name="Texas Bar"]
+Texas Bar Association
+[https://www.texasbar.com/](https://www.texasbar.com/)
+(512) 427-1463
 [%endoptional]
 
 [%optional group="Finding help" name="Legal Services"]

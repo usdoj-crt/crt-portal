@@ -44,7 +44,6 @@ Si necesita comunicarse con nosotros acerca de su informe, favor de mencionar su
 
 Las oficinas de asistencia legal o miembros de los colegios de abogados en su estado podrían ayudarle con su problema.
 
-- American Bar Association (Colegio de Abogados Estadounidense), vaya a [www.americanbar.org/groups/legal_services/flh-home](https://www.americanbar.org/groups/legal_services/flh-home) o llame al (800) 285-2221
 - Legal Services Corporation (Corporación de Servicios Legales) (o Legal Aid Offices (Oficinas de Asistencia Legal)), para ayudarle a localizar a un abogado de asistencia legal en su área, vaya a [www.lsc.gov/find-legal-aid](https://www.lsc.gov/find-legal-aid)
 
 ## 2. Aprender más

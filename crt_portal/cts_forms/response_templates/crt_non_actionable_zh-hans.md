@@ -22,10 +22,6 @@ show_in_dropdown: true
 
     如需查找本地办公室：
 
-    美国律师协会
-    www.americanbar.org/groups/legal_services/flh-home
-    (800) 285-2221
-
     法律服务公司（或法律援助办公室）
     www.lsc.gov/find-legal-aid
 

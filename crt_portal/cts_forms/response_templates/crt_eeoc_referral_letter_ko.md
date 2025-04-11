@@ -109,17 +109,6 @@ language: ko
 
 ......을 찾으시려면
 
-개인 변호사
-
-도움을 줄 수 있는 조직
-
-미국 변호사 협회(American Bar Association)
-
-    www.americanbar.org/groups/legal_services/flh-home
-    전화로 연락: 1-800-285-2221
-
-......을 찾으시려면
-
 저소득층을 위한 개인 변호사
 
 도움을 줄 수 있는 조직

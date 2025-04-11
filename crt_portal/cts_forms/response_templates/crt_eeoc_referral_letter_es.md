@@ -109,17 +109,6 @@ Por otra parte, su colegio de abogados estatal u oficina local de asistencia leg
 
 PARA LOCALIZAR A:
 
-Un abogado particular
-
-LA ORGANIZACIÓN QUE PODRÍA AYUDAR
-
-Colegio de Abogados Estadounidense
-
-    www.americanbar.org/groups/legal_services/flh-home
-    Comuníquese por teléfono: 1-800-285-2221
-
-PARA LOCALIZAR A:
-
 Un abogado particular para personas de bajos ingresos
 
 LA ORGANIZACIÓN QUE PODRÍA AYUDAR

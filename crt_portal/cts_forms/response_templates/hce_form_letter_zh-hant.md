@@ -38,7 +38,7 @@ is_html: true
 
 **如果您想聘請律師：**
 
-您可能希望與私人律師磋商看您是否享有其他聯邦和州法律下的任何權利，如果您沒有律師，您所在州的律師協會或當地法律援助機構或許可以爲您提供援助，您可以從 [www.americanbar.org/groups/‌legal_‌services/flh-home](http://www.americanbar.org/groups/legal_services/flh-home/) 或 [www.lsc.gov/find-legal-aid](http://www.lsc.gov/find-legal-aid)尋找當地律師。
+您可能希望與私人律師磋商看您是否享有其他聯邦和州法律下的任何權利，如果您沒有律師，您所在州的律師協會或當地法律援助機構或許可以爲您提供援助，您可以從 [www.lsc.gov/find-legal-aid](http://www.lsc.gov/find-legal-aid)尋找當地律師。
 
 有關信貸、殘疾權利和住房權的更多信息，請訪問我們的住房資源頁面[https://civilrights.justice.gov/housing-resources](https://civilrights.justice.gov/housing-resources).
 

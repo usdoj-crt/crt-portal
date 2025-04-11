@@ -38,7 +38,7 @@ Quý vị có thể gửi đơn khiếu nại lên HUD tại trang mạng [
 
 **Nếu quý vị muốn thuê luật sư:**
 
-Quý vị cũng có thể muốn tham khảo ý kiến của một luật sư riêng để xác định xem quý vị những quyền hạn nào chiếu theo những điều luật khác của liên bang và tiểu bang. Nếu quý vị không có luật sư, đoàn luật sư tiểu bang hay cơ quan trợ giúp pháp lý địa phương của quý vị có thể giúp đỡ. Tìm luật sư địa phương tại trang mạng [www.americanbar.org/groups/‌legal_‌services/flh-home](http://www.americanbar.org/groups/legal_services/flh-home/) or [www.lsc.gov/find-legal-aid](http://www.lsc.gov/find-legal-aid).
+Quý vị cũng có thể muốn tham khảo ý kiến của một luật sư riêng để xác định xem quý vị những quyền hạn nào chiếu theo những điều luật khác của liên bang và tiểu bang. Nếu quý vị không có luật sư, đoàn luật sư tiểu bang hay cơ quan trợ giúp pháp lý địa phương của quý vị có thể giúp đỡ. Tìm luật sư địa phương tại trang mạng [www.lsc.gov/find-legal-aid](http://www.lsc.gov/find-legal-aid).
 
 Để biết thêm thông tin về tín dụng, quyền của người khuyết tật, và quyền về nhà ở, vui lòng truy cập trang tài nguyên về gia cư của chúng tôi tại [https://civilrights.justice.gov/housing-resources](https://civilrights.justice.gov/housing-resources).
 

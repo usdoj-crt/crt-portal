@@ -33,10 +33,6 @@ In addition, your issue may be covered by other federal, state, or local laws th
 
 ## To find a local office:
 
-American Bar Association
-[https://www.americanbar.org/groups/legal_services/flh-home](https://www.americanbar.org/groups/legal_services/flh-home)
-(800) 285-2221
-
 Legal Services Corporation (or Legal Aid Offices)
 [https://www.lsc.gov/find-legal-aid](https://www.lsc.gov/find-legal-aid)
 

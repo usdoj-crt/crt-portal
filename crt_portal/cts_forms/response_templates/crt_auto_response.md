@@ -39,9 +39,7 @@ If we are able to respond, we will contact you using the contact information you
 ## 1. Contact local legal aid organizations or a lawyer if you haven’t already.
 Legal aid offices or members of lawyer associations in your state may be able to help you with your issue.
 
-- American Bar Association, visit the [www.americanbar.org/groups/legal_services/flh-home](https://www.americanbar.org/groups/legal_services/flh-home) or call (800) 285-2221
 - Legal Services Corporation (or Legal Aid Offices),to help you find a legal aid lawyer in your area visit [www.lsc.gov/find-legal-aid](https://www.lsc.gov/find-legal-aid)
-
 
 ## 2. Learn More
 Visit [civilrights.justice.gov](https://civilrights.justice.gov) to learn more about your rights and see examples of violations we handle.

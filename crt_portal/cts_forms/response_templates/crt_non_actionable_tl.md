@@ -22,10 +22,6 @@ Ang iyong samahan ng bar ng estado o lokal na tanggapan sa ligal na tulong ay ma
 
     Upang makahanap ng lokal na tanggapan:
 
-    Samahan ng Bar ng Amerikano
-    www.americanbar.org/groups/legal_services/flh-home
-    (800) 285-2221
-
     Korporasyon ng Serbisyong Ligal (o mga Tanggapan sa Ligal na Tulong)
     www.lsc.gov/find-legal-aid
 

@@ -95,11 +95,6 @@ Washington, DC  20507
 
 Also, your state bar association, which is a group of local lawyers, or your local legal aid office may be able to help you even though the Department of Justice cannot.
 
-You can find a personal attorney at:
-
-**American Bar Association**
-[https://www.americanbar.org/groups/legal\_services/flh-home/](https://www.americanbar.org/groups/legal\_services/flh-home/)
-
 You can find a personal attorney for low-income individuals at:
 
     **Legal Services Corporation** can help you find a legal aid lawyer in your area
