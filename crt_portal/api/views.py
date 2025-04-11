@@ -183,6 +183,9 @@ class ReportEdit(generics.CreateAPIView):
             })
             report.internal_comments.add(summary)
 
+            form.instance.violation_summary = None
+            form.instance.save()
+
         if attachment_ids:
             attachment_ids = attachment_ids.split(',')
             # Pop the last element because we are appending a comma to the end of every id, including the last one
