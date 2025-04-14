@@ -19,10 +19,6 @@ Hindi namin tinutukoy na ang iyong ulat ay kulang sa merito. Ang iyong suliranin
 
     Upang makahanap ng lokal na tanggapan:
 
-    Samahan ng Bar ng Amerikano
-    www.americanbar.org/groups/legal_services/flh-home
-    (800) 285-2221
-
     Korporasyon para sa Ligal na Serbisyo (o mga Tanggapan sa Ligal na Tulong)
     www.lsc.gov/find-legal-aid
 

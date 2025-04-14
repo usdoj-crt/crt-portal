@@ -23,18 +23,6 @@ Thư này không phải là quyết định rằng báo cáo của quý vị thi
 
 ĐỂ TÌM...
 
-Một luật sư cá nhân
-
-TỔ CHỨC CÓ THỂ GIÚP ĐỠ:
-
-Hiệp hội Luật sư Hoa Kỳ
-
-    Tìm trực tuyến:
-    www.americanbar.org/groups/legal_services/flh-home
-    Liên hệ qua điện thoại: (800) 285-2221
-
-ĐỂ TÌM...
-
 Luật sư cá nhân dành cho những người có thu nhập thấp
 
 TỔ CHỨC CÓ THỂ GIÚP ĐỠ:

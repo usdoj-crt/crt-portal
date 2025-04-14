@@ -141,18 +141,6 @@ Ngoài ra, hiệp hội luật sư tiểu bang hoặc văn phòng hỗ t
 
 ĐỂ TÌM ĐƯỢC…
 
-Một luật sư riêng
-
-TỔ CHỨC CÓ THỂ CÓ KHẢ NĂNG GIÚP ĐỠ
-
-Hiệp Hội Luật Sư Hoa Kỳ
-
-    www.americanbar.org/groups/legal_services/flh-home
-    Liên lạc qua điện thoại: 1-800-285-2221
-
-
-ĐỂ TÌM ĐƯỢC…
-
 Một luật sư riêng dành cho những người có thu nhập thấp
 
 TỔ CHỨC CÓ THỂ CÓ KHẢ NĂNG GIÚP ĐỠ

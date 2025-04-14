@@ -169,10 +169,6 @@ If you are not eligible for military legal assistance services and would like DO
 
 In addition, your issue may be covered by other federal, state, or local laws that we do not have the authority to enforce.  Your state bar association or local legal aid office may be able to help with your issue.  You may reach these offices by visiting their websites at:
 
-__American Bar Association__
-[www.americanbar.org/groups/legal_services/flh-home](https://www.americanbar.org/groups/legal_services/flh-home)
-(800) 285-2221
-
 __Legal Services Corporation__
 [www.lsc.gov/find-legal-aid](http://www.lsc.gov/find-legal-aid)
 (202) 295-1500

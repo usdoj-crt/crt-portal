@@ -129,20 +129,6 @@ Sa karagdagan, ang samahan ng bar ng estado o lokal na tanggapan sa ligal na tul
 
 UPANG MAKAHANAP NG…
 
-Isang personal na abogado
-
-
-SAMAHANG MAAARING MAKATULONG
-
-Samahan ng Bar ng Amerikano
-
-    www.americanbar.org/groups/legal_services/flh-home
-    Makipag-ugnay sa pamamagitan ng telepono: 1-800-285-2221
-
-
-
-UPANG MAKAHANAP NG…
-
 Isang personal na abogado para sa mga indibidwal na mababa ang sahod
 
 

@@ -23,19 +23,6 @@ This letter is not a determination that your report lacks merit. Your state bar 
 
 TO FIND...
 
-A personal attorney
-
-ORGANIZATION THAT MAY BE ABLE TO HELP:
-
-American Bar Association
-
-    Find online:
-    www.americanbar.org/groups/legal_services/flh-home
-
-    Contact by phone: (800) 285-2221
-
-TO FIND...
-
 A personal attorney for low-income individuals
 
 ORGANIZATION THAT MAY BE ABLE TO HELP:
