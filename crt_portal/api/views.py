@@ -178,7 +178,7 @@ class ReportEdit(generics.CreateAPIView):
         if working_group == 'VOT':
             summary = CommentAndSummary.objects.create(**{
                 'is_summary': True,
-                'note': f"Complainant summary:\n{form.instance.violation_summary}\n---\n",
+                'note': form.instance.violation_summary,
                 'author': "Complainant",
             })
             report.internal_comments.add(summary)
