@@ -4,6 +4,22 @@
 {% block head %}
   {{ super }}
   <link rel="stylesheet" href="{% static 'css/vendor/intlTelInput.min.css' %}">
+  <style>
+    @media (max-width: 85em) {
+      div.complaint-actions.tablet\:grid-col-4 {
+        flex: 0 1 auto;
+        width: 100%;
+      }
+      div.complaint-information.tablet\:grid-col-6 {
+        margin-left: 8.333%;
+        flex: 0 1 auto;
+        width: 100%;
+      }
+      #id_retention_schedule-label + div.usa-combo-box {
+        max-width: 25%;
+      }
+    }
+  </style>
 {% endblock %}
 
 {% block page_title %}
