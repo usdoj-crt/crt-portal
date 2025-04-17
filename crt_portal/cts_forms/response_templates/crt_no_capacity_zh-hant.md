@@ -19,10 +19,6 @@ language: zh-hant
 
     查詢當地辦公室：
 
-    美國律師協會
-    www.americanbar.org/groups/legal_services/flh-home
-    (800) 285-2221
-
     法律服務公司（或法律援助辦公室）
     www.lsc.gov/find-legal-aid
 

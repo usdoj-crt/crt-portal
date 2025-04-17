@@ -97,11 +97,9 @@ def test_contact_complainant_modal_optionals(page, *, report):
     assert 'How you have helped:' not in html.text_content()
     assert 'American Bar Association' not in html.text_content()
     modal.locator('label').filter(has_text='How you have helped').click()
-    modal.locator('label').filter(has_text='American Bar').click()
     modal.locator('#intake_letter_html').filter(has_text='How you have helped:').wait_for()
-    modal.locator('#intake_letter_html').filter(has_text='American Bar Association').wait_for()
 
-    report.screenshot(page, full_page=True, scroll_to_selector='#intake_letter_html', caption='For example, selecting "How you have helped" and "American Bar" will add those sections to the letter. The content of these templates can be changed by application administrators.')
+    report.screenshot(page, full_page=True, scroll_to_selector='#intake_letter_html', caption='For example, selecting "How you have helped" will add that section to the letter. The content of these templates can be changed by application administrators.')
 
     with page.expect_navigation():
         modal.locator('button').filter(has_text="Send").click()
@@ -115,17 +113,11 @@ def test_contact_complainant_modal_optionals(page, *, report):
 
     tms_html_body = page.locator('.field-html_body')
     assert 'How you have helped:' in tms_html_body.text_content()
-    assert 'American Bar Association' in tms_html_body.text_content()
     assert 'What you can do' not in tms_html_body.text_content()
 
     tms_body = page.locator('.field-body')
     assert 'How you have helped:' in tms_body.text_content()
-    assert 'American Bar Association' in tms_body.text_content()
     assert 'What you can do' not in tms_body.text_content()
-
-    page.locator('.field-html_body').filter(has_text='American Bar Association').wait_for()
-
-    page.locator('.field-body').filter(has_text='American Bar Association').wait_for()
 
     admin_models.update(
         page,

@@ -109,17 +109,6 @@ language: zh-hant
 
 查詢...
 
-私人律師
-
-可能可以提供幫助的組織
-
-美國律師協會
-
-    www.americanbar.org/groups/legal_services/flh-home
-    透過電話聯繫： 1-800-285-2221
-
-查詢...
-
 為低收入者服務的私人律師
 
 可能可以提供幫助的組織

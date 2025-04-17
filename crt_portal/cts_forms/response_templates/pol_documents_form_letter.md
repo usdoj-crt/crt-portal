@@ -14,10 +14,6 @@ Please note that we are unable to investigate every Servicemember Civil Relief A
 
 In addition, your issue may be covered by other federal, state, or local laws that we do not have the authority to enforce.  Your state bar association or local legal aid office may be able to help with your issue.  You may reach these offices by visiting their websites at:
 
-**American Bar Association**
-[www.americanbar.org/groups/legal_services/flh-home](www.americanbar.org/groups/legal_services/flh-home)
-(800) 285-2221
-
 **Legal Services Corporation**
 [www.lsc.gov/find-legal-aid](www.lsc.gov/find-legal-aid)
 (202) 295-1500

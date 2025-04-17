@@ -23,19 +23,6 @@ Ang sulat na ito ay hindi isang pagpapasya na ang iyong ulat ay kulang sa merito
 
 UPANG MAKAHANAP NG…
 
-Isang personal na abogado
-
-SAMAHAN NA MAAARING MAKATULONG:
-
-Samahan ng Bar ng Amerikano
-
-    Hanapin online:
-    www.americanbar.org/groups/legal_services/flh-home
-
-    Makipag-ugnay sa pamamagitan ng telepono: (800) 285-2221
-
-UPANG MAKAHANAP NG…
-
 Isang personal na abogado para sa mga indibidwal na mababa ang sahod
 
 SAMAHANG MAAARING MAKATULONG:

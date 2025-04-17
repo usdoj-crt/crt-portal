@@ -23,19 +23,6 @@ language: zh-hans
 
 如需查找……
 
-私人律师
-
-可能有帮助的组织：
-
-美国律师协会
-
-    在线查找：
-    www.americanbar.org/groups/legal_services/flh-home
-
-    通过电话联系：(800) 285-2221
-
-如需查找……
-
 低收入人士的私人律师
 
 可能有帮助的组织：

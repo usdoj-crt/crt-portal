@@ -4,6 +4,7 @@
 {% get_language_info_list for LANGUAGES as languages %}
 
 <div class="crt-portal-card crt-description-card">
+  {% if data.violation_summary is not None and data.violation_summary.strip != "" %}
   <div class="crt-portal-card__content">
     <h3 class="complaint-card-heading text-uppercase">
       Personal description
@@ -24,6 +25,7 @@
       {{ description|linebreaks }}
     </div>
   </div>
+  {% endif %}
   <div class="crt-portal-card__content">
     <h3 class="complaint-card-heading text-uppercase">Report language</h3>
     <p>

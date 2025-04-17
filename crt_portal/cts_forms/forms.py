@@ -1093,6 +1093,11 @@ def get_additional_contacts_field_mapping(working_group):
 
 
 def get_phone_form_config(working_group):
+    intake_format_map = {
+        'VOT': 'phone',
+        'ELS-CRU': 'email',
+    }
+
     working_group = working_group.upper() if working_group else None
     additional_contacts_configs = get_additional_contacts_field_configs_for_working_group(working_group)
 
@@ -1261,7 +1266,7 @@ def get_phone_form_config(working_group):
                     {'label': 'Record Locator (Public ID)'}),
 
         FieldConfig('intake_format',
-                    HiddenInput(attrs={'value': 'phone'}),
+                    HiddenInput(attrs={'value': intake_format_map.get(working_group, 'phone')}),
                     {'label': 'Intake Format'}),
         FieldConfig('district',
                     HiddenInput(),
