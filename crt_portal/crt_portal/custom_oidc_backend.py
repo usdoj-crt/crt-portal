@@ -10,13 +10,6 @@ def generate_username(email, claims):
 
 
 class CrtAuthenticationBackend(OIDCAuthenticationBackend):
-    def get_or_create_user(self, access_token, id_token, payload):
-        session = self.request.session
-        session['id_token'] = id_token
-        session.modified = True
-        session.save()
-        super(CrtAuthenticationBackend, self).get_or_create_user(access_token, id_token, payload)
-
     def update_user(self, user, claims):
         if not user.is_active:
             return redirect('form/landing/')
