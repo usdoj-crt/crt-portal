@@ -28,4 +28,4 @@ class CrtAuthenticationBackend(OIDCAuthenticationBackend):
         user.is_active = False
         user.save()
 
-        return user
+        return redirect('form/landing/')
