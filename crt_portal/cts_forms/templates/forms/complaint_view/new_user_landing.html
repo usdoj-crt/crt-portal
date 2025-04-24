@@ -1,0 +1,38 @@
+{% extends "forms/complaint_view/intake_base.html" %}
+{% block page_header %}
+<!-- {% include 'forms/complaint_view/routing_guide_header.html' %} -->
+{% endblock %}
+{% block content %}
+<div class="intake-content grid-container-widescreen">
+    <h2 class="intake-section-title margin-bottom-2">Your account needs activation</h2>
+    <p class="text-bold">Access to the Civil Rights Division's Reporting Portal is restricted to authorized users only.</p>
+    <p>To obtain access:</p>
+    <ol>
+        <li>Locate your section's access POC in the chart below and email them requesting access to the portal</li>
+        <li>Your section POC should send an email to <a href="mailto:CRTHelpDesk@usdoj.gov">CRTHelpDesk@usdoj.gov</a> authorizing your access to the application</li>
+        <li>The helpdesk will create a ticket and work with the portal's admins to grant you access</li>
+        <li>Portal admins will contact you once access has been granted (usually within 24 hours)</li>
+    </ol>
+    <div class="crt-portal-card padding-x-4 padding-y-3">
+        <div class="title">
+            <h2 class="intake-section-title">Access POC by Section</h2>
+        </div>
+        <table class="usa-table usa-table--borderless new-user-landing-table">
+            <tbody>
+                <th class="landing-table-border-bottom">Section:</th>
+                <th class="landing-table-border-bottom">Access Point of Contact:</th>
+                {% for section, poc in access_pocs_by_section.items %}
+                <tr>
+                    <td>{{ section }}</td>
+                    <td class="text-normal">{{ poc }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
+{% block page_js %}
+{{ block.super }}
+<!-- <script src="{% static 'js/routing_guide.min.js' %}"></script> -->
+{% endblock %}

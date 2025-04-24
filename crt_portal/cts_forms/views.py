@@ -269,6 +269,19 @@ def get_disposition_report_data(requested_reports):
 
 
 @login_required
+def new_user_landing_view(request):
+    routing_sections = RoutingSection.objects.all()
+    access_pocs_by_section = {}
+    for routing_section_object in routing_sections:
+        access_pocs_by_section[routing_section_object.section] = routing_section_object.access_section_pocs
+
+    context = {
+        'access_pocs_by_section': access_pocs_by_section
+    }
+    return render(request, 'forms/complaint_view/new_user_landing.html', context)
+
+
+@login_required
 def index_view(request):
     grouping = request.GET.get('grouping', 'default')
     profile_form = get_profile_form(request)
