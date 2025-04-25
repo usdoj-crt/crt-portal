@@ -26,9 +26,9 @@ def forwards_func(_, schema_editor):
                 "Other": 16
             }
 
+            # description is a string containing the list of reported reasons that got removed delimited by commas
+            # target_object_id is the report id
             cursor.execute(
-                # description is a string containing the list of reported reasons that got removed delimited by commas
-                # target_object_id is the report id
                 """
                     SELECT description, target_object_id 
                     FROM actstream_action
