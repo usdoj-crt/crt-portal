@@ -54,7 +54,7 @@ def forwards_func(_, schema_editor):
                     num_reported_reasons_corrected += 1
 
             cursor.execute(f"BEGIN;\n{query}\nCOMMIT;")
-            print(f"Number of tags corrected: {num_reported_reasons_corrected}")
+            print(f"Number of reported reasons corrected: {num_reported_reasons_corrected}")
         except Exception as e:
             print(e)
 
