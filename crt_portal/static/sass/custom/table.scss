@@ -52,9 +52,6 @@
   tr {
     td {
       vertical-align: top;
-      &:nth-child(2) {
-        font-weight: bold;
-      }
     }
     td:nth-child(even) {
       border-left: 1px solid #D8D8D8;
