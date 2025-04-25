@@ -270,7 +270,7 @@ def get_disposition_report_data(requested_reports):
 
 @login_required
 def new_user_landing_view(request):
-    routing_sections = RoutingSection.objects.all()
+    routing_sections = RoutingSection.objects.all().order_by('section')
     access_pocs_by_section = {}
     for routing_section_object in routing_sections:
         access_pocs_by_section[routing_section_object.section] = routing_section_object.access_section_pocs
