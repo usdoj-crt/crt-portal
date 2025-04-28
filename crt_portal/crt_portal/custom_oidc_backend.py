@@ -1,6 +1,5 @@
 from mozilla_django_oidc.auth import OIDCAuthenticationBackend
 from django.contrib.auth import get_user_model
-from django.shortcuts import redirect
 
 User = get_user_model()
 
@@ -10,10 +9,6 @@ def generate_username(email, claims):
 
 
 class CrtAuthenticationBackend(OIDCAuthenticationBackend):
-    def update_user(self, user, claims):
-        if not user.is_active:
-            return redirect('form/landing/')
-
     def create_user(self, claims):
         user = None
         account_name = claims.get('adsamAccountName')
@@ -28,4 +23,4 @@ class CrtAuthenticationBackend(OIDCAuthenticationBackend):
         user.is_active = False
         user.save()
 
-        return redirect('form/landing/')
+        return user
