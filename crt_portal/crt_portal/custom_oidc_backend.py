@@ -1,5 +1,6 @@
 from mozilla_django_oidc.auth import OIDCAuthenticationBackend
 from django.contrib.auth import get_user_model
+from django.contrib.auth.backends import ModelBackend
 
 User = get_user_model()
 
@@ -8,7 +9,7 @@ def generate_username(email, claims):
     return email
 
 
-class CrtAuthenticationBackend(OIDCAuthenticationBackend):
+class CrtAuthenticationBackend(OIDCAuthenticationBackend, ModelBackend):
     def user_can_authenticate(self, user):
         return True
 
