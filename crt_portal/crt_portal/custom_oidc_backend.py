@@ -9,6 +9,9 @@ def generate_username(email, claims):
 
 
 class CrtAuthenticationBackend(OIDCAuthenticationBackend):
+    def user_can_authenticate(self, user):
+        return True
+
     def create_user(self, claims):
         user = None
         account_name = claims.get('adsamAccountName')
