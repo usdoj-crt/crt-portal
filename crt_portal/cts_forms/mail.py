@@ -61,16 +61,22 @@ def render_agency_mail(*, complainant_letter: Mail, report, template, extra_ccs=
 
 
 def render_complainant_mail(*, report, template, action) -> Mail:
+    templates_to_add_emails_to = [
+        "ELS - Notice of Right to Sue",
+        "ELS - Notice of Right to Sue (Conciliation Failure) form letter",
+    ]
+    all_recipients = report.contact_emails
+    allowed_recipients = remove_disallowed_recipients(all_recipients)
+    disallowed_recipients = list(set(all_recipients) - set(allowed_recipients))
+
+    if template.title in templates_to_add_emails_to:
+        template.body = f"{template.body.rstrip()}\n\nCC: {', '.join(allowed_recipients)}"
+
     content = template.render_body_as_markdown(report, extensions=[CustomHTMLExtension()])
 
     html_source = 'print.html' if action == 'print' else 'email.html'
     html_message = render_to_string(html_source,
                                     {'content': content, 'report': report})
-
-    all_recipients = report.contact_emails
-
-    allowed_recipients = remove_disallowed_recipients(all_recipients)
-    disallowed_recipients = list(set(all_recipients) - set(allowed_recipients))
 
     return Mail(
         subject=template.render_subject(report),

@@ -275,12 +275,15 @@ class RoutingSection(models.Model):
     section = models.TextField(choices=SECTION_CHOICES_WITHOUT_LABELS, default='ADM', unique=True)
     names = models.CharField(verbose_name='Routing Section POCs', max_length=700, null=False, blank=False, default='')
     retention_section_pocs = models.CharField(verbose_name='Retention Section POCs', max_length=700, null=False, blank=False, default='')
+    access_section_pocs = models.CharField(verbose_name='Access Section POCs', max_length=700, null=False, blank=False, default='')
 
     def get_pocs(self, purpose='routing'):
         if purpose == 'retention':
             return self.retention_section_pocs
         if purpose == 'routing':
             return self.names
+        if purpose == 'access':
+            return self.access_section_pocs
         raise ValueError(f'Invalid section contact purpose: {purpose}')
 
     def __str__(self):
