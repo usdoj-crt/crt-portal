@@ -9,5 +9,5 @@ def active_user_required(func):
         if not user.is_active:
             print("User is not active, redirecting to landing.")
             return redirect('/form/landing')
-        func(request, *args, **kwargs)
+        return func(request, *args, **kwargs)
     return wrapper
