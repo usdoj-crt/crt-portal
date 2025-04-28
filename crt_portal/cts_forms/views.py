@@ -54,6 +54,7 @@ from .model_variables import BATCH_STATUS_CHOICES, HATE_CRIMES_TRAFFICKING_MODEL
 from .models import CommentAndSummary, Profile, Report, ReportAttachment, ReportDisposition, ReportDispositionBatch, ReportsData, Resource, ResourceContact, RetentionSchedule, SavedSearch, Trends, EmailReportCount, Campaign, User, NotificationPreference, RoutingSection, RoutingStepOneContact, RepeatWriterInfo
 from .page_through import pagination
 from .sorts import other_sort, report_sort
+from crt_portal.decorators import active_user_required
 
 logger = logging.getLogger(__name__)
 
@@ -269,6 +270,7 @@ def get_disposition_report_data(requested_reports):
 
 
 @login_required
+@active_user_required
 def new_user_landing_view(request):
     routing_sections = RoutingSection.objects.all().order_by('section')
     access_pocs_by_section = {}
@@ -282,6 +284,7 @@ def new_user_landing_view(request):
 
 
 @login_required
+@active_user_required
 def index_view(request):
     grouping = request.GET.get('grouping', 'default')
     profile_form = get_profile_form(request)
@@ -596,6 +599,7 @@ def process_activity_filters(request):
 
 
 @login_required
+@active_user_required
 def data_view(request):
     profile_form = get_profile_form(request)
     notebooks = AnalyticsFile.objects.filter(path__startswith='assignments/intake-dashboard').exclude(path__startswith="assignments/intake-dashboard/draft_").filter(type='notebook').order_by(Lower('name'))
@@ -642,6 +646,7 @@ def data_view(request):
 
 
 @login_required
+@active_user_required
 def data_piecemeal_view(request, notebook_urls):
     notebooks = [
         get_object_or_404(AnalyticsFile, metadata__url=url)
@@ -663,6 +668,7 @@ def data_piecemeal_view(request, notebook_urls):
 
 
 @login_required
+@active_user_required
 def dashboard_view(request):
     return render(
         request,
@@ -673,6 +679,7 @@ def dashboard_view(request):
 
 
 @login_required
+@active_user_required
 def dashboard_activity_log_view(request):
 
     return render(
@@ -799,6 +806,7 @@ def get_batch_view_data(request):
 
 
 @login_required
+@active_user_required
 def disposition_view(request):
     params = request.GET.copy()
     if not params.get('disposition_status'):
@@ -857,6 +865,7 @@ def disposition_view(request):
 
 
 @login_required
+@active_user_required
 def unsubscribe_view(request):
     if not hasattr(request.user, 'notification_preference'):
         messages.add_message(request,
@@ -872,6 +881,7 @@ def unsubscribe_view(request):
 
 
 @login_required
+@active_user_required
 def notification_view(request):
     if request.method == 'GET':
         return _notification_get(request)
@@ -879,6 +889,7 @@ def notification_view(request):
 
 
 @login_required
+@active_user_required
 def test_site_view(request):
     environment = os.environ.get('ENV', 'UNDEFINED')
     if environment not in ['LOCAL', 'UNDEFINED', 'STAGE', 'DEVELOP']:
@@ -975,6 +986,7 @@ def _notification_change(request):
 
 
 @login_required
+@active_user_required
 def resources_view(request):
     return render(request, 'forms/complaint_view/resources/index.html', {'form': ResourceFilter(request.GET)})
 
@@ -2199,6 +2211,7 @@ class SaveCommentView(LoginRequiredMixin, FormView):
 
 
 @login_required
+@active_user_required
 def phone_pro_form_view(request, report_id=None, working_group=None):
     if working_group is None:
         working_group = 'VOT'  # Default /form/phone/new to VOT
