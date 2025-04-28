@@ -6,7 +6,7 @@ from django.utils.http import url_has_allowed_host_and_scheme
 from django.utils.encoding import iri_to_uri
 from django.shortcuts import redirect
 
-from decorators import active_user_required
+from .decorators import active_user_required
 
 
 def retrieve_and_save_next_url_in_session(request):
