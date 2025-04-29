@@ -8,6 +8,7 @@ def forwards_func(_, schema_editor):
         try:
             num_reported_reasons_corrected = 0
             query = ""
+            query_params = []
             protected_class_map = {
                 "Age": 1,
                 "Disability": 2,
@@ -49,11 +50,13 @@ def forwards_func(_, schema_editor):
                     # Get the first word of the affected reported reason so we can map it to the protected class id
                     first_word = affected_reported_reason.split()[0].strip('"')
                     # Try to add the reported reason to the report, if it already exists then we do nothing
-                    query += f"INSERT INTO cts_forms_report_protected_class (report_id, protectedclass_id) VALUES ({report_id}, {protected_class_map[first_word]}) ON CONFLICT (report_id, protectedclass_id) DO NOTHING;\n"
+                    query += "INSERT INTO cts_forms_report_protected_class (report_id, protectedclass_id) VALUES (%s, %s) ON CONFLICT (report_id, protectedclass_id) DO NOTHING;\n"
+                    query_params.append(report_id)
+                    query_params.append(protected_class_map[first_word])
                     # Sanity check to keep track of how many reported reasons we are correcting
                     num_reported_reasons_corrected += 1
 
-            cursor.execute(f"BEGIN;\n{query}\nCOMMIT;")
+            cursor.execute(f"BEGIN;\n{query}\nCOMMIT;", query_params)
             print(f"Number of reported reasons corrected: {num_reported_reasons_corrected}")
         except Exception as e:
             print(e)
