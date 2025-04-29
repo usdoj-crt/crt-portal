@@ -1,6 +1,5 @@
 from mozilla_django_oidc.auth import OIDCAuthenticationBackend
 from django.contrib.auth import get_user_model
-from django.contrib.auth.backends import ModelBackend
 
 User = get_user_model()
 
