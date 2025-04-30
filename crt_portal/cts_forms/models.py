@@ -125,6 +125,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     intake_filters = models.TextField(max_length=500, blank=True)
     section = models.TextField(choices=SECTION_CHOICES, null=True, blank=True, default=None)
+    has_portal_access = models.BooleanField(default=False)
 
     def __str__(self):
         return str(self.user)

@@ -1,6 +1,6 @@
 {% extends "forms/complaint_view/intake_base.html" %}
 {% block page_header %}
-<!-- {% include 'forms/complaint_view/routing_guide_header.html' %} -->
+{% include 'forms/complaint_view/new_user_landing_header.html' %}
 {% endblock %}
 {% block content %}
 <div class="intake-content grid-container-widescreen">
@@ -34,5 +34,4 @@
 {% endblock %}
 {% block page_js %}
 {{ block.super }}
-<!-- <script src="{% static 'js/routing_guide.min.js' %}"></script> -->
 {% endblock %}

@@ -1,13 +1,13 @@
 from django.shortcuts import redirect
 
 
-def active_user_required(func):
+def portal_access_required(func):
     def wrapper(request, *args, **kwargs):
-        print("Active User Required Decorator is called!")
         user = request.user
-        print("User = ", user)
-        if not user.is_active:
-            print("User is not active, redirecting to landing.")
+        if user.is_superuser or user.is_staff:
+            return func(request, *args, **kwargs)
+
+        if not user.profile.has_portal_access:
             return redirect('/form/landing')
         return func(request, *args, **kwargs)
     return wrapper
