@@ -745,7 +745,7 @@ class CRT_FILTER_Tests(TestCase):
         """
         Results filtered by assigned_section set in profile if no assigned_section provided
         """
-        Profile.objects.create(intake_filters='IER', user_id=self.user.id)
+        self.user.profile.intake_filters = 'IER'
         response = self.client.get(f'{self.url_base}')
         reports = response.context['data_dict']
 
@@ -757,7 +757,7 @@ class CRT_FILTER_Tests(TestCase):
         """
         Results filtered by provided assigned_section, bypassing profile filter
         """
-        Profile.objects.create(intake_filters='IER', user_id=self.user.id)
+        self.user.profile.intake_filters = 'IER'
         filter_ = 'assigned_section=ADM'
         response = self.client.get(f'{self.url_base}?{filter_}')
         reports = response.context['data_dict']
