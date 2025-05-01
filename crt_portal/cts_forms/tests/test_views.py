@@ -22,7 +22,7 @@ from testfixtures import LogCapture
 
 from ..forms import ComplaintOutreach, ContactEditForm, ReportEditForm, add_activity
 from ..model_variables import PRIMARY_COMPLAINT_CHOICES
-from ..models import Profile, Report, ReportAttachment, ProtectedClass, PROTECTED_MODEL_CHOICES, CommentAndSummary, Campaign, BannerMessage, RetentionSchedule, SavedSearch, NotificationPreference, Resource, Tag
+from ..models import Report, ReportAttachment, ProtectedClass, PROTECTED_MODEL_CHOICES, CommentAndSummary, Campaign, BannerMessage, RetentionSchedule, SavedSearch, NotificationPreference, Resource, Tag
 from .test_data import SAMPLE_REPORT_1, SAMPLE_REPORT_3, SAMPLE_REPORT_4
 from .factories import ReportFactory, UserFactory
 from .utils import assertSoupFinds, assertSoupSelects
@@ -33,11 +33,7 @@ class ProfileViewTests(TestCase):
     def setUp(self):
         self.client = Client()
         self.user = UserFactory.create_user('DELETE_USER', 'george@thebeatles.com', '')
-        sample_profile = {
-            'intake_filters': 'ADM',
-            'user_id': self.user.id
-        }
-        self.test_profile = Profile.objects.create(**sample_profile)
+        self.user.profile.intake_filters = 'ADM'
         self.client.login(username='DELETE_USER', password='')  # nosec
         self.form_data = {'type': 'profile_form'}
         self.url = reverse('crt_forms:cts-forms-profile')
@@ -50,8 +46,8 @@ class ProfileViewTests(TestCase):
         new_intake_filters = ['VOT', 'ADM']
         self.form_data.update({'intake_filters': new_intake_filters})
         self.client.post(self.url, self.form_data, follow=True)
-        self.test_profile.refresh_from_db()
-        self.assertEqual(self.test_profile.intake_filters, 'VOT,ADM')
+        self.user.profile.refresh_from_db()
+        self.assertEqual(self.user.profile.intake_filters, 'VOT,ADM')
 
 
 class OutreachTests(TestCase):
