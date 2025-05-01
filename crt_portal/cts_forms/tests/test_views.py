@@ -9,6 +9,7 @@ from datetime import date, timedelta
 import pypdf
 import re
 
+from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.core.management import call_command
 from django.core.files.uploadedfile import TemporaryUploadedFile
@@ -777,7 +778,7 @@ class Data_Export(TestCase):
     def setUp(self):
         call_command('generate_yearly_reports')
         self.client = Client()
-        self.superuser = UserFactory.create_superuser('superduperuser', 'a@a.com', '')
+        self.superuser = User.objects.create_superuser('superduperuser', 'a@a.com', '')
         self.url = reverse('crt_forms:get-report-data')
 
     def test_get_reports_unauthenticated(self):
@@ -798,8 +799,8 @@ class CRT_Dashboard_Tests(TestCase):
     def setUp(self):
         # We'll need a report and a handful of actions
         self.client = Client()
-        self.superuser = UserFactory.create_superuser('superduperuser', 'a@a.com', '')
-        self.superuser2 = UserFactory.create_superuser('superduperuser2', 'a@a.com', '')
+        self.superuser = User.objects.create_superuser('superduperuser', 'a@a.com', '')
+        self.superuser2 = User.objects.create_superuser('superduperuser2', 'a@a.com', '')
         self.report = Report.objects.create(**SAMPLE_REPORT_1)
         self.report2 = Report.objects.create(**SAMPLE_REPORT_1)
         self.url = reverse('crt_forms:dashboard')
@@ -864,8 +865,8 @@ class CRT_Activity_Dashboard_Tests(TestCase):
     def setUp(self):
         # We'll need a report and a handful of actions
         self.client = Client()
-        self.superuser = UserFactory.create_superuser('superduperuser', 'a@a.com', '')
-        self.superuser2 = UserFactory.create_superuser('superduperuser2', 'a@a.com', '')
+        self.superuser = User.objects.create_superuser('superduperuser', 'a@a.com', '')
+        self.superuser2 = User.objects.create_superuser('superduperuser2', 'a@a.com', '')
         self.report = Report.objects.create(**SAMPLE_REPORT_1)
         self.report2 = Report.objects.create(**SAMPLE_REPORT_1)
         self.url = reverse('crt_forms:activity-log')
@@ -921,7 +922,7 @@ class CRT_Activity_Dashboard_Tests(TestCase):
 class CRT_Saved_Search_Tests(TestCase):
     def setUp(self):
         self.client = Client()
-        self.superuser = UserFactory.create_superuser('superduperuser', 'a@a.com', '')
+        self.superuser = User.objects.create_superuser('superduperuser', 'a@a.com', '')
         self.ADMsavedSearch = SavedSearch.objects.create(
             name="ADM Saved Search",
             query="status=closed&grouping=default",
@@ -960,7 +961,7 @@ class CRT_Saved_Search_Tests(TestCase):
 class CRT_Saved_Search_Action_Tests(TestCase):
     def setUp(self):
         self.client = Client()
-        self.superuser = UserFactory.create_superuser('superduperuser', 'a@a.com', '')
+        self.superuser = User.objects.create_superuser('superduperuser', 'a@a.com', '')
         self.ADMsavedSearch = SavedSearch.objects.create(
             name="ADM Saved Search",
             query="status=closed&grouping=default",
@@ -993,7 +994,7 @@ class CRTDispositionTests(TestCase):
 
     def setUp(self):
         self.client = Client()
-        self.superuser = UserFactory.create_superuser('superduperuser', 'a@a.com', '')
+        self.superuser = User.objects.create_superuser('superduperuser', 'a@a.com', '')
         self.other_report_data = SAMPLE_REPORT_1.copy()
         self.other_report_data.update({'status': 'closed'})
         self.other_report_data.update({'closed_date': date.today()})
@@ -1536,7 +1537,7 @@ class FormLettersIndexTests(TestCase):
 class CRT_Resource_Tests(TestCase):
     def setUp(self):
         self.client = Client()
-        self.superuser = UserFactory.create_superuser('superduperuser', 'a@a.com', '')
+        self.superuser = User.objects.create_superuser('superduperuser', 'a@a.com', '')
         self.tag = Tag.objects.create(name='test tag', section='DRS', show_in_lists=True)
         self.tag2 = Tag.objects.create(name='test tag 2', section='DRS', show_in_lists=True)
         self.resource = Resource.objects.create(name="Legal Resource", section="DRS", url="www.resource.test")
