@@ -742,9 +742,11 @@ class CRT_FILTER_Tests(TestCase):
         Results filtered by assigned_section set in profile if no assigned_section provided
         """
         self.user.profile.intake_filters = 'IER'
+        self.user.profile.save()
+        self.user.save()
+
         response = self.client.get(f'{self.url_base}')
         reports = response.context['data_dict']
-
         # No IER reports exist so none should be returned when our profile is set to
         self.assertEqual(Report.objects.filter(assigned_section='IER').count(), 0)
         self.assertEqual(len(reports), 0)
@@ -754,6 +756,9 @@ class CRT_FILTER_Tests(TestCase):
         Results filtered by provided assigned_section, bypassing profile filter
         """
         self.user.profile.intake_filters = 'IER'
+        self.user.profile.save()
+        self.user.save()
+
         filter_ = 'assigned_section=ADM'
         response = self.client.get(f'{self.url_base}?{filter_}')
         reports = response.context['data_dict']
