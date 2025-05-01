@@ -115,7 +115,7 @@ class UserFactory():
     class Meta:
         model = User
 
-    def create_user(username, email, password, first_name="test", last_name="user", has_portal_access=True):
+    def create_user(username, email, password, first_name="", last_name="", has_portal_access=True):
         user = User.objects.create_user(username, email, password, first_name=first_name, last_name=last_name)
         user.profile = Profile.objects.create(user=user)
         user.profile.has_portal_access = has_portal_access
