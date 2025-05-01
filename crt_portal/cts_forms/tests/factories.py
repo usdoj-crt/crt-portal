@@ -119,4 +119,6 @@ class UserFactory():
         user = User.objects.create_user(username, email, password, first_name=first_name, last_name=last_name)
         user.profile = Profile.objects.create(user=user)
         user.profile.has_portal_access = has_portal_access
+        user.profile.save()
+        user.save()
         return user
