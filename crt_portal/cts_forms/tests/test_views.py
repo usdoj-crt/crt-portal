@@ -9,7 +9,6 @@ from datetime import date, timedelta
 import pypdf
 import re
 
-from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.core.management import call_command
 from django.core.files.uploadedfile import TemporaryUploadedFile
@@ -24,7 +23,7 @@ from ..forms import ComplaintOutreach, ContactEditForm, ReportEditForm, add_acti
 from ..model_variables import PRIMARY_COMPLAINT_CHOICES
 from ..models import Profile, Report, ReportAttachment, ProtectedClass, PROTECTED_MODEL_CHOICES, CommentAndSummary, Campaign, BannerMessage, RetentionSchedule, SavedSearch, NotificationPreference, Resource, Tag
 from .test_data import SAMPLE_REPORT_1, SAMPLE_REPORT_3, SAMPLE_REPORT_4
-from .factories import ReportFactory
+from .factories import ReportFactory, UserFactory
 from .utils import assertSoupFinds, assertSoupSelects
 
 
@@ -32,7 +31,7 @@ class ProfileViewTests(TestCase):
 
     def setUp(self):
         self.client = Client()
-        self.user = User.objects.create_user('DELETE_USER', 'george@thebeatles.com', '')
+        self.user = UserFactory.create_user('DELETE_USER', 'george@thebeatles.com', '')
         sample_profile = {
             'intake_filters': 'ADM',
             'user_id': self.user.id
@@ -63,7 +62,7 @@ class OutreachTests(TestCase):
             **SAMPLE_REPORT_1,
             origination_utm_campaign=self.campaign)
         self.client = Client()
-        self.user = User.objects.create_user('DELETE_USER', 'george@thebeatles.com', '')
+        self.user = UserFactory.create_user('DELETE_USER', 'george@thebeatles.com', '')
         self.client.login(username='DELETE_USER', password='')  # nosec
         self.form_data = {'type': ComplaintOutreach.CONTEXT_KEY}
 
@@ -85,7 +84,7 @@ class OutreachTests(TestCase):
 class NotificationManagementTests(TestCase):
     def setUp(self):
         self.test_report = Report.objects.create(**SAMPLE_REPORT_1)
-        self.user = User.objects.create_user('DELETE_USER', 'test@usdoj.gov', '')
+        self.user = UserFactory.create_user('DELETE_USER', 'test@usdoj.gov', '')
         self.url = '/form/notifications/'
         self.client = Client()
         self.client.login(username='DELETE_USER', password='')  # nosec
@@ -127,7 +126,7 @@ class ContactInfoUpdateTests(TestCase):
     def setUp(self):
         self.test_report = Report.objects.create(**SAMPLE_REPORT_1)
         self.client = Client()
-        self.user = User.objects.create_user('DELETE_USER', 'george@thebeatles.com', '')
+        self.user = UserFactory.create_user('DELETE_USER', 'george@thebeatles.com', '')
         self.client.login(username='DELETE_USER', password='')  # nosec
         self.form_data = {'type': ContactEditForm.CONTEXT_KEY}
 
@@ -172,7 +171,7 @@ class ReportEditShowViewTests(TestCase):
         self.report_data.update({'primary_complaint': PRIMARY_COMPLAINT_CHOICES[0][0]})
         self.report = Report.objects.create(**self.report_data)
         self.client = Client()
-        self.user = User.objects.create_user('DELETE_USER', 'george@thebeatles.com', '')
+        self.user = UserFactory.create_user('DELETE_USER', 'george@thebeatles.com', '')
         self.client.login(username='DELETE_USER', password='')  # nosec
 
         self.url = reverse('crt_forms:crt-forms-show', kwargs={'id': self.report.id})
@@ -308,7 +307,7 @@ class ReportAttachmentTests(TestCase):
         self.pk = self.report.pk
         self.fake_file = io.StringIO('this is a fake file')
         self.test_pass = secrets.token_hex(32)
-        self.user = User.objects.create_user('DELETE_USER', 'ringo@thebeatles.com', self.test_pass)
+        self.user = UserFactory.create_user('DELETE_USER', 'ringo@thebeatles.com', self.test_pass)
         self.client.login(username='DELETE_USER', password=self.test_pass)
 
     @patch('cts_forms.models.ReportAttachment.full_clean')
@@ -417,7 +416,7 @@ class Complaint_Show_View_Valid(TestCase):
 
         self.client = Client()
         self.test_pass = secrets.token_hex(32)
-        self.user = User.objects.create_user('DELETE_USER', 'george@thebeatles.com', self.test_pass)
+        self.user = UserFactory.create_user('DELETE_USER', 'george@thebeatles.com', self.test_pass)
         self.client.login(username='DELETE_USER', password=self.test_pass)
         response = self.client.get(reverse('crt_forms:crt-forms-show', kwargs={'id': test_report.id}))
         self.context = response.context
@@ -457,7 +456,7 @@ class Valid_CRT_Pagnation_Tests(TestCase):
         self.client = Client()
         # we are not running the tests against the production database, so this shouldn't be producing real users anyway.
         self.test_pass = secrets.token_hex(32)
-        self.user = User.objects.create_user('DELETE_USER', 'george@thebeatles.com', self.test_pass)
+        self.user = UserFactory.create_user('DELETE_USER', 'george@thebeatles.com', self.test_pass)
         self.client.login(username='DELETE_USER', password=self.test_pass)
         response = self.client.get(reverse('crt_forms:crt-forms-index'))
         self.content = str(response.content)
@@ -497,7 +496,7 @@ class Valid_CRT_SORT_Tests(TestCase):
         self.client = Client()
         # we are not running the tests against the production database, so this shouldn't be producing real users anyway.
         self.test_pass = secrets.token_hex(32)
-        self.user = User.objects.create_user('DELETE_USER', 'george@thebeatles.com', self.test_pass)
+        self.user = UserFactory.create_user('DELETE_USER', 'george@thebeatles.com', self.test_pass)
         self.client.login(username='DELETE_USER', password=self.test_pass)
         url_base = reverse('crt_forms:crt-forms-index')
         url_1 = f'{url_base}?sort=assigned_section'
@@ -559,7 +558,7 @@ class CRT_FILTER_Tests(TestCase):
         self.client = Client()
         # we are not running the tests against the production database, so this shouldn't be producing real users anyway.
         self.test_pass = secrets.token_hex(32)
-        self.user = User.objects.create_user('DELETE_USER', 'george@thebeatles.com', self.test_pass)
+        self.user = UserFactory.create_user('DELETE_USER', 'george@thebeatles.com', self.test_pass)
         self.client.login(username='DELETE_USER', password=self.test_pass)
         self.url_base = reverse('crt_forms:crt-forms-index')
         self.len_all_results = len(self.client.get(self.url_base).context['data_dict'])
@@ -778,7 +777,7 @@ class Data_Export(TestCase):
     def setUp(self):
         call_command('generate_yearly_reports')
         self.client = Client()
-        self.superuser = User.objects.create_superuser('superduperuser', 'a@a.com', '')
+        self.superuser = UserFactory.create_superuser('superduperuser', 'a@a.com', '')
         self.url = reverse('crt_forms:get-report-data')
 
     def test_get_reports_unauthenticated(self):
@@ -799,8 +798,8 @@ class CRT_Dashboard_Tests(TestCase):
     def setUp(self):
         # We'll need a report and a handful of actions
         self.client = Client()
-        self.superuser = User.objects.create_superuser('superduperuser', 'a@a.com', '')
-        self.superuser2 = User.objects.create_superuser('superduperuser2', 'a@a.com', '')
+        self.superuser = UserFactory.create_superuser('superduperuser', 'a@a.com', '')
+        self.superuser2 = UserFactory.create_superuser('superduperuser2', 'a@a.com', '')
         self.report = Report.objects.create(**SAMPLE_REPORT_1)
         self.report2 = Report.objects.create(**SAMPLE_REPORT_1)
         self.url = reverse('crt_forms:dashboard')
@@ -865,8 +864,8 @@ class CRT_Activity_Dashboard_Tests(TestCase):
     def setUp(self):
         # We'll need a report and a handful of actions
         self.client = Client()
-        self.superuser = User.objects.create_superuser('superduperuser', 'a@a.com', '')
-        self.superuser2 = User.objects.create_superuser('superduperuser2', 'a@a.com', '')
+        self.superuser = UserFactory.create_superuser('superduperuser', 'a@a.com', '')
+        self.superuser2 = UserFactory.create_superuser('superduperuser2', 'a@a.com', '')
         self.report = Report.objects.create(**SAMPLE_REPORT_1)
         self.report2 = Report.objects.create(**SAMPLE_REPORT_1)
         self.url = reverse('crt_forms:activity-log')
@@ -922,7 +921,7 @@ class CRT_Activity_Dashboard_Tests(TestCase):
 class CRT_Saved_Search_Tests(TestCase):
     def setUp(self):
         self.client = Client()
-        self.superuser = User.objects.create_superuser('superduperuser', 'a@a.com', '')
+        self.superuser = UserFactory.create_superuser('superduperuser', 'a@a.com', '')
         self.ADMsavedSearch = SavedSearch.objects.create(
             name="ADM Saved Search",
             query="status=closed&grouping=default",
@@ -961,7 +960,7 @@ class CRT_Saved_Search_Tests(TestCase):
 class CRT_Saved_Search_Action_Tests(TestCase):
     def setUp(self):
         self.client = Client()
-        self.superuser = User.objects.create_superuser('superduperuser', 'a@a.com', '')
+        self.superuser = UserFactory.create_superuser('superduperuser', 'a@a.com', '')
         self.ADMsavedSearch = SavedSearch.objects.create(
             name="ADM Saved Search",
             query="status=closed&grouping=default",
@@ -994,7 +993,7 @@ class CRTDispositionTests(TestCase):
 
     def setUp(self):
         self.client = Client()
-        self.superuser = User.objects.create_superuser('superduperuser', 'a@a.com', '')
+        self.superuser = UserFactory.create_superuser('superduperuser', 'a@a.com', '')
         self.other_report_data = SAMPLE_REPORT_1.copy()
         self.other_report_data.update({'status': 'closed'})
         self.other_report_data.update({'closed_date': date.today()})
@@ -1083,7 +1082,7 @@ class LoginRequiredTests(TestCase):
         self.client = Client()
         # we are not running the tests against the production database, so this shouldn't be producing real users anyway.
         self.test_pass = secrets.token_hex(32)
-        self.user = User.objects.create_user('DELETE_USER', 'lennon@thebeatles.com', self.test_pass)
+        self.user = UserFactory.create_user('DELETE_USER', 'lennon@thebeatles.com', self.test_pass)
         test_report = Report.objects.create(**SAMPLE_REPORT_1)
         test_report.save()
         self.report = test_report
@@ -1147,7 +1146,7 @@ class LoginRequiredTests(TestCase):
         with LogCapture() as cm:
             self.client = Client()
             self.test_pass = secrets.token_hex(32)
-            self.user2 = User.objects.create_user('DELETE_USER_2', 'mccartney@thebeatles.com', self.test_pass)
+            self.user2 = UserFactory.create_user('DELETE_USER_2', 'mccartney@thebeatles.com', self.test_pass)
             self.user2_pk = copy.copy(self.user2.pk)
             self.user2.delete()
 
@@ -1197,7 +1196,7 @@ class ReportEditApiTests(TestCase):
 
     def setUp(self):
         self.client = Client()
-        self.user = User.objects.create_user("USER_1", "user@example.com", "")
+        self.user = UserFactory.create_user("USER_1", "user@example.com", "")
         Report.objects.get_or_create(pk=1, public_id='1-XYZ', defaults=self.report_data)
         self.base_url = reverse('api:report-edit')
         self.client.login(username="USER_1", password="")  # nosec
@@ -1386,7 +1385,7 @@ class ReportSummaryApiTests(TestCase):
 
     def setUp(self):
         self.client = Client()
-        self.user = User.objects.create_user("USER_1", "cookiemonster@fake.net", "")
+        self.user = UserFactory.create_user("USER_1", "cookiemonster@fake.net", "")
         self.test_reports = [Report.objects.create(**SAMPLE_REPORT_1) for i in range(10)]
         self.report_ids = [report.id for report in self.test_reports]
         self.base_url = reverse('api:report-summary')
@@ -1420,7 +1419,7 @@ class ReportListApiTests(TestCase):
 
     def setUp(self):
         self.client = Client()
-        self.user = User.objects.create_user("USER_1", "cookiemonster@fake.net", "")
+        self.user = UserFactory.create_user("USER_1", "cookiemonster@fake.net", "")
         self.test_reports = [Report.objects.create(**SAMPLE_REPORT_1) for i in range(10)]
         self.report_ids = [report.id for report in self.test_reports]
         self.base_url = reverse('api:report-list')
@@ -1510,7 +1509,7 @@ class FormLettersIndexTests(TestCase):
 
     def setUp(self):
         self.client = Client()
-        self.user = User.objects.create_user("USER_1", "cookiemonster@fake.net", "")
+        self.user = UserFactory.create_user("USER_1", "cookiemonster@fake.net", "")
         self.base_url = reverse('api:form-letters')
         self.client.login(username="USER_1", password="")  # nosec
 
@@ -1537,7 +1536,7 @@ class FormLettersIndexTests(TestCase):
 class CRT_Resource_Tests(TestCase):
     def setUp(self):
         self.client = Client()
-        self.superuser = User.objects.create_superuser('superduperuser', 'a@a.com', '')
+        self.superuser = UserFactory.create_superuser('superduperuser', 'a@a.com', '')
         self.tag = Tag.objects.create(name='test tag', section='DRS', show_in_lists=True)
         self.tag2 = Tag.objects.create(name='test tag 2', section='DRS', show_in_lists=True)
         self.resource = Resource.objects.create(name="Legal Resource", section="DRS", url="www.resource.test")
