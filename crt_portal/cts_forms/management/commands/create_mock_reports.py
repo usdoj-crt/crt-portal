@@ -11,6 +11,7 @@ from cts_forms.signals import salt
 from cts_forms.models import EmailReportCount, ProtectedClass, Campaign, ResponseTemplate, CommentAndSummary, Tag, RetentionSchedule
 from cts_forms.model_variables import PROTECTED_MODEL_CHOICES, DISTRICT_CHOICES, STATUTE_CHOICES
 from cts_forms.forms import add_activity
+from cts_forms.tests.factories import UserFactory
 from django.contrib.auth.models import User
 from random import randrange
 from datetime import timedelta
@@ -61,13 +62,13 @@ class Command(BaseCommand):  # pragma: no cover
 
         user1 = User.objects.filter(username="USER_1").first()
         if not user1:
-            user1 = User.objects.create_user("USER_1", "user1@example.com", "")
+            user1 = UserFactory.create_user("USER_1", "user1@example.com", "")
         user2 = User.objects.filter(username="USER_2").first()
         if not user2:
-            user2 = User.objects.create_user("USER_2", "user1@example.com", "")
+            user2 = UserFactory.create_user("USER_2", "user1@example.com", "")
         user3 = User.objects.filter(username="USER_3").first()
         if not user3:
-            user3 = User.objects.create_user("USER_3", "user1@example.com", "")
+            user3 = UserFactory.create_user("USER_3", "user1@example.com", "")
 
         now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         campaigns = [
