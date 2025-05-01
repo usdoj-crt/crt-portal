@@ -29,7 +29,6 @@ from django.db.models import F, Subquery, OuterRef, Value, CharField, DateField,
 from django.http import Http404, HttpResponse, QueryDict
 from django.shortcuts import get_object_or_404, redirect, render, reverse
 from django.utils.html import mark_safe
-from django.utils.decorators import method_decorator
 from django.views.generic import FormView, TemplateView, View
 from analytics.models import DashboardGroup, FileGroupAssignment
 from formtools.wizard.views import SessionWizardView
@@ -56,6 +55,7 @@ from .models import CommentAndSummary, Profile, Report, ReportAttachment, Report
 from .page_through import pagination
 from .sorts import other_sort, report_sort
 from crt_portal.decorators import portal_access_required
+from crt_portal.mixins import PortalAccessRequiredMixin
 
 logger = logging.getLogger(__name__)
 
@@ -991,8 +991,7 @@ def resources_view(request):
     return render(request, 'forms/complaint_view/resources/index.html', {'form': ResourceFilter(request.GET)})
 
 
-@method_decorator(portal_access_required, name='dispatch')
-class ResourceActionView(LoginRequiredMixin, View):
+class ResourceActionView(LoginRequiredMixin, PortalAccessRequiredMixin, View):
 
     form = ResourceActions
 
@@ -1066,8 +1065,7 @@ class ResourceActionView(LoginRequiredMixin, View):
         return redirect(url)
 
 
-@method_decorator(portal_access_required, name='dispatch')
-class ProfileView(LoginRequiredMixin, FormView):
+class ProfileView(LoginRequiredMixin, PortalAccessRequiredMixin, FormView):
     # Can be used for updating section filter for a profile
     form_class = ProfileForm
 
@@ -1087,8 +1085,7 @@ class ProfileView(LoginRequiredMixin, FormView):
         return redirect(reverse('crt_forms:crt-forms-index'))
 
 
-@method_decorator(portal_access_required, name='dispatch')
-class ResponseView(LoginRequiredMixin, View):
+class ResponseView(LoginRequiredMixin, PortalAccessRequiredMixin, View):
     """
     Allow intake specialists to print, copy, or email form response letters
     If we encounter _any_ exceptions in sending an email, log the error message and return.
@@ -1153,8 +1150,7 @@ class ResponseView(LoginRequiredMixin, View):
         return redirect(url)
 
 
-@method_decorator(portal_access_required, name='dispatch')
-class PrintView(LoginRequiredMixin, View):
+class PrintView(LoginRequiredMixin, PortalAccessRequiredMixin, View):
 
     def post(self, request, id=None):
         form = PrintActions(request.POST)
@@ -1187,8 +1183,7 @@ class PrintView(LoginRequiredMixin, View):
         return redirect(url)
 
 
-@method_decorator(portal_access_required, name='dispatch')
-class ShowView(LoginRequiredMixin, View):
+class ShowView(LoginRequiredMixin, PortalAccessRequiredMixin, View):
     forms = {
         form.CONTEXT_KEY: form
         for form in [ContactEditForm, ComplaintActions, ComplaintOutreach, ReportEditForm]
@@ -1314,8 +1309,7 @@ class ShowView(LoginRequiredMixin, View):
         return redirect(url)
 
 
-@method_decorator(portal_access_required, name='dispatch')
-class RoutingGuideView(LoginRequiredMixin, View):
+class RoutingGuideView(LoginRequiredMixin, PortalAccessRequiredMixin, View):
 
     def get(self, request, id):
         output = get_section_contacts('routing')
@@ -1323,8 +1317,7 @@ class RoutingGuideView(LoginRequiredMixin, View):
         return render(request, 'forms/complaint_view/routing_guide.html', output)
 
 
-@method_decorator(portal_access_required, name='dispatch')
-class DispositionGuideView(LoginRequiredMixin, View):
+class DispositionGuideView(LoginRequiredMixin, PortalAccessRequiredMixin, View):
 
     def get(self, request, id):
         output = get_section_contacts('retention')
@@ -1332,8 +1325,7 @@ class DispositionGuideView(LoginRequiredMixin, View):
         return render(request, 'forms/complaint_view/disposition_guide.html', output)
 
 
-@method_decorator(portal_access_required, name='dispatch')
-class DispositionActionsView(LoginRequiredMixin, FormView):
+class DispositionActionsView(LoginRequiredMixin, PortalAccessRequiredMixin, FormView):
     """ CRT view to update report disposition"""
     EMPTY_CHOICE = 'Multiple'
 
@@ -1555,8 +1547,7 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
             return render(request, 'forms/complaint_view/disposition/actions/index.html', output)
 
 
-@method_decorator(portal_access_required, name='dispatch')
-class DispositionBatchActionsView(LoginRequiredMixin, FormView):
+class DispositionBatchActionsView(LoginRequiredMixin, PortalAccessRequiredMixin, FormView):
     """ Records team view to review disposition batches"""
 
     def get_reviewer_data(self, request, batch):
@@ -1707,8 +1698,7 @@ class DispositionBatchActionsView(LoginRequiredMixin, FormView):
         return render(request, 'forms/complaint_view/disposition/actions/batch/index.html', output)
 
 
-@method_decorator(portal_access_required, name='dispatch')
-class ActionsView(LoginRequiredMixin, FormView):
+class ActionsView(LoginRequiredMixin, PortalAccessRequiredMixin, FormView):
     """ CRT view to update report data"""
 
     def get(self, request):
@@ -1816,8 +1806,7 @@ class ActionsView(LoginRequiredMixin, FormView):
             return render(request, 'forms/complaint_view/actions/index.html', output)
 
 
-@method_decorator(portal_access_required, name='dispatch')
-class SavedSearchView(LoginRequiredMixin, FormView):
+class SavedSearchView(LoginRequiredMixin, PortalAccessRequiredMixin, FormView):
 
     def get_page_args(self, request, filter_args, saved_searches):
         per_page = request.GET.get('per_page', request.COOKIES.get('complaint_view_per_page', 15))
@@ -1878,8 +1867,7 @@ class SavedSearchView(LoginRequiredMixin, FormView):
         return render(request, 'forms/complaint_view/saved_searches/index.html', output)
 
 
-@method_decorator(portal_access_required, name='dispatch')
-class SavedSearchActionView(LoginRequiredMixin, View):
+class SavedSearchActionView(LoginRequiredMixin, PortalAccessRequiredMixin, View):
 
     form = SavedSearchActions
 
@@ -2020,8 +2008,7 @@ class SavedSearchActionView(LoginRequiredMixin, View):
         return redirect(f"{url}?{section_filter}{saved_search_view}")
 
 
-@method_decorator(portal_access_required, name='dispatch')
-class ReportAttachmentView(LoginRequiredMixin, FormView):
+class ReportAttachmentView(LoginRequiredMixin, PortalAccessRequiredMixin, FormView):
     """Can be used for saving attachments for a report"""
     form_class = AttachmentActions
     http_method_names = ['get', 'post']
@@ -2097,8 +2084,7 @@ class ReportAttachmentView(LoginRequiredMixin, FormView):
         return redirect(url)
 
 
-@method_decorator(portal_access_required, name='dispatch')
-class ReportDataView(LoginRequiredMixin, FormView):
+class ReportDataView(LoginRequiredMixin, PortalAccessRequiredMixin, FormView):
     """Can be used for saving report data for a report"""
     http_method_names = ['get']
 
@@ -2149,8 +2135,7 @@ class ReportDataView(LoginRequiredMixin, FormView):
                 raise Http404(f'File {attachment.filename} not found.')
 
 
-@method_decorator(portal_access_required, name='dispatch')
-class DataExport(LoginRequiredMixin, TemplateView):
+class DataExport(LoginRequiredMixin, PortalAccessRequiredMixin, TemplateView):
 
     def get(self, request):
         output = {
@@ -2159,8 +2144,7 @@ class DataExport(LoginRequiredMixin, TemplateView):
         return render(request, 'forms/data_export.html', output)
 
 
-@method_decorator(portal_access_required, name='dispatch')
-class RemoveReportAttachmentView(LoginRequiredMixin, View):
+class RemoveReportAttachmentView(LoginRequiredMixin, PortalAccessRequiredMixin, View):
     http_method_names = ['post']
 
     def post(self, request, attachment_id):
@@ -2180,8 +2164,7 @@ class RemoveReportAttachmentView(LoginRequiredMixin, View):
         return redirect(url)
 
 
-@method_decorator(portal_access_required, name='dispatch')
-class SaveCommentView(LoginRequiredMixin, FormView):
+class SaveCommentView(LoginRequiredMixin, PortalAccessRequiredMixin, FormView):
     """Can be used for saving comments or summaries for a report"""
     form_class = CommentActions
 
@@ -2307,8 +2290,7 @@ def phone_pro_form_view(request, report_id=None, working_group=None):
     )
 
 
-@method_decorator(portal_access_required, name='dispatch')
-class ProFormView(LoginRequiredMixin, SessionWizardView):
+class ProFormView(LoginRequiredMixin, PortalAccessRequiredMixin, SessionWizardView):
     """This is the one-page internal form for CRT staff to input complaints"""
 
     def get_template_names(self):
@@ -2371,8 +2353,7 @@ class ProFormView(LoginRequiredMixin, SessionWizardView):
         return redirect(reverse('crt_forms:crt-forms-show', kwargs={'id': report.pk}))
 
 
-@method_decorator(portal_access_required, name='dispatch')
-class TrendView(LoginRequiredMixin, TemplateView):
+class TrendView(LoginRequiredMixin, PortalAccessRequiredMixin, TemplateView):
     """This shows word trending for incoming reports"""
     template_name = "forms/complaint_view/trends.html"
 
@@ -2385,8 +2366,7 @@ class TrendView(LoginRequiredMixin, TemplateView):
         }
 
 
-@method_decorator(portal_access_required, name='dispatch')
-class SearchHelperView(LoginRequiredMixin, TemplateView):
+class SearchHelperView(LoginRequiredMixin, PortalAccessRequiredMixin, TemplateView):
     """This shows advanced help text for the full-text search"""
 
     def get(self, request):
