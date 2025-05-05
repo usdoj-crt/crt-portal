@@ -104,16 +104,18 @@
 
       let v = value;
 
-      if (key === "eeoc_charge_number") {
+      if (key === 'eeoc_charge_number') {
         v = value.toUpperCase();
 
         if (!eeocChargeNumberRegExp.test(v)) {
           showResponseMessages({
-            messages: [{
-              field: 'eeoc_charge_number',
-              type: 'error',
-              message: 'Must be in the format XXX-XXXX-XXXXX'
-            }]
+            messages: [
+              {
+                field: 'eeoc_charge_number',
+                type: 'error',
+                message: 'Must be in the format XXX-XXXX-XXXXX'
+              }
+            ]
           });
           return;
         }
