@@ -11,6 +11,7 @@ import logging
 import mimetypes
 import os
 import urllib.parse
+from collections import OrderedDict
 
 import boto3
 from botocore.client import Config
@@ -2208,6 +2209,14 @@ def phone_pro_form_view(request, report_id=None, working_group=None):
         attachment_ids = attachment_data.split(',')[:-1]
         attachments = list(map(lambda id: get_object_or_404(ReportAttachment, pk=int(id)), attachment_ids))
 
+    additional_contacts = get_additional_contacts_field_mapping(working_group)
+    additional_contacts = {
+        "Charging Party Representative": additional_contacts.get('Charging Party Representative'),
+        "Respondent": additional_contacts.get('Respondent'),
+        "Respondent Representative": additional_contacts.get('Respondent Representative'),
+        "EEOC Representative": additional_contacts.get('EEOC Representative'),
+    }
+
     return render(
         request,
         'forms/phone_pro_template.html',
@@ -2241,7 +2250,7 @@ def phone_pro_form_view(request, report_id=None, working_group=None):
                 ],
             ).render('', 'default'),
 
-            'additional_contacts': get_additional_contacts_field_mapping(working_group),
+            'additional_contacts': additional_contacts,
 
             'form': form,
 

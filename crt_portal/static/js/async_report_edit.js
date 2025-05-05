@@ -93,12 +93,30 @@
     const url = form.action;
     const method = form.method;
     const token = formData.get('csrfmiddlewaretoken');
+    const eeocChargeNumberRegExp = /^[A-Z0-9]{3}\-[A-Z0-9]{4}\-[A-Z0-9]{5}$/;
     formData.delete('csrfmiddlewaretoken');
 
     const formattedData = {};
     for (const [key, value] of formData) {
       if (!value) {
         continue;
+      }
+
+      let v = value;
+
+      if (key === "eeoc_charge_number") {
+        v = value.toUpperCase();
+
+        if (!eeocChargeNumberRegExp.test(v)) {
+          showResponseMessages({
+            messages: [{
+              field: 'eeoc_charge_number',
+              type: 'error',
+              message: 'Must be in the format XXX-XXXX-XXXXX'
+            }]
+          });
+          return;
+        }
       }
       // We need to do Array.from because document.getElementsByName returns a NodeList, not an Array
       const elements = Array.from(document.getElementsByName(key));
@@ -117,10 +135,10 @@
           if (!Object.keys(formattedData).includes(key)) {
             formattedData[key] = [];
           }
-          formattedData[key].push(value);
+          formattedData[key].push(v);
           break;
         default:
-          formattedData[key] = value;
+          formattedData[key] = v;
       }
     }
 
