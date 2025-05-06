@@ -120,7 +120,7 @@
       {% for additional_contact_kind, additional_contact_fields in additional_contacts.items %}
         <hr>
         {% include 'partials/start_expandable.html' with title=additional_contact_kind %}
-        {% if additional_contact_kind == "Respondent" %}
+        {% if additional_contact_kind == "Respondent" and working_group == "ELS-CRU" %}
           <div class="grid-row margin-top-2">
             {% include 'partials/field.html' with field=form.location_name %}
           </div>
