@@ -34,11 +34,11 @@ class Command(BaseCommand):  # pragma: no cover
             # target_object_id is the report id
             cursor.execute(
                 """
-                    SELECT description, target_object_id 
+                    SELECT description, target_object_id
                     FROM actstream_action
-                    WHERE 
-                        verb like '%Protected%' and 
-                        description like '%to ""%' and 
+                    WHERE
+                        verb like '%Protected%' and
+                        description like '%to ""%' and
                         timestamp > '2025-03-04 00:00:00.00+00:00'
                 """
             )
