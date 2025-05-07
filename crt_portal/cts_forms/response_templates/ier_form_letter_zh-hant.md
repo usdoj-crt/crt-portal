@@ -2,6 +2,7 @@
 title: IER - Form Letter (Chinese Traditional)
 subject: "回應：您的民權司報告 - {{ zh_hant.section_name }}科的 {{ record_locator }}"
 language: zh-hant
+is_html: true
 ---
 {{ zh_hant.addressee }}：
 

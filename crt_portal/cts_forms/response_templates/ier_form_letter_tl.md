@@ -2,6 +2,7 @@
 title: IER - Form Letter (Tagalog)
 subject: "Tugon: Ang Iyong Ulat sa Dibisyon sa Mga Karapatang Sibil – {{ record_locator }} mula sa Seksyon na {{ tl.section_name }}"
 language: tl
+is_html: true
 ---
 {{ tl.addressee }},
 

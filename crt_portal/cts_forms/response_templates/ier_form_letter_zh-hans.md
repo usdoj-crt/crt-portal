@@ -2,6 +2,7 @@
 title: IER - Form Letter (Chinese Simplified)
 subject: "回应：您的民权司报告 - {{ zh_hans.section_name }}科的 {{ record_locator }}"
 language: zh-hans
+is_html: true
 ---
 {{ zh_hans.addressee }}，
 
