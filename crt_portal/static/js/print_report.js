@@ -5,7 +5,9 @@
     id_options_1: '.crt-report-card',
     id_options_2: '.crt-description-card',
     id_options_3: '.crt-activities-card',
-    id_options_4: '.crt-summary-card'
+    id_options_4: '.crt-summary-card',
+    id_options_5: '#complaint-view-actions > fieldset > div.crt-dropdown:nth-of-type(2)',
+    id_options_6: '#complaint-view-actions > fieldset > div.crt-dropdown:nth-of-type(6)',
   };
   const ALWAYS_HIDE = ['.crt-outreach-card'];
 

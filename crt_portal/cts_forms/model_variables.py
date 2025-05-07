@@ -771,6 +771,8 @@ PRINT_CHOICES = (
     ('description', 'Personal Description'),
     ('activity', 'Activity'),
     ('summary', 'Summary'),
+    ('status', 'Status'),
+    ('retention', 'Retention Schedule'),
 )
 
 FUZZY_SEARCH_CHOICES = (
