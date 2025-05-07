@@ -121,6 +121,13 @@ class ReportEdit(generics.CreateAPIView):
         user_changes = dict(request.data)
         public_id = user_changes.get('public_id')
         if not public_id:
+            if user_changes.get("eeoc_charge_number") is not None and Report.objects.filter(eeoc_charge_number__iexact=user_changes["eeoc_charge_number"]).count() > 0:
+                return JsonResponse({'messages': [
+                    {
+                        'message': f'Report with EEOC Charge Number [{user_changes["eeoc_charge_number"]}] already exists.',
+                        'type': 'error',
+                    }
+                ]}, status=409)
             created = True
             form = make_phone_pro_form(working_group)(user_changes)
         else:
