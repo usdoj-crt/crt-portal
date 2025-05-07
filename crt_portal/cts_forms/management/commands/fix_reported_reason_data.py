@@ -3,10 +3,10 @@ from django.db import connection
 from django.core.management.base import BaseCommand
 
 protected_class_dev_map = {
-    'Disability': 1,
+    'Disability': 13,
     'Race/color': 2,
-    'National': 3,
-    'Immigration/citizenship': 4,
+    'National': 19,
+    'Immigration/citizenship': 14,
     'Religion': 5,
     'Gender': 6,
     'Sexual': 7,
@@ -22,10 +22,10 @@ protected_class_dev_map = {
 }
 
 protected_class_stage_map = {
-    'Disability': 1,
+    'Disability': 13,
     'Race/color': 2,
-    'National': 3,
-    'Immigration/citizenship': 4,
+    'National': 16,
+    'Immigration/citizenship': 14,
     'Religion': 5,
     'Gender': 6,
     'Family': 7,
