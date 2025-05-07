@@ -80,7 +80,7 @@ LA AGENCIA QUE PODRÍA AYUDAR
 Departamento de Seguridad Nacional de los EE. UU.
 Servicios de Ciudadanía e Inmigración de los EE. UU., Programa de E-Verify
 
-    www.e-verify.gov
+    https://www.e-verify.gov
     Teléfono: 888-897-7781
     TTY: 877-875-6028
 
@@ -96,32 +96,6 @@ Servicios de Ciudadanía e Inmigración de los EE. UU.
 
     Comprobar El estado de mi caso: https://egov.uscis.gov/cris/Dashboard.do
     Llame al Centro de Atención al Cliente de USCIS al 1-800-375-5283
-
-
-YO EXPERIMENTÉ…
-
-Un problema con USCIS
-
-LA AGENCIA QUE PODRÍA AYUDAR
-
-Departamento de Seguridad Nacional de los EE. UU.
-Defensor de los Servicios de Ciudadanía e Inmigración
-
-    Cómo pedir ayuda con su caso: https://www.dhs.gov/case-assistance
-
-
-YO EXPERIMENTÉ…
-
-Una inquietud de derechos civiles que está relacionada con el Departamento de Seguridad Nacional de los EE. UU.
-
-LA AGENCIA QUE PODRÍA AYUDAR
-
-Departamento de Seguridad Nacional de los EE. UU.
-Oficina para Derechos Civiles y Libertades Civiles
-
-    Por teléfono: 202-401-1474 | 1-866-644-8360 (línea gratuita)
-    TTY: 202-401-0470 | 1-866-644-8361 (línea gratuita)
-    Correo electrónico: crcl@dhs.gov
 
 
 YO EXPERIMENTÉ…
@@ -148,7 +122,8 @@ UNA ORGANIZACIÓN QUE PODRÍA AYUDARLE
 
 Legal Services Corporation [Corporación de Servicios Legales] (o Legal Aid Offices [Oficinas de Asistencia Legal])
 
-    www.lsc.gov/find-legal-aid
+    https://www.lsc.gov/find-legal-aid
+    Contact by phone: 202-295-1500
 
 
 PARA LOCALIZAR A…
@@ -159,7 +134,7 @@ UNA ORGANIZACIÓN QUE PODRÍA AYUDARLE
 
 El Departamento de Justicia, Oficina Ejecutiva de Revisión de Casos de Inmigración, Junta de Apelaciones de Inmigración
 
-    Organizaciones reconocidas y representantes acreditados: https://www.justice.gov/eoir/recognized-organizations-and-accredited-representatives-roster-state-and-city
+    Organizaciones reconocidas y representantes acreditados: https://www.justice.gov/eoir/page/file/942301/dl?inline
 
 
 Cómo nos ha ayudado:

@@ -80,7 +80,7 @@ is_html: true
 미국 국토안보부
 미국 이민국 전자확인 (E-Verify) 프로그램
 
-    www.e-verify.gov
+    https://www.e-verify.gov
     전화: 888-897-7781
     TTY: 877-875-6028
 
@@ -96,32 +96,6 @@ is_html: true
 
     내 케이스 진행 상황 확인: https://egov.uscis.gov/cris/Dashboard.do
     미국 이민국 연락 센터에 1-800-375-5283으로 전화하십시오.
-
-
-내가 경험한것:
-
-미국 이민국과의 문제
-
-도움이 될 수 있는 기관:
-
-미국 국토안보부
-이민국의 옴부즈맨
-
-    케이스 관련 도움 신청 방법: https://www.dhs.gov/case-assistance
-
-
-내가 경험한것:
-
-미국 국토안보부와의 교류에서 발생된 민권 문제
-
-도움이 될 수 있는 기관:
-
-미국 국토안보부
-민권 및 시민 자유 사무실
-
-    전화 연락: 202-401-1474 | 1-866-644-8360 (무료)
-    TTY: 202-401-0470 | 1-866-644-8361 (무료)
-    이메일: crcl@dhs.gov
 
 
 내가 경험한것:
@@ -146,7 +120,8 @@ is_html: true
 
 법률 서비스 공사 (또는 법률 지원 사무소)
 
-    www.lsc.gov/find-legal-aid
+    https://www.lsc.gov/find-legal-aid
+    Contact by phone: 202-295-1500
 
 
 무료 또는 저가 서비스를 제공하는 이민 변호사를 찾으려면:
@@ -155,7 +130,7 @@ is_html: true
 
 법무부, 이민 검토 사무국, 이민 항소 위원회
 
-    공인 기관 및 공인 대리인: https://www.justice.gov/eoir/recognized-organizations-and-accredited-representatives-roster-state-and-city
+    공인 기관 및 공인 대리인: https://www.justice.gov/eoir/page/file/942301/dl?inline
 
 
 귀하가 주신 도움:

@@ -80,7 +80,7 @@ is_html: true
 美國國土安全部
 美國公民及移民事務局，E-Verify項目
 
-    www.e-verify.gov
+    https://www.e-verify.gov
     電話：888-897-7781
     聽力殘障專綫：877-875-6028
 
@@ -96,32 +96,6 @@ is_html: true
 
     查詢我的案子的進展：https://egov.uscis.gov/cris/Dashboard.do
     致電美國公民及移民事務局的聯係中心：1-800-375-5283
-
-
-我經歷了……
-
-与美國公民及移民事務局有關的問題
-
-可能可以提供幫助的機構：
-
-美國國土安全部
-公民及移民事務局監察員
-
-    如何為案子尋求幫助：https://www.dhs.gov/case-assistance
-
-
-我經歷了……
-
-我在和美國國土安全部接觸時產生的民權問題
-
-可能可以提供幫助的機構：
-
-美國國土安全部
-民權和公民自由辦公室
-
-    致電聯絡：202-401-1474 | 1-866-644-8360 （免費）
-    聽力殘障專綫：202-401-0470 | 1-866-644-8361（免費）
-    電子郵件：crcl@dhs.gov
 
 
 我經歷了……
@@ -148,7 +122,8 @@ is_html: true
 
 法律服務組織（或法律援助辦公室）
 
-    www.lsc.gov/find-legal-aid
+    https://www.lsc.gov/find-legal-aid
+    Contact by phone: 202-295-1500
 
 
 要找到……
@@ -159,7 +134,7 @@ is_html: true
 
 司法部, 移民審查執行辦公室, 移民上訴委員會
 
-    具備認證的組織和代表：https://www.justice.gov/eoir/recognized-organizations-and-accredited-representatives-roster-state-and-city
+    具備認證的組織和代表：https://www.justice.gov/eoir/page/file/942301/dl?inline
 
 
 您如何提供了幫助：

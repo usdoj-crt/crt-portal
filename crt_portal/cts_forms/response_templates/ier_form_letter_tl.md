@@ -80,7 +80,7 @@ AHENSYA NA MAAARING MAKATULONG
 Kagawaran ng Seguridad ng Bayan ng Estados Unidos
 Mga Paglilingkod ng Estados Unidos sa Pagkamamamayan at Pandarayuhan, Palatuntunang E-Verify
 
-    www.e-verify.gov
+    https://www.e-verify.gov
     Telepono: 888-897-7781
     Para sa mga bingi o mahina ang pandinig (TTY): 877-875-6028
 
@@ -96,32 +96,6 @@ Mga Paglilingkod ng Estados Unidos sa Pagkamamamayan at Pandarayuhan
 
     Suriin Ang Katayuan ng Aking Kaso: https://egov.uscis.gov/cris/Dashboard.do
     Tumawag sa USCIS Sentro ng Pakikipag-ugnay sa 1-800-375-5283
-
-
-AKO AY NAKARANAS NG…
-
-Isang suliranin sa USCIS
-
-AHENSYA NA MAAARING MAKATULONG
-
-Kagawaran ng Seguridad ng Bayan ng Estados Unidos
-Tanodbayan para sa mga Paglilingkod sa Pagkamamamayan at Pandarayuhan
-
-    Paano humiling ng tulong sa kaso: https://www.dhs.gov/case-assistance
-
-
-AKO AY NAKARANAS NG…
-
-Isang pagkabahala sa mga karapatang sibil kaugnay sa aking pakikipag-ugnayan sa Kagawaran ng Seguridad ng Bayan ng Estados Unidos
-
-AHENSYA NA MAAARING MAKATULONG
-
-Kagawaran ng Seguridad ng Bayan ng Estados Unidos
-Tanggapan para sa mga Karapatang Sibil at mga Kalayaang Sibil
-
-    Makipag-ugnay sa pamamagitan ng telepono: 202-401-1474 | 1-866-644-8360 (walang bayad)
-    Para sa mga bingi o mahina ang pandinig (TTY): 202-401-0470 | 1-866-644-8361 (walang bayad)
-    E-mail: crcl@dhs.gov
 
 
 AKO AY NAKARANAS NG…
@@ -148,7 +122,8 @@ SAMAHAN NA MAAARING MAKATULONG
 
 Samahan ng mga Paglilingkod para sa Batas (o mga Tanggapan ng Tulong para sa Batas)
 
-    www.lsc.gov/find-legal-aid
+    https://www.lsc.gov/find-legal-aid
+    Contact by phone: 202-295-1500
 
 
 UPANG MAKAHANAP NG…
@@ -159,7 +134,7 @@ SAMAHAN NA MAAARING MAKATULONG
 
 Ang Kagawaran ng Katarungan, Tagapangasiwang Tanggapan para sa Pagsusuri ng Pandarayuhan, Lupon ng mga Apela sa Pandarayuhan
 
-    Kinikilalang mga Samahan at Tinatanggap na mga Kinatawan: https://www.justice.gov/eoir/recognized-organizations-and-accredited-representatives-roster-state-and-city
+    Kinikilalang mga Samahan at Tinatanggap na mga Kinatawan: https://www.justice.gov/eoir/page/file/942301/dl?inline
 
 
 Paano kang nakatulong:
