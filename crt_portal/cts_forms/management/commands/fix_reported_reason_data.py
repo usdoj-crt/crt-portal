@@ -1,5 +1,72 @@
+import os
 from django.db import connection
 from django.core.management.base import BaseCommand
+
+protected_class_dev_map = {
+    'Disability': 1,
+    'Race/color': 2,
+    'National': 3,
+    'Immigration/citizenship': 4,
+    'Religion': 5,
+    'Gender': 6,
+    'Sexual': 7,
+    'Family': 8,
+    'Military': 9,
+    'Genetic': 11,
+    'Other': 17,
+    'Age': 18,
+    'Language': 20,
+    'None': 21,
+    'Pregnancy': 22,
+    'Sex': 23
+}
+
+protected_class_stage_map = {
+    'Disability': 1,
+    'Race/color': 2,
+    'National': 3,
+    'Immigration/citizenship': 4,
+    'Religion': 5,
+    'Gender': 6,
+    'Family': 7,
+    'Sexual': 8,
+    'Military': 9,
+    'Age': 10,
+    'Genetic': 11,
+    'Other': 15,
+    'Language': 17,
+    'None': 18,
+    'Pregnancy': 19,
+    'Sex': 20
+}
+
+protected_class_prod_map = {
+    'Age': 1,
+    'Disability': 2,
+    'Family': 3,
+    'Gender': 4,
+    'Genetic': 5,
+    'Immigration/citizenship': 6,
+    'Language': 7,
+    'National': 8,
+    'Pregnancy': 9,
+    'Race/color': 10,
+    'Religion': 11,
+    'Sex': 12,
+    'Sexual': 13,
+    'None': 14,
+    'Other': 16
+}
+
+
+def get_protected_class_mapping_for_environment(environment):
+    result = protected_class_prod_map
+    match environment:
+        case "DEV":
+            result = protected_class_dev_map
+        case "STAGE":
+            result = protected_class_stage_map
+    return result
 
 
 class Command(BaseCommand):  # pragma: no cover
@@ -11,23 +78,9 @@ class Command(BaseCommand):  # pragma: no cover
             reports_corrected_log = {}
             query = ""
             query_params = []
-            protected_class_map = {
-                "Age": 1,
-                "Disability": 2,
-                "Family": 3,
-                "Gender": 4,
-                "Genetic": 5,
-                "Immigration/citizenship": 6,
-                "Language": 7,
-                "National": 8,
-                "Pregnancy": 9,
-                "Race/color": 10,
-                "Religion": 11,
-                "Sex": 12,
-                "Sexual": 13,
-                "None": 14,
-                "Other": 16
-            }
+
+            environment = os.environ.get('ENV', 'UNDEFINED')
+            protected_class_map = get_protected_class_mapping_for_environment(environment)
 
             cursor = connection.cursor()
             # description is a string containing the list of reported reasons that got removed delimited by commas
