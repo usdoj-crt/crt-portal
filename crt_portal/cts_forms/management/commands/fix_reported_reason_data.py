@@ -62,7 +62,7 @@ protected_class_prod_map = {
 def get_protected_class_mapping_for_environment(environment):
     result = protected_class_prod_map
     match environment:
-        case "DEV":
+        case "DEVELOP":
             result = protected_class_dev_map
         case "STAGE":
             result = protected_class_stage_map
