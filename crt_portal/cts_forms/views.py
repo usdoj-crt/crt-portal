@@ -2208,6 +2208,17 @@ def phone_pro_form_view(request, report_id=None, working_group=None):
         attachment_ids = attachment_data.split(',')[:-1]
         attachments = list(map(lambda id: get_object_or_404(ReportAttachment, pk=int(id)), attachment_ids))
 
+    additional_contacts = get_additional_contacts_field_mapping(working_group)
+    additional_contacts = {
+        k: additional_contacts.get(k) for k in [
+            'Charging Party',
+            'Charging Party Representative',
+            'Respondent',
+            'Respondent Representative',
+            'EEOC Representative'
+        ] if k in additional_contacts or (k == "Respondent" and working_group == "ELS-CRU")
+    }
+
     return render(
         request,
         'forms/phone_pro_template.html',
@@ -2241,7 +2252,7 @@ def phone_pro_form_view(request, report_id=None, working_group=None):
                 ],
             ).render('', 'default'),
 
-            'additional_contacts': get_additional_contacts_field_mapping(working_group),
+            'additional_contacts': additional_contacts,
 
             'form': form,
 

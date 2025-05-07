@@ -1160,8 +1160,9 @@ def get_phone_form_config(working_group):
                                 'National origin',
                                 'Age',
                                 'Pregnancy',
+                                'Disability',
                                 'Other',
-                            ])
+                            ]).order_by('code')
                         }),
             FieldConfig('other_class',
                         TextInput(attrs={'class': 'usa-input'}),
@@ -1175,7 +1176,7 @@ def get_phone_form_config(working_group):
                             'choices': EeocOffice.objects.filter(show=True).annotate(display=Concat(F('name'), Value(' '), F('address_line_2'), Value(' '), F('address_city'), Value(', '), F('address_state'))).values_list('pk', 'display').order_by('order'),
                         }),
             FieldConfig('eeoc_charge_number',
-                        TextInput(attrs={'class': 'usa-input'}),
+                        TextInput(attrs={'class': 'usa-input', 'pattern': '[A-Z0-9]{3}-[A-Z0-9]{4}-[A-Z0-9]{5}'}),
                         {'label': 'EEOC Charge Number'},
                         ),
         ],
