@@ -114,26 +114,37 @@ class ReportEdit(generics.CreateAPIView):
         return make_report_serializer(['public_id', *[field.name for field in config]])
 
     def create(self, request, *args, **kwargs):
+        def is_non_unique_eeoc_charge_number(ecn):
+            return ecn is not None and Report.objects.filter(eeoc_charge_number__iexact=ecn).count() > 0
+
         # Default to VOT to maintain legacy behavior where VOT had the only pro form
         working_group = request.query_params.get('working_group', 'VOT').upper()
         self.working_group = working_group
 
         user_changes = dict(request.data)
         public_id = user_changes.get('public_id')
+        form_eeoc_charge_number = user_changes.get('eeoc_charge_number')
+        non_unique_eeoc_charge_number = False
+
         if not public_id:
-            if user_changes.get("eeoc_charge_number") is not None and Report.objects.filter(eeoc_charge_number__iexact=user_changes["eeoc_charge_number"]).count() > 0:
-                return JsonResponse({'messages': [
-                    {
-                        'message': f'Report with EEOC Charge Number [{user_changes["eeoc_charge_number"]}] already exists.',
-                        'type': 'error',
-                    }
-                ]}, status=409)
+            non_unique_eeoc_charge_number = is_non_unique_eeoc_charge_number(form_eeoc_charge_number)
             created = True
             form = make_phone_pro_form(working_group)(user_changes)
         else:
             created = False
             report = get_object_or_404(Report, public_id=public_id)
             form = make_phone_pro_form(working_group)(user_changes, instance=report)
+
+            if report.eeoc_charge_number != form_eeoc_charge_number:
+                non_unique_eeoc_charge_number = is_non_unique_eeoc_charge_number(form_eeoc_charge_number)
+
+        if non_unique_eeoc_charge_number:
+            return JsonResponse({'messages': [
+                {
+                    'message': f'Report with EEOC Charge Number [{form_eeoc_charge_number}] already exists.',
+                    'type': 'error',
+                }
+            ]}, status=409)
 
         attachment_ids = user_changes.get('pro_form_attachment', None)
         if not form.has_changed() and not attachment_ids:

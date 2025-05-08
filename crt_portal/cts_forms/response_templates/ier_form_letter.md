@@ -2,6 +2,7 @@
 title: IER - Form Letter
 subject: "Response: Your Civil Rights Division Report - {{ record_locator }} from the {{ section_name }} Section"
 language: en
+is_html: true
 ---
 {{ addressee }},
 
@@ -74,7 +75,7 @@ An issue with E-Verify that does not involve discrimination
 U.S. Department of Homeland Security
 U.S. Citizenship and Immigration Services, E-Verify Program
 
-<www.e-verify.gov>
+<https://www.e-verify.gov>
 Phone: 888-897-7781
 TTY: 877-875-6028
 
@@ -89,30 +90,6 @@ U.S. Citizenship and Immigration Services
 
 Check My Case Status: <https://egov.uscis.gov/cris/Dashboard.do>
 Call the USCIS Contact Center at 1-800-375-5283
-
-##I EXPERIENCED…
-
-A problem with USCIS
-
-**AGENCY THAT MAY BE ABLE TO HELP**
-
-U.S. Department of Homeland Security
-Ombudsman for Citizenship and Immigration Services
-
-How to ask for case assistance: <https://www.dhs.gov/case-assistance>
-
-##I EXPERIENCED…
-
-A civil rights concern related to my interaction with the U.S. Department of Homeland Security
-
-**AGENCY THAT MAY BE ABLE TO HELP**
-
-U.S. Department of Homeland Security
-Office for Civil Rights and Civil Liberties
-
-Contact by phone: 202-401-1474 | 1-866-644-8360 (toll free)
-TTY: 202-401-0470 | 1-866-644-8361 (toll free)
-E-mail: <crcl@dhs.gov>
 
 ##I EXPERIENCED…
 
@@ -136,7 +113,9 @@ A personal attorney for low-income individuals
 
 Legal Services Corporation (or Legal Aid Offices)
 
-<www.lsc.gov/find-legal-aid>
+<https://www.lsc.gov/find-legal-aid>
+
+Contact by phone: 202-295-1500
 
 ##TO FIND…
 
@@ -146,7 +125,7 @@ An immigration attorney offering free or low-cost services
 
 The Department of Justice, Executive Office for Immigration Review, Board of Immigration Appeals
 
-Recognized Organizations and Accredited Representatives: <https://www.justice.gov/eoir/recognized-organizations-and-accredited-representatives-roster-state-and-city>
+Recognized Organizations and Accredited Representatives: <https://www.justice.gov/eoir/page/file/942301/dl?inline>
 
 #How you helped:
 
