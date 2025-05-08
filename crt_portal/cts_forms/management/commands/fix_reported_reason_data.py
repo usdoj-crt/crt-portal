@@ -127,7 +127,7 @@ class Command(BaseCommand):  # pragma: no cover
             print(f"Number of reports corrected: {len(reports_corrected_log)}")
             print(f"Number of reported reasons corrected: {num_reported_reasons_corrected}")
             print("Reports corrected log:")
-            [print(f"Report ID: {k}: Reported Reason Data: {reports_corrected_log[k]}") for k in reports_corrected_log]
+            [print(f"Report ID: {k}: Reported Reason has been corrected.") for k in reports_corrected_log]
             print("--------------------------------------")
         except Exception as e:
             print(e)
