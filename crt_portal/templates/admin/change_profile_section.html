@@ -16,7 +16,7 @@
 
     <fieldset class="module aligned">
       <h2>Changes</h2>
-      <input type="hidden" name="ids" value="{{change_profile.ids | join:','}}"/>
+      <input type="hidden" name="ids" value="{{change_profile_section.ids | join:','}}"/>
 
       <div>
         <div class="form-row field-profile__section">
@@ -24,7 +24,7 @@
             <div class="flex-container">
               <label for="id_profile__section">Section:</label>
               <select id="id_profile__section" name="profile__section">
-                {% for value, name in change_profile.SECTION_CHOICES %}
+                {% for value, name in change_profile_section.SECTION_CHOICES %}
                 <option value="{{value}}">{{name}}</option>
                 {% endfor %}
               </select>
@@ -38,7 +38,7 @@
         <p>
           These changes will be applied to the following users:
           <ul>
-            {% for user in change_profile.users %}
+            {% for user in change_profile_section.users %}
             <li>{{user}}</li>
             {% endfor %}
           </ul>

@@ -13,6 +13,7 @@ from ..filters import get_report_filter_from_search, report_filter, report_group
 from api.filters import form_letters_filter, autoresponses_filter
 from ..models import Report, ProtectedClass, FormLettersSent, RetentionSchedule, SavedSearch
 from .test_data import SAMPLE_REPORT_1, SAMPLE_REPORT_2, SAMPLE_REPORT_3, SAMPLE_REPORT_4
+from .factories import UserFactory
 
 
 class FilterTests(SimpleTestCase):
@@ -475,7 +476,7 @@ class RetentionScheduleFilterTests(TestCase):
 class FormLettersFilterTests(TestCase):
     @classmethod
     def setUpTestData(cls):
-        cls.user = User.objects.create_user("DELETE_USER", "george@thebeatles.com", "")
+        cls.user = UserFactory.create_user("DELETE_USER", "george@thebeatles.com", "")
         cls.report1 = Report.objects.create(**SAMPLE_REPORT_1)
         cls.report2 = Report.objects.create(**SAMPLE_REPORT_2)
         cls.report3 = Report.objects.create(**SAMPLE_REPORT_3)

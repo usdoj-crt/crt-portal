@@ -6,7 +6,6 @@ Tests for:
 import copy
 import secrets
 
-from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.test import TestCase
 from django.test.client import Client
@@ -28,6 +27,7 @@ from ..model_variables import (
 )
 from ..models import CommentAndSummary, ProtectedClass, Report, Campaign, get_system_user, SavedSearch
 from .test_data import SAMPLE_REPORT_1
+from .factories import UserFactory
 
 
 class Valid_Form_Tests(TestCase):
@@ -125,7 +125,7 @@ class Valid_CRT_view_Tests(TestCase):
         self.client = Client()
         # we are not running the tests against the production database, so this shouldn't be producing real users anyway.
         self.test_pass = secrets.token_hex(32)
-        self.user = User.objects.create_user('DELETE_USER', 'ringo@thebeatles.com', self.test_pass)
+        self.user = UserFactory.create_user('DELETE_USER', 'ringo@thebeatles.com', self.test_pass)
         self.client.login(username='DELETE_USER', password=self.test_pass)
         response = self.client.get(reverse('crt_forms:crt-forms-index'))
         self.content = str(response.content)
@@ -793,7 +793,7 @@ class Complaint_Update_Tests(TestCase):
         self.client = Client()
         # we are not running the tests against the production database, so this shouldn't be producing real users anyway.
         self.test_pass = secrets.token_hex(32)
-        self.user = User.objects.create_user('DELETE_USER', 'george@thebeatles.com', self.test_pass)
+        self.user = UserFactory.create_user('DELETE_USER', 'george@thebeatles.com', self.test_pass)
         self.client.login(username='DELETE_USER', password=self.test_pass)
         self.form_data = {'type': ComplaintActions.CONTEXT_KEY}
 

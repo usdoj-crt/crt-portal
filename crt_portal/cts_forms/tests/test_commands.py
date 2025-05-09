@@ -1,12 +1,12 @@
 import random
 import string
 
-from django.contrib.auth.models import User
 from django.core.management import call_command
 from django.test import TestCase
 from datetime import datetime
 
 from .test_data import SAMPLE_REPORT_1, SAMPLE_REPORT_2, SAMPLE_REPORT_3, SAMPLE_REPORT_4
+from .factories import UserFactory
 from ..models import Report, RepeatWriterInfo, ReportsData, Trends, RetentionSchedule
 from ..forms import add_activity
 
@@ -14,7 +14,7 @@ from ..forms import add_activity
 class FlagRepeatWriters(TestCase):
 
     def setUp(self):
-        self.user = User.objects.create_user("DELETE_USER", "ringo@thebeatles.com", "")
+        self.user = UserFactory.create_user("DELETE_USER", "ringo@thebeatles.com", "")
         # Create 100 reports that all have the same violation summary
         for _ in range(100):
             Report.objects.create(**SAMPLE_REPORT_1)
@@ -59,7 +59,7 @@ class FlagRepeatWriters(TestCase):
 class GenerateRepeatWriterInfo(TestCase):
 
     def setUp(self):
-        self.user = User.objects.create_user("DELETE_USER", "ringo@thebeatles.com", "")
+        self.user = UserFactory.create_user("DELETE_USER", "ringo@thebeatles.com", "")
         # Create 100 reports that all have the same violation summary
         self.email1 = SAMPLE_REPORT_1["contact_email"]
         self.email2 = SAMPLE_REPORT_2["contact_email"]
@@ -101,7 +101,7 @@ class GenerateRepeatWriterInfo(TestCase):
 class GenerateYearlyReports(TestCase):
 
     def setUp(self):
-        self.user = User.objects.create_user("DELETE_USER", "ringo@thebeatles.com", "")
+        self.user = UserFactory.create_user("DELETE_USER", "ringo@thebeatles.com", "")
         # Create 100 reports that all have the same violation summary
         self.email1 = SAMPLE_REPORT_1["contact_email"]
         self.email2 = SAMPLE_REPORT_2["contact_email"]

@@ -1,0 +1,51 @@
+{% extends "admin/base_site.html" %}
+
+{% block extrastyle %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static "admin/css/forms.css" %}">
+<link rel="stylesheet" href="{% static "css/compiled/admin.css" %}">
+{% endblock %}
+
+{% block pretitle %}{% endblock %}
+{% block content_title %}<h1>Change User Profile(s)</h1>{% endblock %}
+{% block content %}
+
+<div class="change-profile" id="content_main">
+  <form method="post">
+    {% csrf_token %}
+
+    <fieldset class="module aligned">
+      <h2>Changes</h2>
+      <input type="hidden" name="ids" value="{{change_profile_has_portal_access.ids | join:','}}"/>
+
+      <div class="form-row field-profile__has_portal_access">
+        <div class="flex-container checkbox-row">
+          <label class="vCheckboxLabel" for="id_profile__has_portal_access">Grant Portal Access</label>
+          <select name="profile__has_portal_access" id="id_profile__has_portal_access">
+            <option value="False">No</option>
+            <option value="True">Yes</option>
+          </select>
+        </div>
+      </div>
+    </fieldset>
+
+      <fieldset class="module aligned">
+        <h2>Applies To</h2>
+        <p>
+          These changes will be applied to the following users:
+          <ul>
+            {% for user in change_profile_has_portal_access.users %}
+            <li>{{user}}</li>
+            {% endfor %}
+          </ul>
+        </p>
+      </fieldset>
+
+      <div class="submit-row">
+        <input type="submit" value="Apply Changes" class="default">
+      </div>
+    </div>
+  </form>
+</div>
+
+{% endblock %}

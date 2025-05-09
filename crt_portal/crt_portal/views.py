@@ -6,6 +6,8 @@ from django.utils.http import url_has_allowed_host_and_scheme
 from django.utils.encoding import iri_to_uri
 from django.shortcuts import redirect
 
+from .decorators import portal_access_required
+
 
 def retrieve_and_save_next_url_in_session(request):
     next_url = request.GET.get('next', '/')
@@ -15,6 +17,7 @@ def retrieve_and_save_next_url_in_session(request):
 
 
 @login_required
+@portal_access_required
 def crt_loggedin_view(request):
     next_page = request.session.get("next_page")
     if next_page:

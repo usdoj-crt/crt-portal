@@ -2,7 +2,8 @@ from cts_forms.model_variables import (PRIMARY_COMPLAINT_CHOICES,
                                        SECTION_CHOICES, SERVICEMEMBER_CHOICES,
                                        STATES_AND_TERRITORIES, STATUS_CHOICES,
                                        INTAKE_FORMAT_CHOICES)
-from cts_forms.models import Report
+from cts_forms.models import Report, Profile
+from django.contrib.auth import get_user_model
 from tms.models import TMSEmail
 from factory import Faker
 from factory.django import DjangoModelFactory
@@ -10,6 +11,8 @@ from factory.fuzzy import FuzzyChoice
 from datetime import datetime
 from cts_forms.signals import salt
 from pytz import timezone
+
+User = get_user_model()
 
 
 class ReportFactory(DjangoModelFactory):
@@ -106,3 +109,16 @@ class EmailFactory(DjangoModelFactory):
     status = FuzzyChoice(TMSEmail.STATUS_CHOICES, getter=lambda c: c[0])
     purpose = FuzzyChoice(TMSEmail.PURPOSE_CHOICES, getter=lambda c: c[0])
     error_message = ''
+
+
+class UserFactory():
+    class Meta:
+        model = User
+
+    def create_user(username, email, password, first_name="", last_name="", has_portal_access=True):
+        user = User.objects.create_user(username, email, password, first_name=first_name, last_name=last_name)
+        user.profile = Profile.objects.create(user=user)
+        user.profile.has_portal_access = has_portal_access
+        user.profile.save()
+        user.save()
+        return user
