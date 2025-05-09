@@ -699,8 +699,8 @@ workflows:
             - build_and_test
           filters:
             branches:
-              only: /^release.*/
-              # only: rw/create-new-landing-page
+              # only: /^release.*/
+              only: rw/create-new-landing-page
 
       - deploy-prod:
           requires:
