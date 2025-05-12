@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import (ActionsView, SavedSearchActionView, SavedSearchView, data_piecemeal_view, index_view, data_view, dashboard_view, dashboard_activity_log_view, disposition_view, RoutingGuideView, DispositionGuideView, DispositionActionsView, DispositionBatchActionsView, ShowView, ProFormView,
+from .views import (ActionsView, SavedSearchActionView, SavedSearchView, data_piecemeal_view, new_user_landing_view, index_view, data_view, dashboard_view, dashboard_activity_log_view, disposition_view, RoutingGuideView, DispositionGuideView, DispositionActionsView, DispositionBatchActionsView, ShowView, ProFormView,
                     SaveCommentView, TrendView, ResponseView, SearchHelperView,
                     PrintView, ProfileView, ReportAttachmentView, ReportDataView, DataExport, RemoveReportAttachmentView, unsubscribe_view, notification_view, phone_pro_form_view, test_site_view, resources_view, ResourceActionView)
 from .forms import ProForm
@@ -9,6 +9,7 @@ app_name = 'crt_forms'
 
 
 urlpatterns = [
+    path('landing/', new_user_landing_view, name='crt-forms-new-user-landing'),
     path('view/<int:id>/', ShowView.as_view(), name='crt-forms-show'),
     path('view/<int:id>/response', ResponseView.as_view(), name='crt-forms-response'),
     path('view/<int:id>/routing-guide/', RoutingGuideView.as_view(), name='routing-guide'),

@@ -38,6 +38,30 @@
   overflow-x: scroll;
 }
 
+.new-user-landing-table {
+  width: 100%;
+  th {
+    width: 60%;
+    padding-right: 0;
+    color: #2e2e2a;
+    font-weight: 700;
+    border-top: 0;
+    padding-bottom: 0.8rem;
+    vertical-align: top;
+  }
+  tr {
+    td {
+      vertical-align: top;
+    }
+    td:nth-child(even) {
+      border-left: 1px solid #D8D8D8;
+    }
+  }
+  .landing-table-border-bottom {
+    border-bottom: 1px solid color($theme-color-base-ink);
+  }
+}
+
 .data-table {
   .crt-table {
     thead {

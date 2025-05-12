@@ -9,7 +9,7 @@ import urllib.parse
 from unittest import mock
 from botocore.docs.method import types
 
-from django.contrib.auth.models import User, Group
+from django.contrib.auth.models import Group
 from django.contrib.messages import get_messages
 from django.http import QueryDict
 from django.test import TestCase, override_settings
@@ -24,7 +24,7 @@ from cts_forms.mail import render_complainant_mail, render_agency_mail
 from ..forms import BulkActionsForm, ComplaintActions, ComplaintOutreach, ContactEditForm, Filters, ReportEditForm
 from ..model_variables import CLOSED_STATUS, PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES, NEW_STATUS
 from ..models import CommentAndSummary, NotificationPreference, ReferralContact, Report, ReportDispositionBatch, ResponseTemplate, EmailReportCount, RetentionSchedule, SavedSearch
-from .factories import ReportFactory
+from .factories import ReportFactory, UserFactory
 from .test_data import SAMPLE_REFERRAL_CONTACT, SAMPLE_REPORT_1, SAMPLE_RESPONSE_TEMPLATE
 
 
@@ -32,8 +32,8 @@ class ActionTests(TestCase):
     @classmethod
     def setUpTestData(cls):
         cls.test_pass = secrets.token_hex(32)
-        cls.user1 = User.objects.create_user('USER_1', 'user1@example.com', cls.test_pass)
-        cls.user2 = User.objects.create_user('USER_2', 'user2@example.com', cls.test_pass)
+        cls.user1 = UserFactory.create_user('USER_1', 'user1@example.com', cls.test_pass)
+        cls.user2 = UserFactory.create_user('USER_2', 'user2@example.com', cls.test_pass)
         cls.schedule1 = RetentionSchedule.objects.get(name='1 Year')
         cls.schedule3 = RetentionSchedule.objects.get(name='3 Year')
 
@@ -389,9 +389,9 @@ class NotificationPreferencesTests(TestCase):
     def setUp(self):
         self.client = Client()
         self.users = types.SimpleNamespace(
-            subscribed=User.objects.create_user('SUBSCRIBED_USER', 'subscribed@example.com', 'password'),
-            unsubscribed=User.objects.create_user('UNSUBSCRIBED_USER', 'unsubscribed@example.com', 'password'),
-            noprefs=User.objects.create_user('NOPREFS_USER', 'noprefs@example.com', 'password'),
+            subscribed=UserFactory.create_user('SUBSCRIBED_USER', 'subscribed@example.com', 'password'),
+            unsubscribed=UserFactory.create_user('UNSUBSCRIBED_USER', 'unsubscribed@example.com', 'password'),
+            noprefs=UserFactory.create_user('NOPREFS_USER', 'noprefs@example.com', 'password'),
         )
         NotificationPreference.objects.create(
             user=self.users.subscribed,
@@ -456,7 +456,7 @@ class CommentActionTests(TestCase):
         self.client = Client()
         # we are not running the tests against the production database, so this shouldn't be producing real users anyway.
         self.test_pass = secrets.token_hex(32)
-        self.user = User.objects.create_user('DELETE_USER', 'ringo@thebeatles.com', self.test_pass)
+        self.user = UserFactory.create_user('DELETE_USER', 'ringo@thebeatles.com', self.test_pass)
         self.client.login(username='DELETE_USER', password=self.test_pass)
 
         self.note = 'Important note'
@@ -637,7 +637,7 @@ class ResponseActionTests(TestCase):
     def setUp(self):
         self.client = Client()
         self.test_pass = secrets.token_hex(32)
-        self.user = User.objects.create_user('DELETE_USER', 'ringo@thebeatles.com', self.test_pass)
+        self.user = UserFactory.create_user('DELETE_USER', 'ringo@thebeatles.com', self.test_pass)
         self.client.login(username='DELETE_USER', password=self.test_pass)
         self.report = Report.objects.create(**SAMPLE_REPORT_1)
         self.template = ResponseTemplate.objects.create(**SAMPLE_RESPONSE_TEMPLATE)
@@ -759,7 +759,7 @@ class FormNavigationTests(TestCase):
     def setUp(self):
         self.client = Client()
         self.test_pass = secrets.token_hex(32)
-        self.user = User.objects.create_user('DELETE_USER', 'ringo@thebeatles.com', self.test_pass)
+        self.user = UserFactory.create_user('DELETE_USER', 'ringo@thebeatles.com', self.test_pass)
         self.client.login(username='DELETE_USER', password=self.test_pass)
         self.filter_section = 'ADM'
         self.reports = ReportFactory.create_batch(3, assigned_section=self.filter_section)
@@ -899,7 +899,7 @@ class PrintActionTests(TestCase):
     def setUp(self):
         self.client = Client()
         self.test_pass = secrets.token_hex(32)
-        self.user = User.objects.create_user('DELETE_USER', 'ringo@thebeatles.com', self.test_pass)
+        self.user = UserFactory.create_user('DELETE_USER', 'ringo@thebeatles.com', self.test_pass)
         self.client.login(username='DELETE_USER', password=self.test_pass)
         self.report = Report.objects.create(**SAMPLE_REPORT_1)
         Report.objects.create(**SAMPLE_REPORT_1)
@@ -964,7 +964,7 @@ class ReportActionTests(TestCase):
     def setUp(self):
         self.client = Client()
         self.test_pass = secrets.token_hex(32)
-        self.user = User.objects.create_user('DELETE_USER', 'ringo@thebeatles.com', self.test_pass)
+        self.user = UserFactory.create_user('DELETE_USER', 'ringo@thebeatles.com', self.test_pass)
         self.client.login(username='DELETE_USER', password=self.test_pass)
         self.report = Report.objects.create(**SAMPLE_REPORT_1)
 
@@ -1083,7 +1083,7 @@ class BulkActionsTests(TestCase):
     def setUp(self):
         self.client = Client()
         self.test_pass = secrets.token_hex(32)
-        self.user = User.objects.create_user('DELETE_USER', 'ringo@thebeatles.com', self.test_pass)
+        self.user = UserFactory.create_user('DELETE_USER', 'ringo@thebeatles.com', self.test_pass)
         self.client.login(username='DELETE_USER', password=self.test_pass)
         self.reports = ReportFactory.create_batch(16, assigned_section='ADM', status='new', viewed=True)
 
@@ -1316,7 +1316,7 @@ class BulkActionsFormTests(TestCase):
     def test_bulk_actions_change_section_resets_user(self):
         # changing the section resets primary_status, assigned_to, and status
         # the activity stream (get_action) should only report fields that actually change as a result
-        user = User.objects.create_user('DELETE_USER', 'ringo@thebeatles.com', secrets.token_hex(32))
+        user = UserFactory.create_user('DELETE_USER', 'ringo@thebeatles.com', secrets.token_hex(32))
         report = Report.objects.create(**SAMPLE_REPORT_1)
         report.assigned_to = user
         report.save()
@@ -1347,7 +1347,7 @@ class BulkDispositionFormTests(TestCase):
     def setUp(self):
         self.client = Client()
         self.test_pass = secrets.token_hex(32)
-        self.user = User.objects.create_user('DELETE_USER', 'ringo@thebeatles.com', self.test_pass, first_name='Ringo', last_name='Starr')
+        self.user = UserFactory.create_user('DELETE_USER', 'ringo@thebeatles.com', self.test_pass, first_name='Ringo', last_name='Starr')
         self.client.login(username='DELETE_USER', password=self.test_pass)
         self.batch = ReportDispositionBatch()
 
@@ -1378,7 +1378,7 @@ class BulkDispositionFormTests(TestCase):
 class BatchActionFormTests(TestCase):
     def setUp(self):
         self.test_pass = secrets.token_hex(32)
-        user = User.objects.create_user('DELETE_USER', 'ringo@thebeatles.com', self.test_pass, first_name='Ringo', last_name='Starr')
+        user = UserFactory.create_user('DELETE_USER', 'ringo@thebeatles.com', self.test_pass, first_name='Ringo', last_name='Starr')
         schedule = RetentionSchedule.objects.get(name='1 Year')
         [Report.objects.create(**SAMPLE_REPORT_1, retention_schedule=schedule, viewed=True) for _ in range(4)]
         queryset = Report.objects.all()
@@ -1389,10 +1389,10 @@ class BatchActionFormTests(TestCase):
             disposed_by=user
         )
         self.batch.add_records_to_batch(queryset, user)
-        self.user_reviewer = User.objects.create_user('REVIEWER', 'paul@thebeatles.com', self.test_pass, first_name='Paul', last_name='McCartney')
+        self.user_reviewer = UserFactory.create_user('REVIEWER', 'paul@thebeatles.com', self.test_pass, first_name='Paul', last_name='McCartney')
         group = Group.objects.get(name='Records Team')
         group.user_set.add(self.user_reviewer)
-        self.second_user_reviewer = User.objects.create_user('SECOND_REVIEWER', 'john@thebeatles.com', self.test_pass, first_name='John', last_name='Lennon')
+        self.second_user_reviewer = UserFactory.create_user('SECOND_REVIEWER', 'john@thebeatles.com', self.test_pass, first_name='John', last_name='Lennon')
         group.user_set.add(self.second_user_reviewer)
 
     def test_approve_batch(self):
@@ -1440,7 +1440,7 @@ class FiltersFormTests(TestCase):
     def setUp(self):
         self.client = Client()
         self.test_pass = secrets.token_hex(32)
-        self.user = User.objects.create_user('DELETE_USER', 'ringo@thebeatles.com', self.test_pass)
+        self.user = UserFactory.create_user('DELETE_USER', 'ringo@thebeatles.com', self.test_pass)
         self.client.login(username='DELETE_USER', password=self.test_pass)
 
         self.email1 = 'email1@usa.gov'
@@ -1629,7 +1629,7 @@ class SavedSearchActionTests(TestCase):
     def setUp(self):
         self.client = Client()
         self.test_pass = secrets.token_hex(32)
-        self.user = User.objects.create_user('DELETE_USER', 'ringo@thebeatles.com', self.test_pass)
+        self.user = UserFactory.create_user('DELETE_USER', 'ringo@thebeatles.com', self.test_pass)
         self.client.login(username='DELETE_USER', password=self.test_pass)
         self.saved_search = SavedSearch.objects.create(
             name='APP Saved Search',

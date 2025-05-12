@@ -276,7 +276,7 @@ class JudicialDistrictAdmin(ReadOnlyModelAdmin):
 
 
 class RoutingSectionAdmin(CrtModelAdmin):
-    list_display = ['section', 'names', 'retention_section_pocs']
+    list_display = ['section', 'names', 'retention_section_pocs', 'access_section_pocs']
 
 
 class ApplicationContactAdmin(CrtModelAdmin):
@@ -542,32 +542,49 @@ class NotificationPreferenceInline(admin.StackedInline):
 
 class CustomUserAdmin(UserAdmin, CrtModelAdmin):
     inlines = (ProfileInline, NotificationPreferenceInline)
-    actions = ("bulk_change_profile", *UserAdmin.actions)
+    actions = ("bulk_change_profile_section", "bulk_change_profile_has_portal_access", *UserAdmin.actions)
+
+    list_display = (
+        *UserAdmin.list_display,
+        'get_profile_section',
+        'get_profile_has_portal_access',
+    )
 
     list_filter = (
         *UserAdmin.list_filter,
         ('profile__section', admin.EmptyFieldListFilter),
         'profile__section',
         ('email', admin.EmptyFieldListFilter),
+        'profile__has_portal_access',
     )
+
+    def get_profile_section(self, obj):
+        if obj.profile.section:
+            return obj.profile.section
+    get_profile_section.short_description = 'Section'
+
+    def get_profile_has_portal_access(self, obj):
+        if obj.profile.has_portal_access:
+            return obj.profile.has_portal_access
+    get_profile_has_portal_access.short_description = 'Has Portal Access'
 
     def get_inline_instances(self, request, obj=None):
         if not obj:
             return list()
         return super().get_inline_instances(request, obj)
 
-    @admin.action(description="Change Profile Information")
-    def bulk_change_profile(modeladmin, request, queryset):
+    @admin.action(description="Change Section")
+    def bulk_change_profile_section(modeladmin, request, queryset):
         del request  # unused
         selected = queryset.values_list("pk", flat=True)
         ids_query = "&".join(f'id={pk}' for pk in selected)
-        return HttpResponseRedirect(f"/admin/auth/user/bulk_change_profile/?{ids_query}")
+        return HttpResponseRedirect(f"/admin/auth/user/bulk_change_profile_section/?{ids_query}")
 
-    def change_profile(self, request: HttpRequest):
+    def change_profile_section(self, request: HttpRequest):
         if request.method == 'GET':
             user_ids = request.GET.getlist('id')
-            return render(request, 'admin/change_profile.html', {
-                'change_profile': {
+            return render(request, 'admin/change_profile_section.html', {
+                'change_profile_section': {
                     'users': User.objects.filter(pk__in=user_ids),
                     'ids': user_ids,
                     'SECTION_CHOICES': SECTION_CHOICES,
@@ -606,9 +623,60 @@ class CustomUserAdmin(UserAdmin, CrtModelAdmin):
 
         return HttpResponseRedirect(reverse('admin:auth_user_changelist'))
 
+    @admin.action(description="Change Portal Access")
+    def bulk_change_profile_has_portal_access(modeladmin, request, queryset):
+        del request  # unused
+        selected = queryset.values_list("pk", flat=True)
+        ids_query = "&".join(f'id={pk}' for pk in selected)
+        return HttpResponseRedirect(f"/admin/auth/user/bulk_change_profile_has_portal_access/?{ids_query}")
+
+    def change_profile_has_portal_access(self, request: HttpRequest):
+        if request.method == 'GET':
+            user_ids = request.GET.getlist('id')
+            return render(request, 'admin/change_profile_has_portal_access.html', {
+                'change_profile_has_portal_access': {
+                    'users': User.objects.filter(pk__in=user_ids),
+                    'ids': user_ids
+                },
+                **admin.site.each_context(request),
+            })
+        elif request.method != 'POST':
+            return HttpResponse(status=405)
+
+        raw_ids = request.POST.get('ids')
+        if not raw_ids:
+            return HttpResponse(status=400)
+        ids = [int(raw_id) for raw_id in raw_ids.split(',')]
+
+        profile = {}
+        for key, value in request.POST.items():
+            if not key.startswith('profile__'):
+                continue
+            cleaned_key = key.replace('profile__', '')
+            profile[cleaned_key] = value
+
+        profiles = [
+            Profile(user_id=user_id, **profile)
+            for user_id in ids
+        ]
+        try:
+            Profile.objects.bulk_create(
+                profiles,
+                update_conflicts=True,
+                unique_fields=['user_id'],
+                update_fields=list(profile.keys()),
+            )
+            messages.success(request, 'Updated profiles for {} users'.format(len(ids)))
+        except Exception as e:
+            messages.error(request, 'Failed to update profiles for {} users: {}'.format(len(ids), e))
+            logging.exception(e)
+
+        return HttpResponseRedirect(reverse('admin:auth_user_changelist'))
+
     def get_urls(self):
         return [
-            path(r'bulk_change_profile/', self.admin_site.admin_view(self.change_profile), name='change_profile')
+            path(r'bulk_change_profile_section/', self.admin_site.admin_view(self.change_profile_section), name='change_profile_section'),
+            path(r'bulk_change_profile_has_portal_access/', self.admin_site.admin_view(self.change_profile_has_portal_access), name='change_profile_has_portal_access'),
         ] + super().get_urls()
 
 

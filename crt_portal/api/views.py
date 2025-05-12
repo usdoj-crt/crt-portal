@@ -31,6 +31,7 @@ from rest_framework.response import Response
 from rest_framework.reverse import reverse
 from rest_framework.views import APIView
 from django.http import Http404
+from crt_portal.decorators import portal_access_required
 import frontmatter
 import base64
 import json
@@ -47,6 +48,7 @@ REST_FRAMEWORK = {
 
 @api_view(['GET'])
 @login_required
+@portal_access_required
 def api_root(request, format=None):
     return Response({
         'reports': reverse('api:report-list', request=request, format=format),
