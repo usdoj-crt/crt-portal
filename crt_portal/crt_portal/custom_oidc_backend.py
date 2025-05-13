@@ -11,8 +11,11 @@ def generate_username(email, claims):
 class CrtAuthenticationBackend(OIDCAuthenticationBackend):
     def create_user(self, claims):
         user = None
-        account_name = claims.get('adsamAccountName')
-        user_exists = User.objects.filter(username=account_name).exists()
+        user_exists = False
+
+        account_name = claims.get('adsamAccountName', None)
+        if account_name:
+            user_exists = User.objects.filter(username=account_name).exists()
 
         if user_exists:
             user = User.objects.get(username=account_name)
@@ -20,6 +23,7 @@ class CrtAuthenticationBackend(OIDCAuthenticationBackend):
             user = super(CrtAuthenticationBackend, self).create_user(claims)
 
         user.email = claims.get('email')
+        user.is_active = True
         user.save()
 
         return user

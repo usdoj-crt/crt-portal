@@ -2,12 +2,12 @@
 DRF API Tests
 """
 
-from django.contrib.auth.models import User
 from django.test import TestCase
 from django.test.client import Client
 from django.urls import reverse
 from ..models import Report, ResponseTemplate
 from .test_data import SAMPLE_REPORT_1, SAMPLE_RESPONSE_TEMPLATE
+from .factories import UserFactory
 from cts_forms.views import add_activity
 from actstream.models import actor_stream
 from datetime import datetime
@@ -16,7 +16,7 @@ from datetime import datetime
 class APIBaseUrlTests(TestCase):
     def setUp(self):
         self.client = Client()
-        self.user = User.objects.create_user("DELETE_USER", "george@thebeatles.com", "")
+        self.user = UserFactory.create_user("DELETE_USER", "george@thebeatles.com", "")
         self.client.login(username="DELETE_USER", password="")  # nosec
         self.url = reverse("api:api-base")
 
@@ -41,7 +41,7 @@ class APIFormLettersIndex(TestCase):
     def setUp(self):
         self.client = Client()
         self.test_report = Report.objects.create(**SAMPLE_REPORT_1)
-        self.user = User.objects.create_user("DELETE_USER", "george@thebeatles.com", "")
+        self.user = UserFactory.create_user("DELETE_USER", "george@thebeatles.com", "")
         self.client.login(username="DELETE_USER", password="")  # nosec
         self.url = reverse("api:form-letters")
 
@@ -68,7 +68,7 @@ class APIFormLettersIndex(TestCase):
 class APIPreviewResponseFormTests(TestCase):
     def setUp(self):
         self.client = Client(raise_request_exception=False)
-        self.user = User.objects.create_user("DELETE_USER", "george@thebeatles.com", "")
+        self.user = UserFactory.create_user("DELETE_USER", "george@thebeatles.com", "")
         self.url = reverse("api:preview-response-form")
 
     def tearDown(self):
@@ -146,7 +146,7 @@ class APIPreviewResponseFormTests(TestCase):
 class APIPreviewResponseFileTests(TestCase):
     def setUp(self):
         self.client = Client(raise_request_exception=False)
-        self.user = User.objects.create_user("DELETE_USER", "george@thebeatles.com", "")
+        self.user = UserFactory.create_user("DELETE_USER", "george@thebeatles.com", "")
 
     def tearDown(self):
         self.user.delete()
@@ -192,7 +192,7 @@ class APIReportListTests(TestCase):
     def setUp(self):
         self.client = Client()
         self.test_report = Report.objects.create(**SAMPLE_REPORT_1)
-        self.user = User.objects.create_user("DELETE_USER", "george@thebeatles.com", "")
+        self.user = UserFactory.create_user("DELETE_USER", "george@thebeatles.com", "")
         self.client.login(username="DELETE_USER", password="")  # nosec
         self.url = reverse("api:report-list")
 
@@ -220,7 +220,7 @@ class APIReportDetailTests(TestCase):
     def setUp(self):
         self.client = Client()
         self.test_report = Report.objects.create(**SAMPLE_REPORT_1)
-        self.user = User.objects.create_user("DELETE_USER", "george@thebeatles.com", "")
+        self.user = UserFactory.create_user("DELETE_USER", "george@thebeatles.com", "")
         self.client.login(username="DELETE_USER", password="")  # nosec
         self.url = reverse("api:report-detail", kwargs={"pk": self.test_report.pk})
 
@@ -263,7 +263,7 @@ class APIReportDetailTests(TestCase):
 class APIResponseListTests(TestCase):
     def setUp(self):
         self.client = Client()
-        self.user = User.objects.create_user("DELETE_USER", "george@thebeatles.com", "")
+        self.user = UserFactory.create_user("DELETE_USER", "george@thebeatles.com", "")
         self.client.login(username="DELETE_USER", password="")  # nosec
         self.url = reverse("api:response-list")
 
@@ -291,7 +291,7 @@ class APIResponseDetailTests(TestCase):
     def setUp(self):
         self.client = Client()
         self.test_report = Report.objects.create(**SAMPLE_REPORT_1)
-        self.user = User.objects.create_user("DELETE_USER", "george@thebeatles.com", "")
+        self.user = UserFactory.create_user("DELETE_USER", "george@thebeatles.com", "")
         self.client.login(username="DELETE_USER", password="")  # nosec
         self.url = reverse("api:response-detail", kwargs={"pk": 1})
 
@@ -332,7 +332,7 @@ class APIReportsAccessedTests(TestCase):
         self.test_report = Report.objects.create(**SAMPLE_REPORT_1)
         self.test_report2 = Report.objects.create(**SAMPLE_REPORT_1)
         self.test_report3 = Report.objects.create(**SAMPLE_REPORT_1)
-        self.user = User.objects.create_user("DELETE_USER", "george@thebeatles.com", "")
+        self.user = UserFactory.create_user("DELETE_USER", "george@thebeatles.com", "")
         self.client.login(username="DELETE_USER", password="")  # nosec
         self.url = reverse("api:report-count") + "?intake_specialist=DELETE_USER"
         self.url2 = reverse("api:report-count") + "?start_date=2020-02-01&end_date=2022-04-01&intake_specialist=DELETE_USER"
@@ -395,7 +395,7 @@ class APIRelatedReportsTests(TestCase):
         self.test_report4 = Report.objects.create(**SAMPLE_REPORT_1)
         self.test_report5 = Report.objects.create(**SAMPLE_REPORT_1)
         self.test_report6 = Report.objects.create(**SAMPLE_REPORT_1)
-        self.user = User.objects.create_user("DELETE_USER", "george@thebeatles.com", "")
+        self.user = UserFactory.create_user("DELETE_USER", "george@thebeatles.com", "")
         self.client.login(username="DELETE_USER", password="")  # nosec
         self.url = reverse("api:related-reports") + "?email=Lincoln@usa.gov"
 
@@ -448,7 +448,7 @@ class APIRelatedReportsTests(TestCase):
 class APIResponseActionTests(TestCase):
     def setUp(self):
         self.client = Client()
-        self.user = User.objects.create_user("DELETE_USER", "george@thebeatles.com", "")
+        self.user = UserFactory.create_user("DELETE_USER", "george@thebeatles.com", "")
         self.test_report = Report.objects.create(**SAMPLE_REPORT_1)
         self.template = ResponseTemplate.objects.create(**SAMPLE_RESPONSE_TEMPLATE)
         self.url = reverse("api:response-action")

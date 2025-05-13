@@ -88,11 +88,8 @@
 
       {% if working_group == "ELS-CRU" %}
       {% include 'partials/end_expandable.html' %}
-      <hr>
-      {% include 'partials/start_expandable.html' with title='Respondent' %}
       {% else %}
       <h2>Incident location</h2>
-      {% endif %}
 
       <div class="grid-row margin-top-2">
         {% include 'partials/field.html' with field=form.location_name %}
@@ -118,15 +115,33 @@
       {% if working_group == "VOT" %}
       <hr>
       {% endif %}
-
-      {% if working_group == "ELS-CRU" %}
-      {% include 'partials/end_expandable.html' %}
       {% endif %}
 
       {% for additional_contact_kind, additional_contact_fields in additional_contacts.items %}
         <hr>
         {% include 'partials/start_expandable.html' with title=additional_contact_kind %}
+        {% if additional_contact_kind == "Respondent" and working_group == "ELS-CRU" %}
+          <div class="grid-row margin-top-2">
+            {% include 'partials/field.html' with field=form.location_name %}
+          </div>
 
+          <div class="grid-row margin-top-2">
+            {% include 'partials/field.html' with field=form.location_address_line_1 %}
+          </div>
+
+          <div class="grid-row margin-top-2">
+            {% include 'partials/field.html' with field=form.location_address_line_2 %}
+          </div>
+
+          <div class="grid-row margin-top-2">
+            {% include 'partials/field.html' with field=form.location_city_town field_size=6 extra_class="padding-right-2" %}
+            {% include 'partials/field.html' with field=form.location_state field_size=6 %}
+          </div>
+
+          <div class="grid-row margin-top-2 margin-bottom-3">
+            {% include 'partials/field.html' with field=form.location_zipcode %}
+          </div>
+        {% else %}
         <div class="grid-row margin-top-2">
           {% with field_key=additional_contact_fields.name %}
           {% include 'partials/field.html' with field=form|get_dict_item:field_key %}
@@ -171,6 +186,7 @@
           {% include 'partials/field.html' with field=form|get_dict_item:field_key %}
           {% endwith %}
         </div>
+        {% endif %}
 
         {% include 'partials/end_expandable.html' %}
       {% endfor %}
@@ -217,6 +233,7 @@
 
         <div class="grid-row margin-top-2">
         {% include 'partials/field.html' with field=form.eeoc_charge_number strong_label=True %}
+        <h6 style="margin: 10px 0 0 0">Format must be XXX-XXXX-XXXXX</h6>
         </div>
       {% endif %}
 

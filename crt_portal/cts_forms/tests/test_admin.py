@@ -12,7 +12,7 @@ from ..admin import ACTION_FIELDS, REPORT_FIELDS
 from ..forms import add_activity
 from ..models import Campaign, Report
 from .test_data import SAMPLE_REPORT_1
-from .factories import ReportFactory
+from .factories import ReportFactory, UserFactory
 
 User = get_user_model()
 
@@ -53,8 +53,8 @@ class ActionAdminTests(TestCase):
 
     def test_actor_filter(self):
         self.client.force_login(self.superuser)
-        user1 = User.objects.create_user("USER_1", "user1@example.com", "")
-        user2 = User.objects.create_user("USER_2", "user1@example.com", "")
+        user1 = UserFactory.create_user("USER_1", "user1@example.com", "")
+        user2 = UserFactory.create_user("USER_2", "user1@example.com", "")
         add_activity(user1, 'verb', 'Action 1', self.report)
         add_activity(user2, 'verb', 'Action 2', self.report)
         url1 = self.url

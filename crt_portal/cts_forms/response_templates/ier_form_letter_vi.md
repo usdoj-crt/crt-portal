@@ -2,6 +2,7 @@
 title: IER - Form Letter (Vietnamese)
 subject: "Hồi đáp: Báo Cáo của Ban Dân Quyền của Quý Vị - {{ record_locator }} từ Phòng {{ vi.section_name }}"
 language: vi
+is_html: true
 ---
 {{ vi.addressee }},
 
@@ -79,7 +80,7 @@ CƠ QUAN CÓ THỂ CÓ KHẢ NĂNG GIÚP ĐỠ
 Bộ An Ninh Nội Địa Hoa Kỳ
 Sở Nhập Tịch và Di Trú Hoa Kỳ, Chương Trình E-Verify
 
-    www.e-verify.gov
+    https://www.e-verify.gov
     Điện Thoại: 888-897-7781
     TTY: 877-875-6028
 
@@ -95,32 +96,6 @@ Sở Nhập Tịch và Di Trú Hoa Kỳ
 
     Kiểm Tra Tình Trạng Hồ Sơ Của Tôi: https://egov.uscis.gov/cris/Dashboard.do
     Gọi Trung Tâm Liên Lạc USCIS tại số 1-800-375-5283
-
-
-TÔI ĐÃ GẶP PHẢI…
-
-Vấn đề với USCIS
-
-CƠ QUAN CÓ THỂ CÓ KHẢ NĂNG GIÚP ĐỠ
-
-Bộ An Ninh Nội Địa Hoa Kỳ
-Thanh Tra Sở Nhập Tịch và Di Trú Hoa Kỳ
-
-    Cách xin hỗ trợ hồ sơ: https://www.dhs.gov/case-assistance
-
-
-TÔI ĐÃ GẶP PHẢI…
-
-Quan ngại về nhân quyền liên quan đến sự tương tác của tôi với Bộ An Ninh Nội Địa Hoa Kỳ
-
-CƠ QUAN CÓ THỂ CÓ KHẢ NĂNG GIÚP ĐỠ
-
-Bộ An Ninh Nội Địa Hoa Kỳ
-Văn Phòng Dân Quyền và Tự Do Dân Sự
-
-    Liên lạc qua điện thoại: 202-401-1474 | 1-866-644-8360 (miễn phí)
-    TTY: 202-401-0470 | 1-866-644-8361 (miễn phí)
-    E-mail: crcl@dhs.gov
 
 
 TÔI ĐÃ GẶP PHẢI…
@@ -147,7 +122,8 @@ TỔ CHỨC CÓ THỂ CÓ KHẢ NĂNG GIÚP ĐỠ
 
 Các Dịch Vụ Pháp Lý (hoặc các Văn Phòng Hỗ Trợ Pháp Lý)
 
-    www.lsc.gov/find-legal-aid
+    https://www.lsc.gov/find-legal-aid
+    Contact by phone: 202-295-1500
 
 
 ĐỂ TÌM ĐƯỢC…
@@ -158,7 +134,7 @@ TỔ CHỨC CÓ THỂ CÓ KHẢ NĂNG GIÚP ĐỠ
 
 Bộ Tư Pháp, Văn Phòng Điều Hành về Duyệt Xét Di Trú, Ban Duyệt Xét Kháng Cáo Di Trú
 
-    Các Tổ Chức và Đại Diện Được Công Nhận: https://www.justice.gov/eoir/recognized-organizations-and-accredited-representatives-roster-state-and-city
+    Các Tổ Chức và Đại Diện Được Công Nhận: https://www.justice.gov/eoir/page/file/942301/dl?inline
 
 
 Những gì bạn đã giúp đỡ:

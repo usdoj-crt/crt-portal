@@ -641,7 +641,7 @@ As we build out the product, we expect to add more granular user roles and permi
 
 For production, we use DOJ's Single Sign on for authentication. For the ADFS authentication, you need to make sure that public urls are listed in settings.py in the `AUTH_ADFS` section.
 
-For the dev and staging site, you will want to make sure the `@login_required` decorator are on all views that need authentication.
+For all environments, you will want to make sure the `@login_required` and `@portal_access_required` decorators are on all views that need authentication.
 
 Setting up single sign on is documented in [docs/maintenance_or_infrequent_tasks](https://github.com/usdoj-crt/crt-portal/blob/develop/docs/maintenance_or_infrequent_tasks.md#single-sign-on).
 

@@ -62,6 +62,8 @@ def render_agency_mail(*, complainant_letter: Mail, report, template, extra_ccs=
 
 def render_complainant_mail(*, report, template, action) -> Mail:
     templates_to_add_emails_to = [
+        "DRS - Notice of Right to Sue",
+        "DRS - Notice of Right to Sue (Conciliation Failure)",
         "ELS - Notice of Right to Sue",
         "ELS - Notice of Right to Sue (Conciliation Failure) form letter",
     ]

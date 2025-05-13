@@ -5,7 +5,10 @@
     id_options_1: '.crt-report-card',
     id_options_2: '.crt-description-card',
     id_options_3: '.crt-activities-card',
-    id_options_4: '.crt-summary-card'
+    id_options_4: '.crt-summary-card',
+    id_options_5:
+      'span.status-tag.status-new, span.status-tag.status-open, span.status-tag.status-closed',
+    id_options_6: 'span.status-tag.status-retention'
   };
   const ALWAYS_HIDE = ['.crt-outreach-card'];
 

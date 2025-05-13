@@ -2,6 +2,7 @@
 title: IER - Form Letter (Chinese Simplified)
 subject: "回应：您的民权司报告 - {{ zh_hans.section_name }}科的 {{ record_locator }}"
 language: zh-hans
+is_html: true
 ---
 {{ zh_hans.addressee }}，
 
@@ -79,7 +80,7 @@ language: zh-hans
 美国国土安全部
 美国公民及移民事务局，E-Verify项目
 
-    www.e-verify.gov
+    https://www.e-verify.gov
     电话：888-897-7781
     听力障碍专线：877-875-6028
 
@@ -95,32 +96,6 @@ language: zh-hans
 
     查询我的案子的进展状况：https://egov.uscis.gov/cris/Dashboard.do
     致电美国公民及移民事务局的联络中心1-800-375-5283
-
-
-我经历了……
-
-与美国公民及移民事务局有关的问题
-
-可能可以提供帮助的机构：
-
-美国国土安全部
-公民与移民服务监察员
-
-    如何为案子寻求援助：https://www.dhs.gov/case-assistance
-
-
-我经历了……
-
-我与美国国土安全部互动时的民权问题
-
-可能可以提供帮助的机构：
-
-美国国土安全部
-公民权利和公民自由办公室
-
-    致电联络：202-401-1474 | 1-866-644-8360 （免费）
-    听力障碍专线：202-401-0470 | 1-866-644-8361（免费）
-    电子邮件：crcl@dhs.gov
 
 
 我经历了……
@@ -147,7 +122,8 @@ language: zh-hans
 
 法律服务公司（或法律援助办公室）
 
-    www.lsc.gov/find-legal-aid
+    https://www.lsc.gov/find-legal-aid
+    Contact by phone: 202-295-1500
 
 
 要找到……
@@ -158,7 +134,7 @@ language: zh-hans
 
 司法部，移民审查执行办公室，移民上诉委员会
 
-    具备认证的组织和代表：https://www.justice.gov/eoir/recognized-organizations-and-accredited-representatives-roster-state-and-city
+    具备认证的组织和代表：https://www.justice.gov/eoir/page/file/942301/dl?inline
 
 
 您如何提供了帮助：
