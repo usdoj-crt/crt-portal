@@ -662,6 +662,16 @@ Here's an example of executing the `refresh_trends` management command.
 cf run-task crt-portal-django -c "python crt_portal/manage.py refresh_trends" --name refresh-trends -m 512M -k 2G
 ```
 
+Here's an example of executing the `fix_reported_reason_data` command:
+
+```bash
+# Authenticate and target the desired space (dev, staging, or prod):
+# use `cf login --sso` and navigate to https://login.fr.cloud.gov/passcode# on DOJ intranet
+#
+# Then, submit a task to run the `fix_reported_reason_data` management command with:
+cf run-task crt-portal-django --command "python ./crt_portal/manage.py fix_reported_reason_data" --name "fix_reported_reason_data"
+```
+
 Your local output of executing the above command will reflect success or failure of the task's submission.
 
 Output, if any, of the command being executed will be be available in the application logs.
