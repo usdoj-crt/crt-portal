@@ -38,7 +38,9 @@ def crt_loggedout_view(request):
     environment = os.environ.get('ENV', 'UNDEFINED')
     if environment in ['PRODUCTION', 'STAGE']:
         try:
+            print("Processing Logout Request...")
             url = reverse('oidc_logout')
+            print("Url =", url)
             response = requests.post(url)
             print("Logout Response =", response)
         except Exception:
