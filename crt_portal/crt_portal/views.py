@@ -41,8 +41,7 @@ def crt_loggedout_view(request):
             print("Processing Logout Request...")
             url = reverse('oidc_logout')
             print("Url =", url)
-            response = requests.post(url, timeout=10)
-            print("Logout Response =", response)
+            return requests.post(url, timeout=10)
         except Exception:
             logging.exception('ERROR: Something went wrong while attempting to log out.')
             return
