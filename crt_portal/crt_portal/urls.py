@@ -39,7 +39,7 @@ from django.shortcuts import redirect
 from django.urls import include, path, re_path
 from django.views.generic import TemplateView
 
-from .views import crt_loggedin_view, CrtLoginView, CrtAdminLoginView
+from .views import crt_loggedin_view, crt_loggedout_view, CrtLoginView, CrtAdminLoginView
 
 environment = os.environ.get('ENV', 'UNDEFINED')
 if environment in ['PRODUCTION', 'STAGE']:
@@ -51,14 +51,19 @@ if environment in ['PRODUCTION', 'STAGE']:
         # OKTA
         path("authorization-code/authenticate/", oidc_views.OIDCAuthenticationRequestView.as_view(), name="oidc_authentication_init"),
         path("authorization-code/callback/", oidc_views.OIDCAuthenticationCallbackView.as_view(), name="oidc_authentication_callback"),
+        path("authorization-code/logout/", oidc_views.OIDCLogoutView.as_view(), name="oidc_logout"),
 
         # Custom Login
         path('admin/login/', CrtAdminLoginView.as_view(), name='admin_login'),
         path('crt-login/login/', CrtLoginView.as_view(), name="login"),
-        path('crt-login/loggedin/', crt_loggedin_view, name='logged-in-view')
+        path('crt-login/loggedin/', crt_loggedin_view, name='logged-in-view'),
+        path('crt-login/logout/', crt_loggedout_view, name='crt_logout')
+
     ]
 else:
-    auth = []
+    auth = [
+        path('crt-login/logout/', crt_loggedout_view, name='crt_logout')
+    ]
 
 
 def redirect_static(request):

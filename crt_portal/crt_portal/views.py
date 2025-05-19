@@ -1,3 +1,5 @@
+import os
+
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
@@ -26,6 +28,14 @@ def crt_loggedin_view(request):
             safe_url = iri_to_uri(next_page)
             return redirect(safe_url)
     return redirect('crt_landing_page')
+
+
+@login_required
+def crt_loggedout_view(request):
+    environment = os.environ.get('ENV', 'UNDEFINED')
+    if environment in ['PRODUCTION', 'STAGE']:
+        return redirect('oidc_logout')
+    return redirect('logout')
 
 
 class CrtLoginView(LoginView):
