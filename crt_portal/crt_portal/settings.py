@@ -362,7 +362,7 @@ if environment in ['PRODUCTION', 'STAGE']:
         LOGIN_URL = f"{login_base_url}/crt-login/login/"
         LOGIN_REDIRECT_URL = f"{login_base_url}/crt-login/loggedin/"
         LOGIN_REDIRECT_URL_FAILURE = f"{login_base_url}/crt-login/login/"
-        LOGOUT_REDIRECT_URL = f"{login_base_url}"
+        LOGOUT_REDIRECT_URL = f"{login_base_url}/accounts/logout"
 
     ALLOWED_HOSTS = [
         'civilrights.justice.gov',
