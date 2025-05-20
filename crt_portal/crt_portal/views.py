@@ -1,14 +1,9 @@
-import os
-import requests
-import logging
-
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 
 from django.utils.http import url_has_allowed_host_and_scheme
 from django.utils.encoding import iri_to_uri
-from django.urls import reverse
 from django.shortcuts import redirect
 
 from .decorators import portal_access_required
@@ -31,21 +26,6 @@ def crt_loggedin_view(request):
             safe_url = iri_to_uri(next_page)
             return redirect(safe_url)
     return redirect('crt_landing_page')
-
-
-@login_required
-def crt_loggedout_view(request):
-    environment = os.environ.get('ENV', 'UNDEFINED')
-    if environment in ['PRODUCTION', 'STAGE']:
-        try:
-            print("Processing Logout Request...")
-            url = reverse('oidc_logout')
-            print("Url =", url)
-            return requests.post(url, timeout=10)
-        except Exception:
-            logging.exception('ERROR: Something went wrong while attempting to log out.')
-            return
-    return redirect('logout')
 
 
 class CrtLoginView(LoginView):

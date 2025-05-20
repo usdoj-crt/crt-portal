@@ -48,8 +48,15 @@
     {% include 'forms/complaint_view/side_nav_test_site.html' with page=page %}
     {% endif %}
     <span>ACCOUNT</span>
-    <a class="sign-out" href="{% url 'crt_logout' %}">
+    {% if env != "PRODUCTION" and env != "STAGE" %}
+    <a class="sign-out" href="{% url 'logout' %}">
       <button class="usa-button usa-button--secondary">Logout</button>
     </a>
+    {% else %}
+    <form action="{% url 'oidc_logout' %}" method="post">
+      {% csrf_token %}
+      <input class="sign-out usa-button usa-button--secondary" type="submit" value="Logout">
+    </form>
+    {% endif %}
   </div>
 </div>
