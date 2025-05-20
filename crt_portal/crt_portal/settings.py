@@ -351,7 +351,8 @@ if environment in ['PRODUCTION', 'STAGE']:
         OIDC_OP_JWKS_ENDPOINT = f"https://{OKTA_DOMAIN}/oauth2/default/v1/keys"  # The OIDC JWKS endpoint
 
         # May require the following query params: ?id_token_hint={idToken}&post_logout_redirect_uri={redirectUri}
-        OIDC_OP_LOGOUT_URL_METHOD = f"https://{OKTA_DOMAIN}/oauth2/v1/logout"  # OIDC Logout endpoint:
+        OIDC_OP_LOGOUT_ENDPOINT = f"https://{OKTA_DOMAIN}/oauth2/v1/logout"  # OIDC Logout endpoint:
+        # OIDC_OP_LOGOUT_URL_METHOD = f"https://{OKTA_DOMAIN}/oauth2/v1/logout"  # OIDC Logout endpoint:
 
         OIDC_RP_SCOPES = "openid email profile"
 
