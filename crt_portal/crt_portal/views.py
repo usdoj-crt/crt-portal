@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 
 from django.utils.http import url_has_allowed_host_and_scheme
 from django.utils.encoding import iri_to_uri
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 
 from .decorators import portal_access_required
 
@@ -26,6 +26,10 @@ def crt_loggedin_view(request):
             safe_url = iri_to_uri(next_page)
             return redirect(safe_url)
     return redirect('crt_landing_page')
+
+
+def crt_loggedout_view(request):
+    return render(request, 'registration/logged_out.html')
 
 
 class CrtLoginView(LoginView):
