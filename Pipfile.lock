@@ -2201,17 +2201,17 @@
                 "sha256:07aae2bb5eaf77993ef57e357491839f5fd9f4dc281593a81a9e4d79a24f295c",
                 "sha256:284c7b8f2f58cb737f0cf1c30fd7eaf0ccfcde196099d24ecede3fc2005aa59e"
             ],
-            "index": "pypi",
             "markers": "python_version >= '3.9'",
             "version": "==3.1.1"
         },
         "flask-cors": {
             "hashes": [
-                "sha256:6ccb38d16d6b72bbc156c1c3f192bc435bfcc3c2bc864b2df1eb9b2d97b2403c",
-                "sha256:fa5cb364ead54bbf401a26dbf03030c6b18fb2fcaf70408096a572b409586b0c"
+                "sha256:4592c1570246bf7beee96b74bc0adbbfcb1b0318f6ba05c412e8909eceec3393",
+                "sha256:6332073356452343a8ccddbfec7befdc3fdd040141fe776ec9b94c262f058657"
             ],
+            "index": "pypi",
             "markers": "python_version >= '3.9' and python_version < '4.0'",
-            "version": "==5.0.1"
+            "version": "==6.0.0"
         },
         "flask-login": {
             "hashes": [
