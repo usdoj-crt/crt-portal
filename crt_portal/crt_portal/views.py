@@ -27,7 +27,7 @@ def handle_oidc_logout(id_token):
         "id_token_hint": id_token,
         "post_logout_redirect_uri": f'{settings.LOGOUT_REDIRECT_URL}'
     }
-    response = requests.post(url, data=payload)
+    response = requests.post(url, data=payload, timeout=10)
     print("Okta Logout Response Status Code:", response.status_code)
 
 
