@@ -29,7 +29,7 @@ def handle_oidc_logout(id_token):
     }
     response = requests.post(url, data=payload, timeout=10)
     print("Okta Logout Response Status Code:", response.status_code)
-    print("Okta Logout Response JSON:", response.json())
+    print("Okta Logout Response:", response)
 
 
 @login_required
