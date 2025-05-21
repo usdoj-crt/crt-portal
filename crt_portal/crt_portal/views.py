@@ -32,6 +32,7 @@ def handle_oidc_logout(id_token):
     print("Okta Logout Response Status Code:", response.status_code)
     print("Okta Logout Response Content:", response.content)
 
+
 @login_required
 @portal_access_required
 def crt_loggedin_view(request):
