@@ -53,6 +53,7 @@ def crt_logout_view(request):
         print("Handle Oidc Logout: Id token =", id_token)
         print("Handle Oidc Logout: CSRF Token =", csrf_token)
         handle_oidc_logout(id_token)
+    print("STORE_ID_TOKEN = ", settings.OIDC_STORE_ID_TOKEN)
     return redirect('logout')
 
 
