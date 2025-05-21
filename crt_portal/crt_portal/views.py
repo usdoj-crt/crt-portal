@@ -10,6 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.http import url_has_allowed_host_and_scheme
 from django.utils.encoding import iri_to_uri
 from django.shortcuts import redirect, render
+from django.http import HttpResponse
 
 from .decorators import portal_access_required
 
@@ -29,6 +30,7 @@ def handle_oidc_logout(id_token):
     response = requests.get(url, params=query, timeout=10)
     print("Okta Logout Response Status Code:", response.status_code)
     print("Okta Logout Response Content:", response.content)
+    return response.content
 
 
 @login_required
@@ -47,7 +49,8 @@ def crt_logout_view(request):
     environment = os.environ.get('ENV', 'UNDEFINED')
     if environment in ['PRODUCTION', 'STAGE']:
         id_token = request.session.get('oidc_id_token')
-        handle_oidc_logout(id_token)
+        html = handle_oidc_logout(id_token)
+        return HttpResponse(html)
     return redirect('logout')
 
 
