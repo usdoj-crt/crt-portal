@@ -1,5 +1,5 @@
 import os
-import requests
+import urllib.parse
 
 from django.conf import settings
 
@@ -12,7 +12,6 @@ from django.utils.encoding import iri_to_uri
 from django.shortcuts import redirect, render
 from django.middleware.csrf import get_token
 
-
 from .decorators import portal_access_required
 
 
@@ -24,13 +23,18 @@ def retrieve_and_save_next_url_in_session(request):
 
 
 def handle_oidc_logout(id_token):
-    url = f'{settings.OIDC_OP_LOGOUT_ENDPOINT}'
-    query = {
-        "id_token_hint": id_token,
+    base_uri = f'{settings.login_base_url}'
+    logout_uri = f'{settings.LOGOUT_REDIRECT_URL}'
+    logout_redirect_uri = base_uri + logout_uri
+
+    url = f'{settings.OIDC_OP_LOGOUT_ENDPOINT}?'
+    params = {
+        'id_token_hint': id_token,
+        'post_logout_redirect_uri': logout_redirect_uri
     }
-    response = requests.get(url, params=query, timeout=10)
-    print("Okta Logout Response Status Code:", response.status_code)
-    print("Okta Logout Response Content:", response.content)
+    request = url + urllib.parse.urlencode(params)
+    print("Handling oidc logout: Request URL =", request)
+    return redirect(request)
 
 
 @login_required
@@ -50,10 +54,9 @@ def crt_logout_view(request):
     if environment in ['PRODUCTION', 'STAGE']:
         id_token = request.session.get('oidc_id_token')
         csrf_token = get_token(request)
-        print("Handle Oidc Logout: Id token =", id_token)
-        print("Handle Oidc Logout: CSRF Token =", csrf_token)
+        print("CrtLogout Debug: Id Token =", id_token)
+        print("CrtLogout Debug: csrf_token =", csrf_token)
         handle_oidc_logout(id_token)
-    print("STORE_ID_TOKEN = ", settings.OIDC_STORE_ID_TOKEN)
     return redirect('logout')
 
 
