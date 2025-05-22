@@ -36,6 +36,7 @@ HATE_CRIME_HELP_TEXT = _('To be considered a hate crime, the physical harm or th
 LOCATION_QUESTIONS = collections.OrderedDict([
     ('location_title', _('Where did this happen?')),
     ('location_name', _('Organization name')),
+    ('location_phone', _('Organization phone number')),
     ('location_address_line_1', _('Street address 1')),
     ('location_address_line_2', _('Street address 2')),
     ('location_city_town', _('City/town')),
@@ -46,6 +47,7 @@ LOCATION_QUESTIONS = collections.OrderedDict([
 LOCATION_HELPTEXT = collections.OrderedDict([
     ('location_title', None),
     ('location_name', _("Examples: Name of business, school, intersection, prison, polling place, website, etc.")),
+    ('location_phone', None),
     ('location_address_line_1', None),
     ('location_address_line_2', None),
     ('location_city_town', None),
