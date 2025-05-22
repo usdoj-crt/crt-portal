@@ -571,6 +571,12 @@ class Report(models.Model):
 
     # Incident location
     location_name = models.CharField(max_length=225, null=True, blank=True)
+    location_phone = models.CharField(
+        validators=[RegexValidator(phone_validation_regex, message=CONTACT_PHONE_INVALID_MESSAGE)],
+        max_length=225,
+        null=True,
+        blank=True
+    )
     location_address_line_1 = models.CharField(max_length=225, null=True, blank=True)
     location_address_line_2 = models.CharField(max_length=225, null=True, blank=True)
     location_city_town = models.CharField(max_length=700, null=True, blank=True)
