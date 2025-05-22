@@ -1,7 +1,7 @@
-import os
-import urllib.parse
+# import os
+# import urllib.parse
 
-from django.conf import settings
+# from django.conf import settings
 
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.forms import AuthenticationForm
@@ -10,7 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.http import url_has_allowed_host_and_scheme
 from django.utils.encoding import iri_to_uri
 from django.shortcuts import redirect, render
-from django.middleware.csrf import get_token
+# from django.middleware.csrf import get_token
 
 from .decorators import portal_access_required
 
