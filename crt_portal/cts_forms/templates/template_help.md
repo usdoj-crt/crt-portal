@@ -14,22 +14,31 @@ Here's what's on this page:
 
 All of our templates support a few special variables. They are:
 
-| Name                     | Example                                            | Description                                                                                |
-|--------------------------|----------------------------------------------------|--------------------------------------------------------------------------------------------|
-| `addressee`              | Dear John Doe                                      | The salutation "Dear FirstName LastName" (sans comma)                                      |
-| `contact_address_line_1` | 1 Demo Street                                      | The recipient's first address line                                                         |
-| `contact_address_line_2` | Apt 5                                              | The recipient's second address line                                                        |
-| `complainant_name`       | John Doe                                           | The complainant's first and last name                                                      |
-| `contact_email`          | john@civilrights.justice.gov                       | The recipient's email address                                                              |
-| `date_of_intake`         | February 29, 1988                                  | The day the report was submitted                                                           |
-| `eeoc_office_name`       | Atlanta District Office                            | The name of the EEOC Office associated with the report                                     |
-| `eeoc_office_url`        | https://www.eeoc.gov/field-office/atlanta/location | The link to the contact information for the EEOC Office that is associated with the report |
-| `eeoc_charge_number`     | 555-5555-55555                                     | The EEOC charge number associated with this report                                         |
-| `organization_name`      | Santa's Workshop                                   | The name of the organization or location that is subject to the complaint                  |
-| `outgoing_date`          | February 31, 1988                                  | The day this reply is being sent (today)                                                   |
-| `record_locator`         | 12345-XYZ                                          | The identifier (record locator) of the report                                              |
-| `referral_text`          | Ministry of Magic                                  | The referral_variable set on the ReferralContact                                           |
-| `section_name`           | Voting                                             | The section of the user sending the reply                                                  |
+| Name                          | Example                                            | Description                                                                                |
+|-------------------------------|----------------------------------------------------|--------------------------------------------------------------------------------------------|
+| `addressee`                   | Dear John Doe                                      | The salutation "Dear FirstName LastName" (sans comma)                                      |
+| `contact_address_line_1`      | 1 Demo Street                                      | The recipient's first address line                                                         |
+| `contact_address_line_2`      | Apt 5                                              | The recipient's second address line                                                        |
+| `contact_city`                | Springfield                                        | The recipient's city                                                                       |
+| `contact_state`               | Ohio                                               | The recipient's state                                                                      |
+| `contact_zip`                 | 12345                                              | The recipient's zipcode                                                                    |
+| `complainant_name`            | John Doe                                           | The complainant's first and last name                                                      |
+| `contact_email`               | john@civilrights.justice.gov                       | The recipient's email address                                                              |
+| `contact_phone`               | 555-555-5555                                       | The recipient's phone number                                                               |
+| `date_of_intake`              | February 29, 1988                                  | The day the report was submitted                                                           |
+| `eeoc_office_name`            | Atlanta District Office                            | The name of the EEOC Office associated with the report                                     |
+| `eeoc_office_url`             | https://www.eeoc.gov/field-office/atlanta/location | The link to the contact information for the EEOC Office that is associated with the report |
+| `eeoc_charge_number`          | 555-5555-55555                                     | The EEOC charge number associated with this report                                         |
+| `organization_name`           | Santa's Workshop                                   | The name of the organization or location that is subject to the complaint                  |
+| `organization_address_line_1` | 123 Icy Dr                                         | The organization or location that is subject to the complaint's first address line         |
+| `organization_address_line_2` | Apt 1225                                           | The organization or location that is subject to the complaint's second address line        |
+| `organization_city`           | Seattle                                            | The organization or location that is subject to the complaint's city                       |
+| `organization_state`          | Washington                                         | The organization or location that is subject to the complaint's state                      |
+| `organization_zip`            | 54321                                              | The organization or location that is subject to the complaint's zipcode                    |
+| `outgoing_date`               | February 31, 1988                                  | The day this reply is being sent (today)                                                   |
+| `record_locator`              | 12345-XYZ                                          | The identifier (record locator) of the report                                              |
+| `referral_text`               | Ministry of Magic                                  | The referral_variable set on the ReferralContact                                           |
+| `section_name`                | Voting                                             | The section of the user sending the reply                                                  |
 
 ### How do I use them?
 
