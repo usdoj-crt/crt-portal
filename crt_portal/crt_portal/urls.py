@@ -59,8 +59,6 @@ if environment in ['PRODUCTION', 'STAGE']:
         path('crt-login/loggedin/', crt_loggedin_view, name='crt_logged_in'),
         path('crt-login/loggedout/', crt_loggedout_view, name='crt_logged_out')
     ]
-else:
-    auth = []
 auth.append(path('crt-login/logout/', crt_logout_view, name='crt_logout'))
 
 

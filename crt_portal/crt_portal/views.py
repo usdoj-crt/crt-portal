@@ -22,19 +22,19 @@ def retrieve_and_save_next_url_in_session(request):
     request.session.save()
 
 
-def handle_oidc_logout(id_token):
-    base_uri = f'{settings.login_base_url}'
-    logout_uri = f'{settings.LOGOUT_REDIRECT_URL}'
-    logout_redirect_uri = base_uri + logout_uri
+# def handle_oidc_logout(id_token):
+#     base_uri = f'{settings.login_base_url}'
+#     logout_uri = f'{settings.LOGOUT_REDIRECT_URL}'
+#     logout_redirect_uri = base_uri + logout_uri
 
-    url = f'{settings.OIDC_OP_LOGOUT_ENDPOINT}?'
-    params = {
-        'id_token_hint': id_token,
-        'post_logout_redirect_uri': logout_redirect_uri
-    }
-    request = url + urllib.parse.urlencode(params)
-    print("Handling oidc logout: Request URL =", request)
-    return redirect(request)
+#     url = f'{settings.OIDC_OP_LOGOUT_ENDPOINT}?'
+#     params = {
+#         'id_token_hint': id_token,
+#         'post_logout_redirect_uri': logout_redirect_uri
+#     }
+#     request = url + urllib.parse.urlencode(params)
+#     print("Handling oidc logout: Request URL =", request)
+#     return redirect(request)
 
 
 @login_required
@@ -50,13 +50,13 @@ def crt_loggedin_view(request):
 
 
 def crt_logout_view(request):
-    environment = os.environ.get('ENV', 'UNDEFINED')
-    if environment in ['PRODUCTION', 'STAGE']:
-        id_token = request.session.get('oidc_id_token')
-        csrf_token = get_token(request)
-        print("CrtLogout Debug: Id Token =", id_token)
-        print("CrtLogout Debug: csrf_token =", csrf_token)
-        handle_oidc_logout(id_token)
+    # environment = os.environ.get('ENV', 'UNDEFINED')
+    # if environment in ['PRODUCTION', 'STAGE']:
+    #     id_token = request.session.get('oidc_id_token')
+    #     csrf_token = get_token(request)
+    #     print("CrtLogout Debug: Id Token =", id_token)
+    #     print("CrtLogout Debug: csrf_token =", csrf_token)
+    #     handle_oidc_logout(id_token)
     return redirect('logout')
 
 
