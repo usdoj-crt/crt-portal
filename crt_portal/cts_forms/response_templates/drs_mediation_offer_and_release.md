@@ -7,8 +7,7 @@ show_in_dropdown: true
 ---
 
 {{ complainant_name }}          
-{{ contact_address_line_1 }}
-{{ contact_address_line_2 }}
+{{ contact_address_lines }}
 {{ contact_email }}
 
 {{ outgoing_date }}
@@ -39,10 +38,6 @@ Sincerely,
 
 ADA Mediation Program
 Disability Rights Section
-
-**U.S. Department of Justice**                                                                          
-Civil Rights Division
-_Disability Rights Section_
 
 ---
 <p style="page-break-after: always;">&nbsp;</p>
@@ -88,12 +83,13 @@ font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
 </colgroup>  
 <thead>  
   <tr>  
-    <th class="tg-0pkq" colspan="4" style="border:none;"><h3>{{ record_locator }} - &lt;&lt; tag_info &gt;&gt;</h3></th>  
-  </tr></thead>  
+    <th class="tg-0pkq" colspan="4" style="border:none;"><h3>{{ record_locator }} <small style="float:right">{{ mediation_billing_tags }}</small></h3></th>  
+  </tr>
+</thead>  
 <tbody>  
   <tr style="border-left: 1px solid !important;border-right: 1px solid !important;">  
     <td class="tg-0pkq">Complainant:<br>Address:</td>  
-    <td class="tg-0laz">{{ complainant_name }}<br>{{ contact_address_line_1 }}<br>{{ contact_address_line_2 }}<br>{{ contact_city }}, {{ contact_state }} {{ contact_zip }}</td>  
+    <td class="tg-0laz">{{ complainant_name }}<br>{{ contact_address_lines }}<br>{{ contact_city }}, {{ contact_state }} {{ contact_zip }}</td>  
     <td class="tg-0pkq">Phone #:<br>Email:</td>  
     <td class="tg-0laz">{{ contact_phone }}<br>{{ contact_email }}</td>  
   </tr>  
@@ -108,9 +104,9 @@ font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
   </tr>
   <tr style="border-left: 1px solid !important;border-right: 1px solid !important;">  
     <td class="tg-0pkq">Respondents:<br>Address:<br> </td>  
-    <td class="tg-0laz">{{ organization_name }}}<br>{{ organization_address_line_1 }}<br>{{ organization_address_line_2 }}<br>{{ organization_city }}, {{ organization_state }} {{ organization_zip }}</td>  
+    <td class="tg-0laz">{{ organization_name }}<br>{{ organization_address_lines }}<br>{{ organization_city }}, {{ organization_state }} {{ organization_zip }}</td>  
     <td class="tg-0pkq">Phone #:</td>  
-    <td class="tg-0laz">&lt;&lt; org_phone_number &gt;&gt;</td>  
+    <td class="tg-0laz">{{ organization_phone }}</td>  
   </tr>  
   <tr style="border-left: 1px solid !important;border-right: 1px solid !important;">  
     <td class="tg-0pkq">Corrections:</td>  

@@ -1294,6 +1294,10 @@ class ResponseTemplate(models.Model):
             eeoc_office_name = eeoc_office.name or ''
             eeoc_office_url = eeoc_office.url or ''
 
+        mediation_billing_tags = ', '.join(
+            [t.name.replace("MED-", "") for t in report.tags.filter(tooltip="Billing Code", name__istartswith='Med-').all()]
+        )
+
         return Context({
             'record_locator': report.public_id,
             'addressee': report.addressee,
@@ -1302,12 +1306,15 @@ class ResponseTemplate(models.Model):
             'contact_phone': report.contact_phone,
             'contact_address_line_1': report.contact_address_line_1,
             'contact_address_line_2': report.contact_address_line_2,
+            'contact_address_lines': f"{report.contact_address_line_1}{', ' + report.contact_address_line_2 if report.contact_address_line_2 else ''}",
             'contact_city': report.contact_city,
             'contact_state': report.contact_state,
             'contact_zip': report.contact_zip,
             'organization_name': report.location_name,
+            'organization_phone': report.location_phone,
             'organization_address_line_1': report.location_address_line_1,
             'organization_address_line_2': report.location_address_line_2,
+            'organization_address_lines': f"{report.location_address_line_1}{', ' + report.location_address_line_2 if report.location_address_line_2 else ''}",
             'organization_city': report.location_city_town,
             'organization_state': report.location_state,
             'organization_zip': report.location_zipcode,
@@ -1318,6 +1325,7 @@ class ResponseTemplate(models.Model):
             'eeoc_office_name': eeoc_office_name,
             'eeoc_office_url': eeoc_office_url,
             'eeoc_charge_number': report.eeoc_charge_number,
+            'mediation_billing_tags': mediation_billing_tags,
             # spanish translations
             'es': {
                 'addressee': report.addressee_es,

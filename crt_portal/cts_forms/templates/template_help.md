@@ -30,6 +30,7 @@ All of our templates support a few special variables. They are:
 | `eeoc_office_url`             | https://www.eeoc.gov/field-office/atlanta/location | The link to the contact information for the EEOC Office that is associated with the report |
 | `eeoc_charge_number`          | 555-5555-55555                                     | The EEOC charge number associated with this report                                         |
 | `organization_name`           | Santa's Workshop                                   | The name of the organization or location that is subject to the complaint                  |
+| `organization_phone`          | 555-555-5555                                       | The organization or location that is subject to the complaint's phone number               |
 | `organization_address_line_1` | 123 Icy Dr                                         | The organization or location that is subject to the complaint's first address line         |
 | `organization_address_line_2` | Apt 1225                                           | The organization or location that is subject to the complaint's second address line        |
 | `organization_city`           | Seattle                                            | The organization or location that is subject to the complaint's city                       |
