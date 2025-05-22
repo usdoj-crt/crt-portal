@@ -696,11 +696,10 @@ workflows:
       - deploy-stage:
           requires:
             - owasp-scan-dev
-            # - build_and_test
+            - build_and_test
           filters:
             branches:
-              # only: /^release.*/
-              only: rw/add_okta_logout
+              only: /^release.*/
 
       - deploy-prod:
           requires:
