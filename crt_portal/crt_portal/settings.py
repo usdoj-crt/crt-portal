@@ -344,11 +344,16 @@ if environment in ['PRODUCTION', 'STAGE']:
 
         OIDC_USERNAME_ALGO = 'crt_portal.custom_oidc_backend.generate_username'
         OIDC_RP_SIGN_ALGO = "RS256"
+
+        OIDC_STORE_ACCESS_TOKEN = True
+        OIDC_STORE_ID_TOKEN = True
+
         OIDC_OP_AUTHORIZATION_ENDPOINT = f"https://{OKTA_DOMAIN}/oauth2/default/v1/authorize"  # The OIDC authorization endpoint
         OIDC_RP_TOKEN_ENDPOINT = f"https://{OKTA_DOMAIN}/oauth2/default/v1/token"  # The OIDC token endpoint
         OIDC_OP_USER_ENDPOINT = f"https://{OKTA_DOMAIN}/oauth2/default/v1/userinfo"  # The OIDC userinfo endpoint
         OIDC_OP_TOKEN_ENDPOINT = f"https://{OKTA_DOMAIN}/oauth2/default/v1/token"  # The OIDC token endpoint
         OIDC_OP_JWKS_ENDPOINT = f"https://{OKTA_DOMAIN}/oauth2/default/v1/keys"  # The OIDC JWKS endpoint
+        OIDC_OP_LOGOUT_ENDPOINT = f"https://{OKTA_DOMAIN}/oauth2/v1/logout"  # OIDC Logout endpoint:
 
         OIDC_RP_SCOPES = "openid email profile"
 
@@ -358,7 +363,7 @@ if environment in ['PRODUCTION', 'STAGE']:
         LOGIN_URL = f"{login_base_url}/crt-login/login/"
         LOGIN_REDIRECT_URL = f"{login_base_url}/crt-login/loggedin/"
         LOGIN_REDIRECT_URL_FAILURE = f"{login_base_url}/crt-login/login/"
-        LOGOUT_REDIRECT_URL = f"{login_base_url}"
+        LOGOUT_REDIRECT_URL = f"{login_base_url}/crt-login/loggedout/"
 
     ALLOWED_HOSTS = [
         'civilrights.justice.gov',
