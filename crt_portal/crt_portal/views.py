@@ -23,7 +23,7 @@ def retrieve_and_save_next_url_in_session(request):
 
 
 def handle_oidc_logout(id_token):
-    base_uri = f'{settings.login_base_url}'
+    base_uri = f'{settings.LOGIN_BASE_URL}'
     logout_uri = f'{settings.LOGOUT_REDIRECT_URL}'
     logout_redirect_uri = base_uri + logout_uri
 
