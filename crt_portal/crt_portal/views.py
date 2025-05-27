@@ -56,7 +56,7 @@ def crt_logout_view(request):
         csrf_token = get_token(request)
         print("CrtLogout Debug: Id Token =", id_token)
         print("CrtLogout Debug: csrf_token =", csrf_token)
-        handle_oidc_logout(id_token)
+        return handle_oidc_logout(id_token)
     return redirect('logout')
 
 
