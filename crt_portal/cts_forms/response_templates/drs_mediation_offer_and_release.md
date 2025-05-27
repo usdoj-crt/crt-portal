@@ -52,9 +52,9 @@ font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
 .tg .tg-0pkz{border:none;text-align:right;vertical-align:top}
 </style>
 <p> </p>
-<table class="tg" style="undefined;table-layout: fixed; width: 1002px;border-top: none;border-left: none;border-right: none;border-bottom: 5px double black;"><colgroup>
-<col style="width: 501px">
-<col style="width: 501px">
+<table class="tg" style="table-layout: fixed; width: 100%;border-top: none;border-left: none;border-right: none;border-bottom: 5px double black;"><colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
 </colgroup>
 <thead>
 <tr>
@@ -63,7 +63,9 @@ font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
 </tr></thead>
 </table>
 
-## <p style="text-align:center;font-size:1.5em;">Release for Referral to Mediation</p>
+## <p style="text-align:center;font-size:1.5em;margin:-20px;">Release for Referral to Mediation</p>
+
+### <p style="text-align:center;font-size:1.2em;text-decoration:underline;margin:-20px">Contact Information</p><br><p style="text-align:center;font-size:1em;margin:-5px -5px -30px -5px;">Please provide corrections for any missing or incorrect information</p>
 
 <style>  
 .tg  {border-collapse:collapse;border-spacing:0;}  
@@ -75,11 +77,11 @@ font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
 .tg .tg-0laz{text-align:left;vertical-align:top}  
 .rl-info td, .rl-info th{border-left:none !important;border-right:none !important;}
 </style>  
-<table class="tg rl-info" style="undefined;table-layout: fixed; width: 679px"><colgroup>  
-<col style="width: 100px">  
-<col style="width: 400px">  
-<col style="width: 100px">  
-<col style="width: 400px">  
+<table class="tg rl-info" style="table-layout: fixed; width: 100%"><colgroup>  
+<col style="width: 15%">  
+<col style="width: 36.5%">  
+<col style="width: 12%">  
+<col style="width: 36.5%">  
 </colgroup>  
 <thead>  
   <tr>  
@@ -137,11 +139,11 @@ font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
 .tg .tg-0lax{text-align:left;vertical-align:top}
 </style>
 
-<table class="tg" style="undefined;table-layout: fixed; width: 1002px;"><colgroup>
+<table class="tg" style="table-layout: fixed; width: 100%;"><colgroup>
 
-<col style="width: 485px">
-<col style="width: 30px">
-<col style="width: 485px">
+<col style="width: 48.5%">
+<col style="width: 3%">
+<col style="width: 48.5%">
 
 </colgroup>
 
@@ -181,7 +183,6 @@ font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
 
 </table>
 
----
 <p style="page-break-after: always;">&nbsp;</p>
 
 ##**Resolving ADA Complaints Through Mediation**
