@@ -12,6 +12,8 @@ class CrtAuthenticationBackend(OIDCAuthenticationBackend):
     def _store_issuer_in_session(self, claims):
         session = self.request.session
 
+        print("CrtAuthenticationBackend Debug: Claims = ", claims)
+
         issuer = claims.get("iss", None)
         print("CrtAuthenticationBackend Debug: Issuer = ", issuer)
 

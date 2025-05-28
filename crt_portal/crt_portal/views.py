@@ -48,7 +48,7 @@ def crt_loggedin_view(request):
 def crt_logout_view(request):
     environment = os.environ.get('ENV', 'UNDEFINED')
     if environment in ['PRODUCTION', 'STAGE']:
-        url = request.session.get('oidc_issuer') + '/v1/logout'
+        url = request.session.get('oidc_issuer', "") + '/v1/logout'
         id_token = request.session.get('oidc_id_token')
         print("CrtLogoutDebug: Url = ", url)
         print("CrtLogout Debug: Id Token =", id_token)
