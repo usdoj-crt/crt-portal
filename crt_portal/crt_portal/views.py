@@ -23,14 +23,12 @@ def retrieve_and_save_next_url_in_session(request):
 
 
 def handle_oidc_logout(id_token):
-    base_uri = f'{settings.LOGIN_BASE_URL}'
     logout_uri = f'{settings.LOGOUT_REDIRECT_URL}'
-    logout_redirect_uri = base_uri + logout_uri
 
     url = f'{settings.OIDC_OP_LOGOUT_ENDPOINT}?'
     params = {
         'id_token_hint': id_token,
-        'post_logout_redirect_uri': logout_redirect_uri
+        'post_logout_redirect_uri': logout_uri
     }
     request = url + urllib.parse.urlencode(params)
     print("CrtLogout Debug: Logout Request URL =", request)
