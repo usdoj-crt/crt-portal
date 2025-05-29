@@ -3101,7 +3101,7 @@ class ReportEditForm(LitigationHoldLock, ProForm, ActivityStreamUpdater):
             'violation_summary',
         ]
 
-        fields = ProForm.Meta.fields + ['eeoc_charge_number', 'eeoc_office', 'tags', 'location_zipcode']
+        fields = ProForm.Meta.fields + ['eeoc_charge_number', 'eeoc_office', 'tags', 'location_phone', 'location_zipcode']
 
     def success_message(self):
         return self.SUCCESS_MESSAGE
@@ -3162,6 +3162,15 @@ class ReportEditForm(LitigationHoldLock, ProForm, ActivityStreamUpdater):
             'class': 'usa-input'
         })
         self.fields['location_zipcode'].required = False
+
+        self.fields['location_phone'].label = LOCATION_QUESTIONS['location_phone']
+        self.fields['location_phone'].widget = TextInput(attrs={
+            'class': 'usa-input phone-input',
+            'pattern': phone_validation_regex,
+            'title': CONTACT_PHONE_INVALID_MESSAGE
+        })
+        self.fields['location_phone'].error_messages = {'invalid': CONTACT_PHONE_INVALID_MESSAGE}
+        self.fields['location_phone'].required = False
 
         # Summary fields
         summary = self.instance.get_summary

@@ -39,9 +39,10 @@ from django.shortcuts import redirect
 from django.urls import include, path, re_path
 from django.views.generic import TemplateView
 
-from .views import crt_loggedin_view, CrtLoginView, CrtAdminLoginView
+from .views import crt_loggedin_view, crt_logout_view, crt_loggedout_view, CrtLoginView, CrtAdminLoginView
 
 environment = os.environ.get('ENV', 'UNDEFINED')
+auth = []
 if environment in ['PRODUCTION', 'STAGE']:
     from mozilla_django_oidc import views as oidc_views
     auth = [
@@ -54,11 +55,11 @@ if environment in ['PRODUCTION', 'STAGE']:
 
         # Custom Login
         path('admin/login/', CrtAdminLoginView.as_view(), name='admin_login'),
-        path('crt-login/login/', CrtLoginView.as_view(), name="login"),
-        path('crt-login/loggedin/', crt_loggedin_view, name='logged-in-view')
+        path('crt-login/login/', CrtLoginView.as_view(), name='login'),
+        path('crt-login/loggedin/', crt_loggedin_view, name='crt_logged_in'),
+        path('crt-login/loggedout/', crt_loggedout_view, name='crt_logged_out')
     ]
-else:
-    auth = []
+auth.append(path('crt-login/logout/', crt_logout_view, name='crt_logout'))
 
 
 def redirect_static(request):

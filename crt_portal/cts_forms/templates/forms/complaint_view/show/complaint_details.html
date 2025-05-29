@@ -168,6 +168,17 @@
         </td>
       </tr>
       <tr>
+        <th><label for="{{details_form.location_phone.id_for_label}}">Organization Phone</label></th>
+        <td>
+          <div class="details {% if details_form.errors %}display-none{% endif %}">
+            <input disabled class="usa-input phone-input" value="{{ data.location_phone|default:"" }}"/>
+          </div>
+          <div class="details-edit {% if not details_form.errors %}display-none{% endif %}">
+            {{details_form.location_phone}}
+          </div>
+        </td>
+      </tr>
+      <tr>
         <th>Address</th>
         <td>
           <div class="details {% if details_form.errors %}display-none{% endif %}">

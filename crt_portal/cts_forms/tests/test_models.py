@@ -376,6 +376,7 @@ class ReportTests(TestCase):
             ('working_group', 'ELS-CRU', None),
 
             ('location_name', 'Test Location', None),
+            ('location_phone', '111-222-3333', None),
             ('location_address_line_1', '123 Main St', None),
             ('location_address_line_2', 'Apt 1', None),
             ('location_city_town', 'Anytown', None),
