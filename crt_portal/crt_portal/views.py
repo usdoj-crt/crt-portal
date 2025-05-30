@@ -21,7 +21,9 @@ def retrieve_and_save_next_url_in_session(request):
     request.session.save()
 
 
-def handle_oidc_logout(url, id_token):
+def handle_oidc_logout(id_token):
+    url = f'{settings.OIDC_OP_LOGOUT_ENDPOINT}'
+    print("CrtLogoutDebug: Url = ", url)
     logout_redirect_uri = f'{settings.LOGOUT_REDIRECT_URL}'
 
     print("CrtLogoutDebug: Logout Redirect URI =", logout_redirect_uri)
@@ -49,11 +51,9 @@ def crt_loggedin_view(request):
 def crt_logout_view(request):
     environment = os.environ.get('ENV', 'UNDEFINED')
     if environment in ['PRODUCTION', 'STAGE']:
-        url = request.session.get('oidc_issuer', "") + '/v1/logout'
         id_token = request.session.get('oidc_id_token')
-        print("CrtLogoutDebug: Url = ", url)
         print("CrtLogout Debug: Id Token =", id_token)
-        return handle_oidc_logout(url, id_token)
+        return handle_oidc_logout(id_token)
     return redirect('logout')
 
 
