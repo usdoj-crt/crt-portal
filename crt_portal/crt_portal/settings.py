@@ -339,6 +339,7 @@ if environment in ['PRODUCTION', 'STAGE']:
         AUTHENTICATION_BACKENDS_LIST.append('crt_portal.custom_oidc_backend.CrtAuthenticationBackend')
 
         OKTA_DOMAIN = os.environ['OKTA_DOMAIN']
+        OKTA_ISSUER = os.environ['OKTA_ISSUER']
         OIDC_RP_CLIENT_ID = os.environ['OIDC_RP_CLIENT_ID']
         OIDC_RP_CLIENT_SECRET = os.environ['OIDC_RP_CLIENT_SECRET']
 
@@ -353,17 +354,17 @@ if environment in ['PRODUCTION', 'STAGE']:
         OIDC_OP_USER_ENDPOINT = f"https://{OKTA_DOMAIN}/oauth2/default/v1/userinfo"  # The OIDC userinfo endpoint
         OIDC_OP_TOKEN_ENDPOINT = f"https://{OKTA_DOMAIN}/oauth2/default/v1/token"  # The OIDC token endpoint
         OIDC_OP_JWKS_ENDPOINT = f"https://{OKTA_DOMAIN}/oauth2/default/v1/keys"  # The OIDC JWKS endpoint
-        OIDC_OP_LOGOUT_ENDPOINT = f"https://{OKTA_DOMAIN}/oauth2/v1/logout"  # OIDC Logout endpoint:
+        OIDC_OP_LOGOUT_ENDPOINT = f"https://{OKTA_ISSUER}/oauth2/default/v1/logout"  # OIDC Logout endpoint:
 
         OIDC_RP_SCOPES = "openid email profile"
 
-        login_base_url = f"https://crt-portal-django-{'stage' if environment == 'STAGE' else 'prod'}.app.cloud.gov"
+        LOGIN_BASE_URL = f"https://crt-portal-django-{'stage' if environment == 'STAGE' else 'prod'}.app.cloud.gov"
 
         # Configure django to redirect users for ADFS and OKTA
-        LOGIN_URL = f"{login_base_url}/crt-login/login/"
-        LOGIN_REDIRECT_URL = f"{login_base_url}/crt-login/loggedin/"
-        LOGIN_REDIRECT_URL_FAILURE = f"{login_base_url}/crt-login/login/"
-        LOGOUT_REDIRECT_URL = f"{login_base_url}/crt-login/loggedout/"
+        LOGIN_URL = f"{LOGIN_BASE_URL}/crt-login/login/"
+        LOGIN_REDIRECT_URL = f"{LOGIN_BASE_URL}/crt-login/loggedin/"
+        LOGIN_REDIRECT_URL_FAILURE = f"{LOGIN_BASE_URL}/crt-login/login/"
+        LOGOUT_REDIRECT_URL = f"{LOGIN_BASE_URL}/crt-login/loggedout/"
 
     ALLOWED_HOSTS = [
         'civilrights.justice.gov',
