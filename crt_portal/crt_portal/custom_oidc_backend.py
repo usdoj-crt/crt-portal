@@ -9,23 +9,8 @@ def generate_username(email, claims):
 
 
 class CrtAuthenticationBackend(OIDCAuthenticationBackend):
-    def _store_issuer_in_session(self, claims):
-        session = self.request.session
-
-        print("CrtAuthenticationBackend Debug: Claims = ", claims)
-
-        issuer = claims.get("iss", None)
-        print("CrtAuthenticationBackend Debug: Issuer = ", issuer)
-
-        session['oidc_issuer'] = issuer
-        session.modified = True
-        session.save()
-
-        print("CrtAuthenticationBackend Debug: session oidc_issuer = ", session.get("oidc_issuer", ""))
 
     def create_user(self, claims):
-        self._store_issuer_in_session(claims)
-
         user = None
         user_exists = False
 
@@ -42,10 +27,4 @@ class CrtAuthenticationBackend(OIDCAuthenticationBackend):
         user.is_active = True
         user.save()
 
-        return user
-
-    def update_user(self, user, claims):
-        self._store_issuer_in_session(claims)
-
-        user = super(CrtAuthenticationBackend, self).update_user(user, claims)
         return user

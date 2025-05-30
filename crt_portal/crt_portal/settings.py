@@ -339,6 +339,7 @@ if environment in ['PRODUCTION', 'STAGE']:
         AUTHENTICATION_BACKENDS_LIST.append('crt_portal.custom_oidc_backend.CrtAuthenticationBackend')
 
         OKTA_DOMAIN = os.environ['OKTA_DOMAIN']
+        OKTA_ISSUER = os.environ['OKTA_ISSUER']
         OIDC_RP_CLIENT_ID = os.environ['OIDC_RP_CLIENT_ID']
         OIDC_RP_CLIENT_SECRET = os.environ['OIDC_RP_CLIENT_SECRET']
 
