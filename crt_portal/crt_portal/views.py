@@ -39,7 +39,7 @@ def handle_oidc_logout(request):
     print("CrtLogout Debug: Access Token =", request.session.get('oidc_access_token'))
     response = requests.delete(
         settings.OIDC_OP_DELETE_SESSION_ENDPOINT,
-        headers={"Authorization": f"Bearer request.session.get('oidc_access_token')"}
+        headers={"Authorization": f"Bearer {request.session.get('oidc_access_token')}"}
     )
     # response = requests.post(
     #     settings.OIDC_OP_REVOKE_ENDPOINT,
