@@ -37,18 +37,22 @@ def handle_oidc_logout(request):
     print("CrtLogout Debug: Logout Request URL =", logout_request_url)
 
     print("CrtLogout Debug: Access Token =", request.session.get('oidc_access_token'))
-    response = requests.post(
-        settings.OIDC_OP_REVOKE_ENDPOINT,
-        data={"token": request.session.get('oidc_access_token'), "token_type_hint": "access_token"},
-        headers={
-            "Accept": "application/json",
-            "Content-Type": "application/x-www-form-urlencoded",
-        },
-        auth=(settings.OIDC_RP_CLIENT_ID, settings.OIDC_RP_CLIENT_SECRET),
-        timeout=10
+    response = requests.delete(
+        settings.OIDC_OP_DELETE_SESSION_ENDPOINT,
+        headers={"Authorization": f"Bearer request.session.get('oidc_access_token')"}
     )
+    # response = requests.post(
+    #     settings.OIDC_OP_REVOKE_ENDPOINT,
+    #     data={"token": request.session.get('oidc_access_token'), "token_type_hint": "access_token"},
+    #     headers={
+    #         "Accept": "application/json",
+    #         "Content-Type": "application/x-www-form-urlencoded",
+    #     },
+    #     auth=(settings.OIDC_RP_CLIENT_ID, settings.OIDC_RP_CLIENT_SECRET),
+    #     timeout=10
+    # )
 
-    print(f"CrtLogout Debug: Revoke Response = {response.json() if response.status_code != 200 else response.content}")
+    print(f"CrtLogout Debug: Revoke/Delete Response = {response.json() if response.status_code >= 400 else response.content}")
 
     django_logout(request)
 

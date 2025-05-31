@@ -356,6 +356,7 @@ if environment in ['PRODUCTION', 'STAGE']:
         OIDC_OP_JWKS_ENDPOINT = f"https://{OKTA_DOMAIN}/oauth2/default/v1/keys"  # The OIDC JWKS endpoint
         OIDC_OP_LOGOUT_ENDPOINT = f"https://{OKTA_ISSUER}/oauth2/default/v1/logout"  # OIDC Logout endpoint:
         OIDC_OP_REVOKE_ENDPOINT = f"https://{OKTA_ISSUER}/oauth2/default/v1/revoke"  # OIDC Revoke endpoint:
+        OIDC_OP_DELETE_SESSION_ENDPOINT = f"https://{OKTA_ISSUER}/idp/myaccount/sessions"  # OIDC delete session endpoint:
 
         OIDC_RP_SCOPES = "openid email profile"
 
