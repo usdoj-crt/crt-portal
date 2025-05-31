@@ -15,8 +15,6 @@ from django.shortcuts import redirect, render
 
 from josepy.b64 import b64decode
 
-from mozilla_django_oidc.auth import OIDCAuthenticationBackend
-
 from .decorators import portal_access_required
 
 
@@ -28,7 +26,6 @@ def retrieve_and_save_next_url_in_session(request):
 
 
 def handle_oidc_logout(id_token, access_token):
-    auth_backend = OIDCAuthenticationBackend()
     url = f'{settings.OIDC_OP_LOGOUT_ENDPOINT}?'
     print("CrtLogoutDebug: Url = ", url)
     logout_redirect_uri = f'{settings.LOGOUT_REDIRECT_URL}'
