@@ -38,8 +38,12 @@ def handle_oidc_logout(id_token, access_token):
     response = requests.post(
         settings.OIDC_OP_REVOKE_ENDPOINT,
         json={"token": access_token, "token_type_hint": "access_token"},
-        headers={"Content-Type": "application/json"},
-        auth=(settings.OIDC_RP_CLIENT_ID, settings.OIDC_RP_CLIENT_SECRET)
+        headers={
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+        },
+        auth=(settings.OIDC_RP_CLIENT_ID, settings.OIDC_RP_CLIENT_SECRET),
+        timeout=10
     )
 
     print(f"CrtLogout Debug: Revoke Response = {response.json()}")
