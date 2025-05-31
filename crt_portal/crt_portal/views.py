@@ -1,8 +1,10 @@
 import os
+import requests
 import urllib.parse
 
 from django.conf import settings
 
+from django.contrib.auth import logout as django_logout
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
@@ -21,19 +23,41 @@ def retrieve_and_save_next_url_in_session(request):
     request.session.save()
 
 
-def handle_oidc_logout(id_token):
+def handle_oidc_logout(request):
     url = f'{settings.OIDC_OP_LOGOUT_ENDPOINT}?'
     print("CrtLogoutDebug: Url = ", url)
     logout_redirect_uri = f'{settings.LOGOUT_REDIRECT_URL}'
 
     print("CrtLogoutDebug: Logout Redirect URI =", logout_redirect_uri)
     params = {
-        'id_token_hint': id_token,
+        'id_token_hint': request.session.get('oidc_id_token'),
         'post_logout_redirect_uri': logout_redirect_uri
     }
-    request = url + urllib.parse.urlencode(params)
-    print("CrtLogout Debug: Logout Request URL =", request)
-    return redirect(request)
+    logout_request_url = url + urllib.parse.urlencode(params)
+    print("CrtLogout Debug: Logout Request URL =", logout_request_url)
+
+    print("CrtLogout Debug: Access Token =", request.session.get('oidc_access_token'))
+    response = requests.delete(
+        settings.OIDC_OP_DELETE_SESSION_ENDPOINT,
+        headers={"Authorization": f"Bearer {request.session.get('oidc_access_token')}"}
+    )
+    # response = requests.post(
+    #     settings.OIDC_OP_REVOKE_ENDPOINT,
+    #     data={"token": request.session.get('oidc_access_token'), "token_type_hint": "access_token"},
+    #     headers={
+    #         "Accept": "application/json",
+    #         "Content-Type": "application/x-www-form-urlencoded",
+    #     },
+    #     auth=(settings.OIDC_RP_CLIENT_ID, settings.OIDC_RP_CLIENT_SECRET),
+    #     timeout=10
+    # )
+
+    print("CrtLogout Debug: Response Status Code =", response.status_code)
+    print(f"CrtLogout Debug: Revoke/Delete Response = {response.text}")
+
+    django_logout(request)
+
+    return redirect(logout_request_url)
 
 
 @login_required
@@ -53,7 +77,7 @@ def crt_logout_view(request):
     if environment in ['PRODUCTION', 'STAGE']:
         id_token = request.session.get('oidc_id_token')
         print("CrtLogout Debug: Id Token =", id_token)
-        return handle_oidc_logout(id_token)
+        return handle_oidc_logout(request)
     return redirect('logout')
 
 
