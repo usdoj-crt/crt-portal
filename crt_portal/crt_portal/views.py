@@ -35,6 +35,7 @@ def handle_oidc_logout(id_token, access_token):
     request = url + urllib.parse.urlencode(params)
     print("CrtLogout Debug: Logout Request URL =", request)
 
+    print("CrtLogout Debug: Access Token =", access_token)
     response = requests.post(
         settings.OIDC_OP_REVOKE_ENDPOINT,
         json={"token": access_token, "token_type_hint": "access_token"},
