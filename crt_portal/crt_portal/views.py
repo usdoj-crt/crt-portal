@@ -1,3 +1,4 @@
+import json
 import os
 import requests
 import urllib.parse
@@ -12,6 +13,10 @@ from django.utils.http import url_has_allowed_host_and_scheme
 from django.utils.encoding import iri_to_uri
 from django.shortcuts import redirect, render
 
+from josepy.b64 import b64decode
+
+from mozilla_django_oidc.auth import OIDCAuthenticationBackend
+
 from .decorators import portal_access_required
 
 
@@ -23,6 +28,7 @@ def retrieve_and_save_next_url_in_session(request):
 
 
 def handle_oidc_logout(id_token, access_token):
+    auth_backend = OIDCAuthenticationBackend()
     url = f'{settings.OIDC_OP_LOGOUT_ENDPOINT}?'
     print("CrtLogoutDebug: Url = ", url)
     logout_redirect_uri = f'{settings.LOGOUT_REDIRECT_URL}'
@@ -35,10 +41,12 @@ def handle_oidc_logout(id_token, access_token):
     request = url + urllib.parse.urlencode(params)
     print("CrtLogout Debug: Logout Request URL =", request)
 
-    print("CrtLogout Debug: Access Token =", access_token)
+    _, access_token_json, _ = access_token.split(b".")
+    access_token_json = json.loads(b64decode(access_token_json))
+    print("CrtLogout Debug: Access Token =", access_token_json)
     response = requests.post(
         settings.OIDC_OP_REVOKE_ENDPOINT,
-        json={"token": access_token, "token_type_hint": "access_token"},
+        json={"token": access_token_json, "token_type_hint": "access_token"},
         headers={
             "Accept": "application/json",
             "Content-Type": "application/json",
