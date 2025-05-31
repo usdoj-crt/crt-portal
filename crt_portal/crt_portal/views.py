@@ -1,4 +1,3 @@
-import json
 import os
 import requests
 import urllib.parse
@@ -12,8 +11,6 @@ from django.contrib.auth.decorators import login_required
 from django.utils.http import url_has_allowed_host_and_scheme
 from django.utils.encoding import iri_to_uri
 from django.shortcuts import redirect, render
-
-from josepy.b64 import b64decode
 
 from .decorators import portal_access_required
 
@@ -38,15 +35,13 @@ def handle_oidc_logout(id_token, access_token):
     request = url + urllib.parse.urlencode(params)
     print("CrtLogout Debug: Logout Request URL =", request)
 
-    _, access_token_json, _ = access_token.split(b".")
-    access_token_json = json.loads(b64decode(access_token_json))
-    print("CrtLogout Debug: Access Token =", access_token_json)
+    print("CrtLogout Debug: Access Token =", access_token)
     response = requests.post(
         settings.OIDC_OP_REVOKE_ENDPOINT,
-        json={"token": access_token_json, "token_type_hint": "access_token"},
+        data={"token": access_token, "token_type_hint": "access_token"},
         headers={
             "Accept": "application/json",
-            "Content-Type": "application/json",
+            "Content-Type": "application/x-www-form-urlencoded",
         },
         auth=(settings.OIDC_RP_CLIENT_ID, settings.OIDC_RP_CLIENT_SECRET),
         timeout=10
