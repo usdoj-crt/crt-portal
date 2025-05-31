@@ -233,6 +233,9 @@
     }
     letterhead.removeAttribute('hidden');
     document.body.appendChild(letterhead);
+    document.querySelectorAll('.response-template--hide-in-paper-letter').forEach(element => {
+      element.remove();
+    });
     window.print();
     letter_placeholder.classList.remove('form-letter-text');
     document.body.removeChild(letterhead);

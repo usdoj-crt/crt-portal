@@ -6,9 +6,11 @@ is_html: true
 show_in_dropdown: true
 ---
 
-{{ complainant_name }}          
-{{ contact_address_lines }}
-{{ contact_email }}
+<div class="response-template--hide-in-paper-letter">
+{{ complainant_name }}<br>
+{{ contact_address_lines }}<br>
+{{ contact_email }}<br>
+</div>
 
 {{ outgoing_date }}
 
