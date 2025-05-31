@@ -700,7 +700,7 @@ workflows:
           filters:
             branches:
               # only: /^release.*/
-              only: rw/add_okta_logout_2
+              only: rw/okta-logout
 
       - deploy-prod:
           requires:
