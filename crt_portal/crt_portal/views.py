@@ -53,7 +53,7 @@ def handle_oidc_logout(request):
     # )
 
     print("CrtLogout Debug: Response Status Code =", response.status_code)
-    print(f"CrtLogout Debug: Revoke/Delete Response = {response.text if response.status_code >= 400 else response.content}")
+    print(f"CrtLogout Debug: Revoke/Delete Response = {response.text}")
 
     django_logout(request)
 
