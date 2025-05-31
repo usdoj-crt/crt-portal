@@ -47,7 +47,7 @@ def handle_oidc_logout(id_token, access_token):
         timeout=10
     )
 
-    print(f"CrtLogout Debug: Revoke Response = {response.json()}")
+    print(f"CrtLogout Debug: Revoke Response = {response.json() if response.status_code != 200 else response.content}")
 
     return redirect(request)
 
