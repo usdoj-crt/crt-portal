@@ -27,11 +27,10 @@ def handle_oidc_logout(request):
         'id_token_hint': request.session.get('oidc_id_token'),
         'post_logout_redirect_uri': settings.LOGOUT_REDIRECT_URL
     }
-    logout_request_url = f'{settings.OIDC_OP_LOGOUT_ENDPOINT}?{urllib.parse.urlencode(params)}'
 
     django_logout(request)
 
-    return redirect(logout_request_url)
+    return redirect(f'{settings.OIDC_OP_LOGOUT_ENDPOINT}?{urllib.parse.urlencode(params)}')
 
 
 @login_required
