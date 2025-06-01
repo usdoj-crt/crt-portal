@@ -1,5 +1,4 @@
 import os
-import requests
 import urllib.parse
 
 from django.conf import settings
@@ -24,17 +23,11 @@ def retrieve_and_save_next_url_in_session(request):
 
 
 def handle_oidc_logout(request):
-    url = f'{settings.OIDC_OP_LOGOUT_ENDPOINT}?'
-    print("CrtLogoutDebug: Url = ", url)
-    logout_redirect_uri = f'{settings.LOGOUT_REDIRECT_URL}'
-
-    print("CrtLogoutDebug: Logout Redirect URI =", logout_redirect_uri)
     params = {
         'id_token_hint': request.session.get('oidc_id_token'),
-        'post_logout_redirect_uri': logout_redirect_uri
+        'post_logout_redirect_uri': settings.LOGOUT_REDIRECT_URL
     }
-    logout_request_url = url + urllib.parse.urlencode(params)
-    print("CrtLogout Debug: Logout Request URL =", logout_request_url)
+    logout_request_url = f'{settings.OIDC_OP_LOGOUT_ENDPOINT}?{urllib.parse.urlencode(params)}'
 
     django_logout(request)
 
@@ -56,8 +49,6 @@ def crt_loggedin_view(request):
 def crt_logout_view(request):
     environment = os.environ.get('ENV', 'UNDEFINED')
     if environment in ['PRODUCTION', 'STAGE']:
-        id_token = request.session.get('oidc_id_token')
-        print("CrtLogout Debug: Id Token =", id_token)
         return handle_oidc_logout(request)
     return redirect('logout')
 
