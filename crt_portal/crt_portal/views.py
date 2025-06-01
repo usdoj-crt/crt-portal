@@ -36,25 +36,6 @@ def handle_oidc_logout(request):
     logout_request_url = url + urllib.parse.urlencode(params)
     print("CrtLogout Debug: Logout Request URL =", logout_request_url)
 
-    print("CrtLogout Debug: Access Token =", request.session.get('oidc_access_token'))
-    response = requests.delete(
-        settings.OIDC_OP_DELETE_SESSION_ENDPOINT,
-        headers={"Authorization": f"Bearer {request.session.get('oidc_access_token')}"}
-    )
-    # response = requests.post(
-    #     settings.OIDC_OP_REVOKE_ENDPOINT,
-    #     data={"token": request.session.get('oidc_access_token'), "token_type_hint": "access_token"},
-    #     headers={
-    #         "Accept": "application/json",
-    #         "Content-Type": "application/x-www-form-urlencoded",
-    #     },
-    #     auth=(settings.OIDC_RP_CLIENT_ID, settings.OIDC_RP_CLIENT_SECRET),
-    #     timeout=10
-    # )
-
-    print("CrtLogout Debug: Response Status Code =", response.status_code)
-    print(f"CrtLogout Debug: Revoke/Delete Response = {response.text}")
-
     django_logout(request)
 
     return redirect(logout_request_url)
