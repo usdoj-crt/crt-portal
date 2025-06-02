@@ -3,6 +3,7 @@ import urllib.parse
 
 from django.conf import settings
 
+from django.contrib.auth import logout as django_logout
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
@@ -21,19 +22,15 @@ def retrieve_and_save_next_url_in_session(request):
     request.session.save()
 
 
-def handle_oidc_logout(id_token):
-    url = f'{settings.OIDC_OP_LOGOUT_ENDPOINT}?'
-    print("CrtLogoutDebug: Url = ", url)
-    logout_redirect_uri = f'{settings.LOGOUT_REDIRECT_URL}'
-
-    print("CrtLogoutDebug: Logout Redirect URI =", logout_redirect_uri)
+def handle_oidc_logout(request):
     params = {
-        'id_token_hint': id_token,
-        'post_logout_redirect_uri': logout_redirect_uri
+        'id_token_hint': request.session.get('oidc_id_token'),
+        'post_logout_redirect_uri': settings.LOGOUT_REDIRECT_URL
     }
-    request = url + urllib.parse.urlencode(params)
-    print("CrtLogout Debug: Logout Request URL =", request)
-    return redirect(request)
+
+    django_logout(request)
+
+    return redirect(f'{settings.OIDC_OP_LOGOUT_ENDPOINT}?{urllib.parse.urlencode(params)}')
 
 
 @login_required
@@ -51,9 +48,7 @@ def crt_loggedin_view(request):
 def crt_logout_view(request):
     environment = os.environ.get('ENV', 'UNDEFINED')
     if environment in ['PRODUCTION', 'STAGE']:
-        id_token = request.session.get('oidc_id_token')
-        print("CrtLogout Debug: Id Token =", id_token)
-        return handle_oidc_logout(id_token)
+        return handle_oidc_logout(request)
     return redirect('logout')
 
 
