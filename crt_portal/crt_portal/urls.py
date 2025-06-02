@@ -46,9 +46,6 @@ auth = []
 if environment in ['PRODUCTION', 'STAGE']:
     from mozilla_django_oidc import views as oidc_views
     auth = [
-        # ADFS
-        path('oauth2/', include('django_auth_adfs.urls')),
-
         # OKTA
         path("authorization-code/authenticate/", oidc_views.OIDCAuthenticationRequestView.as_view(), name="oidc_authentication_init"),
         path("authorization-code/callback/", oidc_views.OIDCAuthenticationCallbackView.as_view(), name="oidc_authentication_callback"),
