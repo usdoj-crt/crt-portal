@@ -293,9 +293,9 @@ As a logged-in local Postgres user, you can run queries directly against the dat
 
 ### Public and private webpages
 
-In production, we use [mozilla-django-oidc](https://mozilla-django-oidc.readthedocs.io/en/stable/) and new endpoints are behind authentication by default. To create a public page, you must update `LOGIN_EXEMPT_URLS` In [settings.py](https://github.com/usdoj-crt/crt-portal/blob/develop/crt_portal/crt_portal/settings.py) to include the endpoint(s) which are to be available without requiring authentication.
+In production, we use [mozilla-django-oidc](https://mozilla-django-oidc.readthedocs.io/en/stable/). Views are public by default and must be restricted by adding django's ```@login_required``` decorator or ```LoginRequiredMixin``` to function based and class based views respectively.
 
-We also explicitly add login required to views and functions that need authentication. If you are making a new path that requires authentication, add a test the [login required test class](https://github.com/usdoj-crt/crt-portal/blob/e9856a2b4726df5ad97ecbf84db99b7767f1662c/crt_portal/cts_forms/tests/tests.py#L985).
+If you are making a new path that requires authentication, add a test the [login required test class](https://github.com/usdoj-crt/crt-portal/blob/e9856a2b4726df5ad97ecbf84db99b7767f1662c/crt_portal/cts_forms/tests/tests.py#L985).
 
 We also use public and private as a way to separate views into manageable files. In `cts_forms`, private views are in `views.py` and public views are in `views_public.py`.
 
