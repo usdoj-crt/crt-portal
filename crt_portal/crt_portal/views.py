@@ -22,6 +22,10 @@ def retrieve_and_save_next_url_in_session(request):
     request.session.save()
 
 
+def handle_oidc_login(request):
+    return redirect('oidc_authentication_init')
+
+
 def handle_oidc_logout(request):
     params = {
         'id_token_hint': request.session.get('oidc_id_token'),
@@ -62,6 +66,9 @@ class CrtLoginView(LoginView):
 
     def get(self, request, *args, **kwargs):
         self.save_next_url(request)
+        environment = os.environ.get('ENV', 'UNDEFINED')
+        if environment in ['PRODUCTION', 'STAGE']:
+            return handle_oidc_login(request)
         return super(CrtLoginView, self).get(request, *args, **kwargs)
 
     def save_next_url(self, request):
@@ -73,6 +80,9 @@ class CrtAdminLoginView(LoginView):
 
     def get(self, request, *args, **kwargs):
         self.save_next_url(request)
+        environment = os.environ.get('ENV', 'UNDEFINED')
+        if environment in ['PRODUCTION', 'STAGE']:
+            return handle_oidc_login(request)
         return super(CrtAdminLoginView, self).get(request, *args, **kwargs)
 
     def save_next_url(self, request):

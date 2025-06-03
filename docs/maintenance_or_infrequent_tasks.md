@@ -120,18 +120,13 @@ Add `sso-creds` to the seervices part of the manifest. That will bind the bucket
 
 Make sure to update the auth settings to include the new environment.
 
-See documentation for the ADFS Django package- https://django-auth-adfs.readthedocs.io/en/latest/
-
 ### Code changes
 
 Add the environment to add auth urls condition in urls.py and adding the environment to the auth conditions of settings.py.
 
 crt_portal/crt_portal/settings.py
 
-    # for AUTH, probably want to add stage in the future
-    -if environment == 'PRODUCTION':
-    +if environment in ['PRODUCTION', 'STAGE']:
-         INSTALLED_APPS.append('django_auth_adfs')
+see the [settings documentation](https://mozilla-django-oidc.readthedocs.io/en/stable/settings.html) for the [mozilla-django-oidc plugin](https://github.com/mozilla/mozilla-django-oidc)
 
 crt_portal/crt_portal/urls.py
 
