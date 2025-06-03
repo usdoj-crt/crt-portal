@@ -699,8 +699,7 @@ workflows:
             - build_and_test
           filters:
             branches:
-              # only: /^release.*/
-              only: rw/add_okta_logout_2
+              only: /^release.*/
 
       - deploy-prod:
           requires:
