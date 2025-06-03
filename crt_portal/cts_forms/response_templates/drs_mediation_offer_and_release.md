@@ -45,16 +45,20 @@ Disability Rights Section
 <p style="page-break-after: always;">&nbsp;</p>
 
 <style>
-.tg  {border-collapse:collapse;border-spacing:0;}
-.tg td{border:none;font-family:Arial, sans-serif;font-size:14px;
-overflow:hidden;padding:10px 5px;word-break:normal;}
-.tg th{border:none;font-family:Arial, sans-serif;font-size:14px;
-font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
-.tg .tg-fuxe{border:none;font-size:18px;text-align:left;vertical-align:top}
-.tg .tg-0pkz{border:none;text-align:right;vertical-align:top}
+.table-1, .table-2-3{border-collapse:collapse;border-spacing:0;}
+.table-1 td{border:none;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;word-break:normal;}
+.table-1 th{border:none;font-family:Arial, sans-serif;font-size:14px;font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+.table-1 .tg-fuxe{border:none;font-size:18px;text-align:left;vertical-align:top}
+.table-1 .tg-0pkz{border:none;text-align:right;vertical-align:top}
+.table-2-3 td{border-color:black !important;border-style:solid !important;border-width:1px !important;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;word-break:normal;}
+.table-2-3 th{border-color:black !important;border-style:solid !important;border-width:1px !important;font-family:Arial, sans-serif;font-size:14px;font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+.table-2-3 .tg-0pkq{border-color:inherit !important;text-align:left;vertical-align:top}
+.table-2-3 .tg-0laz{text-align:left;vertical-align:top}
+.table-2-3 .tg-c3ow{border-color:inherit !important;text-align:center;vertical-align:top;font-size: 1.2em;}
+.rl-info td, .rl-info th{border-left:none !important;border-right:none !important;}
 </style>
 <p> </p>
-<table class="tg" style="table-layout: fixed; width: 100%;border-top: none;border-left: none;border-right: none;border-bottom: 5px double black;"><colgroup>
+<table class="table-1" style="table-layout: fixed; width: 100%;border-top: none;border-left: none;border-right: none;border-bottom: 5px double black;"><colgroup>
 <col style="width: 50%">
 <col style="width: 50%">
 </colgroup>
@@ -69,17 +73,7 @@ font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
 
 ### <p style="text-align:center;font-size:1.2em;text-decoration:underline;margin:-20px">Contact Information</p><br><p style="text-align:center;font-size:1em;margin:-5px -5px -30px -5px;">Please provide corrections for any missing or incorrect information</p>
 
-<style>  
-.tg  {border-collapse:collapse;border-spacing:0;}  
-.tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;  
-  overflow:hidden;padding:10px 5px;word-break:normal;}  
-.tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;  
-  font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}  
-.tg .tg-0pkq{border-color:inherit;text-align:left;vertical-align:top}  
-.tg .tg-0laz{text-align:left;vertical-align:top}  
-.rl-info td, .rl-info th{border-left:none !important;border-right:none !important;}
-</style>  
-<table class="tg rl-info" style="table-layout: fixed; width: 100%"><colgroup>  
+<table class="table-2-3 rl-info" style="table-layout: fixed; width: 100%"><colgroup>  
 <col style="width: 15%">  
 <col style="width: 36.5%">  
 <col style="width: 12%">  
@@ -87,7 +81,7 @@ font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
 </colgroup>  
 <thead>  
   <tr>  
-    <th class="tg-0pkq" colspan="4" style="border:none;"><h3>{{ record_locator }} <small style="float:right">{{ mediation_billing_tags }}</small></h3></th>  
+    <th class="tg-0pkq" colspan="4" style="border:none !important;"><h3>{{ record_locator }} <small style="float:right">{{ mediation_billing_tags }}</small></h3></th>  
   </tr>
 </thead>  
 <tbody>  
@@ -104,7 +98,7 @@ font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
     <td class="tg-0laz"></td>  
   </tr>
   <tr>
-    <td class="tg-0pkq" colspan="4" style="border:none;height:10px;padding:0px;"></td>
+    <td class="tg-0pkq" colspan="4" style="border:none !important;height:10px;padding:0px;"></td>
   </tr>
   <tr style="border-left: 1px solid !important;border-right: 1px solid !important;">  
     <td class="tg-0pkq">Respondents:<br>Address:<br> </td>  
@@ -130,18 +124,7 @@ If you have any questions about the mediation process, you may call KBF at (202)
 
 Please sign and date this release and return it to us within (30) days of the date on this letter.
 
-<style>
-.tg {border-collapse:collapse;border-spacing:0;}
-.tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
-overflow:hidden;padding:10px 5px;word-break:normal;}
-.tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
-font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
-.tg .tg-c3ow{border-color:inherit;text-align:center;vertical-align:top;font-size: 1.2em;}
-.tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
-.tg .tg-0lax{text-align:left;vertical-align:top}
-</style>
-
-<table class="tg" style="table-layout: fixed; width: 100%;"><colgroup>
+<table class="table-2-3" style="table-layout: fixed; width: 100%;"><colgroup>
 
 <col style="width: 48.5%">
 <col style="width: 3%">
@@ -161,23 +144,23 @@ font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
 
 <tr>
 
-<td class="tg-0pky" colspan="3" style="border-top:none !important;border-bottom: none !important;">I, {{ complainant_name }}, have read the above Statement and hereby authorize the Department of Justice to release my name and other information to the Key Bridge Foundation (KBF). I understand that KBF may use this information to help me to resolve my ADA complaint. I also understand that KBF may release this information to the respondent named above and to others to whom the release is necessary to resolve my complaint.</td>
+<td class="tg-0pkq" colspan="3" style="border-top:none !important;border-bottom: none !important;">I, {{ complainant_name }}, have read the above Statement and hereby authorize the Department of Justice to release my name and other information to the Key Bridge Foundation (KBF). I understand that KBF may use this information to help me to resolve my ADA complaint. I also understand that KBF may release this information to the respondent named above and to others to whom the release is necessary to resolve my complaint.</td>
 
 </tr>
 
 <tr>
 
-<td class="tg-0pky" style="border-top:none !important;border-bottom: none !important;border-right: none;"><br><br><br><br> </td>
-<td style="border-top:none !important;border-bottom: none !important;border-right: none;border-left:none;"></td>
-<td class="tg-0lax" style="border-top:none !important;border-bottom: none !important;border-left: none;"></td>
+<td class="tg-0pkq" style="border-top:none !important;border-bottom: none !important;border-right: none !important;"><br><br><br><br> </td>
+<td style="border-top:none !important;border-bottom: none !important;border-right: none !important;border-left:none !important;"></td>
+<td class="tg-0laz" style="border-top:none !important;border-bottom: none !important;border-left: none !important;"></td>
 
 </tr>
 
 <tr>
 
-<td class="tg-0pky" style="border-right: none;"><b>Signature</b></td>
-<td style="border-top:none !important;border-left: none !important;border-right: none;"></td>
-<td class="tg-0lax" style="border-left: none;"><b>Date</b></td>
+<td class="tg-0pkq" style="border-right: none !important;"><b>Signature</b></td>
+<td style="border-top:none !important;border-left: none !important;border-right: none !important;"></td>
+<td class="tg-0laz" style="border-left: none !important;"><b>Date</b></td>
 
 </tr>
 
