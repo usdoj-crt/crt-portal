@@ -9,6 +9,7 @@ def generate_username(email, claims):
 
 
 class CrtAuthenticationBackend(OIDCAuthenticationBackend):
+
     def create_user(self, claims):
         user = None
         user_exists = False
