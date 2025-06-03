@@ -52,6 +52,7 @@ if environment in ['PRODUCTION', 'STAGE']:
 
         # Custom Login
         path('admin/login/', CrtAdminLoginView.as_view(), name='admin_login'),
+        path('admin/logout/', crt_logout_view, name='crt_admin_logout'),
         path('crt-login/login/', CrtLoginView.as_view(), name='login'),
         path('crt-login/loggedin/', crt_loggedin_view, name='crt_logged_in'),
         path('crt-login/loggedout/', crt_loggedout_view, name='crt_logged_out')
