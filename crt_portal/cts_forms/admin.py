@@ -593,13 +593,6 @@ class CustomUserAdmin(UserAdmin, CrtModelAdmin):
             return list()
         return super().get_inline_instances(request, obj)
 
-    @admin.action(description="Export to CSV")
-    def bulk_change_profile_section(modeladmin, request, queryset):
-        del request  # unused
-        selected = queryset.values_list("pk", flat=True)
-        ids_query = "&".join(f'id={pk}' for pk in selected)
-        return HttpResponseRedirect(f"/admin/auth/user/bulk_change_profile_section/?{ids_query}")
-
     @admin.action(description="Change Section")
     def bulk_change_profile_section(modeladmin, request, queryset):
         del request  # unused
