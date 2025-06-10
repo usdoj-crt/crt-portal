@@ -112,6 +112,16 @@
       {# empty label for the checkbox to render using the ::before selector #}
       <label for="id_referred" class="usa-checkbox__label crt-checkbox__label"></label>
     </div>
+
+    <div class="margin-bottom-2 crt-checkbox">
+      <label class="intake-label">
+        {{ actions.fields.mediation.label }}
+      </label>
+      {{ actions.mediation }}
+      {# empty label for the checkbox to render using the ::before selector #}
+      <label for="id_mediation" class="usa-checkbox__label crt-checkbox__label"></label>
+    </div>
+
     <div class="intake-section apply-discard">
       <button class="usa-button" type="submit" name='type' value='{{actions.CONTEXT_KEY}}'>Apply changes</button>
       <button type="button" class="discard outline-button outline-button--blue">Discard changes</button>

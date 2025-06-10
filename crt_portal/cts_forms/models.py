@@ -655,6 +655,10 @@ class Report(models.Model):
     referral_section = models.TextField(choices=SECTION_CHOICES, blank=True)
 
     litigation_hold = models.BooleanField(default=False)
+
+    mediation = models.BooleanField(default=False)
+    mediation_number = models.CharField(max_length=20, null=True, blank=True, help_text="The mediation number assigned to this report, if applicable.")
+
     retention_schedule = models.ForeignKey(RetentionSchedule, blank=True, null=True, related_name="reports", on_delete=models.SET_NULL)
 
     violation_summary_search_vector = SearchVectorField(null=True, editable=False)

@@ -2078,6 +2078,27 @@ class ComplaintActions(LitigationHoldLock, ModelForm, ActivityStreamUpdater):
             'aria-label': 'Litigation hold',
         })
     )
+    mediation = BooleanField(
+        label='Mediation',
+        required=False,
+        widget=CheckboxInput(attrs={
+            'class': 'usa-checkbox__input',
+            'aria-label': 'Mediation',
+        })
+    )
+    mediation_number = CharField(
+        label='Mediation Number',
+        widget=TextInput(
+            attrs={
+                'class': 'usa-input',
+                'name': 'mediation_number',
+                'placeholder': '',
+                'aria-label': 'Mediation Number',
+            },
+        ),
+        required=False,
+        disabled=True
+    )
 
     def field_changed(self, field):
         # if both are Falsy, nothing actually changed (None ~= "")
@@ -2117,6 +2138,8 @@ class ComplaintActions(LitigationHoldLock, ModelForm, ActivityStreamUpdater):
             'assigned_to',
             'retention_schedule',
             'litigation_hold',
+            'mediation',
+            'mediation_number',
             'referred',
             'dj_number',
         ]
