@@ -46,15 +46,13 @@ auth = []
 if environment in ['PRODUCTION', 'STAGE']:
     from mozilla_django_oidc import views as oidc_views
     auth = [
-        # ADFS
-        path('oauth2/', include('django_auth_adfs.urls')),
-
         # OKTA
         path("authorization-code/authenticate/", oidc_views.OIDCAuthenticationRequestView.as_view(), name="oidc_authentication_init"),
         path("authorization-code/callback/", oidc_views.OIDCAuthenticationCallbackView.as_view(), name="oidc_authentication_callback"),
 
         # Custom Login
         path('admin/login/', CrtAdminLoginView.as_view(), name='admin_login'),
+        path('admin/logout/', crt_logout_view, name='crt_admin_logout'),
         path('crt-login/login/', CrtLoginView.as_view(), name='login'),
         path('crt-login/loggedin/', crt_loggedin_view, name='crt_logged_in'),
         path('crt-login/loggedout/', crt_loggedout_view, name='crt_logged_out')

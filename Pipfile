@@ -26,7 +26,7 @@ tblib = "*"
 pyshp = "*"
 
 [packages]
-django = "==4.2.21"
+django = "==4.2.22"
 gunicorn = "*"
 django-compressor = "*"
 django-compressor-toolkit = "*"
@@ -35,7 +35,6 @@ psycopg2-binary = "*"
 rcssmin = "*"
 django-formtools = "*"
 django-crequest = "*"
-django-auth-adfs = "1.14.0"
 django-oauth-toolkit = "*"
 django-cors-headers = "*"
 django-csp = "*"
@@ -60,7 +59,7 @@ pytz = "*"
 mozilla-django-oidc = "*"
 
 [requires]
-python_version = "3.13.2"
+python_version = "3.13.3"
 
 [pipenv]
 allow_prereleases = true

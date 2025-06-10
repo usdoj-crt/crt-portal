@@ -293,9 +293,9 @@ As a logged-in local Postgres user, you can run queries directly against the dat
 
 ### Public and private webpages
 
-In production, we use [django-auth-adfs](https://django-auth-adfs.readthedocs.io/) and new endpoints are behind authentication by default. To create a public page, you must update `LOGIN_EXEMPT_URLS` In [settings.py](https://github.com/usdoj-crt/crt-portal/blob/develop/crt_portal/crt_portal/settings.py) to include the endpoint(s) which are to be available without requiring authentication.
+In production, we use [mozilla-django-oidc](https://mozilla-django-oidc.readthedocs.io/en/stable/). Views are public by default and must be restricted by adding django's ```@login_required``` decorator or ```LoginRequiredMixin``` to function based and class based views respectively.
 
-We also explicitly add login required to views and functions that need authentication. If you are making a new path that requires authentication, add a test the [login required test class](https://github.com/usdoj-crt/crt-portal/blob/e9856a2b4726df5ad97ecbf84db99b7767f1662c/crt_portal/cts_forms/tests/tests.py#L985).
+If you are making a new path that requires authentication, add a test the [login required test class](https://github.com/usdoj-crt/crt-portal/blob/e9856a2b4726df5ad97ecbf84db99b7767f1662c/crt_portal/cts_forms/tests/tests.py#L985).
 
 We also use public and private as a way to separate views into manageable files. In `cts_forms`, private views are in `views.py` and public views are in `views_public.py`.
 
@@ -639,7 +639,9 @@ Please update the [Accounts Spreadsheet](https://docs.google.com/spreadsheets/d/
 
 As we build out the product, we expect to add more granular user roles and permissions.
 
-For production, we use DOJ's Single Sign on for authentication. For the ADFS authentication, you need to make sure that public urls are listed in settings.py in the `AUTH_ADFS` section.
+For production, we use DOJ's Single Sign on for authentication. This is currently an Okta (oidc) implementation using[mozilla-django-oidc](https://mozilla-django-oidc.readthedocs.io/en/stable/)
+
+Non-public URLS need to be behind Django's ```@login_required``` decorator. We control who has access to these urls with another custom decorator: ```@portal_access_required```. For non-function views, we must implement the ```LoginRequiredMixin```, and ```PortalAccessRequiredMixin```. 
 
 For all environments, you will want to make sure the `@login_required` and `@portal_access_required` decorators are on all views that need authentication.
 

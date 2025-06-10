@@ -142,6 +142,21 @@ def _serialize_action(data):
     return data
 
 
+def export_users_as_csv(_, __, queryset):
+    writer = csv.writer(Echo(), quoting=csv.QUOTE_ALL)
+
+    fields = ['username', 'email', 'first_name', 'last_name']
+    iterator = iter_queryset(queryset.values_list(*fields), [h.replace('_', ' ').title() for h in fields])
+
+    response = StreamingHttpResponse((writer.writerow(report) for report in iterator), content_type="text/csv")
+    response['Content-Disposition'] = 'attachment; filename="users_export.csv"'
+
+    return response
+
+
+export_users_as_csv.allowed_permissions = ('view',)  # noqa
+
+
 def export_reports_as_csv(modeladmin, request, queryset):
     """
     Stream all non-related fields,
@@ -542,7 +557,12 @@ class NotificationPreferenceInline(admin.StackedInline):
 
 class CustomUserAdmin(UserAdmin, CrtModelAdmin):
     inlines = (ProfileInline, NotificationPreferenceInline)
-    actions = ("bulk_change_profile_section", "bulk_change_profile_has_portal_access", *UserAdmin.actions)
+    actions = (
+        "bulk_change_profile_section",
+        "bulk_change_profile_has_portal_access",
+        export_users_as_csv,
+        *UserAdmin.actions
+    )
 
     list_display = (
         *UserAdmin.list_display,

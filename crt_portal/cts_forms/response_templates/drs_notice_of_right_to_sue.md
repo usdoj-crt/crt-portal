@@ -24,7 +24,7 @@ Because you filed the above charge with the Equal Employment Opportunity Commiss
 
 If you or your attorney has any questions concerning this matter or wish to inspect the investigative file, please address your inquiry to: {{ eeoc_office_name }}. Contact information for this office is located at: {{ eeoc_office_url }}.  
 
-This Notice should not be taken to mean that the Department of Justice has made a judgment as to whether or not your case in meritorious.
+This Notice should not be taken to mean that the Department of Justice has made a judgment as to whether or not your case is meritorious.
 
 Enclosed you will find a Notice of Rights under the ADA Amendments Act of 2008 (ADAAA). We are forwarding a copy of this Notice of Right to Sue to the Respondent in this case.
 
