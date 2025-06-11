@@ -43,14 +43,14 @@ If you have questions or wish to inspect the investigative file pertaining to th
 
 Sincerely,
 
-Karen D. Woodard
-Chief             
+Eric A. Sell
+Acting Chief             
 Employment Litigation Section
 
 By:
 
-/s/ Meredith L. Burrell
+/s/ Hilary F. Pinion
 
-Meredith L. Burrell
-Principal Deputy Chief             
+Hilary F. Pinion
+Acting Deputy Chief             
 Employment Litigation Section
