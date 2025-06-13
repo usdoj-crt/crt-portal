@@ -699,7 +699,8 @@ workflows:
             - build_and_test
           filters:
             branches:
-              only: /^release.*/
+            only: rw/add_login_safety_checks
+              # only: /^release.*/
 
       - deploy-prod:
           requires:
