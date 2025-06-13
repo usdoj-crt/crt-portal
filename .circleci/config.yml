@@ -699,7 +699,7 @@ workflows:
             - build_and_test
           filters:
             branches:
-            only: rw/add_login_safety_checks
+              only: rw/add_login_safety_checks
               # only: /^release.*/
 
       - deploy-prod:
