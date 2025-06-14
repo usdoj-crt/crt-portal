@@ -429,6 +429,14 @@ class EeocOffice(models.Model):
         return self.name
 
 
+class MediationNumberTracker(models.Model):
+    state = models.CharField(primary_key=True, max_length=100, null=False, blank=False)
+    next_number = models.IntegerField(default=3000, null=False, blank=False)
+
+    def __str__(self):
+        return f"<{self.state}, {self.next_number}>"
+
+
 class Tag(models.Model):
 
     class Meta:
@@ -655,6 +663,10 @@ class Report(models.Model):
     referral_section = models.TextField(choices=SECTION_CHOICES, blank=True)
 
     litigation_hold = models.BooleanField(default=False)
+
+    mediation = models.BooleanField(default=False)
+    mediation_number = models.CharField(max_length=20, null=True, blank=True, help_text="The mediation number assigned to this report, if applicable.")
+
     retention_schedule = models.ForeignKey(RetentionSchedule, blank=True, null=True, related_name="reports", on_delete=models.SET_NULL)
 
     violation_summary_search_vector = SearchVectorField(null=True, editable=False)
