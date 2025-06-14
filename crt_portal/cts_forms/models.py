@@ -429,6 +429,14 @@ class EeocOffice(models.Model):
         return self.name
 
 
+class MediationNumberTracker(models.Model):
+    state = models.CharField(primary_key=True, max_length=100, null=False, blank=False)
+    next_number = models.IntegerField(default=3000, null=False, blank=False)
+
+    def __str__(self):
+        return f"<{self.state}, {self.next_number}>"
+
+
 class Tag(models.Model):
 
     class Meta:

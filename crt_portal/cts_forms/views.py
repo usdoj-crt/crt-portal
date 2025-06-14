@@ -51,7 +51,7 @@ from .forms import (
 )
 from .mail import mail_to_complainant
 from .model_variables import BATCH_STATUS_CHOICES, HATE_CRIMES_TRAFFICKING_MODEL_CHOICES, NOTIFICATION_PREFERENCE_CHOICES, STATES_AND_TERRITORIES
-from .models import CommentAndSummary, Profile, Report, ReportAttachment, ReportDisposition, ReportDispositionBatch, ReportsData, Resource, ResourceContact, RetentionSchedule, SavedSearch, Trends, EmailReportCount, Campaign, User, NotificationPreference, RoutingSection, RoutingStepOneContact, RepeatWriterInfo
+from .models import CommentAndSummary, MediationNumberTracker, Profile, Report, ReportAttachment, ReportDisposition, ReportDispositionBatch, ReportsData, Resource, ResourceContact, RetentionSchedule, SavedSearch, Trends, EmailReportCount, Campaign, User, NotificationPreference, RoutingSection, RoutingStepOneContact, RepeatWriterInfo
 from .page_through import pagination
 from .sorts import other_sort, report_sort
 from crt_portal.decorators import portal_access_required
@@ -1278,6 +1278,23 @@ class ShowView(LoginRequiredMixin, PortalAccessRequiredMixin, View):
                     output.update({form_type: form(instance=report, user=request.user)})
             return render(request, 'forms/complaint_view/show/index.html', output)
         report = form.save(commit=False)
+
+        if report.mediation is True and (report.mediation_number is None or report.mediation_number == ""):
+            final_mediation_number = ""
+
+            if report.primary_statute == "204":
+                final_mediation_number = "2"
+            elif report.primary_statute == "202":
+                final_mediation_number = "3"
+
+            if final_mediation_number != "" and report.location_state is not None and report.location_state != "":
+                mediation_number_tracker = MediationNumberTracker.objects.get_or_create(state=report.location_state)[0]
+
+                final_mediation_number += f"{report.location_state}{mediation_number_tracker.next_number}"
+                report.mediation_number = final_mediation_number
+
+                mediation_number_tracker.next_number += 1
+                mediation_number_tracker.save()
 
         # Reset Assignee and Status if assigned_section is changed
         if 'assigned_section' in form.changed_data:

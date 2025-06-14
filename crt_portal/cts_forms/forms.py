@@ -2296,6 +2296,7 @@ class ComplaintActions(LitigationHoldLock, ModelForm, ActivityStreamUpdater):
         If this report was referred, set the section.
         """
         report = super().save(commit=False)
+
         if report.closed:
             report.closeout_report()
             self.report_closed = True
