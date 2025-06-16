@@ -828,7 +828,7 @@ def date_cleaner(self, cleaned_data):
                 ))
 
                 return cleaned_data
-        except KeyError:
+        except (KeyError, TypeError):
             pass
 
         # custom messages
