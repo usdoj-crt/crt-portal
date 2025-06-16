@@ -807,6 +807,30 @@ def date_cleaner(self, cleaned_data):
         day = cleaned_data.get('last_incident_day') or 1
         year = cleaned_data['last_incident_year']
         month = cleaned_data['last_incident_month']
+
+        try:
+            receipt_date = datetime(cleaned_data["crt_reciept_year"], cleaned_data["crt_reciept_month"], cleaned_data["crt_reciept_day"])
+            incident_date = datetime(year, month, day)
+
+            if receipt_date < incident_date:
+                time_delta = incident_date - receipt_date
+
+                if time_delta.days >= 365:
+                    error_field = 'last_incident_year'
+                elif time_delta.days >= 30:
+                    error_field = 'last_incident_month'
+                else:
+                    error_field = 'last_incident_day'
+
+                self.add_error(error_field, ValidationError(
+                    DATE_ERRORS['no_future'],
+                    params={'value': datetime(year, month, day).strftime('%x')},
+                ))
+
+                return cleaned_data
+        except KeyError:
+            pass
+
         # custom messages
         if month > 12 or month < 1:
             self.add_error('last_incident_month', ValidationError(
@@ -1543,7 +1567,7 @@ class ProForm(
     def clean(self):
         """Validating more than one field at a time can't be done in the model validation"""
         cleaned_data = super(ProForm, self).clean()
-        return crt_date_cleaner(self, cleaned_data)
+        return crt_date_cleaner(self, date_cleaner(self, cleaned_data))
 
 
 class ProfileForm(ModelForm):
