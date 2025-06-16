@@ -395,7 +395,7 @@ class ReportTests(TestCase):
 
             ('last_incident_year', 2024, None),
             ('last_incident_day', 31, None),
-            ('last_incident_month', 12, None),
+            ('last_incident_month', 10, None),
 
             ('internal_comments', [fake_internal_comment], []),
 
@@ -415,7 +415,7 @@ class ReportTests(TestCase):
             ('create_date', datetime.datetime.now(), datetime.datetime.fromtimestamp(0)),
             ('crt_reciept_year', 2024, None),
             ('crt_reciept_day', 31, None),
-            ('crt_reciept_month', 10, None),
+            ('crt_reciept_month', 12, None),
             ('intake_format', 'phone', None),
             ('author', 'Foo', None),
             ('assigned_to', User.objects.first(), None),

@@ -113,13 +113,13 @@
       <label for="id_referred" class="usa-checkbox__label crt-checkbox__label"></label>
     </div>
 
-    <div class="margin-bottom-2 display-flex"{% if actions.mediation.value is False %} style="display: none !important;"{% endif %}>
+    <div class="margin-bottom-2 display-flex"{% if actions.mediation.value is False or not user_groups.mediation_number %} style="display: none !important;"{% endif %}>
       <label for="med-num" class="intake-label flex-1 padding-1 padding-left-0">
         Mediation Number
       </label>
       <span class="usa-tag usa-tag--big flex-10 margin-0" id="med-num" style="font-weight:900;color:black !important;text-align:center;line-height:2.5em;">{{ actions.mediation_number.value }}</span>
     </div>
-     <div class="margin-bottom-2 crt-checkbox"{% if actions.mediation.value is True %} style="display: none !important;"{% endif %}>
+     <div class="margin-bottom-2 crt-checkbox"{% if actions.mediation.value is True or not user_groups.mediation_number %} style="display: none !important;"{% endif %}>
         <label class="intake-label">
           {{ actions.fields.mediation.label }}
         </label>

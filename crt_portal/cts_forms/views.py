@@ -1190,6 +1190,8 @@ class ShowView(LoginRequiredMixin, PortalAccessRequiredMixin, View):
     }
 
     def get(self, request, id):
+        user_groups = {g.name.replace(" ", "_").lower(): True for g in request.user.groups.all()}
+
         if Report.all_objects.filter(pk=id, disposed=True).exists():
             batch = get_object_or_404(ReportDisposition, public_id__startswith=f'{id}-')
             messages.add_message(request,
@@ -1217,6 +1219,7 @@ class ShowView(LoginRequiredMixin, PortalAccessRequiredMixin, View):
         filter_output = setup_filter_parameters(report, request.GET)
         autoresponse_email = TMSEmail.objects.filter(report=report.id, purpose=TMSEmail.AUTO_EMAIL).order_by('created_at').first()
         output.update({
+            'user_groups': user_groups,
             'contact_form': contact_form,
             'details_form': details_form,
             'additional_contacts_form': additional_contacts_form,
