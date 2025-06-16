@@ -440,6 +440,9 @@ class ReportTests(TestCase):
             ('target_actions', report.target_actions.all(), []),
             ('actor_actions', [], []),
             ('action_object_actions', [], []),
+
+            ('mediation', True, True),
+            ('mediation_number', "2TX3000", "2TX3000"),
         ]
 
         all_fields = set(field.name for field in Report._meta.get_fields())

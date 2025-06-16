@@ -225,6 +225,16 @@ def export_reports_as_pdf(modeladmin, request, queryset):
 export_reports_as_pdf.allowed_permissions = ('view',)  # noqa
 
 
+def clear_report_mediation_number(_, request, queryset):
+    del _
+    queryset.update(mediation=False, mediation_number=None)
+
+    messages.add_message(request, messages.SUCCESS, 'Successfully cleared mediation numbers for {} selected reports.'.format(queryset.count()))
+
+
+clear_report_mediation_number.allowed_permissions = ('view',)  # noqa
+
+
 class ReportAdmin(ReadOnlyModelAdmin):
     """
     View-only report admin providing filtering and export functionality
@@ -243,7 +253,7 @@ class ReportAdmin(ReadOnlyModelAdmin):
         'origination_utm_campaign',
     ]
     ordering = ['public_id']
-    actions = [export_reports_as_csv, export_reports_as_pdf]
+    actions = [export_reports_as_csv, export_reports_as_pdf, clear_report_mediation_number]
 
 
 class ActorActionFilter(admin.SimpleListFilter):
