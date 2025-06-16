@@ -857,7 +857,7 @@ def date_cleaner(self, cleaned_data):
             DATE_ERRORS['not_valid'],
             params={'value': f'{month}/{day}/{year}'},
         ))
-    except KeyError:
+    except (KeyError, TypeError):
         # these required errors will be caught by the built in error validation
         return cleaned_data
 
