@@ -1251,6 +1251,8 @@ class ShowView(LoginRequiredMixin, PortalAccessRequiredMixin, View):
         Accept only the submitted form and discard any other inbound changes
         """
         report = get_object_or_404(Report, pk=id)
+        mediation_number_tracker = MediationNumberTracker.objects.get_or_create(state=report.location_state)[0]
+        increment_mediation_number = False
 
         form, inbound_form_type = self.get_form(request, report)
         if not (form.is_valid() and form.has_changed()):
@@ -1291,13 +1293,10 @@ class ShowView(LoginRequiredMixin, PortalAccessRequiredMixin, View):
                 final_mediation_number = "3"
 
             if final_mediation_number != "" and report.location_state is not None and report.location_state != "":
-                mediation_number_tracker = MediationNumberTracker.objects.get_or_create(state=report.location_state)[0]
-
                 final_mediation_number += f"{report.location_state}{mediation_number_tracker.next_number}"
                 report.mediation_number = final_mediation_number
+                increment_mediation_number = True
 
-                mediation_number_tracker.next_number += 1
-                mediation_number_tracker.save()
 
         # Reset Assignee and Status if assigned_section is changed
         if 'assigned_section' in form.changed_data:
@@ -1320,6 +1319,10 @@ class ShowView(LoginRequiredMixin, PortalAccessRequiredMixin, View):
                 add_activity(request.user, "District:", description, report)
 
         report.save()
+        if increment_mediation_number:
+            mediation_number_tracker.next_number += 1
+            mediation_number_tracker.save()
+
         if 'contact_email' in form.changed_data:
             EmailReportCount.refresh_view()
         form.update_activity_stream(request.user)
