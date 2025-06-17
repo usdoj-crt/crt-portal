@@ -11,19 +11,21 @@ def generate_username(email, claims):
 class CrtAuthenticationBackend(OIDCAuthenticationBackend):
 
     def create_user(self, claims):
-        user = None
-        user_exists = False
-
-        account_name = claims.get('adsamAccountName', None)
-        if account_name:
-            user_exists = User.objects.filter(username=account_name).exists()
-
-        if user_exists:
-            user = User.objects.get(username=account_name)
-        else:
-            user = super(CrtAuthenticationBackend, self).create_user(claims)
+        user = super(CrtAuthenticationBackend, self).create_user(claims)
 
         user.email = claims.get('email')
+
+        try:
+            first_name = claims['given_name']
+            if first_name:
+                user.first_name = first_name
+
+            last_name = claims['family_name']
+            if last_name:
+                user.last_name = last_name
+        except Exception:
+            print("CustomOidcBackend CreateUser: ERROR when getting first and last names from claims. Claims = ", claims)
+
         user.is_active = True
         user.save()
 

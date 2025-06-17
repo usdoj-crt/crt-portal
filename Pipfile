@@ -59,7 +59,7 @@ pytz = "*"
 mozilla-django-oidc = "*"
 
 [requires]
-python_version = "3.13.4"
+python_version = "3.13.3"
 
 [pipenv]
 allow_prereleases = true
