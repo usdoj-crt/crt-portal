@@ -687,11 +687,11 @@ workflows:
               only: master
 
       - deploy-dev:
-          requires:
-            - build_and_test
+          #requires:
+            #- build_and_test
           filters:
             branches:
-              only: develop
+              only: dj/mediation-number
 
       - deploy-stage:
           requires:
