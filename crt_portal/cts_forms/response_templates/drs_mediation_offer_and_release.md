@@ -9,10 +9,9 @@ show_in_dropdown: true
 <div class="response-template--hide-in-paper-letter">
 {{ complainant_name }}<br>
 {{ contact_address_lines }}<br>
-{{ contact_email }}<br>
+{{ contact_email }}<br><br>
+{{ outgoing_date }}<br>
 </div>
-
-{{ outgoing_date }}
 
 {{ addressee }},
 

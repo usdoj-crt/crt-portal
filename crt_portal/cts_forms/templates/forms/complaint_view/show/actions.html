@@ -112,6 +112,22 @@
       {# empty label for the checkbox to render using the ::before selector #}
       <label for="id_referred" class="usa-checkbox__label crt-checkbox__label"></label>
     </div>
+
+    <div class="margin-bottom-2 display-flex"{% if actions.mediation.value is False or not user_groups.mediation_number %} style="display: none !important;"{% endif %}>
+      <label for="med-num" class="intake-label flex-1 padding-1 padding-left-0">
+        Mediation Number
+      </label>
+      <span class="usa-tag usa-tag--big flex-10 margin-0" id="med-num" style="font-weight:900;color:black !important;text-align:center;line-height:2.5em;">{{ actions.mediation_number.value }}</span>
+    </div>
+     <div class="margin-bottom-2 crt-checkbox"{% if actions.mediation.value is True or not user_groups.mediation_number %} style="display: none !important;"{% endif %}>
+        <label class="intake-label">
+          {{ actions.fields.mediation.label }}
+        </label>
+        {{ actions.mediation }}
+        {# empty label for the checkbox to render using the ::before selector #}
+        <label for="id_mediation" class="usa-checkbox__label crt-checkbox__label"></label>
+      </div>
+
     <div class="intake-section apply-discard">
       <button class="usa-button" type="submit" name='type' value='{{actions.CONTEXT_KEY}}'>Apply changes</button>
       <button type="button" class="discard outline-button outline-button--blue">Discard changes</button>
