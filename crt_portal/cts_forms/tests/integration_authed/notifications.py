@@ -85,7 +85,10 @@ def test_notifications_send(page):
     page.goto(f'/form/view/{report_id}')
     _set_assignee(page, '')
     _set_assignee(page, username)
-    assert page.locator('.usa-alert--success').filter(has_text='will not be notified because they do not have an email address listed').is_visible()
+
+    print("\n\n\n\n\n\n\n", username)
+    print(page, "\n\n\n\n\n\n\n")
+    assert page.locator('.usa-alert--success').filter(has_text=f'{username} will not be notified because they do not have an email address listed').is_visible()
 
     _set_user(page, username, 'notifications_test@example.com', 'individual')
     page.goto(f'/form/view/{report_id}')
