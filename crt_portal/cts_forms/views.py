@@ -1296,7 +1296,20 @@ class ShowView(LoginRequiredMixin, PortalAccessRequiredMixin, View):
                 final_mediation_number += f"{report.location_state}{mediation_number_tracker.next_number}"
                 report.mediation_number = final_mediation_number
                 increment_mediation_number = True
+            else:
+                output = serialize_data(report, request, id)
+                filter_output = setup_filter_parameters(report, request.POST)
+                output.update({inbound_form_type: form, **filter_output})
 
+                report.mediation = False
+                messages.add_message(
+                    request,
+                    messages.ERROR,
+                    "Unable to generate mediation number. Please ensure primary classification "
+                    "and organization address state are set to valid values."
+                )
+
+                return redirect(preserve_filter_parameters(report, request.POST))
 
         # Reset Assignee and Status if assigned_section is changed
         if 'assigned_section' in form.changed_data:
