@@ -1291,6 +1291,15 @@ class ShowView(LoginRequiredMixin, PortalAccessRequiredMixin, View):
                 final_mediation_number = "2"
             elif report.primary_statute == "202":
                 final_mediation_number = "3"
+            else:
+                messages.add_message(
+                    request,
+                    messages.ERROR,
+                    "Unable to generate mediation number. Please ensure primary classification "
+                    "is set to a valid value: 202, or 204."
+                )
+
+                return redirect(preserve_filter_parameters(report, request.POST))
 
             if final_mediation_number != "" and report.location_state is not None and report.location_state != "":
                 final_mediation_number += f"{report.location_state}{mediation_number_tracker.next_number}"
@@ -1301,12 +1310,11 @@ class ShowView(LoginRequiredMixin, PortalAccessRequiredMixin, View):
                 filter_output = setup_filter_parameters(report, request.POST)
                 output.update({inbound_form_type: form, **filter_output})
 
-                report.mediation = False
                 messages.add_message(
                     request,
                     messages.ERROR,
-                    "Unable to generate mediation number. Please ensure primary classification "
-                    "and organization address state are set to valid values."
+                    "Unable to generate mediation number. Please ensure the state "
+                    "is specified correctly in the organization address."
                 )
 
                 return redirect(preserve_filter_parameters(report, request.POST))
