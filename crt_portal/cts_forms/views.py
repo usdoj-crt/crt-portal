@@ -51,7 +51,7 @@ from .forms import (
 )
 from .mail import mail_to_complainant
 from .model_variables import BATCH_STATUS_CHOICES, HATE_CRIMES_TRAFFICKING_MODEL_CHOICES, NOTIFICATION_PREFERENCE_CHOICES, STATES_AND_TERRITORIES
-from .models import CommentAndSummary, Profile, Report, ReportAttachment, ReportDisposition, ReportDispositionBatch, ReportsData, Resource, ResourceContact, RetentionSchedule, SavedSearch, Trends, EmailReportCount, Campaign, User, NotificationPreference, RoutingSection, RoutingStepOneContact, RepeatWriterInfo
+from .models import CommentAndSummary, MediationNumberTracker, Profile, Report, ReportAttachment, ReportDisposition, ReportDispositionBatch, ReportsData, Resource, ResourceContact, RetentionSchedule, SavedSearch, Trends, EmailReportCount, Campaign, User, NotificationPreference, RoutingSection, RoutingStepOneContact, RepeatWriterInfo
 from .page_through import pagination
 from .sorts import other_sort, report_sort
 from crt_portal.decorators import portal_access_required
@@ -1190,6 +1190,8 @@ class ShowView(LoginRequiredMixin, PortalAccessRequiredMixin, View):
     }
 
     def get(self, request, id):
+        user_groups = {g.name.replace(" ", "_").lower(): True for g in request.user.groups.all()}
+
         if Report.all_objects.filter(pk=id, disposed=True).exists():
             batch = get_object_or_404(ReportDisposition, public_id__startswith=f'{id}-')
             messages.add_message(request,
@@ -1217,6 +1219,7 @@ class ShowView(LoginRequiredMixin, PortalAccessRequiredMixin, View):
         filter_output = setup_filter_parameters(report, request.GET)
         autoresponse_email = TMSEmail.objects.filter(report=report.id, purpose=TMSEmail.AUTO_EMAIL).order_by('created_at').first()
         output.update({
+            'user_groups': user_groups,
             'contact_form': contact_form,
             'details_form': details_form,
             'additional_contacts_form': additional_contacts_form,
@@ -1279,6 +1282,45 @@ class ShowView(LoginRequiredMixin, PortalAccessRequiredMixin, View):
             return render(request, 'forms/complaint_view/show/index.html', output)
         report = form.save(commit=False)
 
+        if report.mediation is True and (report.mediation_number is None or report.mediation_number == ""):
+            final_mediation_number = ""
+
+            if report.primary_statute == "204":
+                final_mediation_number = "2"
+            elif report.primary_statute == "202":
+                final_mediation_number = "3"
+            else:
+                messages.add_message(
+                    request,
+                    messages.ERROR,
+                    "Unable to generate mediation number. Please ensure primary classification "
+                    "is set to a valid value: 202, or 204."
+                )
+
+                return redirect(preserve_filter_parameters(report, request.POST))
+
+            if final_mediation_number != "" and report.location_state is not None and report.location_state != "":
+                mediation_number_tracker = MediationNumberTracker.objects.get_or_create(state=report.location_state)[0]
+
+                final_mediation_number += f"{report.location_state}{mediation_number_tracker.next_number}"
+                report.mediation_number = final_mediation_number
+
+                mediation_number_tracker.next_number += 1
+                mediation_number_tracker.save()
+            else:
+                output = serialize_data(report, request, id)
+                filter_output = setup_filter_parameters(report, request.POST)
+                output.update({inbound_form_type: form, **filter_output})
+
+                messages.add_message(
+                    request,
+                    messages.ERROR,
+                    "Unable to generate mediation number. Please ensure the state "
+                    "is specified correctly in the organization address."
+                )
+
+                return redirect(preserve_filter_parameters(report, request.POST))
+
         # Reset Assignee and Status if assigned_section is changed
         if 'assigned_section' in form.changed_data:
             primary_statute = report.primary_statute
@@ -1300,6 +1342,7 @@ class ShowView(LoginRequiredMixin, PortalAccessRequiredMixin, View):
                 add_activity(request.user, "District:", description, report)
 
         report.save()
+
         if 'contact_email' in form.changed_data:
             EmailReportCount.refresh_view()
         form.update_activity_stream(request.user)

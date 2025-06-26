@@ -807,6 +807,30 @@ def date_cleaner(self, cleaned_data):
         day = cleaned_data.get('last_incident_day') or 1
         year = cleaned_data['last_incident_year']
         month = cleaned_data['last_incident_month']
+
+        try:
+            receipt_date = datetime(cleaned_data["crt_reciept_year"], cleaned_data["crt_reciept_month"], cleaned_data["crt_reciept_day"])
+            incident_date = datetime(year, month, day)
+
+            if receipt_date < incident_date:
+                time_delta = incident_date - receipt_date
+
+                if time_delta.days >= 365:
+                    error_field = 'last_incident_year'
+                elif time_delta.days >= 30:
+                    error_field = 'last_incident_month'
+                else:
+                    error_field = 'last_incident_day'
+
+                self.add_error(error_field, ValidationError(
+                    DATE_ERRORS['no_future'],
+                    params={'value': datetime(year, month, day).strftime('%x')},
+                ))
+
+                return cleaned_data
+        except (KeyError, TypeError):
+            pass
+
         # custom messages
         if month > 12 or month < 1:
             self.add_error('last_incident_month', ValidationError(
@@ -833,7 +857,7 @@ def date_cleaner(self, cleaned_data):
             DATE_ERRORS['not_valid'],
             params={'value': f'{month}/{day}/{year}'},
         ))
-    except KeyError:
+    except (KeyError, TypeError):
         # these required errors will be caught by the built in error validation
         return cleaned_data
 
@@ -1543,7 +1567,7 @@ class ProForm(
     def clean(self):
         """Validating more than one field at a time can't be done in the model validation"""
         cleaned_data = super(ProForm, self).clean()
-        return crt_date_cleaner(self, cleaned_data)
+        return crt_date_cleaner(self, date_cleaner(self, cleaned_data))
 
 
 class ProfileForm(ModelForm):
@@ -2078,6 +2102,27 @@ class ComplaintActions(LitigationHoldLock, ModelForm, ActivityStreamUpdater):
             'aria-label': 'Litigation hold',
         })
     )
+    mediation = BooleanField(
+        label='Mediation',
+        required=False,
+        widget=CheckboxInput(attrs={
+            'class': 'usa-checkbox__input',
+            'aria-label': 'Mediation',
+        })
+    )
+    mediation_number = CharField(
+        label='Mediation Number',
+        widget=TextInput(
+            attrs={
+                'class': 'usa-input',
+                'name': 'mediation_number',
+                'placeholder': '',
+                'aria-label': 'Mediation Number',
+            },
+        ),
+        required=False,
+        disabled=True
+    )
 
     def field_changed(self, field):
         # if both are Falsy, nothing actually changed (None ~= "")
@@ -2117,6 +2162,8 @@ class ComplaintActions(LitigationHoldLock, ModelForm, ActivityStreamUpdater):
             'assigned_to',
             'retention_schedule',
             'litigation_hold',
+            'mediation',
+            'mediation_number',
             'referred',
             'dj_number',
         ]
@@ -2273,6 +2320,7 @@ class ComplaintActions(LitigationHoldLock, ModelForm, ActivityStreamUpdater):
         If this report was referred, set the section.
         """
         report = super().save(commit=False)
+
         if report.closed:
             report.closeout_report()
             self.report_closed = True
