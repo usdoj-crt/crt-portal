@@ -332,26 +332,20 @@ $arrow-height: 24px;
 }
 
 .crt-landing--hero {
-  background-image: url(../../img/landing-page-hero.jpeg);
   background-repeat: no-repeat;
   background-size: 100%;
   background-position: bottom;
-  min-height: 800px;
   rel: preload;
 
   @include at-media-max(desktop) {
-    background-image: url(../../img/landing-page-hero-tablet.jpg);
     background-position: bottom;
-    min-height: 850px;
     rel: preload;
   }
 
   // This must be placed _after_ the desktop media query for higher priority
   @include at-media-max(mobile-lg) {
-    background-image: url(../../img/landing-page-hero-mobile.jpeg);
     background-size: cover; // avoid unsightly mobile gap
     background-color: #436eac;
-    min-height: 600px;
     color: color('white');
     rel: preload;
 
