@@ -1312,6 +1312,7 @@ class ResponseTemplate(models.Model):
 
         return Context({
             'record_locator': report.public_id,
+            'mediation_number': report.mediation_number,
             'addressee': report.addressee,
             'complainant_name': f'{report.contact_first_name} {report.contact_last_name}',
             'contact_email': contact_email,
