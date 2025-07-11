@@ -6,7 +6,9 @@ is_html: true
 show_in_dropdown: true
 ---
 {{ outgoing_date }}
+
 {{ mediation_number }}
+
 {{ organization_name }}
 {{ contact_address_lines }}
 {{ organization_city }}, {{ organization_state }} {{organization_zip }}
