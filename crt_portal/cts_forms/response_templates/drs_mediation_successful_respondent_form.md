@@ -12,7 +12,7 @@ show_in_dropdown: true
 {{ organization_name }}
 {{ organization_address_line_1 }}
 {{ organization_address_line_2 }}
-{{ organization_city }}, {{ organization_stete }} {{ organization_zip }}
+{{ organization_city }}, {{ organization_state }} {{ organization_zip }}
 
 Dear {{ organization_name }}:
 
