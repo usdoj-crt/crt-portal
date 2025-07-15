@@ -2177,6 +2177,7 @@ class ComplaintActions(LitigationHoldLock, ModelForm, ActivityStreamUpdater):
         self.fields['assigned_section'] = ChoiceField(
             widget=ComplaintSelect(
                 label='Section',
+                disabled_choices=["FCS"],
                 attrs={'class': 'usa-select crt-dropdown__data'},
             ),
             choices=SECTION_CHOICES_WITHOUT_LABELS,
@@ -2679,6 +2680,7 @@ class BulkActionsForm(LitigationHoldLock, Form, ActivityStreamUpdater):
         label='Section',
         widget=ComplaintSelect(
             attrs={'class': 'usa-select crt-dropdown__data'},
+            disabled_choices=["FCS"],
         ),
         choices=add_empty_choice(SECTION_CHOICES_WITHOUT_LABELS, default_string=EMPTY_CHOICE),
         required=False
