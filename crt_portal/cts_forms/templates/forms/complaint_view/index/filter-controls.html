@@ -39,6 +39,7 @@
       {% if ENABLED_FEATURES.dj_number %}
         {% include 'forms/complaint_view/index/filters/dj_number.html' %}
       {% endif %}
+      {% include 'forms/complaint_view/index/filters/eeoc_charge_number.html' %}
       {% if ENABLED_FEATURES.tags %}
         {% include 'forms/complaint_view/index/filters/tags.html' %}
       {% endif %}
