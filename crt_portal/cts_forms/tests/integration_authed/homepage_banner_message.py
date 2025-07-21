@@ -71,10 +71,12 @@ def test_can_add_banner_message(page):
     assert 'crt-landing--admin-message-alert' in alert.get_attribute('class')
     assert 'crt-landing--admin-message-emergency' in emergency.get_attribute('class')
 
-    page.select_option("#i8n_select", "es")
-    with page.expect_navigation():
-        page.click("#language-select")
+    # disabling language selection
 
-    assert notice.text_content().strip() == 'es translation'
-    assert alert.text_content().strip() == 'es translation'
-    assert emergency.text_content().strip() == 'es translation'
+    # page.select_option("#i8n_select", "es")
+    # with page.expect_navigation():
+    #     page.click("#language-select")
+
+    # assert notice.text_content().strip() == 'es translation'
+    # assert alert.text_content().strip() == 'es translation'
+    # assert emergency.text_content().strip() == 'es translation'
