@@ -11,6 +11,8 @@
     <button class="usa-accordion__button usa-banner__button how-you-know-dropdown" aria-expanded="false" aria-controls="gov-banner">
       <span class="usa-banner__button-text">{% trans "Here’s how you know" %}</span>
     </button>
+    {% comment "disabling language selection" %}
     {% include "partials/banner/usa_banner_language_selection.html" %}
+    {% endcomment %}
   </div>
 </header>

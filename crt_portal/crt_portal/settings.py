@@ -122,7 +122,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.locale.LocaleMiddleware',
-    'crt_portal.locale_middleware.LanguageParamMiddleware',
+    # 'crt_portal.locale_middleware.LanguageParamMiddleware',
     'crequest.middleware.CrequestMiddleware',
     'csp.middleware.CSPMiddleware',
 ]

@@ -24,7 +24,8 @@ def test_contact_complainant_modal(page, *, report):
     assert element.normalize_text(modal.locator('#intake_description')) == '[Select response letter]'
     assert modal.locator('#intake_letter').input_value() == ''
 
-    modal.locator('select').filter(has_text='English').select_option('Spanish')
+    # disabling language selection
+    # modal.locator('select').filter(has_text='English').select_option('Spanish')
     modal.locator('select').filter(has_text='[Select response letter]').select_option('CRT - No capacity')
 
     modal.locator('#intake_description').filter(has_text='Your Civil Rights Division Report').wait_for()
@@ -36,7 +37,8 @@ def test_contact_complainant_modal(page, *, report):
 
     page.locator('button').filter(has_text="Contact complainant").click()
 
-    modal.locator('select').filter(has_text='English').select_option('Spanish')
+    # disabling language selection
+    # modal.locator('select').filter(has_text='English').select_option('Spanish')
     modal.locator('select').filter(has_text='[Select response letter]').select_option('CRT - No capacity')
 
     modal.locator('#intake_description').filter(has_text='Your Civil Rights Division Report').wait_for()

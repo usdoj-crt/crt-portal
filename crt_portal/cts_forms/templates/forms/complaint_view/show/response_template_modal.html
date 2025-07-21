@@ -33,14 +33,18 @@
 
             {% endif %}
           </p>
-          <div class="modal-field">
+          <!-- Remove 'display-none' Here if we ever bring back language selection -->
+          <div class="modal-field display-none">
             <p>
               Template language
             </p>
             <select id="template-language-select" class="usa-select" aria-label="template language selection">
-              {% for language in languages %}
-                <option value="{{ language.code }}" aria-label="template language selection" {% if language.code == 'en' %}selected{% endif %}>{{ language.name }}</option>
-              {% endfor %}
+              {% comment "disabling language selection" %}
+                {% for language in languages %}
+                  <option value="{{ language.code }}" aria-label="template language selection" {% if language.code == 'en' %}selected{% endif %}>{{ language.name }}</option>
+                {% endfor %}
+              {% endcomment %}
+              <option value="en" aria-label="template language selection" selected>English</option>
             </select>
           </div>
           {% if ENABLED_FEATURES.separate_referrals_workflow %}
