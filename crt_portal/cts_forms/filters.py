@@ -68,6 +68,7 @@ filter_options = {
     'district': '__in',
     'primary_complaint': '__in',  # aka "Primary issue"
     'dj_number': 'dj_number',
+    'eeoc_charge_number': '__icontains',
     'reported_reason': 'reported_reason',
 
     # "Relevant details":

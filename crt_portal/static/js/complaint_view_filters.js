@@ -69,6 +69,7 @@
     const assigneeEl = root.CRT.formEl.querySelector('#id_assigned_to');
     const campaignEl = root.CRT.formEl.querySelector('#id_origination_utm_campaign');
     const djNumberEl = root.CRT.formEl.querySelectorAll('.crt-dj-number input');
+    const eeocChargeNumberEl = root.CRT.formEl.querySelector('input[name="eeoc_charge_number"]');
     const complaintIDEl = root.CRT.formEl.querySelector('input[name="public_id"]');
     const statuteEl = root.CRT.formEl.querySelector('select[name="primary_statute"]');
     const districtEl = root.CRT.formEl.querySelector('select[name="district"]');
@@ -178,6 +179,10 @@
     root.CRT.textInputsView({
       el: djNumberEl,
       name: 'dj_number'
+    });
+    root.CRT.textInputView({
+      el: eeocChargeNumberEl,
+      name: 'eeoc_charge_number'
     });
     root.CRT.textInputView({
       el: groupingEl,

@@ -1960,6 +1960,7 @@ class Filters(ModelForm):
             'referred',
             'language',
             'dj_number',
+            'eeoc_charge_number',
             'tags',
             'litigation_hold',
             'retention_schedule',
@@ -1974,6 +1975,7 @@ class Filters(ModelForm):
             'location_name': 'Organization name',
             'assigned_to': 'Assignee',
             'public_id': 'Complaint ID',
+            'eeoc_charge_number': 'EEOC Charge Number',
             'violation_summary': 'Personal description',
             'contact_email': 'Contact email',
         }
@@ -2005,6 +2007,12 @@ class Filters(ModelForm):
                 'name': 'public_id',
                 'placeholder': labels['public_id'],
                 'aria-label': labels['public_id']
+            }),
+            'eeoc_charge_number': TextInput(attrs={
+                'class': 'usa-input',
+                'name': 'eeoc_charge_number',
+                'placeholder': labels['eeoc_charge_number'],
+                'aria-label': labels['eeoc_charge_number']
             }),
             'violation_summary': Textarea(attrs={
                 'class': 'usa-textarea border-0',
