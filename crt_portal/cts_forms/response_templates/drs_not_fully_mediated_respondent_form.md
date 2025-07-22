@@ -7,6 +7,8 @@ show_in_dropdown: true
 ---
 {{ outgoing_date }}
 
+{{ mediation_number }}
+
 {{ organization_name }}
 {{ organization_address_line_1 }}
 {{ organization_address_line_2 }}

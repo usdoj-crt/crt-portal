@@ -7,6 +7,8 @@ show_in_dropdown: true
 ---
 {{ outgoing_date }}
 
+{{ mediation_number }}
+
 {{ complainant_name }}
 {{ contact_address_line_1 }}
 {{ contact_address_line_2 }}
