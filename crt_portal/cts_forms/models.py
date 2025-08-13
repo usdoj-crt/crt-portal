@@ -1437,7 +1437,6 @@ class ResponseTemplate(models.Model):
         return escape(template.render(context))
 
     def render_body_as_markdown(self, report, optionals=None, extensions=None, **kwargs):
-        print("Render Body as Markdown Called")
         if extensions is None:
             extensions = []
         if optionals is None:
