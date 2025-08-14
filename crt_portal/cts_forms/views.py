@@ -1283,8 +1283,6 @@ class ShowView(LoginRequiredMixin, PortalAccessRequiredMixin, View):
         report = form.save(commit=False)
 
         if report.mediation is True and (report.mediation_number is None or report.mediation_number == ""):
-            final_mediation_number = ""
-
             if report.primary_statute == "204":
                 final_mediation_number = "2"
             elif report.primary_statute == "202":

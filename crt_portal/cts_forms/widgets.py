@@ -176,11 +176,13 @@ class ComplaintSelect(ChoiceWidget):
     def __init__(self, *args, **kwargs):
         label = kwargs.pop('label', None)
         disabled_choices = kwargs.pop('disabled_choices', [])
+        hidden_choices = kwargs.pop('hidden_choices', [])
 
         ChoiceWidget.__init__(self, *args, **kwargs)
 
         self.label = label
         self.disabled_choices = disabled_choices
+        self.hidden_choices = hidden_choices
 
     def label_for_widget(self):
         return self.label
@@ -188,6 +190,7 @@ class ComplaintSelect(ChoiceWidget):
     def render(self, name, value, attrs=None, renderer=None):
         extra_context = {
             'disabled_choices': self.disabled_choices,
+            'hidden_choices': self.hidden_choices,
             'label': self.label_for_widget(),
         }
         context = self.get_context(name, value, attrs)
