@@ -64,7 +64,7 @@ def test_refer_complaint_modal_with_email(page, *, report):
 
     assert letter_step.is_visible()
     assert element.normalize_text(letter_step.locator('.step-text')) == 'Complainant letter'
-    assert letter_step.locator('select').filter(has_text="English").input_value() == 'en'
+    # assert letter_step.locator('select').filter(has_text="English").input_value() == 'en' # Commenting out because we have hidden language options
     assert letter_step.locator('select').filter(has_text="[Select an agency]").is_visible()
 
     assert element.normalize_text(letter_step.locator('.letter-html')) == ''
@@ -74,19 +74,19 @@ def test_refer_complaint_modal_with_email(page, *, report):
     assert modal.get_by_text('Agency is required').is_visible()
     assert modal.locator('.step.current[data-step="1"]').is_visible()
 
-    letter_step.locator('select').filter(has_text="English").select_option('Spanish')
+    # letter_step.locator('select').filter(has_text="English").select_option('Spanish') # Commenting out because we have hidden language options
 
     agency_select = letter_step.locator('select').filter(has_text="[Select an agency]")
     all_agency_options = agency_select.locator('option')
-    assert all([
-        '(en)' not in o.text_content()
-        for o in all_agency_options.all()
-        if o.get_attribute('hidden') != 'true'
-    ])
-    agency_select.select_option('(es) Referrals integration test - with agency email')
+    # assert all([
+    #     '(en)' not in o.text_content()
+    #     for o in all_agency_options.all()
+    #     if o.get_attribute('hidden') != 'true'
+    # ])
+    agency_select.select_option('(en) Referrals integration test - with agency email')
 
     assert element.normalize_text(letter_step.locator('p').filter(has_text='Email: ')) == 'Email: test@testing.com (will not be sent from this test site)'
-    letter_step.locator('.subject').filter(has_text='Re: [es] your referrals test').wait_for()
+    letter_step.locator('.subject').filter(has_text='Re: [en] your referrals test').wait_for()
     letter_step.locator('.letter-html').filter(has_text='Dear ReferralTestingWithEmail,').wait_for()
 
     modal.locator('button').filter(has_text="Next").click()
