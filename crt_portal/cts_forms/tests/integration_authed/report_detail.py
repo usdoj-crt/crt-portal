@@ -77,7 +77,7 @@ def test_refer_complaint_modal_with_email(page, *, report):
     # letter_step.locator('select').filter(has_text="English").select_option('Spanish') # Commenting out because we have hidden language options
 
     agency_select = letter_step.locator('select').filter(has_text="[Select an agency]")
-    all_agency_options = agency_select.locator('option')
+    # all_agency_options = agency_select.locator('option')
     # assert all([
     #     '(en)' not in o.text_content()
     #     for o in all_agency_options.all()
