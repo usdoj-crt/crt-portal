@@ -10,9 +10,8 @@ show_in_dropdown: true
 {{ mediation_number }}
 
 {{ complainant_name }}
-{{ contact_address_line_1 }}
-{{ contact_address_line_2 }}
-{{ contact_city }}, {{ contact_state }} {{ contact_zip }}
+{{ contact_address_lines }}
+{{ contact_location }}
 {{ contact_email }}
 
 {{ addressee }}:

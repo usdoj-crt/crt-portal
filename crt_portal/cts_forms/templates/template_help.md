@@ -19,9 +19,11 @@ All of our templates support a few special variables. They are:
 | `addressee`                   | Dear John Doe                                      | The salutation "Dear FirstName LastName" (sans comma)                                       |
 | `contact_address_line_1`      | 1 Demo Street                                      | The recipient's first address line                                                          |
 | `contact_address_line_2`      | Apt 5                                              | The recipient's second address line                                                         |
+| `contact_address_lines`      | 1 Demo Steet, Apt 5                                 | The recipient's whole address                                                         |
 | `contact_city`                | Springfield                                        | The recipient's city                                                                        |
 | `contact_state`               | Ohio                                               | The recipient's state                                                                       |
 | `contact_zip`                 | 12345                                              | The recipient's zipcode                                                                     |
+| `contact_location`            | Springfield, Ohio 12345                            | The recipient's city state and zipcode                                                                |
 | `complainant_name`            | John Doe                                           | The complainant's first and last name                                                       |
 | `contact_email`               | john@civilrights.justice.gov                       | The recipient's email address                                                               |
 | `contact_phone`               | 555-555-5555                                       | The recipient's phone number                                                                |
@@ -34,9 +36,11 @@ All of our templates support a few special variables. They are:
 | `organization_phone`          | 555-555-5555                                       | The organization or location that is subject to the complaint's phone number                |
 | `organization_address_line_1` | 123 Icy Dr                                         | The organization or location that is subject to the complaint's first address line          |
 | `organization_address_line_2` | Apt 1225                                           | The organization or location that is subject to the complaint's second address line         |
+| `organization_address_lines`  | 123 Icy Dr, Apt 1225                                | The organization or location that is subject to the complaint's combined address lines        |
 | `organization_city`           | Seattle                                            | The organization or location that is subject to the complaint's city                        |
 | `organization_state`          | Washington                                         | The organization or location that is subject to the complaint's state                       |
 | `organization_zip`            | 54321                                              | The organization or location that is subject to the complaint's zipcode                     |
+| `organization_location`       | Seattle, Washington 54321                          | The organization or location that is subject to the complaint's city, state and zipcode                  |
 | `outgoing_date`               | February 31, 1988                                  | The day this reply is being sent (today)                                                    |
 | `record_locator`              | 12345-XYZ                                          | The identifier (record locator) of the report                                               |
 | `referral_text`               | Ministry of Magic                                  | The referral_variable set on the ReferralContact                                            |
