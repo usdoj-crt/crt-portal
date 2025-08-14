@@ -97,7 +97,7 @@ def test_refer_complaint_modal_with_email(page, *, report):
     letter_step = modal.locator('.modal-step.agency-letter')
 
     assert letter_step.get_by_text('Agency letter').is_visible()
-    assert letter_step.get_by_text('Refer complaint to (es) Referrals integration test - with agency email').is_visible()
+    assert letter_step.get_by_text('Refer complaint to (en) Referrals integration test - with agency email').is_visible()
 
     # Note: we cannot test email / cc /subject here, because the integration
     # tests aren't allowed to send email; so the recipients are filtered out.
