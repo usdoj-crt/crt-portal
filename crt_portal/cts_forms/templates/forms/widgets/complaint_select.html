@@ -1,7 +1,7 @@
 <select data-placeholder="foo" placeholder="bar" id="{{widget.attrs.id}}" name="{{widget.name}}" class="usa-select usa-input {{widget.attrs.class}}" {% if widget.attrs.disabled %}disabled="{{ widget.attrs.disabled }}"{% endif %}>
   {% for group_name, group_choices, group_index in widget.optgroups %}
     {% for option in group_choices %}
-      {% include option.template_name with option=option disabled_choices=disabled_choices %}
+      {% include option.template_name with option=option disabled_choices=disabled_choices hidden_choices=hidden_choices %}
     {% endfor %}
   {% endfor %}
 </select>

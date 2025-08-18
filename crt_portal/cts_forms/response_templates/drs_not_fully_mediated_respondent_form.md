@@ -10,9 +10,8 @@ show_in_dropdown: true
 {{ mediation_number }}
 
 {{ organization_name }}
-{{ organization_address_line_1 }}
-{{ organization_address_line_2 }}
-{{ organization_city }}, {{organization_state }} {{ organization_zip }}
+{{ organization_address_lines }}
+{{ organization_location }}
 
 Dear {{ organization_name }}:
 

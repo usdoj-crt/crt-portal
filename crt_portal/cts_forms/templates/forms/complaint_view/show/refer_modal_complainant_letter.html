@@ -1,4 +1,6 @@
-<div class="modal-field">
+{% comment "disabling language selection by adding display-none class" %}
+{% endcomment %}
+<div class="modal-field display-none">
   <p>Complainant language</p>
   <select class="usa-select language-select" aria-label="complainant language selection">
     {% for language in languages %}
@@ -6,6 +8,7 @@
     {% endfor %}
   </select>
 </div>
+
 
 <div class="modal-field template-field">
   Refer complaint to
