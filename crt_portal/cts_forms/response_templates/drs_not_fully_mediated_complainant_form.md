@@ -10,10 +10,10 @@ show_in_dropdown: true
 {{ mediation_number }}
 
 <div class="response-template--hide-in-paper-letter">
-{{ complainant_name }}
-{{ contact_address_lines }}
-{{ contact_location }}
-{{ contact_email }}
+{{ complainant_name }}<br>
+{{ contact_address_lines }}<br>
+{{ contact_location }}<br>
+{{ contact_email }}<br>
 </div>
 
 {{ addressee }}:
