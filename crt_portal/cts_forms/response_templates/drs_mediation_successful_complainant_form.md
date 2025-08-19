@@ -9,10 +9,12 @@ show_in_dropdown: true
 
 {{ mediation_number }}
 
+<div class="response-template--hide-in-paper-letter">
 {{ complainant_name }}
 {{ contact_address_lines }}
 {{ contact_location }}
 {{ contact_email }}
+</div>
 
 {{ addressee }}:
 

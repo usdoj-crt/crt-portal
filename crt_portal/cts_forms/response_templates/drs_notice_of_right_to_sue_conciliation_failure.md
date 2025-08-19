@@ -10,10 +10,11 @@ show_in_dropdown: true
 
 **VIA EMAIL** {{ contact_email }}
 
+<div class="response-template--hide-in-paper-letter">
 {{ complainant_name }}
-                                                        
-EEOC Charge Against:    {{ organization_name }}
-EEOC No.:  {{ eeoc_charge_number }}                      
+</div>                             
+EEOC Charge Against: {{ organization_name }}
+EEOC No.: {{ eeoc_charge_number }}                      
 
 {{ addressee }},
 
