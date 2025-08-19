@@ -9,9 +9,11 @@ show_in_dropdown: true
 
 {{ mediation_number }}
 
-{{ organization_name }}
-{{ contact_address_lines }}
-{{ organization_city }}, {{ organization_state }} {{organization_zip }}
+<div class="response-template--hide-in-paper-letter">
+{{ organization_name }}<br>
+{{ contact_address_lines }}<br>
+{{ organization_location }}<br>
+</div>
 
 Dear {{ organization_name }}:
 
