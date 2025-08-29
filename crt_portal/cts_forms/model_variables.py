@@ -104,6 +104,7 @@ LANDING_COMPLAINT_CHOICES_TO_LEARNMORE = {
 
 PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES = {
     'workplace': [
+        _('Discriminated against because you are a US Citizen'),
         _('Fired, not hired, or demoted for reasons unrelated to job performance or qualifications'),
         _('Retaliated against for reporting discrimination'),
         _('Inappropriately asked to provide immigration documentation'),
