@@ -3452,8 +3452,8 @@ msgid "In education programs or activities:"
 msgstr "Sa mga programa o aktibidad sa edukasyon:"
 
 #: templates/dei-discrimination.html:56
-msgid "If you are a parent, student, or teacher who believes your rights have been violated as a result of a diversity, equity, and inclusion policy, program, or practice in a publicly funded K–12 school, college, or university, you may submit a report to the U.S. Department of Education at <a class='external-link--blue' href='https://enddei.ed.gov/'>EndDEI.Ed.Gov</a>."
-msgstr "Kung ikaw ay isang magulang, mag-aaral, o guro na naniniwala na ang iyong mga karapatan ay nilabag bilang resulta ng isang pagkakaiba-iba, pagkakapantay-pantay, at patakaran sa pagsasama, programa, o kasanayan sa isang K–12 na paaralan, kolehiyo, o unibersidad na pinondohan ng publiko, maaari kang magsumite ng ulat sa U.S. Department of Education sa <a class='external-link--blue' href='https://enddei.ed.gov/'>EndDEI.Ed.Gov</a>."
+msgid "If you are a parent, student, or teacher who believes your rights have been violated as a result of a diversity, equity, and inclusion policy, program, or practice in a publicly funded K–12 school, college, or university, you may submit a report to the <a class='external-link--blue' href='https://www.ed.gov/laws-and-policy/civil-rights-laws/file-complaint'>U.S. Department of Education</a>."
+msgstr "Kung ikaw ay isang magulang, mag-aaral, o guro na naniniwala na ang iyong mga karapatan ay nilabag bilang resulta ng isang pagkakaiba-iba, pagkakapantay-pantay, at patakaran sa pagsasama, programa, o kasanayan sa isang K–12 na paaralan, kolehiyo, o unibersidad na pinondohan ng publiko, maaari kang magsumite ng ulat sa <a class='external-link--blue' href='https://www.ed.gov/laws-and-policy/civil-rights-laws/file-complaint'>U.S. Department of Education</a>."
 
 #: templates/dei-discrimination.html:58
 msgid "In employment:"
