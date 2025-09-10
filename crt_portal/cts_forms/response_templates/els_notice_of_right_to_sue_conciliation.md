@@ -43,14 +43,6 @@ If you have questions or wish to inspect the investigative file pertaining to th
 
 Sincerely,
 
-Eric A. Sell
-Acting Chief             
+Complaint Referral Unit
 Employment Litigation Section
-
-By:
-
-/s/ Hilary F. Pinion
-
-Hilary F. Pinion
-Acting Deputy Chief             
-Employment Litigation Section
+Civil Rights Division
