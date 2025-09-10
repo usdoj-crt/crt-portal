@@ -3252,8 +3252,8 @@ msgid "In education programs or activities:"
 msgstr "교육 프로그램 또는 활동에서,"
 
 #: templates/dei-discrimination.html:56
-msgid "If you are a parent, student, or teacher who believes your rights have been violated as a result of a diversity, equity, and inclusion policy, program, or practice in a publicly funded K–12 school, college, or university, you may submit a report to the U.S. Department of Education at <a class='external-link--blue' href='https://enddei.ed.gov/'>EndDEI.Ed.Gov</a>."
-msgstr "다양성, 형평성, 포용성 정책, 프로그램 또는 관행으로 공립 K-12 학교 또는 대학교에서 차별을 겪은 부모, 학생 또는 교사일 경우 미국 교육부에 <a class='external-link--blue' href='https://enddei.ed.gov/'>EndDEI.Ed.Gov</a>로 신고를 접수할 수 있습니다."
+msgid "If you are a parent, student, or teacher who believes your rights have been violated as a result of a diversity, equity, and inclusion policy, program, or practice in a publicly funded K–12 school, college, or university, you may submit a report to the <a class='external-link--blue' href='https://www.ed.gov/laws-and-policy/civil-rights-laws/file-complaint'>U.S. Department of Education</a>."
+msgstr "다양성, 형평성, 포용성 정책, 프로그램 또는 관행으로 공립 K-12 학교 또는 대학교에서 차별을 겪은 부모, 학생 또는 교사일 경우 미국 교육부에 <a class='external-link--blue' href='https://www.ed.gov/laws-and-policy/civil-rights-laws/file-complaint'>EndDEI.Ed.Gov</a>로 신고를 접수할 수 있습니다."
 
 #: templates/dei-discrimination.html:58
 msgid "In employment:"

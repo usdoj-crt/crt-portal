@@ -3402,8 +3402,8 @@ msgid "In education programs or activities:"
 msgstr "Về các chương trình hoặc hoạt động giáo dục:"
 
 #: templates/dei-discrimination.html:56
-msgid "If you are a parent, student, or teacher who believes your rights have been violated as a result of a diversity, equity, and inclusion policy, program, or practice in a publicly funded K–12 school, college, or university, you may submit a report to the U.S. Department of Education at <a class='external-link--blue' href='https://enddei.ed.gov/'>EndDEI.Ed.Gov</a>."
-msgstr "Nếu quý vị là cha mẹ, học sinh hoặc giáo viên và quý vị tin rằng mình đã bị xâm phạm quyền hạn do chính sách, chương trình hoặc hoạt động về đa dạng, bình đẳng và hòa nhập ở một trường học từ mẫu giáo đến lớp 12, cao đẳng hoặc đại học công lập thì quý vị có thể gửi báo cáo cho Bộ Giáo Dục Hoa Kỳ tại địa chỉ <a class='external-link--blue' href='https://enddei.ed.gov/'>EndDEI.Ed.Gov</a>."
+msgid "If you are a parent, student, or teacher who believes your rights have been violated as a result of a diversity, equity, and inclusion policy, program, or practice in a publicly funded K–12 school, college, or university, you may submit a report to the <a class='external-link--blue' href='https://www.ed.gov/laws-and-policy/civil-rights-laws/file-complaint'>U.S. Department of Education</a>."
+msgstr "Nếu quý vị là cha mẹ, học sinh hoặc giáo viên và quý vị tin rằng mình đã bị xâm phạm quyền hạn do chính sách, chương trình hoặc hoạt động về đa dạng, bình đẳng và hòa nhập ở một trường học từ mẫu giáo đến lớp 12, cao đẳng hoặc đại học công lập thì quý vị có thể gửi báo cáo cho Bộ Giáo Dục Hoa Kỳ tại địa chỉ <a class='external-link--blue' href='https://www.ed.gov/laws-and-policy/civil-rights-laws/file-complaint'>EndDEI.Ed.Gov</a>."
 
 #: templates/dei-discrimination.html:58
 msgid "In employment:"
