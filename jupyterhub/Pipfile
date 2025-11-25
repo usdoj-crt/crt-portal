@@ -5,7 +5,7 @@ verify_ssl = true
 
 [packages]
 jupyterhub = "*"
-jupyterlab = "~=4.4.4"
+jupyterlab = "~=4.4.8"
 jupyter_client = "*"
 httpx = "~=0.28.1"
 oauthenticator = "*"
@@ -17,6 +17,7 @@ numpy = "*"
 pandas = "*"
 plotly = "5.24.1"
 exceptiongroup = "*"
+pyzmq = "26.4.0"
 
 [requires]
 python_version = "3.13.5"
