@@ -26,7 +26,7 @@ tblib = "*"
 pyshp = "*"
 
 [packages]
-django = "==4.2.26"
+django = "==4.2.27"
 gunicorn = "*"
 django-compressor = "*"
 django-compressor-toolkit = "*"
