@@ -1,0 +1,15 @@
+{% if report.location_name or report.location_address_line_1 or report.location_city_town or report.location_state or report.location_zipcode or report.location_phone %}
+<p class="letterhead-respondent" id="form-letterhead--addressee" hidden>
+  {% if report.location_name %}{{ report.location_name }}{% endif %}
+  {% if report.location_address_line_1 %}
+    <br />
+    {{ report.location_address_line_1 }}
+  {% endif %}
+  <br />
+  {% if report.location_city_town %}{{ report.location_city_town }},{% endif %} {% if report.location_state %}{{ report.location_state }}{% endif %} {% if report.location_zipcode %}{{ report.location_zipcode }}{% endif %}
+  {% if report.location_phone %}
+    <br />
+    {{ report.location_phone }}
+  {% endif %}
+</p>
+{% endif %}
