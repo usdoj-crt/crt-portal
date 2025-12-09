@@ -5,8 +5,6 @@ language: en
 is_html: true
 show_in_dropdown: true
 ---
-{{ outgoing_date }}
-
 {{ mediation_number }}
 
 <div class="response-template--hide-in-paper-letter">
