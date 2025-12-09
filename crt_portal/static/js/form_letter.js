@@ -217,11 +217,11 @@
       if (!validateSend()) return;
     }
     if (document.getElementById('print-using-respondent-address').checked === true) {
-      document.getElementsByClassName("letterhead-complainant")[0].setAttribute('hidden', true);
-      document.getElementsByClassName("letterhead-respondent")[0].removeAttribute('hidden');
+      document.getElementsByClassName('letterhead-complainant')[0].setAttribute('hidden', true);
+      document.getElementsByClassName('letterhead-respondent')[0].removeAttribute('hidden');
     } else {
-      document.getElementsByClassName("letterhead-complainant")[0].removeAttribute('hidden');
-      document.getElementsByClassName("letterhead-respondent")[0].setAttribute('hidden', true);
+      document.getElementsByClassName('letterhead-complainant')[0].removeAttribute('hidden');
+      document.getElementsByClassName('letterhead-respondent')[0].setAttribute('hidden', true);
     }
 
     const letterhead = document.getElementById('form-letterhead');
