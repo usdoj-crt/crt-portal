@@ -52,7 +52,10 @@
           {% else %}
             {% include 'forms/complaint_view/show/response_template_content.html' %}
           {% endif %}
-
+          <label>
+            <input type="checkbox" id="print-using-respondent-address">
+            <span>Print using respondent address</span>
+          </label>
           <div class="modal-footer">
             <button id="intake_send" data-email-enabled="{{email_enabled}}" class="usa-button" type="submit" name="type" value="send">Send</button>
             <button id="intake_print" class="usa-button" type="submit" name="type" value="print">Print letter</button>
