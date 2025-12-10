@@ -5,13 +5,11 @@ language: en
 is_html: true
 show_in_dropdown: true
 ---
-{{ outgoing_date }}
-
 {{ mediation_number }}
 
 <div class="response-template--hide-in-paper-letter">
 {{ organization_name }}<br>
-{{ contact_address_lines }}<br>
+{{ organization_address_lines }}<br>
 {{ organization_location }}<br>
 </div>
 
