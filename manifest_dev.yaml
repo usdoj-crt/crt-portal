@@ -21,7 +21,7 @@ applications:
   - crt-db
   - crt-s3
   - sso-creds
-  - crt-irplogdraindev
+  # - crt-irplogdraindev
   - VCAP_SERVICES
 
 - name: clamav-rest
