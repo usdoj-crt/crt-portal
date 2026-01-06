@@ -36,7 +36,13 @@ def test_error_if_form_refreshed(page, base_url):
 @console.raise_errors(ignore=[
     # The touchpoints script tries to embed a flag image.
     # We don't support data URIs, so this fails:
-    'data:image/png;base64,iVBOR'
+    'data:image/png;base64,iVBOR',
+    # A recent Touchpoints update broke our content policy with them. (They return *,* which is invalid)
+    # This means we cannot load resources from them when running these tests.
+    # Adding these as a workaround until a fix is done on their end.
+    'has been blocked by CORS policy',
+    'us_flag_small.png',
+    'launch.svg'
 ])
 @compat.defeat_challenge
 def test_report_complete_and_valid_submission(page):
