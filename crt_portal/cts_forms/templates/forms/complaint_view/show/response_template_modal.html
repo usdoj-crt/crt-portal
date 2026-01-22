@@ -53,8 +53,13 @@
             {% include 'forms/complaint_view/show/response_template_content.html' %}
           {% endif %}
           <label>
+            {% if data.location_name or data.location_address_line_1 or data.location_city_town or data.location_state or data.location_zipcode or data.location_phone %}
             <input type="checkbox" id="print-using-respondent-address">
             <span>Print using respondent address</span>
+            {% else %}
+            <input type="checkbox" id="print-using-respondent-address" disabled>
+            <span>Print using respondent address disabled: No respondent info on record</span>
+            {% endif %}
           </label>
           <div class="modal-footer">
             <button id="intake_send" data-email-enabled="{{email_enabled}}" class="usa-button" type="submit" name="type" value="send">Send</button>
