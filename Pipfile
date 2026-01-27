@@ -53,10 +53,10 @@ markdown = "*"
 nbconvert = "*"  # For running Jupyter ipynb files.
 nbformat = "*"  # For running Jupyter ipynb files.
 pypdf = "*"
-weasyprint = "*"
 beautifulsoup4 = "*"
 pytz = "*"
 mozilla-django-oidc = "*"
+weasyprint = "<=66.0"
 
 [requires]
 python_version = "3.13.5"
