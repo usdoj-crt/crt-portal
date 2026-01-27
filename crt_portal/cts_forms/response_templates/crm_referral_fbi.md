@@ -7,7 +7,7 @@ language: en
 
 You contacted the Department of Justice on {{ date_of_intake }}.
 
-What we did:
+#What we did:
 
 Your report number is {{ record_locator }}.
 
@@ -17,21 +17,21 @@ We will carefully review your report and will contact you if we need additional 
 
 Accordingly, we want to make you aware that in situations involving criminal violations of federal civil rights laws, the FBI serves as the first and best place to report.
 
-What you can do:
+#What you can do:
 
 The FBI may be able to help in your situation. You can contact the FBI by any of the methods outlined below.
 
-Online:
+**Online:**
 
-www.fbi.gov/contact-us
+[www.fbi.gov/contact-us](www.fbi.gov/contact-us)
 
-By phone or in-person:
+**By phone or in-person:**
 
 Contact your local FBI office (recommended)
 
-www.fbi.gov/contact-us/field-offices
+[www.fbi.gov/contact-us/field-offices](www.fbi.gov/contact-us/field-offices)
 
-How you helped:
+#How you helped:
 
 Your report will help us advance civil rights. Information from reports such as yours helps us understand emerging trends and issues in civil rights.  This helps inform how we protect the civil rights of all people in this country.
 
