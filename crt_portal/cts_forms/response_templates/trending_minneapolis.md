@@ -2,6 +2,7 @@
 title: Trending - Minneapolis form letter
 subject: "Response: Your Civil Rights Division Report - {{ record_locator }} from the {{ section_name }} Section"
 language: en
+is_html: true
 ---
 {{ addressee }},
 
