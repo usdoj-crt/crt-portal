@@ -24,7 +24,7 @@ We are not determining that your complaint lacks merit. You may want to consult 
 **State Bar Association Directory**
 [https://www.barassociationdirectory.com/](https://www.barassociationdirectory.com/)
 
-#How you helped
+# How you helped
 
 While we cannot take action on each individual report, your report can help us find issues affecting multiple people of communities. It also helps us understand emerging trends or topics.
 
