@@ -1176,12 +1176,12 @@
         },
         "pypdf": {
             "hashes": [
-                "sha256:6b7a63be5563a0a35d54c6d6b550d75c00b8ccf36384be96365355e296e6b3b0",
-                "sha256:a02ccbb06463f7c334ce1612e91b3e68a8e827f3cee100b9941771e6066b094e"
+                "sha256:331b63cd66f63138f152a700565b3e0cebdf4ec8bec3b7594b2522418782f1f3",
+                "sha256:82a1a48de500ceea59a52a7d979f5095927ef802e4e4fac25ab862a73468acbb"
             ],
             "index": "pypi",
             "markers": "python_version >= '3.9'",
-            "version": "==6.7.1"
+            "version": "==6.7.2"
         },
         "pyphen": {
             "hashes": [
