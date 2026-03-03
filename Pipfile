@@ -59,7 +59,7 @@ mozilla-django-oidc = "*"
 weasyprint = "<=66.0"
 
 [requires]
-python_version = "3.13.9"
+python_version = "3.13.11"
 
 [pipenv]
 allow_prereleases = true
