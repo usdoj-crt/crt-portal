@@ -57,7 +57,6 @@ beautifulsoup4 = "*"
 tzdata = "*"
 mozilla-django-oidc = "*"
 weasyprint = "<=66.0"
-
 greenlet = "*"
 
 [requires]
