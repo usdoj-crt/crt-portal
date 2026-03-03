@@ -82,6 +82,10 @@ if environment == 'UNDEFINED':
     # Note: See local_settings.py to change this for local development.
     ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
+# Default primary key field type
+# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -226,8 +230,6 @@ LOCALE_PATHS = [
 TIME_ZONE = 'America/New_York'
 
 USE_I18N = True
-
-USE_L10N = True
 
 USE_TZ = True
 
