@@ -10,7 +10,6 @@ from factory.django import DjangoModelFactory
 from factory.fuzzy import FuzzyChoice
 from datetime import datetime, timezone
 from cts_forms.signals import salt
-from zoneinfo import ZoneInfo
 
 User = get_user_model()
 

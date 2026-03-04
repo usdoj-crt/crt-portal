@@ -1,6 +1,5 @@
 from django.core.management.base import BaseCommand
 from cts_forms.tests.factories import EmailFactory
-from zoneinfo import ZoneInfo
 from datetime import datetime, timezone
 
 
