@@ -4,6 +4,7 @@ Tests for:
  - pro form
 """
 import copy
+import html
 import secrets
 
 from django.core.exceptions import ValidationError
@@ -505,10 +506,13 @@ class Validation_Form_Tests(TestCase):
     def test_required_protected_class(self):
         form = ProtectedClassForm(data={
             'other_class': '',
-            'protected_class_set': None,
         })
 
-        self.assertTrue(str(PROTECTED_CLASS_ERROR) in str(form.errors))
+        self.assertFalse(form.is_valid())
+        self.assertIn('protected_class', form.errors)
+        # form.errors contains HTML-escaped content, so use html.unescape() to decode
+        error_text = html.unescape(form.errors['protected_class'].as_text())
+        self.assertTrue(str(PROTECTED_CLASS_ERROR) in error_text)
 
     def test_required_tests(self):
         form = Details(data={
