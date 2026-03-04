@@ -508,37 +508,37 @@ class Validation_Form_Tests(TestCase):
             'protected_class_set': None,
         })
 
-        self.assertTrue('protected_class<ul class="errorlist"><li>{0}'.format(PROTECTED_CLASS_ERROR)[:13] in str(form.errors))
+        self.assertTrue(PROTECTED_CLASS_ERROR in str(form.errors))
 
     def test_required_tests(self):
         form = Details(data={
             'violation_summary': ''
         })
-        self.assertTrue(f'<ul class="errorlist"><li>{VIOLATION_SUMMARY_ERROR}' in str(form.errors))
+        self.assertTrue(str(VIOLATION_SUMMARY_ERROR) in str(form.errors))
 
     def test_required_primary_reason(self):
         form = PrimaryReason(data={
             'primary_complaint': '',
         })
-        self.assertTrue(f'<ul class="errorlist"><li>{PRIMARY_COMPLAINT_ERROR}' in str(form.errors))
+        self.assertTrue(str(PRIMARY_COMPLAINT_ERROR) in str(form.errors))
 
     def test_required_servicemember(self):
         form = Contact(data={})
-        self.assertTrue(f'<ul class="errorlist"><li>{SERVICEMEMBER_ERROR}' in str(form.errors))
+        self.assertTrue(str(SERVICEMEMBER_ERROR) in str(form.errors))
 
     def test_required_year(self):
         form = When(data={
             'last_incident_month': 5,
             'last_incident_day': 5,
         })
-        self.assertTrue(f'<ul class="errorlist"><li>{DATE_ERRORS["year_required"]}' in str(form.errors))
+        self.assertTrue(str(DATE_ERRORS["year_required"]) in str(form.errors))
 
     def test_required_month(self):
         form = When(data={
             'last_incident_year': 2019,
             'last_incident_day': 5,
         })
-        self.assertTrue(f'<ul class="errorlist"><li>{DATE_ERRORS["month_required"]}' in str(form.errors))
+        self.assertTrue(str(DATE_ERRORS["month_required"]) in str(form.errors))
 
     def test_NOT_required_day(self):
         form = When(data={
@@ -568,14 +568,14 @@ class Validation_Form_Tests(TestCase):
             'last_incident_year': 'xxxx',
             'last_incident_month': 5,
         })
-        self.assertTrue(f'<ul class="errorlist"><li>{DATE_ERRORS["no_past"]}' in str(form.errors))
+        self.assertTrue(str(DATE_ERRORS["no_past"]) in str(form.errors))
 
     def test_invalid_month_nonnumeric(self):
         form = When(data={
             'last_incident_year': 2021,
             'last_incident_month': 'zz',
         })
-        self.assertTrue(f'<ul class="errorlist"><li>{DATE_ERRORS["month_invalid"]}' in str(form.errors))
+        self.assertTrue(str(DATE_ERRORS["month_invalid"]) in str(form.errors))
 
     def test_invalid_day_nonnumeric(self):
         form = When(data={
@@ -583,14 +583,14 @@ class Validation_Form_Tests(TestCase):
             'last_incident_month': 5,
             'last_incident_day': 'xx',
         })
-        self.assertTrue(f'<ul class="errorlist"><li>{DATE_ERRORS["day_invalid"]}' in str(form.errors))
+        self.assertTrue(str(DATE_ERRORS["day_invalid"]) in str(form.errors))
 
     def test_invalid_month_too_high(self):
         form = When(data={
             'last_incident_year': 2021,
             'last_incident_month': 13,
         })
-        self.assertTrue(f'<ul class="errorlist"><li>{DATE_ERRORS["month_invalid"]}' in str(form.errors))
+        self.assertTrue(str(DATE_ERRORS["month_invalid"]) in str(form.errors))
 
     def test_invalid_day_too_high(self):
         form = When(data={
@@ -598,7 +598,7 @@ class Validation_Form_Tests(TestCase):
             'last_incident_month': 5,
             'last_incident_day': 32,
         })
-        self.assertTrue(f'<ul class="errorlist"><li>{DATE_ERRORS["day_invalid"]}' in str(form.errors))
+        self.assertTrue(str(DATE_ERRORS["day_invalid"]) in str(form.errors))
 
     def test_invalid_month_negative(self):
         form = When(data={
@@ -620,7 +620,7 @@ class Validation_Form_Tests(TestCase):
             'last_incident_year': 2021,
             'last_incident_month': 0,
         })
-        self.assertTrue(f'<ul class="errorlist"><li>{DATE_ERRORS["month_invalid"]}' in str(form.errors))
+        self.assertTrue(str(DATE_ERRORS["month_invalid"]) in str(form.errors))
 
     # Note: the form will accept 0 for day (because it's treated as optional?)
 
@@ -858,8 +858,8 @@ class ProFormTest(TestCase):
     def test_required_fields(self):
         form = ProForm(data={})
         errors = str(form.errors)
-        self.assertTrue(f'<ul class="errorlist"><li>{INTAKE_FORMAT_ERROR}' in errors)
-        self.assertTrue(f'<ul class="errorlist"><li>{PRIMARY_COMPLAINT_ERROR}' in errors)
+        self.assertTrue(str(INTAKE_FORMAT_ERROR) in errors)
+        self.assertTrue(str(PRIMARY_COMPLAINT_ERROR) in errors)
         self.assertTrue("crt_reciept_day" in errors)
         self.assertTrue("crt_reciept_month" in errors)
         self.assertTrue("crt_reciept_year" in errors)
@@ -894,28 +894,28 @@ class ProFormTest(TestCase):
         bad_month_data = self.data
         bad_month_data["last_incident_month"] = 22
         form = ProForm(data=bad_month_data)
-        self.assertTrue(f'<ul class="errorlist"><li>{DATE_ERRORS["month_invalid"]}' in str(form.errors))
+        self.assertTrue(str(DATE_ERRORS["month_invalid"]) in str(form.errors))
         self.assertFalse(form.is_valid())
 
     def test_last_incident_day_validation(self):
         bad_day_data = self.data
         bad_day_data["last_incident_day"] = 80
         form = ProForm(data=bad_day_data)
-        self.assertTrue(f'<ul class="errorlist"><li>{DATE_ERRORS["day_invalid"]}' in str(form.errors))
+        self.assertTrue(str(DATE_ERRORS["day_invalid"]) in str(form.errors))
         self.assertFalse(form.is_valid())
 
     def test_last_incident_year_validation(self):
         bad_year_data = self.data
         bad_year_data["last_incident_year"] = 1899
         form = ProForm(data=bad_year_data)
-        self.assertTrue(f'<ul class="errorlist"><li>{DATE_ERRORS["no_past"]}' in str(form.errors))
+        self.assertTrue(str(DATE_ERRORS["no_past"]) in str(form.errors))
         self.assertFalse(form.is_valid())
 
     def test_last_incident_no_future_validation(self):
         future_year_data = self.data
         future_year_data["last_incident_year"] = 3001
         form = ProForm(data=future_year_data)
-        self.assertTrue(f'<ul class="errorlist"><li>{DATE_ERRORS["no_future"]}' in str(form.errors))
+        self.assertTrue(str(DATE_ERRORS["no_future"]) in str(form.errors))
         self.assertFalse(form.is_valid())
 
     def test_bad_date(self):
