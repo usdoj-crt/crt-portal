@@ -1942,11 +1942,11 @@ class Filters(ModelForm):
 
     def clean_retention_schedule(self):
         """
-        Convert empty string to None for ForeignKey compatibility.
-        Django 5.2+ requires None instead of '' for nullable ForeignKey fields.
+        Convert empty values to None for ForeignKey compatibility.
+        Django 5.2+ requires None instead of '' or [] for nullable ForeignKey fields.
         """
         value = self.cleaned_data.get('retention_schedule')
-        if value == '' or value == ['']:
+        if value == '' or value == [''] or value == []:
             return None
         return value
 

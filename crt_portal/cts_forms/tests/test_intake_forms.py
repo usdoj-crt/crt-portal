@@ -508,7 +508,7 @@ class Validation_Form_Tests(TestCase):
             'protected_class_set': None,
         })
 
-        self.assertTrue(PROTECTED_CLASS_ERROR in str(form.errors))
+        self.assertTrue(str(PROTECTED_CLASS_ERROR) in str(form.errors))
 
     def test_required_tests(self):
         form = Details(data={
@@ -883,7 +883,7 @@ class ProFormTest(TestCase):
         bad_year_data = self.data
         bad_year_data["crt_reciept_year"] = 1899
         form = ProForm(data=bad_year_data)
-        self.assertTrue(DATE_ERRORS['crt_no_past'] in str(form.errors))
+        self.assertTrue(str(DATE_ERRORS['crt_no_past']) in str(form.errors))
         self.assertFalse(form.is_valid())
         bad_year_data["crt_reciept_year"] = 3000
         form = ProForm(data=bad_year_data)
@@ -923,7 +923,7 @@ class ProFormTest(TestCase):
         bad_date_data["crt_reciept_month"] = 2
         bad_date_data["crt_reciept_day"] = 30
         form = ProForm(data=bad_date_data)
-        self.assertTrue(DATE_ERRORS['crt_not_valid'] in str(form.errors))
+        self.assertTrue(str(DATE_ERRORS['crt_not_valid']) in str(form.errors))
         self.assertFalse(form.is_valid())
 
     def test_full_example(self):
@@ -935,8 +935,8 @@ class ProFormTest(TestCase):
         data["crt_reciept_year"] = 1900
         data.pop("crt_reciept_day")
         form = ProForm(data=data)
-        self.assertTrue(DATE_ERRORS['day_required'] in str(form.errors))
-        self.assertTrue(DATE_ERRORS['crt_no_past'] in str(form.errors))
+        self.assertTrue(str(DATE_ERRORS['day_required']) in str(form.errors))
+        self.assertTrue(str(DATE_ERRORS['crt_no_past']) in str(form.errors))
         self.assertFalse(form.is_valid())
 
 
