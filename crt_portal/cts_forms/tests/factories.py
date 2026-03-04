@@ -8,9 +8,9 @@ from tms.models import TMSEmail
 from factory import Faker
 from factory.django import DjangoModelFactory
 from factory.fuzzy import FuzzyChoice
-from datetime import datetime
+from datetime import datetime, timezone
 from cts_forms.signals import salt
-from pytz import timezone
+from zoneinfo import ZoneInfo
 
 User = get_user_model()
 
@@ -84,8 +84,7 @@ class ReportFactory(DjangoModelFactory):
 
 def _create_report():
     report = ReportFactory.build()
-    UTC = timezone('UTC')
-    report.create_date = UTC.localize(datetime.now())
+    report.create_date = datetime.now(timezone.utc)
     # This save creates the report id, report.pk, so we can create a public_id
     report.save()
     salt_chars = salt()

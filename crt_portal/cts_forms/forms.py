@@ -1930,6 +1930,26 @@ class Filters(ModelForm):
         }),
     )
 
+    def clean_assigned_to(self):
+        """
+        Convert empty string to None for ForeignKey compatibility.
+        Django 5.2+ requires None instead of '' for nullable ForeignKey fields.
+        """
+        value = self.cleaned_data.get('assigned_to')
+        if value == '':
+            return None
+        return value
+
+    def clean_retention_schedule(self):
+        """
+        Convert empty string to None for ForeignKey compatibility.
+        Django 5.2+ requires None instead of '' for nullable ForeignKey fields.
+        """
+        value = self.cleaned_data.get('retention_schedule')
+        if value == '' or value == ['']:
+            return None
+        return value
+
     class Meta:
         model = Report
         fields = [
@@ -2874,7 +2894,7 @@ class BulkActionsForm(LitigationHoldLock, Form, ActivityStreamUpdater):
         # explicitly, even if they are set by the user.
         if 'assigned_section' in updates:
             updates['primary_statute'] = None
-            updates['assigned_to'] = ''
+            updates['assigned_to'] = None
             updates['status'] = 'new'
             updates['retention_schedule'] = None
             updates['referred'] = False
