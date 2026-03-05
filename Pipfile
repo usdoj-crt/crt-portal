@@ -26,7 +26,7 @@ tblib = "*"
 pyshp = "*"
 
 [packages]
-django = "==4.2.28"
+django = "==5.2"
 gunicorn = "*"
 django-compressor = "*"
 django-compressor-toolkit = "*"
@@ -54,12 +54,13 @@ nbconvert = "*"  # For running Jupyter ipynb files.
 nbformat = "*"  # For running Jupyter ipynb files.
 pypdf = "*"
 beautifulsoup4 = "*"
-pytz = "*"
+tzdata = "*"
 mozilla-django-oidc = "*"
 weasyprint = "<=66.0"
+greenlet = "*"
 
 [requires]
-python_version = "3.13.11"
+python_version = "3.14.2"
 
 [pipenv]
 allow_prereleases = true

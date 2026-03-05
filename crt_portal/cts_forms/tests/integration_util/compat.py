@@ -31,11 +31,13 @@ def defeat_challenge(func):
     """
     @functools.wraps(func)
     def decorator(page, *args, **kwargs):
-        extra_headers = {
-            'X-Challenge-Defeat': os.environ['CHALLENGE_DEFEAT_KEY']
-        }
-
-        page.context.set_extra_http_headers(extra_headers)
+        defeat_key = os.environ.get('CHALLENGE_DEFEAT_KEY')
+        
+        if defeat_key:
+            extra_headers = {
+                'X-Challenge-Defeat': defeat_key
+            }
+            page.context.set_extra_http_headers(extra_headers)
 
         return func(page, *args, **kwargs)
     return decorator

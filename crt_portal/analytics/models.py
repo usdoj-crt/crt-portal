@@ -15,7 +15,7 @@ from django.db.models.functions import Lower
 from nbconvert.preprocessors.execute import ExecutePreprocessor
 import nbconvert
 import nbformat
-import pytz
+from zoneinfo import ZoneInfo
 
 from utils.request_utils import add_nonce_to_html, fix_mathjax
 from cts_forms.models import RoutingSection
@@ -262,7 +262,7 @@ class AnalyticsFile(models.Model):
                     processor.kc.stop_channels()
 
         self.content = json.dumps(notebook)
-        local_tz = pytz.timezone('US/Eastern')
+        local_tz = ZoneInfo('US/Eastern')
         self.last_run = datetime.now(local_tz)
         self.last_modified = datetime.now(local_tz)
 

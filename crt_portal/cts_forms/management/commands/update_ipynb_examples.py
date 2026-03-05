@@ -15,7 +15,7 @@ from django.conf import settings
 from django.core.management.base import BaseCommand
 import nbconvert
 import nbformat
-import pytz
+from zoneinfo import ZoneInfo
 
 notebook_dir = os.path.join(settings.BASE_DIR, '..', 'jupyterhub')
 
@@ -117,7 +117,7 @@ class Command(BaseCommand):  # pragma: no cover
     help = 'Adds new response templates or updates existing ones'
 
     def _build_notebook(self, notebook_path: str) -> dict:
-        local_tz = pytz.timezone('US/Eastern')
+        local_tz = ZoneInfo('US/Eastern')
         simple_path = _simplify_path(notebook_path)
         return {
             'name': os.path.basename(simple_path).strip('/'),
@@ -173,7 +173,7 @@ class Command(BaseCommand):  # pragma: no cover
         )
 
     def _build_filesystem_object(self, directory_path: str) -> dict:
-        local_tz = pytz.timezone('US/Eastern')
+        local_tz = ZoneInfo('US/Eastern')
         simple_path = _simplify_path(directory_path)
         return {
             'name': os.path.basename(simple_path).strip('/'),

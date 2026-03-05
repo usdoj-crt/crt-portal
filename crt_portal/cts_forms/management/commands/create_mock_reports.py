@@ -4,8 +4,8 @@ from cts_forms.mail import mail_to_complainant
 from tms.models import TMSEmail
 from cts_forms.models import FormLettersSent
 from cts_forms.tests.factories import ReportFactory
-from datetime import datetime
-from pytz import timezone
+from datetime import datetime, timezone
+
 import random
 from cts_forms.signals import salt
 from cts_forms.models import EmailReportCount, ProtectedClass, Campaign, ResponseTemplate, CommentAndSummary, Tag, RetentionSchedule
@@ -30,9 +30,8 @@ def random_dist():
 
 def random_date():
     """Gets a random date, prioritizing recent dates but including old, too."""
-    UTC = timezone('UTC')
-    end_date = UTC.localize(datetime.now())
-    older_start_date = UTC.localize(datetime(2020, 1, 1))
+    end_date = datetime.now(timezone.utc)
+    older_start_date = datetime(2020, 1, 1, tzinfo=timezone.utc)
     newer_start_date = end_date - timedelta(days=30)
     start_date = random.choice([older_start_date, newer_start_date])  # nosec
     delta = end_date - start_date
@@ -80,7 +79,6 @@ class Command(BaseCommand):  # pragma: no cover
         for i in range(number_reports):
             is_disposition = random.randint(1, 100) < 25  # nosec
             report = ReportFactory.build()
-            UTC = timezone('UTC')
             date = random_date()
             if is_disposition:
                 date = date - timedelta(days=365 * 15)
@@ -137,7 +135,7 @@ class Command(BaseCommand):  # pragma: no cover
                 report.protected_class.add(protected_example3)
                 report.protected_class.add(protected_example4)
                 report.protected_class.add(protected_example5)
-                report.create_date = UTC.localize(datetime(2020, 6, 21, 18, 25, 30))
+                report.create_date = datetime(2020, 6, 21, 18, 25, 30, tzinfo=timezone.utc)
                 if report.assigned_section != 'CRM':
                     add_activity(user1, 'Assigned section:', f'Updated from "{report.assigned_section}" to "CRM"', report)
                     report.assigned_section = 'CRM'
@@ -151,7 +149,7 @@ class Command(BaseCommand):  # pragma: no cover
                 report.protected_class.add(protected_example)
                 report.protected_class.add(protected_example2)
                 report.protected_class.add(protected_example3)
-                report.create_date = UTC.localize(datetime(2021, 12, 31, 18, 25, 30))
+                report.create_date = datetime(2021, 12, 31, 18, 25, 30, tzinfo=timezone.utc)
                 if report.assigned_section != 'SPL':
                     add_activity(user1, 'Assigned section:', f'Updated from "{report.assigned_section}" to "SPL"', report)
                     report.assigned_section = 'SPL'
@@ -166,7 +164,7 @@ class Command(BaseCommand):  # pragma: no cover
                 report.protected_class.add(protected_example)
                 report.protected_class.add(protected_example2)
                 report.protected_class.add(protected_example3)
-                report.create_date = UTC.localize(datetime(2021, 1, 1, 0, 0, 0))
+                report.create_date = datetime(2021, 1, 1, 0, 0, 0, tzinfo=timezone.utc)
                 if report.assigned_section != 'VOT':
                     add_activity(user2, 'Assigned section:', f'Updated from "{report.assigned_section}" to "VOT"', report)
                     report.assigned_section = 'VOT'

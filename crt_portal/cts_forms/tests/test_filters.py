@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timezone
 from cts_forms.forms import add_activity
 from cts_forms.filters import _get_date_field_from_param
 from django.apps import apps
@@ -7,7 +7,6 @@ from actstream import registry
 from actstream.models import actor_stream
 from django.http import QueryDict
 from django.test import SimpleTestCase, TestCase, TransactionTestCase, RequestFactory
-import pytz
 
 from ..filters import get_report_filter_from_search, report_filter, report_grouping, filter_by_similar
 from api.filters import form_letters_filter, autoresponses_filter
@@ -484,23 +483,23 @@ class FormLettersFilterTests(TestCase):
         registry.register(User)
         add_activity(cls.user, "Contacted complainant:", "Email sent: 'EOS - Department of Ed OCR Referral Form Letter' to cookiemonster@fakeemail.com via govDelivery TMS", cls.report4)
         first_action = actor_stream(cls.user).first()
-        first_action.timestamp = datetime(2022, 4, 12, 14, 56, 53, tzinfo=pytz.utc)
+        first_action.timestamp = datetime(2022, 4, 12, 14, 56, 53, tzinfo=timezone.utc)
         first_action.save()
         add_activity(cls.user, "Contacted complainant:", "Email sent: 'EOS - EEOC Referral Form Letter' to    eileenmcfarland@navapbc.com via govDelivery TMS", cls.report2)
         second_action = actor_stream(cls.user).first()
-        second_action.timestamp = datetime(2022, 4, 12, 17, 30, 53, tzinfo=pytz.utc)
+        second_action.timestamp = datetime(2022, 4, 12, 17, 30, 53, tzinfo=timezone.utc)
         second_action.save()
         add_activity(cls.user, "Contacted complainant:", "Email sent: 'EOS - EEOC Referral Form Letter' to  bigbird@fake.com via govDelivery TMS", cls.report3)
         third_action = actor_stream(cls.user).first()
-        third_action.timestamp = datetime(2022, 4, 15, 10, 56, 53, tzinfo=pytz.utc)
+        third_action.timestamp = datetime(2022, 4, 15, 10, 56, 53, tzinfo=timezone.utc)
         third_action.save()
         add_activity(cls.user, "Added comment: ", "Email sent: 'SPL - Standard Form Letter' to gregory94@example.com via govDelivery TMS", cls.report4)
         fourth_action = actor_stream(cls.user).first()
-        fourth_action.timestamp = datetime(2022, 5, 1, 10, 56, 53, tzinfo=pytz.utc)
+        fourth_action.timestamp = datetime(2022, 5, 1, 10, 56, 53, tzinfo=timezone.utc)
         fourth_action.save()
         add_activity(cls.user, "Contacted complainant:", "Email sent: 'CRT - Request for Agency Review' to hernandezcolleen@example.com via govDelivery TMS", cls.report1)
         fifth_action = actor_stream(cls.user).first()
-        fifth_action.timestamp = datetime(2022, 5, 4, 10, 56, 53, tzinfo=pytz.utc)
+        fifth_action.timestamp = datetime(2022, 5, 4, 10, 56, 53, tzinfo=timezone.utc)
         fifth_action.save()
         FormLettersSent.refresh_view()
 
@@ -631,16 +630,16 @@ class AutoResponsesFilterTests(TestCase):
     @classmethod
     def setUpTestData(cls):
         report_1 = Report.objects.create(**SAMPLE_REPORT_1)
-        report_1.create_date = datetime(2022, 4, 12, 18, 17, 52, 0, tzinfo=pytz.utc)
+        report_1.create_date = datetime(2022, 4, 12, 18, 17, 52, 0, tzinfo=timezone.utc)
         report_1.save()
         report_2 = Report.objects.create(**SAMPLE_REPORT_2)
-        report_2.create_date = datetime(2022, 4, 13, 18, 17, 52, 0, tzinfo=pytz.utc)
+        report_2.create_date = datetime(2022, 4, 13, 18, 17, 52, 0, tzinfo=timezone.utc)
         report_2.save()
         report_3 = Report.objects.create(**SAMPLE_REPORT_3)
-        report_3.create_date = datetime(2022, 2, 1, 18, 17, 52, 0, tzinfo=pytz.utc)
+        report_3.create_date = datetime(2022, 2, 1, 18, 17, 52, 0, tzinfo=timezone.utc)
         report_3.save()
         report_4 = Report.objects.create(**SAMPLE_REPORT_4)
-        report_4.create_date = datetime(2022, 2, 4, 18, 17, 52, 0, tzinfo=pytz.utc)
+        report_4.create_date = datetime(2022, 2, 4, 18, 17, 52, 0, tzinfo=timezone.utc)
         report_4.save()
 
     def test_no_section_filter(self):

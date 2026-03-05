@@ -55,7 +55,8 @@ from .model_variables import (BATCH_STATUS_CHOICES, CLOSED_STATUS,
                               STATES_AND_TERRITORIES, STATUS_CHOICES,
                               STATUTE_CHOICES)
 from .phone_regex import phone_validation_regex
-import pytz
+from zoneinfo import ZoneInfo
+from datetime import timezone as dt_timezone
 from .validators import validate_file_attachment, validate_email_address, validate_dj_number
 
 logger = logging.getLogger(__name__)
@@ -935,7 +936,7 @@ class Report(models.Model):
         Remove assignee and record date of call
         """
         self.assigned_to = None
-        local_tz = pytz.timezone('US/Eastern')
+        local_tz = ZoneInfo('US/Eastern')
         self.closed_date = datetime.now(local_tz)
 
     def reset_for_changed_section(self):
@@ -1255,9 +1256,9 @@ class ResponseTemplate(models.Model):
         return b
 
     def utc_timezone_to_est(self, utc_dt):
-        local_tz = pytz.timezone('US/Eastern')
-        local_dt = utc_dt.replace(tzinfo=pytz.utc).astimezone(local_tz)
-        return local_tz.normalize(local_dt)
+        local_tz = ZoneInfo('US/Eastern')
+        local_dt = utc_dt.replace(tzinfo=dt_timezone.utc).astimezone(local_tz)
+        return local_dt
 
     def get_optionals(self):
         return get_optionals(self.body)

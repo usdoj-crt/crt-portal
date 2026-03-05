@@ -35,7 +35,8 @@ def report_sort(sort):
     sort_exprs = []
     # apply the sort items individually so that we can push nulls to the back
     for sort_item in sort:
-        nulls_last = 'email_count' in sort_item
+        # Django 5.2+ requires nulls_last to be True or None (not False)
+        nulls_last = True if 'email_count' in sort_item else None
         if sort_item[0] == SORT_DESC_CHAR:
             sort_exprs.append(F(sort_item[1::]).desc(nulls_last=nulls_last))
         else:
@@ -57,10 +58,11 @@ def other_sort(sort, sort_type):
     for sort_item in sort:
         if sort_type == 'disposition' and 'status' in sort_item:
             sort_item = sort_item.replace('status', 'dispo_status')
+        # Django 5.2+ requires nulls_last to be True or None (not False)
         if sort_item[0] == SORT_DESC_CHAR:
-            sort_exprs.append(F(sort_item[1::]).desc(nulls_last=False))
+            sort_exprs.append(F(sort_item[1::]).desc(nulls_last=None))
         else:
-            sort_exprs.append(F(sort_item).asc(nulls_last=False))
+            sort_exprs.append(F(sort_item).asc(nulls_last=None))
     sort_exprs.extend([F('pk').desc()])
 
     return sort_exprs, sort

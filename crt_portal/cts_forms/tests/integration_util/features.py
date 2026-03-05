@@ -48,16 +48,26 @@ def toggle_feature_for_user(*,
     if page.locator("input[name='enabled']").is_checked():
         page.check("input[name='enabled']")
 
-    option = page.locator(f'option[title="{username}"]')
-    add_link = page.locator("#id_users_when_disabled_add_link")
-    remove_link = page.locator("#id_users_when_disabled_remove_link")
+    # In Django 5.2, we need to select the option in the correct box before clicking the button
+    from_box = page.locator("#id_users_when_disabled_from")
+    to_box = page.locator("#id_users_when_disabled_to")
+    add_button = page.locator("#id_users_when_disabled_add")
+    remove_button = page.locator("#id_users_when_disabled_remove")
 
-    option.click()
+    # Check which box contains the user
+    from_options = from_box.locator(f'option[title="{username}"]')
+    to_options = to_box.locator(f'option[title="{username}"]')
+
     if enable:
-        add_link.click()
-
-    if not enable:
-        remove_link.click()
+        # Need to move user from "available" to "chosen"
+        if from_options.count() > 0:
+            from_options.click()
+            add_button.click()
+    else:
+        # Need to move user from "chosen" to "available"
+        if to_options.count() > 0:
+            to_options.click()
+            remove_button.click()
 
     with page.expect_navigation():
         page.click("input[type='submit']")
