@@ -114,9 +114,41 @@ def create(page, admin_path, **fields) -> int:
 
     with page.expect_navigation():
         page.locator('input[type="submit"]').filter(has_text='Save and continue editing').click()
+    
+    # Wait for the page to fully load after navigation
+    page.wait_for_load_state('networkidle')
 
-    url_with_id = page.locator('.historylink').get_attribute('href')
-    return int(url_with_id.strip('/').split('/')[-2])
+    # Check if there were any form errors
+    if page.locator('.errorlist').count() > 0:
+        errors = page.locator('.errorlist').all_text_contents()
+        raise ValueError(f"Form validation errors: {errors}")
+    
+    # Django 5.2 changed the admin HTML structure, so we get the ID from the current URL
+    # URL format: /admin/app/model/123/change/
+    current_url = page.url
+    
+    # If still on add page, check for success message and try alternative methods
+    if '/add/' in current_url:
+        # Check if save was successful (look for success message)
+        if page.locator('.success').count() > 0 or page.locator('.messagelist .success').count() > 0:
+            # Try to get ID from breadcrumb or other location
+            # For some models, we might need to navigate to the list and find it
+            raise ValueError(f"Object was created but still on add page. URL: {current_url}")
+        else:
+            raise ValueError(f"Failed to save object. Still on add page: {current_url}")
+    
+    url_parts = current_url.rstrip('/').split('/')
+    
+    # Find the numeric ID in the URL (should be second-to-last part before 'change')
+    if 'change' in url_parts:
+        id_index = url_parts.index('change') - 1
+        return int(url_parts[id_index])
+    else:
+        # Fallback: look for the first numeric part after the model name
+        for i, part in enumerate(url_parts):
+            if part.isdigit():
+                return int(part)
+        raise ValueError(f"Could not extract ID from URL: {current_url}")
 
 
 def _go_to_model(page, admin_path, filters):

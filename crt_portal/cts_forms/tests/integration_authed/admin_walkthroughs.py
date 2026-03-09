@@ -46,7 +46,7 @@ def _click_through_steps(page, tour, report, *, current_step=None, total_steps=N
         ]
 
     step = page.locator(f'.shepherd-step-number-{current_step}')
-    step.wait_for()
+    step.wait_for(timeout=60000)  # Increase timeout to 60 seconds for slow walkthroughs
     header = step.locator('.shepherd-header').inner_text()
     text = step.locator('.shepherd-text').inner_html()
     caption = f'<h1>{header}</h1><p>{text}</p>'
@@ -57,6 +57,8 @@ def _click_through_steps(page, tour, report, *, current_step=None, total_steps=N
     logging.warning(f'Clicking through walkthrough {tour} ({current_step}/{total_steps})')
     if current_step < total_steps:
         step.locator('.shepherd-button').filter(has_text="Next").click()
+        # Give time for the walkthrough to transition and potentially navigate
+        page.wait_for_timeout(1000)
         return _click_through_steps(page, tour, report, current_step=current_step + 1, total_steps=total_steps)
 
     step.locator('.shepherd-button').filter(has_text="Done").click()
