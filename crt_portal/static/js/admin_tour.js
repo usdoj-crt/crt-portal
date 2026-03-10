@@ -82,7 +82,10 @@
             if (link) {
               const rawHref = link.getAttribute('href');
               // Build the URL and set tour params
-              const absoluteUrl = new URL(rawHref, window.location.origin + window.location.pathname);
+              const absoluteUrl = new URL(
+                rawHref,
+                window.location.origin + window.location.pathname
+              );
               absoluteUrl.search = '?admin-tour=setup-referral-contact&admin-tour-step=3';
               window.location = absoluteUrl.toString();
             }
