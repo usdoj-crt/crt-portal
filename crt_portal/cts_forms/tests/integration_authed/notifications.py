@@ -1,7 +1,7 @@
 import pytest
 
 from cts_forms.tests.integration_authed.auth import login_as_superuser, get_test_credentials
-from cts_forms.tests.integration_util import console, reporting, admin_models, element
+from cts_forms.tests.integration_util import console, reporting, admin_models
 
 
 @pytest.mark.only_browser("chromium")
@@ -152,12 +152,12 @@ def test_notifications_send(page):
 def test_group_saved_search_notification(page):
     login_as_superuser(page)
     username, _ = get_test_credentials()
-    
+
     # Clean up any existing test group from previous runs
     admin_models.delete(page,
                         '/admin/auth/group',
                         name__contains='Group Integration Test')
-    
+
     admin_models.create(
         page,
         '/admin/auth/group',

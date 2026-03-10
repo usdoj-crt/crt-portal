@@ -32,7 +32,7 @@ def defeat_challenge(func):
     @functools.wraps(func)
     def decorator(page, *args, **kwargs):
         defeat_key = os.environ.get('CHALLENGE_DEFEAT_KEY')
-        
+
         if defeat_key:
             extra_headers = {
                 'X-Challenge-Defeat': defeat_key

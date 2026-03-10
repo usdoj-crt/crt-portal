@@ -114,7 +114,7 @@ def create(page, admin_path, **fields) -> int:
 
     with page.expect_navigation():
         page.locator('input[type="submit"]').filter(has_text='Save and continue editing').click()
-    
+
     # Wait for the page to fully load after navigation
     page.wait_for_load_state('networkidle')
 
@@ -122,11 +122,11 @@ def create(page, admin_path, **fields) -> int:
     if page.locator('.errorlist').count() > 0:
         errors = page.locator('.errorlist').all_text_contents()
         raise ValueError(f"Form validation errors: {errors}")
-    
+
     # Django 5.2 changed the admin HTML structure, so we get the ID from the current URL
     # URL format: /admin/app/model/123/change/
     current_url = page.url
-    
+
     # If still on add page, check for success message and try alternative methods
     if '/add/' in current_url:
         # Check if save was successful (look for success message)
@@ -136,9 +136,9 @@ def create(page, admin_path, **fields) -> int:
             raise ValueError(f"Object was created but still on add page. URL: {current_url}")
         else:
             raise ValueError(f"Failed to save object. Still on add page: {current_url}")
-    
+
     url_parts = current_url.rstrip('/').split('/')
-    
+
     # Find the numeric ID in the URL (should be second-to-last part before 'change')
     if 'change' in url_parts:
         id_index = url_parts.index('change') - 1
