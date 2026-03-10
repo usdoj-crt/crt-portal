@@ -57,7 +57,9 @@ def _click_through_steps(page, tour, report, *, current_step=None, total_steps=N
     logging.warning(f'Clicking through walkthrough {tour} ({current_step}/{total_steps})')
     if current_step < total_steps:
         step.locator('.shepherd-button').filter(has_text="Next").click()
-        # Give time for the walkthrough to transition and potentially navigate
+        # Wait for page to fully load if navigation occurs
+        page.wait_for_load_state('networkidle', timeout=10000)
+        # Give additional time for shepherd to transition
         page.wait_for_timeout(1000)
         return _click_through_steps(page, tour, report, current_step=current_step + 1, total_steps=total_steps)
 
