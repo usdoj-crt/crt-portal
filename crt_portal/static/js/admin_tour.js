@@ -76,19 +76,24 @@
               <p>Here we can see some existing Referral templates.</p>
               <p>Let's take a look at this first template as an example.</p>
             `,
-          when: {
-            show: () => {
-              const toBeClicked = document.querySelector('#result_list tr th a');
-              toBeClicked.href += '&admin-tour=setup-referral-contact&admin-tour-step=3';
-            }
-          },
           nextAction: () => {
-            document.querySelector('#result_list tr th a').click();
+            // Find the first record link in the result table
+            const link = document.querySelector('#result_list tbody tr:first-child th a');
+            if (link) {
+              const rawHref = link.getAttribute('href');
+              // Build the URL and set tour params
+              const absoluteUrl = new URL(
+                rawHref,
+                window.location.origin + window.location.pathname
+              );
+              absoluteUrl.search = '?admin-tour=setup-referral-contact&admin-tour-step=3';
+              window.location = absoluteUrl.toString();
+            }
           },
           mustBeOnUrl:
             '/admin/cts_forms/responsetemplate/?title__icontains=dept%20of%20ed%20referral%20form',
           attachTo: {
-            element: '#result_list tr th a',
+            element: '#result_list tbody tr:first-child th a',
             scrollTo: true
           }
         },

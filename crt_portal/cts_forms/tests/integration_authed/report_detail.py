@@ -139,7 +139,7 @@ def test_click_back_to_all(page, *, report):
 
     report.screenshot(page, full_page=True, caption='This test verfiies that users can click the "Back to all" button from the Report Details page to return to the list of reports with the correct filter.')
     with page.expect_navigation():
-        page.locator('#apply-filters-button').click()
+        page.locator('#apply-filters-button').first.click()
 
     total_results = page.evaluate("document.querySelector('.intake-pagination').innerText.split(' ')[5]")
     first_result = page.evaluate("document.querySelector('.stripe > td > .td-checkbox > input').value")

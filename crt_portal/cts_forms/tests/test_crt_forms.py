@@ -1303,7 +1303,7 @@ class BulkActionsFormTests(TestCase):
         updates = form.get_updates()
         self.assertEqual(updates['assigned_section'], 'APP')
         self.assertEqual(updates['primary_statute'], None)
-        self.assertEqual(updates['assigned_to'], '')
+        self.assertEqual(updates['assigned_to'], None)
         self.assertEqual(updates['status'], 'new')
 
         # the only action in the activity stream should be the section change
@@ -1331,12 +1331,12 @@ class BulkActionsFormTests(TestCase):
         updates = form.get_updates()
         self.assertEqual(updates['assigned_section'], 'APP')
         self.assertEqual(updates['primary_statute'], None)
-        self.assertEqual(updates['assigned_to'], '')
+        self.assertEqual(updates['assigned_to'], None)
         self.assertEqual(updates['status'], 'new')
 
         # actions should include the section and assigned_to
         expected_actions = [
-            ('Assigned to:', f'Updated from "{user.username}" to ""'),
+            ('Assigned to:', f'Updated from "{user.username}" to "None"'),
             ('Assigned section:', 'Updated from "ADM" to "APP"')
         ]
         for action in form.get_actions(queryset.first()):
