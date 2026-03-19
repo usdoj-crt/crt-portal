@@ -3,10 +3,10 @@ import csv
 from django.core.management.base import BaseCommand, CommandError
 from django.db.models import Prefetch
 from cts_forms.models import Report, ReportsData, CommentAndSummary
-from datetime import datetime
+from datetime import datetime, timezone
 from io import StringIO
 from django.core.files.base import ContentFile
-from pytz import timezone
+from zoneinfo import ZoneInfo
 
 from ...admin import iter_queryset, prepare_report_csv_queryset
 
@@ -20,15 +20,13 @@ class Command(BaseCommand):  # pragma: no cover
     def handle(self, *args, **options):
         try:
             # For performance monitoring
-            UTC = timezone('UTC')
-            EST = timezone('America/New_York')
             start = time.time()
             year_range = list(range(2020, datetime.today().year + 1))
             total_count = 0
             # Create reports for each year
             for year in year_range:
-                start_date = UTC.localize(datetime(year, 1, 1))
-                end_date = UTC.localize(datetime(year, 12, 31, 23, 59, 59))
+                start_date = datetime(year, 1, 1, tzinfo=timezone.utc)
+                end_date = datetime(year, 12, 31, 23, 59, 59, tzinfo=timezone.utc)
                 filename = f'reports-data-{year}.csv'
                 headers = REPORT_FIELDS + ['protected_class', 'internal_summary']
                 summaries = CommentAndSummary.objects.filter(is_summary=True).order_by('-modified_date')
@@ -48,13 +46,13 @@ class Command(BaseCommand):  # pragma: no cover
                     reports_data = ReportsData.objects.filter(filename=filename).first()
                     reports_data.file.save(filename, csv_file)
                     reports_data.filename = filename
-                    reports_data.modified_date = EST.localize(datetime.now())
+                    reports_data.modified_date = datetime.now(ZoneInfo('America/New_York'))
                     reports_data.save()
                 except AttributeError:
                     reports_data = ReportsData.objects.create()
                     reports_data.file.save(filename, csv_file)
                     reports_data.filename = filename
-                    reports_data.modified_date = EST.localize(datetime.now())
+                    reports_data.modified_date = datetime.now(ZoneInfo('America/New_York'))
                     reports_data.save()
 
             # Stop the timer:

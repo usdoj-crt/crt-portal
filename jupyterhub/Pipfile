@@ -20,7 +20,7 @@ exceptiongroup = "*"
 pyzmq = "26.4.0"
 
 [requires]
-python_version = "3.13.11"
+python_version = "3.14.2"
 
 [pipenv]
 allow_prereleases = true

@@ -41,7 +41,7 @@ services:
       - FORM_AUTOCOMPLETE_OFF=False
       - AWS_ACCESS_KEY_ID=test
       - AWS_SECRET_ACCESS_KEY=test
-      - AV_SCAN_URL=http://clamav-rest:${CLAMAV_REST_PORT:-9000}/scan
+      - AV_SCAN_URL=http://clamav-rest:${CLAMAV_REST_PORT:-9000}/v2/scan
       - CHALLENGE_SITE_KEY=${CHALLENGE_SITE_KEY}
       - CHALLENGE_SECRET_KEY=${CHALLENGE_SECRET_KEY}
       - CHALLENGE_DEFEAT_KEY=${CHALLENGE_DEFEAT_KEY}
