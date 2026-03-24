@@ -1,3 +1,10 @@
+---
+title: EOS Form Letter
+subject: "Thank you for submitting a report to the Civil Rights Division"
+language: en
+is_html: true
+---
+
 {{ addressee }},
 
 You contacted the Department of Justice on {{ date_of_intake }}. Reports like the one you submitted are an important part of our efforts to track civil rights compliance, and to develop evidence of patterns and practices of behavior. We use individual reports to determine which issues are affecting the most people or which issues are prevalent in communities across the country. Your report helps us to understand emerging trends and topics in civil rights enforcement.
