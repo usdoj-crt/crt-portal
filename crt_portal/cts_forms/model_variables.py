@@ -284,6 +284,7 @@ BATCH_STATUS_CHOICES = (
 
 # CRT views only
 SECTION_CHOICES = (
+    ('2AS', 'Second Amendment Rights'),
     ('ADM', 'Administrative'),
     ('APP', 'Appellate'),
     ('CRM', 'Criminal'),
