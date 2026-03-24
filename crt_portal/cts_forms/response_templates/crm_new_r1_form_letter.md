@@ -4,6 +4,7 @@ subject: "Response: Your Civil Rights Division Report - {{ record_locator }} fro
 language: en
 is_html: true
 ---
+
 {{ addressee }},
 
 You contacted the Department of Justice on {{ date_of_intake }}, regarding a potential civil rights violation. After careful review, we have determined that we are unable to take action on your report.
@@ -28,7 +29,7 @@ We are not determining that your complaint lacks merit. You may want to consult 
 
 While we cannot take action on each individual report, your report can help us find issues affecting multiple people of communities. It also helps us understand emerging trends or topics.
 
-Thank you for take the time to contact the Department of Justice about your concerns.
+Thank you for taking the time to contact the Department of Justice about your concerns.
 
 Sincerely,
 
