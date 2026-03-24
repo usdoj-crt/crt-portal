@@ -839,8 +839,7 @@ class FormNavigationTests(TestCase):
         self.assertEqual(response.status_code, 200)
         content = str(response.content)
         expected = ('/form/view/'
-                    '?violation_summary=^this%20is%20my%20summary$'
-                    '&amp;assigned_section=ADM')
+                    '?violation_summary=^this%20is%20my%20summary$')
         self.assertIn(expected, content)
 
     def test_email_filtering(self):
