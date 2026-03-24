@@ -1,5 +1,5 @@
 ---
-title: EOS Form Letter
+title: EOS - Form Letter
 subject: "Thank you for submitting a report to the Civil Rights Division"
 language: en
 is_html: true
