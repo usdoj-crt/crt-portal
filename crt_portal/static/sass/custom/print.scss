@@ -96,6 +96,16 @@
     display: block;
     page-break-after: always;
   }
+
+  // Hide link text and only show the href URL for printed form letters
+  #form-letterhead a[href] {
+    font-size: 0;
+  }
+
+  #form-letterhead a[href]:after {
+    content: attr(href);
+    font-size: initial;
+  }
 }
 
 // print-only cards

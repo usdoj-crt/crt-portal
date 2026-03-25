@@ -83,8 +83,13 @@ hr {
   margin-bottom: 1rem;
 }
 
+a[href] {
+  font-size: 0;
+}
+
 a[href]:after {
-  content: ' (' attr(href) ')';
+  content: attr(href);
+  font-size: initial;
 }
   </style>
 </head>
