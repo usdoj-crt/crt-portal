@@ -56,8 +56,8 @@ pypdf = "*"
 beautifulsoup4 = "*"
 tzdata = "*"
 mozilla-django-oidc = "*"
-weasyprint = "<=66.0"
 greenlet = "*"
+weasyprint = "*"
 
 [requires]
 python_version = "3.14.2"
