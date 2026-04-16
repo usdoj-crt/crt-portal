@@ -58,6 +58,7 @@ tzdata = "*"
 mozilla-django-oidc = "*"
 greenlet = "*"
 weasyprint = "*"
+bleach = {git = "https://github.com/mozilla/bleach.git", ref = "626352f", extras = ["css"]}
 
 [requires]
 python_version = "3.14.2"
