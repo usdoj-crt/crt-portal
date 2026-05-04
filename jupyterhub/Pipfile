@@ -5,7 +5,7 @@ verify_ssl = true
 
 [packages]
 jupyterhub = "*"
-jupyterlab = "~=4.4.8"
+jupyterlab = "~=4.5.7"
 jupyter_client = "*"
 httpx = "~=0.28.1"
 oauthenticator = "*"
