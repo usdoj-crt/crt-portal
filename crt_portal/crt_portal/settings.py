@@ -402,9 +402,9 @@ allowed_sources = [
     'https://cdnjs.cloudflare.com/',
     'https://challenges.cloudflare.com/',
     'https://www.google.com/',
-    'a.tile.openstreetmap.org',  # For loading image tiles in map data
-    'b.tile.openstreetmap.org',  # For loading image tiles in map data
-    'c.tile.openstreetmap.org',  # For loading image tiles in map data
+    'https://*.tile.openstreetmap.org',  # To load tile maps
+    'https://tile.openstreetmap.org',  # To load tile maps
+    'https://basemaps.cartocdn.com',  # To load tile maps
     *env_csp_sources,
 ]
 # headers required for security
@@ -435,9 +435,9 @@ CONTENT_SECURITY_POLICY = {
             'https://cdnjs.cloudflare.com/',
             'https://challenges.cloudflare.com/',
             'https://www.google.com/',
-            'a.tile.openstreetmap.org',  # For loading image tiles in map data
-            'b.tile.openstreetmap.org',  # For loading image tiles in map data
-            'c.tile.openstreetmap.org',  # For loading image tiles in map data
+            'https://*.tile.openstreetmap.org',  # To display tile maps data
+            'https://tile.openstreetmap.org',  # To display tile maps data
+            'https://basemaps.cartocdn.com',  # To display tile maps data
             *env_csp_sources,
         ],
         'connect-src': [
@@ -452,17 +452,17 @@ CONTENT_SECURITY_POLICY = {
             'https://cdnjs.cloudflare.com/',
             'https://challenges.cloudflare.com/',
             'https://www.google.com/',
-            'a.tile.openstreetmap.org',  # For loading image tiles in map data
-            'b.tile.openstreetmap.org',  # For loading image tiles in map data
-            'c.tile.openstreetmap.org',  # For loading image tiles in map data
+            'https://*.tile.openstreetmap.org',  # To display tile maps
+            'https://tile.openstreetmap.org',  # To display tile maps
+            'https://basemaps.cartocdn.com',  # To display tile maps
             *env_csp_sources,
         ],
         'img-src': [
             *allowed_sources,
             'data:',
-            'a.tile.openstreetmap.org',  # For loading image tiles in map data
-            'b.tile.openstreetmap.org',  # For loading image tiles in map data
-            'c.tile.openstreetmap.org',  # For loading image tiles in map data
+            'https://*.tile.openstreetmap.org',  # To display tile maps
+            'https://tile.openstreetmap.org',  # To display tile maps
+            'https://basemaps.cartocdn.com',  # To display tile maps
         ],
         'media-src': allowed_sources,
         'frame-src': allowed_sources,
