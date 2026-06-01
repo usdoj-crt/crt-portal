@@ -72,7 +72,7 @@
   function addMsg(text, role) {
     var div = document.createElement('div');
     // Base classes for all messages
-    div.className = 'padding-1 padding-x-105 radius-md font-sans-xs line-height-sans-4 maxw-card-lg';
+    div.className = 'padding-1 radius-md maxw-card-lg';
     div.style.whiteSpace = 'pre-wrap';
     div.style.wordWrap = 'break-word';
 
