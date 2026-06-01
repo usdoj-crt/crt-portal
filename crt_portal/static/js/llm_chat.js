@@ -9,6 +9,8 @@
   var heading = document.getElementById('llm-chat-heading');
   var closeBtn = document.getElementById('llm-chat-close');
   var messages = document.getElementById('llm-chat-messages');
+  var quickActions = document.getElementById('llm-chat-quick-actions');
+  var summarizeBtn = document.getElementById('llm-chat-summarize');
   var inputPanel = document.getElementById('llm-chat-input-panel');
   var input = document.getElementById('llm-chat-input');
   var sendBtn = document.getElementById('llm-chat-send');
@@ -22,6 +24,14 @@
   messages.style.flex = '1 1 auto';
   messages.style.minHeight = '0';
   inputPanel.style.direction = 'ltr';
+
+  // Detect if we're on a report detail page and expose the summarize button.
+  var reportIdMatch = window.location.pathname.match(/\/form\/view\/(\d+)\//);
+  var reportId = reportIdMatch ? reportIdMatch[1] : null;
+  if (reportId && quickActions) {
+    quickActions.style.direction = 'ltr';
+    quickActions.removeAttribute('hidden');
+  }
 
   widget.removeAttribute('hidden');
 
@@ -118,7 +128,45 @@
     });
   }
 
+  function summarize() {
+    if (!reportId) return;
+    summarizeBtn.disabled = true;
+    sendBtn.disabled = true;
+    addMsg('Summarize this report', 'user');
+    showTyping();
+
+    fetch('/form/view/' + reportId + '/llm/summarize/', {
+      headers: { 'X-CSRFToken': getCookie('csrftoken') }
+    })
+    .then(function(resp) {
+      return resp.json().then(function(data) {
+        return { ok: resp.ok, data: data };
+      });
+    })
+    .then(function(result) {
+      removeTyping();
+      if (result.ok && result.data.response) {
+        addMsg(result.data.response, 'assistant');
+      } else {
+        addMsg(result.data.error || 'Something went wrong.', 'error');
+      }
+    })
+    .catch(function(err) {
+      removeTyping();
+      addMsg('Network error: ' + err.message, 'error');
+    })
+    .finally(function() {
+      summarizeBtn.disabled = false;
+      sendBtn.disabled = false;
+      input.focus();
+    });
+  }
+
   sendBtn.addEventListener('click', send);
+
+  if (summarizeBtn) {
+    summarizeBtn.addEventListener('click', summarize);
+  }
 
   input.addEventListener('keydown', function(e) {
     if (e.key === 'Enter' && !e.shiftKey) {

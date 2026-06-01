@@ -27,7 +27,7 @@ from django.core.management import call_command
 from django.core.paginator import Paginator
 from django.db.models import F, Subquery, OuterRef, Value, CharField, DateField, Case, When
 from django.http import Http404, HttpResponse, JsonResponse, QueryDict
-from django.views.decorators.http import require_POST
+from django.views.decorators.http import require_GET, require_POST
 from django.shortcuts import get_object_or_404, redirect, render, reverse
 from django.utils.html import mark_safe
 from django.views.generic import FormView, TemplateView, View
@@ -2437,6 +2437,57 @@ def llm_chat_view(request):
         return JsonResponse({'error': 'Message cannot be empty.'}, status=400)
 
     response = llm_chat(message)
+    if response is None:
+        return JsonResponse({'error': 'LLM service is unavailable.'}, status=503)
+
+    return JsonResponse({'response': response})
+
+
+@require_GET
+@login_required
+def llm_summarize_report_view(request, id):
+    """Fetch a report's key fields and ask the LLM to summarize it."""
+    from llm import chat as llm_chat
+
+    report = get_object_or_404(Report, pk=id)
+
+    protected_classes = ', '.join(
+        pc.value for pc in report.protected_class.all().order_by('form_order')
+    ) or 'None'
+
+    incident_date_parts = [report.last_incident_month, report.last_incident_day, report.last_incident_year]
+    incident_date = '/'.join(str(p) for p in incident_date_parts if p) or 'Unknown'
+
+    location_parts = [p for p in [report.location_city_town, report.location_state] if p]
+    location = ', '.join(location_parts) or 'Unknown'
+
+    lines = [
+        f'Report ID: {report.public_id}',
+        f'Status: {report.status}',
+        f'Section: {report.assigned_section}',
+        f'Primary issue: {report.get_primary_complaint_display()}',
+        f'Protected class(es): {protected_classes}',
+        f'Incident date: {incident_date}',
+        f'Location: {location}',
+    ]
+    if report.location_name:
+        lines.append(f'Organization: {report.location_name}')
+    if report.servicemember:
+        lines.append(f'Servicemember: {report.servicemember}')
+    if report.hate_crime:
+        lines.append(f'Hate crime: {report.hate_crime}')
+    if report.dj_number:
+        lines.append(f'DJ number: {report.dj_number}')
+    lines.append(f"\nComplainant's description:\n{report.violation_summary or 'No description provided.'}")
+
+    prompt = (
+        'You are a civil rights case analyst. Provide a concise, neutral summary '
+        'of the following civil rights complaint. Cover: who filed it, what allegedly '
+        'happened, and where and when this took place.\n\n'
+        + '\n'.join(lines)
+    )
+
+    response = llm_chat(prompt)
     if response is None:
         return JsonResponse({'error': 'LLM service is unavailable.'}, status=503)
 

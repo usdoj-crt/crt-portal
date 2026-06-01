@@ -10,6 +10,11 @@
       <button id="llm-chat-close" class="usa-button usa-button--unstyled text-white text-no-underline" aria-label="Close chat">X</button>
     </div>
     <div id="llm-chat-messages" class="display-flex flex-column gap-1 padding-2 overflow-y-auto"></div>
+    <div id="llm-chat-quick-actions" class="display-flex flex-wrap gap-1 padding-x-2 padding-y-1" hidden>
+      <button id="llm-chat-summarize" class="usa-button usa-button--outline font-sans-3xs padding-y-05 padding-x-1 height-auto" type="button">
+        &#10024; Summarize this report
+      </button>
+    </div>
     <div id="llm-chat-input-panel" class="display-flex flex-align-end gap-1 padding-2 border-top-1px border-base-lighter">
       <textarea id="llm-chat-input" class="usa-textarea flex-fill margin-top-0 margin-right-2" placeholder="Type a message..." rows="1"></textarea>
       <button id="llm-chat-send" class="usa-button margin-0">Send</button>

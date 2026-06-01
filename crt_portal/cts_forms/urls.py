@@ -2,7 +2,7 @@ from django.urls import path
 
 from .views import (ActionsView, SavedSearchActionView, SavedSearchView, data_piecemeal_view, new_user_landing_view, index_view, data_view, dashboard_view, dashboard_activity_log_view, disposition_view, RoutingGuideView, DispositionGuideView, DispositionActionsView, DispositionBatchActionsView, ShowView, ProFormView,
                     SaveCommentView, TrendView, ResponseView, SearchHelperView,
-                    PrintView, ProfileView, ReportAttachmentView, ReportDataView, DataExport, RemoveReportAttachmentView, unsubscribe_view, notification_view, phone_pro_form_view, test_site_view, resources_view, ResourceActionView, llm_chat_view)
+                    PrintView, ProfileView, ReportAttachmentView, ReportDataView, DataExport, RemoveReportAttachmentView, unsubscribe_view, notification_view, phone_pro_form_view, test_site_view, resources_view, ResourceActionView, llm_chat_view, llm_summarize_report_view)
 from .forms import ProForm
 
 app_name = 'crt_forms'
@@ -48,4 +48,5 @@ urlpatterns = [
     path('resources/', resources_view, name='resources'),
     path('resources/actions', ResourceActionView.as_view(), name='resource-actions'),
     path('llm/chat/', llm_chat_view, name='llm-chat'),
+    path('view/<int:id>/llm/summarize/', llm_summarize_report_view, name='llm-summarize-report'),
 ]
