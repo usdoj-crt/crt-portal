@@ -4,8 +4,8 @@
         <use href="/static/img/sprite.svg#chat"></use>
       </svg>
   </button>
-  <div id="llm-chat-panel" class="display-flex flex-column flex-justify position-absolute bottom-full right-0 margin-bottom-1 bg-white radius-lg shadow-3" hidden>
-    <div>
+  <div id="llm-chat-panel" class="display-flex flex-column position-absolute bottom-full right-0 margin-bottom-1 bg-white radius-lg shadow-3" hidden>
+    <div id="llm-chat-top" class="display-flex flex-column flex-1 overflow-hidden">
         <div id="llm-chat-resize" class="position-absolute top-0 left-0 square-3" aria-hidden="true">
         <svg class="usa-icon text-white" aria-hidden="true" focusable="false">
             <use href="/static/img/sprite.svg#arrow_drop_up"></use>
@@ -17,7 +17,7 @@
         </div>
         <div id="llm-chat-messages" class="margin-2"></div>
     </div>
-    <div>
+    <div id="llm-chat-bottom">
         <div id="llm-chat-quick-actions" class="padding-x-2 padding-y-1" hidden>
             <button id="llm-chat-summarize" class="display-flex flex-align-center flex-justify-center usa-button usa-button--outline height-2" type="button">
                 &#10024; Summarize this report
