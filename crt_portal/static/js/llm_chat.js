@@ -77,9 +77,10 @@
 
     var div = document.createElement('div');
     // Base classes for all messages
-    div.className = 'padding-1 radius-md maxw-card-lg';
+    div.className = 'padding-1 radius-md';
     div.style.whiteSpace = 'pre-wrap';
     div.style.wordWrap = 'break-word';
+    div.style.maxWidth = '66%';
 
     if (role === 'user') {
       div.className += ' bg-primary text-white';
