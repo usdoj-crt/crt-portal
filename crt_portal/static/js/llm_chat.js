@@ -70,6 +70,9 @@
   });
 
   function addMsg(text, role) {
+    var messageWrapper = document.createElement('div');
+    messageWrapper.className = 'display-flex margin-1'
+
     var div = document.createElement('div');
     // Base classes for all messages
     div.className = 'padding-1 radius-md maxw-card-lg';
@@ -77,15 +80,19 @@
     div.style.wordWrap = 'break-word';
 
     if (role === 'user') {
-      div.className += ' align-self-end bg-primary text-white';
+      div.className += ' bg-primary text-white';
+      messageWrapper.className += ' flex-justify-end'
     } else if (role === 'assistant') {
-      div.className += ' align-self-start bg-base-lightest text-base-darkest';
+      div.className += ' bg-base-lightest text-base-darkest';
+      messageWrapper.className += ' flex-justify-start'
     } else if (role === 'error') {
-      div.className += ' align-self-start bg-error-lighter text-error-dark';
+      div.className += ' bg-error-lighter text-error-dark';
+      messageWrapper.className += ' flex-justify-start'
     }
 
     div.textContent = text;
-    messages.appendChild(div);
+    messages.appendChild(messageWrapper);
+    messageWrapper.appendChild(div);
     messages.scrollTop = messages.scrollHeight;
   }
 
