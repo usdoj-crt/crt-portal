@@ -9,7 +9,6 @@
   var heading = document.getElementById('llm-chat-heading');
   var closeBtn = document.getElementById('llm-chat-close');
   var messages = document.getElementById('llm-chat-messages');
-  var topSection = document.getElementById('llm-chat-top');
   var bottomSection = document.getElementById('llm-chat-bottom');
   var resizeHandle = document.getElementById('llm-chat-resize');
   var quickActions = document.getElementById('llm-chat-quick-actions');
@@ -21,11 +20,7 @@
   panel.style.minWidth = '400px';
   panel.style.minHeight = '300px';
   panel.style.height = '450px';
-  topSection.style.minHeight = '0';
   heading.style.flexShrink = '0';
-  messages.style.flex = '1';
-  messages.style.minHeight = '0';
-  messages.style.overflowY = 'auto';
   bottomSection.style.flexShrink = '0';
   input.style.resize = 'none';
   input.style.maxWidth = 'none';
@@ -55,10 +50,8 @@
   });
 
   // Detect if we're on a report detail page and expose the summarize button.
-  var reportIdMatch = window.location.pathname.match(/\/form\/view\/(\d+)\//);
-  var reportId = reportIdMatch ? reportIdMatch[1] : null;
+  var reportId = widget.dataset.reportId || null;
   if (reportId && quickActions) {
-    quickActions.style.direction = 'ltr';
     quickActions.removeAttribute('hidden');
   }
 

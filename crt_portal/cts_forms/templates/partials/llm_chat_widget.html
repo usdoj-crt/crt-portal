@@ -1,11 +1,11 @@
-<div id="llm-chat-widget" class="position-fixed bottom-3 right-3 z-500" hidden>
+<div id="llm-chat-widget" class="position-fixed bottom-3 right-3 z-500" data-report-id="{{ report_id }}" hidden>
   <button id="llm-chat-toggle" class="usa-button circle-6 margin-0 padding-0" aria-label="Open chat" title="Chat with LLM">
       <svg class="usa-icon usa-icon--size-3 text-white" aria-hidden="true" focusable="false">
         <use href="/static/img/sprite.svg#chat"></use>
       </svg>
   </button>
   <div id="llm-chat-panel" class="display-flex flex-column position-absolute bottom-full right-0 margin-bottom-1 bg-white radius-lg shadow-3" hidden>
-    <div id="llm-chat-top" class="display-flex flex-column flex-1 overflow-hidden">
+    <div id="llm-chat-top" class="display-flex flex-column flex-1 minh-0 overflow-hidden">
         <div id="llm-chat-resize" class="position-absolute top-0 left-0 square-3" aria-hidden="true">
         <svg class="usa-icon text-white" aria-hidden="true" focusable="false">
             <use href="/static/img/sprite.svg#arrow_drop_up"></use>
@@ -15,7 +15,7 @@
             <span>AI</span>
             <button id="llm-chat-close" class="usa-button usa-button--unstyled text-white text-no-underline" aria-label="Close chat">X</button>
         </div>
-        <div id="llm-chat-messages" class="margin-2"></div>
+        <div id="llm-chat-messages" class="margin-2 flex-1 minh-0 overflow-y-auto"></div>
     </div>
     <div id="llm-chat-bottom">
         <div id="llm-chat-quick-actions" class="padding-x-2 padding-y-1" hidden>

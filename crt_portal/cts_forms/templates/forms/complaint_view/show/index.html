@@ -123,7 +123,7 @@
     </div>
   </div>
 </div>
-{% include 'partials/llm_chat_widget.html' %}
+{% include 'partials/llm_chat_widget.html' with report_id=data.id %}
 {% endblock %}
 
 {% block usa_footer %}
