@@ -45,6 +45,9 @@ services:
       - CHALLENGE_SITE_KEY=${CHALLENGE_SITE_KEY}
       - CHALLENGE_SECRET_KEY=${CHALLENGE_SECRET_KEY}
       - CHALLENGE_DEFEAT_KEY=${CHALLENGE_DEFEAT_KEY}
+      - LLM_BACKEND=${LLM_BACKEND}
+      - LLM_BASE_URL=${LLM_BASE_URL}
+      - LLM_MODEL=${LLM_MODEL}
     build: .
     command: /code/run.sh
     depends_on:

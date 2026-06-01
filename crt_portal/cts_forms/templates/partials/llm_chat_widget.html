@@ -1,0 +1,18 @@
+<div id="llm-chat-widget" class="position-fixed bottom-3 right-3 z-500" hidden>
+  <button id="llm-chat-toggle" class="usa-button circle-6 margin-0 padding-0" aria-label="Open chat" title="Chat with LLM">
+      <svg class="usa-icon usa-icon--size-3 text-white" aria-hidden="true" focusable="false">
+        <use href="/static/img/sprite.svg#chat"></use>
+      </svg>
+  </button>
+  <div id="llm-chat-panel" class="position-absolute bottom-full right-0 margin-bottom-1 bg-white radius-lg shadow-3 display-flex flex-column overflow-auto width-card-lg" hidden>
+    <div id="llm-chat-heading" class="display-flex flex-justify flex-align-center padding-2 bg-primary-darker text-white text-bold">
+      <span>AI</span>
+      <button id="llm-chat-close" class="usa-button usa-button--unstyled text-white text-no-underline" aria-label="Close chat">X</button>
+    </div>
+    <div id="llm-chat-messages" class="display-flex flex-column gap-1 padding-2 overflow-y-auto"></div>
+    <div id="llm-chat-input-panel" class="display-flex flex-align-end gap-1 padding-2 border-top-1px border-base-lighter">
+      <textarea id="llm-chat-input" class="usa-textarea flex-fill margin-top-0 margin-right-2" placeholder="Type a message..." rows="1"></textarea>
+      <button id="llm-chat-send" class="usa-button margin-0">Send</button>
+    </div>
+  </div>
+</div>

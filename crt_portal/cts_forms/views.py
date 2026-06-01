@@ -26,7 +26,8 @@ from django.core.exceptions import SuspiciousOperation, BadRequest
 from django.core.management import call_command
 from django.core.paginator import Paginator
 from django.db.models import F, Subquery, OuterRef, Value, CharField, DateField, Case, When
-from django.http import Http404, HttpResponse, QueryDict
+from django.http import Http404, HttpResponse, JsonResponse, QueryDict
+from django.views.decorators.http import require_POST
 from django.shortcuts import get_object_or_404, redirect, render, reverse
 from django.utils.html import mark_safe
 from django.views.generic import FormView, TemplateView, View
@@ -2418,3 +2419,25 @@ class SearchHelperView(LoginRequiredMixin, PortalAccessRequiredMixin, TemplateVi
             'return_url_args': return_url_args,
         }
         return render(request, 'forms/complaint_view/search_help.html', output)
+
+
+@require_POST
+@login_required
+def llm_chat_view(request):
+    """API endpoint that forwards a message to the LLM and returns the response."""
+    from llm import chat as llm_chat
+
+    try:
+        body = json.loads(request.body)
+        message = body.get('message', '').strip()
+    except (json.JSONDecodeError, AttributeError):
+        return JsonResponse({'error': 'Invalid request body.'}, status=400)
+
+    if not message:
+        return JsonResponse({'error': 'Message cannot be empty.'}, status=400)
+
+    response = llm_chat(message)
+    if response is None:
+        return JsonResponse({'error': 'LLM service is unavailable.'}, status=503)
+
+    return JsonResponse({'response': response})
