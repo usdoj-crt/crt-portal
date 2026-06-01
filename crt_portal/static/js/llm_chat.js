@@ -9,21 +9,41 @@
   var heading = document.getElementById('llm-chat-heading');
   var closeBtn = document.getElementById('llm-chat-close');
   var messages = document.getElementById('llm-chat-messages');
+  var resizeHandle = document.getElementById('llm-chat-resize');
   var quickActions = document.getElementById('llm-chat-quick-actions');
   var summarizeBtn = document.getElementById('llm-chat-summarize');
   var inputPanel = document.getElementById('llm-chat-input-panel');
   var input = document.getElementById('llm-chat-input');
   var sendBtn = document.getElementById('llm-chat-send');
 
-  panel.style.direction = 'rtl';
-  panel.style.resize = 'both';
-  panel.style.minWidth = '200px';
-  panel.style.minHeight = '200px';
-  heading.style.direction = 'ltr';
-  messages.style.direction = 'ltr';
-  messages.style.flex = '1 1 auto';
-  messages.style.minHeight = '0';
-  inputPanel.style.direction = 'ltr';
+  panel.style.minWidth = '400px';
+  panel.style.minHeight = '300px';
+  input.style.resize = 'none';
+  input.style.maxWidth = 'none';
+  input.style.maxHeight = '600px';
+
+  resizeHandle.style.cursor = 'nw-resize';
+  resizeHandle.style.transform = 'rotate(-45deg)';
+  resizeHandle.addEventListener('mousedown', function(e) {
+    e.preventDefault();
+    var startX = e.clientX;
+    var startY = e.clientY;
+    var startW = panel.offsetWidth;
+    var startH = panel.offsetHeight;
+
+    function onMove(e) {
+      panel.style.width = Math.max(200, startW - (e.clientX - startX)) + 'px';
+      panel.style.height = Math.max(200, startH - (e.clientY - startY)) + 'px';
+    }
+
+    function onUp() {
+      document.removeEventListener('mousemove', onMove);
+      document.removeEventListener('mouseup', onUp);
+    }
+
+    document.addEventListener('mousemove', onMove);
+    document.addEventListener('mouseup', onUp);
+  });
 
   // Detect if we're on a report detail page and expose the summarize button.
   var reportIdMatch = window.location.pathname.match(/\/form\/view\/(\d+)\//);
@@ -93,7 +113,6 @@
     if (!text) return;
     addMsg(text, 'user');
     input.value = '';
-    input.style.height = 'auto';
     sendBtn.disabled = true;
     showTyping();
 
@@ -173,10 +192,5 @@
       e.preventDefault();
       send();
     }
-  });
-
-  input.addEventListener('input', function() {
-    input.style.height = 'auto';
-    input.style.height = input.scrollHeight + 'px';
   });
 })();
