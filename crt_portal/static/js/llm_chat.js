@@ -73,7 +73,7 @@
 
   function addMsg(text, role) {
     var messageWrapper = document.createElement('div');
-    messageWrapper.className = 'display-flex margin-1'
+    messageWrapper.className = 'display-flex margin-bottom-2'
 
     var div = document.createElement('div');
     // Base classes for all messages
@@ -101,7 +101,7 @@
 
   function showTyping() {
     var div = document.createElement('div');
-    div.className = 'align-self-start text-base font-sans-xs text-italic padding-05 padding-x-105';
+    div.className = 'text-base text-italic padding-05';
     div.id = 'llm-chat-typing';
     div.textContent = 'Thinking...';
     messages.appendChild(div);

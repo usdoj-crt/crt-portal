@@ -2476,8 +2476,6 @@ def llm_summarize_report_view(request, id):
         lines.append(f'Servicemember: {report.servicemember}')
     if report.hate_crime:
         lines.append(f'Hate crime: {report.hate_crime}')
-    if report.dj_number:
-        lines.append(f'DJ number: {report.dj_number}')
     lines.append(f"\nComplainant's description:\n{report.violation_summary or 'No description provided.'}")
 
     prompt = (
