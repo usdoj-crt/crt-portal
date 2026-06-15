@@ -12,7 +12,7 @@
         </svg>
         </div>
         <div id="llm-chat-heading" class="display-flex flex-justify padding-2 bg-primary-darker text-white radius-top-lg">
-            <span>AI</span>
+            <span>Kevin</span>
             <button id="llm-chat-close" class="usa-button usa-button--unstyled text-white text-no-underline" aria-label="Close chat">X</button>
         </div>
         <div id="llm-chat-messages" class="margin-2 flex-1 minh-0 overflow-y-auto"></div>
@@ -20,7 +20,12 @@
     <div id="llm-chat-bottom">
         <div id="llm-chat-quick-actions" class="padding-x-2 padding-y-1" hidden>
             <button id="llm-chat-summarize" class="display-flex flex-align-center flex-justify-center usa-button usa-button--outline height-2" type="button">
-                Summarize this report
+                <img class="usa-icon margin-right-1" aria-hidden="true" focusable="false" src="/static/img/sparkles-outline.svg"></img>
+                <span class="llm-chat-summarize-text">Summarize this report</span>
+            </button>
+            <button id="llm-chat-summarize-multiple" class="display-flex flex-align-center flex-justify-center usa-button usa-button--outline height-2 margin-top-05" type="button" hidden>
+                <img class="usa-icon margin-right-1" aria-hidden="true" focusable="false" src="/static/img/sparkles-outline.svg"></img>
+                <span class="llm-chat-summarize-multiple-text">Summarize &amp; compare selected reports</span>
             </button>
         </div>
         <div id="llm-chat-input-panel" class="display-flex padding-2 border-top-1px border-base-lighter">

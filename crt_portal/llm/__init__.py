@@ -1,6 +1,5 @@
 """
-Minimal LLM integration module.
-Drop this file into any Python project that already has `requests` available.
+Minimal Python LLM integration module.
 """
 
 import requests

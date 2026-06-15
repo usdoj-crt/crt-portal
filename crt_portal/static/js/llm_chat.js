@@ -78,22 +78,27 @@
     var div = document.createElement('div');
     // Base classes for all messages
     div.className = 'padding-1 radius-md';
-    div.style.whiteSpace = 'pre-wrap';
     div.style.wordWrap = 'break-word';
     div.style.maxWidth = '66%';
 
     if (role === 'user') {
       div.className += ' bg-primary text-white';
+      div.style.whiteSpace = 'pre-wrap';
       messageWrapper.className += ' flex-justify-end'
     } else if (role === 'assistant') {
-      div.className += ' bg-base-lightest text-base-darkest';
+      div.className += ' bg-base-lightest text-base-darkest llm-chat-markdown';
       messageWrapper.className += ' flex-justify-start'
     } else if (role === 'error') {
       div.className += ' bg-error-lighter text-error-dark';
+      div.style.whiteSpace = 'pre-wrap';
       messageWrapper.className += ' flex-justify-start'
     }
 
-    div.textContent = text;
+    if (role === 'assistant' && window.marked) {
+      div.innerHTML = window.marked.parse(text);
+    } else {
+      div.textContent = text;
+    }
     messages.appendChild(messageWrapper);
     messageWrapper.appendChild(div);
     messages.scrollTop = messages.scrollHeight;

@@ -1,0 +1,94 @@
+// Styles for the LLM chat widget's rendered markdown content
+.llm-chat-markdown {
+  font-size: 0.85rem;
+  line-height: 1.5;
+
+  h1, h2, h3, h4, h5, h6 {
+    margin-top: 0.75em;
+    margin-bottom: 0.25em;
+    font-weight: bold;
+    line-height: 1.3;
+
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+
+  h1 { font-size: 1.2em; }
+  h2 { font-size: 1.1em; }
+  h3 { font-size: 1.05em; }
+  h4, h5, h6 { font-size: 1em; }
+
+  p {
+    margin-top: 0.4em;
+    margin-bottom: 0.4em;
+  }
+
+  ul, ol {
+    margin-top: 0.4em;
+    margin-bottom: 0.4em;
+    padding-left: 1.5em;
+  }
+
+  li {
+    margin-bottom: 0.2em;
+  }
+
+  hr {
+    margin: 0.75em 0;
+    border: none;
+    border-top: 1px solid #ccc;
+  }
+
+  strong {
+    font-weight: bold;
+  }
+
+  em {
+    font-style: italic;
+  }
+
+  code {
+    font-family: monospace;
+    font-size: 0.9em;
+    background-color: rgba(0, 0, 0, 0.06);
+    padding: 0.1em 0.3em;
+    border-radius: 3px;
+  }
+
+  pre {
+    margin: 0.5em 0;
+    padding: 0.5em;
+    background-color: rgba(0, 0, 0, 0.06);
+    border-radius: 4px;
+    overflow-x: auto;
+
+    code {
+      background: none;
+      padding: 0;
+    }
+  }
+
+  blockquote {
+    margin: 0.5em 0;
+    padding-left: 0.75em;
+    border-left: 3px solid #ccc;
+    color: #555;
+  }
+
+  table {
+    border-collapse: collapse;
+    margin: 0.5em 0;
+    font-size: 0.9em;
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 0.3em 0.5em;
+    }
+
+    th {
+      background-color: rgba(0, 0, 0, 0.04);
+      font-weight: bold;
+    }
+  }
+}

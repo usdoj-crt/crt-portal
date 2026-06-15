@@ -2481,8 +2481,77 @@ def llm_summarize_report_view(request, id):
     prompt = (
         'You are a civil rights case analyst. Provide a concise, neutral summary '
         'of the following civil rights complaint. Cover: who filed it, what allegedly '
-        'happened, and where and when this took place.\n\n'
+        'happened, and where and when this took place. Ensure your summary is no more '
+        'than 3 to 5 sentences.\n\n'
         + '\n'.join(lines)
+    )
+
+    response = llm_chat(prompt)
+    if response is None:
+        return JsonResponse({'error': 'LLM service is unavailable.'}, status=503)
+
+    return JsonResponse({'response': response})
+
+
+@require_POST
+@login_required
+def llm_summarize_reports_view(request):
+    """Summarize multiple reports and analyze how they relate to one another."""
+    from llm import chat as llm_chat
+
+    try:
+        body = json.loads(request.body)
+        ids = body.get('ids', [])
+    except (json.JSONDecodeError, AttributeError):
+        return JsonResponse({'error': 'Invalid request body.'}, status=400)
+
+    if not ids or not isinstance(ids, list):
+        return JsonResponse({'error': 'A non-empty list of report IDs is required.'}, status=400)
+
+    if len(ids) > 10:
+        return JsonResponse({'error': 'A maximum of 10 reports can be summarized at once.'}, status=400)
+
+    reports = Report.objects.filter(pk__in=ids).prefetch_related('protected_class')
+    if not reports.exists():
+        return JsonResponse({'error': 'No reports found for the given IDs.'}, status=404)
+
+    report_blocks = []
+    for report in reports:
+        protected_classes = ', '.join(
+            pc.value for pc in report.protected_class.all().order_by('form_order')
+        ) or 'None'
+
+        incident_date_parts = [report.last_incident_month, report.last_incident_day, report.last_incident_year]
+        incident_date = '/'.join(str(p) for p in incident_date_parts if p) or 'Unknown'
+
+        location_parts = [p for p in [report.location_city_town, report.location_state] if p]
+        location = ', '.join(location_parts) or 'Unknown'
+
+        lines = [
+            f'Report ID: {report.public_id}',
+            f'Status: {report.status}',
+            f'Section: {report.assigned_section}',
+            f'Primary issue: {report.get_primary_complaint_display()}',
+            f'Protected class(es): {protected_classes}',
+            f'Incident date: {incident_date}',
+            f'Location: {location}',
+        ]
+        if report.location_name:
+            lines.append(f'Organization: {report.location_name}')
+        if report.servicemember:
+            lines.append(f'Servicemember: {report.servicemember}')
+        if report.hate_crime:
+            lines.append(f'Hate crime: {report.hate_crime}')
+        lines.append(f"\nComplainant's description:\n{report.violation_summary or 'No description provided.'}")
+
+        report_blocks.append('\n'.join(lines))
+
+    prompt = (
+        'You are a civil rights case analyst. You have been given multiple civil rights complaints. '
+        'For each report, provide a brief summary. Then, analyze how these reports may relate to one '
+        'another — look for common themes, shared respondents or locations, patterns of behavior, '
+        'or other connections.\n\n'
+        + '\n---\n'.join(report_blocks)
     )
 
     response = llm_chat(prompt)

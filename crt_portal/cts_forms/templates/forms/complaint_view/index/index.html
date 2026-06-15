@@ -47,6 +47,7 @@
     {% include "forms/snippets/pagination.html" with page_format=page_format page_args=page_args placement="bottom" %}
   </div>
 </div>
+{% include 'partials/llm_chat_widget.html' %}
 {% endblock %}
 {% block page_js %}
 {{ block.super }}
@@ -59,4 +60,7 @@
 <script src="{% static 'js/constant_writer.min.js'%}"></script>
 <script src="{% static 'js/paste_dj_field.min.js' %}"></script>
 <script type="module" src="{% static 'js/ga_util.min.js' %}"></script>
+<script defer src="{% static 'vendor/marked.min.js' %}"></script>
+<script src="{% static 'js/llm_chat.js' %}"></script>
+<script src="{% static 'js/llm_chat_index.js' %}"></script>
 {% endblock %}
