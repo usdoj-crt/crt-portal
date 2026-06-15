@@ -5,16 +5,16 @@ verify_ssl = true
 
 [dev-packages]
 awscli = "*"
-PyYAML = "==5.3.1" # To satisfy aws cli
+PyYAML = "==6.0.3" # To satisfy aws cli and python 3.14.4
 rsa = "==4.7" # To satisfy aws cli
-botocore = "==1.27.91" # To satisfy aws cli
+botocore = "==1.43.29" # To satisfy aws cli and python 3.14.4
 bandit = "*"
 flake8 = "*"
 testfixtures = "*"
 coverage = "*"
 locust = "*"
 faker = "*"
-playwright = "==1.49.1"
+playwright = "==1.60.0" # updated for python 3.14.4
 pytest-playwright = "*"
 pytest-base-url = "*"
 python-dotenv = "*"
