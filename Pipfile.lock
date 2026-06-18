@@ -1266,12 +1266,12 @@
         },
         "pypdf": {
             "hashes": [
-                "sha256:7d09ce108eff6bf67465d461b6ef352dcb8d84f7a91befc02f904455c6eea11d",
-                "sha256:aa53be9826655b51c96741e5d7983ca224d898ac0a77896e64636810517624aa"
+                "sha256:c6e3f86afb625791510b02ad5480e94b63970bb957df75d44657c282ecc52224",
+                "sha256:f3cb822769725f1bac658c406cfc9460399043f3750c2d3e4650e0a85eacabd7"
             ],
             "index": "pypi",
             "markers": "python_version >= '3.9'",
-            "version": "==6.10.2"
+            "version": "==6.13.3"
         },
         "pyphen": {
             "hashes": [
