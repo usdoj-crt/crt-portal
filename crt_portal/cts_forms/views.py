@@ -2501,7 +2501,7 @@ def llm_summarize_reports_view(request):
 
     try:
         body = json.loads(request.body)
-        ids = body.get('ids', [])
+        ids = body.get('record_ids') or body.get('ids') or []
     except (json.JSONDecodeError, AttributeError):
         return JsonResponse({'error': 'Invalid request body.'}, status=400)
 

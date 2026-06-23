@@ -1,4 +1,10 @@
-<div id="llm-chat-widget" class="position-fixed bottom-3 right-3 z-500" data-report-id="{{ report_id }}" hidden>
+<div id="llm-chat-widget"
+     class="position-fixed bottom-3 right-3 z-500"
+     data-report-id="{{ report_id }}"
+     data-csrf-token="{{ csrf_token }}"
+     data-chat-url="{% url 'crt_forms:llm-chat' %}"
+     data-summarize-url="{% url 'crt_forms:llm-summarize-reports' %}"
+     hidden>
   <button id="llm-chat-toggle" class="usa-button circle-6 margin-0 padding-0" aria-label="Open chat" title="Chat with LLM">
       <svg class="usa-icon usa-icon--size-3 text-white" aria-hidden="true" focusable="false">
         <use href="/static/img/sprite.svg#chat"></use>
@@ -12,7 +18,7 @@
         </svg>
         </div>
         <div id="llm-chat-heading" class="display-flex flex-justify padding-2 bg-primary-darker text-white radius-top-lg">
-            <span>Kevin</span>
+            <span>(Insert some clever AI name here)</span>
             <button id="llm-chat-close" class="usa-button usa-button--unstyled text-white text-no-underline" aria-label="Close chat">X</button>
         </div>
         <div id="llm-chat-messages" class="margin-2 flex-1 minh-0 overflow-y-auto"></div>
