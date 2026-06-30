@@ -240,7 +240,14 @@ class CRTReportWizard(SessionWizardView):
         which invalidates the submission and requires a user to restart the form.
         """
         form_current_step = self.request.POST.get('crt_report_wizard-current_step', None)
-        return (form_current_step != self.steps.current and self.storage.current_step is not None)
+
+        # Use self.storage.current_step directly to avoid triggering self.steps.current evaluation. This is added during 3.14.6 update to resolve AttributeError: 'CRTReportWizard' object has no attribute '_resolved_form_list'
+
+        storage_step = self.storage.current_step
+
+        return (form_current_step != storage_step and storage_step is not None)
+
+        # return (form_current_step != self.steps.current and self.storage.current_step is not None)
 
     def post(self, *args, **kwargs):
         """
@@ -248,6 +255,10 @@ class CRTReportWizard(SessionWizardView):
         session data which has been cleared while someone is progressing through
         the form
         """
+        # 1. Trigger the form tools initialization to populate _resolved_form_list safely. Added during python 3.14.6 upgrade to resolve AttributeError: 'CRTReportWizard' object has no attribute '_resolved_form_list'
+
+        self.get_form_list()
+
         if self.form_refreshed():
             return error_422(self.request)
         return super().post(*args, **kwargs)
