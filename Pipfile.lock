@@ -3028,11 +3028,12 @@
         },
         "python-engineio": {
             "hashes": [
-                "sha256:0a853fcef52f5b345425d8c2b921ac85023a04dfcf75d7b74696c61e940fd066",
-                "sha256:f32ad10589859c11053ad7d9bb3c9695cdf862113bfb0d20bc4d890198287399"
+                "sha256:8c101cd170e400dc4e970cd523325cde22df8fc25140953f379327055d701a6b",
+                "sha256:a7732e99cfb7db6ed1aee31f18d7f73bbae086a92f31dee019bc646155d9684e"
             ],
+            "index": "pypi",
             "markers": "python_version >= '3.8'",
-            "version": "==4.13.1"
+            "version": "==4.13.2"
         },
         "python-slugify": {
             "hashes": [
