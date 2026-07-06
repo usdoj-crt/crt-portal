@@ -19,7 +19,7 @@ applications:
     AV_SCAN_URL: http://clamav-rest-staging.apps.internal:8080/v2/scan
   buildpacks:
   - https://github.com/cloudfoundry/apt-buildpack
-  - python_buildpack
+  - https://github.com/cloudfoundry/python-buildpack.git#v1.9.2
   services:
   - crt-db
   - crt-s3
@@ -51,4 +51,4 @@ applications:
   buildpacks:
   - https://github.com/cloudfoundry/nodejs-buildpack
   - https://github.com/cloudfoundry/apt-buildpack
-  - python_buildpack
+  - https://github.com/cloudfoundry/python-buildpack.git#v1.9.2
