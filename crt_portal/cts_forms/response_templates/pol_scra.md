@@ -10,7 +10,7 @@ Thank you for contacting the U.S. Department of Justice (DOJ) on {{ date_of_inta
 
 #**What happens now?**
 
-We will give you information about protections under the Servicemembers Civil Relief Act (SCRA) and tell you where can go for help if you believe your rights have been violated.
+We will give you information about protections under the Servicemembers Civil Relief Act (SCRA) and tell you where you can go for help if you believe your rights have been violated.
 
 #**What are your rights under the SCRA?**
 
@@ -90,19 +90,42 @@ Section 3931 of the SCRA provides that in any civil court proceeding in which th
 
 [%optional group="SCRA Rights" name="License Portability"]
 
-In January 2023, Congress added a new provision to the SCRA that allows servicemembers and their spouses to use their professional licenses and certificates when they relocate due to military orders, in certain circumstances. All professional licenses are eligible under the SCRA except for law licenses.
+In January 2023, Congress added a new provision to the Servicemembers Civil Relief Act (SCRA) allowing servicemembers and their spouses to have their professional licenses and certificates recognized in certain circumstances when they relocate due to military orders.   
+  
+In December 2024, Congress made significant changes to this portion of the SCRA.
+
+**To qualify, you must have:**
+
+- a covered license
+- moved due to military orders (outside the State where your covered license applies), and
+- applied for a license in the State where you moved.
+
+If these criteria are met, a covered license shall be considered valid for licensed work in the new State.
+
+**An application includes:**
+
+*   proof of military orders; and
+*   a notarized affidavit certifying that:
+
+    *   you are the person applying for license portability;
+    *   statements in the application are true, correct, and complete;
+    *   you read and understand the requirements to receive a license, and the scope of practice permitted;
+    *   you will meet and comply with the requirements to receive a license, and the scope of practice permitted; and
+    *   you are in good standing in all States where you hold or have held a license.
+
+*   Military spouses must also submit a copy of their marriage certificate as a part of their application.
+
+**A covered license:**
+
+*   has not been revoked or voluntarily surrendered; and
+*   is held by a person in good standing with the licensing authority (they do not have a pending investigation or have not had discipline imposed).
 <br/>
-To qualify for professional license portability under the SCRA, you must:
+ 
+The license portability benefits of the SCRA <u>may not apply</u> to a license that allows you to operate in multiple states.
 
-1. Have moved to a location outside the jurisdiction of the licensing authority that issued the covered license or certificate because of orders for military service.
-2. Provide a copy of the military orders to the licensing authority in the new jurisdiction.
-3. Have actively used the license or certificate during the two years immediately preceding the move.
-4. Remain in good standing with:
-    1. the licensing authority that issued the covered license or certificate; and
-    2. every other licensing authority that issued a license or certificate valid for a similar scope of practice and in the discipline applied for in the new jurisdiction.
-5. Submit to the authority of the licensing authority in the new jurisdiction for the purposes of standards of practice, discipline, and fulfillment of any continuing education requirements.
+Servicemembers and their spouses can learn more about license portability [on this fact sheet](https://www.justice.gov/servicemembers/2025-update-portability-professional-licenses) or on our [dedicated webpage](https://www.justice.gov/servicemembers/professional-license-portability).  
 
-If you meet these five criteria, the new jurisdiction must consider your license or certificate valid at a similar scope of practice for the duration of the military orders.
+You can find additional information regarding rights and protections under the SCRA at the Department of Justice’s Servicemember and Veterans Initiative website, [www.servicemembers.gov](http://www.servicemembers.gov/).
 
 Servicemembers and their spouses can learn more about license portability [on this fact sheet](https://www.justice.gov/d9/2023-07/doj_scra_license_portability_fact_sheet.pdf).
 <br/>
