@@ -51,6 +51,6 @@
             </h2>
             <p class="enforcement-map__title text-primary-darker margin-0">Explore activity by state</p>
         </div>
-        {% include "partials/map_widget.html" with data_src="data/map-widget/data/test-data.json" map_classes="margin-top-4 margin-bottom-4" map_default_fill_color="#162e51" info_heading_classes="usa-heading margin-top-0 margin-bottom-0" info_list_classes="usa-list" %}
+        {% include "partials/map_widget.html" with data_src="data/map-widget/data/test-data.json" badge_mapping="data/map-widget/badges/agency-badge-map.json" map_classes="margin-top-4 margin-bottom-4" map_default_fill_color="#162e51" info_heading_classes="usa-heading margin-top-0 margin-bottom-0 text-primary-darker" info_list_classes="usa-list" %}
     </section>
 {% endblock %}

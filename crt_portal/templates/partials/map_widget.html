@@ -25,6 +25,10 @@ Optional (fall back to the widget's built-in defaults if omitted):
   map_stroke_width             Border width.
   badge_text_color             Text color for the DC badge.
   badge_radius                 Radius of the DC badge.
+  badge_mapping                Path (relative to the static root) to a JSON file
+                               mapping agency codes to badge image URLs. When an
+                               agency is found in the mapping its image is used;
+                               otherwise the text badge is used as a fallback.
   info_placeholder_text        Info-panel text before a state is selected.
   info_heading_classes         CSS classes for the info-panel heading.
   info_subheading_classes      CSS classes for the info-panel subheading.
@@ -39,6 +43,7 @@ Optional (fall back to the widget's built-in defaults if omitted):
   class="map-widget {{ map_classes|default:'' }}"
   data-geojson-urls="{% static 'data/map-widget/regions/contiguous.geojson' %},{% static 'data/map-widget/regions/alaska.geojson' %},{% static 'data/map-widget/regions/hawaii.geojson' %}"
   data-data-src="{% static data_src %}"
+  data-badge-mapping-src="{% if badge_mapping %}{% static badge_mapping %}{% endif %}"
   data-map-default-fill-color="{{ map_default_fill_color|default:'' }}"
   data-map-active-fill-color="{{ map_active_fill_color|default:'' }}"
   data-map-stroke-color="{{ map_stroke_color|default:'' }}"

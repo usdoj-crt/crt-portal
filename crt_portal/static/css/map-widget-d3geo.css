@@ -52,6 +52,27 @@
   width: 50px;
 }
 
+/* Flex container housing the state badge and heading side by side. */
+.map-widget__heading-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Rounded badge showing the state abbreviation, shown next to the heading. */
+.map-widget__state-badge {
+  flex-shrink: 0;
+  display: inline-block;
+  padding: 0.1rem 0.5rem;
+  border-radius: 999px;
+  background: #ffbe2e;
+  color: #1b1b1b;
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
 .map-widget__actions {
   list-style: none;
   margin: 0;
@@ -80,6 +101,20 @@
   font-weight: 700;
   line-height: 1.4;
   white-space: nowrap;
+}
+
+/* Image variant of the agency badge (e.g. an agency seal). */
+.map-widget__agency-badge-image {
+  flex-shrink: 0;
+  display: block;
+  width: 1.75rem;
+  height: 1.75rem;
+  /* Align the seal's top edge with the first line of the action text. The row
+     uses `align-items: baseline`, which images don't participate in cleanly, so
+     nudge it to line up with the text's cap height. */
+  align-self: flex-start;
+  margin-top: 0.05rem;
+  object-fit: contain;
 }
 
 .map-widget__action-content {

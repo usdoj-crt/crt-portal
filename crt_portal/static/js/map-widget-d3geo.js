@@ -115,6 +115,44 @@ async function loadData(mapWidget) {
     return await response.json();
 }
 
+// Load the agency-to-image badge mapping named in the widget's
+// data-badge-mapping-src attribute. Returns {} if the attribute is missing or
+// the file cannot be loaded, so the caller can safely fall back to text badges.
+async function loadBadgeMapping(mapWidget) {
+    const url = mapWidget.dataset.badgeMappingSrc;
+    if (!url) {
+        return {};
+    }
+
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            console.warn(
+                `MapWidget: could not load badge mapping "${url}" (HTTP ${response.status}). Falling back to text badges.`
+            );
+            return {};
+        }
+        const mapping = await response.json();
+
+        // Resolve each image path relative to the mapping file's own URL so the
+        // entries stay environment-agnostic (they work whether the static root
+        // is served locally or from an absolute CDN URL).
+        const resolved = {};
+        for (const [agency, imagePath] of Object.entries(mapping)) {
+            resolved[agency] = imagePath
+                ? new URL(imagePath, new URL(url, window.location.href)).href
+                : imagePath;
+        }
+        return resolved;
+    } catch (error) {
+        console.warn(
+            `MapWidget: could not load badge mapping "${url}". Falling back to text badges.`,
+            error
+        );
+        return {};
+    }
+}
+
 function showActive(path, mapConfig) {
     path.style.fill = mapConfig?.activeFillColor || '#f4c430';
 }
@@ -139,12 +177,12 @@ function drawFeatures(mapSvg, features, d3PathGenerator, context) {
         path.style.strokeWidth = context.mapConfig?.strokeWidth || '2';
 
         path.addEventListener('mouseover', () => {
-            renderInfo(context.panel, context.data, feature, context.infoPanelConfig);
+            renderInfo(context, feature);
             showActive(path, context.mapConfig);
         });
 
         path.addEventListener('click', () => {
-            renderInfo(context.panel, context.data, feature, context.infoPanelConfig);
+            renderInfo(context, feature);
             showActive(path, context.mapConfig);
         });
 
@@ -191,12 +229,12 @@ function drawBadge(mapSvg, badge, context) {
     //    Note: pass `circle` (not the group) to showActive/hideActive,
     //    since .style.fill needs to land on the shape.
     group.addEventListener('mouseover', () => {
-        renderInfo(context.panel, context.data, feature, context.infoPanelConfig);
+        renderInfo(context, feature);
         showActive(circle, context.mapConfig);
     });
 
     group.addEventListener('click', () => {
-        renderInfo(context.panel, context.data, feature, context.infoPanelConfig);
+        renderInfo(context, feature);
         showActive(circle, context.mapConfig);
     });
 
@@ -223,22 +261,60 @@ function renderInfoPlaceholder(panel, infoPanelConfig) {
     panel.innerHTML = infoPanelConfig.placeholderText || '';
 }
 
-function renderInfo(panel, data, feature, infoPanelConfig) {
+// Build the badge shown as the leading "bullet" for an action. If the agency is
+// present in the badge mapping, an <img> of its seal is used; otherwise it falls
+// back to the gold text badge with the agency code.
+function createAgencyBadge(agency, badgeMapping) {
+    const imageUrl = badgeMapping?.[agency];
+
+    if (imageUrl && typeof imageUrl === "string" && imageUrl !== "") {
+        const image = createElement('img', 'map-widget__agency-badge-image');
+        image.src = imageUrl;
+        image.alt = agency;
+        return image;
+    }
+
+    const badge = createElement('span', 'map-widget__agency-badge');
+    badge.textContent = agency;
+    return badge;
+}
+
+function renderInfo(context, feature) {
+    const { panel, data, infoPanelConfig, badgeMapping } = context;
+
+    //    Resolve the state's code from the hovered/clicked feature and look up
+    //    its matching record in the loaded data set.
     const stateCode = feature.properties.code;
     const stateData = data[stateCode];
 
+    //    Clear whatever was in the panel (placeholder or a previous state).
     panel.innerHTML = '';
 
+    //    Build a flex container so the state badge and heading sit side by side.
+    const headingContainer = createElement('div', 'map-widget__heading-container');
+
+    //    Add the heading with the full state name, preferring the data set's
+    //    name and falling back to the feature's own name.
     const heading = createElement('h2');
     heading.textContent = stateData?.name ?? feature.properties.name;
     if (infoPanelConfig?.headingClasses) {
         heading.className = infoPanelConfig.headingClasses;
     }
-    panel.appendChild(heading);
+    headingContainer.appendChild(heading);
 
+    //    Add the small pill badge showing the state's abbreviation (e.g. "CA").
+    const stateBadge = createElement('span', 'map-widget__state-badge');
+    stateBadge.textContent = stateCode;
+    headingContainer.appendChild(stateBadge);
+
+    //    Add the heading row into the panel.
+    panel.appendChild(headingContainer);
+
+    //    Add the short accent bar shown beneath the heading.
     const separator = createElement('div', 'map-widget__separator');
     panel.appendChild(separator);
 
+    //    If the state has no actions, show the "no data" message and stop here.
     const actionsList = stateData?.actions ?? [];
     if (actionsList?.length === 0) {
         const noDataParagraph = createElement('p');
@@ -251,46 +327,59 @@ function renderInfo(panel, data, feature, infoPanelConfig) {
         return;
     }
 
+    //    Otherwise, build the list...
     const list = createElement('ul', 'map-widget__actions');
     if (infoPanelConfig?.listClasses) {
         list.className = `map-widget__actions ${infoPanelConfig.listClasses}`;
     }
 
+    //    Render each action as a list item.
     for (const action of actionsList) {
+        //    Create the list item wrapper.
         const item = createElement('li', 'map-widget__action');
         if (infoPanelConfig?.listItemClasses) {
             item.className = `map-widget__action ${infoPanelConfig.listItemClasses}`;
         }
 
+        //    Create the flex row holding the agency badge and content.
         const row = createElement('div', 'map-widget__action-row');
 
-        const badge = createElement('span', 'map-widget__agency-badge');
-        badge.textContent = action.agency;
+        //    Add the agency badge, used as the row's leading "bullet". When
+        //    the agency has an image in the mapping we use that; otherwise we
+        //    fall back to the gold text badge.
+        const badge = createAgencyBadge(action.agency, badgeMapping);
         row.appendChild(badge);
 
+        // 10d. Build the content block that holds the action text (and date).
         const content = createElement('div', 'map-widget__action-content');
 
+        // 10e. Add the action's description text.
         const text = createElement('span', 'map-widget__action-text');
         text.textContent = action.action;
         content.appendChild(text);
 
+        // 10f. Add a formatted date when one is present.
         if (action.date !== null) {
             const date = createElement('div', 'map-widget__action-date');
             date.textContent = new Date(action.date).toLocaleDateString();
             content.appendChild(date);
         }
 
+        // 10g. Assemble the row and append the finished item to the list.
         row.appendChild(content);
 
         item.appendChild(row);
 
         list.appendChild(item);
     }
+
+    // 11. Append the fully built actions list to the panel.
     panel.appendChild(list);
 }
 
 async function initMapWidget(mapWidget) {
     const data = await loadData(mapWidget);
+    const badgeMapping = await loadBadgeMapping(mapWidget);
 
     const mapElement = createElement('div', 'map-widget__map');
     mapWidget.appendChild(mapElement);
@@ -316,7 +405,8 @@ async function initMapWidget(mapWidget) {
         panel: panel,
         data: data,
         mapConfig: mapConfig,
-        infoPanelConfig: infoPanelConfig
+        infoPanelConfig: infoPanelConfig,
+        badgeMapping: badgeMapping
     };
 
     drawFeatures(mapSvg, features, d3PathGenerator, context);
