@@ -20,6 +20,38 @@ function createElement(tag, className) {
   return node;
 }
 
+// Format an "M/D/YYYY" date string as "Mon dd, YYYY" (e.g. "Jul 22, 2025").
+// Parses the components directly to avoid any timezone conversion.
+const MONTH_ABBREVIATIONS = [
+  'Jan',
+  'Feb',
+  'Mar',
+  'Apr',
+  'May',
+  'Jun',
+  'Jul',
+  'Aug',
+  'Sep',
+  'Oct',
+  'Nov',
+  'Dec',
+];
+
+function formatActionDate(dateString) {
+  const parts = dateString.split('/');
+  if (parts.length !== 3) {
+    return dateString;
+  }
+  const month = parseInt(parts[0], 10);
+  const day = parseInt(parts[1], 10);
+  const year = parseInt(parts[2], 10);
+  if (!month || !day || !year || month < 1 || month > 12) {
+    return dateString;
+  }
+  const paddedDay = String(day).padStart(2, '0');
+  return `${MONTH_ABBREVIATIONS[month - 1]} ${paddedDay}, ${year}`;
+}
+
 // Create the SVG element the map will be drawn into.
 function createMapSvg(mapElement) {
   const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
@@ -362,7 +394,7 @@ function renderInfo(context, feature) {
     // 10f. Add a formatted date when one is present.
     if (action.date !== null) {
       const date = createElement('div', 'map-widget__action-date');
-      date.textContent = new Date(action.date).toLocaleDateString();
+      date.textContent = formatActionDate(action.date);
       content.appendChild(date);
     }
 
