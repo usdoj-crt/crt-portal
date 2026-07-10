@@ -42,14 +42,52 @@
   overflow: hidden;
 }
 
-.map-widget__heading {}
-
 /* Short gold/yellow accent bar shown above the info-panel heading. */
 .map-widget__separator {
-  margin-top: 1.0rem;
-  margin-bottom: 0.5rem;
+  margin-top: 0.25rem;
+  margin-bottom: 1.0rem;
   border: 2px solid #ffbe2e;
   border-radius: 2px;
   background: #ffbe2e;
   width: 50px;
+}
+
+.map-widget__actions {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.map-widget__action {
+  margin-bottom: 0.75rem;
+}
+
+.map-widget__action-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+/* Rounded badge showing the agency, used as the bullet for each action. */
+.map-widget__agency-badge {
+  flex-shrink: 0;
+  display: inline-block;
+  padding: 0.1rem 0.5rem;
+  border-radius: 999px;
+  background: #ffbe2e;
+  color: #1b1b1b;
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.map-widget__action-content {
+  flex: 1;
+}
+
+.map-widget__action-date {
+  margin-top: 0.125rem;
+  color: #71767a;
+  font-size: 0.8rem;
 }

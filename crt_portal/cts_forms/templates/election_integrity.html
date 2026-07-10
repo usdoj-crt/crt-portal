@@ -1,29 +1,56 @@
 {% extends "landing.html" %}
-
 {% load i18n %}
-
+{% load static %}
 {% block meta_title %}
-  {% trans "Civil Rights Division - Department of Justice - Election Integrity" as meta_title %}
-  <meta property="og:title" content="{{meta_title}}" />
-  <meta property="name" content="{{meta_title}}" />
-{% endblock meta_title %}
+{% trans "Civil Rights Division - Department of Justice - Election Integrity" as meta_title %}
+<meta property="og:title" content="{{meta_title}}" />
+<meta property="name" content="{{meta_title}}" />
+{% endblock meta_title %} {% block page_title %}
+<title>
+{% trans "Civil Rights Division - Department of Justice - Election Integrity" %}
+</title>
+{% endblock %} {% block head %} {% include "partials/map_widget_assets.html" %} {% endblock %}
+{% block hero %}
+    <section class="hero-section" aria-labelledby="hero-title">
+        <img class="hero-image" src="{% static 'img/trump-hero-2.webp' %}" alt="Election Integrity Hero Image - President Trump">
+        <div class="hero-overlay">
+            <div class="hero-text">
+                <h1 class="hero-text__title font-family-serif">
+                    Enforcement Actions to Safeguard Election Integrity
+                </h1>
+                <div class="hero-collab">
+                    <div class="hero-collab__seals" aria-hidden="true">
+                        <span role="img" aria-label="U.S. Department of Justice">
+                            <img class="hero-collab__seal" src="{% static 'img/Seal_of_the_United_States_Department_of_Justice.svg' %}" alt="Seal of the U.S. Department of Justice">
+                        </span>
+                        <span role="img" aria-label="U.S. Department of Homeland Security">
+                            <img class="hero-collab__seal" src="{% static 'img/Seal_of_the_United_States_Department_of_Homeland_Security.svg' %}" alt="Seal of the U.S. Department of Homeland Security">
+                        </span>
+                    </div>
+                    <p class="hero-collab__text">A joint initiative of the U.S. Department of Justice and the Department of Homeland Security</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-{% block page_title %}
-  <title>
-    {% trans "Civil Rights Division - Department of Justice - Election Integrity" %}
-  </title>
-{% endblock %}
-
-{% block head %}
-  {% include "partials/map_widget_assets.html" %}
+    <section class="quote-banner-section">
+        <div class="quote-stage bg-primary-darker" aria-label="Quotes from Executive Order 14248">
+            <blockquote class="margin-top-4 margin-bottom-6">
+                <p class="quote-stage__text font-serif-xl text-center margin-0">“Free, fair, and honest elections unmarred by fraud, errors, or suspicion are fundamental to maintaining our constitutional Republic.”</p>
+                <cite class="quote-stage__cite text-center margin-top-2">President Donald J. Trump, Executive Order 14248, March 25, 2025</cite>
+            </blockquote>
+        </div>
+    </section>
 {% endblock %}
 
 {% block content %}
-<div class="grid-container">
-    <div class="display-flex flex-column justify-center align-center margin-top-8">
-        <p class="text-primary-darker margin-0">NATIONWIDE ENFORCEMENT ACTIONS</p>
-        <h2 class="font-serif-2xl text-normal text-primary-darker margin-0">{% trans "Explore Activity by State" %}</h2>
-    </div>
-    {% include "partials/map_widget.html" with data_src="data/map-widget/data/test-data.json" map_classes="margin-top-4 margin-bottom-4" map_default_fill_color="#162e51" info_heading_classes="usa-heading margin-top-0" info_list_classes="usa-list" %}
-</div>
+    <section id="enforcement-map" class="enforcement-map padding-x-2" aria-label="Nationwide Enforcement Actions Section">
+        <div class="display-flex flex-column align-center margin-top-6">
+            <h2 class="font-serif-3xl text-normal text-primary-darker margin-0">
+                Nationwide Enforcement Actions
+            </h2>
+            <p class="enforcement-map__title text-primary-darker margin-0">Explore activity by state</p>
+        </div>
+        {% include "partials/map_widget.html" with data_src="data/map-widget/data/test-data.json" map_classes="margin-top-4 margin-bottom-4" map_default_fill_color="#162e51" info_heading_classes="usa-heading margin-top-0 margin-bottom-0" info_list_classes="usa-list" %}
+    </section>
 {% endblock %}
