@@ -1,4 +1,5 @@
 {% comment %}
+<!--
 US map widget — renders a single interactive map of the United States.
 
 Usage (include once per map you want on the page):
@@ -30,10 +31,11 @@ Optional (fall back to the widget's built-in defaults if omitted):
   list_item_classes            CSS classes for the info-panel list items.
   no_data_text                 Text shown when a state has no data.
   no_data_paragraph_classes    CSS classes for the "no data" paragraph.
+-->
 {% endcomment %}
 <div
   class="map-widget"
-  data-geojson-urls="{% static 'map-widget/regions/contiguous.geojson' %},{% static 'map-widget/regions/alaska.geojson' %},{% static 'map-widget/regions/hawaii.geojson' %}"
+  data-geojson-urls="{% static 'data/map-widget/regions/contiguous.geojson' %},{% static 'data/map-widget/regions/alaska.geojson' %},{% static 'data/map-widget/regions/hawaii.geojson' %}"
   data-data-src="{% static data_src %}"
   data-map-default-fill-color="{{ default_fill_color|default:'' }}"
   data-map-active-fill-color="{{ active_fill_color|default:'' }}"
