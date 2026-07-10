@@ -1,0 +1,35 @@
+/* MapWidget styles */
+
+.map-widget {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Render side by side if there is enough space */
+@media (min-width: 640px) {
+  .map-widget {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+}
+
+.map-widget__map {
+  flex: 2;
+}
+
+/* The SVG scales to fill the map area; viewBox handles the aspect ratio. */
+.map-widget__svg {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 960 / 600;
+  display: block;
+}
+
+.map-widget__panel {
+  flex: 1;
+  border: 1px solid gray;
+  border-radius: 6px;
+  padding-left: 8px;
+  padding-right: 8px;
+}
