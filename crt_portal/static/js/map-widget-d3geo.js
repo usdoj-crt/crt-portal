@@ -161,6 +161,20 @@ function hideActive(path, mapConfig) {
     path.style.fill = mapConfig?.defaultFillColor || '#3498db';
 }
 
+// Make `shape` the single active shape: restore the previously active shape (if
+// any) to its resting state, highlight the new one, render its info, and record
+// it on the context so it stays active after the pointer leaves.
+function setActive(context, shape, feature) {
+    if (context.active && context.active.shape !== shape) {
+        hideActive(context.active.shape, context.mapConfig);
+    }
+
+    showActive(shape, context.mapConfig);
+    renderInfo(context, feature);
+
+    context.active = { shape: shape, feature: feature };
+}
+
 function drawFeatures(mapSvg, features, d3PathGenerator, context) {
     for (const feature of features) {
         const d = d3PathGenerator(feature);
@@ -177,18 +191,11 @@ function drawFeatures(mapSvg, features, d3PathGenerator, context) {
         path.style.strokeWidth = context.mapConfig?.strokeWidth || '2';
 
         path.addEventListener('mouseover', () => {
-            renderInfo(context, feature);
-            showActive(path, context.mapConfig);
+            setActive(context, path, feature);
         });
 
         path.addEventListener('click', () => {
-            renderInfo(context, feature);
-            showActive(path, context.mapConfig);
-        });
-
-        path.addEventListener('mouseout', () => {
-            renderInfoPlaceholder(context.panel, context.infoPanelConfig);
-            hideActive(path, context.mapConfig);
+            setActive(context, path, feature);
         });
 
         mapSvg.appendChild(path);
@@ -225,22 +232,16 @@ function drawBadge(mapSvg, badge, context) {
         properties: { code: badge.code, name: badge.name }
     };
 
-    // 5. Wire the same three listeners as a state.
-    //    Note: pass `circle` (not the group) to showActive/hideActive,
+    // 5. Wire the listeners as a state. On hover/click the badge becomes the
+    //    single active shape and stays active after the pointer leaves.
+    //    Note: pass `circle` (not the group) to setActive/hideActive,
     //    since .style.fill needs to land on the shape.
     group.addEventListener('mouseover', () => {
-        renderInfo(context, feature);
-        showActive(circle, context.mapConfig);
+        setActive(context, circle, feature);
     });
 
     group.addEventListener('click', () => {
-        renderInfo(context, feature);
-        showActive(circle, context.mapConfig);
-    });
-
-    group.addEventListener('mouseout', () => {
-        renderInfoPlaceholder(context.panel, context.infoPanelConfig);
-        hideActive(circle, context.mapConfig);
+        setActive(context, circle, feature);
     });
 
     // 6. Append the group to the svg, then set the resting fill.
@@ -406,7 +407,8 @@ async function initMapWidget(mapWidget) {
         data: data,
         mapConfig: mapConfig,
         infoPanelConfig: infoPanelConfig,
-        badgeMapping: badgeMapping
+        badgeMapping: badgeMapping,
+        active: null
     };
 
     drawFeatures(mapSvg, features, d3PathGenerator, context);
