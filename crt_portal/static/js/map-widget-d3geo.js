@@ -82,6 +82,9 @@ async function loadGeoJsonFeatures(urls) {
 
   for (const url of urls) {
     const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Failed to load GeoJSON "${url}" (HTTP ${response.status})`);
+    }
     const geojson = await response.json();
     features = features.concat(geojson.features);
   }
@@ -106,6 +109,9 @@ function createD3ProjectionAndPathGenerator(width, height, features) {
 async function loadData(mapWidget) {
   const url = mapWidget.dataset.dataSrc;
   const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error(`Failed to load data "${url}" (HTTP ${response.status})`);
+  }
   return await response.json();
 }
 
@@ -225,14 +231,17 @@ function renderInfo(panel, data, feature, infoPanelConfig) {
 
   panel.innerHTML = '';
 
-  const heading = createElement('h3');
+  const separator = createElement('div', 'map-widget__separator');
+  panel.appendChild(separator);
+
+  const heading = createElement('h2');
   heading.textContent = stateData?.name ?? feature.properties.name;
   if (infoPanelConfig?.headingClasses) {
     heading.className = infoPanelConfig.headingClasses;
   }
   panel.appendChild(heading);
 
-  const subheading = createElement('h4');
+  const subheading = createElement('h3');
   subheading.textContent = 'Abbreviation: ' + stateCode;
   if (infoPanelConfig?.subheadingClasses) {
     subheading.className = infoPanelConfig.subheadingClasses;
@@ -302,8 +311,25 @@ async function initMapWidget(mapWidget) {
   drawBadge(mapSvg, DC_BADGE, context);
 }
 
-const mapWidgets = document.querySelectorAll('.map-widget');
+function initAllMapWidgets() {
+  const mapWidgets = document.querySelectorAll('.map-widget');
 
-for (const mapWidget of mapWidgets) {
-  initMapWidget(mapWidget);
+  for (const mapWidget of mapWidgets) {
+    initMapWidget(mapWidget).catch(error => {
+      const dataSrc = mapWidget.dataset.dataSrc || '(no data-data-src set)';
+      console.error(
+        `MapWidget: failed to initialize. Could not load data from "${dataSrc}".`,
+        error
+      );
+    });
+  }
+}
+
+// Boot every `.map-widget` element once the DOM is ready. This lets the script
+// be loaded from the <head> (before the widget markup exists) as well as from
+// the end of the <body>.
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initAllMapWidgets);
+} else {
+  initAllMapWidgets();
 }

@@ -16,6 +16,12 @@
 
 .map-widget__map {
   flex: 2;
+  padding: 0.5rem;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  /* Clip the SVG's corners to the rounded box. */
+  overflow: hidden;
 }
 
 /* The SVG scales to fill the map area; viewBox handles the aspect ratio. */
@@ -28,8 +34,22 @@
 
 .map-widget__panel {
   flex: 1;
-  border: 1px solid gray;
-  border-radius: 6px;
-  padding-left: 8px;
-  padding-right: 8px;
+  padding: 1.0rem;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  /* Clip the SVG's corners to the rounded box. */
+  overflow: hidden;
+}
+
+.map-widget__heading {}
+
+/* Short gold/yellow accent bar shown above the info-panel heading. */
+.map-widget__separator {
+  margin-top: 1.0rem;
+  margin-bottom: 0.5rem;
+  border: 2px solid #ffbe2e;
+  border-radius: 2px;
+  background: #ffbe2e;
+  width: 50px;
 }

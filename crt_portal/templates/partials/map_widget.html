@@ -18,36 +18,38 @@ Required:
                                data file, e.g. "data/map-widget/data/foo.json".
 
 Optional (fall back to the widget's built-in defaults if omitted):
-  placeholder_text             Info-panel text before a state is selected.
-  default_fill_color           Resting fill for states.
-  active_fill_color            Fill for the hovered/selected state.
-  stroke_color                 Border color.
-  stroke_width                 Border width.
+  map_classes                  Extra CSS classes added to the widget container.
+  map_default_fill_color       Resting fill for states.
+  map_active_fill_color        Fill for the hovered/selected state.
+  map_stroke_color             Border color.
+  map_stroke_width             Border width.
   badge_text_color             Text color for the DC badge.
   badge_radius                 Radius of the DC badge.
-  heading_classes              CSS classes for the info-panel heading.
-  subheading_classes           CSS classes for the info-panel subheading.
-  list_classes                 CSS classes for the info-panel list.
-  list_item_classes            CSS classes for the info-panel list items.
-  no_data_text                 Text shown when a state has no data.
-  no_data_paragraph_classes    CSS classes for the "no data" paragraph.
+  info_placeholder_text        Info-panel text before a state is selected.
+  info_heading_classes         CSS classes for the info-panel heading.
+  info_subheading_classes      CSS classes for the info-panel subheading.
+  info_list_classes            CSS classes for the info-panel list.
+  info_list_item_classes       CSS classes for the info-panel list items.
+  info_no_data_text            Text shown when a state has no data.
+  info_no_data_paragraph_classes
+                               CSS classes for the "no data" paragraph.
 -->
 {% endcomment %}
 <div
-  class="map-widget"
+  class="map-widget {{ map_classes|default:'' }}"
   data-geojson-urls="{% static 'data/map-widget/regions/contiguous.geojson' %},{% static 'data/map-widget/regions/alaska.geojson' %},{% static 'data/map-widget/regions/hawaii.geojson' %}"
   data-data-src="{% static data_src %}"
-  data-map-default-fill-color="{{ default_fill_color|default:'' }}"
-  data-map-active-fill-color="{{ active_fill_color|default:'' }}"
-  data-map-stroke-color="{{ stroke_color|default:'' }}"
-  data-map-stroke-width="{{ stroke_width|default:'' }}"
+  data-map-default-fill-color="{{ map_default_fill_color|default:'' }}"
+  data-map-active-fill-color="{{ map_active_fill_color|default:'' }}"
+  data-map-stroke-color="{{ map_stroke_color|default:'' }}"
+  data-map-stroke-width="{{ map_stroke_width|default:'' }}"
   data-map-badge-text-color="{{ badge_text_color|default:'' }}"
   data-map-badge-radius="{{ badge_radius|default:'' }}"
-  data-info-panel-placeholder-text="{{ placeholder_text|default:'Hover or tap a state to see details' }}"
-  data-info-panel-heading-classes="{{ heading_classes|default:'' }}"
-  data-info-panel-subheading-classes="{{ subheading_classes|default:'' }}"
-  data-info-panel-list-classes="{{ list_classes|default:'' }}"
-  data-info-panel-list-item-classes="{{ list_item_classes|default:'' }}"
-  data-info-panel-no-data-text="{{ no_data_text|default:'' }}"
-  data-info-panel-no-data-paragraph-classes="{{ no_data_paragraph_classes|default:'' }}"
+  data-info-panel-placeholder-text="{{ info_placeholder_text|default:'Hover or tap a state to see details' }}"
+  data-info-panel-heading-classes="{{ info_heading_classes|default:'' }}"
+  data-info-panel-subheading-classes="{{ info_subheading_classes|default:'' }}"
+  data-info-panel-list-classes="{{ info_list_classes|default:'' }}"
+  data-info-panel-list-item-classes="{{ info_list_item_classes|default:'' }}"
+  data-info-panel-no-data-text="{{ info_no_data_text|default:'' }}"
+  data-info-panel-no-data-paragraph-classes="{{ info_no_data_paragraph_classes|default:'' }}"
 ></div>

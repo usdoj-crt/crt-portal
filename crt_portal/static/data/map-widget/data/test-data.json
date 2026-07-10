@@ -1,0 +1,5 @@
+{
+  "CA": { "name": "California", "bullets": ["Example item 1", "Example item 2"] },
+  "TX": { "name": "Texas", "bullets": ["Example item"] },
+  "DC": { "name": "District of Columbia", "bullets": ["Example item"] }
+}
