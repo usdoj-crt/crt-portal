@@ -34,7 +34,7 @@ const MONTH_ABBREVIATIONS = [
   'Sep',
   'Oct',
   'Nov',
-  'Dec',
+  'Dec'
 ];
 
 function formatActionDate(dateString) {
