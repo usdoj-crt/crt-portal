@@ -1,0 +1,54 @@
+{% comment %}
+<!--
+News card — renders a single "In the News" card.
+
+Usage (inside a {% for %} loop over the list of news items):
+
+    {% for item in news_items %}
+        {% include "partials/news_card.html" with item=item %}
+    {% endfor %}
+
+Expected `item` fields:
+    type          Item type shown in the pill, e.g. "Press Release" (rendered
+                  in all caps via CSS).
+    thumbnail     URL/path for the thumbnail image, or null/empty.
+    agency        Agency code, e.g. "DOJ". Used for the badge fallback.
+    badge_image   (optional) Resolved seal image URL for `agency`. When
+                  `thumbnail` is empty and this is present, the seal is shown
+                  centered on a blue-gradient background instead of a thumbnail.
+    date          Publish date, e.g. "7/7/2026".
+    linkUrl       URL the headline links to.
+    linkText      Headline text; also the clickable link text.
+    source        Publisher/source name, e.g. "DOJ Civil Rights Division".
+
+Layout: top 50% is the thumbnail (or agency seal fallback); bottom 50% is a
+white panel with the type pill, headline link, and "source - date" meta.
+-->
+{% endcomment %}
+<article class="news-card">
+    {% if item.thumbnail %}
+        <div class="news-card__thumbnail">
+            <img src="{{ item.thumbnail }}" alt="{{ item.linkText }}" loading="lazy">
+        </div>
+    {% elif item.badge_image %}
+        <div class="news-card__thumbnail news-card__thumbnail--seal">
+            <img src="{{ item.badge_image }}" alt="{{ item.agency }}" loading="lazy">
+        </div>
+    {% else %}
+        <div class="news-card__thumbnail news-card__thumbnail--seal"></div>
+    {% endif %}
+    <div class="news-card__body">
+        {% if item.type %}
+            <span class="news-card__pill">{{ item.type }}</span>
+        {% endif %}
+        <a class="news-card__headline" href="{{ item.linkUrl }}" target="_blank" rel="noopener noreferrer">{{ item.linkText }}</a>
+        <div class="display-flex flex-column flex-1 flex-justify-end">
+            <div>
+                <span class="news-card__meta">{{ item.source }}</span>
+                <span class="news-card__meta padding-x-1">|</span>
+                <span class="news-card__meta">{{ item.date }}</span>
+            </div>
+        </div>
+
+    </div>
+</article>

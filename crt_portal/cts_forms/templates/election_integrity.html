@@ -9,7 +9,8 @@
 <title>
 {% trans "Civil Rights Division - Department of Justice - Election Integrity" %}
 </title>
-{% endblock %} {% block head %} {% include "partials/map_widget_assets.html" %} {% endblock %}
+{% endblock %}
+{% block head %} {% include "partials/map_widget_assets.html" %} {% endblock %}
 {% block hero %}
     <section class="hero-section" aria-labelledby="hero-title">
         <img class="hero-image" src="{% static 'img/trump-hero-2.webp' %}" alt="Election Integrity Hero Image - President Trump">
@@ -51,6 +52,19 @@
             </h2>
             <p class="enforcement-map__title text-primary-darker margin-0">Explore activity by state</p>
         </div>
-        {% include "partials/map_widget.html" with data_src="data/map-widget/data/test-data.json" badge_mapping="data/map-widget/badges/agency-badge-map.json" map_classes="margin-top-4 margin-bottom-4" map_default_fill_color="#162e51" info_heading_classes="usa-heading margin-top-0 margin-bottom-0 text-primary-darker" info_list_classes="usa-list" %}
+        {% include "partials/map_widget.html" with data_src="data/map-widget/data/test-data.json" badge_mapping="data/agency-badges/agency-badge-map.json" map_classes="margin-top-4 margin-bottom-4" map_default_fill_color="#162e51" info_heading_classes="usa-heading margin-top-0 margin-bottom-0 text-primary-darker" info_list_classes="usa-list" %}
+    </section>
+
+    <section id="in-the-news" class="in-the-news padding-x-2 padding-top-6 bg-base-lighter" aria-label="Election Integrity in the News">
+        <div class="display-flex flex-column align-center">
+            <h2 class="font-serif-2xl text-normal text-primary-darker margin-0">
+                Election Integrity in the News
+            </h2>
+            <div class="card-container">
+                {% for item in news_items %}
+                    {% include "partials/news_card.html" with item=item %}
+                {% endfor %}
+            </div>
+        </div>
     </section>
 {% endblock %}
