@@ -185,24 +185,30 @@ async function loadBadgeMapping(mapWidget) {
   }
 }
 
-// Warm the browser cache and decode each seal once so the first hover that
-// shows an agency badge doesn't pause to fetch/decode the image. Fire-and-
-// forget: failures (e.g. a 404) are ignored, since the text-badge fallback in
-// createAgencyBadge still applies.
+// Preload the badges images browser cache and decode each seal once so when
+// we show an agency badge, we don't pause to fetch/decode the image. Iterates the
+// mapping per agency (rather than per URL) so we can report exactly which
+// agencies have a broken or missing seal. Returns a Set of those agency codes
+// so that the badge cache can fall straight to a text badge for them.
 async function preloadBadgeImages(badgeMapping) {
-  const urls = Object.values(badgeMapping).filter(Boolean);
+  const brokenAgencies = new Set();
+
+  const entries = Object.entries(badgeMapping).filter(([, url]) => url);
   await Promise.all(
-    urls.map(async url => {
+    entries.map(async ([agency, url]) => {
       const image = new Image();
       image.src = url;
-      // decode() resolves once the image is fully decoded and paint-ready.
+      // decode() resolves once the image is fully decoded, and
+      // rejects if the image failed to load (e.g. a 404).
       try {
-        await image.decode?.();
+        await image.decode();
       } catch {
-        // Ignore failures (e.g. a 404); the text-badge fallback still applies.
+        brokenAgencies.add(agency);
       }
     })
   );
+
+  return brokenAgencies;
 }
 
 function showActive(path, mapConfig) {
@@ -314,9 +320,6 @@ function renderInfoPlaceholder(panel, infoPanelConfig) {
   panel.innerHTML = infoPanelConfig.placeholderText || '';
 }
 
-// Build the badge shown as the leading "bullet" for an action. If the agency is
-// present in the badge mapping, an <img> of its seal is used; otherwise it falls
-// back to the gold text badge with the agency code.
 function createTextBadge(agency) {
   const badge = createElement('span', 'map-widget__agency-badge');
   badge.textContent = agency;
@@ -331,22 +334,36 @@ function createAgencyBadge(agency, badgeMapping) {
     image.src = imageUrl;
     image.alt = agency;
 
-    // If the seal fails to load (e.g. a 404), swap in the text badge so the
-    // agency is still identified rather than showing a broken image.
-    image.addEventListener('error', () => {
-      if (image.parentNode) {
-        image.parentNode.replaceChild(createTextBadge(agency), image);
-      }
-    });
-
     return image;
   }
 
   return createTextBadge(agency);
 }
 
+// Build the badge shown as the leading "bullet" for an action. If the agency is
+// present in the badge mapping, an <img> of its seal is used; otherwise it falls
+// back to the gold text badge with the agency code.
+//
+// Reuses previously created agency badges that were added to the cache
+function getAgencyBadge(context, agency) {
+  const { badgeCache, badgeMapping, brokenSeals } = context;
+
+  // Check if the badgeCache has this agency already
+  // If not, create a text badge IF the seal is 'broken'
+  // otherwise, create the real agency badge.
+  // Add the result to the cache
+  if (!badgeCache[agency]) {
+    badgeCache[agency] = brokenSeals?.has(agency)
+      ? createTextBadge(agency)
+      : createAgencyBadge(agency, badgeMapping);
+  }
+
+  // Reuse the cached badge
+  return badgeCache[agency].cloneNode(true);
+}
+
 function renderInfo(context, feature) {
-  const { panel, data, infoPanelConfig, badgeMapping } = context;
+  const { panel, data, infoPanelConfig } = context;
 
   //    Resolve the state's code from the hovered/clicked feature and look up
   //    its matching record in the loaded data set.
@@ -413,7 +430,7 @@ function renderInfo(context, feature) {
     //    Add the agency badge, used as the row's leading "bullet". When
     //    the agency has an image in the mapping we use that; otherwise we
     //    fall back to the gold text badge.
-    const badge = createAgencyBadge(action.agency, badgeMapping);
+    const badge = getAgencyBadge(context, action.agency);
     row.appendChild(badge);
 
     // 10d. Build the content block that holds the action text (and date).
@@ -446,7 +463,7 @@ function renderInfo(context, feature) {
 async function initMapWidget(mapWidget) {
   const data = await loadData(mapWidget);
   const badgeMapping = await loadBadgeMapping(mapWidget);
-  await preloadBadgeImages(badgeMapping);
+  const brokenSeals = await preloadBadgeImages(badgeMapping);
 
   const mapElement = createElement('div', 'map-widget__map');
   mapWidget.appendChild(mapElement);
@@ -474,6 +491,8 @@ async function initMapWidget(mapWidget) {
     mapConfig: mapConfig,
     infoPanelConfig: infoPanelConfig,
     badgeMapping: badgeMapping,
+    brokenSeals: brokenSeals,
+    badgeCache: {},
     active: null
   };
 
