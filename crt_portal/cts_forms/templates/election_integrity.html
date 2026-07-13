@@ -13,7 +13,10 @@
 {% block head %} {% include "partials/map_widget_assets.html" %} {% endblock %}
 {% block hero %}
     <section class="hero-section" aria-labelledby="hero-title">
-        <img class="hero-image" src="{% static 'img/trump-hero-2.webp' %}" alt="Election Integrity Hero Image - President Trump">
+        <picture>
+            <source srcset="{% static 'img/trump-hero.webp' %}" type="image/webp">
+            <img class="hero-image" src="{% static 'img/trump-hero.jpg' %}" alt="Election Integrity Hero Image - President Trump">
+        </picture>
         <div class="hero-overlay">
             <div class="hero-text">
                 <h1 class="hero-text__title font-family-serif">
@@ -81,11 +84,11 @@
                         <span class="actionbtn__text font-serif-lg">Report an Election Issue</span>
                     </span>
                 </a>
-                <a class="actionbtn actionbtn__dhs bg-white" href="#">
+                <a class="actionbtn actionbtn__dhs bg-white" href="https://www.dhs.gov/">
                     <img class="actionbtn__seal" src="{% static 'img/Seal_of_the_United_States_Department_of_Homeland_Security.svg' %}" alt="" aria-hidden="true">
                     <span class="actionbtn__label display-flex flex-column">
                         <span class="actionbtn__agency text-bold font-body-3xs text-ls-2 text-primary-vivid">HOMELAND SECURITY</span>
-                        <span class="actionbtn__text font-serif-lg">Placeholder action</span>
+                        <span class="actionbtn__text font-serif-lg">Report an Election Issue</span>
                     </span>
                 </a>
             </div>
