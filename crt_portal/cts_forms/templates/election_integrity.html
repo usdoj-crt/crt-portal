@@ -48,7 +48,7 @@
 {% endblock %}
 
 {% block content %}
-    <section id="enforcement-map" class="enforcement-map padding-x-2" aria-label="Nationwide Enforcement Actions Section">
+    <section id="enforcement-map" class="enforcement-map padding-x-4 padding-y-4" aria-label="Nationwide Enforcement Actions Section">
         <div class="display-flex flex-column flex-align-center margin-top-6">
             <h2 class="font-serif-3xl text-normal text-primary-darker margin-0 text-center">
                 Nationwide Enforcement Actions
@@ -72,29 +72,23 @@
     </section>-->
 
 
-    <section id="in-the-news" class="in-the-news padding-x-2 padding-top-6 padding-bottom-6"
+    <section id="in-the-news" class="in-the-news padding-x-2 padding-y-10"
         aria-label="Election Integrity in the News">
         <div class="display-flex flex-column flex-align-center">
             <h2 class="font-serif-2xl text-normal text-primary-darker margin-0 text-center">
                 Election Integrity in the News
             </h2>
 
-            <div class="simplenews grid-row grid-gap-lg width-full margin-top-4">
+            <div class="simplenews grid-row grid-gap-lg width-full margin-top-6">
                 <!-- DOJ column -->
                 <div class="simplenews__col tablet:grid-col padding-bottom-4 tablet:padding-bottom-0">
                     <div class="display-flex flex-align-center flex-justify-center margin-bottom-2">
-                        <img class="simplenews__seal flex-shrink-0 square-5 margin-right-2"
-                            src="{% static 'img/Seal_of_the_United_States_Department_of_Justice.svg' %}"
+                        <img class="simplenews__seal flex-shrink-0 square-6 margin-right-2"
+                                                    src="{% static 'img/Seal_of_the_United_States_Department_of_Justice.svg' %}"
                             alt="Seal of the U.S. Department of Justice">
                         <h3 class="font-serif-lg text-normal text-primary-darker margin-0" id="news-doj-h">Department of Justice</h3>
                     </div>
                     <ul class="usa-list usa-list--unstyled margin-0" aria-labelledby="news-doj-h">
-                        <li class="simplenews__item padding-y-2 margin-x-2">
-                            <span class="simplenews__date display-block text-bold text-uppercase font-body-3xs text-ls-1 margin-bottom-05">Apr 1, 2026</span>
-                            <a class="simplenews__link external-link--blue text-primary-darker"
-                                href="https://www.justice.gov/opa/pr/justice-department-sues-idaho-failure-produce-voter-rolls"
-                                target="_blank" rel="noopener">Justice Department Sues Idaho for Failure to Produce Voter Rolls</a>
-                        </li>
                         <li class="simplenews__item padding-y-2 margin-x-2">
                             <span class="simplenews__date display-block text-bold text-uppercase font-body-3xs text-ls-1 margin-bottom-05">Feb 26, 2026</span>
                             <a class="simplenews__link external-link--blue text-primary-darker"
@@ -119,6 +113,12 @@
                                 href="https://www.justice.gov/opa/pr/justice-department-sues-four-additional-states-and-one-locality-failure-comply-federal"
                                 target="_blank" rel="noopener">Justice Department Sues Four Additional States and One Locality for Failure to Comply with Federal Elections Laws</a>
                         </li>
+                        <li class="simplenews__item padding-y-2 margin-x-2">
+                            <span class="simplenews__date display-block text-bold text-uppercase font-body-3xs text-ls-1 margin-bottom-05">Dec 2, 2025</span>
+                            <a class="simplenews__link external-link--blue text-primary-darker"
+                                href="https://www.justice.gov/opa/pr/justice-department-sues-six-additional-states-failure-provide-voter-registration-rolls"
+                                target="_blank" rel="noopener">Justice Department Sues Six Additional States for Failure to Provide Voter Registration Rolls</a>
+                        </li>
                     </ul>
                     <p class="margin-top-2 margin-bottom-0">
                         <a class="external-link--blue text-bold"
@@ -130,8 +130,8 @@
                 <!-- DHS column -->
                 <div class="simplenews__col simplenews__col--dhs tablet:grid-col">
                     <div class="display-flex flex-align-center flex-justify-center margin-bottom-2">
-                        <img class="simplenews__seal flex-shrink-0 square-5 margin-right-2"
-                            src="{% static 'img/Seal_of_the_United_States_Department_of_Homeland_Security.svg' %}"
+                        <img class="simplenews__seal flex-shrink-0 square-6 margin-right-2"
+                                                    src="{% static 'img/Seal_of_the_United_States_Department_of_Homeland_Security.svg' %}"
                             alt="Seal of the U.S. Department of Homeland Security">
                         <h3 class="font-serif-lg text-normal text-primary-darker margin-0" id="news-dhs-h">Homeland Security</h3>
                     </div>
@@ -143,28 +143,28 @@
                                 target="_blank" rel="noopener">DHS Requires States to Adopt Common-Sense Election Security Measures Before Receiving Federal Funds</a>
                         </li>
                         <li class="simplenews__item padding-y-2 margin-x-2">
+                            <span class="simplenews__date display-block text-bold text-uppercase font-body-3xs text-ls-1 margin-bottom-05">Jul 9, 2026</span>
+                            <a class="simplenews__link external-link--blue text-primary-darker"
+                                href="https://www.dhs.gov/news/2026/07/09/ice-arrests-alien-new-jersey-who-illegally-voted-federal-elections"
+                                target="_blank" rel="noopener">ICE Arrests Alien in New Jersey Who Illegally Voted in Federal Elections</a>
+                        </li>
+                        <li class="simplenews__item padding-y-2 margin-x-2">
+                            <span class="simplenews__date display-block text-bold text-uppercase font-body-3xs text-ls-1 margin-bottom-05">Jul 7, 2026</span>
+                            <a class="simplenews__link external-link--blue text-primary-darker"
+                                href="https://www.dhs.gov/news/2026/07/07/ice-investigation-leads-arrest-australian-alien-who-illegally-voted-multiple"
+                                target="_blank" rel="noopener">ICE Investigation Leads to Arrest of Australian Alien Who Illegally Voted in Multiple Federal Elections</a>
+                        </li>
+                        <li class="simplenews__item padding-y-2 margin-x-2">
+                            <span class="simplenews__date display-block text-bold text-uppercase font-body-3xs text-ls-1 margin-bottom-05">Jun 9, 2026</span>
+                            <a class="simplenews__link external-link--blue text-primary-darker"
+                                href="https://www.dhs.gov/news/2026/06/09/dhs-directs-ice-deport-aliens-who-vote-american-elections"
+                                target="_blank" rel="noopener">DHS Directs ICE to Deport Aliens Who Vote in American Elections</a>
+                        </li>
+                        <li class="simplenews__item padding-y-2 margin-x-2">
                             <span class="simplenews__date display-block text-bold text-uppercase font-body-3xs text-ls-1 margin-bottom-05">Apr 22, 2026</span>
                             <a class="simplenews__link external-link--blue text-primary-darker"
-                                href="https://www.dhs.gov/topics/election-security"
-                                target="_blank" rel="noopener">DHS Statement on Conviction of Alien for Voter Fraud in Multiple Elections</a>
-                        </li>
-                        <li class="simplenews__item padding-y-2 margin-x-2">
-                            <span class="simplenews__date display-block text-bold text-uppercase font-body-3xs text-ls-1 margin-bottom-05">Mar 9, 2026</span>
-                            <a class="simplenews__link external-link--blue text-primary-darker"
-                                href="https://www.dhs.gov/topics/election-security"
-                                target="_blank" rel="noopener">ICE and FBI Arrest Criminal Illegal Alien Charged with Voter Fraud in Philadelphia</a>
-                        </li>
-                        <li class="simplenews__item padding-y-2 margin-x-2">
-                            <span class="simplenews__date display-block text-bold text-uppercase font-body-3xs text-ls-1 margin-bottom-05">Nov 13, 2025</span>
-                            <a class="simplenews__link external-link--blue text-primary-darker"
-                                href="https://www.dhs.gov/topics/election-security"
-                                target="_blank" rel="noopener">DHS Highlights Efforts to Protect Election Infrastructure</a>
-                        </li>
-                        <li class="simplenews__item padding-y-2 margin-x-2">
-                            <span class="simplenews__date display-block text-bold text-uppercase font-body-3xs text-ls-1 margin-bottom-05">Dec 19, 2025</span>
-                            <a class="simplenews__link external-link--blue text-primary-darker"
-                                href="https://www.dhs.gov/topics/election-security"
-                                target="_blank" rel="noopener">DHS Reveals Additional Voting Records in Multi-State Voter Fraud Case</a>
+                                href="https://www.dhs.gov/news/2026/04/22/alien-mexico-pleads-guilty-and-convicted-voter-fraud-falsely-claiming-be-us-citizen"
+                                target="_blank" rel="noopener">Alien From Mexico Pleads Guilty and Convicted of Voter Fraud for Falsely Claiming To Be a U.S. Citizen</a>
                         </li>
                     </ul>
                     <p class="margin-top-2 margin-bottom-0">
@@ -177,7 +177,7 @@
             </div>
     </section>
 
-    <section id="action-bar" class="action-bar padding-x-2 padding-top-10 padding-bottom-10 bg-primary-darker" aria-labelledby="action-heading">
+    <section id="action-bar" class="action-bar padding-x-2 padding-y-10 bg-primary-darker" aria-labelledby="action-heading">
         <div class="display-flex flex-column flex-align-center">
             <h2 class="font-serif-2xl text-white margin-0 text-center" id="action-heading">Support Election Integrity</h2>
             <p class="action-bar__subtext text-white text-center">Help the Department of Justice and Department of Homeland Security protect the vote by

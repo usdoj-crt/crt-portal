@@ -24,7 +24,7 @@
     object-fit: cover;
     object-position: center;
 
-    @include at-media-max("desktop") {
+    @include at-media-max("tablet") {
         // Show the image at its natural aspect ratio (full image, no crop)
         height: auto;
         object-fit: contain;
@@ -46,7 +46,7 @@
     );
 
     // On Mobile - Stop overlaying the image; sit below it in normal flow.
-    @include at-media-max("desktop") {
+    @include at-media-max("tablet") {
         position: static;
         background: linear-gradient(
             to top,
@@ -62,7 +62,7 @@
     left: 0;
     padding: 4rem;
 
-    @include at-media-max("desktop") {
+    @include at-media-max("tablet") {
         position: static;
         padding: 1.5rem;
     }
@@ -73,7 +73,7 @@
     color: whitesmoke;
     margin: 0;
 
-    @include at-media-max("desktop") {
+    @include at-media-max("tablet") {
         // Shrink a lot so the block stays compact
         font-size: 28px;
     }
@@ -144,20 +144,14 @@
     object-fit: contain;
 }
 
-// Short gold rule under each agency heading.
-.simplenews__accent {
-    height: 4px;
-    width: 44px;
-}
-
 .simplenews__date {
     color: #9a7d2e;
 }
 
-// A thin divider between consecutive news items. The navy tint reads against
+// A thin divider below each news item. The navy tint reads against
 // the light blue-gray section background where USWDS's grays are too faint.
-.simplenews__item + .simplenews__item {
-    border-top: 1px solid rgba(17, 47, 78, 0.14);
+.simplenews__item {
+    border-bottom: 1px solid rgba(17, 47, 78, 0.14);
 }
 
 // Divider between the two columns: vertical on desktop, becomes a horizontal
