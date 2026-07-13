@@ -1,0 +1,245 @@
+@use "uswds-core" as *;
+
+// -------------------------------------
+// Election Integrity page
+// Rendered by cts_forms/templates/election_integrity.html
+//
+// Layout notes:
+//   DESKTOP: the hero overlay sits on top of the image, with the hero text
+//            anchored to the bottom-left corner.
+//   MOBILE:  the image shows in full (no crop) and the hero text sits below
+//            it in normal flow. Each selector keeps its mobile overrides
+//            co-located in a nested `at-media-max(desktop)` block.
+// -------------------------------------
+
+.hero-section {
+    position: relative;
+    width: 100%;
+}
+
+.hero-image {
+    display: block;
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+    object-position: center;
+
+    @include at-media-max("desktop") {
+        // Show the image at its natural aspect ratio (full image, no crop)
+        height: auto;
+        object-fit: contain;
+    }
+}
+
+.hero-overlay {
+    // Overlay covers the image; children are positioned individually.
+    position: absolute;
+    inset: 0;
+
+    // Subtle blue gradient, stronger toward the bottom where the text sits,
+    // to improve legibility of the hero text against the image.
+    background: linear-gradient(
+        to top,
+        rgba(10, 34, 64, 0.75) 0%,
+        rgba(10, 34, 64, 0.35) 40%,
+        rgba(10, 34, 64, 0) 75%
+    );
+
+    // On Mobile - Stop overlaying the image; sit below it in normal flow.
+    @include at-media-max("desktop") {
+        position: static;
+        background: linear-gradient(
+            to top,
+            rgba(10, 34, 64, 1) 0%,
+            rgba(10, 34, 64, 0.9) 100%
+        );
+    }
+}
+
+.hero-text {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding: 4rem;
+
+    @include at-media-max("desktop") {
+        position: static;
+        padding: 1.5rem;
+    }
+}
+
+.hero-text__title {
+    font-size: 64px;
+    color: whitesmoke;
+    margin: 0;
+
+    @include at-media-max("desktop") {
+        // Shrink a lot so the block stays compact
+        font-size: 28px;
+    }
+}
+
+.hero-collab {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+
+    @include at-media-max("desktop") {
+        gap: 0.75rem;
+        margin-top: 1rem;
+    }
+}
+
+.hero-collab__seals {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-shrink: 0;
+}
+
+.hero-collab__seal {
+    display: block;
+    width: 56px;
+    height: 56px;
+
+    @include at-media-max("desktop") {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+.hero-collab__text {
+    color: #f0e6c8;
+    margin: 0;
+    padding-left: 1rem;
+    border-left: 2px solid #ffbe2e;
+
+    @include at-media-max("desktop") {
+        font-size: 14px;
+        padding-left: 0.75rem;
+    }
+}
+
+.quote-banner-section {
+    margin: 0;
+}
+
+.quote-stage {
+    // Sit flush against the hero section above
+    margin: 0;
+    padding: 2rem 8rem;
+
+    @include at-media-max("desktop") {
+        padding: 0.5rem 0.5rem;
+    }
+}
+
+.quote-stage__block {
+    // Wider horizontal margins on desktop
+    margin: 1rem 6rem;
+
+    // Tighter on mobile
+    @include at-media-max("desktop") {
+        margin: 1rem 1rem;
+    }
+}
+
+.quote-stage__text {
+    font-style: italic;
+    color: #ffe396;
+
+    @include at-media-max("desktop") {
+        // Shrink the quote so it stays readable and compact on small screens
+        font-size: 1.125rem;
+        line-height: 1.4;
+    }
+}
+
+.quote-stage__cite {
+    display: block;
+    color: #e9d9a8;
+}
+
+.enforcement-map__title {
+    color: #454545;
+}
+
+// A faint white radial "glow" originates from behind the heading (top-center)
+// and fades out into the blue background. `bg-primary-darker` (#162e51) still
+// paints the base color; this layers the soft glow on top of it.
+.action-bar {
+    background-image: radial-gradient(
+        ellipse 80% 80% at 50% 50%,
+        rgba(255, 255, 255, 0.015) 0%,
+        rgba(255, 255, 255, 0.075) 35%,
+        rgba(255, 255, 255, 0) 70%
+    );
+}
+
+.action-bar__subtext {
+    width: 100%;
+    max-width: 575px;
+    margin-left: auto;
+    margin-right: auto;
+
+    @include at-media-max("desktop") {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+}
+
+// Button container: lays the action buttons out centered and side by side
+// wrapping to a single column on mobile. Each button fills its equal-width
+// column.
+.button-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    width: 100%;
+    max-width: 60rem;
+    margin-top: 1.5rem;
+    justify-items: center;
+    padding-left: 4rem;
+    padding-right: 4rem;
+
+    // Stack into a single column on mobile.
+    @include at-media-max("desktop") {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+}
+
+.actionbtn {
+    // Rounded square button: seal on the left, agency + action text stacked
+    // to its right, both vertically centered together.
+    display: flex;
+    align-items: center;
+    // Fill the grid cell so every button is the same width.
+    width: 100%;
+    max-width: 26rem;
+    gap: 1rem;
+    padding: 1rem 1.5rem;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+
+    // Slight pop-up on hover, matching the news card.
+    &:hover,
+    &:focus {
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18);
+        transform: translateY(-2px);
+    }
+}
+
+.actionbtn__seal {
+    flex-shrink: 0;
+    width: 56px;
+    height: 56px;
+    object-fit: contain;
+}
+
+.actionbtn__label {
+    gap: 0.25rem;
+}

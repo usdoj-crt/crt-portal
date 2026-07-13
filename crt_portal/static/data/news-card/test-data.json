@@ -1,0 +1,31 @@
+{
+    "items": [
+        {
+            "type": "Press Release",
+            "thumbnail": null,
+            "agency": "DOJ",
+            "date": "7/7/2026",
+            "linkUrl": "https://www.justice.gov/opa/pr",
+            "linkText": "Justice Department sues four additional states and one locality for failure to comply with federal elections laws",
+            "source": "DOJ Civil Rights Division"
+        },
+        {
+            "type": "Announcement",
+            "thumbnail": null,
+            "agency": "DHS",
+            "date": "6/20/2026",
+            "linkUrl": "https://www.dhs.gov/news",
+            "linkText": "DHS and DOJ announce joint initiative to safeguard the integrity of the 2026 elections",
+            "source": "Department of Homeland Security"
+        },
+        {
+            "type": "Partner",
+            "thumbnail": "../../img/trump-hero-2.webp",
+            "agency": "DHS",
+            "date": "6/20/2026",
+            "linkUrl": "https://www.dhs.gov/news",
+            "linkText": "DHS and DOJ announce joint initiative to safeguard the integrity of the 2026 elections",
+            "source": "Department of Homeland Security"
+        }
+    ]
+}

@@ -16,6 +16,12 @@
 
 .map-widget__map {
   flex: 2;
+  padding: 0.5rem;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  /* Clip the SVG's corners to the rounded box. */
+  overflow: hidden;
 }
 
 /* The SVG scales to fill the map area; viewBox handles the aspect ratio. */
@@ -28,8 +34,94 @@
 
 .map-widget__panel {
   flex: 1;
-  border: 1px solid gray;
-  border-radius: 6px;
-  padding-left: 8px;
-  padding-right: 8px;
+  padding: 1.0rem;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  /* Clip the SVG's corners to the rounded box. */
+  overflow: hidden;
+}
+
+/* Short gold/yellow accent bar shown above the info-panel heading. */
+.map-widget__separator {
+  margin-top: 0.25rem;
+  margin-bottom: 1.0rem;
+  border: 2px solid #ffbe2e;
+  border-radius: 2px;
+  background: #ffbe2e;
+  width: 50px;
+}
+
+/* Flex container housing the state badge and heading side by side. */
+.map-widget__heading-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Rounded badge showing the state abbreviation, shown next to the heading. */
+.map-widget__state-badge {
+  flex-shrink: 0;
+  display: inline-block;
+  padding: 0.1rem 0.5rem;
+  border-radius: 999px;
+  background: #ffbe2e;
+  color: #1b1b1b;
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.map-widget__actions {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.map-widget__action-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+/* Rounded badge showing the agency, used as the bullet for each action. */
+.map-widget__agency-badge {
+  flex-shrink: 0;
+  display: inline-block;
+  padding: 0.1rem 0.5rem;
+  border-radius: 999px;
+  background: #ffbe2e;
+  color: #1b1b1b;
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+/* Image variant of the agency badge (e.g. an agency seal). */
+.map-widget__agency-badge-image {
+  flex-shrink: 0;
+  display: block;
+  width: 1.75rem;
+  height: 1.75rem;
+  /* Align the seal's top edge with the first line of the action text. The row
+     uses `align-items: baseline`, which images don't participate in cleanly, so
+     nudge it to line up with the text's cap height. */
+  align-self: flex-start;
+  margin-top: 0.05rem;
+  object-fit: contain;
+}
+
+.map-widget__action-content {
+  flex: 1;
+}
+
+.map-widget__action-date {
+  margin-top: 0.125rem;
+  color: #71767a;
+  font-size: 0.8rem;
 }
