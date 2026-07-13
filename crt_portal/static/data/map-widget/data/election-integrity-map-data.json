@@ -3,6 +3,16 @@
         "name": "Alabama",
         "actions": [
             {
+                "date": "3/14/2025",
+                "agency": "DOJ",
+                "action": "DOJ withdrew from Biden-era suit demanding race-based election maps"
+            },
+            {
+                "date": "6/20/2025",
+                "agency": "DOJ",
+                "action": "DOJ filed a statement demanding judges not force states to draw race-based voting maps"
+            },
+            {
                 "date": "7/22/2025",
                 "agency": "DOJ",
                 "action": "DOJ inspected federal election records to ensure only eligible Americans vote with Alabama's support"
@@ -13,11 +23,6 @@
                 "action": "DOJ ensures primary election military ballots are sent early to comply with federal law"
             },
             {
-                "date": "3/14/2025",
-                "agency": "DOJ",
-                "action": "DOJ withdrew from Biden-era suit demanding race-based election maps"
-            },
-            {
                 "date": "7/7/2026",
                 "agency": "DOJ",
                 "action": "DOJ warns state officials of their criminal liability regarding illegal voting"
@@ -26,11 +31,6 @@
                 "date": "9/18/2026",
                 "agency": "DOJ",
                 "action": "DOJ ensures general election military ballots are sent early to comply with federal law"
-            },
-            {
-                "date": "6/20/2025",
-                "agency": "DOJ",
-                "action": "DOJ filed a statement demanding judges not force states to draw race-based voting maps"
             }
         ]
     },
@@ -63,6 +63,11 @@
         "name": "Arizona",
         "actions": [
             {
+                "date": "5/20/2025",
+                "agency": "DOJ",
+                "action": "DOJ sent Arizona a letter demanding the state require voters provide ID information when they register"
+            },
+            {
                 "date": "1/6/2026",
                 "agency": "DOJ",
                 "action": "DOJ sued Arizona for failing to provide federal election records"
@@ -71,6 +76,11 @@
                 "date": "6/6/2026",
                 "agency": "DOJ",
                 "action": "DOJ ensures primary election military ballots are sent early to comply with federal law"
+            },
+            {
+                "date": "7/7/2026",
+                "agency": "DOJ",
+                "action": "DOJ warns state officials of their criminal liability regarding illegal voting"
             },
             {
                 "date": "7/21/2026",
@@ -86,16 +96,6 @@
                 "date": "7/21/2026",
                 "agency": "DOJ",
                 "action": "DOJ will send election monitors to Apache County to ensure federal law compliance"
-            },
-            {
-                "date": "5/20/2025",
-                "agency": "DOJ",
-                "action": "DOJ sent Arizona a letter demanding the state require voters provide ID information when they register"
-            },
-            {
-                "date": "7/7/2026",
-                "agency": "DOJ",
-                "action": "DOJ warns state officials of their criminal liability regarding illegal voting"
             },
             {
                 "date": "9/18/2026",
@@ -133,19 +133,14 @@
         "name": "California",
         "actions": [
             {
+                "date": "6/25/2025",
+                "agency": "DOJ",
+                "action": "DOJ sued Orange County, CA for withholding voting records and registering noncitizens to vote"
+            },
+            {
                 "date": "9/25/2025",
                 "agency": "DOJ",
                 "action": "DOJ sued California for failing to provide federal election records"
-            },
-            {
-                "date": "5/7/2026",
-                "agency": "DOJ",
-                "action": "DOJ criminally prosecutes California woman for paying people to register to vote"
-            },
-            {
-                "date": "4/18/2026",
-                "agency": "DOJ",
-                "action": "DOJ ensures primary election military ballots are sent early to comply with federal law"
             },
             {
                 "date": "11/4/2025",
@@ -173,9 +168,14 @@
                 "action": "DOJ sent election monitors to Riverside County to ensure federal law compliance"
             },
             {
-                "date": "6/25/2025",
+                "date": "4/18/2026",
                 "agency": "DOJ",
-                "action": "DOJ sued Orange County, CA for withholding voting records and registering noncitizens to vote"
+                "action": "DOJ ensures primary election military ballots are sent early to comply with federal law"
+            },
+            {
+                "date": "5/7/2026",
+                "agency": "DOJ",
+                "action": "DOJ criminally prosecutes California woman for paying people to register to vote"
             },
             {
                 "date": "7/7/2026",
@@ -248,14 +248,14 @@
                 "action": "DOJ sued Delaware for failing to provide federal election records"
             },
             {
-                "date": "7/27/2026",
-                "agency": "DOJ",
-                "action": "DOJ ensures primary election military ballots are sent early to comply with federal law"
-            },
-            {
                 "date": "7/7/2026",
                 "agency": "DOJ",
                 "action": "DOJ warns state officials of their criminal liability regarding illegal voting"
+            },
+            {
+                "date": "7/27/2026",
+                "agency": "DOJ",
+                "action": "DOJ ensures primary election military ballots are sent early to comply with federal law"
             },
             {
                 "date": "9/18/2026",
@@ -298,11 +298,6 @@
         "name": "Florida",
         "actions": [
             {
-                "date": "8/14/2026",
-                "agency": "DOJ",
-                "action": "DOJ inspected federal election records to ensure only eligible Americans vote with Florida's support"
-            },
-            {
                 "date": "7/4/2026",
                 "agency": "DOJ",
                 "action": "DOJ ensures primary election military ballots are sent early to comply with federal law"
@@ -311,6 +306,11 @@
                 "date": "7/7/2026",
                 "agency": "DOJ",
                 "action": "DOJ warns state officials of their criminal liability regarding illegal voting"
+            },
+            {
+                "date": "8/14/2026",
+                "agency": "DOJ",
+                "action": "DOJ inspected federal election records to ensure only eligible Americans vote with Florida's support"
             },
             {
                 "date": "9/18/2026",
@@ -398,6 +398,11 @@
         "name": "Illinois",
         "actions": [
             {
+                "date": "7/8/2025",
+                "agency": "DOJ",
+                "action": "DOJ filed a statement demanding Illinois maintain and clean voter rolls"
+            },
+            {
                 "date": "12/18/2025",
                 "agency": "DOJ",
                 "action": "DOJ sued Illinois for failing to provide federal election records"
@@ -406,11 +411,6 @@
                 "date": "1/31/2026",
                 "agency": "DOJ",
                 "action": "DOJ ensures primary election military ballots are sent early to comply with federal law"
-            },
-            {
-                "date": "7/8/2025",
-                "agency": "DOJ",
-                "action": "DOJ filed a statement demanding Illinois maintain and clean voter rolls"
             },
             {
                 "date": "7/7/2026",
@@ -428,11 +428,6 @@
         "name": "Indiana",
         "actions": [
             {
-                "date": "7/14/2026",
-                "agency": "DOJ",
-                "action": "DOJ inspected federal election records to ensure only eligible Americans vote with Indiana's support"
-            },
-            {
                 "date": "3/21/2026",
                 "agency": "DOJ",
                 "action": "DOJ ensures primary election military ballots are sent early to comply with federal law"
@@ -441,6 +436,11 @@
                 "date": "7/7/2026",
                 "agency": "DOJ",
                 "action": "DOJ warns state officials of their criminal liability regarding illegal voting"
+            },
+            {
+                "date": "7/14/2026",
+                "agency": "DOJ",
+                "action": "DOJ inspected federal election records to ensure only eligible Americans vote with Indiana's support"
             },
             {
                 "date": "9/18/2026",
@@ -453,11 +453,6 @@
         "name": "Iowa",
         "actions": [
             {
-                "date": "7/15/2026",
-                "agency": "DOJ",
-                "action": "DOJ inspected federal election records to ensure only eligible Americans vote with Iowa's support"
-            },
-            {
                 "date": "4/18/2026",
                 "agency": "DOJ",
                 "action": "DOJ ensures primary election military ballots are sent early to comply with federal law"
@@ -466,6 +461,11 @@
                 "date": "7/7/2026",
                 "agency": "DOJ",
                 "action": "DOJ warns state officials of their criminal liability regarding illegal voting"
+            },
+            {
+                "date": "7/15/2026",
+                "agency": "DOJ",
+                "action": "DOJ inspected federal election records to ensure only eligible Americans vote with Iowa's support"
             },
             {
                 "date": "9/18/2026",
@@ -478,11 +478,6 @@
         "name": "Kansas",
         "actions": [
             {
-                "date": "8/14/2026",
-                "agency": "DOJ",
-                "action": "DOJ inspected federal election records to ensure only eligible Americans vote with Kansas' support"
-            },
-            {
                 "date": "6/20/2026",
                 "agency": "DOJ",
                 "action": "DOJ ensures primary election military ballots are sent early to comply with federal law"
@@ -491,6 +486,11 @@
                 "date": "7/7/2026",
                 "agency": "DOJ",
                 "action": "DOJ warns state officials of their criminal liability regarding illegal voting"
+            },
+            {
+                "date": "8/14/2026",
+                "agency": "DOJ",
+                "action": "DOJ inspected federal election records to ensure only eligible Americans vote with Kansas' support"
             },
             {
                 "date": "9/18/2026",
@@ -503,6 +503,11 @@
         "name": "Kentucky",
         "actions": [
             {
+                "date": "3/27/2025",
+                "agency": "DOJ",
+                "action": "DOJ filed a statement demanding judges not block Kentucky from removing out-of-state voters from its rolls"
+            },
+            {
                 "date": "2/26/2026",
                 "agency": "DOJ",
                 "action": "DOJ sued Kentucky for failing to provide federal election records"
@@ -511,11 +516,6 @@
                 "date": "4/4/2026",
                 "agency": "DOJ",
                 "action": "DOJ ensures primary election military ballots are sent early to comply with federal law"
-            },
-            {
-                "date": "3/27/2025",
-                "agency": "DOJ",
-                "action": "DOJ filed a statement demanding judges not block Kentucky from removing out-of-state voters from its rolls"
             },
             {
                 "date": "7/7/2026",
@@ -533,6 +533,11 @@
         "name": "Louisiana",
         "actions": [
             {
+                "date": "1/24/2025",
+                "agency": "DOJ",
+                "action": "DOJ withdrew from Biden-era suit demanding race-based election maps"
+            },
+            {
                 "date": "9/8/2025",
                 "agency": "DOJ",
                 "action": "DOJ inspected federal election records to ensure only eligible Americans vote with Louisiana's support"
@@ -541,11 +546,6 @@
                 "date": "5/13/2026",
                 "agency": "DOJ",
                 "action": "DOJ ensures primary election military ballots are sent early to comply with federal law"
-            },
-            {
-                "date": "1/24/2025",
-                "agency": "DOJ",
-                "action": "DOJ withdrew from Biden-era suit demanding race-based election maps"
             },
             {
                 "date": "7/7/2026",
@@ -588,6 +588,11 @@
         "name": "Maryland",
         "actions": [
             {
+                "date": "3/4/2025",
+                "agency": "DOJ",
+                "action": "DOJ sent election monitors to Prince George's County to ensure federal law compliance"
+            },
+            {
                 "date": "12/2/2025",
                 "agency": "DOJ",
                 "action": "DOJ sued Maryland for failing to provide federal election records"
@@ -596,11 +601,6 @@
                 "date": "5/9/2026",
                 "agency": "DOJ",
                 "action": "DOJ ensures primary election military ballots are sent early to comply with federal law"
-            },
-            {
-                "date": "3/4/2025",
-                "agency": "DOJ",
-                "action": "DOJ sent election monitors to Prince George's County to ensure federal law compliance"
             },
             {
                 "date": "5/22/2026",
@@ -628,6 +628,11 @@
                 "action": "DOJ sued Massachusetts for failing to provide federal election records"
             },
             {
+                "date": "7/7/2026",
+                "agency": "DOJ",
+                "action": "DOJ warns state officials of their criminal liability regarding illegal voting"
+            },
+            {
                 "date": "7/18/2026",
                 "agency": "DOJ",
                 "action": "DOJ ensures primary election military ballots are sent early to comply with federal law"
@@ -641,11 +646,6 @@
                 "date": "9/1/2026",
                 "agency": "DOJ",
                 "action": "DOJ will send election monitors to Boston to ensure federal law compliance"
-            },
-            {
-                "date": "7/7/2026",
-                "agency": "DOJ",
-                "action": "DOJ warns state officials of their criminal liability regarding illegal voting"
             },
             {
                 "date": "9/18/2026",
@@ -668,6 +668,11 @@
                 "action": "DOJ ensures primary election military ballots are sent early to comply with federal law"
             },
             {
+                "date": "7/7/2026",
+                "agency": "DOJ",
+                "action": "DOJ warns state officials of their criminal liability regarding illegal voting"
+            },
+            {
                 "date": "8/4/2026",
                 "agency": "DOJ",
                 "action": "DOJ will send election monitors to Lansing to ensure federal law compliance"
@@ -681,11 +686,6 @@
                 "date": "8/4/2026",
                 "agency": "DOJ",
                 "action": "DOJ will send election monitors to Detroit to ensure federal law compliance"
-            },
-            {
-                "date": "7/7/2026",
-                "agency": "DOJ",
-                "action": "DOJ warns state officials of their criminal liability regarding illegal voting"
             },
             {
                 "date": "9/18/2026",
@@ -708,6 +708,11 @@
                 "action": "DOJ ensures primary election military ballots are sent early to comply with federal law"
             },
             {
+                "date": "7/7/2026",
+                "agency": "DOJ",
+                "action": "DOJ warns state officials of their criminal liability regarding illegal voting"
+            },
+            {
                 "date": "8/11/2026",
                 "agency": "DOJ",
                 "action": "DOJ will send election monitors to Hennepin County to ensure federal law compliance"
@@ -716,11 +721,6 @@
                 "date": "8/11/2026",
                 "agency": "DOJ",
                 "action": "DOJ will send election monitors to Ramsey County to ensure federal law compliance"
-            },
-            {
-                "date": "7/7/2026",
-                "agency": "DOJ",
-                "action": "DOJ warns state officials of their criminal liability regarding illegal voting"
             },
             {
                 "date": "9/18/2026",
@@ -863,6 +863,11 @@
                 "action": "DOJ sued New Hampshire for failing to provide federal election records"
             },
             {
+                "date": "7/7/2026",
+                "agency": "DOJ",
+                "action": "DOJ warns state officials of their criminal liability regarding illegal voting"
+            },
+            {
                 "date": "7/25/2026",
                 "agency": "DOJ",
                 "action": "DOJ ensures primary election military ballots are sent early to comply with federal law"
@@ -878,11 +883,6 @@
                 "action": "DOJ will send election monitors to Nashua to ensure federal law compliance"
             },
             {
-                "date": "7/7/2026",
-                "agency": "DOJ",
-                "action": "DOJ warns state officials of their criminal liability regarding illegal voting"
-            },
-            {
                 "date": "9/18/2026",
                 "agency": "DOJ",
                 "action": "DOJ ensures general election military ballots are sent early to comply with federal law"
@@ -893,16 +893,6 @@
         "name": "New Jersey",
         "actions": [
             {
-                "date": "2/26/2026",
-                "agency": "DOJ",
-                "action": "DOJ sued New Jersey for failing to provide federal election records"
-            },
-            {
-                "date": "4/18/2026",
-                "agency": "DOJ",
-                "action": "DOJ ensures primary election military ballots are sent early to comply with federal law"
-            },
-            {
                 "date": "11/4/2025",
                 "agency": "DOJ",
                 "action": "DOJ sent election monitors to Passaic County to ensure federal law compliance"
@@ -911,6 +901,16 @@
                 "date": "11/5/2025",
                 "agency": "DOJ",
                 "action": "DOJ sent election monitors to Passaic County to monitor vote counting"
+            },
+            {
+                "date": "2/26/2026",
+                "agency": "DOJ",
+                "action": "DOJ sued New Jersey for failing to provide federal election records"
+            },
+            {
+                "date": "4/18/2026",
+                "agency": "DOJ",
+                "action": "DOJ ensures primary election military ballots are sent early to comply with federal law"
             },
             {
                 "date": "6/2/2026",
@@ -988,16 +988,6 @@
         "name": "North Carolina",
         "actions": [
             {
-                "date": "5/27/2025",
-                "agency": "DOJ",
-                "action": "DOJ obtains a court order that North Carolina remedy 100,000+ voter registrations"
-            },
-            {
-                "date": "1/17/2026",
-                "agency": "DOJ",
-                "action": "DOJ ensures primary election military ballots are sent early to comply with federal law"
-            },
-            {
                 "date": "3/27/2025",
                 "agency": "DOJ",
                 "action": "DOJ sued North Carolina for not following federal voting registration standards"
@@ -1006,6 +996,16 @@
                 "date": "5/20/2025",
                 "agency": "DOJ",
                 "action": "DOJ sent North Carolina a letter demanding the state require voters to provide ID information when they register"
+            },
+            {
+                "date": "5/27/2025",
+                "agency": "DOJ",
+                "action": "DOJ obtains a court order that North Carolina remedy 100,000+ voter registrations"
+            },
+            {
+                "date": "1/17/2026",
+                "agency": "DOJ",
+                "action": "DOJ ensures primary election military ballots are sent early to comply with federal law"
             },
             {
                 "date": "7/7/2026",
@@ -1093,6 +1093,11 @@
         "name": "Oregon",
         "actions": [
             {
+                "date": "6/6/2025",
+                "agency": "DOJ",
+                "action": "DOJ filed a statement to help ensure Oregon cleans its voter rolls as legally required"
+            },
+            {
                 "date": "9/16/2025",
                 "agency": "DOJ",
                 "action": "DOJ sued Oregon for failing to provide federal election records"
@@ -1101,11 +1106,6 @@
                 "date": "4/4/2026",
                 "agency": "DOJ",
                 "action": "DOJ ensures primary election military ballots are sent early to comply with federal law"
-            },
-            {
-                "date": "6/6/2025",
-                "agency": "DOJ",
-                "action": "DOJ filed a statement to help ensure Oregon cleans its voter rolls as legally required"
             },
             {
                 "date": "7/7/2026",
@@ -1153,14 +1153,14 @@
                 "action": "DOJ sued Rhode Island for failing to provide federal election records"
             },
             {
-                "date": "7/25/2026",
-                "agency": "DOJ",
-                "action": "DOJ ensures primary election military ballots are sent early to comply with federal law"
-            },
-            {
                 "date": "7/7/2026",
                 "agency": "DOJ",
                 "action": "DOJ warns state officials of their criminal liability regarding illegal voting"
+            },
+            {
+                "date": "7/25/2026",
+                "agency": "DOJ",
+                "action": "DOJ ensures primary election military ballots are sent early to comply with federal law"
             },
             {
                 "date": "9/18/2026",
@@ -1198,11 +1198,6 @@
         "name": "South Dakota",
         "actions": [
             {
-                "date": "8/14/2026",
-                "agency": "DOJ",
-                "action": "DOJ inspected federal election records to ensure eligible Americans vote with South Dakota's support"
-            },
-            {
                 "date": "4/18/2026",
                 "agency": "DOJ",
                 "action": "DOJ ensures primary election military ballots are sent early to comply with federal law"
@@ -1211,6 +1206,11 @@
                 "date": "7/7/2026",
                 "agency": "DOJ",
                 "action": "DOJ warns state officials of their criminal liability regarding illegal voting"
+            },
+            {
+                "date": "8/14/2026",
+                "agency": "DOJ",
+                "action": "DOJ inspected federal election records to ensure eligible Americans vote with South Dakota's support"
             },
             {
                 "date": "9/18/2026",
@@ -1248,6 +1248,11 @@
         "name": "Texas",
         "actions": [
             {
+                "date": "3/6/2025",
+                "agency": "DOJ",
+                "action": "DOJ withdrew from Biden-era suit demanding race-based election maps"
+            },
+            {
                 "date": "7/8/2025",
                 "agency": "DOJ",
                 "action": "DOJ inspected federal election records to ensure eligible Americans vote with Texas' support"
@@ -1256,11 +1261,6 @@
                 "date": "1/17/2026",
                 "agency": "DOJ",
                 "action": "DOJ ensures primary election military ballots are sent early to comply with federal law"
-            },
-            {
-                "date": "3/6/2025",
-                "agency": "DOJ",
-                "action": "DOJ withdrew from Biden-era suit demanding race-based election maps"
             },
             {
                 "date": "7/7/2026",
@@ -1338,6 +1338,11 @@
                 "action": "DOJ ensures primary election military ballots are sent early to comply with federal law"
             },
             {
+                "date": "7/7/2026",
+                "agency": "DOJ",
+                "action": "DOJ warns state officials of their criminal liability regarding illegal voting"
+            },
+            {
                 "date": "8/4/2026",
                 "agency": "DOJ",
                 "action": "DOJ will send election monitors to Fairfax County to ensure federal law compliance"
@@ -1346,11 +1351,6 @@
                 "date": "8/4/2026",
                 "agency": "DOJ",
                 "action": "DOJ will send election monitors to Prince William County to ensure federal law compliance"
-            },
-            {
-                "date": "7/7/2026",
-                "agency": "DOJ",
-                "action": "DOJ warns state officials of their criminal liability regarding illegal voting"
             },
             {
                 "date": "9/18/2026",
@@ -1438,16 +1438,6 @@
         "name": "Wyoming",
         "actions": [
             {
-                "date": "6/25/2026",
-                "agency": "DOJ",
-                "action": "DOJ inspected federal election records to ensure only eligible Americans vote with Wyoming's support"
-            },
-            {
-                "date": "7/4/2026",
-                "agency": "DOJ",
-                "action": "DOJ ensures primary election military ballots are sent early to comply with federal law"
-            },
-            {
                 "date": "7/1/2025",
                 "agency": "DOJ",
                 "action": "DOJ filed a statement demanding federal courts not block Wyoming's voter ID law"
@@ -1456,6 +1446,16 @@
                 "date": "8/14/2025",
                 "agency": "DOJ",
                 "action": "DOJ sent Wyoming a letter demanding the state add all required fields to its voter registration"
+            },
+            {
+                "date": "6/25/2026",
+                "agency": "DOJ",
+                "action": "DOJ inspected federal election records to ensure only eligible Americans vote with Wyoming's support"
+            },
+            {
+                "date": "7/4/2026",
+                "agency": "DOJ",
+                "action": "DOJ ensures primary election military ballots are sent early to comply with federal law"
             },
             {
                 "date": "7/7/2026",
