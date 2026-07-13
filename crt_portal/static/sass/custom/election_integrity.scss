@@ -24,7 +24,7 @@
     object-fit: cover;
     object-position: center;
 
-    @include at-media-max(desktop) {
+    @include at-media-max("desktop") {
         // Show the image at its natural aspect ratio (full image, no crop)
         height: auto;
         object-fit: contain;
@@ -46,7 +46,7 @@
     );
 
     // On Mobile - Stop overlaying the image; sit below it in normal flow.
-    @include at-media-max(desktop) {
+    @include at-media-max("desktop") {
         position: static;
         background: linear-gradient(
             to top,
@@ -62,7 +62,7 @@
     left: 0;
     padding: 4rem;
 
-    @include at-media-max(desktop) {
+    @include at-media-max("desktop") {
         position: static;
         padding: 1.5rem;
     }
@@ -73,7 +73,7 @@
     color: whitesmoke;
     margin: 0;
 
-    @include at-media-max(desktop) {
+    @include at-media-max("desktop") {
         // Shrink a lot so the block stays compact
         font-size: 28px;
     }
@@ -85,7 +85,7 @@
     gap: 1rem;
     margin-top: 1.5rem;
 
-    @include at-media-max(desktop) {
+    @include at-media-max("desktop") {
         gap: 0.75rem;
         margin-top: 1rem;
     }
@@ -103,7 +103,7 @@
     width: 56px;
     height: 56px;
 
-    @include at-media-max(desktop) {
+    @include at-media-max("desktop") {
         width: 40px;
         height: 40px;
     }
@@ -115,7 +115,7 @@
     padding-left: 1rem;
     border-left: 2px solid #ffbe2e;
 
-    @include at-media-max(desktop) {
+    @include at-media-max("desktop") {
         font-size: 14px;
         padding-left: 0.75rem;
     }
@@ -130,7 +130,7 @@
     margin: 0;
     padding: 2rem 8rem;
 
-    @include at-media-max(desktop) {
+    @include at-media-max("desktop") {
         padding: 0.5rem 0.5rem;
     }
 }
@@ -140,7 +140,7 @@
     margin: 1rem 6rem;
 
     // Tighter on mobile
-    @include at-media-max(desktop) {
+    @include at-media-max("desktop") {
         margin: 1rem 1rem;
     }
 }
@@ -149,7 +149,7 @@
     font-style: italic;
     color: #ffe396;
 
-    @include at-media-max(desktop) {
+    @include at-media-max("desktop") {
         // Shrink the quote so it stays readable and compact on small screens
         font-size: 1.125rem;
         line-height: 1.4;
@@ -163,4 +163,71 @@
 
 .enforcement-map__title {
     color: #454545;
+}
+
+.action-bar__subtext {
+    width: 100%;
+    max-width: 575px;
+    margin-left: auto;
+    margin-right: auto;
+
+    @include at-media-max("desktop") {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+}
+
+// Button container: lays the action buttons out centered and side by side
+// wrapping to a single column on mobile. Each button fills its equal-width
+// column.
+.button-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    width: 100%;
+    max-width: 60rem;
+    margin-top: 1.5rem;
+    justify-items: center;
+    padding-left: 4rem;
+    padding-right: 4rem;
+
+    // Stack into a single column on mobile.
+    @include at-media-max("desktop") {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+}
+
+.actionbtn {
+    // Rounded square button: seal on the left, agency + action text stacked
+    // to its right, both vertically centered together.
+    display: flex;
+    align-items: center;
+    // Fill the grid cell so every button is the same width.
+    width: 100%;
+    max-width: 26rem;
+    gap: 1rem;
+    padding: 1rem 1.5rem;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+
+    // Slight pop-up on hover, matching the news card.
+    &:hover,
+    &:focus {
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18);
+        transform: translateY(-2px);
+    }
+}
+
+.actionbtn__seal {
+    flex-shrink: 0;
+    width: 56px;
+    height: 56px;
+    object-fit: contain;
+}
+
+.actionbtn__label {
+    gap: 0.25rem;
 }
