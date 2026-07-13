@@ -130,7 +130,13 @@
 }
 
 .simplenews {
-    max-width: 60rem;
+    padding-left: 10rem;
+    padding-right: 10rem;
+
+    @include at-media-max("desktop") {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
 }
 
 // Keep the agency seals crisp regardless of their intrinsic aspect ratio.
