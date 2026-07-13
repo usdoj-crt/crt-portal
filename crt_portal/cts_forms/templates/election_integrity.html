@@ -1,0 +1,94 @@
+{% extends "landing.html" %}
+{% load i18n %}
+{% load static %}
+{% block meta_title %}
+{% trans "Civil Rights Division - Department of Justice - Election Integrity" as meta_title %}
+<meta property="og:title" content="{{meta_title}}" />
+<meta property="name" content="{{meta_title}}" />
+{% endblock meta_title %} {% block page_title %}
+<title>
+{% trans "Civil Rights Division - Department of Justice - Election Integrity" %}
+</title>
+{% endblock %}
+{% block head %} {% include "partials/map_widget_assets.html" %} {% endblock %}
+{% block hero %}
+    <section class="hero-section" aria-labelledby="hero-title">
+        <img class="hero-image" src="{% static 'img/trump-hero-2.webp' %}" alt="Election Integrity Hero Image - President Trump">
+        <div class="hero-overlay">
+            <div class="hero-text">
+                <h1 class="hero-text__title font-family-serif">
+                    Enforcement Actions to Safeguard Election Integrity
+                </h1>
+                <div class="hero-collab">
+                    <div class="hero-collab__seals" aria-hidden="true">
+                        <span role="img" aria-label="U.S. Department of Justice">
+                            <img class="hero-collab__seal" src="{% static 'img/Seal_of_the_United_States_Department_of_Justice.svg' %}" alt="Seal of the U.S. Department of Justice">
+                        </span>
+                        <span role="img" aria-label="U.S. Department of Homeland Security">
+                            <img class="hero-collab__seal" src="{% static 'img/Seal_of_the_United_States_Department_of_Homeland_Security.svg' %}" alt="Seal of the U.S. Department of Homeland Security">
+                        </span>
+                    </div>
+                    <p class="hero-collab__text">A joint initiative of the U.S. Department of Justice and the Department of Homeland Security</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="quote-banner-section">
+        <div class="quote-stage bg-primary-darker" aria-label="Quotes from Executive Order 14248">
+            <blockquote class="quote-stage__block">
+                <p class="quote-stage__text font-serif-xl text-center margin-0">“Free, fair, and honest elections unmarred by fraud, errors, or suspicion are fundamental to maintaining our constitutional Republic.”</p>
+                <cite class="quote-stage__cite text-center margin-top-2">President Donald J. Trump, Executive Order 14248, March 25, 2025</cite>
+            </blockquote>
+        </div>
+    </section>
+{% endblock %}
+
+{% block content %}
+    <section id="enforcement-map" class="enforcement-map padding-x-2" aria-label="Nationwide Enforcement Actions Section">
+        <div class="display-flex flex-column flex-align-center margin-top-6">
+            <h2 class="font-serif-3xl text-normal text-primary-darker margin-0 text-center">
+                Nationwide Enforcement Actions
+            </h2>
+            <p class="enforcement-map__title text-primary-darker margin-0 text-center">Explore activity by state</p>
+        </div>
+        {% include "partials/map_widget.html" with data_src="data/map-widget/data/test-data.json" badge_mapping="data/agency-badges/agency-badge-map.json" map_classes="margin-top-4 margin-bottom-4" map_default_fill_color="#162e51" info_heading_classes="usa-heading margin-top-0 margin-bottom-0 text-primary-darker" info_list_classes="usa-list" %}
+    </section>
+
+    <section id="in-the-news" class="in-the-news padding-x-2 padding-top-6 bg-base-lighter" aria-label="Election Integrity in the News">
+        <div class="display-flex flex-column flex-align-center">
+            <h2 class="font-serif-2xl text-normal text-primary-darker margin-0 text-center">
+                Election Integrity in the News
+            </h2>
+            <div class="card-container">
+                {% for item in news_items %}
+                    {% include "partials/news_card.html" with item=item %}
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <section id="action-bar" class="action-bar padding-x-2 padding-top-10 padding-bottom-10 bg-primary-darker" aria-labelledby="action-heading">
+        <div class="display-flex flex-column flex-align-center">
+            <h2 class="font-serif-xl text-white margin-0 text-center" id="action-heading">Support Election Integrity</h2>
+            <p class="action-bar__subtext text-white text-center">Help the Department of Justice and Department of Homeland Security protect the vote by
+                reporting concerns and staying informed.</p>
+            <div class="button-container">
+                <a class="actionbtn actionbtn__doj bg-gold" href="https://civilrights.justice.gov/#report-a-violation">
+                    <img class="actionbtn__seal" src="{% static 'img/Seal_of_the_United_States_Department_of_Justice.svg' %}" alt="" aria-hidden="true">
+                    <span class="actionbtn__label display-flex flex-column">
+                        <span class="actionbtn__agency text-bold font-body-3xs text-ls-2">DEPARTMENT OF JUSTICE</span>
+                        <span class="actionbtn__text font-serif-lg">Report an Election Issue</span>
+                    </span>
+                </a>
+                <a class="actionbtn actionbtn__dhs bg-white" href="#">
+                    <img class="actionbtn__seal" src="{% static 'img/Seal_of_the_United_States_Department_of_Homeland_Security.svg' %}" alt="" aria-hidden="true">
+                    <span class="actionbtn__label display-flex flex-column">
+                        <span class="actionbtn__agency text-bold font-body-3xs text-ls-2 text-primary-vivid">HOMELAND SECURITY</span>
+                        <span class="actionbtn__text font-serif-lg">Placeholder action</span>
+                    </span>
+                </a>
+            </div>
+        </div>
+    </section>
+{% endblock %}

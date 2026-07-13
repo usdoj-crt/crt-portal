@@ -8,6 +8,9 @@
 *.woff2 binary
 *.svg binary
 *.png binary
+*.webp binary
+*.gif binary
+*.ico binary
 *.jpg binary
 *.mp3 binary
 *.jpg binary
