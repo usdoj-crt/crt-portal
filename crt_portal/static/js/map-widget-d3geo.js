@@ -185,6 +185,32 @@ async function loadBadgeMapping(mapWidget) {
   }
 }
 
+// Preload the badges images browser cache and decode each seal once so when
+// we show an agency badge, we don't pause to fetch/decode the image. Iterates the
+// mapping per agency (rather than per URL) so we can report exactly which
+// agencies have a broken or missing seal. Returns a Set of those agency codes
+// so that the badge cache can fall straight to a text badge for them.
+async function preloadBadgeImages(badgeMapping) {
+  const brokenAgencies = new Set();
+
+  const entries = Object.entries(badgeMapping).filter(([, url]) => url);
+  await Promise.all(
+    entries.map(async ([agency, url]) => {
+      const image = new Image();
+      image.src = url;
+      // decode() resolves once the image is fully decoded, and
+      // rejects if the image failed to load (e.g. a 404).
+      try {
+        await image.decode();
+      } catch {
+        brokenAgencies.add(agency);
+      }
+    })
+  );
+
+  return brokenAgencies;
+}
+
 function showActive(path, mapConfig) {
   path.style.fill = mapConfig?.activeFillColor || '#f4c430';
 }
@@ -294,9 +320,12 @@ function renderInfoPlaceholder(panel, infoPanelConfig) {
   panel.innerHTML = infoPanelConfig.placeholderText || '';
 }
 
-// Build the badge shown as the leading "bullet" for an action. If the agency is
-// present in the badge mapping, an <img> of its seal is used; otherwise it falls
-// back to the gold text badge with the agency code.
+function createTextBadge(agency) {
+  const badge = createElement('span', 'map-widget__agency-badge');
+  badge.textContent = agency;
+  return badge;
+}
+
 function createAgencyBadge(agency, badgeMapping) {
   const imageUrl = badgeMapping?.[agency];
 
@@ -304,16 +333,37 @@ function createAgencyBadge(agency, badgeMapping) {
     const image = createElement('img', 'map-widget__agency-badge-image');
     image.src = imageUrl;
     image.alt = agency;
+
     return image;
   }
 
-  const badge = createElement('span', 'map-widget__agency-badge');
-  badge.textContent = agency;
-  return badge;
+  return createTextBadge(agency);
+}
+
+// Build the badge shown as the leading "bullet" for an action. If the agency is
+// present in the badge mapping, an <img> of its seal is used; otherwise it falls
+// back to the gold text badge with the agency code.
+//
+// Reuses previously created agency badges that were added to the cache
+function getAgencyBadge(context, agency) {
+  const { badgeCache, badgeMapping, brokenSeals } = context;
+
+  // Check if the badgeCache has this agency already
+  // If not, create a text badge IF the seal is 'broken'
+  // otherwise, create the real agency badge.
+  // Add the result to the cache
+  if (!badgeCache[agency]) {
+    badgeCache[agency] = brokenSeals?.has(agency)
+      ? createTextBadge(agency)
+      : createAgencyBadge(agency, badgeMapping);
+  }
+
+  // Reuse the cached badge
+  return badgeCache[agency].cloneNode(true);
 }
 
 function renderInfo(context, feature) {
-  const { panel, data, infoPanelConfig, badgeMapping } = context;
+  const { panel, data, infoPanelConfig } = context;
 
   //    Resolve the state's code from the hovered/clicked feature and look up
   //    its matching record in the loaded data set.
@@ -380,7 +430,7 @@ function renderInfo(context, feature) {
     //    Add the agency badge, used as the row's leading "bullet". When
     //    the agency has an image in the mapping we use that; otherwise we
     //    fall back to the gold text badge.
-    const badge = createAgencyBadge(action.agency, badgeMapping);
+    const badge = getAgencyBadge(context, action.agency);
     row.appendChild(badge);
 
     // 10d. Build the content block that holds the action text (and date).
@@ -413,6 +463,7 @@ function renderInfo(context, feature) {
 async function initMapWidget(mapWidget) {
   const data = await loadData(mapWidget);
   const badgeMapping = await loadBadgeMapping(mapWidget);
+  const brokenSeals = await preloadBadgeImages(badgeMapping);
 
   const mapElement = createElement('div', 'map-widget__map');
   mapWidget.appendChild(mapElement);
@@ -440,6 +491,8 @@ async function initMapWidget(mapWidget) {
     mapConfig: mapConfig,
     infoPanelConfig: infoPanelConfig,
     badgeMapping: badgeMapping,
+    brokenSeals: brokenSeals,
+    badgeCache: {},
     active: null
   };
 
