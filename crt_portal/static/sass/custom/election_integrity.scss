@@ -121,6 +121,54 @@
     }
 }
 
+// -------------------------------------
+//   IN THE NEWS (simplenews)
+// -------------------------------------
+
+.in-the-news {
+    background-color: #eef1f6;
+}
+
+.simplenews {
+    max-width: 60rem;
+}
+
+// Keep the agency seals crisp regardless of their intrinsic aspect ratio.
+.simplenews__seal {
+    object-fit: contain;
+}
+
+// Short gold rule under each agency heading.
+.simplenews__accent {
+    height: 4px;
+    width: 44px;
+}
+
+.simplenews__date {
+    color: #9a7d2e;
+}
+
+// A thin divider between consecutive news items. The navy tint reads against
+// the light blue-gray section background where USWDS's grays are too faint.
+.simplenews__item + .simplenews__item {
+    border-top: 1px solid rgba(17, 47, 78, 0.14);
+}
+
+// Divider between the two columns: vertical on desktop, becomes a horizontal
+// rule above the second column once they stack. USWDS border utilities aren't
+// responsive, so this has to live here.
+.simplenews__col--dhs {
+    @include at-media("tablet") {
+        border-left: 1px solid rgba(17, 47, 78, 0.14);
+        padding-left: 2rem;
+    }
+
+    @include at-media-max("tablet") {
+        border-top: 1px solid rgba(17, 47, 78, 0.14);
+        padding-top: 2rem;
+    }
+}
+
 .quote-banner-section {
     margin: 0;
 }

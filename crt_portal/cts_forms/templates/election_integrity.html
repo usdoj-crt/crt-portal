@@ -58,7 +58,7 @@
         {% include "partials/map_widget.html" with data_src="data/map-widget/data/test-data.json" badge_mapping="data/agency-badges/agency-badge-map.json" map_classes="margin-top-4 margin-bottom-4" map_default_fill_color="#162e51" info_heading_classes="usa-heading margin-top-0 margin-bottom-0 text-primary-darker" info_list_classes="usa-list" %}
     </section>
 
-    <section id="in-the-news" class="in-the-news padding-x-2 padding-top-6 bg-base-lighter" aria-label="Election Integrity in the News">
+    <!--<section id="in-the-news" class="in-the-news padding-x-2 padding-top-6 bg-base-lighter" aria-label="Election Integrity in the News">
         <div class="display-flex flex-column flex-align-center">
             <h2 class="font-serif-2xl text-normal text-primary-darker margin-0 text-center">
                 Election Integrity in the News
@@ -69,6 +69,116 @@
                 {% endfor %}
             </div>
         </div>
+    </section>-->
+
+
+    <section id="in-the-news" class="in-the-news padding-x-2 padding-top-6 padding-bottom-6"
+        aria-label="Election Integrity in the News">
+        <div class="display-flex flex-column flex-align-center">
+            <h2 class="font-serif-2xl text-normal text-primary-darker margin-0 text-center">
+                Election Integrity in the News
+            </h2>
+
+            <p class="">Recent enforcement actions and announcements from our partner agencies.</p>
+
+            <div class="simplenews grid-row grid-gap-lg margin-top-4 width-full">
+                <!-- DOJ column -->
+                <div class="simplenews__col tablet:grid-col padding-bottom-4 tablet:padding-bottom-0">
+                    <div class="display-flex flex-align-center margin-bottom-1">
+                        <img class="simplenews__seal flex-shrink-0 square-5 margin-right-2"
+                            src="{% static 'img/Seal_of_the_United_States_Department_of_Justice.svg' %}"
+                            alt="Seal of the U.S. Department of Justice">
+                        <h3 class="font-serif-lg text-normal text-primary-darker margin-0" id="news-doj-h">Department of Justice</h3>
+                    </div>
+                    <div class="simplenews__accent bg-gold radius-sm margin-bottom-2" aria-hidden="true"></div>
+                    <ul class="usa-list usa-list--unstyled margin-0" aria-labelledby="news-doj-h">
+                        <li class="simplenews__item padding-y-2">
+                            <span class="simplenews__date display-block text-bold text-uppercase font-body-3xs text-ls-1 margin-bottom-05">Apr 1, 2026</span>
+                            <a class="simplenews__link external-link--blue text-primary-darker"
+                                href="https://www.justice.gov/opa/pr/justice-department-sues-idaho-failure-produce-voter-rolls"
+                                target="_blank" rel="noopener">Justice Department Sues Idaho for Failure to Produce Voter Rolls</a>
+                        </li>
+                        <li class="simplenews__item padding-y-2">
+                            <span class="simplenews__date display-block text-bold text-uppercase font-body-3xs text-ls-1 margin-bottom-05">Feb 26, 2026</span>
+                            <a class="simplenews__link external-link--blue text-primary-darker"
+                                href="https://www.justice.gov/opa/pr/justice-department-sues-five-additional-states-failure-produce-voter-rolls"
+                                target="_blank" rel="noopener">Justice Department Sues Five Additional States for Failure to Produce Voter Rolls</a>
+                        </li>
+                        <li class="simplenews__item padding-y-2">
+                            <span class="simplenews__date display-block text-bold text-uppercase font-body-3xs text-ls-1 margin-bottom-05">Jan 16, 2026</span>
+                            <a class="simplenews__link external-link--blue text-primary-darker"
+                                href="https://www.justice.gov/opa/pr/justice-department-sues-virginia-failure-produce-voter-rolls"
+                                target="_blank" rel="noopener">Justice Department Sues Virginia for Failure to Produce Voter Rolls</a>
+                        </li>
+                        <li class="simplenews__item padding-y-2">
+                            <span class="simplenews__date display-block text-bold text-uppercase font-body-3xs text-ls-1 margin-bottom-05">Jan 6, 2026</span>
+                            <a class="simplenews__link external-link--blue text-primary-darker"
+                                href="https://www.justice.gov/opa/pr/justice-department-sues-arizona-and-connecticut-failure-produce-voter-rolls"
+                                target="_blank" rel="noopener">Justice Department Sues Arizona and Connecticut for Failure to Produce Voter Rolls</a>
+                        </li>
+                        <li class="simplenews__item padding-y-2">
+                            <span class="simplenews__date display-block text-bold text-uppercase font-body-3xs text-ls-1 margin-bottom-05">Dec 12, 2025</span>
+                            <a class="simplenews__link external-link--blue text-primary-darker"
+                                href="https://www.justice.gov/opa/pr/justice-department-sues-four-additional-states-and-one-locality-failure-comply-federal"
+                                target="_blank" rel="noopener">Justice Department Sues Four Additional States and One Locality for Failure to Comply with Federal Elections Laws</a>
+                        </li>
+                    </ul>
+                    <p class="margin-top-2 margin-bottom-0">
+                        <a class="external-link--blue text-bold"
+                            href="https://www.justice.gov/crt/civil-rights-division-press-releases-speeches?f%5B0%5D=facet_components%3A436&amp;f%5B1%5D=facet_topics%3A43861"
+                            target="_blank" rel="noopener">View all voting &amp; elections news on justice.gov</a>
+                    </p>
+                </div>
+
+                <!-- DHS column -->
+                <div class="simplenews__col simplenews__col--dhs tablet:grid-col">
+                    <div class="display-flex flex-align-center margin-bottom-1">
+                        <img class="simplenews__seal flex-shrink-0 square-5 margin-right-2"
+                            src="{% static 'img/Seal_of_the_United_States_Department_of_Homeland_Security.svg' %}"
+                            alt="Seal of the U.S. Department of Homeland Security">
+                        <h3 class="font-serif-lg text-normal text-primary-darker margin-0" id="news-dhs-h">Homeland Security</h3>
+                    </div>
+                    <div class="simplenews__accent bg-gold radius-sm margin-bottom-2" aria-hidden="true"></div>
+                    <ul class="usa-list usa-list--unstyled margin-0" aria-labelledby="news-dhs-h">
+                        <li class="simplenews__item padding-y-2">
+                            <span class="simplenews__date display-block text-bold text-uppercase font-body-3xs text-ls-1 margin-bottom-05">Jul 10, 2026</span>
+                            <a class="simplenews__link external-link--blue text-primary-darker"
+                                href="https://www.dhs.gov/news/2026/07/10/dhs-requires-states-adopt-common-sense-election-security-measures-receiving-federal"
+                                target="_blank" rel="noopener">DHS Requires States to Adopt Common-Sense Election Security Measures Before Receiving Federal Funds</a>
+                        </li>
+                        <li class="simplenews__item padding-y-2">
+                            <span class="simplenews__date display-block text-bold text-uppercase font-body-3xs text-ls-1 margin-bottom-05">Apr 22, 2026</span>
+                            <a class="simplenews__link external-link--blue text-primary-darker"
+                                href="https://www.dhs.gov/topics/election-security"
+                                target="_blank" rel="noopener">DHS Statement on Conviction of Alien for Voter Fraud in Multiple Elections</a>
+                        </li>
+                        <li class="simplenews__item padding-y-2">
+                            <span class="simplenews__date display-block text-bold text-uppercase font-body-3xs text-ls-1 margin-bottom-05">Mar 9, 2026</span>
+                            <a class="simplenews__link external-link--blue text-primary-darker"
+                                href="https://www.dhs.gov/topics/election-security"
+                                target="_blank" rel="noopener">ICE and FBI Arrest Criminal Illegal Alien Charged with Voter Fraud in Philadelphia</a>
+                        </li>
+                        <li class="simplenews__item padding-y-2">
+                            <span class="simplenews__date display-block text-bold text-uppercase font-body-3xs text-ls-1 margin-bottom-05">Nov 13, 2025</span>
+                            <a class="simplenews__link external-link--blue text-primary-darker"
+                                href="https://www.dhs.gov/topics/election-security"
+                                target="_blank" rel="noopener">DHS Highlights Efforts to Protect Election Infrastructure</a>
+                        </li>
+                        <li class="simplenews__item padding-y-2">
+                            <span class="simplenews__date display-block text-bold text-uppercase font-body-3xs text-ls-1 margin-bottom-05">Dec 19, 2025</span>
+                            <a class="simplenews__link external-link--blue text-primary-darker"
+                                href="https://www.dhs.gov/topics/election-security"
+                                target="_blank" rel="noopener">DHS Reveals Additional Voting Records in Multi-State Voter Fraud Case</a>
+                        </li>
+                    </ul>
+                    <p class="margin-top-2 margin-bottom-0">
+                        <a class="external-link--blue text-bold"
+                            href="https://www.dhs.gov/news-releases/press-releases?combine=election&amp;created=&amp;field_taxonomy_topics_target_id=All&amp;items_per_page=10"
+                            target="_blank" rel="noopener">View all voting &amp; elections news on dhs.gov</a>
+                    </p>
+                </div>
+
+            </div>
     </section>
 
     <section id="action-bar" class="action-bar padding-x-2 padding-top-10 padding-bottom-10 bg-primary-darker" aria-labelledby="action-heading">
