@@ -40,9 +40,9 @@
     // to improve legibility of the hero text against the image.
     background: linear-gradient(
         to top,
-        rgba(10, 34, 64, 0.75) 0%,
-        rgba(10, 34, 64, 0.35) 40%,
-        rgba(10, 34, 64, 0) 75%
+        rgba(0, 0, 0, 0.75) 0%,
+        rgba(0, 0, 0, 0.35) 40%,
+        rgba(0, 0, 0, 0) 75%
     );
 
     // On Mobile - Stop overlaying the image; sit below it in normal flow.
@@ -87,7 +87,8 @@
 
     @include at-media-max("desktop") {
         gap: 0.75rem;
-        margin-top: 1rem;
+        margin-top: 2rem;
+        margin-bottom: 1rem;
     }
 }
 
@@ -145,13 +146,17 @@
 }
 
 .simplenews__date {
-    color: #9a7d2e;
+    color: #7a6222;
 }
 
 // A thin divider below each news item. The navy tint reads against
 // the light blue-gray section background where USWDS's grays are too faint.
 .simplenews__item {
     border-bottom: 1px solid rgba(17, 47, 78, 0.14);
+}
+
+.simplenews__link {
+    font-size: 1.125rem;
 }
 
 // Divider between the two columns: vertical on desktop, becomes a horizontal
@@ -185,11 +190,11 @@
 
 .quote-stage__block {
     // Wider horizontal margins on desktop
-    margin: 1rem 6rem;
+    margin: 4rem 6rem;
 
     // Tighter on mobile
     @include at-media-max("desktop") {
-        margin: 1rem 1rem;
+        margin: 4rem 1rem;
     }
 }
 
