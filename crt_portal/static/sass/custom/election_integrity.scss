@@ -165,6 +165,18 @@
     color: #454545;
 }
 
+// A faint white radial "glow" originates from behind the heading (top-center)
+// and fades out into the blue background. `bg-primary-darker` (#162e51) still
+// paints the base color; this layers the soft glow on top of it.
+.action-bar {
+    background-image: radial-gradient(
+        ellipse 80% 80% at 50% 50%,
+        rgba(255, 255, 255, 0.015) 0%,
+        rgba(255, 255, 255, 0.075) 35%,
+        rgba(255, 255, 255, 0) 70%
+    );
+}
+
 .action-bar__subtext {
     width: 100%;
     max-width: 575px;
