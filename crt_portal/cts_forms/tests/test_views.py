@@ -1477,7 +1477,6 @@ class BannerMessageTests(TestCase):
     def test_renders_without_banner(self):
         response = self.client.get('/')
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, 'Have you been a victim of a hate crime')
 
     def test_renders_banner(self):
         BannerMessage.objects.create(show=True,

@@ -203,10 +203,13 @@
     padding-left: 4rem;
     padding-right: 4rem;
 
-    // Stack into a single column on mobile.
-    @include at-media-max("desktop") {
+    // Stack into a single column on tablet/mobile.
+    @include at-media-max("tablet") {
         grid-template-columns: 1fr;
         gap: 1.5rem;
+        // Drop the wide horizontal padding so buttons have room on narrow screens.
+        padding-left: 0;
+        padding-right: 0;
     }
 }
 
@@ -231,6 +234,13 @@
         box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18);
         transform: translateY(-2px);
     }
+
+    @include at-media-max("desktop") {
+        // On screens below desktop, use full-width buttons and tighter padding.
+        max-width: 100%;
+        gap: 0.75rem;
+        padding: 0.5rem 0.75rem;
+    }
 }
 
 .actionbtn__seal {
@@ -238,8 +248,32 @@
     width: 56px;
     height: 56px;
     object-fit: contain;
+
+    @include at-media-max("desktop") {
+        width: 40px;
+        height: 40px;
+    }
 }
 
 .actionbtn__label {
     gap: 0.25rem;
+    // Let the label shrink within the flex row instead of forcing overflow.
+    min-width: 0;
+}
+
+// Scale the button text down on mobile so it fits without overflowing.
+// These override the fixed USWDS font-size utility classes on narrow screens.
+.actionbtn__agency {
+    @include at-media-max("desktop") {
+        font-size: 11px;
+    }
+}
+
+.actionbtn__text {
+    // Allow long action labels to wrap rather than overflow the button.
+    overflow-wrap: break-word;
+
+    @include at-media-max("desktop") {
+        font-size: 16px;
+    }
 }
