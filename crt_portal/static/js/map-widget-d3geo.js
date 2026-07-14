@@ -357,9 +357,7 @@ function buildAccessibleControls(mapElement, context) {
   controls.setAttribute('role', 'group');
   controls.setAttribute('aria-label', 'Select a state to view its enforcement actions');
 
-  const sorted = context.focusables
-    .slice()
-    .sort((a, b) => a.name.localeCompare(b.name));
+  const sorted = context.focusables.slice().sort((a, b) => a.name.localeCompare(b.name));
 
   for (const entry of sorted) {
     const button = createElement('button', 'map-widget__sr-control');
