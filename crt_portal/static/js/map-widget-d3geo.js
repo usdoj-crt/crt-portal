@@ -91,8 +91,6 @@ function getInfoPanelConfig(mapWidget) {
 
   infoPanelConfig.headingClasses = mapWidget?.dataset?.infoPanelHeadingClasses || '';
 
-  infoPanelConfig.subheadingClasses = mapWidget?.dataset?.infoPanelSubheadingClasses || '';
-
   infoPanelConfig.listClasses = mapWidget?.dataset?.infoPanelListClasses || '';
 
   infoPanelConfig.listItemClasses = mapWidget?.dataset?.infoPanelListItemClasses || '';
@@ -424,58 +422,6 @@ function getAgencyBadge(context, agency) {
   return badgeCache[agency].cloneNode(true);
 }
 
-// Write a single plain-text announcement into the dedicated live region so the
-// current selection (state name first, then each action) is read in full. Using
-// one text node updated in a single assignment is far more reliable across
-// screen readers than making the rich, rebuilt info panel the live region.
-function announceSelection(context, stateName, actionsList) {
-  if (!context.liveRegion) {
-    return;
-  }
-
-  const parts = [stateName];
-
-  if (!actionsList || actionsList.length === 0) {
-    parts.push(context.infoPanelConfig?.noDataText || 'No data available');
-  } else {
-    for (const action of actionsList) {
-      let part = action.action;
-      if (action.date) {
-        part += `, ${formatActionDate(action.date)}`;
-      }
-      parts.push(part);
-    }
-  }
-
-  context.liveRegion.textContent = parts.join('. ');
-}
-
-// Write a single plain-text announcement into the dedicated live region so the
-// current selection (state name first, then each action) is read in full. Using
-// one text node updated in a single assignment is far more reliable across
-// screen readers than making the rich, rebuilt info panel the live region.
-function announceSelection(context, stateName, actionsList) {
-  if (!context.liveRegion) {
-    return;
-  }
-
-  const parts = [stateName];
-
-  if (!actionsList || actionsList.length === 0) {
-    parts.push(context.infoPanelConfig?.noDataText || 'No data available');
-  } else {
-    for (const action of actionsList) {
-      let part = action.action;
-      if (action.date) {
-        part += `, ${formatActionDate(action.date)}`;
-      }
-      parts.push(part);
-    }
-  }
-
-  context.liveRegion.textContent = parts.join('. ');
-}
-
 function renderInfo(context, feature) {
   const { panel, data, infoPanelConfig } = context;
 
@@ -536,7 +482,7 @@ function renderInfo(context, feature) {
   }
 
   //    Add an invisible first list item that screen readers pick up so the
-  //    live-region announcement leads with the state name.
+  //    live-region announcement leads with the state name + enforcement actions
   const srHeadingItem = createElement('li', 'map-widget__sr-only');
   srHeadingItem.textContent = `${stateName} Enforcement Actions`;
   list.appendChild(srHeadingItem);
