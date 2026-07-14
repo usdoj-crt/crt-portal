@@ -112,7 +112,7 @@ urlpatterns = auth + [
     path('privacy-policy', TemplateView.as_view(template_name="privacy.html"), name='privacy_policy'),
     path('hate-crime-human-trafficking', TemplateView.as_view(template_name="hate_crime_human_trafficking.html"), name='hate_crime_human_trafficking'),
     path('diversity-equity-inclusion-illegal-discrimination', TemplateView.as_view(template_name="dei-discrimination.html"), name='dei_discrimination'),
-    path('election-integrity', election_integrity_view, name='election_integrity'),
+    path('electionintegrity', election_integrity_view, name='election_integrity'),
     path('housing-resources', TemplateView.as_view(template_name="hce_resources.html"), name='hce_resources'),
     path('voting-resources', TemplateView.as_view(template_name="vot_resources.html"), name='vot_resources'),
     path('', LandingPageView.as_view(), name='crt_landing_page'),
