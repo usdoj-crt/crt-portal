@@ -20,15 +20,14 @@
 .hero-image {
     display: block;
     width: 100%;
-    height: 100vh;
-    object-fit: cover;
-    object-position: center;
-
-    @include at-media-max("tablet") {
-        // Show the image at its natural aspect ratio (full image, no crop)
-        height: auto;
-        object-fit: contain;
-    }
+    // The container is driven purely by the image's natural aspect ratio, so
+    // the rendered image ALWAYS exactly fills its box: full width, never
+    // cropped, never letterboxed, at every viewport size. Because the box
+    // height equals the image height, there is nothing for the overlay text to
+    // "float" against - it is always anchored to the real bottom of the image.
+    height: auto;
+    aspect-ratio: 1000 / 667;
+    object-fit: contain;
 }
 
 .hero-overlay {
@@ -45,7 +44,7 @@
         rgba(0, 0, 0, 0) 75%
     );
 
-    // On Mobile - Stop overlaying the image; sit below it in normal flow.
+    // Portrait mobile - Stop overlaying the image; sit below it in normal flow.
     @include at-media-max("tablet") {
         position: static;
         background: linear-gradient(
@@ -60,7 +59,12 @@
     position: absolute;
     bottom: 0;
     left: 0;
-    padding: 4rem;
+    right: 0;
+    // Fluid padding scales with viewport width so the text block stays
+    // proportional from tiny phones up to ultra-wide monitors. Two-value
+    // shorthand: first clamp = vertical (Y), second clamp = horizontal (X).
+    // Bump the X `min`/`max` to start with (and cap at) more side padding.
+    padding: clamp(0.5rem, 4vw, 4rem) clamp(1.5rem, 5vw, 5rem);
 
     @include at-media-max("tablet") {
         position: static;
@@ -69,27 +73,20 @@
 }
 
 .hero-text__title {
-    font-size: 64px;
+    // Fluid type: shrinks smoothly on narrow/short screens and grows on wide
+    // ones, so it never overflows the image or looks lost. Responds
+    // continuously to viewport width - no breakpoints needed.
+    font-size: clamp(0.95rem, 4.2vw, 64px);
+    line-height: 1.15;
     color: whitesmoke;
     margin: 0;
-
-    @include at-media-max("tablet") {
-        // Shrink a lot so the block stays compact
-        font-size: 28px;
-    }
 }
 
 .hero-collab {
     display: flex;
     align-items: center;
-    gap: 1rem;
-    margin-top: 1.5rem;
-
-    @include at-media-max("desktop") {
-        gap: 0.75rem;
-        margin-top: 2rem;
-        margin-bottom: 1rem;
-    }
+    gap: clamp(0.4rem, 1.5vw, 1rem);
+    margin-top: clamp(0.4rem, 2vw, 1.5rem);
 }
 
 .hero-collab__seals {
@@ -101,25 +98,16 @@
 
 .hero-collab__seal {
     display: block;
-    width: 56px;
-    height: 56px;
-
-    @include at-media-max("desktop") {
-        width: 40px;
-        height: 40px;
-    }
+    width: clamp(26px, 3.5vw, 56px);
+    height: clamp(26px, 3.5vw, 56px);
 }
 
 .hero-collab__text {
     color: #f0e6c8;
     margin: 0;
-    padding-left: 1rem;
+    padding-left: clamp(0.5rem, 1vw, 1rem);
     border-left: 2px solid #ffbe2e;
-
-    @include at-media-max("desktop") {
-        font-size: 14px;
-        padding-left: 0.75rem;
-    }
+    font-size: clamp(10px, 1.4vw, 1rem);
 }
 
 // -------------------------------------
