@@ -56,6 +56,12 @@ function formatActionDate(dateString) {
 function createMapSvg(mapElement) {
   const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
   svg.setAttribute('class', 'map-widget__svg');
+
+  // Hide the map from screen readers. SVGs are not reliably accessible
+  // so, we provide a separate set of keyboard/screen-reader controls
+  // that fully replicate the map's interactivity.
+  // see: buildAccessibleControls
+  svg.setAttribute('aria-hidden', 'true');
   mapElement.appendChild(svg);
   return svg;
 }
@@ -258,15 +264,23 @@ function drawFeatures(mapSvg, features, d3PathGenerator, context) {
 
     mapSvg.appendChild(path);
     hideActive(path, context.mapConfig);
+
+    // Register this feature so buildAccessibleControls() can create a matching
+    // keyboard/screen-reader control that highlights this same shape.
+    context.focusables.push({
+      name: feature.properties.name,
+      feature: feature,
+      shape: path
+    });
   }
 }
 
 function drawBadge(mapSvg, badge, context) {
-  // 1. Create a <g> group so the circle + label share listeners.
+  //    Create a <g> group so the circle + label share listeners.
   const group = document.createElementNS('http://www.w3.org/2000/svg', 'g');
   group.setAttribute('class', 'map-widget__badge');
 
-  // 2. Create the circle. Set cx, cy, r attributes from `badge`.
+  //    Create the circle. Set cx, cy, r attributes from `badge`.
   const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
   circle.setAttribute('cx', badge.cx);
   circle.setAttribute('cy', badge.cy);
@@ -275,7 +289,7 @@ function drawBadge(mapSvg, badge, context) {
   circle.style.strokeWidth = context.mapConfig?.strokeWidth || '2';
   group.appendChild(circle);
 
-  // 3. Create the text label, centered on the circle.
+  //    Create the text label, centered on the circle.
   const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
   text.setAttribute('x', badge.cx);
   text.setAttribute('y', badge.cy);
@@ -285,12 +299,12 @@ function drawBadge(mapSvg, badge, context) {
   text.textContent = badge.label;
   group.appendChild(text);
 
-  // 4. Build the synthetic feature renderInfo expects.
+  //    Build the synthetic feature renderInfo expects.
   const feature = {
     properties: { code: badge.code, name: badge.name }
   };
 
-  // 5. Wire the listeners as a state. On hover/click the badge becomes the
+  //    Wire the listeners as a state. On hover/click the badge becomes the
   //    single active shape and stays active after the pointer leaves.
   //    Note: pass `circle` (not the group) to setActive/hideActive,
   //    since .style.fill needs to land on the shape.
@@ -302,18 +316,66 @@ function drawBadge(mapSvg, badge, context) {
     setActive(context, circle, feature);
   });
 
-  // 6. Append the group to the svg, then set the resting fill.
+  //    Append the group to the svg, then set the resting fill.
   mapSvg.appendChild(group);
   hideActive(circle, context.mapConfig);
+
+  //    Register the badge alongside the map features so it gets a matching
+  //    keyboard/screen-reader control (see buildAccessibleControls()).
+  context.focusables.push({
+    name: badge.name,
+    feature: feature,
+    shape: circle
+  });
 }
 
 function buildInfoPanel(mapWidget, infoPanelConfig) {
   const panel = createElement('div', 'map-widget__panel');
+
+  panel.setAttribute('role', 'region');
+  panel.setAttribute('aria-label', 'Selected state details');
+
+  // The actions list can get quite long, so we set assertive
+  // here to ensure we interrupt when the user changes features
+  panel.setAttribute('aria-live', 'assertive');
+  panel.setAttribute('aria-atomic', 'true');
+
   mapWidget.appendChild(panel);
 
   renderInfoPlaceholder(panel, infoPanelConfig);
 
   return panel;
+}
+
+// Build a visually hidden, keyboard-focusable control for every mapped feature
+// so the map is fully operable without a pointer. Native <button>s are used so
+// they join the natural tab order (Tab forward, Shift+Tab backward)
+// buttons are appended in alphabetical order by feature name so the tab order
+// matches alphabetically descending order.
+// activating a control makes its feature active — the map highlights and the
+// info panel renders exactly as it does on hover.
+function buildAccessibleControls(mapElement, context) {
+  const controls = createElement('div', 'map-widget__sr-controls');
+  controls.setAttribute('role', 'group');
+  controls.setAttribute('aria-label', 'Select a state to view its enforcement actions');
+
+  const sorted = context.focusables
+    .slice()
+    .sort((a, b) => a.name.localeCompare(b.name));
+
+  for (const entry of sorted) {
+    const button = createElement('button', 'map-widget__sr-control');
+    button.type = 'button';
+    button.textContent = entry.name;
+
+    const activate = () => setActive(context, entry.shape, entry.feature);
+    button.addEventListener('focus', activate);
+    button.addEventListener('click', activate);
+
+    controls.appendChild(button);
+  }
+
+  mapElement.appendChild(controls);
 }
 
 function renderInfoPlaceholder(panel, infoPanelConfig) {
@@ -362,6 +424,58 @@ function getAgencyBadge(context, agency) {
   return badgeCache[agency].cloneNode(true);
 }
 
+// Write a single plain-text announcement into the dedicated live region so the
+// current selection (state name first, then each action) is read in full. Using
+// one text node updated in a single assignment is far more reliable across
+// screen readers than making the rich, rebuilt info panel the live region.
+function announceSelection(context, stateName, actionsList) {
+  if (!context.liveRegion) {
+    return;
+  }
+
+  const parts = [stateName];
+
+  if (!actionsList || actionsList.length === 0) {
+    parts.push(context.infoPanelConfig?.noDataText || 'No data available');
+  } else {
+    for (const action of actionsList) {
+      let part = action.action;
+      if (action.date) {
+        part += `, ${formatActionDate(action.date)}`;
+      }
+      parts.push(part);
+    }
+  }
+
+  context.liveRegion.textContent = parts.join('. ');
+}
+
+// Write a single plain-text announcement into the dedicated live region so the
+// current selection (state name first, then each action) is read in full. Using
+// one text node updated in a single assignment is far more reliable across
+// screen readers than making the rich, rebuilt info panel the live region.
+function announceSelection(context, stateName, actionsList) {
+  if (!context.liveRegion) {
+    return;
+  }
+
+  const parts = [stateName];
+
+  if (!actionsList || actionsList.length === 0) {
+    parts.push(context.infoPanelConfig?.noDataText || 'No data available');
+  } else {
+    for (const action of actionsList) {
+      let part = action.action;
+      if (action.date) {
+        part += `, ${formatActionDate(action.date)}`;
+      }
+      parts.push(part);
+    }
+  }
+
+  context.liveRegion.textContent = parts.join('. ');
+}
+
 function renderInfo(context, feature) {
   const { panel, data, infoPanelConfig } = context;
 
@@ -373,13 +487,17 @@ function renderInfo(context, feature) {
   //    Clear whatever was in the panel (placeholder or a previous state).
   panel.innerHTML = '';
 
+  //    Resolve the full state name (preferring the data set's name, falling
+  //    back to the feature's own name).
+  const stateName = stateData?.name ?? feature.properties.name;
+
   //    Build a flex container so the state badge and heading sit side by side.
   const headingContainer = createElement('div', 'map-widget__heading-container');
 
   //    Add the heading with the full state name, preferring the data set's
   //    name and falling back to the feature's own name.
   const heading = createElement('h2');
-  heading.textContent = stateData?.name ?? feature.properties.name;
+  heading.textContent = stateName;
   if (infoPanelConfig?.headingClasses) {
     heading.className = infoPanelConfig.headingClasses;
   }
@@ -399,6 +517,7 @@ function renderInfo(context, feature) {
 
   //    If the state has no actions, show the "no data" message and stop here.
   const actionsList = stateData?.actions ?? [];
+
   if (actionsList?.length === 0) {
     const noDataParagraph = createElement('p');
     if (infoPanelConfig?.noDataParagraphClasses) {
@@ -415,6 +534,12 @@ function renderInfo(context, feature) {
   if (infoPanelConfig?.listClasses) {
     list.className = `map-widget__actions ${infoPanelConfig.listClasses}`;
   }
+
+  //    Add an invisible first list item that screen readers pick up so the
+  //    live-region announcement leads with the state name.
+  const srHeadingItem = createElement('li', 'map-widget__sr-only');
+  srHeadingItem.textContent = `${stateName} Enforcement Actions`;
+  list.appendChild(srHeadingItem);
 
   //    Render each action as a list item.
   for (const action of actionsList) {
@@ -493,13 +618,18 @@ async function initMapWidget(mapWidget) {
     badgeMapping: badgeMapping,
     brokenSeals: brokenSeals,
     badgeCache: {},
-    active: null
+    active: null,
+    focusables: []
   };
 
   drawFeatures(mapSvg, features, d3PathGenerator, context);
 
   // Draw DC
   drawBadge(mapSvg, DC_BADGE, context);
+
+  // Build the keyboard/screen-reader controls once every feature (and the DC
+  // badge) has registered itself on context.focusables.
+  buildAccessibleControls(mapElement, context);
 }
 
 function initAllMapWidgets() {

@@ -125,3 +125,33 @@
   color: #71767a;
   font-size: 0.8rem;
 }
+
+/* Visually hidden container for the keyboard/screen-reader state controls.
+   The buttons stay in the accessibility tree and the tab order; only their
+   visual presentation is removed. Focusing a button highlights the matching
+   state on the (aria-hidden) map, which is the visible focus indicator. */
+.map-widget__sr-controls {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Visually hidden state name added to the info panel so the live region
+   reliably announces it when the panel updates. */
+.map-widget__sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
