@@ -37,6 +37,7 @@ const intlTelInput = './node_modules/intl-tel-input';
 const jquery = './node_modules/jquery';
 const jszip = './node_modules/jszip';
 const datatable_root = './node_modules/datatables.net';
+const d3 = './node_modules/d3';
 
 // To add an extension, you must also update intake_base.html and package.json
 const datatable_extensions = ['select', 'buttons', 'colreorder', 'searchpanes', 'staterestore'];
@@ -70,8 +71,9 @@ const JS_VENDOR_FILES = [
   `${intlTelInput}/build/js/**.js`,
   `${jquery}/dist/**.min.js`,
   `${jszip}/dist/**.min.js`,
+  `${d3}/dist/d3.min.js`,
   `${datatable_root}/js/**.min.js`,
-  ...datatable_extensions.map((ext) => `${datatable_root}-${ext}/js/**.min.js`),
+  ...datatable_extensions.map(ext => `${datatable_root}-${ext}/js/**.min.js`)
 ];
 const JS_VENDOR_DEST = './crt_portal/static/vendor';
 
@@ -86,7 +88,7 @@ const CSS_VENDOR_DEST = './crt_portal/static/css/vendor';
 const CSS_VENDOR_FILES = [
   `${intlTelInput}/build/css/intlTelInput.min.css`,
   `${datatable_root}-dt/css/**.min.css`,
-  ...datatable_extensions.map((ext) => `${datatable_root}-${ext}-dt/css/**.min.css`),
+  ...datatable_extensions.map(ext => `${datatable_root}-${ext}-dt/css/**.min.css`)
 ];
 
 // Site CSS destination
@@ -124,7 +126,7 @@ gulp.task('copy-vendor-css', () => {
   return gulp.src(CSS_VENDOR_FILES).pipe(gulp.dest(`${CSS_VENDOR_DEST}`));
 });
 
-gulp.task('build-custom-js', function () {
+gulp.task('build-custom-js', function() {
   return (
     gulp
       .src(JS_FILES)
@@ -133,8 +135,8 @@ gulp.task('build-custom-js', function () {
       .pipe(uglify())
       .pipe(
         rename({
-          suffix: '.min',
-        }),
+          suffix: '.min'
+        })
       )
       .pipe(sourcemaps.write('.'))
       // Output
@@ -144,15 +146,15 @@ gulp.task('build-custom-js', function () {
 
 gulp.task('build-js', gulp.parallel('build-custom-js', 'copy-vendor-js'));
 
-gulp.task('build-sass', function (done) {
+gulp.task('build-sass', function(done) {
   var plugins = [
     // Autoprefix
     autoprefixer({
       cascade: false,
-      grid: true,
+      grid: true
     }),
     // Minify
-    csso({ forceMediaMerge: false }),
+    csso({ forceMediaMerge: false })
   ];
   return (
     gulp
@@ -160,8 +162,8 @@ gulp.task('build-sass', function (done) {
       .pipe(sourcemaps.init({ largeFile: true }))
       .pipe(
         sass({
-          includePaths: [`${PROJECT_SASS_SRC}`, `${uswds}`, `${uswds}/packages`],
-        }),
+          includePaths: [`${PROJECT_SASS_SRC}`, `${uswds}`, `${uswds}/packages`]
+        })
       )
       .pipe(replace(/\buswds @version\b/g, 'based on uswds v' + pkg.version))
       .pipe(postcss(plugins))
@@ -182,15 +184,15 @@ gulp.task(
     'copy-uswds-images',
     'copy-vendor-css',
     'build-js',
-    'build-sass',
-  ),
+    'build-sass'
+  )
 );
 
-gulp.task('watch-sass', function () {
+gulp.task('watch-sass', function() {
   gulp.watch(`${PROJECT_SASS_SRC}/**/*.scss`, gulp.series('build-css', 'watch-sass'));
 });
 
-gulp.task('watch-js', function () {
+gulp.task('watch-js', function() {
   gulp.watch(JS_FILES, gulp.series('build-js', 'watch-js'));
 });
 

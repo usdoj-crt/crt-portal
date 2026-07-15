@@ -1,0 +1,58 @@
+{% comment %}
+<!--
+US map widget — renders a single interactive map of the United States.
+
+Usage (include once per map you want on the page):
+
+    {% include "partials/map_widget.html" with data_src="data/map-widget/data/example.json" %}
+
+You must ALSO include the shared assets once per page (see
+"partials/map_widget_assets.html"), which loads the CSS, d3, and the widget JS.
+The widget JS boots every ".map-widget" element on the page, so multiple
+includes of this partial render multiple independent maps.
+
+Arguments
+---------
+Required:
+  data_src                     Path (relative to the static root) to the JSON
+                               data file, e.g. "data/map-widget/data/foo.json".
+
+Optional (fall back to the widget's built-in defaults if omitted):
+  map_classes                  Extra CSS classes added to the widget container.
+  map_default_fill_color       Resting fill for states.
+  map_active_fill_color        Fill for the hovered/selected state.
+  map_stroke_color             Border color.
+  map_stroke_width             Border width.
+  badge_text_color             Text color for the DC badge.
+  badge_radius                 Radius of the DC badge.
+  badge_mapping                Path (relative to the static root) to a JSON file
+                               mapping agency codes to badge image URLs. When an
+                               agency is found in the mapping its image is used;
+                               otherwise the text badge is used as a fallback.
+  info_placeholder_text        Info-panel text before a state is selected.
+  info_heading_classes         CSS classes for the info-panel heading.
+  info_list_classes            CSS classes for the info-panel list.
+  info_list_item_classes       CSS classes for the info-panel list items.
+  info_no_data_text            Text shown when a state has no data.
+  info_no_data_paragraph_classes
+                               CSS classes for the "no data" paragraph.
+-->
+{% endcomment %}
+<div
+  class="map-widget {{ map_classes|default:'' }}"
+  data-geojson-urls="{% static 'data/map-widget/regions/contiguous.geojson' %},{% static 'data/map-widget/regions/alaska.geojson' %},{% static 'data/map-widget/regions/hawaii.geojson' %}"
+  data-data-src="{% static data_src %}"
+  data-badge-mapping-src="{% if badge_mapping %}{% static badge_mapping %}{% endif %}"
+  data-map-default-fill-color="{{ map_default_fill_color|default:'' }}"
+  data-map-active-fill-color="{{ map_active_fill_color|default:'' }}"
+  data-map-stroke-color="{{ map_stroke_color|default:'' }}"
+  data-map-stroke-width="{{ map_stroke_width|default:'' }}"
+  data-map-badge-text-color="{{ badge_text_color|default:'' }}"
+  data-map-badge-radius="{{ badge_radius|default:'' }}"
+  data-info-panel-placeholder-text="{{ info_placeholder_text|default:'Hover or tap a state to see details' }}"
+  data-info-panel-heading-classes="{{ info_heading_classes|default:'' }}"
+  data-info-panel-list-classes="{{ info_list_classes|default:'' }}"
+  data-info-panel-list-item-classes="{{ info_list_item_classes|default:'' }}"
+  data-info-panel-no-data-text="{{ info_no_data_text|default:'' }}"
+  data-info-panel-no-data-paragraph-classes="{{ info_no_data_paragraph_classes|default:'' }}"
+></div>

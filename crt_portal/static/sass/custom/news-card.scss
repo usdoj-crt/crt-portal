@@ -1,0 +1,128 @@
+@use "uswds-core" as *;
+
+// -------------------------------------
+// News card (reusable)
+// Rendered by templates/partials/news_card.html
+//
+// A card with a thumbnail (or agency-seal fallback) filling the top half and a
+// white panel in the bottom half containing a type pill, a headline link, and a
+// "source - date" meta line. Cards are meant to sit inside a `.card-container`
+// grid, which is also defined here so the whole component is self-contained and
+// page-agnostic.
+// -------------------------------------
+
+.card-container {
+    display: grid;
+    // Three cards per row on desktop.
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    width: 100%;
+    max-width: 75rem;
+    margin-top: 1.5rem;
+    padding-bottom: 3rem;
+
+    // Two per row on tablets.
+    @include at-media-max(desktop) {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+
+    // Single column on mobile.
+    @include at-media-max(mobile-lg) {
+        grid-template-columns: 1fr;
+    }
+}
+
+.news-card {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+    // Give every card the same height so the 50/50 split is consistent across
+    // the grid regardless of headline length.
+    min-height: 22rem;
+
+    &:hover {
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18);
+        transform: translateY(-2px);
+    }
+}
+
+.news-card__thumbnail {
+    // Thumbnail occupies the top half of the card, full width.
+    flex: 0 0 50%;
+    width: 100%;
+    min-height: 0;
+
+    img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+    }
+
+    // Agency-seal fallback: seal centered on a blue gradient background.
+    &--seal {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(160deg, #1a4480 0%, #162e51 100%);
+
+        img {
+            width: auto;
+            height: 60%;
+            max-width: 60%;
+            object-fit: contain;
+        }
+    }
+}
+
+.news-card__body {
+    // Bottom half: white panel with the pill, headline, and meta stacked left.
+    flex: 1 1 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    gap: 0.75rem;
+    padding: 1rem 1.25rem 1.25rem;
+}
+
+.news-card__pill {
+    // Gold pill matching the map widget's state/agency badges.
+    flex-shrink: 0;
+    display: inline-block;
+    padding: 0.1rem 0.5rem;
+    border-radius: 999px;
+    background: #ffbe2e;
+    color: #1b1b1b;
+    font-size: 0.75rem;
+    font-weight: 700;
+    line-height: 1.4;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.news-card__headline {
+    font-weight: 700;
+    font-size: 1.125rem;
+    line-height: 1.3;
+    color: #162e51;
+    text-decoration: none;
+
+    &:hover,
+    &:focus {
+        text-decoration: underline;
+    }
+}
+
+.news-card__meta {
+    margin: 0;
+    font-size: 0.875rem;
+    color: #71767a;
+}
