@@ -11,6 +11,9 @@
   max-width: 2800px;
   margin-left: auto;
   margin-right: auto;
+  /* Small buffer so keyboard focus scrolling (see scrollWidgetIntoView in
+     map-widget-d3geo.js) leaves a little breathing room above the map. */
+  scroll-margin-top: 1rem;
 }
 
 /* Render side by side if there is enough space */
