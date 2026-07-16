@@ -237,6 +237,18 @@ function setActive(context, shape, feature) {
   context.active = { shape: shape, feature: feature };
 }
 
+// Open the URL associated with a feature (from the loaded data set) in a new
+// tab. Used by pointer clicks and keyboard/screen-reader activation. Hover and
+// focus intentionally do NOT call this — they only highlight via setActive().
+function openFeatureUrl(context, feature) {
+  const stateCode = feature.properties.code;
+  const url = context.data?.[stateCode]?.url;
+
+  if (url) {
+    window.open(url, '_blank', 'noopener');
+  }
+}
+
 function drawFeatures(mapSvg, features, d3PathGenerator, context) {
   for (const feature of features) {
     const d = d3PathGenerator(feature);
@@ -258,6 +270,7 @@ function drawFeatures(mapSvg, features, d3PathGenerator, context) {
 
     path.addEventListener('click', () => {
       setActive(context, path, feature);
+      openFeatureUrl(context, feature);
     });
 
     mapSvg.appendChild(path);
@@ -312,6 +325,7 @@ function drawBadge(mapSvg, badge, context) {
 
   group.addEventListener('click', () => {
     setActive(context, circle, feature);
+    openFeatureUrl(context, feature);
   });
 
   //    Append the group to the svg, then set the resting fill.
@@ -366,7 +380,10 @@ function buildAccessibleControls(mapElement, context) {
 
     const activate = () => setActive(context, entry.shape, entry.feature);
     button.addEventListener('focus', activate);
-    button.addEventListener('click', activate);
+    button.addEventListener('click', () => {
+      activate();
+      openFeatureUrl(context, entry.feature);
+    });
 
     controls.appendChild(button);
   }
