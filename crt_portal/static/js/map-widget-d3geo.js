@@ -89,6 +89,9 @@ function getInfoPanelConfig(mapWidget) {
 
   infoPanelConfig.placeholderText = mapWidget?.dataset?.infoPanelPlaceholderText || '';
 
+  infoPanelConfig.placeholderTextNoHover =
+    mapWidget?.dataset?.infoPanelPlaceholderTextNoHover || '';
+
   infoPanelConfig.headingClasses = mapWidget?.dataset?.infoPanelHeadingClasses || '';
 
   infoPanelConfig.listClasses = mapWidget?.dataset?.infoPanelListClasses || '';
@@ -237,6 +240,18 @@ function setActive(context, shape, feature) {
   context.active = { shape: shape, feature: feature };
 }
 
+// Open the URL associated with a feature (from the loaded data set) in a new
+// tab. Used by pointer clicks and keyboard/screen-reader activation. Hover and
+// focus intentionally do NOT call this — they only highlight via setActive().
+function openFeatureUrl(context, feature) {
+  const stateCode = feature.properties.code;
+  const url = context.data?.[stateCode]?.url;
+
+  if (url) {
+    window.open(url, '_blank', 'noopener');
+  }
+}
+
 function drawFeatures(mapSvg, features, d3PathGenerator, context) {
   for (const feature of features) {
     const d = d3PathGenerator(feature);
@@ -258,6 +273,7 @@ function drawFeatures(mapSvg, features, d3PathGenerator, context) {
 
     path.addEventListener('click', () => {
       setActive(context, path, feature);
+      openFeatureUrl(context, feature);
     });
 
     mapSvg.appendChild(path);
@@ -312,6 +328,7 @@ function drawBadge(mapSvg, badge, context) {
 
   group.addEventListener('click', () => {
     setActive(context, circle, feature);
+    openFeatureUrl(context, feature);
   });
 
   //    Append the group to the svg, then set the resting fill.
@@ -342,6 +359,25 @@ function buildInfoPanel(mapWidget, infoPanelConfig) {
 
   renderInfoPlaceholder(panel, infoPanelConfig);
 
+  // Re-render the placeholder if the device's hover capability changes (e.g. a
+  // 2-in-1 switching between touchscreen and trackpad), so the guidance text
+  // always matches the current primary input.
+  if (typeof window.matchMedia === 'function') {
+    const hoverQuery = window.matchMedia('(hover: hover)');
+    const onHoverChange = () => {
+      // Only replace the text while the placeholder is showing; don't clobber a
+      // selected state's details.
+      if (panel.dataset.showingPlaceholder === 'true') {
+        renderInfoPlaceholder(panel, infoPanelConfig);
+      }
+    };
+    if (typeof hoverQuery.addEventListener === 'function') {
+      hoverQuery.addEventListener('change', onHoverChange);
+    } else if (typeof hoverQuery.addListener === 'function') {
+      hoverQuery.addListener(onHoverChange);
+    }
+  }
+
   return panel;
 }
 
@@ -365,8 +401,14 @@ function buildAccessibleControls(mapElement, context) {
     button.textContent = entry.name;
 
     const activate = () => setActive(context, entry.shape, entry.feature);
-    button.addEventListener('focus', activate);
-    button.addEventListener('click', activate);
+    button.addEventListener('focus', () => {
+      activate();
+      scrollWidgetIntoView(mapElement);
+    });
+    button.addEventListener('click', () => {
+      activate();
+      openFeatureUrl(context, entry.feature);
+    });
 
     controls.appendChild(button);
   }
@@ -374,8 +416,27 @@ function buildAccessibleControls(mapElement, context) {
   mapElement.appendChild(controls);
 }
 
+// When a keyboard user Tabs onto one of the visually-hidden state controls, the
+// browser's implicit focus scrolling is imprecise (the controls are 1px clipped
+// elements, so it tends to over/undershoot). Scroll the widget so its top edge
+// aligns with the top of the viewport instead. `scrollMarginTop` on the widget
+// lets callers leave room for any fixed header.
+function scrollWidgetIntoView(mapElement) {
+  mapElement.scrollIntoView({ block: 'start', behavior: 'smooth' });
+}
+
 function renderInfoPlaceholder(panel, infoPanelConfig) {
-  panel.innerHTML = infoPanelConfig.placeholderText || '';
+  // Choose guidance text based on whether the primary input device can hover.
+  // Hover-capable devices (mouse/trackpad) get the fuller "Hover ... Click ..."
+  // instruction; tap/click-only devices get the click-only instruction.
+  const canHover =
+    typeof window.matchMedia === 'function' ? window.matchMedia('(hover: hover)').matches : true;
+
+  const noHoverText = infoPanelConfig.placeholderTextNoHover || '';
+  const hoverText = infoPanelConfig.placeholderText || '';
+
+  panel.innerHTML = (canHover ? hoverText : noHoverText) || hoverText || '';
+  panel.dataset.showingPlaceholder = 'true';
 }
 
 function createTextBadge(agency) {
@@ -430,6 +491,7 @@ function renderInfo(context, feature) {
 
   //    Clear whatever was in the panel (placeholder or a previous state).
   panel.innerHTML = '';
+  panel.dataset.showingPlaceholder = 'false';
 
   //    Resolve the full state name (preferring the data set's name, falling
   //    back to the feature's own name).
