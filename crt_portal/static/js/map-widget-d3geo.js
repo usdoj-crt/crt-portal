@@ -430,9 +430,7 @@ function renderInfoPlaceholder(panel, infoPanelConfig) {
   // Hover-capable devices (mouse/trackpad) get the fuller "Hover ... Click ..."
   // instruction; tap/click-only devices get the click-only instruction.
   const canHover =
-    typeof window.matchMedia === 'function'
-      ? window.matchMedia('(hover: hover)').matches
-      : true;
+    typeof window.matchMedia === 'function' ? window.matchMedia('(hover: hover)').matches : true;
 
   const noHoverText = infoPanelConfig.placeholderTextNoHover || '';
   const hoverText = infoPanelConfig.placeholderText || '';
