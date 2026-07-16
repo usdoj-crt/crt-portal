@@ -1,1472 +1,1523 @@
 {
-    "AL": {
-        "name": "Alabama",
-        "actions": [
-            {
-                "date": "3/14/2025",
-                "agency": "DOJ",
-                "action": "DOJ Withdrew From Biden-Era Suit Demanding Race-Based Election Maps"
-            },
-            {
-                "date": "6/20/2025",
-                "agency": "DOJ",
-                "action": "DOJ Filed a Statement Demanding Judges Not Force States to Draw Race-Based Voting Maps"
-            },
-            {
-                "date": "7/22/2025",
-                "agency": "DOJ",
-                "action": "DOJ Inspected Federal Election Records to Ensure Only Eligible Americans Vote With Alabama's Support"
-            },
-            {
-                "date": "4/4/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
-            },
-            {
-                "date": "7/7/2026",
-                "agency": "DOJ",
-                "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
-            },
-            {
-                "date": "9/18/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
-            }
-        ]
-    },
-    "AK": {
-        "name": "Alaska",
-        "actions": [
-            {
-                "date": "7/2/2025",
-                "agency": "DOJ",
-                "action": "DOJ Inspected Federal Election Records to Ensure Only Eligible Americans Vote With Alaska's Support"
-            },
-            {
-                "date": "7/6/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
-            },
-            {
-                "date": "7/7/2026",
-                "agency": "DOJ",
-                "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
-            },
-            {
-                "date": "9/18/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
-            }
-        ]
-    },
-    "AZ": {
-        "name": "Arizona",
-        "actions": [
-            {
-                "date": "5/20/2025",
-                "agency": "DOJ",
-                "action": "DOJ Sent Arizona a Letter Demanding the State Require Voters Provide ID Information When They Register"
-            },
-            {
-                "date": "1/6/2026",
-                "agency": "DOJ",
-                "action": "DOJ Sued Arizona for Failing to Provide Federal Election Records"
-            },
-            {
-                "date": "6/6/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
-            },
-            {
-                "date": "7/7/2026",
-                "agency": "DOJ",
-                "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
-            },
-            {
-                "date": "7/21/2026",
-                "agency": "DOJ",
-                "action": "DOJ Will Send Election Monitors to Maricopa County to Ensure Federal Law Compliance"
-            },
-            {
-                "date": "7/21/2026",
-                "agency": "DOJ",
-                "action": "DOJ Will Send Election Monitors to Pima County to Ensure Federal Law Compliance"
-            },
-            {
-                "date": "7/21/2026",
-                "agency": "DOJ",
-                "action": "DOJ Will Send Election Monitors to Apache County to Ensure Federal Law Compliance"
-            },
-            {
-                "date": "9/18/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
-            }
-        ]
-    },
-    "AR": {
-        "name": "Arkansas",
-        "actions": [
-            {
-                "date": "7/25/2025",
-                "agency": "DOJ",
-                "action": "DOJ Inspected Federal Election Records to Ensure Only Eligible Americans Vote With Arkansas' Support"
-            },
-            {
-                "date": "1/17/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
-            },
-            {
-                "date": "7/7/2026",
-                "agency": "DOJ",
-                "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
-            },
-            {
-                "date": "9/18/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
-            }
-        ]
-    },
-    "CA": {
-        "name": "California",
-        "actions": [
-            {
-                "date": "6/25/2025",
-                "agency": "DOJ",
-                "action": "DOJ Sued Orange County, CA for Withholding Voting Records and Registering Noncitizens to Vote"
-            },
-            {
-                "date": "9/25/2025",
-                "agency": "DOJ",
-                "action": "DOJ Sued California for Failing to Provide Federal Election Records"
-            },
-            {
-                "date": "11/4/2025",
-                "agency": "DOJ",
-                "action": "DOJ Sent Election Monitors to Fresno County to Ensure Federal Law Compliance"
-            },
-            {
-                "date": "11/4/2025",
-                "agency": "DOJ",
-                "action": "DOJ Sent Election Monitors to Los Angeles County to Ensure Federal Law Compliance"
-            },
-            {
-                "date": "11/4/2025",
-                "agency": "DOJ",
-                "action": "DOJ Sent Election Monitors to Kern County to Ensure Federal Law Compliance"
-            },
-            {
-                "date": "11/4/2025",
-                "agency": "DOJ",
-                "action": "DOJ Sent Election Monitors to Orange County to Ensure Federal Law Compliance"
-            },
-            {
-                "date": "11/4/2025",
-                "agency": "DOJ",
-                "action": "DOJ Sent Election Monitors to Riverside County to Ensure Federal Law Compliance"
-            },
-            {
-                "date": "4/18/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
-            },
-            {
-                "date": "5/7/2026",
-                "agency": "DOJ",
-                "action": "DOJ Criminally Prosecutes California Woman for Paying People to Register to Vote"
-            },
-            {
-                "date": "7/7/2026",
-                "agency": "DOJ",
-                "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
-            },
-            {
-                "date": "9/18/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
-            }
-        ]
-    },
-    "CO": {
-        "name": "Colorado",
-        "actions": [
-            {
-                "date": "12/12/2025",
-                "agency": "DOJ",
-                "action": "DOJ Sued Colorado for Failing to Provide Federal Election Records"
-            },
-            {
-                "date": "5/16/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
-            },
-            {
-                "date": "7/7/2026",
-                "agency": "DOJ",
-                "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
-            },
-            {
-                "date": "9/18/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
-            }
-        ]
-    },
-    "CT": {
-        "name": "Connecticut",
-        "actions": [
-            {
-                "date": "1/6/2026",
-                "agency": "DOJ",
-                "action": "DOJ Sued Connecticut for Failing to Provide Federal Election Records"
-            },
-            {
-                "date": "6/27/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
-            },
-            {
-                "date": "7/7/2026",
-                "agency": "DOJ",
-                "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
-            },
-            {
-                "date": "9/18/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
-            }
-        ]
-    },
-    "DE": {
-        "name": "Delaware",
-        "actions": [
-            {
-                "date": "12/2/2025",
-                "agency": "DOJ",
-                "action": "DOJ Sued Delaware for Failing to Provide Federal Election Records"
-            },
-            {
-                "date": "7/7/2026",
-                "agency": "DOJ",
-                "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
-            },
-            {
-                "date": "7/27/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
-            },
-            {
-                "date": "9/18/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
-            }
-        ]
-    },
-    "DC": {
-        "name": "District of Columbia",
-        "actions": [
-            {
-                "date": "1/20/2025",
-                "agency": "DOJ",
-                "action": "President Trump Restores \"Justice for All\" to the Justice Department"
-            },
-            {
-                "date": "12/18/2025",
-                "agency": "DOJ",
-                "action": "DOJ Sued D.C. for Failing to Provide Federal Election Records"
-            },
-            {
-                "date": "3/11/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
-            },
-            {
-                "date": "7/7/2026",
-                "agency": "DOJ",
-                "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
-            },
-            {
-                "date": "9/18/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
-            }
-        ]
-    },
-    "FL": {
-        "name": "Florida",
-        "actions": [
-            {
-                "date": "7/4/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
-            },
-            {
-                "date": "7/7/2026",
-                "agency": "DOJ",
-                "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
-            },
-            {
-                "date": "8/14/2026",
-                "agency": "DOJ",
-                "action": "DOJ Inspected Federal Election Records to Ensure Only Eligible Americans Vote With Florida's Support"
-            },
-            {
-                "date": "9/18/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
-            }
-        ]
-    },
-    "GA": {
-        "name": "Georgia",
-        "actions": [
-            {
-                "date": "12/18/2025",
-                "agency": "DOJ",
-                "action": "DOJ Sued Georgia for Failing to Provide Federal Election Records"
-            },
-            {
-                "date": "4/4/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
-            },
-            {
-                "date": "7/7/2026",
-                "agency": "DOJ",
-                "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
-            },
-            {
-                "date": "9/18/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
-            }
-        ]
-    },
-    "HI": {
-        "name": "Hawaii",
-        "actions": [
-            {
-                "date": "12/12/2025",
-                "agency": "DOJ",
-                "action": "DOJ Sued Hawaii for Failing to Provide Federal Election Records"
-            },
-            {
-                "date": "6/24/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
-            },
-            {
-                "date": "7/7/2026",
-                "agency": "DOJ",
-                "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
-            },
-            {
-                "date": "9/18/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
-            }
-        ]
-    },
-    "ID": {
-        "name": "Idaho",
-        "actions": [
-            {
-                "date": "4/1/2026",
-                "agency": "DOJ",
-                "action": "DOJ Sued Idaho for Failing to Provide Federal Election Records"
-            },
-            {
-                "date": "4/4/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
-            },
-            {
-                "date": "7/7/2026",
-                "agency": "DOJ",
-                "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
-            },
-            {
-                "date": "9/18/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
-            }
-        ]
-    },
-    "IL": {
-        "name": "Illinois",
-        "actions": [
-            {
-                "date": "7/8/2025",
-                "agency": "DOJ",
-                "action": "DOJ Filed a Statement Demanding Illinois Maintain and Clean Voter Rolls"
-            },
-            {
-                "date": "12/18/2025",
-                "agency": "DOJ",
-                "action": "DOJ Sued Illinois for Failing to Provide Federal Election Records"
-            },
-            {
-                "date": "1/31/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
-            },
-            {
-                "date": "7/7/2026",
-                "agency": "DOJ",
-                "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
-            },
-            {
-                "date": "9/18/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
-            }
-        ]
-    },
-    "IN": {
-        "name": "Indiana",
-        "actions": [
-            {
-                "date": "3/21/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
-            },
-            {
-                "date": "7/7/2026",
-                "agency": "DOJ",
-                "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
-            },
-            {
-                "date": "7/14/2026",
-                "agency": "DOJ",
-                "action": "DOJ Inspected Federal Election Records to Ensure Only Eligible Americans Vote With Indiana's Support"
-            },
-            {
-                "date": "9/18/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
-            }
-        ]
-    },
-    "IA": {
-        "name": "Iowa",
-        "actions": [
-            {
-                "date": "4/18/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
-            },
-            {
-                "date": "7/7/2026",
-                "agency": "DOJ",
-                "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
-            },
-            {
-                "date": "7/15/2026",
-                "agency": "DOJ",
-                "action": "DOJ Inspected Federal Election Records to Ensure Only Eligible Americans Vote With Iowa's Support"
-            },
-            {
-                "date": "9/18/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
-            }
-        ]
-    },
-    "KS": {
-        "name": "Kansas",
-        "actions": [
-            {
-                "date": "6/20/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
-            },
-            {
-                "date": "7/7/2026",
-                "agency": "DOJ",
-                "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
-            },
-            {
-                "date": "8/14/2026",
-                "agency": "DOJ",
-                "action": "DOJ Inspected Federal Election Records to Ensure Only Eligible Americans Vote With Kansas' Support"
-            },
-            {
-                "date": "9/18/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
-            }
-        ]
-    },
-    "KY": {
-        "name": "Kentucky",
-        "actions": [
-            {
-                "date": "3/27/2025",
-                "agency": "DOJ",
-                "action": "DOJ Filed a Statement Demanding Judges Not Block Kentucky From Removing Out-of-State Voters From Its Rolls"
-            },
-            {
-                "date": "2/26/2026",
-                "agency": "DOJ",
-                "action": "DOJ Sued Kentucky for Failing to Provide Federal Election Records"
-            },
-            {
-                "date": "4/4/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
-            },
-            {
-                "date": "7/7/2026",
-                "agency": "DOJ",
-                "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
-            },
-            {
-                "date": "9/18/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
-            }
-        ]
-    },
-    "LA": {
-        "name": "Louisiana",
-        "actions": [
-            {
-                "date": "1/24/2025",
-                "agency": "DOJ",
-                "action": "DOJ Withdrew From Biden-Era Suit Demanding Race-Based Election Maps"
-            },
-            {
-                "date": "9/8/2025",
-                "agency": "DOJ",
-                "action": "DOJ Inspected Federal Election Records to Ensure Only Eligible Americans Vote With Louisiana's Support"
-            },
-            {
-                "date": "5/13/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
-            },
-            {
-                "date": "7/7/2026",
-                "agency": "DOJ",
-                "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
-            },
-            {
-                "date": "9/18/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
-            }
-        ]
-    },
-    "ME": {
-        "name": "Maine",
-        "actions": [
-            {
-                "date": "9/16/2025",
-                "agency": "DOJ",
-                "action": "DOJ Sued Maine for Failing to Provide Federal Election Records"
-            },
-            {
-                "date": "4/25/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
-            },
-            {
-                "date": "7/7/2026",
-                "agency": "DOJ",
-                "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
-            },
-            {
-                "date": "9/18/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
-            }
-        ]
-    },
-    "MD": {
-        "name": "Maryland",
-        "actions": [
-            {
-                "date": "3/4/2025",
-                "agency": "DOJ",
-                "action": "DOJ Sent Election Monitors to Prince George's County to Ensure Federal Law Compliance"
-            },
-            {
-                "date": "12/2/2025",
-                "agency": "DOJ",
-                "action": "DOJ Sued Maryland for Failing to Provide Federal Election Records"
-            },
-            {
-                "date": "5/9/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
-            },
-            {
-                "date": "5/22/2026",
-                "agency": "DOJ",
-                "action": "DOJ Demanded Maryland Preserve Records After the State Printed and Mailed Erroneous Ballots"
-            },
-            {
-                "date": "7/7/2026",
-                "agency": "DOJ",
-                "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
-            },
-            {
-                "date": "9/18/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
-            }
-        ]
-    },
-    "MA": {
-        "name": "Massachusetts",
-        "actions": [
-            {
-                "date": "12/12/2025",
-                "agency": "DOJ",
-                "action": "DOJ Sued Massachusetts for Failing to Provide Federal Election Records"
-            },
-            {
-                "date": "7/7/2026",
-                "agency": "DOJ",
-                "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
-            },
-            {
-                "date": "7/18/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
-            },
-            {
-                "date": "9/1/2026",
-                "agency": "DOJ",
-                "action": "DOJ Will Send Election Monitors to New Bedford County to Ensure Federal Law Compliance"
-            },
-            {
-                "date": "9/1/2026",
-                "agency": "DOJ",
-                "action": "DOJ Will Send Election Monitors to Boston to Ensure Federal Law Compliance"
-            },
-            {
-                "date": "9/18/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
-            }
-        ]
-    },
-    "MI": {
-        "name": "Michigan",
-        "actions": [
-            {
-                "date": "9/25/2025",
-                "agency": "DOJ",
-                "action": "DOJ Sued Michigan for Failing to Provide Federal Election Records"
-            },
-            {
-                "date": "6/20/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
-            },
-            {
-                "date": "7/7/2026",
-                "agency": "DOJ",
-                "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
-            },
-            {
-                "date": "8/4/2026",
-                "agency": "DOJ",
-                "action": "DOJ Will Send Election Monitors to Lansing to Ensure Federal Law Compliance"
-            },
-            {
-                "date": "8/4/2026",
-                "agency": "DOJ",
-                "action": "DOJ Will Send Election Monitors to East Lansing to Ensure Federal Law Compliance"
-            },
-            {
-                "date": "8/4/2026",
-                "agency": "DOJ",
-                "action": "DOJ Will Send Election Monitors to Detroit to Ensure Federal Law Compliance"
-            },
-            {
-                "date": "9/18/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
-            }
-        ]
-    },
-    "MN": {
-        "name": "Minnesota",
-        "actions": [
-            {
-                "date": "9/25/2025",
-                "agency": "DOJ",
-                "action": "DOJ Sued Minnesota for Failing to Provide Federal Election Records"
-            },
-            {
-                "date": "6/27/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
-            },
-            {
-                "date": "7/7/2026",
-                "agency": "DOJ",
-                "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
-            },
-            {
-                "date": "8/11/2026",
-                "agency": "DOJ",
-                "action": "DOJ Will Send Election Monitors to Hennepin County to Ensure Federal Law Compliance"
-            },
-            {
-                "date": "8/11/2026",
-                "agency": "DOJ",
-                "action": "DOJ Will Send Election Monitors to Ramsey County to Ensure Federal Law Compliance"
-            },
-            {
-                "date": "9/18/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
-            }
-        ]
-    },
-    "MS": {
-        "name": "Mississippi",
-        "actions": [
-            {
-                "date": "7/25/2025",
-                "agency": "DOJ",
-                "action": "DOJ Inspected Federal Election Records to Ensure Eligible Americans Vote With Mississippi's Support"
-            },
-            {
-                "date": "1/24/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
-            },
-            {
-                "date": "7/7/2026",
-                "agency": "DOJ",
-                "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
-            },
-            {
-                "date": "9/18/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
-            }
-        ]
-    },
-    "MO": {
-        "name": "Missouri",
-        "actions": [
-            {
-                "date": "9/8/2025",
-                "agency": "DOJ",
-                "action": "DOJ Inspected Federal Election Records to Ensure Eligible Americans Vote With Missouri's Support"
-            },
-            {
-                "date": "6/20/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
-            },
-            {
-                "date": "7/7/2026",
-                "agency": "DOJ",
-                "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
-            },
-            {
-                "date": "9/18/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
-            }
-        ]
-    },
-    "MT": {
-        "name": "Montana",
-        "actions": [
-            {
-                "date": "8/14/2025",
-                "agency": "DOJ",
-                "action": "DOJ Inspected Federal Election Records to Ensure Eligible Americans Vote With Montana's Support"
-            },
-            {
-                "date": "4/17/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
-            },
-            {
-                "date": "7/7/2026",
-                "agency": "DOJ",
-                "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
-            },
-            {
-                "date": "9/18/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
-            }
-        ]
-    },
-    "NE": {
-        "name": "Nebraska",
-        "actions": [
-            {
-                "date": "9/8/2025",
-                "agency": "DOJ",
-                "action": "DOJ Inspected Federal Election Records to Ensure Eligible Americans Vote With Nebraska's Support"
-            },
-            {
-                "date": "3/28/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
-            },
-            {
-                "date": "7/7/2026",
-                "agency": "DOJ",
-                "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
-            },
-            {
-                "date": "9/18/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
-            }
-        ]
-    },
-    "NV": {
-        "name": "Nevada",
-        "actions": [
-            {
-                "date": "12/12/2025",
-                "agency": "DOJ",
-                "action": "DOJ Sued Nevada for Failing to Provide Federal Election Records"
-            },
-            {
-                "date": "4/25/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
-            },
-            {
-                "date": "7/7/2026",
-                "agency": "DOJ",
-                "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
-            },
-            {
-                "date": "9/18/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
-            }
-        ]
-    },
-    "NH": {
-        "name": "New Hampshire",
-        "actions": [
-            {
-                "date": "9/25/2025",
-                "agency": "DOJ",
-                "action": "DOJ Sued New Hampshire for Failing to Provide Federal Election Records"
-            },
-            {
-                "date": "7/7/2026",
-                "agency": "DOJ",
-                "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
-            },
-            {
-                "date": "7/25/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
-            },
-            {
-                "date": "9/8/2026",
-                "agency": "DOJ",
-                "action": "DOJ Will Send Election Monitors to Manchester to Ensure Federal Law Compliance"
-            },
-            {
-                "date": "9/8/2026",
-                "agency": "DOJ",
-                "action": "DOJ Will Send Election Monitors to Nashua to Ensure Federal Law Compliance"
-            },
-            {
-                "date": "9/18/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
-            }
-        ]
-    },
-    "NJ": {
-        "name": "New Jersey",
-        "actions": [
-            {
-                "date": "11/4/2025",
-                "agency": "DOJ",
-                "action": "DOJ Sent Election Monitors to Passaic County to Ensure Federal Law Compliance"
-            },
-            {
-                "date": "11/5/2025",
-                "agency": "DOJ",
-                "action": "DOJ Sent Election Monitors to Passaic County to Monitor Vote Counting"
-            },
-            {
-                "date": "2/26/2026",
-                "agency": "DOJ",
-                "action": "DOJ Sued New Jersey for Failing to Provide Federal Election Records"
-            },
-            {
-                "date": "4/18/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
-            },
-            {
-                "date": "6/2/2026",
-                "agency": "DOJ",
-                "action": "DOJ Sent Election Monitors to Union County to Ensure Federal Law Compliance"
-            },
-            {
-                "date": "7/7/2026",
-                "agency": "DOJ",
-                "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
-            },
-            {
-                "date": "9/18/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
-            }
-        ]
-    },
-    "NM": {
-        "name": "New Mexico",
-        "actions": [
-            {
-                "date": "12/2/2025",
-                "agency": "DOJ",
-                "action": "DOJ Sued New Mexico for Failing to Provide Federal Election Records"
-            },
-            {
-                "date": "4/18/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
-            },
-            {
-                "date": "7/7/2026",
-                "agency": "DOJ",
-                "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
-            },
-            {
-                "date": "9/18/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
-            }
-        ]
-    },
-    "NY": {
-        "name": "New York",
-        "actions": [
-            {
-                "date": "9/25/2025",
-                "agency": "DOJ",
-                "action": "DOJ Sued New York for Failing to Provide Federal Election Records"
-            },
-            {
-                "date": "5/9/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
-            },
-            {
-                "date": "6/10/2026",
-                "agency": "DOJ",
-                "action": "DOJ Demanded NY Provide a HAVA ID for Each Registered Voter on the Voter Rolls"
-            },
-            {
-                "date": "7/7/2026",
-                "agency": "DOJ",
-                "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
-            },
-            {
-                "date": "9/18/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
-            }
-        ]
-    },
-    "NC": {
-        "name": "North Carolina",
-        "actions": [
-            {
-                "date": "3/27/2025",
-                "agency": "DOJ",
-                "action": "DOJ Sued North Carolina for Not Following Federal Voting Registration Standards"
-            },
-            {
-                "date": "5/20/2025",
-                "agency": "DOJ",
-                "action": "DOJ Sent North Carolina a Letter Demanding the State Require Voters to Provide ID Information When They Register"
-            },
-            {
-                "date": "5/27/2025",
-                "agency": "DOJ",
-                "action": "DOJ Obtains a Court Order That North Carolina Remedy 100,000+ Voter Registrations"
-            },
-            {
-                "date": "1/17/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
-            },
-            {
-                "date": "7/7/2026",
-                "agency": "DOJ",
-                "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
-            },
-            {
-                "date": "9/18/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
-            }
-        ]
-    },
-    "ND": {
-        "name": "North Dakota",
-        "actions": [
-            {
-                "date": "4/25/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
-            },
-            {
-                "date": "7/7/2026",
-                "agency": "DOJ",
-                "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
-            },
-            {
-                "date": "9/18/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
-            }
-        ]
-    },
-    "OH": {
-        "name": "Ohio",
-        "actions": [
-            {
-                "date": "8/6/2025",
-                "agency": "DOJ",
-                "action": "DOJ Inspected Federal Election Records to Ensure Eligible Americans Vote With Ohio's Support"
-            },
-            {
-                "date": "3/21/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
-            },
-            {
-                "date": "7/7/2026",
-                "agency": "DOJ",
-                "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
-            },
-            {
-                "date": "9/18/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
-            }
-        ]
-    },
-    "OK": {
-        "name": "Oklahoma",
-        "actions": [
-            {
-                "date": "2/26/2026",
-                "agency": "DOJ",
-                "action": "DOJ Sued Oklahoma, and Oklahoma Then Agreed to Produce Its Voter Rolls"
-            },
-            {
-                "date": "5/2/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
-            },
-            {
-                "date": "7/7/2026",
-                "agency": "DOJ",
-                "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
-            },
-            {
-                "date": "9/18/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
-            }
-        ]
-    },
-    "OR": {
-        "name": "Oregon",
-        "actions": [
-            {
-                "date": "6/6/2025",
-                "agency": "DOJ",
-                "action": "DOJ Filed a Statement to Help Ensure Oregon Cleans Its Voter Rolls as Legally Required"
-            },
-            {
-                "date": "9/16/2025",
-                "agency": "DOJ",
-                "action": "DOJ Sued Oregon for Failing to Provide Federal Election Records"
-            },
-            {
-                "date": "4/4/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
-            },
-            {
-                "date": "7/7/2026",
-                "agency": "DOJ",
-                "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
-            },
-            {
-                "date": "9/18/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
-            }
-        ]
-    },
-    "PA": {
-        "name": "Pennsylvania",
-        "actions": [
-            {
-                "date": "9/25/2025",
-                "agency": "DOJ",
-                "action": "DOJ Sued Pennsylvania for Failing to Provide Federal Election Records"
-            },
-            {
-                "date": "4/4/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
-            },
-            {
-                "date": "7/7/2026",
-                "agency": "DOJ",
-                "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
-            },
-            {
-                "date": "9/18/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
-            }
-        ]
-    },
-    "RI": {
-        "name": "Rhode Island",
-        "actions": [
-            {
-                "date": "12/2/2025",
-                "agency": "DOJ",
-                "action": "DOJ Sued Rhode Island for Failing to Provide Federal Election Records"
-            },
-            {
-                "date": "7/7/2026",
-                "agency": "DOJ",
-                "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
-            },
-            {
-                "date": "7/25/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
-            },
-            {
-                "date": "9/18/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
-            }
-        ]
-    },
-    "SC": {
-        "name": "South Carolina",
-        "actions": [
-            {
-                "date": "8/6/2025",
-                "agency": "DOJ",
-                "action": "DOJ Inspected Federal Election Records to Ensure Eligible Americans Vote With South Carolina's Support"
-            },
-            {
-                "date": "4/25/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
-            },
-            {
-                "date": "7/7/2026",
-                "agency": "DOJ",
-                "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
-            },
-            {
-                "date": "9/18/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
-            }
-        ]
-    },
-    "SD": {
-        "name": "South Dakota",
-        "actions": [
-            {
-                "date": "4/18/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
-            },
-            {
-                "date": "7/7/2026",
-                "agency": "DOJ",
-                "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
-            },
-            {
-                "date": "8/14/2026",
-                "agency": "DOJ",
-                "action": "DOJ Inspected Federal Election Records to Ensure Eligible Americans Vote With South Dakota's Support"
-            },
-            {
-                "date": "9/18/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
-            }
-        ]
-    },
-    "TN": {
-        "name": "Tennessee",
-        "actions": [
-            {
-                "date": "8/7/2025",
-                "agency": "DOJ",
-                "action": "DOJ Inspected Federal Election Records to Ensure Eligible Americans Vote With Tennessee's Support"
-            },
-            {
-                "date": "6/22/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
-            },
-            {
-                "date": "7/7/2026",
-                "agency": "DOJ",
-                "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
-            },
-            {
-                "date": "9/18/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
-            }
-        ]
-    },
-    "TX": {
-        "name": "Texas",
-        "actions": [
-            {
-                "date": "3/6/2025",
-                "agency": "DOJ",
-                "action": "DOJ Withdrew From Biden-Era Suit Demanding Race-Based Election Maps"
-            },
-            {
-                "date": "7/8/2025",
-                "agency": "DOJ",
-                "action": "DOJ Inspected Federal Election Records to Ensure Eligible Americans Vote With Texas's Support"
-            },
-            {
-                "date": "1/17/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
-            },
-            {
-                "date": "7/7/2026",
-                "agency": "DOJ",
-                "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
-            },
-            {
-                "date": "9/18/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
-            }
-        ]
-    },
-    "UT": {
-        "name": "Utah",
-        "actions": [
-            {
-                "date": "2/26/2026",
-                "agency": "DOJ",
-                "action": "DOJ Sued Utah for Failing to Provide Federal Election Records"
-            },
-            {
-                "date": "5/9/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
-            },
-            {
-                "date": "7/7/2026",
-                "agency": "DOJ",
-                "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
-            },
-            {
-                "date": "9/18/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
-            }
-        ]
-    },
-    "VT": {
-        "name": "Vermont",
-        "actions": [
-            {
-                "date": "12/2/2025",
-                "agency": "DOJ",
-                "action": "DOJ Sued Vermont for Failing to Provide Federal Election Records"
-            },
-            {
-                "date": "6/27/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
-            },
-            {
-                "date": "7/7/2026",
-                "agency": "DOJ",
-                "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
-            },
-            {
-                "date": "9/18/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
-            }
-        ]
-    },
-    "VA": {
-        "name": "Virginia",
-        "actions": [
-            {
-                "date": "1/16/2026",
-                "agency": "DOJ",
-                "action": "DOJ Sued Virginia for Failing to Provide Federal Election Records"
-            },
-            {
-                "date": "6/20/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
-            },
-            {
-                "date": "7/7/2026",
-                "agency": "DOJ",
-                "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
-            },
-            {
-                "date": "8/4/2026",
-                "agency": "DOJ",
-                "action": "DOJ Will Send Election Monitors to Fairfax County to Ensure Federal Law Compliance"
-            },
-            {
-                "date": "8/4/2026",
-                "agency": "DOJ",
-                "action": "DOJ Will Send Election Monitors to Prince William County to Ensure Federal Law Compliance"
-            },
-            {
-                "date": "9/18/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
-            }
-        ]
-    },
-    "WA": {
-        "name": "Washington",
-        "actions": [
-            {
-                "date": "12/2/2025",
-                "agency": "DOJ",
-                "action": "DOJ Sued Washington for Failing to Provide Federal Election Records"
-            },
-            {
-                "date": "6/20/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
-            },
-            {
-                "date": "7/7/2026",
-                "agency": "DOJ",
-                "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
-            },
-            {
-                "date": "9/18/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
-            }
-        ]
-    },
-    "WV": {
-        "name": "West Virginia",
-        "actions": [
-            {
-                "date": "2/26/2026",
-                "agency": "DOJ",
-                "action": "DOJ Sued West Virginia for Failing to Provide Federal Election Records"
-            },
-            {
-                "date": "3/28/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
-            },
-            {
-                "date": "7/7/2026",
-                "agency": "DOJ",
-                "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
-            },
-            {
-                "date": "9/18/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
-            }
-        ]
-    },
-    "WI": {
-        "name": "Wisconsin",
-        "actions": [
-            {
-                "date": "12/18/2025",
-                "agency": "DOJ",
-                "action": "DOJ Sued Wisconsin for Failing to Provide Federal Election Records"
-            },
-            {
-                "date": "6/27/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
-            },
-            {
-                "date": "7/7/2026",
-                "agency": "DOJ",
-                "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
-            },
-            {
-                "date": "9/18/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
-            }
-        ]
-    },
-    "WY": {
-        "name": "Wyoming",
-        "actions": [
-            {
-                "date": "7/1/2025",
-                "agency": "DOJ",
-                "action": "DOJ Filed a Statement Demanding Federal Courts Not Block Wyoming's Voter ID Law"
-            },
-            {
-                "date": "8/14/2025",
-                "agency": "DOJ",
-                "action": "DOJ Sent Wyoming a Letter Demanding the State Add All Required Fields to Its Voter Registration"
-            },
-            {
-                "date": "6/25/2026",
-                "agency": "DOJ",
-                "action": "DOJ Inspected Federal Election Records to Ensure Only Eligible Americans Vote With Wyoming's Support"
-            },
-            {
-                "date": "7/4/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
-            },
-            {
-                "date": "7/7/2026",
-                "agency": "DOJ",
-                "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
-            },
-            {
-                "date": "9/18/2026",
-                "agency": "DOJ",
-                "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
-            }
-        ]
-    }
+  "AL": {
+    "name": "Alabama",
+    "url": "https://www.justice.gov/crt/election-integrity-alabama",
+    "actions": [
+      {
+        "date": "3/14/2025",
+        "agency": "DOJ",
+        "action": "DOJ Withdrew From Biden-Era Suit Demanding Race-Based Election Maps"
+      },
+      {
+        "date": "6/20/2025",
+        "agency": "DOJ",
+        "action": "DOJ Filed a Statement Demanding Judges Not Force States to Draw Race-Based Voting Maps"
+      },
+      {
+        "date": "7/22/2025",
+        "agency": "DOJ",
+        "action": "DOJ Inspected Federal Election Records to Ensure Only Eligible Americans Vote With Alabama's Support"
+      },
+      {
+        "date": "4/4/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
+      },
+      {
+        "date": "7/7/2026",
+        "agency": "DOJ",
+        "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
+      },
+      {
+        "date": "9/18/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
+      }
+    ]
+  },
+  "AK": {
+    "name": "Alaska",
+    "url": "https://www.justice.gov/crt/election-integrity-alaska",
+    "actions": [
+      {
+        "date": "7/2/2025",
+        "agency": "DOJ",
+        "action": "DOJ Inspected Federal Election Records to Ensure Only Eligible Americans Vote With Alaska's Support"
+      },
+      {
+        "date": "7/6/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
+      },
+      {
+        "date": "7/7/2026",
+        "agency": "DOJ",
+        "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
+      },
+      {
+        "date": "9/18/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
+      }
+    ]
+  },
+  "AZ": {
+    "name": "Arizona",
+    "url": "https://www.justice.gov/crt/election-integrity-arizona",
+    "actions": [
+      {
+        "date": "5/20/2025",
+        "agency": "DOJ",
+        "action": "DOJ Sent Arizona a Letter Demanding the State Require Voters Provide ID Information When They Register"
+      },
+      {
+        "date": "1/6/2026",
+        "agency": "DOJ",
+        "action": "DOJ Sued Arizona for Failing to Provide Federal Election Records"
+      },
+      {
+        "date": "6/6/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
+      },
+      {
+        "date": "7/7/2026",
+        "agency": "DOJ",
+        "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
+      },
+      {
+        "date": "7/21/2026",
+        "agency": "DOJ",
+        "action": "DOJ Will Send Election Monitors to Maricopa County to Ensure Federal Law Compliance"
+      },
+      {
+        "date": "7/21/2026",
+        "agency": "DOJ",
+        "action": "DOJ Will Send Election Monitors to Pima County to Ensure Federal Law Compliance"
+      },
+      {
+        "date": "7/21/2026",
+        "agency": "DOJ",
+        "action": "DOJ Will Send Election Monitors to Apache County to Ensure Federal Law Compliance"
+      },
+      {
+        "date": "9/18/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
+      }
+    ]
+  },
+  "AR": {
+    "name": "Arkansas",
+    "url": "https://www.justice.gov/crt/election-integrity-arkansas",
+    "actions": [
+      {
+        "date": "7/25/2025",
+        "agency": "DOJ",
+        "action": "DOJ Inspected Federal Election Records to Ensure Only Eligible Americans Vote With Arkansas' Support"
+      },
+      {
+        "date": "1/17/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
+      },
+      {
+        "date": "7/7/2026",
+        "agency": "DOJ",
+        "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
+      },
+      {
+        "date": "9/18/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
+      }
+    ]
+  },
+  "CA": {
+    "name": "California",
+    "url": "https://www.justice.gov/crt/election-integrity-california",
+    "actions": [
+      {
+        "date": "6/25/2025",
+        "agency": "DOJ",
+        "action": "DOJ Sued Orange County, CA for Withholding Voting Records and Registering Noncitizens to Vote"
+      },
+      {
+        "date": "9/25/2025",
+        "agency": "DOJ",
+        "action": "DOJ Sued California for Failing to Provide Federal Election Records"
+      },
+      {
+        "date": "11/4/2025",
+        "agency": "DOJ",
+        "action": "DOJ Sent Election Monitors to Fresno County to Ensure Federal Law Compliance"
+      },
+      {
+        "date": "11/4/2025",
+        "agency": "DOJ",
+        "action": "DOJ Sent Election Monitors to Los Angeles County to Ensure Federal Law Compliance"
+      },
+      {
+        "date": "11/4/2025",
+        "agency": "DOJ",
+        "action": "DOJ Sent Election Monitors to Kern County to Ensure Federal Law Compliance"
+      },
+      {
+        "date": "11/4/2025",
+        "agency": "DOJ",
+        "action": "DOJ Sent Election Monitors to Orange County to Ensure Federal Law Compliance"
+      },
+      {
+        "date": "11/4/2025",
+        "agency": "DOJ",
+        "action": "DOJ Sent Election Monitors to Riverside County to Ensure Federal Law Compliance"
+      },
+      {
+        "date": "4/18/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
+      },
+      {
+        "date": "5/7/2026",
+        "agency": "DOJ",
+        "action": "DOJ Criminally Prosecutes California Woman for Paying People to Register to Vote"
+      },
+      {
+        "date": "7/7/2026",
+        "agency": "DOJ",
+        "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
+      },
+      {
+        "date": "9/18/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
+      }
+    ]
+  },
+  "CO": {
+    "name": "Colorado",
+    "url": "https://www.justice.gov/crt/election-integrity-colorado",
+    "actions": [
+      {
+        "date": "12/12/2025",
+        "agency": "DOJ",
+        "action": "DOJ Sued Colorado for Failing to Provide Federal Election Records"
+      },
+      {
+        "date": "5/16/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
+      },
+      {
+        "date": "7/7/2026",
+        "agency": "DOJ",
+        "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
+      },
+      {
+        "date": "9/18/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
+      }
+    ]
+  },
+  "CT": {
+    "name": "Connecticut",
+    "url": "https://www.justice.gov/crt/election-integrity-connecticut",
+    "actions": [
+      {
+        "date": "1/6/2026",
+        "agency": "DOJ",
+        "action": "DOJ Sued Connecticut for Failing to Provide Federal Election Records"
+      },
+      {
+        "date": "6/27/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
+      },
+      {
+        "date": "7/7/2026",
+        "agency": "DOJ",
+        "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
+      },
+      {
+        "date": "9/18/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
+      }
+    ]
+  },
+  "DE": {
+    "name": "Delaware",
+    "url": "https://www.justice.gov/crt/election-integrity-delaware",
+    "actions": [
+      {
+        "date": "12/2/2025",
+        "agency": "DOJ",
+        "action": "DOJ Sued Delaware for Failing to Provide Federal Election Records"
+      },
+      {
+        "date": "7/7/2026",
+        "agency": "DOJ",
+        "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
+      },
+      {
+        "date": "7/27/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
+      },
+      {
+        "date": "9/18/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
+      }
+    ]
+  },
+  "DC": {
+    "name": "District of Columbia",
+    "url": "https://www.justice.gov/crt/election-integrity-district-of-columbia",
+    "actions": [
+      {
+        "date": "1/20/2025",
+        "agency": "DOJ",
+        "action": "President Trump Restores \"Justice for All\" to the Justice Department"
+      },
+      {
+        "date": "12/18/2025",
+        "agency": "DOJ",
+        "action": "DOJ Sued D.C. for Failing to Provide Federal Election Records"
+      },
+      {
+        "date": "3/11/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
+      },
+      {
+        "date": "7/7/2026",
+        "agency": "DOJ",
+        "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
+      },
+      {
+        "date": "9/18/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
+      }
+    ]
+  },
+  "FL": {
+    "name": "Florida",
+    "url": "https://www.justice.gov/crt/election-integrity-florida",
+    "actions": [
+      {
+        "date": "7/4/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
+      },
+      {
+        "date": "7/7/2026",
+        "agency": "DOJ",
+        "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
+      },
+      {
+        "date": "8/14/2026",
+        "agency": "DOJ",
+        "action": "DOJ Inspected Federal Election Records to Ensure Only Eligible Americans Vote With Florida's Support"
+      },
+      {
+        "date": "9/18/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
+      }
+    ]
+  },
+  "GA": {
+    "name": "Georgia",
+    "url": "https://www.justice.gov/crt/election-integrity-georgia",
+    "actions": [
+      {
+        "date": "12/18/2025",
+        "agency": "DOJ",
+        "action": "DOJ Sued Georgia for Failing to Provide Federal Election Records"
+      },
+      {
+        "date": "4/4/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
+      },
+      {
+        "date": "7/7/2026",
+        "agency": "DOJ",
+        "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
+      },
+      {
+        "date": "9/18/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
+      }
+    ]
+  },
+  "HI": {
+    "name": "Hawaii",
+    "url": "https://www.justice.gov/crt/election-integrity-hawaii",
+    "actions": [
+      {
+        "date": "12/12/2025",
+        "agency": "DOJ",
+        "action": "DOJ Sued Hawaii for Failing to Provide Federal Election Records"
+      },
+      {
+        "date": "6/24/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
+      },
+      {
+        "date": "7/7/2026",
+        "agency": "DOJ",
+        "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
+      },
+      {
+        "date": "9/18/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
+      }
+    ]
+  },
+  "ID": {
+    "name": "Idaho",
+    "url": "https://www.justice.gov/crt/election-integrity-idaho",
+    "actions": [
+      {
+        "date": "4/1/2026",
+        "agency": "DOJ",
+        "action": "DOJ Sued Idaho for Failing to Provide Federal Election Records"
+      },
+      {
+        "date": "4/4/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
+      },
+      {
+        "date": "7/7/2026",
+        "agency": "DOJ",
+        "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
+      },
+      {
+        "date": "9/18/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
+      }
+    ]
+  },
+  "IL": {
+    "name": "Illinois",
+    "url": "https://www.justice.gov/crt/election-integrity-illinois",
+    "actions": [
+      {
+        "date": "7/8/2025",
+        "agency": "DOJ",
+        "action": "DOJ Filed a Statement Demanding Illinois Maintain and Clean Voter Rolls"
+      },
+      {
+        "date": "12/18/2025",
+        "agency": "DOJ",
+        "action": "DOJ Sued Illinois for Failing to Provide Federal Election Records"
+      },
+      {
+        "date": "1/31/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
+      },
+      {
+        "date": "7/7/2026",
+        "agency": "DOJ",
+        "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
+      },
+      {
+        "date": "9/18/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
+      }
+    ]
+  },
+  "IN": {
+    "name": "Indiana",
+    "url": "https://www.justice.gov/crt/election-integrity-indiana",
+    "actions": [
+      {
+        "date": "3/21/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
+      },
+      {
+        "date": "7/7/2026",
+        "agency": "DOJ",
+        "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
+      },
+      {
+        "date": "7/14/2026",
+        "agency": "DOJ",
+        "action": "DOJ Inspected Federal Election Records to Ensure Only Eligible Americans Vote With Indiana's Support"
+      },
+      {
+        "date": "9/18/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
+      }
+    ]
+  },
+  "IA": {
+    "name": "Iowa",
+    "url": "https://www.justice.gov/crt/election-integrity-iowa",
+    "actions": [
+      {
+        "date": "4/18/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
+      },
+      {
+        "date": "7/7/2026",
+        "agency": "DOJ",
+        "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
+      },
+      {
+        "date": "7/15/2026",
+        "agency": "DOJ",
+        "action": "DOJ Inspected Federal Election Records to Ensure Only Eligible Americans Vote With Iowa's Support"
+      },
+      {
+        "date": "9/18/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
+      }
+    ]
+  },
+  "KS": {
+    "name": "Kansas",
+    "url": "https://www.justice.gov/crt/election-integrity-kansas",
+    "actions": [
+      {
+        "date": "6/20/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
+      },
+      {
+        "date": "7/7/2026",
+        "agency": "DOJ",
+        "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
+      },
+      {
+        "date": "8/14/2026",
+        "agency": "DOJ",
+        "action": "DOJ Inspected Federal Election Records to Ensure Only Eligible Americans Vote With Kansas' Support"
+      },
+      {
+        "date": "9/18/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
+      }
+    ]
+  },
+  "KY": {
+    "name": "Kentucky",
+    "url": "https://www.justice.gov/crt/election-integrity-kentucky",
+    "actions": [
+      {
+        "date": "3/27/2025",
+        "agency": "DOJ",
+        "action": "DOJ Filed a Statement Demanding Judges Not Block Kentucky From Removing Out-of-State Voters From Its Rolls"
+      },
+      {
+        "date": "2/26/2026",
+        "agency": "DOJ",
+        "action": "DOJ Sued Kentucky for Failing to Provide Federal Election Records"
+      },
+      {
+        "date": "4/4/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
+      },
+      {
+        "date": "7/7/2026",
+        "agency": "DOJ",
+        "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
+      },
+      {
+        "date": "9/18/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
+      }
+    ]
+  },
+  "LA": {
+    "name": "Louisiana",
+    "url": "https://www.justice.gov/crt/election-integrity-louisiana",
+    "actions": [
+      {
+        "date": "1/24/2025",
+        "agency": "DOJ",
+        "action": "DOJ Withdrew From Biden-Era Suit Demanding Race-Based Election Maps"
+      },
+      {
+        "date": "9/8/2025",
+        "agency": "DOJ",
+        "action": "DOJ Inspected Federal Election Records to Ensure Only Eligible Americans Vote With Louisiana's Support"
+      },
+      {
+        "date": "5/13/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
+      },
+      {
+        "date": "7/7/2026",
+        "agency": "DOJ",
+        "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
+      },
+      {
+        "date": "9/18/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
+      }
+    ]
+  },
+  "ME": {
+    "name": "Maine",
+    "url": "https://www.justice.gov/crt/election-integrity-maine",
+    "actions": [
+      {
+        "date": "9/16/2025",
+        "agency": "DOJ",
+        "action": "DOJ Sued Maine for Failing to Provide Federal Election Records"
+      },
+      {
+        "date": "4/25/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
+      },
+      {
+        "date": "7/7/2026",
+        "agency": "DOJ",
+        "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
+      },
+      {
+        "date": "9/18/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
+      }
+    ]
+  },
+  "MD": {
+    "name": "Maryland",
+    "url": "https://www.justice.gov/crt/election-integrity-maryland",
+    "actions": [
+      {
+        "date": "3/4/2025",
+        "agency": "DOJ",
+        "action": "DOJ Sent Election Monitors to Prince George's County to Ensure Federal Law Compliance"
+      },
+      {
+        "date": "12/2/2025",
+        "agency": "DOJ",
+        "action": "DOJ Sued Maryland for Failing to Provide Federal Election Records"
+      },
+      {
+        "date": "5/9/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
+      },
+      {
+        "date": "5/22/2026",
+        "agency": "DOJ",
+        "action": "DOJ Demanded Maryland Preserve Records After the State Printed and Mailed Erroneous Ballots"
+      },
+      {
+        "date": "7/7/2026",
+        "agency": "DOJ",
+        "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
+      },
+      {
+        "date": "9/18/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
+      }
+    ]
+  },
+  "MA": {
+    "name": "Massachusetts",
+    "url": "https://www.justice.gov/crt/election-integrity-massachusetts",
+    "actions": [
+      {
+        "date": "12/12/2025",
+        "agency": "DOJ",
+        "action": "DOJ Sued Massachusetts for Failing to Provide Federal Election Records"
+      },
+      {
+        "date": "7/7/2026",
+        "agency": "DOJ",
+        "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
+      },
+      {
+        "date": "7/18/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
+      },
+      {
+        "date": "9/1/2026",
+        "agency": "DOJ",
+        "action": "DOJ Will Send Election Monitors to New Bedford County to Ensure Federal Law Compliance"
+      },
+      {
+        "date": "9/1/2026",
+        "agency": "DOJ",
+        "action": "DOJ Will Send Election Monitors to Boston to Ensure Federal Law Compliance"
+      },
+      {
+        "date": "9/18/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
+      }
+    ]
+  },
+  "MI": {
+    "name": "Michigan",
+    "url": "https://www.justice.gov/crt/election-integrity-michigan",
+    "actions": [
+      {
+        "date": "9/25/2025",
+        "agency": "DOJ",
+        "action": "DOJ Sued Michigan for Failing to Provide Federal Election Records"
+      },
+      {
+        "date": "6/20/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
+      },
+      {
+        "date": "7/7/2026",
+        "agency": "DOJ",
+        "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
+      },
+      {
+        "date": "8/4/2026",
+        "agency": "DOJ",
+        "action": "DOJ Will Send Election Monitors to Lansing to Ensure Federal Law Compliance"
+      },
+      {
+        "date": "8/4/2026",
+        "agency": "DOJ",
+        "action": "DOJ Will Send Election Monitors to East Lansing to Ensure Federal Law Compliance"
+      },
+      {
+        "date": "8/4/2026",
+        "agency": "DOJ",
+        "action": "DOJ Will Send Election Monitors to Detroit to Ensure Federal Law Compliance"
+      },
+      {
+        "date": "9/18/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
+      }
+    ]
+  },
+  "MN": {
+    "name": "Minnesota",
+    "url": "https://www.justice.gov/crt/election-integrity-minnesota",
+    "actions": [
+      {
+        "date": "9/25/2025",
+        "agency": "DOJ",
+        "action": "DOJ Sued Minnesota for Failing to Provide Federal Election Records"
+      },
+      {
+        "date": "6/27/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
+      },
+      {
+        "date": "7/7/2026",
+        "agency": "DOJ",
+        "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
+      },
+      {
+        "date": "8/11/2026",
+        "agency": "DOJ",
+        "action": "DOJ Will Send Election Monitors to Hennepin County to Ensure Federal Law Compliance"
+      },
+      {
+        "date": "8/11/2026",
+        "agency": "DOJ",
+        "action": "DOJ Will Send Election Monitors to Ramsey County to Ensure Federal Law Compliance"
+      },
+      {
+        "date": "9/18/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
+      }
+    ]
+  },
+  "MS": {
+    "name": "Mississippi",
+    "url": "https://www.justice.gov/crt/election-integrity-mississippi",
+    "actions": [
+      {
+        "date": "7/25/2025",
+        "agency": "DOJ",
+        "action": "DOJ Inspected Federal Election Records to Ensure Eligible Americans Vote With Mississippi's Support"
+      },
+      {
+        "date": "1/24/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
+      },
+      {
+        "date": "7/7/2026",
+        "agency": "DOJ",
+        "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
+      },
+      {
+        "date": "9/18/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
+      }
+    ]
+  },
+  "MO": {
+    "name": "Missouri",
+    "url": "https://www.justice.gov/crt/election-integrity-missouri",
+    "actions": [
+      {
+        "date": "9/8/2025",
+        "agency": "DOJ",
+        "action": "DOJ Inspected Federal Election Records to Ensure Eligible Americans Vote With Missouri's Support"
+      },
+      {
+        "date": "6/20/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
+      },
+      {
+        "date": "7/7/2026",
+        "agency": "DOJ",
+        "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
+      },
+      {
+        "date": "9/18/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
+      }
+    ]
+  },
+  "MT": {
+    "name": "Montana",
+    "url": "https://www.justice.gov/crt/election-integrity-montana",
+    "actions": [
+      {
+        "date": "8/14/2025",
+        "agency": "DOJ",
+        "action": "DOJ Inspected Federal Election Records to Ensure Eligible Americans Vote With Montana's Support"
+      },
+      {
+        "date": "4/17/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
+      },
+      {
+        "date": "7/7/2026",
+        "agency": "DOJ",
+        "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
+      },
+      {
+        "date": "9/18/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
+      }
+    ]
+  },
+  "NE": {
+    "name": "Nebraska",
+    "url": "https://www.justice.gov/crt/election-integrity-nebraska",
+    "actions": [
+      {
+        "date": "9/8/2025",
+        "agency": "DOJ",
+        "action": "DOJ Inspected Federal Election Records to Ensure Eligible Americans Vote With Nebraska's Support"
+      },
+      {
+        "date": "3/28/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
+      },
+      {
+        "date": "7/7/2026",
+        "agency": "DOJ",
+        "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
+      },
+      {
+        "date": "9/18/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
+      }
+    ]
+  },
+  "NV": {
+    "name": "Nevada",
+    "url": "https://www.justice.gov/crt/election-integrity-nevada",
+    "actions": [
+      {
+        "date": "12/12/2025",
+        "agency": "DOJ",
+        "action": "DOJ Sued Nevada for Failing to Provide Federal Election Records"
+      },
+      {
+        "date": "4/25/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
+      },
+      {
+        "date": "7/7/2026",
+        "agency": "DOJ",
+        "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
+      },
+      {
+        "date": "9/18/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
+      }
+    ]
+  },
+  "NH": {
+    "name": "New Hampshire",
+    "url": "https://www.justice.gov/crt/election-integrity-new-hampshire",
+    "actions": [
+      {
+        "date": "9/25/2025",
+        "agency": "DOJ",
+        "action": "DOJ Sued New Hampshire for Failing to Provide Federal Election Records"
+      },
+      {
+        "date": "7/7/2026",
+        "agency": "DOJ",
+        "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
+      },
+      {
+        "date": "7/25/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
+      },
+      {
+        "date": "9/8/2026",
+        "agency": "DOJ",
+        "action": "DOJ Will Send Election Monitors to Manchester to Ensure Federal Law Compliance"
+      },
+      {
+        "date": "9/8/2026",
+        "agency": "DOJ",
+        "action": "DOJ Will Send Election Monitors to Nashua to Ensure Federal Law Compliance"
+      },
+      {
+        "date": "9/18/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
+      }
+    ]
+  },
+  "NJ": {
+    "name": "New Jersey",
+    "url": "https://www.justice.gov/crt/election-integrity-new-jersey",
+    "actions": [
+      {
+        "date": "11/4/2025",
+        "agency": "DOJ",
+        "action": "DOJ Sent Election Monitors to Passaic County to Ensure Federal Law Compliance"
+      },
+      {
+        "date": "11/5/2025",
+        "agency": "DOJ",
+        "action": "DOJ Sent Election Monitors to Passaic County to Monitor Vote Counting"
+      },
+      {
+        "date": "2/26/2026",
+        "agency": "DOJ",
+        "action": "DOJ Sued New Jersey for Failing to Provide Federal Election Records"
+      },
+      {
+        "date": "4/18/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
+      },
+      {
+        "date": "6/2/2026",
+        "agency": "DOJ",
+        "action": "DOJ Sent Election Monitors to Union County to Ensure Federal Law Compliance"
+      },
+      {
+        "date": "7/7/2026",
+        "agency": "DOJ",
+        "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
+      },
+      {
+        "date": "9/18/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
+      }
+    ]
+  },
+  "NM": {
+    "name": "New Mexico",
+    "url": "https://www.justice.gov/crt/election-integrity-new-mexico",
+    "actions": [
+      {
+        "date": "12/2/2025",
+        "agency": "DOJ",
+        "action": "DOJ Sued New Mexico for Failing to Provide Federal Election Records"
+      },
+      {
+        "date": "4/18/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
+      },
+      {
+        "date": "7/7/2026",
+        "agency": "DOJ",
+        "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
+      },
+      {
+        "date": "9/18/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
+      }
+    ]
+  },
+  "NY": {
+    "name": "New York",
+    "url": "https://www.justice.gov/crt/election-integrity-new-york",
+    "actions": [
+      {
+        "date": "9/25/2025",
+        "agency": "DOJ",
+        "action": "DOJ Sued New York for Failing to Provide Federal Election Records"
+      },
+      {
+        "date": "5/9/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
+      },
+      {
+        "date": "6/10/2026",
+        "agency": "DOJ",
+        "action": "DOJ Demanded NY Provide a HAVA ID for Each Registered Voter on the Voter Rolls"
+      },
+      {
+        "date": "7/7/2026",
+        "agency": "DOJ",
+        "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
+      },
+      {
+        "date": "9/18/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
+      }
+    ]
+  },
+  "NC": {
+    "name": "North Carolina",
+    "url": "https://www.justice.gov/crt/election-integrity-north-carolina",
+    "actions": [
+      {
+        "date": "3/27/2025",
+        "agency": "DOJ",
+        "action": "DOJ Sued North Carolina for Not Following Federal Voting Registration Standards"
+      },
+      {
+        "date": "5/20/2025",
+        "agency": "DOJ",
+        "action": "DOJ Sent North Carolina a Letter Demanding the State Require Voters to Provide ID Information When They Register"
+      },
+      {
+        "date": "5/27/2025",
+        "agency": "DOJ",
+        "action": "DOJ Obtains a Court Order That North Carolina Remedy 100,000+ Voter Registrations"
+      },
+      {
+        "date": "1/17/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
+      },
+      {
+        "date": "7/7/2026",
+        "agency": "DOJ",
+        "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
+      },
+      {
+        "date": "9/18/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
+      }
+    ]
+  },
+  "ND": {
+    "name": "North Dakota",
+    "url": "https://www.justice.gov/crt/election-integrity-north-dakota",
+    "actions": [
+      {
+        "date": "4/25/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
+      },
+      {
+        "date": "7/7/2026",
+        "agency": "DOJ",
+        "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
+      },
+      {
+        "date": "9/18/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
+      }
+    ]
+  },
+  "OH": {
+    "name": "Ohio",
+    "url": "https://www.justice.gov/crt/election-integrity-ohio",
+    "actions": [
+      {
+        "date": "8/6/2025",
+        "agency": "DOJ",
+        "action": "DOJ Inspected Federal Election Records to Ensure Eligible Americans Vote With Ohio's Support"
+      },
+      {
+        "date": "3/21/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
+      },
+      {
+        "date": "7/7/2026",
+        "agency": "DOJ",
+        "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
+      },
+      {
+        "date": "9/18/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
+      }
+    ]
+  },
+  "OK": {
+    "name": "Oklahoma",
+    "url": "https://www.justice.gov/crt/election-integrity-oklahoma",
+    "actions": [
+      {
+        "date": "2/26/2026",
+        "agency": "DOJ",
+        "action": "DOJ Sued Oklahoma, and Oklahoma Then Agreed to Produce Its Voter Rolls"
+      },
+      {
+        "date": "5/2/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
+      },
+      {
+        "date": "7/7/2026",
+        "agency": "DOJ",
+        "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
+      },
+      {
+        "date": "9/18/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
+      }
+    ]
+  },
+  "OR": {
+    "name": "Oregon",
+    "url": "https://www.justice.gov/crt/election-integrity-oregon",
+    "actions": [
+      {
+        "date": "6/6/2025",
+        "agency": "DOJ",
+        "action": "DOJ Filed a Statement to Help Ensure Oregon Cleans Its Voter Rolls as Legally Required"
+      },
+      {
+        "date": "9/16/2025",
+        "agency": "DOJ",
+        "action": "DOJ Sued Oregon for Failing to Provide Federal Election Records"
+      },
+      {
+        "date": "4/4/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
+      },
+      {
+        "date": "7/7/2026",
+        "agency": "DOJ",
+        "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
+      },
+      {
+        "date": "9/18/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
+      }
+    ]
+  },
+  "PA": {
+    "name": "Pennsylvania",
+    "url": "https://www.justice.gov/crt/election-integrity-pennsylvania",
+    "actions": [
+      {
+        "date": "9/25/2025",
+        "agency": "DOJ",
+        "action": "DOJ Sued Pennsylvania for Failing to Provide Federal Election Records"
+      },
+      {
+        "date": "4/4/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
+      },
+      {
+        "date": "7/7/2026",
+        "agency": "DOJ",
+        "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
+      },
+      {
+        "date": "9/18/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
+      }
+    ]
+  },
+  "RI": {
+    "name": "Rhode Island",
+    "url": "https://www.justice.gov/crt/election-integrity-rhode-island",
+    "actions": [
+      {
+        "date": "12/2/2025",
+        "agency": "DOJ",
+        "action": "DOJ Sued Rhode Island for Failing to Provide Federal Election Records"
+      },
+      {
+        "date": "7/7/2026",
+        "agency": "DOJ",
+        "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
+      },
+      {
+        "date": "7/25/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
+      },
+      {
+        "date": "9/18/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
+      }
+    ]
+  },
+  "SC": {
+    "name": "South Carolina",
+    "url": "https://www.justice.gov/crt/election-integrity-south-carolina",
+    "actions": [
+      {
+        "date": "8/6/2025",
+        "agency": "DOJ",
+        "action": "DOJ Inspected Federal Election Records to Ensure Eligible Americans Vote With South Carolina's Support"
+      },
+      {
+        "date": "4/25/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
+      },
+      {
+        "date": "7/7/2026",
+        "agency": "DOJ",
+        "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
+      },
+      {
+        "date": "9/18/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
+      }
+    ]
+  },
+  "SD": {
+    "name": "South Dakota",
+    "url": "https://www.justice.gov/crt/election-integrity-south-dakota",
+    "actions": [
+      {
+        "date": "4/18/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
+      },
+      {
+        "date": "7/7/2026",
+        "agency": "DOJ",
+        "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
+      },
+      {
+        "date": "8/14/2026",
+        "agency": "DOJ",
+        "action": "DOJ Inspected Federal Election Records to Ensure Eligible Americans Vote With South Dakota's Support"
+      },
+      {
+        "date": "9/18/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
+      }
+    ]
+  },
+  "TN": {
+    "name": "Tennessee",
+    "url": "https://www.justice.gov/crt/election-integrity-tennessee",
+    "actions": [
+      {
+        "date": "8/7/2025",
+        "agency": "DOJ",
+        "action": "DOJ Inspected Federal Election Records to Ensure Eligible Americans Vote With Tennessee's Support"
+      },
+      {
+        "date": "6/22/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
+      },
+      {
+        "date": "7/7/2026",
+        "agency": "DOJ",
+        "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
+      },
+      {
+        "date": "9/18/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
+      }
+    ]
+  },
+  "TX": {
+    "name": "Texas",
+    "url": "https://www.justice.gov/crt/election-integrity-texas",
+    "actions": [
+      {
+        "date": "3/6/2025",
+        "agency": "DOJ",
+        "action": "DOJ Withdrew From Biden-Era Suit Demanding Race-Based Election Maps"
+      },
+      {
+        "date": "7/8/2025",
+        "agency": "DOJ",
+        "action": "DOJ Inspected Federal Election Records to Ensure Eligible Americans Vote With Texas's Support"
+      },
+      {
+        "date": "1/17/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
+      },
+      {
+        "date": "7/7/2026",
+        "agency": "DOJ",
+        "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
+      },
+      {
+        "date": "9/18/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
+      }
+    ]
+  },
+  "UT": {
+    "name": "Utah",
+    "url": "https://www.justice.gov/crt/election-integrity-utah",
+    "actions": [
+      {
+        "date": "2/26/2026",
+        "agency": "DOJ",
+        "action": "DOJ Sued Utah for Failing to Provide Federal Election Records"
+      },
+      {
+        "date": "5/9/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
+      },
+      {
+        "date": "7/7/2026",
+        "agency": "DOJ",
+        "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
+      },
+      {
+        "date": "9/18/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
+      }
+    ]
+  },
+  "VT": {
+    "name": "Vermont",
+    "url": "https://www.justice.gov/crt/election-integrity-vermont",
+    "actions": [
+      {
+        "date": "12/2/2025",
+        "agency": "DOJ",
+        "action": "DOJ Sued Vermont for Failing to Provide Federal Election Records"
+      },
+      {
+        "date": "6/27/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
+      },
+      {
+        "date": "7/7/2026",
+        "agency": "DOJ",
+        "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
+      },
+      {
+        "date": "9/18/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
+      }
+    ]
+  },
+  "VA": {
+    "name": "Virginia",
+    "url": "https://www.justice.gov/crt/election-integrity-virginia",
+    "actions": [
+      {
+        "date": "1/16/2026",
+        "agency": "DOJ",
+        "action": "DOJ Sued Virginia for Failing to Provide Federal Election Records"
+      },
+      {
+        "date": "6/20/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
+      },
+      {
+        "date": "7/7/2026",
+        "agency": "DOJ",
+        "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
+      },
+      {
+        "date": "8/4/2026",
+        "agency": "DOJ",
+        "action": "DOJ Will Send Election Monitors to Fairfax County to Ensure Federal Law Compliance"
+      },
+      {
+        "date": "8/4/2026",
+        "agency": "DOJ",
+        "action": "DOJ Will Send Election Monitors to Prince William County to Ensure Federal Law Compliance"
+      },
+      {
+        "date": "9/18/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
+      }
+    ]
+  },
+  "WA": {
+    "name": "Washington",
+    "url": "https://www.justice.gov/crt/election-integrity-washington",
+    "actions": [
+      {
+        "date": "12/2/2025",
+        "agency": "DOJ",
+        "action": "DOJ Sued Washington for Failing to Provide Federal Election Records"
+      },
+      {
+        "date": "6/20/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
+      },
+      {
+        "date": "7/7/2026",
+        "agency": "DOJ",
+        "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
+      },
+      {
+        "date": "9/18/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
+      }
+    ]
+  },
+  "WV": {
+    "name": "West Virginia",
+    "url": "https://www.justice.gov/crt/election-integrity-west-virginia",
+    "actions": [
+      {
+        "date": "2/26/2026",
+        "agency": "DOJ",
+        "action": "DOJ Sued West Virginia for Failing to Provide Federal Election Records"
+      },
+      {
+        "date": "3/28/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
+      },
+      {
+        "date": "7/7/2026",
+        "agency": "DOJ",
+        "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
+      },
+      {
+        "date": "9/18/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
+      }
+    ]
+  },
+  "WI": {
+    "name": "Wisconsin",
+    "url": "https://www.justice.gov/crt/election-integrity-wisconsin",
+    "actions": [
+      {
+        "date": "12/18/2025",
+        "agency": "DOJ",
+        "action": "DOJ Sued Wisconsin for Failing to Provide Federal Election Records"
+      },
+      {
+        "date": "6/27/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
+      },
+      {
+        "date": "7/7/2026",
+        "agency": "DOJ",
+        "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
+      },
+      {
+        "date": "9/18/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
+      }
+    ]
+  },
+  "WY": {
+    "name": "Wyoming",
+    "url": "https://www.justice.gov/crt/election-integrity-wyoming",
+    "actions": [
+      {
+        "date": "7/1/2025",
+        "agency": "DOJ",
+        "action": "DOJ Filed a Statement Demanding Federal Courts Not Block Wyoming's Voter ID Law"
+      },
+      {
+        "date": "8/14/2025",
+        "agency": "DOJ",
+        "action": "DOJ Sent Wyoming a Letter Demanding the State Add All Required Fields to Its Voter Registration"
+      },
+      {
+        "date": "6/25/2026",
+        "agency": "DOJ",
+        "action": "DOJ Inspected Federal Election Records to Ensure Only Eligible Americans Vote With Wyoming's Support"
+      },
+      {
+        "date": "7/4/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
+      },
+      {
+        "date": "7/7/2026",
+        "agency": "DOJ",
+        "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
+      },
+      {
+        "date": "9/18/2026",
+        "agency": "DOJ",
+        "action": "DOJ Ensures General Election Military Ballots Are Sent Early to Comply With Federal Law"
+      }
+    ]
+  }
 }
