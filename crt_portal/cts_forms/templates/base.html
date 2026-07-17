@@ -57,9 +57,11 @@
         <meta name="description" content="{{meta_description}}" />
       {% endblock meta_description %}
 
-      <meta property="og:image" content="{% static 'img/facebook-og.png' %}" />
-      <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:image" content="{% static 'img/twitter-card.png' %}" />
+      {% block meta_image %}
+        <meta property="og:image" content="{% static 'img/facebook-og.png' %}" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:image" content="{% static 'img/twitter-card.png' %}" />
+      {% endblock meta_image %}
 
     {% endblock meta %}
 
