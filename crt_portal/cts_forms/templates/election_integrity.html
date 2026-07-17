@@ -5,7 +5,13 @@
 {% trans "Civil Rights Division - Department of Justice - Election Integrity" as meta_title %}
 <meta property="og:title" content="{{meta_title}}" />
 <meta property="name" content="{{meta_title}}" />
-{% endblock meta_title %} {% block page_title %}
+{% endblock meta_title %}
+{% block meta_image %}
+<meta property="og:image" content="{% static 'img/facebook-election-integrity-og.png' %}" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="{% static 'img/twitter-election-integrity-card.png' %}" />
+{% endblock meta_image %}
+{% block page_title %}
 <title>
 {% trans "Civil Rights Division - Department of Justice - Election Integrity" %}
 </title>
