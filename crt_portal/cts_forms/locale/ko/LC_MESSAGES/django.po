@@ -3219,10 +3219,6 @@ msgstr ""
 "면, 새로운 브라우저 탭이나 창에서 이 페이지로 가 보십시오. 이렇게 하면 새로"
 "운 보안 쿠키를 만들어 문제가 해결될 것입니다."
 
-#: templates/partials/message_dei_discrimination.html:7
-msgid "Do you believe you have been discriminated against because of diversity, equity and inclusion?"
-msgstr "다양성, 형펑성, 포용성에 의해 차별을 당했다고 생각되십니까?"
-
 #: templates/dei-discrimination.html:6 templates/dei-discrimination.html:13
 msgid "Civil Rights Division - Department of Justice - Get help for illegal discrimination resulting from diversity, equity, and inclusion programs"
 msgstr "민권국 - 법무부 - 다양성, 형펑성, 포용성 프로그램으로 인한 불법 차별에 대해 도움을 구하세요"

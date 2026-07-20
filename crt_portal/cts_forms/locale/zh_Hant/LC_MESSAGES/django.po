@@ -3095,9 +3095,7 @@ msgstr ""
 "cookies，但您仍發生此問題，請嘗試使用新的瀏覽器分頁或視窗開啟此網頁。這將可讓"
 "您使用新的安全 cookie 且應能解決問題。"
 
-#: templates/partials/message_dei_discrimination.html:7
-msgid "Do you believe you have been discriminated against because of diversity, equity and inclusion?"
-msgstr "您是否認為自己因多樣性、公平性和包容性而遭受歧視？"
+
 
 #: templates/dei-discrimination.html:6 templates/dei-discrimination.html:13
 msgid "Civil Rights Division - Department of Justice - Get help for illegal discrimination resulting from diversity, equity, and inclusion programs"

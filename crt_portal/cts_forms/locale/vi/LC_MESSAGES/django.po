@@ -3369,9 +3369,7 @@ msgstr ""
 "này trong cửa sổ hoặc tab trình duyệt mới. Điều đó sẽ tạo cho quý vị một "
 "cookie bảo mật mới và sẽ giải quyết được sự cố."
 
-#: templates/partials/message_dei_discrimination.html:7
-msgid "Do you believe you have been discriminated against because of diversity, equity and inclusion?"
-msgstr "Quý vị có tin rằng mình đã bị phân biệt đối xử do các hoạt động về sự đa dạng, bình đẳng và hòa nhập không?"
+
 
 #: templates/dei-discrimination.html:6 templates/dei-discrimination.html:13
 msgid "Civil Rights Division - Department of Justice - Get help for illegal discrimination resulting from diversity, equity, and inclusion programs"
