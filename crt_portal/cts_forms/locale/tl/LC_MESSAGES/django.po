@@ -3419,9 +3419,7 @@ msgstr ""
 "panibagong tab o window ng browser. Magbibigay ito ng isang panibagong "
 "security cookie sayo at maaaring maglutas sa problema."
 
-#: templates/partials/message_dei_discrimination.html:7
-msgid "Do you believe you have been discriminated against because of diversity, equity and inclusion?"
-msgstr "Naniniwala ka ba na nadiskrimina ka dahil sa pagkakaiba-iba, pagkakapantay-pantay at pagsasama-sama?"
+
 
 #: templates/dei-discrimination.html:6 templates/dei-discrimination.html:13
 msgid "Civil Rights Division - Department of Justice - Get help for illegal discrimination resulting from diversity, equity, and inclusion programs"
