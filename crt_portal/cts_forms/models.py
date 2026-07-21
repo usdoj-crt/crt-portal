@@ -813,11 +813,16 @@ class Report(models.Model):
         'disability'
     }
 
+    gun_ownership_classes = {
+        'gun_ownership'
+    }
+
     def assign_section(self):
         """See the SectionAssignmentTests for expected behaviors"""
         protected_classes = {pc.value for pc in self.protected_class.all()}
         is_disabled = bool(self.disability_classes & protected_classes)
         is_only_immigration = bool(protected_classes - self.immigration_classes)
+        is_only_gun_ownership = protected_classes == self.gun_ownership_classes
 
         if self.primary_complaint == 'voting':
             if is_disabled:
@@ -855,8 +860,11 @@ class Report(models.Model):
                 return 'SPL'
             return 'CRM'
 
-        if self.primary_complaint == 'something_else' and is_disabled:
-            return 'DRS'
+        if self.primary_complaint == 'something_else':
+            if is_disabled:
+                return 'DRS'
+            if is_only_gun_ownership:
+                return '2AS'
 
         return 'ADM'
 

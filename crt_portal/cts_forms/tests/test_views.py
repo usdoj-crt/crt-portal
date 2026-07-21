@@ -455,7 +455,9 @@ class Valid_CRT_Pagnation_Tests(TestCase):
         self.test_pass = secrets.token_hex(32)
         self.user = UserFactory.create_user('DELETE_USER', 'george@thebeatles.com', self.test_pass)
         self.client.login(username='DELETE_USER', password=self.test_pass)
-        response = self.client.get(reverse('crt_forms:crt-forms-index'))
+        # Request a large enough page size so every protected-class report fits
+        # on a single page (there is one report per protected class).
+        response = self.client.get(reverse('crt_forms:crt-forms-index'), {'per_page': 50})
         self.content = str(response.content)
 
     def tearDown(self):

@@ -1,6 +1,6 @@
 Section assignment,Primary complaint,Protected class,Hate crime,Place,Facility,School
+2AS,something_else,Gun Ownership,,n/a,n/a,n/a
 ADM,something_else,Age,,n/a,n/a,n/a
-ADM,something_else,Disability (including temporary or recovered and including HIV and drug addiction),,n/a,n/a,n/a
 ADM,something_else,"Family, marital, or parental status",,n/a,n/a,n/a
 ADM,something_else,Gender identity (including gender stereotypes),,n/a,n/a,n/a
 ADM,something_else,Genetic information (including family medical history),,n/a,n/a,n/a
@@ -15,10 +15,10 @@ ADM,something_else,Sexual orientation,,n/a,n/a,n/a
 ADM,something_else,None of these apply to me,,n/a,n/a,n/a
 ADM,something_else,Other reason,,n/a,n/a,n/a
 CRM,police,Age,,n/a,outside,n/a
-CRM,police,Disability (including temporary or recovered and including HIV and drug addiction),,n/a,outside,n/a
 CRM,police,"Family, marital, or parental status",,n/a,outside,n/a
 CRM,police,Gender identity (including gender stereotypes),,n/a,outside,n/a
 CRM,police,Genetic information (including family medical history),,n/a,outside,n/a
+CRM,police,Gun Ownership,,n/a,outside,n/a
 CRM,police,Immigration/citizenship status (choosing this will not share your status),,n/a,outside,n/a
 CRM,police,Language,,n/a,outside,n/a
 CRM,police,National origin (including ancestry and ethnicity),,n/a,outside,n/a
@@ -29,6 +29,17 @@ CRM,police,Sex,,n/a,outside,n/a
 CRM,police,Sexual orientation,,n/a,outside,n/a
 CRM,police,None of these apply to me,,n/a,outside,n/a
 CRM,police,Other reason,,n/a,outside,n/a
+DRS,commercial_or_public,Disability (including temporary or recovered and including HIV and drug addiction),,place_of_worship,n/a,n/a
+DRS,commercial_or_public,Disability (including temporary or recovered and including HIV and drug addiction),,store,n/a,n/a
+DRS,commercial_or_public,Disability (including temporary or recovered and including HIV and drug addiction),,healthcare,n/a,n/a
+DRS,commercial_or_public,Disability (including temporary or recovered and including HIV and drug addiction),,financial,n/a,n/a
+DRS,commercial_or_public,Disability (including temporary or recovered and including HIV and drug addiction),,public_space,n/a,n/a
+DRS,commercial_or_public,Disability (including temporary or recovered and including HIV and drug addiction),,other,n/a,n/a
+DRS,education,Disability (including temporary or recovered and including HIV and drug addiction),,n/a,n/a,private
+DRS,police,Disability (including temporary or recovered and including HIV and drug addiction),,n/a,inside,n/a
+DRS,police,Disability (including temporary or recovered and including HIV and drug addiction),,n/a,outside,n/a
+DRS,something_else,Disability (including temporary or recovered and including HIV and drug addiction),,n/a,n/a,n/a
+DRS,voting,Disability (including temporary or recovered and including HIV and drug addiction),,n/a,n/a,n/a
 ELS,workplace,Immigration/citizenship status (choosing this will not share your status)|National origin (including ancestry and ethnicity)|Disability (including temporary or recovered and including HIV and drug addiction),,n/a,n/a,n/a
 ELS,workplace,National origin (including ancestry and ethnicity)|Language|Genetic information (including family medical history),,n/a,n/a,n/a
 ELS,workplace,Immigration/citizenship status (choosing this will not share your status)|Language|Religion,,n/a,n/a,n/a
@@ -40,6 +51,7 @@ ELS,workplace,Disability (including temporary or recovered and including HIV and
 ELS,workplace,"Family, marital, or parental status",,n/a,n/a,n/a
 ELS,workplace,Gender identity (including gender stereotypes),,n/a,n/a,n/a
 ELS,workplace,Genetic information (including family medical history),,n/a,n/a,n/a
+ELS,workplace,Gun Ownership,,n/a,n/a,n/a
 ELS,workplace,Pregnancy,,n/a,n/a,n/a
 ELS,workplace,Race/color,,n/a,n/a,n/a
 ELS,workplace,Religion,,n/a,n/a,n/a
@@ -51,7 +63,6 @@ EOS,education,Age,,n/a,n/a,public
 EOS,education,Age,,n/a,n/a,private
 EOS,education,Age,,n/a,n/a,not_sure
 EOS,education,Disability (including temporary or recovered and including HIV and drug addiction),,n/a,n/a,public
-EOS,education,Disability (including temporary or recovered and including HIV and drug addiction),,n/a,n/a,private
 EOS,education,Disability (including temporary or recovered and including HIV and drug addiction),,n/a,n/a,not_sure
 EOS,education,"Family, marital, or parental status",,n/a,n/a,public
 EOS,education,"Family, marital, or parental status",,n/a,n/a,private
@@ -62,6 +73,9 @@ EOS,education,Gender identity (including gender stereotypes),,n/a,n/a,not_sure
 EOS,education,Genetic information (including family medical history),,n/a,n/a,public
 EOS,education,Genetic information (including family medical history),,n/a,n/a,private
 EOS,education,Genetic information (including family medical history),,n/a,n/a,not_sure
+EOS,education,Gun Ownership,,n/a,n/a,public
+EOS,education,Gun Ownership,,n/a,n/a,private
+EOS,education,Gun Ownership,,n/a,n/a,not_sure
 EOS,education,Immigration/citizenship status (choosing this will not share your status),,n/a,n/a,public
 EOS,education,Immigration/citizenship status (choosing this will not share your status),,n/a,n/a,private
 EOS,education,Immigration/citizenship status (choosing this will not share your status),,n/a,n/a,not_sure
@@ -107,11 +121,6 @@ HCE,commercial_or_public,Age,,store,n/a,n/a
 HCE,commercial_or_public,Age,,financial,n/a,n/a
 HCE,commercial_or_public,Age,,public_space,n/a,n/a
 HCE,commercial_or_public,Age,,other,n/a,n/a
-HCE,commercial_or_public,Disability (including temporary or recovered and including HIV and drug addiction),,place_of_worship,n/a,n/a
-HCE,commercial_or_public,Disability (including temporary or recovered and including HIV and drug addiction),,store,n/a,n/a
-HCE,commercial_or_public,Disability (including temporary or recovered and including HIV and drug addiction),,financial,n/a,n/a
-HCE,commercial_or_public,Disability (including temporary or recovered and including HIV and drug addiction),,public_space,n/a,n/a
-HCE,commercial_or_public,Disability (including temporary or recovered and including HIV and drug addiction),,other,n/a,n/a
 HCE,commercial_or_public,"Family, marital, or parental status",,place_of_worship,n/a,n/a
 HCE,commercial_or_public,"Family, marital, or parental status",,store,n/a,n/a
 HCE,commercial_or_public,"Family, marital, or parental status",,financial,n/a,n/a
@@ -127,6 +136,11 @@ HCE,commercial_or_public,Genetic information (including family medical history),
 HCE,commercial_or_public,Genetic information (including family medical history),,financial,n/a,n/a
 HCE,commercial_or_public,Genetic information (including family medical history),,public_space,n/a,n/a
 HCE,commercial_or_public,Genetic information (including family medical history),,other,n/a,n/a
+HCE,commercial_or_public,Gun Ownership,,place_of_worship,n/a,n/a
+HCE,commercial_or_public,Gun Ownership,,store,n/a,n/a
+HCE,commercial_or_public,Gun Ownership,,financial,n/a,n/a
+HCE,commercial_or_public,Gun Ownership,,public_space,n/a,n/a
+HCE,commercial_or_public,Gun Ownership,,other,n/a,n/a
 HCE,commercial_or_public,Immigration/citizenship status (choosing this will not share your status),,place_of_worship,n/a,n/a
 HCE,commercial_or_public,Immigration/citizenship status (choosing this will not share your status),,store,n/a,n/a
 HCE,commercial_or_public,Immigration/citizenship status (choosing this will not share your status),,financial,n/a,n/a
@@ -182,6 +196,7 @@ HCE,housing,Disability (including temporary or recovered and including HIV and d
 HCE,housing,"Family, marital, or parental status",,n/a,n/a,n/a
 HCE,housing,Gender identity (including gender stereotypes),,n/a,n/a,n/a
 HCE,housing,Genetic information (including family medical history),,n/a,n/a,n/a
+HCE,housing,Gun Ownership,,n/a,n/a,n/a
 HCE,housing,Immigration/citizenship status (choosing this will not share your status),,n/a,n/a,n/a
 HCE,housing,Language,,n/a,n/a,n/a
 HCE,housing,National origin (including ancestry and ethnicity),,n/a,n/a,n/a
@@ -199,10 +214,10 @@ IER,workplace,National origin (including ancestry and ethnicity),,n/a,n/a,n/a
 SPL,commercial_or_public,Immigration/citizenship status (choosing this will not share your status)|National origin (including ancestry and ethnicity)|Language,,healthcare,n/a,n/a
 SPL,commercial_or_public,Immigration/citizenship status (choosing this will not share your status)|Gender identity (including gender stereotypes)|Sexual orientation,,healthcare,n/a,n/a
 SPL,commercial_or_public,Age,,healthcare,n/a,n/a
-SPL,commercial_or_public,Disability (including temporary or recovered and including HIV and drug addiction),,healthcare,n/a,n/a
 SPL,commercial_or_public,"Family, marital, or parental status",,healthcare,n/a,n/a
 SPL,commercial_or_public,Gender identity (including gender stereotypes),,healthcare,n/a,n/a
 SPL,commercial_or_public,Genetic information (including family medical history),,healthcare,n/a,n/a
+SPL,commercial_or_public,Gun Ownership,,healthcare,n/a,n/a
 SPL,commercial_or_public,Immigration/citizenship status (choosing this will not share your status),,healthcare,n/a,n/a
 SPL,commercial_or_public,Language,,healthcare,n/a,n/a
 SPL,commercial_or_public,National origin (including ancestry and ethnicity),,healthcare,n/a,n/a
@@ -214,10 +229,10 @@ SPL,commercial_or_public,Sexual orientation,,healthcare,n/a,n/a
 SPL,commercial_or_public,None of these apply to me,,healthcare,n/a,n/a
 SPL,commercial_or_public,Other reason,,healthcare,n/a,n/a
 SPL,police,Age,,n/a,inside,n/a
-SPL,police,Disability (including temporary or recovered and including HIV and drug addiction),,n/a,inside,n/a
 SPL,police,"Family, marital, or parental status",,n/a,inside,n/a
 SPL,police,Gender identity (including gender stereotypes),,n/a,inside,n/a
 SPL,police,Genetic information (including family medical history),,n/a,inside,n/a
+SPL,police,Gun Ownership,,n/a,inside,n/a
 SPL,police,Immigration/citizenship status (choosing this will not share your status),,n/a,inside,n/a
 SPL,police,Language,,n/a,inside,n/a
 SPL,police,National origin (including ancestry and ethnicity),,n/a,inside,n/a
@@ -231,10 +246,10 @@ SPL,police,Other reason,,n/a,inside,n/a
 VOT,voting,Immigration/citizenship status (choosing this will not share your status)|National origin (including ancestry and ethnicity)|Language,,n/a,n/a,n/a
 VOT,voting,Immigration/citizenship status (choosing this will not share your status)|Gender identity (including gender stereotypes)|Sexual orientation,,n/a,n/a,n/a
 VOT,voting,Age,,n/a,n/a,n/a
-VOT,voting,Disability (including temporary or recovered and including HIV and drug addiction),,n/a,n/a,n/a
 VOT,voting,"Family, marital, or parental status",,n/a,n/a,n/a
 VOT,voting,Gender identity (including gender stereotypes),,n/a,n/a,n/a
 VOT,voting,Genetic information (including family medical history),,n/a,n/a,n/a
+VOT,voting,Gun Ownership,,n/a,n/a,n/a
 VOT,voting,Immigration/citizenship status (choosing this will not share your status),,n/a,n/a,n/a
 VOT,voting,Language,,n/a,n/a,n/a
 VOT,voting,National origin (including ancestry and ethnicity),,n/a,n/a,n/a
