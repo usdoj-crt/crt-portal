@@ -499,6 +499,73 @@ class SectionAssignmentTests(TestCase):
         test_report.save()
         self.assertEqual(test_report.assign_section(), 'DRS')
 
+    def test_2AS_routing(self):
+        # When gun ownership is the ONLY protected class selected AND the primary
+        # complaint is 'something_else', the report is routed to Second Amendment
+        # Rights (2AS).
+        gun_ownership = ProtectedClass.objects.get_or_create(value='gun_ownership')
+
+        data = copy.deepcopy(SAMPLE_REPORT_1)
+        data['primary_complaint'] = 'something_else'
+        test_report = Report.objects.create(**data)
+        test_report.protected_class.add(gun_ownership[0])
+        test_report.save()
+        self.assertEqual(test_report.assign_section(), '2AS')
+
+    def test_2AS_only_applies_to_something_else(self):
+        # Gun-ownership-only reports route normally (NOT to 2AS) for every primary
+        # complaint other than 'something_else'.
+        gun_ownership = ProtectedClass.objects.get_or_create(value='gun_ownership')
+
+        expected_by_complaint = {
+            'voting': 'VOT',
+            'workplace': 'ELS',
+            'commercial_or_public': 'HCE',
+            'housing': 'HCE',
+            'education': 'EOS',
+            'police': 'CRM',
+        }
+        for primary_complaint, expected_section in expected_by_complaint.items():
+            data = copy.deepcopy(SAMPLE_REPORT_1)
+            data['primary_complaint'] = primary_complaint
+            if primary_complaint == 'education':
+                data['public_or_private_school'] = 'public'
+            if primary_complaint == 'police':
+                data['inside_correctional_facility'] = 'outside'
+            test_report = Report.objects.create(**data)
+            test_report.protected_class.add(gun_ownership[0])
+            test_report.save()
+            self.assertEqual(
+                test_report.assign_section(),
+                expected_section,
+                msg=f'gun-ownership-only report with primary_complaint={primary_complaint} should route to {expected_section}, not 2AS',
+            )
+
+    def test_2AS_requires_gun_ownership_alone(self):
+        # 'something_else' with gun ownership PLUS another protected class does not
+        # route to 2AS.
+        gun_ownership = ProtectedClass.objects.get_or_create(value='gun_ownership')
+        disability = ProtectedClass.objects.get_or_create(value='disability')
+        race = ProtectedClass.objects.get_or_create(value='race/color')
+
+        # gun ownership + disability -> DRS (disability wins)
+        data = copy.deepcopy(SAMPLE_REPORT_1)
+        data['primary_complaint'] = 'something_else'
+        test_report = Report.objects.create(**data)
+        test_report.protected_class.add(gun_ownership[0])
+        test_report.protected_class.add(disability[0])
+        test_report.save()
+        self.assertEqual(test_report.assign_section(), 'DRS')
+
+        # gun ownership + race -> ADM (default)
+        data = copy.deepcopy(SAMPLE_REPORT_1)
+        data['primary_complaint'] = 'something_else'
+        test_report = Report.objects.create(**data)
+        test_report.protected_class.add(gun_ownership[0])
+        test_report.protected_class.add(race[0])
+        test_report.save()
+        self.assertEqual(test_report.assign_section(), 'ADM')
+
 
 class Validation_Form_Tests(TestCase):
     """Confirming validation on the server level, required fields etc"""
