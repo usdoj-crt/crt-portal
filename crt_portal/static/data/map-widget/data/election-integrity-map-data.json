@@ -6,7 +6,7 @@
       {
         "date": "3/14/2025",
         "agency": "DOJ",
-        "action": "DOJ Withdrew From Biden-Era Suit Demanding Race-Based Election Maps"
+        "action": "DOJ Withdrew from a Biden-Era Suit that Helped Maintain Ineligible Aliens on the Voter Rolls"
       },
       {
         "date": "6/20/2025",
@@ -22,6 +22,11 @@
         "date": "4/4/2026",
         "agency": "DOJ",
         "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
+      },
+      {
+        "date": "5/27/2026",
+        "agency": "DOJ",
+        "action": "DOJ Withdrew Support for Biden-Era Suit Demanding Race-Based Election Maps"
       },
       {
         "date": "7/7/2026",
@@ -88,17 +93,17 @@
       {
         "date": "7/21/2026",
         "agency": "DOJ",
+        "action": "DOJ Will Send Election Monitors to Apache County to Ensure Federal Law Compliance"
+      },
+      {
+        "date": "7/21/2026",
+        "agency": "DOJ",
         "action": "DOJ Will Send Election Monitors to Maricopa County to Ensure Federal Law Compliance"
       },
       {
         "date": "7/21/2026",
         "agency": "DOJ",
         "action": "DOJ Will Send Election Monitors to Pima County to Ensure Federal Law Compliance"
-      },
-      {
-        "date": "7/21/2026",
-        "agency": "DOJ",
-        "action": "DOJ Will Send Election Monitors to Apache County to Ensure Federal Law Compliance"
       },
       {
         "date": "9/18/2026",
@@ -155,12 +160,12 @@
       {
         "date": "11/4/2025",
         "agency": "DOJ",
-        "action": "DOJ Sent Election Monitors to Los Angeles County to Ensure Federal Law Compliance"
+        "action": "DOJ Sent Election Monitors to Kern County to Ensure Federal Law Compliance"
       },
       {
         "date": "11/4/2025",
         "agency": "DOJ",
-        "action": "DOJ Sent Election Monitors to Kern County to Ensure Federal Law Compliance"
+        "action": "DOJ Sent Election Monitors to Los Angeles County to Ensure Federal Law Compliance"
       },
       {
         "date": "11/4/2025",
@@ -308,6 +313,11 @@
     "url": "https://www.justice.gov/crt/election-integrity-florida",
     "actions": [
       {
+        "date": "1/28/2026",
+        "agency": "DOJ",
+        "action": "DOJ Inspected Federal Election Records to Ensure Only Eligible Americans Vote With Florida's Support"
+      },
+      {
         "date": "7/4/2026",
         "agency": "DOJ",
         "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
@@ -316,11 +326,6 @@
         "date": "7/7/2026",
         "agency": "DOJ",
         "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
-      },
-      {
-        "date": "8/14/2026",
-        "agency": "DOJ",
-        "action": "DOJ Inspected Federal Election Records to Ensure Only Eligible Americans Vote With Florida's Support"
       },
       {
         "date": "9/18/2026",
@@ -443,6 +448,11 @@
     "url": "https://www.justice.gov/crt/election-integrity-indiana",
     "actions": [
       {
+        "date": "12/5/2025",
+        "agency": "DOJ",
+        "action": "DOJ Inspected Federal Election Records to Ensure Only Eligible Americans Vote With Indiana's Support"
+      },
+      {
         "date": "3/21/2026",
         "agency": "DOJ",
         "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
@@ -451,11 +461,6 @@
         "date": "7/7/2026",
         "agency": "DOJ",
         "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
-      },
-      {
-        "date": "7/14/2026",
-        "agency": "DOJ",
-        "action": "DOJ Inspected Federal Election Records to Ensure Only Eligible Americans Vote With Indiana's Support"
       },
       {
         "date": "9/18/2026",
@@ -469,6 +474,11 @@
     "url": "https://www.justice.gov/crt/election-integrity-iowa",
     "actions": [
       {
+        "date": "8/25/2025",
+        "agency": "DOJ",
+        "action": "DOJ Inspected Federal Election Records to Ensure Only Eligible Americans Vote With Iowa's Support"
+      },
+      {
         "date": "4/18/2026",
         "agency": "DOJ",
         "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
@@ -477,11 +487,6 @@
         "date": "7/7/2026",
         "agency": "DOJ",
         "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
-      },
-      {
-        "date": "7/15/2026",
-        "agency": "DOJ",
-        "action": "DOJ Inspected Federal Election Records to Ensure Only Eligible Americans Vote With Iowa's Support"
       },
       {
         "date": "9/18/2026",
@@ -495,6 +500,11 @@
     "url": "https://www.justice.gov/crt/election-integrity-kansas",
     "actions": [
       {
+        "date": "8/21/2025",
+        "agency": "DOJ",
+        "action": "DOJ Inspected Federal Election Records to Ensure Only Eligible Americans Vote With Kansas' Support"
+      },
+      {
         "date": "6/20/2026",
         "agency": "DOJ",
         "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
@@ -503,11 +513,6 @@
         "date": "7/7/2026",
         "agency": "DOJ",
         "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
-      },
-      {
-        "date": "8/14/2026",
-        "agency": "DOJ",
-        "action": "DOJ Inspected Federal Election Records to Ensure Only Eligible Americans Vote With Kansas' Support"
       },
       {
         "date": "9/18/2026",
@@ -662,12 +667,12 @@
       {
         "date": "9/1/2026",
         "agency": "DOJ",
-        "action": "DOJ Will Send Election Monitors to New Bedford County to Ensure Federal Law Compliance"
+        "action": "DOJ Will Send Election Monitors to Boston to Ensure Federal Law Compliance"
       },
       {
         "date": "9/1/2026",
         "agency": "DOJ",
-        "action": "DOJ Will Send Election Monitors to Boston to Ensure Federal Law Compliance"
+        "action": "DOJ Will Send Election Monitors to New Bedford to Ensure Federal Law Compliance"
       },
       {
         "date": "9/18/2026",
@@ -698,7 +703,7 @@
       {
         "date": "8/4/2026",
         "agency": "DOJ",
-        "action": "DOJ Will Send Election Monitors to Lansing to Ensure Federal Law Compliance"
+        "action": "DOJ Will Send Election Monitors to Detroit to Ensure Federal Law Compliance"
       },
       {
         "date": "8/4/2026",
@@ -708,7 +713,7 @@
       {
         "date": "8/4/2026",
         "agency": "DOJ",
-        "action": "DOJ Will Send Election Monitors to Detroit to Ensure Federal Law Compliance"
+        "action": "DOJ Will Send Election Monitors to Lansing to Ensure Federal Law Compliance"
       },
       {
         "date": "9/18/2026",
@@ -1022,17 +1027,12 @@
     "url": "https://www.justice.gov/crt/election-integrity-north-carolina",
     "actions": [
       {
-        "date": "3/27/2025",
-        "agency": "DOJ",
-        "action": "DOJ Sued North Carolina for Not Following Federal Voting Registration Standards"
-      },
-      {
         "date": "5/20/2025",
         "agency": "DOJ",
         "action": "DOJ Sent North Carolina a Letter Demanding the State Require Voters to Provide ID Information When They Register"
       },
       {
-        "date": "5/27/2025",
+        "date": "9/8/2025",
         "agency": "DOJ",
         "action": "DOJ Obtains a Court Order That North Carolina Remedy 100,000+ Voter Registrations"
       },
@@ -1040,6 +1040,11 @@
         "date": "1/17/2026",
         "agency": "DOJ",
         "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
+      },
+      {
+        "date": "5/27/2026",
+        "agency": "DOJ",
+        "action": "DOJ Sued North Carolina for Not Following Federal Voting Registration Standards"
       },
       {
         "date": "7/7/2026",
@@ -1240,6 +1245,11 @@
     "url": "https://www.justice.gov/crt/election-integrity-south-dakota",
     "actions": [
       {
+        "date": "7/29/2025",
+        "agency": "DOJ",
+        "action": "DOJ Inspected Federal Election Records to Ensure Eligible Americans Vote With South Dakota's Support"
+      },
+      {
         "date": "4/18/2026",
         "agency": "DOJ",
         "action": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law"
@@ -1248,11 +1258,6 @@
         "date": "7/7/2026",
         "agency": "DOJ",
         "action": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting"
-      },
-      {
-        "date": "8/14/2026",
-        "agency": "DOJ",
-        "action": "DOJ Inspected Federal Election Records to Ensure Eligible Americans Vote With South Dakota's Support"
       },
       {
         "date": "9/18/2026",
@@ -1499,7 +1504,7 @@
         "action": "DOJ Sent Wyoming a Letter Demanding the State Add All Required Fields to Its Voter Registration"
       },
       {
-        "date": "6/25/2026",
+        "date": "8/29/2025",
         "agency": "DOJ",
         "action": "DOJ Inspected Federal Election Records to Ensure Only Eligible Americans Vote With Wyoming's Support"
       },
