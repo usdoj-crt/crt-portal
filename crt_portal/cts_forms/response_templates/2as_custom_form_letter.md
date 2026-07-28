@@ -37,7 +37,7 @@ Thank you again for contacting the Department of Justice.
 
 Given the large number of law enforcement agencies throughout the country, the Section values tips from the public. While we cannot represent or directly assist individuals, the information and experiences that individuals like you share with us can be an important source of information for the Section's efforts to find and appropriately address widespread conduct by a law enforcement agency that deprives people of their Second Amendment rights.
 
-We will carefully consider the information you provided. If we have any questions or need additional information, we will contact you. If you know of anyone else who has any information you think may be relevant, please feel free to inform them that, if they wish, they may file a report like you did.
+We will carefully consider the information you provided. If we have any questions or need additional information, we will contact you. If you know others who have any information you think may be relevant, please feel free to inform them that, if they wish, they may file a report the same way you did.
 
 If you want to consult with an attorney about any private right of action you may have, your state bar association or local legal assistance agency may be able to help you find an attorney to speak with. You can also search for a local attorney at [www.lsc.gov/find-legal-aid](www.lsc.gov/find-legal-aid).
 
@@ -93,11 +93,9 @@ Thank you again for contacting the Department of Justice.
 
 Unfortunately, we are unable to represent or directly assist individuals. We also do not get directly involved in criminal cases. However, we will carefully consider the information you provided as we continue to actively look for opportunities to address Second Amendment violations by law enforcement agencies.
 
-If you want to consult with an attorney about any private right of action you may have, your state bar association or local legal assistance agency may be able to help you find an attorney to speak with. You can also search for a local attorney at [www.lsc.gov/find-legal-aid](http://www.lsc.gov/find-legal-aid).
-
 [%optional group ="Topic" name="2AS violation litigating in another jurisdiction"]
 
-We will carefully consider the information that you provided and will contact you if we have any questions. Although we cannot start an investigation or a lawsuit based on every tip we receive, we are litigating, or have litigated, in other jurisdictions numerous important Second Amendment issues like what you wrote to us about. As we continue to actively look for opportunities to address Second Amendment violations by law enforcement agencies, the information that individuals like you share with us is important to the Section's efforts to find and appropriately address such issues.
+We will carefully consider the information that you provided and will contact you if we have any questions. Although we cannot start an investigation or a lawsuit based on every tip we receive, we are litigating, or have litigated, in other jurisdictions numerous important Second Amendment issues similar to what you wrote to us about. As we continue to actively look for opportunities to address Second Amendment violations by law enforcement agencies, the information that individuals like you share with us is important to the Section's efforts to find and appropriately address such issues.
 
 If you want to consult with an attorney about any private right of action you may have, your state bar association or local legal assistance agency may be able to help you find an attorney to speak with. You can also search for a local attorney at [www.lsc.gov/find-legal-aid](www.lsc.gov/find-legal-aid).
 
@@ -130,4 +128,4 @@ We hope this information is helpful to you. Thank you for taking the time to con
 Sincerely,
 
 Second Amendment Section
-Civil Rights Divsion
+Civil Rights Division
