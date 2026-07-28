@@ -66,10 +66,10 @@ Washington, DC 20202-1100
 
 <p><strong>Department of Health and Human Services</strong></p>
 
-
 <p>
 
 US Department of Health and Human Services<br/>
+
 Office for Civil Rights<br/>
 
 200 Independence Avenue SW<br/>
@@ -316,7 +316,7 @@ Baltimore, MD 21235
 
 [%endoptional]
 
-[%optional group="Agency" name="US Department of Transportation "]
+[%optional group="Agency" name="US Department of Transportation"]
 
 <p><strong>US Department of Transportation</strong></p>
 
@@ -332,12 +332,11 @@ Washington, D.C. 20590
 
 <p>Phone: 855-368-4200</p>
 
-<p> DOT Customer Service Center: 202-366-4000</p>
+<p>DOT Customer Service Center: 202-366-4000</p>
 
-<p> Webpage:  <a href="https://www.transportation.gov/mission/civil-rights/complaint-resolution/public-complaint-process-reporting-concerns">Public Complaint Process & Reporting Concerns | US Department of Transportation</a></p>
+<p>Webpage: <a href="https://www.transportation.gov/mission/civil-rights/complaint-resolution/public-complaint-process-reporting-concerns">Public Complaint Process & Reporting Concerns | US Department of Transportation</a></p>
 
 [%endoptional]
-<br/>
 
 [%optional group="Agency" name="Consumer Financial Protection Bureau"]
 
@@ -385,7 +384,7 @@ Washington, DC 20250-9410
 
 <p>Web address: <a href="https://www.usda.gov/about-usda/general-information/staff-offices/office-assistant-secretary-civil-rights">https://www.usda.gov/about-usda/general-information/staff-offices/office-assistant-secretary-civil-rights</a></p>
 
-How to file a complaint:  <a href="https://www.usda.gov/about-usda/general-information/staff-offices/office-assistant-secretary-civil-rights/how-file-usda-discrimination-complaint">https://www.usda.gov/about-usda/general-information/staff-offices/office-assistant-secretary-civil-rights/how-file-usda-discrimination-complaint/</a></p>
+<p>How to file a complaint: <a href="https://www.usda.gov/about-usda/general-information/staff-offices/office-assistant-secretary-civil-rights/how-file-usda-discrimination-complaint">https://www.usda.gov/about-usda/general-information/staff-offices/office-assistant-secretary-civil-rights/how-file-usda-discrimination-complaint/</a></p>
 
 <p>Complaint form: <a href="https://www.usda.gov/sites/default/files/documents/ad-3027.pdf">https://www.usda.gov/sites/default/files/documents/ad-3027.pdf</a></p>
 
