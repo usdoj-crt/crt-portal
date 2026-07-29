@@ -126,8 +126,6 @@ The license portability benefits of the SCRA <u>may not apply</u> to a license
 Servicemembers and their spouses can learn more about license portability [on this fact sheet](https://www.justice.gov/servicemembers/2025-update-portability-professional-licenses) or on our [dedicated webpage](https://www.justice.gov/servicemembers/professional-license-portability).  
 
 You can find additional information regarding rights and protections under the SCRA at the Department of Justice’s Servicemember and Veterans Initiative website, [www.servicemembers.gov](http://www.servicemembers.gov/).
-
-Servicemembers and their spouses can learn more about license portability [on this fact sheet](https://www.justice.gov/d9/2023-07/doj_scra_license_portability_fact_sheet.pdf).
 <br/>
 [%endoptional]
 
