@@ -158,7 +158,6 @@ async function loadData(mapWidget) {
   }
 }
 
-
 // Load the agency-to-image badge mapping named in the widget's
 // data-badge-mapping-src attribute. Returns {} if the attribute is missing or
 // the file cannot be loaded, so the caller can safely fall back to text badges.
