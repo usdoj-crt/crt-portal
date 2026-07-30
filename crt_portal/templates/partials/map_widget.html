@@ -4,7 +4,7 @@ US map widget — renders a single interactive map of the United States.
 
 Usage (include once per map you want on the page):
 
-    {% include "partials/map_widget.html" with data_src="data/map-widget/data/example.json" %}
+    {% include "partials/map_widget.html" with data_name="example-map" %}
 
 You must ALSO include the shared assets once per page (see
 "partials/map_widget_assets.html"), which loads the CSS, d3, and the widget JS.
@@ -14,30 +14,37 @@ includes of this partial render multiple independent maps.
 Arguments
 ---------
 Required:
-  data_src                     Path (relative to the static root) to the JSON
-                               data file, e.g. "data/map-widget/data/foo.json".
+  data_name                    Unique name of a MapWidgetData record (editable in
+                               the Django admin). The widget fetches its JSON from
+                               the server by this name, so the map's data can be
+                               changed without a code redeployment.
 
 Optional (fall back to the widget's built-in defaults if omitted):
   map_classes                  Extra CSS classes added to the widget container.
-  map_default_fill_color       Resting fill for states.
-  map_active_fill_color        Fill for the hovered/selected state.
-  map_stroke_color             Border color.
-  map_stroke_width             Border width.
-  badge_text_color             Text color for the DC badge.
-  badge_radius                 Radius of the DC badge.
+  map_default_fill_color       Resting fill for states. Defaults to "#3498db".
+  map_active_fill_color        Fill for the hovered/selected state. Defaults to
+                               "#f4c430".
+  map_stroke_color             Border color. Defaults to "#ffffff".
+  map_stroke_width             Border width. Defaults to "1".
+  badge_text_color             Text color for the DC badge label. Defaults to
+                               "#ffffff".
+  badge_radius                 Radius of the DC badge circle. Defaults to "16".
   badge_mapping                Path (relative to the static root) to a JSON file
                                mapping agency codes to badge image URLs. When an
                                agency is found in the mapping its image is used;
                                otherwise the text badge is used as a fallback.
-  info_placeholder_text          Info-panel text before a state is selected,
-                               shown on devices that support hover.
+  info_placeholder_text        Info-panel text before a state is selected,
+                               shown on devices that support hover. Defaults to
+                               "Hover or Click a feature to view details".
   info_placeholder_text_no_hover
                                Info-panel text before a state is selected,
                                shown on tap/click-only devices (no hover).
+                               Defaults to "Click a feature to view details".
   info_heading_classes         CSS classes for the info-panel heading.
   info_list_classes            CSS classes for the info-panel list.
   info_list_item_classes       CSS classes for the info-panel list items.
-  info_no_data_text            Text shown when a state has no data.
+  info_no_data_text            Text shown when a state has no data. Defaults to
+                               "No Data".
   info_no_data_paragraph_classes
                                CSS classes for the "no data" paragraph.
 -->
@@ -45,7 +52,7 @@ Optional (fall back to the widget's built-in defaults if omitted):
 <div
   class="map-widget {{ map_classes|default:'' }}"
   data-geojson-urls="{% static 'data/map-widget/regions/contiguous.geojson' %},{% static 'data/map-widget/regions/alaska.geojson' %},{% static 'data/map-widget/regions/hawaii.geojson' %}"
-  data-data-src="{% static data_src %}"
+  data-data-src="{% url 'map_widget:data' name=data_name %}"
   data-badge-mapping-src="{% if badge_mapping %}{% static badge_mapping %}{% endif %}"
   data-map-default-fill-color="{{ map_default_fill_color|default:'' }}"
   data-map-active-fill-color="{{ map_active_fill_color|default:'' }}"

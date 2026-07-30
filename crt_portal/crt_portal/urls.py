@@ -84,6 +84,7 @@ urlpatterns = auth + [
     path('form/', include('cts_forms.urls')),
     path('link/', include('shortener.urls')),
     path('analytics/', include('analytics.urls')),
+    path('map/', include('map_widget.urls')),
     path('report/printable/', printable_form_view, name='printable-form'),
     path('report/', CRTReportWizard.as_view(
         [
