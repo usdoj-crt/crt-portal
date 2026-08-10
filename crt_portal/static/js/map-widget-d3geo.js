@@ -145,13 +145,17 @@ function createD3ProjectionAndPathGenerator(width, height, features) {
 }
 
 // Load the JSON data file named in the widget's data-data-src attribute.
+// If the fetch fails (missing record, network error, bad JSON), fall back to
+// an empty data set so the map still renders, with every feature showing the
+// "no data" state.
 async function loadData(mapWidget) {
   const url = mapWidget.dataset.dataSrc;
-  const response = await fetch(url);
-  if (!response.ok) {
-    throw new Error(`Failed to load data "${url}" (HTTP ${response.status})`);
+  try {
+    const response = await fetch(url);
+    return await response.json();
+  } catch (error) {
+    return {};
   }
-  return await response.json();
 }
 
 // Load the agency-to-image badge mapping named in the widget's

@@ -113,7 +113,9 @@ INSTALLED_APPS = [
     'features.apps.FeaturesConfig',
     'analytics.apps.AnalyticsConfig',
     'geocoding.apps.GeocodingConfig',
+    'map_widget.apps.MapWidgetConfig',
 ]
+
 SITE_ID = 1
 
 MIDDLEWARE = [
