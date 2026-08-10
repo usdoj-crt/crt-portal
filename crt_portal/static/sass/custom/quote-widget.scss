@@ -143,10 +143,12 @@
 .quote-stage__block {
     margin: 0;
 
-    // Fade between quotes as their content is swapped. Keep this duration in
-    // sync with QUOTE_FADE_MS in quote-rotator.js.
+    // Fade between quotes as their content is swapped. The duration is set by
+    // the widget via the `--quote-fade-ms` custom property (single source of
+    // truth in quote-rotator.js); the fallback keeps a sensible fade if the JS
+    // hasn't run yet.
     opacity: 1;
-    transition: opacity 300ms ease;
+    transition: opacity var(--quote-fade-ms, 300ms) ease;
 
     &.is-fading {
         opacity: 0;

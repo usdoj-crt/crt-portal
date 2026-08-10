@@ -28,6 +28,8 @@ Optional (fall back to the widget's built-in defaults if omitted):
                                Defaults to "Quotes".
   interval                     Milliseconds between automatic rotations.
                                Defaults to the widget's own default (8000).
+  fade                         Fade duration in milliseconds when swapping
+                               quotes. Defaults to 300.
   show_dot_indicators          "true" to show a clickable dot per quote.
                                Defaults to true.
   show_counter                 "true" to show the "X of Y" counter.
@@ -43,6 +45,7 @@ Optional (fall back to the widget's built-in defaults if omitted):
          data-quote-rotator
          data-quotes-id="{{ quotes_id }}"
          data-quote-interval="{{ interval|default:'8000' }}"
+         data-quote-fade="{{ fade|default:'300' }}"
          data-show-dot-indicators="{{ show_dot_indicators|default:'true' }}"
          data-show-counter="{{ show_counter|default:'false' }}">
 

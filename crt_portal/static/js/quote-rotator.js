@@ -19,8 +19,11 @@
 //   - Users who prefer reduced motion get no auto-rotation and no fade; they
 //     step through manually with the arrows.
 
-const QUOTE_FADE_MS = 300;
 const DEFAULT_INTERVAL_MS = 8000;
+
+// Default fade-out duration (ms) before the text is swapped. Overridable per
+// rotator via the `data-quote-fade` attribute.
+const DEFAULT_FADE_MS = 300;
 
 // Read the users' OS level preference for reduced motion.
 // If true, we don't use fade animation, and we start paused.
@@ -64,10 +67,15 @@ function initQuoteRotator(rotator) {
   const useCounter = rotator.dataset.showCounter !== 'false';
 
   const interval = parseInt(rotator.dataset.quoteInterval, 10) || DEFAULT_INTERVAL_MS;
+  const fadeMs = parseInt(rotator.dataset.quoteFade, 10) || DEFAULT_FADE_MS;
 
   let current = 0;
   let timer = null;
   let dots = [];
+  let fadeTimer = null;
+
+  // Set the CSS fade duration variable so the animation remains in sync.
+  blockEl.style.setProperty('--quote-fade-ms', fadeMs + 'ms');
 
   function paint() {
     textEl.textContent = '\u201c' + quotes[current].text + '\u201d';
@@ -143,12 +151,16 @@ function initQuoteRotator(rotator) {
       return;
     }
 
-    // Fade out, swap content, fade back in.
+    // Fade out, then swap the content and fade back in after the fade-out
+    // duration. We clear the timer first, so rapid clicks simply
+    // keep the block faded out and restart the timer -- there's never
+    // more than one swap scheduled.
+    clearTimeout(fadeTimer);
     blockEl.classList.add('is-fading');
-    setTimeout(function() {
+    fadeTimer = setTimeout(function() {
       paint();
       blockEl.classList.remove('is-fading');
-    }, QUOTE_FADE_MS);
+    }, fadeMs);
   }
 
   // Show the quote at the given index, wrapping so any out-of-range index maps
