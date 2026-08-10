@@ -232,6 +232,31 @@
     white-space: nowrap;
 }
 
+.quote-stage__dots {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.quote-stage__dot {
+    width: 0.75rem;
+    height: 0.75rem;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background-color: #9e9e9e;
+    cursor: pointer;
+
+    &.is-active {
+        background-color: #ffbe2e;
+    }
+
+    &:hover,
+    &:focus-visible {
+        background-color: #ffbe2e;
+    }
+}
+
 .quote-stage__arrow {
     color: white;
     display: flex;

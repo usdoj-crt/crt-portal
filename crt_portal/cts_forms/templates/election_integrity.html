@@ -63,7 +63,9 @@
              aria-label="Quotes from Executive Order 14248"
              data-quote-rotator
              data-quotes-id="election-quotes"
-             data-quote-interval="8000">
+             data-quote-interval="8000"
+             data-show-dot-indicators="true"
+             data-show-counter="false">
 
             <blockquote class="quote-stage__block" data-quote-block>
                 <p class="quote-stage__text font-serif-xl text-center margin-0" data-quote-text></p>
@@ -84,9 +86,11 @@
                     <svg class="icon-arrow" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
                 </button>
 
-                <span class="quote-stage__counter" aria-hidden="true">
+                <span class="quote-stage__counter" aria-hidden="true" data-quote-counter>
                     <span data-quote-current>1</span> of <span data-quote-total></span>
                 </span>
+
+                <div class="quote-stage__dots" data-quote-dots></div>
 
                 <button type="button" class="quote-stage__arrow" aria-label="Next quote" data-quote-next>
                     <svg class="icon-arrow" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M10 6 8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>

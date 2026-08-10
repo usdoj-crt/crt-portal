@@ -51,19 +51,65 @@ function initQuoteRotator(rotator) {
   const controlsEl = rotator.querySelector('[data-quote-controls]');
   const toggleBtn = rotator.querySelector('[data-quote-toggle]');
   const prevBtn = rotator.querySelector('[data-quote-prev]');
+
+  const counterEl = rotator.querySelector('[data-quote-counter]');
   const currentEl = rotator.querySelector('[data-quote-current]');
   const totalEl = rotator.querySelector('[data-quote-total]');
+  const dotsEl = rotator.querySelector('[data-quote-dots]');
+
   const nextBtn = rotator.querySelector('[data-quote-next]');
+
+  // Indicator options (independent)
+  const useDots = rotator.dataset.showDotIndicators === 'true';
+  const useCounter = rotator.dataset.showCounter !== 'false';
 
   const interval = parseInt(rotator.dataset.quoteInterval, 10) || DEFAULT_INTERVAL_MS;
 
   let current = 0;
   let timer = null;
+  let dots = [];
 
   function paint() {
     textEl.textContent = '\u201c' + quotes[current].text + '\u201d';
     citeEl.textContent = quotes[current].cite;
-    if (currentEl) currentEl.textContent = current + 1;
+    updateIndicators();
+  }
+
+  // Reflect the current quote in whichever indicator mode is active.
+  function updateIndicators() {
+    if (currentEl) {
+      currentEl.textContent = current + 1;
+    }
+
+    dots.forEach(function(dot, index) {
+      const isActive = index === current;
+      dot.classList.toggle('is-active', isActive);
+      if (isActive) {
+        dot.setAttribute('aria-current', 'true');
+      } else {
+        dot.removeAttribute('aria-current');
+      }
+    });
+  }
+
+  // Build one clickable dot per quote. Clicking jumps to that quote, announces
+  // it, and resets the auto-rotation countdown (same as the arrow buttons).
+  function buildDots() {
+    if (!dotsEl) return;
+
+    dots = quotes.map(function(quote, index) {
+      const dot = document.createElement('button');
+      dot.type = 'button';
+      dot.className = 'quote-stage__dot';
+      dot.setAttribute('aria-label', 'Go to quote ' + (index + 1));
+      dot.addEventListener('click', function() {
+        goTo(index);
+        announce();
+        resetTimer();
+      });
+      dotsEl.appendChild(dot);
+      return dot;
+    });
   }
 
   // Announce the current quote to screen readers. Called only on user
@@ -174,6 +220,19 @@ function initQuoteRotator(rotator) {
   }
 
   if (totalEl) totalEl.textContent = quotes.length;
+
+  // Set up each indicator
+  if (useDots) {
+    buildDots();
+  } else {
+    if (dotsEl) {
+      dotsEl.hidden = true;
+    }
+  }
+
+  if (!useCounter && counterEl) {
+    counterEl.hidden = true;
+  }
 
   if (prevBtn) {
     prevBtn.addEventListener('click', function() {
