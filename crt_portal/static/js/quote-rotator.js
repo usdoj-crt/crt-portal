@@ -59,19 +59,9 @@ function initQuoteRotator(rotator) {
   let current = 0;
   let timer = null;
 
-  function paint(userInitiated) {
+  function paint() {
     textEl.textContent = '\u201c' + quotes[current].text + '\u201d';
     citeEl.textContent = quotes[current].cite;
-
-    rotator.dispatchEvent(
-      new CustomEvent('quote-rotator-change', {
-        detail: {
-          index: current,
-          quote: quotes[current],
-          userInitiated: !!userInitiated,
-        },
-      })
-    );
   }
 
   // Announce the current quote to screen readers. Called only on user
@@ -84,41 +74,49 @@ function initQuoteRotator(rotator) {
     if (!statusEl) {
       return;
     }
+
     const position = `Quote ${current + 1} of ${quotes.length}`;
     const message = `${position}: ${quotes[current].text} ${quotes[current].cite}`;
-    statusEl.textContent = message;
+
+    // Assistive tech only announces a *dynamic* change to a live region. Empty
+    // it first, then fill it in a separate frame so the fill registers as a
+    // genuine change (per MDN's live-region guidance).
+    statusEl.textContent = '';
+    requestAnimationFrame(function () {
+      statusEl.textContent = message;
+    });
   }
 
-  function rotate(userInitiated) {
+  function rotate() {
     // Don't fade if the user prefers reduced motion;
     // just swap the content immediately.
     if (prefersReducedMotion) {
-      paint(userInitiated);
+      paint();
       return;
     }
 
     // Fade out, swap content, fade back in.
     blockEl.classList.add('is-fading');
     setTimeout(function () {
-      paint(userInitiated);
+      paint();
       blockEl.classList.remove('is-fading');
     }, QUOTE_FADE_MS);
   }
 
   // Show the quote at the given index, wrapping so any out-of-range index maps
-  // back into 0..length-1. Adding `quotes.length` before the modulo keeps the
+  // back into 0 through length-1. Adding `quotes.length` before the modulo keeps the
   // result positive so index -1 lands on the last quote.
-  function goTo(index, userInitiated) {
+  function goTo(index) {
     current = (index + quotes.length) % quotes.length;
-    rotate(userInitiated);
+    rotate();
   }
 
-  function next(userInitiated) {
-    goTo(current + 1, userInitiated);
+  function next() {
+    goTo(current + 1);
   }
 
-  function previous(userInitiated) {
-    goTo(current - 1, userInitiated);
+  function previous() {
+    goTo(current - 1);
   }
 
   function clearTimer() {
@@ -130,14 +128,13 @@ function initQuoteRotator(rotator) {
     // Clear any existing timer first so play() can't stack intervals.
     clearTimer();
 
-    timer = setInterval(function () {
-      next(false);
-    }, interval);
+    timer = setInterval(next, interval);
 
     rotator.classList.remove('is-paused');
 
     if (toggleBtn) {
       toggleBtn.setAttribute('aria-label', 'Pause quote rotation');
+      toggleBtn.setAttribute('aria-pressed', 'false');
     }
   }
 
@@ -148,11 +145,20 @@ function initQuoteRotator(rotator) {
 
     if (toggleBtn) {
       toggleBtn.setAttribute('aria-label', 'Play quote rotation');
+      toggleBtn.setAttribute('aria-pressed', 'true');
     }
   }
 
   function isPlaying() {
     return timer !== null;
+  }
+
+  // Restart the countdown so the user gets a full interval to read the quote
+  // they navigated to before it auto-rotates again.
+  function resetTimer() {
+    if (isPlaying()) {
+      play();
+    }
   }
 
   // A single quote can't rotate, so hide the controls entirely.
@@ -161,19 +167,23 @@ function initQuoteRotator(rotator) {
       controlsEl.hidden = true;
     }
 
-    paint(false);
+    paint();
     return;
   }
 
   if (prevBtn) {
     prevBtn.addEventListener('click', function () {
-      previous(true);
+      previous();
+      announce();
+      resetTimer();
     });
   }
 
   if (nextBtn) {
     nextBtn.addEventListener('click', function () {
-      next(true);
+      next();
+      announce();
+      resetTimer();
     });
   }
 
@@ -183,20 +193,7 @@ function initQuoteRotator(rotator) {
     });
   }
 
-  rotator.addEventListener('quote-rotator-change', function (event) {
-    console.log("Quote changed...");
-    if (event.detail.userInitiated) {
-      console.log("User initiated quote change, announcing...");
-      announce();
-      // Reset the timer so the user has time to read the new quote before it
-      // auto-rotates again.
-      if (isPlaying()) {
-        play();
-      }
-    }
-  });
-
-  paint(false);
+  paint();
 
   // Respect reduced-motion: don't auto-rotate. Leave the widget in the paused
   // state so the toggle offers "Play" if the user wants motion.

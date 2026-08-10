@@ -75,10 +75,10 @@
             when the user navigates (the widget writes here on prev/next/keyboard
             interaction, never on the automatic timer, to avoid interrupting).
             {% endcomment %}
-            <p class="usa-sr-only" role="status" aria-live="polite" aria-atomic="true" data-quote-status></p>
+            <p class="usa-sr-only" role="alert" aria-atomic="true" data-quote-status></p>
 
             <div class="quote-stage__controls" data-quote-controls>
-                <button type="button" class="quote-stage__toggle" aria-label="Pause quote rotation" data-quote-toggle>
+                <button type="button" class="quote-stage__toggle" aria-label="Pause quote rotation" aria-pressed="false" data-quote-toggle>
                     <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8 5h3v14H8zM13 5h3v14h-3z"></path></svg>
                     <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8 5v14l11-7z"></path></svg>
                 </button>
