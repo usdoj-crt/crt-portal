@@ -70,11 +70,6 @@
                 <cite class="quote-stage__cite text-center margin-top-2" data-quote-cite></cite>
             </blockquote>
 
-            {% comment %}
-            Politely announces the current quote to screen readers, but only
-            when the user navigates (the widget writes here on prev/next/keyboard
-            interaction, never on the automatic timer, to avoid interrupting).
-            {% endcomment %}
             <p class="usa-sr-only" role="alert" aria-atomic="true" data-quote-status></p>
 
             <div class="quote-stage__controls" data-quote-controls>
@@ -88,6 +83,10 @@
                 <button type="button" class="quote-stage__arrow" aria-label="Previous quote" data-quote-prev>
                     <svg class="icon-arrow" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
                 </button>
+
+                <span class="quote-stage__counter" aria-hidden="true">
+                    <span data-quote-current>1</span> of <span data-quote-total></span>
+                </span>
 
                 <button type="button" class="quote-stage__arrow" aria-label="Next quote" data-quote-next>
                     <svg class="icon-arrow" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M10 6 8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>

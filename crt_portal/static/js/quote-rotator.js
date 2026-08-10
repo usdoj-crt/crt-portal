@@ -53,6 +53,8 @@ function initQuoteRotator(rotator) {
   const toggleBtn = rotator.querySelector('[data-quote-toggle]');
   const prevBtn = rotator.querySelector('[data-quote-prev]');
   const nextBtn = rotator.querySelector('[data-quote-next]');
+  const currentEl = rotator.querySelector('[data-quote-current]');
+  const totalEl = rotator.querySelector('[data-quote-total]');
 
   const interval = parseInt(rotator.dataset.quoteInterval, 10) || DEFAULT_INTERVAL_MS;
 
@@ -62,6 +64,7 @@ function initQuoteRotator(rotator) {
   function paint() {
     textEl.textContent = '\u201c' + quotes[current].text + '\u201d';
     citeEl.textContent = quotes[current].cite;
+    if (currentEl) currentEl.textContent = current + 1;
   }
 
   // Announce the current quote to screen readers. Called only on user
@@ -170,6 +173,8 @@ function initQuoteRotator(rotator) {
     paint();
     return;
   }
+
+  if (totalEl) totalEl.textContent = quotes.length;
 
   if (prevBtn) {
     prevBtn.addEventListener('click', function () {
