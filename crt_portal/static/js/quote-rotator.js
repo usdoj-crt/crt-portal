@@ -25,8 +25,7 @@ const DEFAULT_INTERVAL_MS = 8000;
 // Read the users' OS level preference for reduced motion.
 // If true, we don't use fade animation, and we start paused.
 const prefersReducedMotion =
-  window.matchMedia &&
-  window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 function readQuotes(quotesId) {
   const dataEl = document.getElementById(quotesId);
@@ -52,9 +51,9 @@ function initQuoteRotator(rotator) {
   const controlsEl = rotator.querySelector('[data-quote-controls]');
   const toggleBtn = rotator.querySelector('[data-quote-toggle]');
   const prevBtn = rotator.querySelector('[data-quote-prev]');
-  const nextBtn = rotator.querySelector('[data-quote-next]');
   const currentEl = rotator.querySelector('[data-quote-current]');
   const totalEl = rotator.querySelector('[data-quote-total]');
+  const nextBtn = rotator.querySelector('[data-quote-next]');
 
   const interval = parseInt(rotator.dataset.quoteInterval, 10) || DEFAULT_INTERVAL_MS;
 
@@ -85,7 +84,7 @@ function initQuoteRotator(rotator) {
     // it first, then fill it in a separate frame so the fill registers as a
     // genuine change (per MDN's live-region guidance).
     statusEl.textContent = '';
-    requestAnimationFrame(function () {
+    requestAnimationFrame(function() {
       statusEl.textContent = message;
     });
   }
@@ -100,7 +99,7 @@ function initQuoteRotator(rotator) {
 
     // Fade out, swap content, fade back in.
     blockEl.classList.add('is-fading');
-    setTimeout(function () {
+    setTimeout(function() {
       paint();
       blockEl.classList.remove('is-fading');
     }, QUOTE_FADE_MS);
@@ -177,7 +176,7 @@ function initQuoteRotator(rotator) {
   if (totalEl) totalEl.textContent = quotes.length;
 
   if (prevBtn) {
-    prevBtn.addEventListener('click', function () {
+    prevBtn.addEventListener('click', function() {
       previous();
       announce();
       resetTimer();
@@ -185,7 +184,7 @@ function initQuoteRotator(rotator) {
   }
 
   if (nextBtn) {
-    nextBtn.addEventListener('click', function () {
+    nextBtn.addEventListener('click', function() {
       next();
       announce();
       resetTimer();
@@ -193,7 +192,7 @@ function initQuoteRotator(rotator) {
   }
 
   if (toggleBtn) {
-    toggleBtn.addEventListener('click', function () {
+    toggleBtn.addEventListener('click', function() {
       isPlaying() ? stop() : play();
     });
   }
