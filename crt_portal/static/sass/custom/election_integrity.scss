@@ -171,10 +171,87 @@
     margin: 0;
     padding: 2rem 8rem;
 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
     @include at-media-max("desktop") {
         padding: 0.5rem 0.5rem;
     }
 }
+
+.quote-stage__controls {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.quote-stage__toggle {
+    border: none;
+    width: 2rem;
+    height: 2rem;
+    background: transparent;
+    border-radius: 50%;
+    cursor: pointer;
+
+    &:hover,
+    &:focus-visible {
+        background-color: rgba(255, 255, 255, 0.15);
+    }
+}
+
+.quote-stage__toggle svg {
+    width: 1.25rem;
+    height: 1.25rem;
+    display: block;
+    color: white;
+}
+
+// Icon swap driven by the widget toggling `.is-paused` on the rotator.
+// Playing (default): show pause. Paused: show play.
+.quote-stage__toggle .icon-play {
+    display: none;
+}
+
+.quote-stage.is-paused .quote-stage__toggle {
+    .icon-pause {
+        display: none;
+    }
+
+    .icon-play {
+        display: block;
+    }
+}
+
+.quote-stage__separator {
+    color: #ffbe2e;
+}
+
+.quote-stage__arrow {
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: none;
+    width: 2rem;
+    height: 2rem;
+    background: transparent;
+    border-radius: 50%;
+    cursor: pointer;
+
+    &:hover,
+    &:focus-visible {
+        background-color: rgba(255, 255, 255, 0.15);
+    }
+}
+
+.quote-stage__arrow svg {
+    width: 1.25rem;
+    height: 1.25rem;
+    display: block;
+}
+
 
 .quote-stage__block {
     // Wider horizontal margins on desktop
@@ -183,6 +260,24 @@
     // Tighter on mobile
     @include at-media-max("desktop") {
         margin: 4rem 1rem;
+    }
+
+    // Fade between quotes as their content is swapped. Keep this duration in
+    // sync with QUOTE_FADE_MS in quote-rotator.js.
+    opacity: 1;
+    transition: opacity 300ms ease;
+
+    &.is-fading {
+        opacity: 0;
+    }
+
+    // Honor users who prefer reduced motion: no fade.
+    @media (prefers-reduced-motion: reduce) {
+        transition: none;
+
+        &.is-fading {
+            opacity: 1;
+        }
     }
 }
 
