@@ -23,7 +23,7 @@
 {% trans "Civil Rights Division - Department of Justice - Election Integrity" %}
 </title>
 {% endblock %}
-{% block head %} {% include "partials/map_widget_assets.html" %} {% endblock %}
+{% block head %} {% include "partials/map_widget_assets.html" %} {% include "partials/quote_widget_assets.html" %} {% endblock %}
 {% block hero %}
     <section class="hero-section" aria-labelledby="hero-title">
         <picture>
@@ -50,56 +50,7 @@
         </div>
     </section>
 
-    {% comment %}
-    Quotes shown in the rotating banner below come from the view context
-    (see election_integrity_view / static/data/election-integrity/quotes.json).
-    The quote-rotator widget reads the json_script block and swaps the
-    blockquote content.
-    {% endcomment %}
-    <section class="quote-banner-section">
-        <div class="quote-stage bg-primary-darker"
-             role="group"
-             aria-roledescription="carousel"
-             aria-label="Quotes from Executive Order 14248"
-             data-quote-rotator
-             data-quotes-id="election-quotes"
-             data-quote-interval="8000"
-             data-show-dot-indicators="true"
-             data-show-counter="false">
-
-            <blockquote class="quote-stage__block" data-quote-block>
-                <p class="quote-stage__text font-serif-xl text-center margin-0" data-quote-text></p>
-                <cite class="quote-stage__cite text-center margin-top-2" data-quote-cite></cite>
-            </blockquote>
-
-            <p class="usa-sr-only" role="alert" aria-atomic="true" data-quote-status></p>
-
-            <div class="quote-stage__controls" data-quote-controls>
-                <button type="button" class="quote-stage__toggle" aria-label="Pause quote rotation" aria-pressed="false" data-quote-toggle>
-                    <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8 5h3v14H8zM13 5h3v14h-3z"></path></svg>
-                    <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8 5v14l11-7z"></path></svg>
-                </button>
-
-                <span class="quote-stage__separator" aria-hidden="true">|</span>
-
-                <button type="button" class="quote-stage__arrow" aria-label="Previous quote" data-quote-prev>
-                    <svg class="icon-arrow" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
-                </button>
-
-                <span class="quote-stage__counter" aria-hidden="true" data-quote-counter>
-                    <span data-quote-current>1</span> of <span data-quote-total></span>
-                </span>
-
-                <div class="quote-stage__dots" data-quote-dots></div>
-
-                <button type="button" class="quote-stage__arrow" aria-label="Next quote" data-quote-next>
-                    <svg class="icon-arrow" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M10 6 8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
-                </button>
-            </div>
-        </div>
-
-        {{ quotes|json_script:"election-quotes" }}
-    </section>
+    {% include "partials/quote_widget.html" with quotes=quotes quotes_id="election-quotes" label="Quotes from Executive Order 14248" interval="8000" show_dot_indicators="true" show_counter="false" classes="bg-primary-darker" %}
 {% endblock %}
 
 {% block content %}
@@ -255,9 +206,4 @@
             </div>
         </div>
     </section>
-{% endblock %}
-
-{% block page_js %}
-    {{ block.super }}
-    <script src="{% static 'js/quote-rotator.min.js' %}"></script>
 {% endblock %}
