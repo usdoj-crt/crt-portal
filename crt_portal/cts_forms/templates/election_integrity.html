@@ -23,7 +23,7 @@
 {% trans "Civil Rights Division - Department of Justice - Election Integrity" %}
 </title>
 {% endblock %}
-{% block head %} {% include "partials/map_widget_assets.html" %} {% endblock %}
+{% block head %} {% include "partials/map_widget_assets.html" %} {% include "partials/quote_widget_assets.html" %} {% endblock %}
 {% block hero %}
     <section class="hero-section" aria-labelledby="hero-title">
         <picture>
@@ -50,14 +50,7 @@
         </div>
     </section>
 
-    <section class="quote-banner-section">
-        <div class="quote-stage bg-primary-darker" aria-label="Quotes from Executive Order 14248">
-            <blockquote class="quote-stage__block">
-                <p class="quote-stage__text font-serif-xl text-center margin-0">“Free, fair, and honest elections unmarred by fraud, errors, or suspicion are fundamental to maintaining our constitutional Republic.”</p>
-                <cite class="quote-stage__cite text-center margin-top-2">President Donald J. Trump, Executive Order 14248, March 25, 2025</cite>
-            </blockquote>
-        </div>
-    </section>
+    {% include "partials/quote_widget.html" with quotes=quotes quotes_id="election-quotes" label="Quotes from Executive Order 14248" interval="8000" show_dot_indicators="true" show_counter="false" classes="bg-primary-darker" %}
 {% endblock %}
 
 {% block content %}

@@ -83,12 +83,33 @@ def load_news_items(data_src, badge_mapping_src=None):
     return items
 
 
+def load_quotes(data_src):
+    """Load the rotating banner quotes from a static JSON file.
+
+    Returns a list of ``{"text": ..., "cite": ...}`` dicts. Missing or
+    malformed data yields an empty list so the page still renders.
+    """
+    try:
+        data = _read_static_json(data_src)
+    except (OSError, ValueError):
+        return []
+    return data.get('quotes', []) if isinstance(data, dict) else []
+
+
 def election_integrity_view(request):
     news_items = load_news_items(
         data_src='data/news-card/test-data.json',
         badge_mapping_src='data/agency-badges/agency-badge-map.json',
     )
-    return render(request, 'election_integrity.html', {'news_items': news_items})
+
+    quotes = load_quotes(
+        data_src='data/election-integrity/quotes.json',
+    )
+
+    return render(request, 'election_integrity.html', {
+        'news_items': news_items,
+        'quotes': quotes,
+    })
 
 
 def retrieve_and_save_next_url_in_session(request):
