@@ -124,8 +124,6 @@ If these criteria are met, a covered license shall be considered valid for licen
 The license portability benefits of the SCRA <u>may not apply</u> to a license that allows you to operate in multiple states.
 
 Servicemembers and their spouses can learn more about license portability [on this fact sheet](https://www.justice.gov/servicemembers/2025-update-portability-professional-licenses) or on our [dedicated webpage](https://www.justice.gov/servicemembers/professional-license-portability).  
-
-You can find additional information regarding rights and protections under the SCRA at the Department of Justice’s Servicemember and Veterans Initiative website, [www.servicemembers.gov](http://www.servicemembers.gov/).
 <br/>
 [%endoptional]
 

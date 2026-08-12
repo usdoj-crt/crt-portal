@@ -162,50 +162,6 @@
     }
 }
 
-.quote-banner-section {
-    margin: 0;
-}
-
-.quote-stage {
-    // Sit flush against the hero section above
-    margin: 0;
-    padding: 2rem 8rem;
-
-    @include at-media-max("desktop") {
-        padding: 0.5rem 0.5rem;
-    }
-}
-
-.quote-stage__block {
-    // Wider horizontal margins on desktop
-    margin: 4rem 6rem;
-
-    // Tighter on mobile
-    @include at-media-max("desktop") {
-        margin: 4rem 1rem;
-    }
-}
-
-.quote-stage__text {
-    font-style: italic;
-    color: #ffe396;
-
-    @include at-media-max("desktop") {
-        // Shrink the quote so it stays readable and compact on small screens
-        font-size: 1.125rem;
-        line-height: 1.4;
-    }
-}
-
-.quote-stage__cite {
-    display: block;
-    color: #e9d9a8;
-}
-
-.enforcement-map__title {
-    color: #454545;
-}
-
 // A faint white radial "glow" originates from behind the heading (top-center)
 // and fades out into the blue background. `bg-primary-darker` (#162e51) still
 // paints the base color; this layers the soft glow on top of it.

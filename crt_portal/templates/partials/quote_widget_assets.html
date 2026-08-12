@@ -1,0 +1,13 @@
+{% comment %}
+Shared assets for the quote rotator widget (widget JS).
+
+Include this ONCE per page, regardless of how many rotators are rendered:
+
+    {% include "partials/quote_widget_assets.html" %}
+
+The widget JS boots every "[data-quote-rotator]" element on DOM ready, so a
+single load of these assets supports any number of rotators on the page.
+
+Per-rotator markup is rendered by "partials/quote_widget.html".
+{% endcomment %}
+<script src="{% static 'js/quote-rotator.js' %}"></script>

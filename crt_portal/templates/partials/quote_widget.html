@@ -1,0 +1,84 @@
+{% comment %}
+<!--
+Quote rotator widget — renders a banner that rotates through a list of quotes,
+one at a time, with previous/next/play-pause controls and optional dot or
+counter indicators.
+
+Usage (include once per rotator you want on the page):
+
+    {% include "partials/quote_widget.html" with quotes=quotes quotes_id="election-quotes" %}
+
+You must ALSO include the widget JS once per page (see
+"partials/quote_widget_assets.html"). The widget JS boots every
+"[data-quote-rotator]" element on the page, so multiple includes of this partial
+render multiple independent rotators (each needs a unique quotes_id).
+
+Arguments
+---------
+Required:
+  quotes                       A list of {text, cite} dicts, rendered into a
+                               json_script block the widget reads. Typically
+                               passed from the view context.
+  quotes_id                    Unique id for this rotator's json_script element.
+                               Must be unique per page when multiple rotators
+                               are present.
+
+Optional (fall back to the widget's built-in defaults if omitted):
+  label                        Accessible label for the carousel region.
+                               Defaults to "Quotes".
+  interval                     Milliseconds between automatic rotations.
+                               Defaults to the widget's own default (8000).
+  fade                         Fade duration in milliseconds when swapping
+                               quotes. Defaults to 300.
+  show_dot_indicators          "true" to show a clickable dot per quote.
+                               Defaults to true.
+  show_counter                 "true" to show the "X of Y" counter.
+                               Defaults to false.
+  classes                      Extra CSS classes added to the stage container.
+-->
+{% endcomment %}
+<section class="quote-section">
+    <div class="quote-stage {{ classes|default:'' }}"
+         role="group"
+         aria-roledescription="carousel"
+         aria-label="{{ label|default:'Quotes' }}"
+         data-quote-rotator
+         data-quotes-id="{{ quotes_id }}"
+         data-quote-interval="{{ interval|default:'8000' }}"
+         data-quote-fade="{{ fade|default:'300' }}"
+         data-show-dot-indicators="{{ show_dot_indicators|default:'true' }}"
+         data-show-counter="{{ show_counter|default:'false' }}">
+
+        <blockquote class="quote-stage__block" data-quote-block>
+            <p class="quote-stage__text font-serif-xl text-center margin-0" data-quote-text></p>
+            <cite class="quote-stage__cite text-center margin-top-2" data-quote-cite></cite>
+        </blockquote>
+
+        <p class="usa-sr-only" role="alert" aria-atomic="true" data-quote-status></p>
+
+        <div class="quote-stage__controls" data-quote-controls>
+            <button type="button" class="quote-stage__toggle" aria-label="Pause quote rotation" aria-pressed="false" data-quote-toggle>
+                <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8 5h3v14H8zM13 5h3v14h-3z"></path></svg>
+                <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8 5v14l11-7z"></path></svg>
+            </button>
+
+            <span class="quote-stage__separator" aria-hidden="true">|</span>
+
+            <button type="button" class="quote-stage__arrow" aria-label="Previous quote" data-quote-prev>
+                <svg class="icon-arrow" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+            </button>
+
+            <span class="quote-stage__counter" aria-hidden="true" data-quote-counter>
+                <span data-quote-current>1</span> of <span data-quote-total></span>
+            </span>
+
+            <div class="quote-stage__dots" data-quote-dots></div>
+
+            <button type="button" class="quote-stage__arrow" aria-label="Next quote" data-quote-next>
+                <svg class="icon-arrow" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M10 6 8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+            </button>
+        </div>
+    </div>
+
+    {{ quotes|json_script:quotes_id }}
+</section>

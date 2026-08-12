@@ -7,7 +7,7 @@ is_html: true
 
 {{ addressee }},
 
-Thank you for contacting the Department of Justice on {{ date_of_intake }}. We apologize for our delayed response. The Second Amendment Section of the Civil Rights Division has reviewed you submission. Your report number is {{ record_locator }}.
+Thank you for contacting the Department of Justice on {{ date_of_intake }}. We apologize for our delayed response. The Second Amendment Section of the Civil Rights Division has reviewed your submission. Your report number is {{ record_locator }}.
 
 Law-abiding Americans have a natural right to keep and bear arms, and that right is protected by the Second Amendment. The Second Amendment Section brings enforcement actions when law enforcement agents have engaged in a pattern or practice of conduct that infringes Second Amendment rights. In addition to litigation, the Section advances Second Amendment rights via statements of interest, motions to intervene, and amicus briefs. For more information about our work, you may visit [https://www.justice.gov/crt/second-amendment-section](https://www.justice.gov/crt/second-amendment-section).
 
@@ -37,7 +37,7 @@ Thank you again for contacting the Department of Justice.
 
 Given the large number of law enforcement agencies throughout the country, the Section values tips from the public. While we cannot represent or directly assist individuals, the information and experiences that individuals like you share with us can be an important source of information for the Section's efforts to find and appropriately address widespread conduct by a law enforcement agency that deprives people of their Second Amendment rights.
 
-We will carefully consider the information you provided. If we have any questions or need additional information, we will contact you. If you know others who have any information you think may be relevant, please feel free to inform them that, if they wish, they may file a report the same way you did.
+We will carefully consider the information you provided. If we have any questions or need additional information, we will contact you. If you know others who have any information you think may be relevant, please feel free to inform them that, if they wish, they may file a report at [www.civilrights.justice.gov](https://www.civilrights.justice.gov) like you did.
 
 If you want to consult with an attorney about any private right of action you may have, your state bar association or local legal assistance agency may be able to help you find an attorney to speak with. You can also search for a local attorney at [www.lsc.gov/find-legal-aid](https://www.lsc.gov/find-legal-aid).
 
@@ -69,7 +69,7 @@ We appreciate your interest in our work and time in writing to us to express you
 
 [%optional group="Topic" name="Private conduct"]
 
-Please note that the Second Amendment Section does not generally impose restrictions on the conduct, rules, or policies of private parties. Therefore, we do not intend to take any further action on your complaint. If you want to consult with an attorney about any private right of action you may have, your state bar association or local legal assistance agency may be able to help you find an attorney to speak with. You can also search for a local attorney at [www.lsc.gov/find-legal-aid](https://www.lsc.gov/find-legal-aid).
+Please note that the Second Amendment does not generally impose restrictions on the conduct, rules, or policies of private parties. Therefore, we do not intend to take any further action on your complaint. If you want to consult with an attorney about any private right of action you may have, your state bar association or local legal assistance agency may be able to help you find an attorney to speak with. You can also search for a local attorney at [www.lsc.gov/find-legal-aid](https://www.lsc.gov/find-legal-aid).
 <br/>
 [%endoptional]
 
@@ -124,6 +124,21 @@ As part of establishing the program authorized by 18 U.S.C. § 925(c), the Depar
 Once the application is live, it will be available at [https://www.justice.gov/pardon/ffrr](https://www.justice.gov/pardon/ffrr). In the meantime, you may contact the Office of the Pardon Attorney with any inquiries or to let them know that you are interested in applying once the application is available. Contact information for the Office of the Pardon Attorney is available at [https://www.justice.gov/pardon/webform/contact-office-pardon-attorney](https://www.justice.gov/pardon/webform/contact-office-pardon-attorney).
 
 We hope this information is helpful to you. Thank you for taking the time to contact the Department of Justice about your concerns.
+<br/>
+[%endoptional]
+
+[%optional group="Topic" name="FBI / NICS Inquiry"]
+
+Please note that the Second Amendment Section does not have any authority over the decisions, regulations, policies, or conduct of the Federal Bureau of Investigation (FBI) or the National Instant Criminal Background Check System (NICS). For such concerns, you may wish to contact the FBI directly. You may write to the FBI at:
+
+FBI CJIS Division
+National Instant Criminal Background Check System Section
+Post Office Box 4278
+Clarksburg, WV 26306-9922
+
+You may also reach the FBI by email at [NICS_CustomerService@fbi.gov](mailto:NICS_CustomerService@fbi.gov), or by phone at (877)324-6427.
+
+For the reason explained above, we do not intend to take any further action on your complaint. If you want to consult with an attorney about any private right of action you may have, your state bar association or local legal assistance agency may be able to help you find an attorney to speak with. You can also search for a local attorney at [www.lsc.gov/find-legal-aid](https://www.lsc.gov/find-legal-aid).
 <br/>
 [%endoptional]
 
