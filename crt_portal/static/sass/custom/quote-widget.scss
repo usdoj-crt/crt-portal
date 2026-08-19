@@ -5,9 +5,8 @@
 // Rendered by templates/partials/quote_widget.html and driven by
 // static/js/quote-rotator.js.
 //
-// Layout: the stage is a fixed-height flex column with the quote at the top
-// and the controls pinned to the bottom, so the controls never shift as
-// quotes of different lengths rotate through.
+// Layout: the stage is a flex column anchored to the bottom, so the controls
+// stay at the bottom and the stage grows upward as longer quotes render.
 // -------------------------------------
 
 .quote-section {
@@ -18,18 +17,13 @@
 .quote-stage {
     padding: 4rem 8rem;
 
-    // Fixed height with the quote at the top and controls pinned to the bottom.
-    // Shorter quotes just leave a gap; the controls never shift.
-    height: 32rem;
-
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-end;
 
     @include at-media-max("desktop") {
-        padding: 1rem 1rem;
-        height: 24rem;
+        padding: 2rem 1rem;
     }
 }
 
