@@ -114,6 +114,7 @@ INSTALLED_APPS = [
     'analytics.apps.AnalyticsConfig',
     'geocoding.apps.GeocodingConfig',
     'map_widget.apps.MapWidgetConfig',
+    'news_widget.apps.NewsWidgetConfig',
 ]
 
 SITE_ID = 1
