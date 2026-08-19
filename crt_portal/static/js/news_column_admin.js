@@ -5,7 +5,7 @@
 // of truth that is submitted, so the "Show raw JSON" toggle lets power users
 // edit the JSON directly. Dates are stored as ISO (YYYY-MM-DD); the public page
 // formats them for display.
-(function () {
+(function() {
   'use strict';
 
   var MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -52,7 +52,7 @@
     if (!Array.isArray(parsed)) {
       throw new Error('Expected a JSON array of articles.');
     }
-    return parsed.map(function (item) {
+    return parsed.map(function(item) {
       item = item || {};
       return {
         date: toIso(item.date) || '',
@@ -94,13 +94,13 @@
 
     function render() {
       rowsContainer.textContent = '';
-      articles.forEach(function (article, index) {
+      articles.forEach(function(article, index) {
         rowsContainer.appendChild(buildRow(article, index));
       });
     }
 
     function bindInput(input, index, field) {
-      input.addEventListener('input', function () {
+      input.addEventListener('input', function() {
         articles[index][field] = input.value;
         sync();
       });
@@ -139,19 +139,19 @@
       var upButton = makeButton('\u2191', 'button news-article-editor__move');
       upButton.title = 'Move up';
       upButton.disabled = index === 0;
-      upButton.addEventListener('click', function () {
+      upButton.addEventListener('click', function() {
         move(index, index - 1);
       });
 
       var downButton = makeButton('\u2193', 'button news-article-editor__move');
       downButton.title = 'Move down';
       downButton.disabled = index === articles.length - 1;
-      downButton.addEventListener('click', function () {
+      downButton.addEventListener('click', function() {
         move(index, index + 1);
       });
 
       var removeButton = makeButton('Remove', 'button news-article-editor__remove');
-      removeButton.addEventListener('click', function () {
+      removeButton.addEventListener('click', function() {
         articles.splice(index, 1);
         sync();
         render();
@@ -178,14 +178,14 @@
       render();
     }
 
-    addButton.addEventListener('click', function () {
+    addButton.addEventListener('click', function() {
       articles.push({ date: '', title: '', link: '' });
       sync();
       render();
     });
 
     var rawVisible = false;
-    toggleButton.addEventListener('click', function () {
+    toggleButton.addEventListener('click', function() {
       if (!rawVisible) {
         // Show raw: textarea already mirrors the current editor state.
         rawVisible = true;
@@ -199,7 +199,9 @@
       try {
         articles = parseArticles(textarea.value);
       } catch (error) {
-        window.alert('The raw JSON is invalid, so it cannot be shown in the editor. Please fix the JSON first.');
+        window.alert(
+          'The raw JSON is invalid, so it cannot be shown in the editor. Please fix the JSON first.'
+        );
         return;
       }
       rawVisible = false;
@@ -224,11 +226,12 @@
     toggleButton.hidden = true;
     var note = document.createElement('p');
     note.className = 'news-article-editor__error';
-    note.textContent = 'The stored JSON could not be parsed, so it is shown raw below for you to fix.';
+    note.textContent =
+      'The stored JSON could not be parsed, so it is shown raw below for you to fix.';
     editor.insertBefore(note, textarea);
   }
 
-  document.addEventListener('DOMContentLoaded', function () {
+  document.addEventListener('DOMContentLoaded', function() {
     var editors = document.querySelectorAll('[data-news-article-editor]');
     for (var i = 0; i < editors.length; i++) {
       initEditor(editors[i]);
