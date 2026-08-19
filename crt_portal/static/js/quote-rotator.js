@@ -77,6 +77,43 @@ function initQuoteRotator(rotator) {
   // Set the CSS fade duration variable so the animation remains in sync.
   blockEl.style.setProperty('--quote-fade-ms', fadeMs + 'ms');
 
+  // Reserve height for the tallest quote so the block never resizes as quotes
+  // rotate (which would make the controls below jump around). We do this by
+  // stacking a hidden copy of every quote in the same grid cell as the live
+  // one; the copies are invisible but still take up space, so the block ends up
+  // exactly as tall as the longest quote.
+  buildSizers();
+
+  // Build one hidden "sizer" copy of the live layer per quote. They share the
+  // live layer's grid cell (see quote-widget.scss), so the block reserves the
+  // height of the tallest quote. The copies are marked `.is-sizer`
+  // (visibility:hidden) and stripped of the widget's data hooks so they're
+  // never targeted, shown, or read by assistive tech.
+  function buildSizers() {
+    const liveLayer = rotator.querySelector('[data-quote-layer]');
+    if (!liveLayer) return;
+
+    quotes.forEach(function(quote) {
+      const layer = liveLayer.cloneNode(true);
+      layer.classList.add('is-sizer');
+      layer.setAttribute('aria-hidden', 'true');
+      layer.removeAttribute('data-quote-layer');
+
+      const text = layer.querySelector('[data-quote-text]');
+      const cite = layer.querySelector('[data-quote-cite]');
+      if (text) {
+        text.textContent = '\u201c' + quote.text + '\u201d';
+        text.removeAttribute('data-quote-text');
+      }
+      if (cite) {
+        cite.textContent = quote.cite;
+        cite.removeAttribute('data-quote-cite');
+      }
+
+      blockEl.appendChild(layer);
+    });
+  }
+
   function paint() {
     textEl.textContent = '\u201c' + quotes[current].text + '\u201d';
     citeEl.textContent = quotes[current].cite;
