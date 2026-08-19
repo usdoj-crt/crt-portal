@@ -26,7 +26,7 @@ Context variables (supplied by the tag)
 
   labelledby    The id of the column's heading element, used for the <ul>'s
                 aria-labelledby attribute so the list is associated with its
-                heading for assistive technology. Optional.
+                heading for assistive technology.
 -->
 {% endcomment %}
 <ul class="usa-list usa-list--unstyled margin-0"{% if labelledby %} aria-labelledby="{{ labelledby }}"{% endif %}>

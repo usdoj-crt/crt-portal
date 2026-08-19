@@ -1,7 +1,27 @@
 [
-  {"date": "Feb 26, 2026", "title": "Justice Department Sues Five Additional States for Failure to Produce Voter Rolls", "link": "https://www.justice.gov/opa/pr/justice-department-sues-five-additional-states-failure-produce-voter-rolls"},
-  {"date": "Jan 16, 2026", "title": "Justice Department Sues Virginia for Failure to Produce Voter Rolls", "link": "https://www.justice.gov/opa/pr/justice-department-sues-virginia-failure-produce-voter-rolls"},
-  {"date": "Jan 6, 2026", "title": "Justice Department Sues Arizona and Connecticut for Failure to Produce Voter Rolls", "link": "https://www.justice.gov/opa/pr/justice-department-sues-arizona-and-connecticut-failure-produce-voter-rolls"},
-  {"date": "Dec 12, 2025", "title": "Justice Department Sues Four Additional States and One Locality for Failure to Comply with Federal Elections Laws", "link": "https://www.justice.gov/opa/pr/justice-department-sues-four-additional-states-and-one-locality-failure-comply-federal"},
-  {"date": "Dec 2, 2025", "title": "Justice Department Sues Six Additional States for Failure to Provide Voter Registration Rolls", "link": "https://www.justice.gov/opa/pr/justice-department-sues-six-additional-states-failure-provide-voter-registration-rolls"}
+  {
+    "date": "2026-02-26",
+    "title": "Justice Department Sues Five Additional States for Failure to Produce Voter Rolls",
+    "link": "https://www.justice.gov/opa/pr/justice-department-sues-five-additional-states-failure-produce-voter-rolls"
+  },
+  {
+    "date": "2026-01-16",
+    "title": "Justice Department Sues Virginia for Failure to Produce Voter Rolls",
+    "link": "https://www.justice.gov/opa/pr/justice-department-sues-virginia-failure-produce-voter-rolls"
+  },
+  {
+    "date": "2026-01-06",
+    "title": "Justice Department Sues Arizona and Connecticut for Failure to Produce Voter Rolls",
+    "link": "https://www.justice.gov/opa/pr/justice-department-sues-arizona-and-connecticut-failure-produce-voter-rolls"
+  },
+  {
+    "date": "2025-12-12",
+    "title": "Justice Department Sues Four Additional States and One Locality for Failure to Comply with Federal Elections Laws",
+    "link": "https://www.justice.gov/opa/pr/justice-department-sues-four-additional-states-and-one-locality-failure-comply-federal"
+  },
+  {
+    "date": "2025-12-02",
+    "title": "Justice Department Sues Six Additional States for Failure to Provide Voter Registration Rolls",
+    "link": "https://www.justice.gov/opa/pr/justice-department-sues-six-additional-states-failure-provide-voter-registration-rolls"
+  }
 ]
