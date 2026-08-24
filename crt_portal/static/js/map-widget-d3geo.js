@@ -11,14 +11,8 @@ const DC_BADGE = {
 const VIEWBOX_WIDTH = 960;
 const VIEWBOX_HEIGHT = 600;
 
-// Create a DOM element with an optional class name.
-function createElement(tag, className) {
-  const node = document.createElement(tag);
-  if (className) {
-    node.className = className;
-  }
-  return node;
-}
+// Horizontal/vertical gap between the cursor and the tooltip.
+const TOOLTIP_OFFSET = 16;
 
 // Format an "M/D/YYYY" date string as "Mon dd, YYYY" (e.g. "Jul 22, 2025").
 // Parses the components directly to avoid any timezone conversion.
@@ -36,6 +30,15 @@ const MONTH_ABBREVIATIONS = [
   'Nov',
   'Dec'
 ];
+
+// Create a DOM element with an optional class name.
+function createElement(tag, className) {
+  const node = document.createElement(tag);
+  if (className) {
+    node.className = className;
+  }
+  return node;
+}
 
 function formatActionDate(dateString) {
   const parts = dateString.split('/');
@@ -66,7 +69,6 @@ function getActionSortKey(action) {
   return year * 10000 + month * 100 + day;
 }
 
-
 // Create the SVG element the map will be drawn into.
 function createMapSvg(mapElement) {
   const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
@@ -79,6 +81,75 @@ function createMapSvg(mapElement) {
   svg.setAttribute('aria-hidden', 'true');
   mapElement.appendChild(svg);
   return svg;
+}
+
+// Create the hover tooltip element, hidden until shown. It's positioned
+// relative to the map area, so it's appended inside `.map-widget__map`.
+function createTooltip(mapElement) {
+  const tooltip = createElement('div', 'map-widget__tooltip');
+  tooltip.setAttribute('aria-hidden', 'true');
+  tooltip.hidden = true;
+  mapElement.appendChild(tooltip);
+  return tooltip;
+}
+
+// Show the tooltip for a feature: fill in its name + code, then position it.
+function showTooltip(context, feature, event) {
+  const tooltip = context.tooltip;
+  if (!tooltip) {
+    return;
+  }
+
+  const code = feature.properties.code;
+  const name = context.data?.[code]?.name ?? feature.properties.name;
+
+  tooltip.innerHTML = '';
+
+  const tooltipName = createElement('span', 'map-widget__tooltip-name');
+  tooltipName.textContent = name;
+  tooltip.appendChild(tooltipName);
+
+  const tooltipBadge = createElement('span', 'map-widget__state-badge');
+  tooltipBadge.textContent = code;
+  tooltip.appendChild(tooltipBadge);
+
+  tooltip.hidden = false;
+  moveTooltip(context, event);
+}
+
+// Position the tooltip next to the cursor, measured relative to the map area.
+function moveTooltip(context, mouseEvent) {
+  const tooltip = context.tooltip;
+  if (!tooltip || tooltip.hidden) {
+    return;
+  }
+
+  const mapElement = tooltip.parentElement;
+  const bounds = mapElement.getBoundingClientRect();
+  const x = mouseEvent.clientX - bounds.left;
+  const y = mouseEvent.clientY - bounds.top;
+
+  // If a right-side tooltip would overflow the map's right edge, flip it to the
+  // left of the cursor so it stays within the (overflow-clipped) map area.
+  const overflowsRight = x + TOOLTIP_OFFSET + tooltip.offsetWidth > bounds.width;
+  const left = overflowsRight
+    ? x - TOOLTIP_OFFSET - tooltip.offsetWidth
+    : x + TOOLTIP_OFFSET;
+
+  // Likewise flip above the cursor when we would overflow bottom edge.
+  const overflowsBottom = y + TOOLTIP_OFFSET + tooltip.offsetHeight > bounds.height;
+  const top = overflowsBottom
+    ? y - TOOLTIP_OFFSET - tooltip.offsetHeight
+    : y + TOOLTIP_OFFSET;
+
+  tooltip.style.left = `${left}px`;
+  tooltip.style.top = `${top}px`;
+}
+
+function hideTooltip(context) {
+  if (context.tooltip) {
+    context.tooltip.hidden = true;
+  }
 }
 
 function getMapConfig(mapWidget) {
@@ -95,6 +166,8 @@ function getMapConfig(mapWidget) {
   mapConfig.badgeTextColor = mapWidget?.dataset?.mapBadgeTextColor || '#ffffff';
 
   mapConfig.badgeRadius = mapWidget?.dataset?.mapBadgeRadius || '16';
+
+  mapConfig.showTooltip = mapWidget?.dataset?.mapShowTooltip === 'true';
 
   return mapConfig;
 }
@@ -294,8 +367,17 @@ function drawFeatures(mapSvg, features, d3PathGenerator, context) {
     path.style.stroke = context.mapConfig?.strokeColor || '#ffffff';
     path.style.strokeWidth = context.mapConfig?.strokeWidth || '2';
 
-    path.addEventListener('mouseover', () => {
+    path.addEventListener('mouseover', (mouseEvent) => {
       setActive(context, path, feature);
+      showTooltip(context, feature, mouseEvent);
+    });
+
+    path.addEventListener('mousemove', (mouseEvent) => {
+      moveTooltip(context, mouseEvent);
+    });
+
+    path.addEventListener('mouseout', () => {
+      hideTooltip(context);
     });
 
     path.addEventListener('click', () => {
@@ -349,8 +431,17 @@ function drawBadge(mapSvg, badge, context) {
   //    single active shape and stays active after the pointer leaves.
   //    Note: pass `circle` (not the group) to setActive/hideActive,
   //    since .style.fill needs to land on the shape.
-  group.addEventListener('mouseover', () => {
+  group.addEventListener('mouseover', mouseEvent => {
     setActive(context, circle, feature);
+    showTooltip(context, feature, mouseEvent);
+  });
+
+  group.addEventListener('mousemove', mouseEvent => {
+    moveTooltip(context, mouseEvent);
+  });
+
+  group.addEventListener('mouseout', () => {
+    hideTooltip(context);
   });
 
   group.addEventListener('click', () => {
@@ -676,8 +767,21 @@ async function initMapWidget(mapWidget) {
     brokenSeals: brokenSeals,
     badgeCache: {},
     active: null,
-    focusables: []
+    focusables: [],
+    tooltip: mapConfig.showTooltip ? createTooltip(mapElement) : null
   };
+
+  // Accessibility: The hover tooltip overlays the map,
+  // so it must be dismissable from the keyboard
+  // without moving the pointer.
+  if (context.tooltip) {
+    document.addEventListener('keydown', keyEvent => {
+      if (keyEvent.key === 'Escape') {
+        hideTooltip(context);
+      }
+    });
+  }
+
 
   drawFeatures(mapSvg, features, d3PathGenerator, context);
 

@@ -62,7 +62,7 @@
             </h2>
             <p class="text-primary-darker margin-0 text-center">Explore past and upcoming activity by state</p>
         </div>
-        {% include "partials/map_widget.html" with data_name="election-integrity-map" badge_mapping="data/agency-badges/agency-badge-map.json" map_classes="margin-top-4 margin-bottom-4" map_default_fill_color="#162e51" info_heading_classes="usa-heading margin-top-0 margin-bottom-0 text-primary-darker font-serif-xl" info_list_classes="usa-list" info_placeholder_text="Hover over a state to view details. Click a state to see all enforcement actions." info_placeholder_text_no_hover="Click a state to see all enforcement actions." info_max_items="5" info_overflow_text="All {count} actions are shown on the {state} State page. Select the state on the map to open them in a new tab." %}
+        {% include "partials/map_widget.html" with data_name="election-integrity-map" badge_mapping="data/agency-badges/agency-badge-map.json" show_tooltip="true" map_classes="margin-top-4 margin-bottom-4" map_default_fill_color="#162e51" info_heading_classes="usa-heading margin-top-0 margin-bottom-0 text-primary-darker font-serif-xl" info_list_classes="usa-list" info_placeholder_text="Hover over a state to view details. Click a state to see all enforcement actions." info_placeholder_text_no_hover="Click a state to see all enforcement actions." info_max_items="5" info_overflow_text="All {count} actions are shown on the {state} State page. Select the state on the map to open them in a new tab." %}
     </section>
 
     <!--<section id="in-the-news" class="in-the-news padding-x-2 padding-top-6 bg-base-lighter" aria-label="Election Integrity in the News">
