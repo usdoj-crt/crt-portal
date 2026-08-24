@@ -63,6 +63,34 @@ Optional (fall back to the widget's built-in defaults if omitted):
                                alongside the selected feature's total action
                                count (e.g. "Total"). Omit to hide the total.
 
+  category_bar_total_label_classnames
+                               CSS classes applied to the total label.
+
+  category_bar_total_count_classnames
+                               CSS classes applied to the total count (number).
+
+  category_slot_label_classnames
+                               CSS classes applied to each category slot's label
+                               (the category name) in the breakdown bar.
+
+  category_slot_count_classnames
+                               CSS classes applied to each category slot's count
+                               (the number) in the breakdown bar.
+
+  category_slot_empty_label_classnames
+                               CSS classes for a category slot's label span when
+                               its count is zero. When set, these REPLACE
+                               category_slot_label_classnames on empty slots (the
+                               base map-widget__category-slot-label class is kept),
+                               so the empty styling always wins with no cascade
+                               conflict. Falls back to the normal label classes
+                               when unset.
+
+  category_slot_empty_count_classnames
+                               Same as above, but for a category slot's count span
+                               (replaces category_slot_count_classnames on empty
+                               slots).
+
   badge_mapping                Path (relative to the static root) to a JSON file
                                mapping agency codes to badge image URLs. When an
                                agency is found in the mapping its image is used;
@@ -107,8 +135,14 @@ Optional (fall back to the widget's built-in defaults if omitted):
   data-map-show-category-bar="{{ show_category_bar|default:'false' }}"
   data-map-category-bar-caption="{{ category_bar_caption|default:'' }}"
   data-map-category-bar-total-label="{{ category_bar_total_label|default:'' }}"
+  data-map-category-bar-total-label-classnames="{{ category_bar_total_label_classnames|default:'' }}"
+  data-map-category-bar-total-count-classnames="{{ category_bar_total_count_classnames|default:'' }}"
   data-map-caption-state-text="{{ caption_state_text|default:'' }}"
   data-map-caption-state-classnames="{{ caption_state_classnames|default:'' }}"
+  data-map-category-slot-label-classnames="{{ category_slot_label_classnames|default:'' }}"
+  data-map-category-slot-count-classnames="{{ category_slot_count_classnames|default:'' }}"
+  data-map-category-slot-empty-label-classnames="{{ category_slot_empty_label_classnames|default:'' }}"
+  data-map-category-slot-empty-count-classnames="{{ category_slot_empty_count_classnames|default:'' }}"
   data-info-panel-placeholder-text="{{ info_placeholder_text|default:'Hover or Click a feature to view details' }}"
   data-info-panel-placeholder-text-no-hover="{{ info_placeholder_text_no_hover|default:'Click a feature to view details' }}"
   data-info-panel-heading-classes="{{ info_heading_classes|default:'' }}"

@@ -115,7 +115,11 @@ function createCategoryBar(container, mapConfig) {
   // static pieces (the caption text and the total label) are set here since
   // they never change; the per-state pieces (the caption's state-name prefix
   // and the total count) are filled in by renderCategoryBar.
-  if (mapConfig.categoryBarCaption || mapConfig.captionStateText || mapConfig.categoryBarTotalLabel) {
+  if (
+    mapConfig.categoryBarCaption ||
+    mapConfig.captionStateText ||
+    mapConfig.categoryBarTotalLabel
+  ) {
     const header = createElement('div', 'map-widget__category-bar-header');
 
     if (mapConfig.categoryBarCaption || mapConfig.captionStateText) {
@@ -140,10 +144,18 @@ function createCategoryBar(container, mapConfig) {
     if (mapConfig.categoryBarTotalLabel) {
       const total = createElement('span', 'map-widget__category-bar-total');
 
-      const totalLabel = createElement('span', 'map-widget__category-bar-total-label');
+      const totalLabelClasses = ['map-widget__category-bar-total-label'];
+      if (mapConfig.categoryBarTotalLabelClassnames) {
+        totalLabelClasses.push(mapConfig.categoryBarTotalLabelClassnames);
+      }
+      const totalLabel = createElement('span', totalLabelClasses.join(' '));
       totalLabel.textContent = mapConfig.categoryBarTotalLabel;
 
-      const totalCount = createElement('span', 'map-widget__category-bar-total-count');
+      const totalCountClasses = ['map-widget__category-bar-total-count'];
+      if (mapConfig.categoryBarTotalCountClassnames) {
+        totalCountClasses.push(mapConfig.categoryBarTotalCountClassnames);
+      }
+      const totalCount = createElement('span', totalCountClasses.join(' '));
 
       total.appendChild(totalCount);
       total.appendChild(totalLabel);
@@ -160,7 +172,6 @@ function createCategoryBar(container, mapConfig) {
   container.appendChild(bar);
   return bar;
 }
-
 
 // Create the hover tooltip element, hidden until shown. It's positioned
 // relative to the map area, so it's appended inside `.map-widget__map`.
@@ -211,15 +222,18 @@ function moveTooltip(context, mouseEvent) {
   // If a right-side tooltip would overflow the map's right edge, flip it to the
   // left of the cursor so it stays within the (overflow-clipped) map area.
   const overflowsRight = x + TOOLTIP_OFFSET + tooltip.offsetWidth > bounds.width;
-  const left = overflowsRight
-    ? x - TOOLTIP_OFFSET - tooltip.offsetWidth
-    : x + TOOLTIP_OFFSET;
+  const left = overflowsRight ? x - TOOLTIP_OFFSET - tooltip.offsetWidth : x + TOOLTIP_OFFSET;
 
-  // Likewise flip above the cursor when we would overflow bottom edge.
-  const overflowsBottom = y + TOOLTIP_OFFSET + tooltip.offsetHeight > bounds.height;
-  const top = overflowsBottom
-    ? y - TOOLTIP_OFFSET - tooltip.offsetHeight
-    : y + TOOLTIP_OFFSET;
+  // Likewise flip above the cursor when we would overflow the bottom edge. When
+  // the category bar is visible it sits at the bottom of the map area, so treat
+  // its top as the boundary to keep the tooltip from disappearing behind it.
+  const categoryBar = context.categoryBar;
+  let bottomBoundary = bounds.height;
+  if (categoryBar && categoryBar.offsetHeight > 0) {
+    bottomBoundary = categoryBar.getBoundingClientRect().top - bounds.top;
+  }
+  const overflowsBottom = y + TOOLTIP_OFFSET + tooltip.offsetHeight > bottomBoundary;
+  const top = overflowsBottom ? y - TOOLTIP_OFFSET - tooltip.offsetHeight : y + TOOLTIP_OFFSET;
 
   tooltip.style.left = `${left}px`;
   tooltip.style.top = `${top}px`;
@@ -256,7 +270,23 @@ function getMapConfig(mapWidget) {
 
   mapConfig.captionStateClassnames = mapWidget?.dataset?.mapCaptionStateClassnames || '';
 
+  mapConfig.categorySlotLabelClassnames = mapWidget?.dataset?.mapCategorySlotLabelClassnames || '';
+
+  mapConfig.categorySlotCountClassnames = mapWidget?.dataset?.mapCategorySlotCountClassnames || '';
+
+  mapConfig.categorySlotEmptyLabelClassnames =
+    mapWidget?.dataset?.mapCategorySlotEmptyLabelClassnames || '';
+
+  mapConfig.categorySlotEmptyCountClassnames =
+    mapWidget?.dataset?.mapCategorySlotEmptyCountClassnames || '';
+
   mapConfig.categoryBarTotalLabel = mapWidget?.dataset?.mapCategoryBarTotalLabel || '';
+
+  mapConfig.categoryBarTotalLabelClassnames =
+    mapWidget?.dataset?.mapCategoryBarTotalLabelClassnames || '';
+
+  mapConfig.categoryBarTotalCountClassnames =
+    mapWidget?.dataset?.mapCategoryBarTotalCountClassnames || '';
 
   return mapConfig;
 }
@@ -285,8 +315,7 @@ function getInfoPanelConfig(mapWidget) {
 
   infoPanelConfig.overflowText = mapWidget.dataset?.infoPanelOverflowText || '';
 
-  infoPanelConfig.sortOrder =
-    mapWidget?.dataset?.infoPanelSortOrder === 'asc' ? 'asc' : 'desc';
+  infoPanelConfig.sortOrder = mapWidget?.dataset?.infoPanelSortOrder === 'asc' ? 'asc' : 'desc';
 
   return infoPanelConfig;
 }
@@ -457,12 +486,12 @@ function drawFeatures(mapSvg, features, d3PathGenerator, context) {
     path.style.stroke = context.mapConfig?.strokeColor || '#ffffff';
     path.style.strokeWidth = context.mapConfig?.strokeWidth || '2';
 
-    path.addEventListener('mouseover', (mouseEvent) => {
+    path.addEventListener('mouseover', mouseEvent => {
       setActive(context, path, feature);
       showTooltip(context, feature, mouseEvent);
     });
 
-    path.addEventListener('mousemove', (mouseEvent) => {
+    path.addEventListener('mousemove', mouseEvent => {
       moveTooltip(context, mouseEvent);
     });
 
@@ -737,7 +766,7 @@ function renderInfo(context, feature) {
   // Undated actions are sorted first in "asc", last in "desc"
   const sortOrder = infoPanelConfig?.sortOrder || 'desc';
   let sortedActions = [];
-  if (sortOrder === "desc") {
+  if (sortOrder === 'desc') {
     sortedActions = allActions.slice().sort((a, b) => getActionSortKey(b) - getActionSortKey(a));
   } else {
     sortedActions = allActions.slice().sort((a, b) => getActionSortKey(a) - getActionSortKey(b));
@@ -864,28 +893,54 @@ function renderCategoryBar(context, feature) {
   // (context.categories is already sorted); dim zero counts for a stable layout.
   const slots = bar.querySelector('.map-widget__category-slots');
   slots.innerHTML = '';
+
+  const slotLabelClasses = ['map-widget__category-slot-label'];
+  if (mapConfig.categorySlotLabelClassnames) {
+    slotLabelClasses.push(mapConfig.categorySlotLabelClassnames);
+  }
+  const slotLabelClass = slotLabelClasses.join(' ');
+
+  const slotCountClasses = ['map-widget__category-slot-count'];
+  if (mapConfig.categorySlotCountClassnames) {
+    slotCountClasses.push(mapConfig.categorySlotCountClassnames);
+  }
+  const slotCountClass = slotCountClasses.join(' ');
+
+  // Empty-slot variants: zero-count slots use their own base classes
+  // (map-widget__category-slot-empty-label/-count) plus any configured empty
+  // classnames, fully replacing the normal label/count classes rather than
+  // layering on top — so their styling always wins with no cascade conflict.
+  const slotEmptyLabelClasses = ['map-widget__category-slot-empty-label'];
+  if (mapConfig.categorySlotEmptyLabelClassnames) {
+    slotEmptyLabelClasses.push(mapConfig.categorySlotEmptyLabelClassnames);
+  }
+  const slotEmptyLabelClass = slotEmptyLabelClasses.join(' ');
+
+  const slotEmptyCountClasses = ['map-widget__category-slot-empty-count'];
+  if (mapConfig.categorySlotEmptyCountClassnames) {
+    slotEmptyCountClasses.push(mapConfig.categorySlotEmptyCountClassnames);
+  }
+  const slotEmptyCountClass = slotEmptyCountClasses.join(' ');
+
   for (const category of context.categories) {
     const count = counts[category] || 0;
+    const isEmpty = count === 0;
 
     const slot = createElement('div', 'map-widget__category-slot');
-    if (count === 0) {
-      slot.classList.add('map-widget__category-slot--empty');
-    }
 
-    const label = createElement('span', 'map-widget__category-label');
+    const label = createElement('span', isEmpty ? slotEmptyLabelClass : slotLabelClass);
     label.textContent = category;
 
-    const value = createElement('span', 'map-widget__category-count');
+    const value = createElement('span', isEmpty ? slotEmptyCountClass : slotCountClass);
     value.textContent = count;
 
-    slot.appendChild(label);
     slot.appendChild(value);
+    slot.appendChild(label);
     slots.appendChild(slot);
   }
 
   bar.hidden = false;
 }
-
 
 async function initMapWidget(mapWidget) {
   const data = await loadData(mapWidget);
@@ -942,7 +997,7 @@ async function initMapWidget(mapWidget) {
     focusables: [],
     tooltip: tooltip,
     categories: categories,
-    categoryBar: categoryBar,
+    categoryBar: categoryBar
   };
 
   // Accessibility: The hover tooltip overlays the map,

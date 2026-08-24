@@ -35,11 +35,13 @@
   position: relative;
 }
 
-/* Cursor-following hover tooltip (opt-in via the show_tooltip argument). */
+/* Cursor-following hover tooltip (opt-in via the show_tooltip argument).
+   Hidden by default and only revealed at the desktop breakpoint below, so it
+   never shows on mobile/tablet (where there is no cursor to follow). */
 .map-widget__tooltip {
   position: absolute;
   z-index: 5;
-  display: flex;
+  display: none;
   align-items: center;
   gap: 0.5rem;
   pointer-events: none;
@@ -47,9 +49,17 @@
   border-radius: 8px;
   background: #1b1b1b;
   color: #ffffff;
-  font-size: 1.0rem;
+  font-size: 1rem;
   white-space: nowrap;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+@media (min-width: 1024px) {
+  /* `:not([hidden])` preserves the JS `hidden` toggle — without it this rule
+     would override `hidden` and keep the tooltip visible after mouseleave. */
+  .map-widget__tooltip:not([hidden]) {
+    display: flex;
+  }
 }
 
 /* Category summary bar — sits below the map SVG, inside the map card, so its
@@ -61,11 +71,11 @@
 
   flex-direction: column;
   gap: 0.5rem;
-  padding-top: 1.0rem;
-  padding-bottom: 1.0rem;
-  padding-left: 1.0rem;
-  padding-right: 1.0rem;
-  background: #3d4551;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  background: rgba(10, 19, 34, 0.9); /* #0a1322 at 90% */
+  backdrop-filter: blur(3px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 8px;
 }
 
@@ -85,14 +95,13 @@
   gap: 1rem;
 }
 
-.map-widget__category-bar-caption-state {
-  margin-right: 0.25em;
+.map-widget__category-bar-caption {
+  color: white;
+  padding-left: 1rem;
 }
 
-
-.map-widget__category-bar-caption {
-  font-weight: 700;
-  color: #dfe1e2;
+.map-widget__category-bar-caption-state {
+  margin-right: 0.25em;
 }
 
 .map-widget__category-bar-total {
@@ -100,43 +109,53 @@
   display: flex;
   align-items: baseline;
   gap: 0.25rem;
+  padding-right: 1rem;
 }
 
 .map-widget__category-bar-total-label {
-  font-weight: 700;
-  color: #71767a;
+  color: white;
 }
 
 .map-widget__category-bar-total-count {
-  font-weight: 700;
-  font-variant-numeric: tabular-nums;
-  color: #1b1b1b;
+  color: white;
 }
 
 .map-widget__category-slots {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
+  justify-content: space-between;
+  padding-top: 0.5rem;
+  border-top: 1px solid #dfe1e2;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 .map-widget__category-slot {
   display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  gap: 0.375rem;
-  padding: 0.25rem 0.625rem;
-  border-radius: 999px;
-  background: #f0f0f0;
-  font-size: 0.875rem;
-  line-height: 1.4;
+  padding: 0 0.75rem;
+  border-left: 1px solid #dfe1e2;
 }
 
-.map-widget__category-count {
-  font-weight: 700;
+.map-widget__category-slot:first-child {
+  border-left: 0;
 }
 
-/* Zero-count categories stay in place (stable layout) but dimmed. */
-.map-widget__category-slot--empty {
-  opacity: 0.4;
+.map-widget__category-slot-label {
+  text-align: center;
+}
+
+.map-widget__category-slot-count {
+  text-align: center;
+}
+
+.map-widget__category-slot-empty-label {
+  text-align: center;
+}
+
+.map-widget__category-slot-empty-count {
+  text-align: center;
 }
 
 /* The SVG scales to fill the map area; viewBox handles the aspect ratio. */
@@ -149,7 +168,7 @@
 
 .map-widget__panel {
   flex: 1;
-  padding: 1.0rem;
+  padding: 1rem;
   border-radius: 8px;
   background: #ffffff;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
@@ -160,7 +179,7 @@
 /* Short gold/yellow accent bar shown above the info-panel heading. */
 .map-widget__separator {
   margin-top: 0.25rem;
-  margin-bottom: 1.0rem;
+  margin-bottom: 1rem;
   border: 2px solid #ffbe2e;
   border-radius: 2px;
   background: #ffbe2e;
