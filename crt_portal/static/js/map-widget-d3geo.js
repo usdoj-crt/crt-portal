@@ -301,9 +301,17 @@ function getInfoPanelConfig(mapWidget) {
 
   infoPanelConfig.headingClasses = mapWidget?.dataset?.infoPanelHeadingClasses || '';
 
+  infoPanelConfig.subheadingText = mapWidget?.dataset?.infoPanelSubheadingText || '';
+
+  infoPanelConfig.subheadingClasses = mapWidget?.dataset?.infoPanelSubheadingClasses || '';
+
   infoPanelConfig.listClasses = mapWidget?.dataset?.infoPanelListClasses || '';
 
   infoPanelConfig.listItemClasses = mapWidget?.dataset?.infoPanelListItemClasses || '';
+
+  infoPanelConfig.actionTextClasses = mapWidget?.dataset?.infoPanelActionTextClasses || '';
+
+  infoPanelConfig.actionDateClasses = mapWidget?.dataset?.infoPanelActionDateClasses || '';
 
   infoPanelConfig.noDataText = mapWidget?.dataset?.infoPanelNoDataText || '';
 
@@ -314,6 +322,8 @@ function getInfoPanelConfig(mapWidget) {
   infoPanelConfig.maxItems = Number.isNaN(parsedMax) ? null : parsedMax;
 
   infoPanelConfig.overflowText = mapWidget.dataset?.infoPanelOverflowText || '';
+
+  infoPanelConfig.overflowClasses = mapWidget?.dataset?.infoPanelOverflowClasses || '';
 
   infoPanelConfig.sortOrder = mapWidget?.dataset?.infoPanelSortOrder === 'asc' ? 'asc' : 'desc';
 
@@ -608,11 +618,7 @@ function buildInfoPanel(mapWidget, infoPanelConfig) {
         renderInfoPlaceholder(panel, infoPanelConfig);
       }
     };
-    if (typeof hoverQuery.addEventListener === 'function') {
-      hoverQuery.addEventListener('change', onHoverChange);
-    } else if (typeof hoverQuery.addListener === 'function') {
-      hoverQuery.addListener(onHoverChange);
-    }
+    hoverQuery.addEventListener('change', onHoverChange);
   }
 
   return panel;
@@ -758,6 +764,17 @@ function renderInfo(context, feature) {
   const separator = createElement('div', 'map-widget__separator');
   panel.appendChild(separator);
 
+  //    Optional subheading, shown between the heading row and the separator.
+  //    Supports the {state} placeholder.
+  if (infoPanelConfig?.subheadingText) {
+    const subheading = createElement('p', 'map-widget__subheading');
+    if (infoPanelConfig.subheadingClasses) {
+      subheading.className = `map-widget__subheading ${infoPanelConfig.subheadingClasses}`;
+    }
+    subheading.textContent = infoPanelConfig.subheadingText.replace('{state}', stateName);
+    panel.appendChild(subheading);
+  }
+
   //    Grab all actions, remember the true total
   const allActions = stateData?.actions ?? [];
   const total = allActions.length;
@@ -820,15 +837,23 @@ function renderInfo(context, feature) {
 
     // 10e. Add the action's description text.
     const text = createElement('span', 'map-widget__action-text');
+    if (infoPanelConfig?.actionTextClasses) {
+      text.className = `map-widget__action-text ${infoPanelConfig.actionTextClasses}`;
+    }
     text.textContent = action.action;
-    content.appendChild(text);
+    // content.appendChild(text);
 
     // 10f. Add a formatted date when one is present.
     if (action.date !== null) {
       const date = createElement('div', 'map-widget__action-date');
+      if (infoPanelConfig?.actionDateClasses) {
+        date.className = `map-widget__action-date ${infoPanelConfig.actionDateClasses}`;
+      }
       date.textContent = formatActionDate(action.date);
       content.appendChild(date);
     }
+
+    content.appendChild(text);
 
     // 10g. Assemble the row and append the finished item to the list.
     row.appendChild(content);
@@ -845,6 +870,9 @@ function renderInfo(context, feature) {
   //    the full list. Supports {count} (true total) and {state} placeholders.
   if (maxItems > 0 && total > maxItems && infoPanelConfig?.overflowText) {
     const overflow = createElement('p', 'map-widget__actions-overflow');
+    if (infoPanelConfig.overflowClasses) {
+      overflow.className = `map-widget__actions-overflow ${infoPanelConfig.overflowClasses}`;
+    }
     overflow.textContent = infoPanelConfig.overflowText
       .replace('{count}', total)
       .replace('{state}', stateName);

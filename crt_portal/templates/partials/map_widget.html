@@ -105,9 +105,20 @@ Optional (fall back to the widget's built-in defaults if omitted):
 
   info_heading_classes         CSS classes for the info-panel heading.
 
+  info_subheading_text         Optional info-panel subheading, shown below the
+                               heading/pill and above the separator. Supports the
+                               {state} placeholder (replaced with the selected
+                               state's name). Omitted when empty.
+
+  info_subheading_classes      CSS classes for the info-panel subheading.
+
   info_list_classes            CSS classes for the info-panel list.
 
   info_list_item_classes       CSS classes for the info-panel list items.
+
+  info_action_text_classes     CSS classes for each action's description text.
+
+  info_action_date_classes     CSS classes for each action's formatted date.
 
   info_no_data_text            Text shown when a state has no data. Defaults to
                                "No Data".
@@ -118,6 +129,8 @@ Optional (fall back to the widget's built-in defaults if omitted):
   info_max_items               The maximum number of items to render
 
   info_overflow_text           If max number of items is exceeded, this text is displayed below
+
+  info_overflow_classes        CSS classes for the overflow text paragraph.
 -->
 {% endcomment %}
 <div
@@ -146,11 +159,16 @@ Optional (fall back to the widget's built-in defaults if omitted):
   data-info-panel-placeholder-text="{{ info_placeholder_text|default:'Hover or Click a feature to view details' }}"
   data-info-panel-placeholder-text-no-hover="{{ info_placeholder_text_no_hover|default:'Click a feature to view details' }}"
   data-info-panel-heading-classes="{{ info_heading_classes|default:'' }}"
+  data-info-panel-subheading-text="{{ info_subheading_text|default:'' }}"
+  data-info-panel-subheading-classes="{{ info_subheading_classes|default:'' }}"
   data-info-panel-list-classes="{{ info_list_classes|default:'' }}"
   data-info-panel-list-item-classes="{{ info_list_item_classes|default:'' }}"
+  data-info-panel-action-text-classes="{{ info_action_text_classes|default:'' }}"
+  data-info-panel-action-date-classes="{{ info_action_date_classes|default:'' }}"
   data-info-panel-no-data-text="{{ info_no_data_text|default:'No Data' }}"
   data-info-panel-no-data-paragraph-classes="{{ info_no_data_paragraph_classes|default:'' }}"
   data-info-panel-max-items="{{ info_max_items|default:'' }}"
   data-info-panel-overflow-text="{{ info_overflow_text|default:'' }}"
+  data-info-panel-overflow-classes="{{ info_overflow_classes|default:'' }}"
   data-info-panel-sort-order="{{ info_sort_order|default:'desc' }}"
 ></div>
