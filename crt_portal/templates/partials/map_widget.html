@@ -21,17 +21,48 @@ Required:
 
 Optional (fall back to the widget's built-in defaults if omitted):
   map_classes                  Extra CSS classes added to the widget container.
+
   map_default_fill_color       Resting fill for states. Defaults to "#3498db".
+
   map_active_fill_color        Fill for the hovered/selected state. Defaults to
                                "#f4c430".
+
   map_stroke_color             Border color. Defaults to "#ffffff".
+
   map_stroke_width             Border width. Defaults to "1".
+
   badge_text_color             Text color for the DC badge label. Defaults to
                                "#ffffff".
+
   badge_radius                 Radius of the DC badge circle. Defaults to "16".
+
   show_tooltip                 When "true", a small tooltip follows the cursor
                                while hovering a feature, showing its name and
                                code. Defaults to "false".
+
+  show_category_bar            When "true", a bar is shown below the map that
+                               breaks down the selected feature's actions by
+                               category. The set of categories is derived from
+                               the data (the "category" field on each action)
+                               and ordered alphabetically. Actions without a
+                               category are ignored. Defaults to "false".
+
+  category_bar_caption         Optional static caption text shown in the
+                               category bar header (e.g. "enforcement actions
+                               by type").
+
+  caption_state_text           Optional prefix shown before the caption text,
+                               with {state} replaced by the selected feature's
+                               name (e.g. "{state}" or "{state}:"). Rendered in
+                               its own span for independent styling. Omit to hide.
+
+  caption_state_classnames     CSS classes applied to the caption_state_text
+                               span (e.g. "text-gold").
+
+  category_bar_total_label     Optional label shown to the right of the caption,
+                               alongside the selected feature's total action
+                               count (e.g. "Total"). Omit to hide the total.
+
   badge_mapping                Path (relative to the static root) to a JSON file
                                mapping agency codes to badge image URLs. When an
                                agency is found in the mapping its image is used;
@@ -43,14 +74,21 @@ Optional (fall back to the widget's built-in defaults if omitted):
                                Info-panel text before a state is selected,
                                shown on tap/click-only devices (no hover).
                                Defaults to "Click a feature to view details".
+
   info_heading_classes         CSS classes for the info-panel heading.
+
   info_list_classes            CSS classes for the info-panel list.
+
   info_list_item_classes       CSS classes for the info-panel list items.
+
   info_no_data_text            Text shown when a state has no data. Defaults to
                                "No Data".
+
   info_no_data_paragraph_classes
-                               CSS classes for the "no data" paragraph.
+                                  CSS classes for the "no data" paragraph.
+
   info_max_items               The maximum number of items to render
+
   info_overflow_text           If max number of items is exceeded, this text is displayed below
 -->
 {% endcomment %}
@@ -66,6 +104,11 @@ Optional (fall back to the widget's built-in defaults if omitted):
   data-map-badge-text-color="{{ badge_text_color|default:'' }}"
   data-map-badge-radius="{{ badge_radius|default:'' }}"
   data-map-show-tooltip="{{ show_tooltip|default:'false'}}"
+  data-map-show-category-bar="{{ show_category_bar|default:'false' }}"
+  data-map-category-bar-caption="{{ category_bar_caption|default:'' }}"
+  data-map-category-bar-total-label="{{ category_bar_total_label|default:'' }}"
+  data-map-caption-state-text="{{ caption_state_text|default:'' }}"
+  data-map-caption-state-classnames="{{ caption_state_classnames|default:'' }}"
   data-info-panel-placeholder-text="{{ info_placeholder_text|default:'Hover or Click a feature to view details' }}"
   data-info-panel-placeholder-text-no-hover="{{ info_placeholder_text_no_hover|default:'Click a feature to view details' }}"
   data-info-panel-heading-classes="{{ info_heading_classes|default:'' }}"

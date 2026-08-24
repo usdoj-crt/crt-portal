@@ -83,6 +83,85 @@ function createMapSvg(mapElement) {
   return svg;
 }
 
+/**
+ * Collects the unique set of action categories across data actions,
+ * sorted alphabetically. Used to render the (optional) category bar.
+ * Returns [] if no actions have categories.
+ */
+function collectCategories(data) {
+  const seen = new Set();
+  for (const state of Object.values(data)) {
+    for (const action of state.actions || []) {
+      if (action.category) {
+        seen.add(action.category);
+      }
+    }
+  }
+  return Array.from(seen).sort();
+}
+
+// Create the category summary bar, hidden until a state is selected. Builds the
+// static structure (header with the caption text/total label, plus the slots
+// container); the per-state pieces (state-name prefix, total count, and the
+// category slots) are filled in by renderCategoryBar.
+function createCategoryBar(container, mapConfig) {
+  const bar = createElement('div', 'map-widget__category-bar');
+  bar.hidden = true;
+  // The panel (aria-live) already announces the selected state's actions,
+  // so treat this bar as a purely visual summary to avoid double-announcing.
+  bar.setAttribute('aria-hidden', 'true');
+
+  // Header row: caption on the left, total on the right, all optional. The
+  // static pieces (the caption text and the total label) are set here since
+  // they never change; the per-state pieces (the caption's state-name prefix
+  // and the total count) are filled in by renderCategoryBar.
+  if (mapConfig.categoryBarCaption || mapConfig.captionStateText || mapConfig.categoryBarTotalLabel) {
+    const header = createElement('div', 'map-widget__category-bar-header');
+
+    if (mapConfig.categoryBarCaption || mapConfig.captionStateText) {
+      const caption = createElement('span', 'map-widget__category-bar-caption');
+
+      if (mapConfig.captionStateText) {
+        const stateClasses = ['map-widget__category-bar-caption-state'];
+        if (mapConfig.captionStateClassnames) {
+          stateClasses.push(mapConfig.captionStateClassnames);
+        }
+        const stateEl = createElement('span', stateClasses.join(' '));
+        caption.appendChild(stateEl);
+      }
+
+      if (mapConfig.categoryBarCaption) {
+        caption.appendChild(document.createTextNode(mapConfig.categoryBarCaption));
+      }
+
+      header.appendChild(caption);
+    }
+
+    if (mapConfig.categoryBarTotalLabel) {
+      const total = createElement('span', 'map-widget__category-bar-total');
+
+      const totalLabel = createElement('span', 'map-widget__category-bar-total-label');
+      totalLabel.textContent = mapConfig.categoryBarTotalLabel;
+
+      const totalCount = createElement('span', 'map-widget__category-bar-total-count');
+
+      total.appendChild(totalCount);
+      total.appendChild(totalLabel);
+      header.appendChild(total);
+    }
+
+    bar.appendChild(header);
+  }
+
+  // Slots container, filled per-state by renderCategoryBar.
+  const slots = createElement('div', 'map-widget__category-slots');
+  bar.appendChild(slots);
+
+  container.appendChild(bar);
+  return bar;
+}
+
+
 // Create the hover tooltip element, hidden until shown. It's positioned
 // relative to the map area, so it's appended inside `.map-widget__map`.
 function createTooltip(mapElement) {
@@ -168,6 +247,16 @@ function getMapConfig(mapWidget) {
   mapConfig.badgeRadius = mapWidget?.dataset?.mapBadgeRadius || '16';
 
   mapConfig.showTooltip = mapWidget?.dataset?.mapShowTooltip === 'true';
+
+  mapConfig.showCategoryBar = mapWidget?.dataset?.mapShowCategoryBar === 'true';
+
+  mapConfig.categoryBarCaption = mapWidget?.dataset?.mapCategoryBarCaption || '';
+
+  mapConfig.captionStateText = mapWidget?.dataset?.mapCaptionStateText || '';
+
+  mapConfig.captionStateClassnames = mapWidget?.dataset?.mapCaptionStateClassnames || '';
+
+  mapConfig.categoryBarTotalLabel = mapWidget?.dataset?.mapCategoryBarTotalLabel || '';
 
   return mapConfig;
 }
@@ -336,6 +425,7 @@ function setActive(context, shape, feature) {
 
   showActive(shape, context.mapConfig);
   renderInfo(context, feature);
+  renderCategoryBar(context, feature);
 
   context.active = { shape: shape, feature: feature };
 }
@@ -733,6 +823,70 @@ function renderInfo(context, feature) {
   }
 }
 
+// Fill the category bar with one slot per known category, showing how many
+// of the selected state's actions fall into each. Counts use the state's
+// FULL actions list (not the capped info-panel list). Every category is
+// always rendered, even if the count is zero, so that the layout stays
+// stable.
+function renderCategoryBar(context, feature) {
+  const bar = context.categoryBar;
+  if (!bar) {
+    return;
+  }
+
+  const { mapConfig } = context;
+  const stateData = context.data[feature.properties.code];
+  const actions = stateData?.actions ?? [];
+  const stateName = stateData?.name ?? feature.properties.name;
+
+  // Tally actions by category.
+  const counts = {};
+  for (const action of actions) {
+    if (action.category) {
+      counts[action.category] = (counts[action.category] || 0) + 1;
+    }
+  }
+
+  // Fill the caption's state-name prefix — the only per-state part of the
+  // caption (the static text was set once in createCategoryBar). {state} is
+  // replaced with the selected state's name.
+  const captionState = bar.querySelector('.map-widget__category-bar-caption-state');
+  if (captionState) {
+    captionState.textContent = mapConfig.captionStateText.replace('{state}', stateName);
+  }
+
+  const totalCountEl = bar.querySelector('.map-widget__category-bar-total-count');
+  if (totalCountEl) {
+    totalCountEl.textContent = actions.length;
+  }
+
+  // Rebuild the slots. Render every known category in alphabetical order
+  // (context.categories is already sorted); dim zero counts for a stable layout.
+  const slots = bar.querySelector('.map-widget__category-slots');
+  slots.innerHTML = '';
+  for (const category of context.categories) {
+    const count = counts[category] || 0;
+
+    const slot = createElement('div', 'map-widget__category-slot');
+    if (count === 0) {
+      slot.classList.add('map-widget__category-slot--empty');
+    }
+
+    const label = createElement('span', 'map-widget__category-label');
+    label.textContent = category;
+
+    const value = createElement('span', 'map-widget__category-count');
+    value.textContent = count;
+
+    slot.appendChild(label);
+    slot.appendChild(value);
+    slots.appendChild(slot);
+  }
+
+  bar.hidden = false;
+}
+
+
 async function initMapWidget(mapWidget) {
   const data = await loadData(mapWidget);
   const badgeMapping = await loadBadgeMapping(mapWidget);
@@ -758,6 +912,24 @@ async function initMapWidget(mapWidget) {
   const infoPanelConfig = getInfoPanelConfig(mapWidget);
   const panel = buildInfoPanel(mapWidget, infoPanelConfig);
 
+  let tooltip = null;
+  if (mapConfig.showTooltip) {
+    tooltip = createTooltip(mapElement);
+  }
+
+  let categories = null;
+  if (mapConfig.showCategoryBar) {
+    const found = collectCategories(data);
+    if (found.length) {
+      categories = found;
+    }
+  }
+
+  let categoryBar = null;
+  if (categories) {
+    categoryBar = createCategoryBar(mapElement, mapConfig);
+  }
+
   const context = {
     panel: panel,
     data: data,
@@ -768,7 +940,9 @@ async function initMapWidget(mapWidget) {
     badgeCache: {},
     active: null,
     focusables: [],
-    tooltip: mapConfig.showTooltip ? createTooltip(mapElement) : null
+    tooltip: tooltip,
+    categories: categories,
+    categoryBar: categoryBar,
   };
 
   // Accessibility: The hover tooltip overlays the map,
@@ -781,7 +955,6 @@ async function initMapWidget(mapWidget) {
       }
     });
   }
-
 
   drawFeatures(mapSvg, features, d3PathGenerator, context);
 

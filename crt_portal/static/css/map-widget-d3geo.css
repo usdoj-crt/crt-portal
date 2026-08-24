@@ -52,6 +52,93 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
 }
 
+/* Category summary bar — sits below the map SVG, inside the map card, so its
+   position is independent of the info panel's height. Hidden on mobile
+   (the mockup only shows it on wider screens) and hidden until a state
+   is selected (via the `hidden` attribute toggled in renderCategoryBar). */
+.map-widget__category-bar {
+  display: none;
+
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-top: 1.0rem;
+  padding-bottom: 1.0rem;
+  padding-left: 1.0rem;
+  padding-right: 1.0rem;
+  background: #3d4551;
+  border-radius: 8px;
+}
+
+@media (min-width: 1024px) {
+  /* `:not([hidden])` keeps the browser's `hidden` behavior working — without
+     it, this display rule would override `hidden` and reveal the bar before a
+     state is selected. */
+  .map-widget__category-bar:not([hidden]) {
+    display: flex;
+  }
+}
+
+.map-widget__category-bar-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.map-widget__category-bar-caption-state {
+  margin-right: 0.25em;
+}
+
+
+.map-widget__category-bar-caption {
+  font-weight: 700;
+  color: #dfe1e2;
+}
+
+.map-widget__category-bar-total {
+  flex: none;
+  display: flex;
+  align-items: baseline;
+  gap: 0.25rem;
+}
+
+.map-widget__category-bar-total-label {
+  font-weight: 700;
+  color: #71767a;
+}
+
+.map-widget__category-bar-total-count {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: #1b1b1b;
+}
+
+.map-widget__category-slots {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.map-widget__category-slot {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.625rem;
+  border-radius: 999px;
+  background: #f0f0f0;
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+
+.map-widget__category-count {
+  font-weight: 700;
+}
+
+/* Zero-count categories stay in place (stable layout) but dimmed. */
+.map-widget__category-slot--empty {
+  opacity: 0.4;
+}
+
 /* The SVG scales to fill the map area; viewBox handles the aspect ratio. */
 .map-widget__svg {
   width: 100%;
