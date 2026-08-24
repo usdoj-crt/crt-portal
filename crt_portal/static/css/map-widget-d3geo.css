@@ -169,7 +169,10 @@
 
 .map-widget__panel {
   flex: 1;
-  padding: 1rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  padding-left: 1rem;
+  padding-right: 3rem;
   /*border-radius: 8px;*/
   background: #ffffff;
   /*box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);*/
