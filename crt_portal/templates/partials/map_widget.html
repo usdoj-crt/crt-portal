@@ -47,6 +47,8 @@ Optional (fall back to the widget's built-in defaults if omitted):
                                "No Data".
   info_no_data_paragraph_classes
                                CSS classes for the "no data" paragraph.
+  info_max_items               The maximum number of items to render
+  info_overflow_text           If max number of items is exceeded, this text is displayed below
 -->
 {% endcomment %}
 <div
@@ -67,4 +69,7 @@ Optional (fall back to the widget's built-in defaults if omitted):
   data-info-panel-list-item-classes="{{ info_list_item_classes|default:'' }}"
   data-info-panel-no-data-text="{{ info_no_data_text|default:'No Data' }}"
   data-info-panel-no-data-paragraph-classes="{{ info_no_data_paragraph_classes|default:'' }}"
+  data-info-panel-max-items="{{ info_max_items|default:'' }}"
+  data-info-panel-overflow-text="{{ info_overflow_text|default:'' }}"
+  data-info-panel-sort-order="{{ info_sort_order|default:'desc' }}"
 ></div>

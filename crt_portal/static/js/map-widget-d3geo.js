@@ -52,6 +52,21 @@ function formatActionDate(dateString) {
   return `${MONTH_ABBREVIATIONS[month - 1]} ${paddedDay}, ${year}`;
 }
 
+// Returns a sortable number key derived from an action's "M/D/YYYY" date.
+// Undated/invalid evaluates to -> -1
+// so undated actions sort last when ordering
+// by latest date first.
+function getActionSortKey(action) {
+  const parts = String(action?.date ?? '').split('/');
+  if (parts.length !== 3) return -1;
+  const month = parseInt(parts[0], 10);
+  const day = parseInt(parts[1], 10);
+  const year = parseInt(parts[2], 10);
+  if (!month || !day || !year) return -1;
+  return year * 10000 + month * 100 + day;
+}
+
+
 // Create the SVG element the map will be drawn into.
 function createMapSvg(mapElement) {
   const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
@@ -102,6 +117,14 @@ function getInfoPanelConfig(mapWidget) {
 
   infoPanelConfig.noDataParagraphClasses =
     mapWidget?.dataset?.infoPanelNoDataParagraphClasses || '';
+
+  const parsedMax = parseInt(mapWidget?.dataset?.infoPanelMaxItems, 10);
+  infoPanelConfig.maxItems = Number.isNaN(parsedMax) ? null : parsedMax;
+
+  infoPanelConfig.overflowText = mapWidget.dataset?.infoPanelOverflowText || '';
+
+  infoPanelConfig.sortOrder =
+    mapWidget?.dataset?.infoPanelSortOrder === 'asc' ? 'asc' : 'desc';
 
   return infoPanelConfig;
 }
@@ -525,8 +548,22 @@ function renderInfo(context, feature) {
   const separator = createElement('div', 'map-widget__separator');
   panel.appendChild(separator);
 
-  //    If the state has no actions, show the "no data" message and stop here.
-  const actionsList = stateData?.actions ?? [];
+  //    Grab all actions, remember the true total
+  const allActions = stateData?.actions ?? [];
+  const total = allActions.length;
+
+  // Sort the actions
+  // Undated actions are sorted first in "asc", last in "desc"
+  const sortOrder = infoPanelConfig?.sortOrder || 'desc';
+  let sortedActions = [];
+  if (sortOrder === "desc") {
+    sortedActions = allActions.slice().sort((a, b) => getActionSortKey(b) - getActionSortKey(a));
+  } else {
+    sortedActions = allActions.slice().sort((a, b) => getActionSortKey(a) - getActionSortKey(b));
+  }
+
+  const maxItems = infoPanelConfig?.maxItems;
+  const actionsList = maxItems > 0 ? sortedActions.slice(0, maxItems) : sortedActions;
 
   if (actionsList?.length === 0) {
     const noDataParagraph = createElement('p');
@@ -593,6 +630,16 @@ function renderInfo(context, feature) {
 
   // 11. Append the fully built actions list to the panel.
   panel.appendChild(list);
+
+  //    When the state has more actions than we showed, add a line pointing to
+  //    the full list. Supports {count} (true total) and {state} placeholders.
+  if (maxItems > 0 && total > maxItems && infoPanelConfig?.overflowText) {
+    const overflow = createElement('p', 'map-widget__actions-overflow');
+    overflow.textContent = infoPanelConfig.overflowText
+      .replace('{count}', total)
+      .replace('{state}', stateName);
+    panel.appendChild(overflow);
+  }
 }
 
 async function initMapWidget(mapWidget) {
