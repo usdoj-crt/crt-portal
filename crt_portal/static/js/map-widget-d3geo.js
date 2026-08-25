@@ -127,15 +127,21 @@ function createCategoryBar(container, mapConfig) {
 
       if (mapConfig.captionStateText) {
         const stateClasses = ['map-widget__category-bar-caption-state'];
-        if (mapConfig.captionStateClassnames) {
-          stateClasses.push(mapConfig.captionStateClassnames);
+        if (mapConfig.captionStateClasses) {
+          stateClasses.push(mapConfig.captionStateClasses);
         }
         const stateEl = createElement('span', stateClasses.join(' '));
         caption.appendChild(stateEl);
       }
 
       if (mapConfig.categoryBarCaption) {
-        caption.appendChild(document.createTextNode(mapConfig.categoryBarCaption));
+        const textClasses = ['map-widget__category-bar-caption-text'];
+        if (mapConfig.categoryBarCaptionClasses) {
+          textClasses.push(mapConfig.categoryBarCaptionClasses);
+        }
+        const textEl = createElement('span', textClasses.join(' '));
+        textEl.textContent = mapConfig.categoryBarCaption;
+        caption.appendChild(textEl);
       }
 
       header.appendChild(caption);
@@ -145,15 +151,15 @@ function createCategoryBar(container, mapConfig) {
       const total = createElement('span', 'map-widget__category-bar-total');
 
       const totalLabelClasses = ['map-widget__category-bar-total-label'];
-      if (mapConfig.categoryBarTotalLabelClassnames) {
-        totalLabelClasses.push(mapConfig.categoryBarTotalLabelClassnames);
+      if (mapConfig.categoryBarTotalLabelClasses) {
+        totalLabelClasses.push(mapConfig.categoryBarTotalLabelClasses);
       }
       const totalLabel = createElement('span', totalLabelClasses.join(' '));
       totalLabel.textContent = mapConfig.categoryBarTotalLabel;
 
       const totalCountClasses = ['map-widget__category-bar-total-count'];
-      if (mapConfig.categoryBarTotalCountClassnames) {
-        totalCountClasses.push(mapConfig.categoryBarTotalCountClassnames);
+      if (mapConfig.categoryBarTotalCountClasses) {
+        totalCountClasses.push(mapConfig.categoryBarTotalCountClasses);
       }
       const totalCount = createElement('span', totalCountClasses.join(' '));
 
@@ -266,27 +272,29 @@ function getMapConfig(mapWidget) {
 
   mapConfig.categoryBarCaption = mapWidget?.dataset?.mapCategoryBarCaption || '';
 
+  mapConfig.categoryBarCaptionClasses = mapWidget?.dataset?.mapCategoryBarCaptionClasses || '';
+
   mapConfig.captionStateText = mapWidget?.dataset?.mapCaptionStateText || '';
 
-  mapConfig.captionStateClassnames = mapWidget?.dataset?.mapCaptionStateClassnames || '';
+  mapConfig.captionStateClasses = mapWidget?.dataset?.mapCaptionStateClasses || '';
 
-  mapConfig.categorySlotLabelClassnames = mapWidget?.dataset?.mapCategorySlotLabelClassnames || '';
+  mapConfig.categorySlotLabelClasses = mapWidget?.dataset?.mapCategorySlotLabelClasses || '';
 
-  mapConfig.categorySlotCountClassnames = mapWidget?.dataset?.mapCategorySlotCountClassnames || '';
+  mapConfig.categorySlotCountClasses = mapWidget?.dataset?.mapCategorySlotCountClasses || '';
 
-  mapConfig.categorySlotEmptyLabelClassnames =
-    mapWidget?.dataset?.mapCategorySlotEmptyLabelClassnames || '';
+  mapConfig.categorySlotEmptyLabelClasses =
+    mapWidget?.dataset?.mapCategorySlotEmptyLabelClasses || '';
 
-  mapConfig.categorySlotEmptyCountClassnames =
-    mapWidget?.dataset?.mapCategorySlotEmptyCountClassnames || '';
+  mapConfig.categorySlotEmptyCountClasses =
+    mapWidget?.dataset?.mapCategorySlotEmptyCountClasses || '';
 
   mapConfig.categoryBarTotalLabel = mapWidget?.dataset?.mapCategoryBarTotalLabel || '';
 
-  mapConfig.categoryBarTotalLabelClassnames =
-    mapWidget?.dataset?.mapCategoryBarTotalLabelClassnames || '';
+  mapConfig.categoryBarTotalLabelClasses =
+    mapWidget?.dataset?.mapCategoryBarTotalLabelClasses || '';
 
-  mapConfig.categoryBarTotalCountClassnames =
-    mapWidget?.dataset?.mapCategoryBarTotalCountClassnames || '';
+  mapConfig.categoryBarTotalCountClasses =
+    mapWidget?.dataset?.mapCategoryBarTotalCountClasses || '';
 
   return mapConfig;
 }
@@ -923,30 +931,30 @@ function renderCategoryBar(context, feature) {
   slots.innerHTML = '';
 
   const slotLabelClasses = ['map-widget__category-slot-label'];
-  if (mapConfig.categorySlotLabelClassnames) {
-    slotLabelClasses.push(mapConfig.categorySlotLabelClassnames);
+  if (mapConfig.categorySlotLabelClasses) {
+    slotLabelClasses.push(mapConfig.categorySlotLabelClasses);
   }
   const slotLabelClass = slotLabelClasses.join(' ');
 
   const slotCountClasses = ['map-widget__category-slot-count'];
-  if (mapConfig.categorySlotCountClassnames) {
-    slotCountClasses.push(mapConfig.categorySlotCountClassnames);
+  if (mapConfig.categorySlotCountClasses) {
+    slotCountClasses.push(mapConfig.categorySlotCountClasses);
   }
   const slotCountClass = slotCountClasses.join(' ');
 
   // Empty-slot variants: zero-count slots use their own base classes
   // (map-widget__category-slot-empty-label/-count) plus any configured empty
-  // classnames, fully replacing the normal label/count classes rather than
+  // classes, fully replacing the normal label/count classes rather than
   // layering on top — so their styling always wins with no cascade conflict.
   const slotEmptyLabelClasses = ['map-widget__category-slot-empty-label'];
-  if (mapConfig.categorySlotEmptyLabelClassnames) {
-    slotEmptyLabelClasses.push(mapConfig.categorySlotEmptyLabelClassnames);
+  if (mapConfig.categorySlotEmptyLabelClasses) {
+    slotEmptyLabelClasses.push(mapConfig.categorySlotEmptyLabelClasses);
   }
   const slotEmptyLabelClass = slotEmptyLabelClasses.join(' ');
 
   const slotEmptyCountClasses = ['map-widget__category-slot-empty-count'];
-  if (mapConfig.categorySlotEmptyCountClassnames) {
-    slotEmptyCountClasses.push(mapConfig.categorySlotEmptyCountClassnames);
+  if (mapConfig.categorySlotEmptyCountClasses) {
+    slotEmptyCountClasses.push(mapConfig.categorySlotEmptyCountClasses);
   }
   const slotEmptyCountClass = slotEmptyCountClasses.join(' ');
 

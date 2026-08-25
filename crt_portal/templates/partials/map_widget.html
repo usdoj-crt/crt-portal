@@ -51,44 +51,47 @@ Optional (fall back to the widget's built-in defaults if omitted):
                                category bar header (e.g. "enforcement actions
                                by type").
 
+  category_bar_caption_classes CSS classes applied to the caption text span
+                               (the category_bar_caption text).
+
   caption_state_text           Optional prefix shown before the caption text,
                                with {state} replaced by the selected feature's
                                name (e.g. "{state}" or "{state}:"). Rendered in
                                its own span for independent styling. Omit to hide.
 
-  caption_state_classnames     CSS classes applied to the caption_state_text
+  caption_state_classes     CSS classes applied to the caption_state_text
                                span (e.g. "text-gold").
 
   category_bar_total_label     Optional label shown to the right of the caption,
                                alongside the selected feature's total action
                                count (e.g. "Total"). Omit to hide the total.
 
-  category_bar_total_label_classnames
+  category_bar_total_label_classes
                                CSS classes applied to the total label.
 
-  category_bar_total_count_classnames
+  category_bar_total_count_classes
                                CSS classes applied to the total count (number).
 
-  category_slot_label_classnames
+  category_slot_label_classes
                                CSS classes applied to each category slot's label
                                (the category name) in the breakdown bar.
 
-  category_slot_count_classnames
+  category_slot_count_classes
                                CSS classes applied to each category slot's count
                                (the number) in the breakdown bar.
 
-  category_slot_empty_label_classnames
+  category_slot_empty_label_classes
                                CSS classes for a category slot's label span when
                                its count is zero. When set, these REPLACE
-                               category_slot_label_classnames on empty slots (the
+                               category_slot_label_classes on empty slots (the
                                base map-widget__category-slot-label class is kept),
                                so the empty styling always wins with no cascade
                                conflict. Falls back to the normal label classes
                                when unset.
 
-  category_slot_empty_count_classnames
+  category_slot_empty_count_classes
                                Same as above, but for a category slot's count span
-                               (replaces category_slot_count_classnames on empty
+                               (replaces category_slot_count_classes on empty
                                slots).
 
   badge_mapping                Path (relative to the static root) to a JSON file
@@ -147,15 +150,16 @@ Optional (fall back to the widget's built-in defaults if omitted):
   data-map-show-tooltip="{{ show_tooltip|default:'false'}}"
   data-map-show-category-bar="{{ show_category_bar|default:'false' }}"
   data-map-category-bar-caption="{{ category_bar_caption|default:'' }}"
+  data-map-category-bar-caption-classes="{{ category_bar_caption_classes|default:'' }}"
   data-map-category-bar-total-label="{{ category_bar_total_label|default:'' }}"
-  data-map-category-bar-total-label-classnames="{{ category_bar_total_label_classnames|default:'' }}"
-  data-map-category-bar-total-count-classnames="{{ category_bar_total_count_classnames|default:'' }}"
+  data-map-category-bar-total-label-classes="{{ category_bar_total_label_classes|default:'' }}"
+  data-map-category-bar-total-count-classes="{{ category_bar_total_count_classes|default:'' }}"
   data-map-caption-state-text="{{ caption_state_text|default:'' }}"
-  data-map-caption-state-classnames="{{ caption_state_classnames|default:'' }}"
-  data-map-category-slot-label-classnames="{{ category_slot_label_classnames|default:'' }}"
-  data-map-category-slot-count-classnames="{{ category_slot_count_classnames|default:'' }}"
-  data-map-category-slot-empty-label-classnames="{{ category_slot_empty_label_classnames|default:'' }}"
-  data-map-category-slot-empty-count-classnames="{{ category_slot_empty_count_classnames|default:'' }}"
+  data-map-caption-state-classes="{{ caption_state_classes|default:'' }}"
+  data-map-category-slot-label-classes="{{ category_slot_label_classes|default:'' }}"
+  data-map-category-slot-count-classes="{{ category_slot_count_classes|default:'' }}"
+  data-map-category-slot-empty-label-classes="{{ category_slot_empty_label_classes|default:'' }}"
+  data-map-category-slot-empty-count-classes="{{ category_slot_empty_count_classes|default:'' }}"
   data-info-panel-placeholder-text="{{ info_placeholder_text|default:'Hover or Click a feature to view details' }}"
   data-info-panel-placeholder-text-no-hover="{{ info_placeholder_text_no_hover|default:'Click a feature to view details' }}"
   data-info-panel-heading-classes="{{ info_heading_classes|default:'' }}"
