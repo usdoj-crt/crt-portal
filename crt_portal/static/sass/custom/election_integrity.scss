@@ -122,6 +122,29 @@
     background-color: #eef1f6;
 }
 
+// Grid layout for the featured news cards. The card component itself is
+// styled by news_widget's self-contained news-card.css; this only lays them
+// out on this page.
+.card-container {
+    display: grid;
+    // Three cards per row on desktop.
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    width: 100%;
+    max-width: 75rem;
+
+    // Two per row on tablets.
+    @include at-media-max(desktop) {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+
+    // Single column on mobile.
+    @include at-media-max(mobile-lg) {
+        grid-template-columns: 1fr;
+    }
+}
+
 // -------------------------------------
 //   IN THE NEWS (simplenews)
 // -------------------------------------
