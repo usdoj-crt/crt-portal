@@ -7,7 +7,7 @@ from django.core.validators import URLValidator
 
 from utils.admin import CrtModelAdmin
 from .models import NewsWidgetColumnData
-from .widgets import ArticleListWidget
+from .widgets import NewsColumnWidget
 
 
 _validate_link = URLValidator(schemes=['http', 'https'])
@@ -32,7 +32,7 @@ class NewsWidgetColumnDataForm(forms.ModelForm):
     class Meta:
         model = NewsWidgetColumnData
         fields = '__all__'
-        widgets = {'data': ArticleListWidget}
+        widgets = {'data': NewsColumnWidget}
 
     def clean_data(self):
         articles = self.cleaned_data.get('data')

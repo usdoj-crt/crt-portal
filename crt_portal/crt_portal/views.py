@@ -54,7 +54,7 @@ def load_news_items(data_src, badge_mapping_src=None):
 
     For items without a `thumbnail`, resolve a `badge_image` from the agency
     badge map (when provided) so the template can render the agency seal as a
-    fallback. Returns a list of item dicts ready for `partials/news_card.html`.
+    fallback. Returns a list of item dicts ready for `news_widget/news_card.html`.
     """
     data = _read_static_json(data_src)
     items = data.get('items', []) if isinstance(data, dict) else []
@@ -98,7 +98,7 @@ def load_quotes(data_src):
 
 def election_integrity_view(request):
     news_items = load_news_items(
-        data_src='data/news-card/test-data.json',
+        data_src='data/news-widget/news-cards/election-integrity-news.json',
         badge_mapping_src='data/agency-badges/agency-badge-map.json',
     )
 

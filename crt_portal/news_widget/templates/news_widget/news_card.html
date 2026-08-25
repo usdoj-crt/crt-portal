@@ -5,7 +5,7 @@ News card — renders a single "In the News" card.
 Usage (inside a {% for %} loop over the list of news items):
 
     {% for item in news_items %}
-        {% include "partials/news_card.html" with item=item %}
+        {% include "news_widget/news_card.html" with item=item %}
     {% endfor %}
 
 Expected `item` fields:

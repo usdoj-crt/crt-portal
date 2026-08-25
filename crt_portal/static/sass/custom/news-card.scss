@@ -2,7 +2,7 @@
 
 // -------------------------------------
 // News card (reusable)
-// Rendered by templates/partials/news_card.html
+// Rendered by news_widget/templates/news_widget/news_card.html
 //
 // A card with a thumbnail (or agency-seal fallback) filling the top half and a
 // white panel in the bottom half containing a type pill, a headline link, and a
@@ -18,8 +18,6 @@
     gap: 2rem;
     width: 100%;
     max-width: 75rem;
-    margin-top: 1.5rem;
-    padding-bottom: 3rem;
 
     // Two per row on tablets.
     @include at-media-max(desktop) {
