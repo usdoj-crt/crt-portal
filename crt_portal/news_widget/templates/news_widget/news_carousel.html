@@ -1,9 +1,17 @@
-<div class="news-carousel" tabindex="0" role="group" aria-label="{{ label|default:'Latest news and media' }}">
-    <ul class="news-carousel__track usa-list usa-list--unstyled">
+<div class="news-carousel {% if overlay_buttons == 'true' %}news-carousel--overlay-buttons{% endif %}" role="group" aria-roledescription="carousel" aria-label="{{ label|default:'Latest news and media' }}">
+    <button type="button" class="news-carousel__nav news-carousel__nav--prev" aria-label="Previous" data-news-carousel-prev>
+        <svg class="icon-arrow" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+    </button>
+
+    <ul class="news-carousel__track usa-list usa-list--unstyled" tabindex="0" data-news-carousel-track>
         {% for item in items %}
             <li class="news-carousel__item">
                 {% include "news_widget/news_card.html" with item=item %}
             </li>
         {% endfor %}
     </ul>
+
+    <button type="button" class="news-carousel__nav news-carousel__nav--next" aria-label="Next" data-news-carousel-next>
+        <svg class="icon-arrow" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M10 6 8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+    </button>
 </div>

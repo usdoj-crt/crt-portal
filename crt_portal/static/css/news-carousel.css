@@ -8,11 +8,16 @@
 
  /* make news carousel fill whatever container it is in */
  .news-carousel {
+     display: flex;
+     align-items: center;
+     gap: 0.5rem;
      width: 100%;
      min-width: 0;
  }
 
 .news-carousel__track {
+  flex: 1 1 auto;
+  min-width: 0;
   display: flex;
   gap: 1.25rem;
 
@@ -64,3 +69,46 @@
    the first or last card; middle cards still snap centered. */
 .news-carousel__item:first-child { scroll-snap-align: start; }
 .news-carousel__item:last-child  { scroll-snap-align: end;   }
+
+.news-carousel__nav {
+    flex: 0 0 auto;
+}
+
+.news-carousel__nav .icon-arrow {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+/* At the far-left/right end of the rail the matching button is disabled by JS.
+   Fade it out and take it out of interaction so it reads as "hidden" while
+   staying in the DOM (keyboard focus is never yanked away). */
+.news-carousel__nav:disabled {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/*
+ * Overlay-buttons mode (opt-in via `overlay_buttons="true"` on the include).
+ * The nav buttons float over the left/right edges of the rail instead of
+ * sitting beside it, so the track keeps the full available width. Everything
+ * else (scroll, snap, buttons, JS) is identical to the default in-flow mode.
+ */
+.news-carousel--overlay-buttons {
+  display: block;
+  position: relative;
+}
+
+.news-carousel--overlay-buttons .news-carousel__nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+}
+
+.news-carousel--overlay-buttons .news-carousel__nav--prev {
+  left: 0.5rem;
+}
+
+.news-carousel--overlay-buttons .news-carousel__nav--next {
+  right: 0.5rem;
+}
