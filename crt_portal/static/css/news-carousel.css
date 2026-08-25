@@ -36,14 +36,31 @@
 
 .news-carousel__item {
     display: flex;
-    flex: 0 0 clamp(280px, 42vw, 460px);
+    /* Mobile: one dominant card centered, neighbors peeking at the edges. */
+    flex: 0 0 75vw;
 
     /* this item's snap position is its CENTER. Combined with the
        track padding above, snapping to any card parks it dead-center. */
     scroll-snap-align: center;
 }
 
-/* Ends tuck flush to the rail edges so there's no empty void beside
+/* Tablet: ~2 cards with the centered one flanked by peeks. */
+@media (min-width: 640px) {
+  .news-carousel__item {
+    flex: 0 0 80%;
+  }
+}
+
+/* Desktop: responsive cards ~3 across
+   (try for 35% of visible area),
+   middle one centered if possible . */
+@media (min-width: 1024px) {
+  .news-carousel__item {
+    flex: 0 0 clamp(360px, 35%, 720px);
+  }
+}
+
+/* Ends are flush to the rail edges so there's no empty void beside
    the first or last card; middle cards still snap centered. */
 .news-carousel__item:first-child { scroll-snap-align: start; }
 .news-carousel__item:last-child  { scroll-snap-align: end;   }
