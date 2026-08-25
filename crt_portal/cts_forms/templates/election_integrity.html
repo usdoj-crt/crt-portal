@@ -73,10 +73,8 @@
             <h2 class="font-serif-2xl text-normal text-primary-darker margin-0 text-center">
                 Featured Video & Media
             </h2>
-            <div class="card-container margin-top-8">
-                {% for item in news_items %}
-                    {% include "news_widget/news_card.html" with item=item %}
-                {% endfor %}
+            <div class="margin-top-6 width-full">
+                {% include "news_widget/news_carousel.html" with items=news_items classes="margin-top-8" label="Latest news and media" %}
             </div>
         </div>
     </section>

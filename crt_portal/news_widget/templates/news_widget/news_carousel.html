@@ -1,0 +1,9 @@
+<div class="news-carousel" tabindex="0" role="group" aria-label="{{ label|default:'Latest news and media' }}">
+    <ul class="news-carousel__track usa-list usa-list--unstyled">
+        {% for item in items %}
+            <li class="news-carousel__item">
+                {% include "news_widget/news_card.html" with item=item %}
+            </li>
+        {% endfor %}
+    </ul>
+</div>

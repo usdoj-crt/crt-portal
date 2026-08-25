@@ -1,0 +1,49 @@
+/*
+ * News carousel
+ * Rendered by news_widget/templates/news_widget/news_carousel.html
+ *
+ * A horizontally-scrolling row of news cards. The rail scrolls/swipes
+ * natively and is keyboard-focusable, so no JavaScript is required.
+ */
+
+ /* make news carousel fill whatever container it is in */
+ .news-carousel {
+     width: 100%;
+     min-width: 0;
+ }
+
+.news-carousel__track {
+  display: flex;
+  gap: 1.25rem;
+
+  /* make the rail scroll horizontally */
+  overflow-x: auto;
+
+  /* snapping. `x` = horizontal axis. `mandatory` = the rail
+     MUST come to rest on a snap point (never between cards). */
+  scroll-snap-type: x mandatory;
+
+  /* side padding so the FIRST and LAST cards can physically
+     reach the center of the rail.*/
+  padding-inline: 1rem;
+
+  /* padding around items */
+  padding-block: 1rem;
+
+  /* smooth programmatic scrolling. */
+  scroll-behavior: smooth;
+}
+
+.news-carousel__item {
+    display: flex;
+    flex: 0 0 clamp(280px, 42vw, 460px);
+
+    /* this item's snap position is its CENTER. Combined with the
+       track padding above, snapping to any card parks it dead-center. */
+    scroll-snap-align: center;
+}
+
+/* Ends tuck flush to the rail edges so there's no empty void beside
+   the first or last card; middle cards still snap centered. */
+.news-carousel__item:first-child { scroll-snap-align: start; }
+.news-carousel__item:last-child  { scroll-snap-align: end;   }
