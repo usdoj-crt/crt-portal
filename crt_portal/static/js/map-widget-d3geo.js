@@ -100,6 +100,21 @@ function collectCategories(data) {
   return Array.from(seen).sort();
 }
 
+/**
+ * Tallies a list of actions by their category. Returns an object mapping each
+ * category to its count; actions without a category are ignored. Shared by the
+ * per-state category bar and the (optional) nationwide summary view.
+ */
+function countActionsByCategory(actions) {
+  const counts = {};
+  for (const action of actions || []) {
+    if (action.category) {
+      counts[action.category] = (counts[action.category] || 0) + 1;
+    }
+  }
+  return counts;
+}
+
 // Create the category summary bar, hidden until a state is selected. Builds the
 // static structure (header with the caption text/total label, plus the slots
 // container); the per-state pieces (state-name prefix, total count, and the
@@ -298,6 +313,26 @@ function getMapConfig(mapWidget) {
   mapConfig.categoryBarTotalCountClasses =
     mapWidget?.dataset?.mapCategoryBarTotalCountClasses || '';
 
+  mapConfig.showSummary = mapWidget?.dataset?.mapShowSummary === 'true';
+
+  mapConfig.summaryHeadingText = mapWidget?.dataset?.mapSummaryHeadingText || '';
+
+  mapConfig.summaryBadgeText = mapWidget?.dataset?.mapSummaryBadgeText || '';
+
+  mapConfig.summaryCategoryLabelClasses = mapWidget?.dataset?.mapSummaryCategoryLabelClasses || '';
+
+  mapConfig.summaryCategoryCountClasses = mapWidget?.dataset?.mapSummaryCategoryCountClasses || '';
+
+  mapConfig.summaryItemClasses = mapWidget?.dataset?.mapSummaryItemClasses || '';
+
+  mapConfig.summaryListClasses = mapWidget?.dataset?.mapSummaryListClasses || '';
+
+  mapConfig.summaryTotalText = mapWidget?.dataset?.mapSummaryTotalText || '';
+
+  mapConfig.summaryTotalClasses = mapWidget?.dataset?.mapSummaryTotalClasses || '';
+
+  mapConfig.summaryTotalCountClasses = mapWidget?.dataset?.mapSummaryTotalCountClasses || '';
+
   return mapConfig;
 }
 
@@ -488,7 +523,7 @@ function clearActive(context) {
     context.active = null;
   }
 
-  renderInfoPlaceholder(context.panel, context.infoPanelConfig);
+  renderDefaultView(context);
 
   if (context.categoryBar) {
     context.categoryBar.hidden = true;
@@ -623,7 +658,7 @@ function drawBadge(mapSvg, badge, context) {
   });
 }
 
-function buildInfoPanel(mapWidget, infoPanelConfig) {
+function buildInfoPanel(mapWidget) {
   const panel = createElement('div', 'map-widget__panel');
 
   panel.setAttribute('role', 'region');
@@ -636,24 +671,37 @@ function buildInfoPanel(mapWidget, infoPanelConfig) {
 
   mapWidget.appendChild(panel);
 
-  renderInfoPlaceholder(panel, infoPanelConfig);
+  return panel;
+}
 
-  // Re-render the placeholder if the device's hover capability changes (e.g. a
-  // 2-in-1 switching between touchscreen and trackpad), so the guidance text
-  // always matches the current primary input.
+// Render the panel's default "nothing selected" view and keep it in sync with
+// the device's hover capability. Called once after the context is ready.
+function setupDefaultView(context) {
+  renderDefaultView(context);
+
+  // Re-render the default view if the device's hover capability changes (e.g. a
+  // 2-in-1 switching between touchscreen and trackpad), so the placeholder
+  // guidance text always matches the current primary input.
   if (typeof window.matchMedia === 'function') {
     const hoverQuery = window.matchMedia('(hover: hover)');
-    const onHoverChange = () => {
-      // Only replace the text while the placeholder is showing; don't clobber a
-      // selected state's details.
-      if (panel.dataset.showingPlaceholder === 'true') {
-        renderInfoPlaceholder(panel, infoPanelConfig);
+    hoverQuery.addEventListener('change', () => {
+      // Only re-render while the default view is showing; don't clobber a
+      // selected feature's details.
+      if (context.panel.dataset.showingPlaceholder === 'true') {
+        renderDefaultView(context);
       }
-    };
-    hoverQuery.addEventListener('change', onHoverChange);
+    });
   }
+}
 
-  return panel;
+// Choose the panel's default "nothing selected" content: the summary view when
+// it's enabled and the data has categories, otherwise the placeholder text.
+function renderDefaultView(context) {
+  if (context.mapConfig?.showSummary && context.categories) {
+    renderSummary(context);
+  } else {
+    renderInfoPlaceholder(context.panel, context.infoPanelConfig);
+  }
 }
 
 // Build a visually hidden, keyboard-focusable control for every mapped feature
@@ -714,6 +762,97 @@ function renderInfoPlaceholder(panel, infoPanelConfig) {
   panel.dataset.showingPlaceholder = 'true';
 }
 
+// Render the summary view shown when no feature is selected (opt-in via
+// show_summary, and only when the data has categories): the configured heading
+// and badge, then a list of every category with its total across all features.
+function renderSummary(context) {
+  const { panel, mapConfig, categories, data } = context;
+
+  panel.innerHTML = '';
+  panel.dataset.showingPlaceholder = 'true';
+
+  //    Shared header (heading + pill badge + separator), using the configured
+  //    summary heading/badge text (e.g. "Nationwide" / "USA").
+  renderPanelHeader(context, mapConfig.summaryHeadingText, mapConfig.summaryBadgeText);
+
+  //    Tally category totals across every feature's actions.
+  const allActions = Object.values(data).flatMap(state => state.actions || []);
+  const counts = countActionsByCategory(allActions);
+
+  //    Optional total line, shown above the list (where the per-state subheading
+  //    sits). The template is split on {count} so the grand total of all actions
+  //    renders in its own span (independently styleable from the surrounding
+  //    text).
+  if (mapConfig.summaryTotalText) {
+    const total = createElement('p', 'map-widget__summary-total');
+    if (mapConfig.summaryTotalClasses) {
+      total.className = `map-widget__summary-total ${mapConfig.summaryTotalClasses}`;
+    }
+
+    const countClass = ['map-widget__summary-total-count'];
+    if (mapConfig.summaryTotalCountClasses) {
+      countClass.push(mapConfig.summaryTotalCountClasses);
+    }
+
+    const parts = mapConfig.summaryTotalText.split('{count}');
+    parts.forEach((part, index) => {
+      // Between parts (i.e. wherever {count} appeared), insert the count span.
+      if (index > 0) {
+        const countEl = createElement('span', countClass.join(' '));
+        countEl.textContent = allActions.length;
+        total.appendChild(countEl);
+      }
+      if (part) {
+        total.appendChild(document.createTextNode(part));
+      }
+    });
+
+    panel.appendChild(total);
+  }
+
+  //    One row per category (alphabetical; context.categories is pre-sorted).
+  //    Every category in the union has at least one action somewhere, so there
+  //    are no zero rows to worry about here.
+  const list = createElement('ul', 'map-widget__summary');
+  if (mapConfig.summaryListClasses) {
+    list.className = `map-widget__summary ${mapConfig.summaryListClasses}`;
+  }
+
+  const labelClasses = ['map-widget__summary-category-label'];
+  if (mapConfig.summaryCategoryLabelClasses) {
+    labelClasses.push(mapConfig.summaryCategoryLabelClasses);
+  }
+  const labelClass = labelClasses.join(' ');
+
+  const countClasses = ['map-widget__summary-category-count'];
+  if (mapConfig.summaryCategoryCountClasses) {
+    countClasses.push(mapConfig.summaryCategoryCountClasses);
+  }
+  const countClass = countClasses.join(' ');
+
+  const itemClasses = ['map-widget__summary-item'];
+  if (mapConfig.summaryItemClasses) {
+    itemClasses.push(mapConfig.summaryItemClasses);
+  }
+  const itemClass = itemClasses.join(' ');
+
+  for (const category of categories) {
+    const item = createElement('li', itemClass);
+
+    const label = createElement('span', labelClass);
+    label.textContent = category;
+
+    const count = createElement('span', countClass);
+    count.textContent = counts[category] || 0;
+
+    item.appendChild(label);
+    item.appendChild(count);
+    list.appendChild(item);
+  }
+
+  panel.appendChild(list);
+}
+
 function createTextBadge(agency) {
   const badge = createElement('span', 'map-widget__agency-badge');
   badge.textContent = agency;
@@ -756,6 +895,34 @@ function getAgencyBadge(context, agency) {
   return badgeCache[agency].cloneNode(true);
 }
 
+// Build the info-panel header — the heading (feature/summary name) and its pill
+// badge, followed by the accent separator — and append it to the panel. Shared
+// by the per-state view (renderInfo) and the summary view (renderSummary).
+function renderPanelHeader(context, name, code) {
+  const { panel, infoPanelConfig } = context;
+
+  //    Build a flex container so the badge and heading sit side by side.
+  const headingContainer = createElement('div', 'map-widget__heading-container');
+
+  const heading = createElement('h2');
+  heading.textContent = name;
+  if (infoPanelConfig?.headingClasses) {
+    heading.className = infoPanelConfig.headingClasses;
+  }
+  headingContainer.appendChild(heading);
+
+  //    Add the small pill badge (e.g. a state's abbreviation like "CA").
+  const badge = createElement('span', 'map-widget__state-badge');
+  badge.textContent = code;
+  headingContainer.appendChild(badge);
+
+  panel.appendChild(headingContainer);
+
+  //    Add the short accent bar shown beneath the heading.
+  const separator = createElement('div', 'map-widget__separator');
+  panel.appendChild(separator);
+}
+
 function renderInfo(context, feature) {
   const { panel, data, infoPanelConfig } = context;
 
@@ -772,32 +939,11 @@ function renderInfo(context, feature) {
   //    back to the feature's own name).
   const stateName = stateData?.name ?? feature.properties.name;
 
-  //    Build a flex container so the state badge and heading sit side by side.
-  const headingContainer = createElement('div', 'map-widget__heading-container');
+  //    Render the shared header (heading + pill badge + separator).
+  renderPanelHeader(context, stateName, stateCode);
 
-  //    Add the heading with the full state name, preferring the data set's
-  //    name and falling back to the feature's own name.
-  const heading = createElement('h2');
-  heading.textContent = stateName;
-  if (infoPanelConfig?.headingClasses) {
-    heading.className = infoPanelConfig.headingClasses;
-  }
-  headingContainer.appendChild(heading);
-
-  //    Add the small pill badge showing the state's abbreviation (e.g. "CA").
-  const stateBadge = createElement('span', 'map-widget__state-badge');
-  stateBadge.textContent = stateCode;
-  headingContainer.appendChild(stateBadge);
-
-  //    Add the heading row into the panel.
-  panel.appendChild(headingContainer);
-
-  //    Add the short accent bar shown beneath the heading.
-  const separator = createElement('div', 'map-widget__separator');
-  panel.appendChild(separator);
-
-  //    Optional subheading, shown between the heading row and the separator.
-  //    Supports the {state} placeholder.
+  //    Optional subheading, shown beneath the separator. Supports the {state}
+  //    placeholder.
   if (infoPanelConfig?.subheadingText) {
     const subheading = createElement('p', 'map-widget__subheading');
     if (infoPanelConfig.subheadingClasses) {
@@ -929,12 +1075,7 @@ function renderCategoryBar(context, feature) {
   const stateName = stateData?.name ?? feature.properties.name;
 
   // Tally actions by category.
-  const counts = {};
-  for (const action of actions) {
-    if (action.category) {
-      counts[action.category] = (counts[action.category] || 0) + 1;
-    }
-  }
+  const counts = countActionsByCategory(actions);
 
   // Fill the caption's state-name prefix — the only per-state part of the
   // caption (the static text was set once in createCategoryBar). {state} is
@@ -1025,15 +1166,17 @@ async function initMapWidget(mapWidget) {
 
   const mapConfig = getMapConfig(mapWidget);
   const infoPanelConfig = getInfoPanelConfig(mapWidget);
-  const panel = buildInfoPanel(mapWidget, infoPanelConfig);
+  const panel = buildInfoPanel(mapWidget);
 
   let tooltip = null;
   if (mapConfig.showTooltip) {
     tooltip = createTooltip(mapElement);
   }
 
+  // Categories power both the (optional) category bar and the (optional) summary
+  // view, so collect them when either is enabled and the data has any.
   let categories = null;
-  if (mapConfig.showCategoryBar) {
+  if (mapConfig.showCategoryBar || mapConfig.showSummary) {
     const found = collectCategories(data);
     if (found.length) {
       categories = found;
@@ -1041,7 +1184,7 @@ async function initMapWidget(mapWidget) {
   }
 
   let categoryBar = null;
-  if (categories) {
+  if (mapConfig.showCategoryBar && categories) {
     categoryBar = createCategoryBar(mapElement, mapConfig);
   }
 
@@ -1059,6 +1202,9 @@ async function initMapWidget(mapWidget) {
     categories: categories,
     categoryBar: categoryBar
   };
+
+  //    Paint the panel's initial default view (summary or placeholder).
+  setupDefaultView(context);
 
   // Accessibility: Escape provides a keyboard exit without moving the pointer.
   // The first press dismisses the hover tooltip (if it's showing); once the

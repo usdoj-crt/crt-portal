@@ -98,6 +98,43 @@ Optional (fall back to the widget's built-in defaults if omitted):
                                (replaces category_slot_count_classes on empty
                                slots).
 
+  show_summary                 When "true" (and the data has categories), the
+                               info panel's default "nothing selected" state shows
+                               a summary of every category's total across all
+                               features, instead of the placeholder text. Defaults
+                               to "false".
+
+  summary_heading_text         Heading shown in the summary view (e.g.
+                               "Nationwide"). Uses info_heading_classes for styling.
+
+  summary_badge_text           Pill badge shown next to the summary heading (e.g.
+                               "USA").
+
+  summary_category_label_classes
+                               CSS classes for each category's label in the
+                               summary list.
+
+  summary_category_count_classes
+                               CSS classes for each category's count (total) in
+                               the summary list.
+
+  summary_list_classes         CSS classes for the summary list (the <ul>).
+
+  summary_item_classes         CSS classes for each summary list item (the <li>).
+
+  summary_total_text           Optional line shown above the summary list (where
+                               the per-state subheading sits), with {count}
+                               replaced by the grand total of all actions across
+                               every feature (e.g. "{count} total actions").
+                               Omitted when empty.
+
+  summary_total_classes        CSS classes for the summary total line (the
+                               surrounding text).
+
+  summary_total_count_classes  CSS classes for the count (number) within the
+                               summary total line, styleable independently of
+                               the surrounding text.
+
   badge_mapping                Path (relative to the static root) to a JSON file
                                mapping agency codes to badge image URLs. When an
                                agency is found in the mapping its image is used;
@@ -165,6 +202,16 @@ Optional (fall back to the widget's built-in defaults if omitted):
   data-map-category-slot-count-classes="{{ category_slot_count_classes|default:'' }}"
   data-map-category-slot-empty-label-classes="{{ category_slot_empty_label_classes|default:'' }}"
   data-map-category-slot-empty-count-classes="{{ category_slot_empty_count_classes|default:'' }}"
+  data-map-show-summary="{{ show_summary|default:'false' }}"
+  data-map-summary-heading-text="{{ summary_heading_text|default:'' }}"
+  data-map-summary-badge-text="{{ summary_badge_text|default:'' }}"
+  data-map-summary-category-label-classes="{{ summary_category_label_classes|default:'' }}"
+  data-map-summary-category-count-classes="{{ summary_category_count_classes|default:'' }}"
+  data-map-summary-list-classes="{{ summary_list_classes|default:'' }}"
+  data-map-summary-item-classes="{{ summary_item_classes|default:'' }}"
+  data-map-summary-total-text="{{ summary_total_text|default:'' }}"
+  data-map-summary-total-classes="{{ summary_total_classes|default:'' }}"
+  data-map-summary-total-count-classes="{{ summary_total_count_classes|default:'' }}"
   data-info-panel-placeholder-text="{{ info_placeholder_text|default:'Hover or Click a feature to view details' }}"
   data-info-panel-placeholder-text-no-hover="{{ info_placeholder_text_no_hover|default:'Click a feature to view details' }}"
   data-info-panel-heading-classes="{{ info_heading_classes|default:'' }}"
