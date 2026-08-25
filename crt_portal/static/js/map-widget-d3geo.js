@@ -11,14 +11,8 @@ const DC_BADGE = {
 const VIEWBOX_WIDTH = 960;
 const VIEWBOX_HEIGHT = 600;
 
-// Create a DOM element with an optional class name.
-function createElement(tag, className) {
-  const node = document.createElement(tag);
-  if (className) {
-    node.className = className;
-  }
-  return node;
-}
+// Horizontal/vertical gap between the cursor and the tooltip.
+const TOOLTIP_OFFSET = 16;
 
 // Format an "M/D/YYYY" date string as "Mon dd, YYYY" (e.g. "Jul 22, 2025").
 // Parses the components directly to avoid any timezone conversion.
@@ -37,6 +31,15 @@ const MONTH_ABBREVIATIONS = [
   'Dec'
 ];
 
+// Create a DOM element with an optional class name.
+function createElement(tag, className) {
+  const node = document.createElement(tag);
+  if (className) {
+    node.className = className;
+  }
+  return node;
+}
+
 function formatActionDate(dateString) {
   const parts = dateString.split('/');
   if (parts.length !== 3) {
@@ -52,6 +55,20 @@ function formatActionDate(dateString) {
   return `${MONTH_ABBREVIATIONS[month - 1]} ${paddedDay}, ${year}`;
 }
 
+// Returns a sortable number key derived from an action's "M/D/YYYY" date.
+// Undated/invalid evaluates to -> -1
+// so undated actions sort last when ordering
+// by latest date first.
+function getActionSortKey(action) {
+  const parts = String(action?.date ?? '').split('/');
+  if (parts.length !== 3) return -1;
+  const month = parseInt(parts[0], 10);
+  const day = parseInt(parts[1], 10);
+  const year = parseInt(parts[2], 10);
+  if (!month || !day || !year) return -1;
+  return year * 10000 + month * 100 + day;
+}
+
 // Create the SVG element the map will be drawn into.
 function createMapSvg(mapElement) {
   const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
@@ -64,6 +81,189 @@ function createMapSvg(mapElement) {
   svg.setAttribute('aria-hidden', 'true');
   mapElement.appendChild(svg);
   return svg;
+}
+
+/**
+ * Collects the unique set of action categories across data actions,
+ * sorted alphabetically. Used to render the (optional) category bar.
+ * Returns [] if no actions have categories.
+ */
+function collectCategories(data) {
+  const seen = new Set();
+  for (const state of Object.values(data)) {
+    for (const action of state.actions || []) {
+      if (action.category) {
+        seen.add(action.category);
+      }
+    }
+  }
+  return Array.from(seen).sort();
+}
+
+/**
+ * Tallies a list of actions by their category. Returns an object mapping each
+ * category to its count; actions without a category are ignored. Shared by the
+ * per-state category bar and the (optional) nationwide summary view.
+ */
+function countActionsByCategory(actions) {
+  const counts = {};
+  for (const action of actions || []) {
+    if (action.category) {
+      counts[action.category] = (counts[action.category] || 0) + 1;
+    }
+  }
+  return counts;
+}
+
+// Create the category summary bar, hidden until a state is selected. Builds the
+// static structure (header with the caption text/total label, plus the slots
+// container); the per-state pieces (state-name prefix, total count, and the
+// category slots) are filled in by renderCategoryBar.
+function createCategoryBar(container, mapConfig) {
+  const bar = createElement('div', 'map-widget__category-bar');
+  bar.hidden = true;
+  // The panel (aria-live) already announces the selected state's actions,
+  // so treat this bar as a purely visual summary to avoid double-announcing.
+  bar.setAttribute('aria-hidden', 'true');
+
+  // Header row: caption on the left, total on the right, all optional. The
+  // static pieces (the caption text and the total label) are set here since
+  // they never change; the per-state pieces (the caption's state-name prefix
+  // and the total count) are filled in by renderCategoryBar.
+  if (
+    mapConfig.categoryBarCaption ||
+    mapConfig.captionStateText ||
+    mapConfig.categoryBarTotalLabel
+  ) {
+    const header = createElement('div', 'map-widget__category-bar-header');
+
+    if (mapConfig.categoryBarCaption || mapConfig.captionStateText) {
+      const caption = createElement('span', 'map-widget__category-bar-caption');
+
+      if (mapConfig.captionStateText) {
+        const stateClasses = ['map-widget__category-bar-caption-state'];
+        if (mapConfig.captionStateClasses) {
+          stateClasses.push(mapConfig.captionStateClasses);
+        }
+        const stateEl = createElement('span', stateClasses.join(' '));
+        caption.appendChild(stateEl);
+      }
+
+      if (mapConfig.categoryBarCaption) {
+        const textClasses = ['map-widget__category-bar-caption-text'];
+        if (mapConfig.categoryBarCaptionClasses) {
+          textClasses.push(mapConfig.categoryBarCaptionClasses);
+        }
+        const textEl = createElement('span', textClasses.join(' '));
+        textEl.textContent = mapConfig.categoryBarCaption;
+        caption.appendChild(textEl);
+      }
+
+      header.appendChild(caption);
+    }
+
+    if (mapConfig.categoryBarTotalLabel) {
+      const total = createElement('span', 'map-widget__category-bar-total');
+
+      const totalLabelClasses = ['map-widget__category-bar-total-label'];
+      if (mapConfig.categoryBarTotalLabelClasses) {
+        totalLabelClasses.push(mapConfig.categoryBarTotalLabelClasses);
+      }
+      const totalLabel = createElement('span', totalLabelClasses.join(' '));
+      totalLabel.textContent = mapConfig.categoryBarTotalLabel;
+
+      const totalCountClasses = ['map-widget__category-bar-total-count'];
+      if (mapConfig.categoryBarTotalCountClasses) {
+        totalCountClasses.push(mapConfig.categoryBarTotalCountClasses);
+      }
+      const totalCount = createElement('span', totalCountClasses.join(' '));
+
+      total.appendChild(totalCount);
+      total.appendChild(totalLabel);
+      header.appendChild(total);
+    }
+
+    bar.appendChild(header);
+  }
+
+  // Slots container, filled per-state by renderCategoryBar.
+  const slots = createElement('div', 'map-widget__category-slots');
+  bar.appendChild(slots);
+
+  container.appendChild(bar);
+  return bar;
+}
+
+// Create the hover tooltip element, hidden until shown. It's positioned
+// relative to the map area, so it's appended inside `.map-widget__map`.
+function createTooltip(mapElement) {
+  const tooltip = createElement('div', 'map-widget__tooltip');
+  tooltip.setAttribute('aria-hidden', 'true');
+  tooltip.hidden = true;
+  mapElement.appendChild(tooltip);
+  return tooltip;
+}
+
+// Show the tooltip for a feature: fill in its name + code, then position it.
+function showTooltip(context, feature, event) {
+  const tooltip = context.tooltip;
+  if (!tooltip) {
+    return;
+  }
+
+  const code = feature.properties.code;
+  const name = context.data?.[code]?.name ?? feature.properties.name;
+
+  tooltip.innerHTML = '';
+
+  const tooltipName = createElement('span', 'map-widget__tooltip-name');
+  tooltipName.textContent = name;
+  tooltip.appendChild(tooltipName);
+
+  const tooltipBadge = createElement('span', 'map-widget__state-badge');
+  tooltipBadge.textContent = code;
+  tooltip.appendChild(tooltipBadge);
+
+  tooltip.hidden = false;
+  moveTooltip(context, event);
+}
+
+// Position the tooltip next to the cursor, measured relative to the map area.
+function moveTooltip(context, mouseEvent) {
+  const tooltip = context.tooltip;
+  if (!tooltip || tooltip.hidden) {
+    return;
+  }
+
+  const mapElement = tooltip.parentElement;
+  const bounds = mapElement.getBoundingClientRect();
+  const x = mouseEvent.clientX - bounds.left;
+  const y = mouseEvent.clientY - bounds.top;
+
+  // If a right-side tooltip would overflow the map's right edge, flip it to the
+  // left of the cursor so it stays within the (overflow-clipped) map area.
+  const overflowsRight = x + TOOLTIP_OFFSET + tooltip.offsetWidth > bounds.width;
+  const left = overflowsRight ? x - TOOLTIP_OFFSET - tooltip.offsetWidth : x + TOOLTIP_OFFSET;
+
+  // Likewise flip above the cursor when we would overflow the bottom edge. When
+  // the category bar is visible it sits at the bottom of the map area, so treat
+  // its top as the boundary to keep the tooltip from disappearing behind it.
+  const categoryBar = context.categoryBar;
+  let bottomBoundary = bounds.height;
+  if (categoryBar && categoryBar.offsetHeight > 0) {
+    bottomBoundary = categoryBar.getBoundingClientRect().top - bounds.top;
+  }
+  const overflowsBottom = y + TOOLTIP_OFFSET + tooltip.offsetHeight > bottomBoundary;
+  const top = overflowsBottom ? y - TOOLTIP_OFFSET - tooltip.offsetHeight : y + TOOLTIP_OFFSET;
+
+  tooltip.style.left = `${left}px`;
+  tooltip.style.top = `${top}px`;
+}
+
+function hideTooltip(context) {
+  if (context.tooltip) {
+    context.tooltip.hidden = true;
+  }
 }
 
 function getMapConfig(mapWidget) {
@@ -81,6 +281,58 @@ function getMapConfig(mapWidget) {
 
   mapConfig.badgeRadius = mapWidget?.dataset?.mapBadgeRadius || '16';
 
+  mapConfig.showTooltip = mapWidget?.dataset?.mapShowTooltip === 'true';
+
+  mapConfig.openInNewTab = mapWidget?.dataset?.mapOpenInNewTab === 'true';
+
+  mapConfig.showCategoryBar = mapWidget?.dataset?.mapShowCategoryBar === 'true';
+
+  mapConfig.categoryBarCaption = mapWidget?.dataset?.mapCategoryBarCaption || '';
+
+  mapConfig.categoryBarCaptionClasses = mapWidget?.dataset?.mapCategoryBarCaptionClasses || '';
+
+  mapConfig.captionStateText = mapWidget?.dataset?.mapCaptionStateText || '';
+
+  mapConfig.captionStateClasses = mapWidget?.dataset?.mapCaptionStateClasses || '';
+
+  mapConfig.categorySlotLabelClasses = mapWidget?.dataset?.mapCategorySlotLabelClasses || '';
+
+  mapConfig.categorySlotCountClasses = mapWidget?.dataset?.mapCategorySlotCountClasses || '';
+
+  mapConfig.categorySlotEmptyLabelClasses =
+    mapWidget?.dataset?.mapCategorySlotEmptyLabelClasses || '';
+
+  mapConfig.categorySlotEmptyCountClasses =
+    mapWidget?.dataset?.mapCategorySlotEmptyCountClasses || '';
+
+  mapConfig.categoryBarTotalLabel = mapWidget?.dataset?.mapCategoryBarTotalLabel || '';
+
+  mapConfig.categoryBarTotalLabelClasses =
+    mapWidget?.dataset?.mapCategoryBarTotalLabelClasses || '';
+
+  mapConfig.categoryBarTotalCountClasses =
+    mapWidget?.dataset?.mapCategoryBarTotalCountClasses || '';
+
+  mapConfig.showSummary = mapWidget?.dataset?.mapShowSummary === 'true';
+
+  mapConfig.summaryHeadingText = mapWidget?.dataset?.mapSummaryHeadingText || '';
+
+  mapConfig.summaryBadgeText = mapWidget?.dataset?.mapSummaryBadgeText || '';
+
+  mapConfig.summaryCategoryLabelClasses = mapWidget?.dataset?.mapSummaryCategoryLabelClasses || '';
+
+  mapConfig.summaryCategoryCountClasses = mapWidget?.dataset?.mapSummaryCategoryCountClasses || '';
+
+  mapConfig.summaryItemClasses = mapWidget?.dataset?.mapSummaryItemClasses || '';
+
+  mapConfig.summaryListClasses = mapWidget?.dataset?.mapSummaryListClasses || '';
+
+  mapConfig.summaryTotalText = mapWidget?.dataset?.mapSummaryTotalText || '';
+
+  mapConfig.summaryTotalClasses = mapWidget?.dataset?.mapSummaryTotalClasses || '';
+
+  mapConfig.summaryTotalCountClasses = mapWidget?.dataset?.mapSummaryTotalCountClasses || '';
+
   return mapConfig;
 }
 
@@ -94,14 +346,31 @@ function getInfoPanelConfig(mapWidget) {
 
   infoPanelConfig.headingClasses = mapWidget?.dataset?.infoPanelHeadingClasses || '';
 
+  infoPanelConfig.subheadingText = mapWidget?.dataset?.infoPanelSubheadingText || '';
+
+  infoPanelConfig.subheadingClasses = mapWidget?.dataset?.infoPanelSubheadingClasses || '';
+
   infoPanelConfig.listClasses = mapWidget?.dataset?.infoPanelListClasses || '';
 
   infoPanelConfig.listItemClasses = mapWidget?.dataset?.infoPanelListItemClasses || '';
+
+  infoPanelConfig.actionTextClasses = mapWidget?.dataset?.infoPanelActionTextClasses || '';
+
+  infoPanelConfig.actionDateClasses = mapWidget?.dataset?.infoPanelActionDateClasses || '';
 
   infoPanelConfig.noDataText = mapWidget?.dataset?.infoPanelNoDataText || '';
 
   infoPanelConfig.noDataParagraphClasses =
     mapWidget?.dataset?.infoPanelNoDataParagraphClasses || '';
+
+  const parsedMax = parseInt(mapWidget?.dataset?.infoPanelMaxItems, 10);
+  infoPanelConfig.maxItems = Number.isNaN(parsedMax) ? null : parsedMax;
+
+  infoPanelConfig.overflowText = mapWidget.dataset?.infoPanelOverflowText || '';
+
+  infoPanelConfig.overflowClasses = mapWidget?.dataset?.infoPanelOverflowClasses || '';
+
+  infoPanelConfig.sortOrder = mapWidget?.dataset?.infoPanelSortOrder === 'asc' ? 'asc' : 'desc';
 
   return infoPanelConfig;
 }
@@ -240,19 +509,42 @@ function setActive(context, shape, feature) {
 
   showActive(shape, context.mapConfig);
   renderInfo(context, feature);
+  renderCategoryBar(context, feature);
 
   context.active = { shape: shape, feature: feature };
 }
 
-// Open the URL associated with a feature (from the loaded data set) in a new
-// tab. Used by pointer clicks and keyboard/screen-reader activation. Hover and
-// focus intentionally do NOT call this — they only highlight via setActive().
+// Clear the active (hovered/selected) feature: reset its fill, drop the active
+// reference, restore the info-panel placeholder, and hide the category bar.
+// Returns the widget to its initial "nothing selected" state.
+function clearActive(context) {
+  if (context.active) {
+    hideActive(context.active.shape, context.mapConfig);
+    context.active = null;
+  }
+
+  renderDefaultView(context);
+
+  if (context.categoryBar) {
+    context.categoryBar.hidden = true;
+  }
+}
+
+// Navigate to the URL associated with a feature (from the loaded data set).
+// Opens in a new tab when the open_in_new_tab option is set, otherwise in the
+// current tab (the accessible default). Used by pointer clicks and
+// keyboard/screen-reader activation. Hover and focus intentionally do NOT call
+// this — they only highlight via setActive().
 function openFeatureUrl(context, feature) {
   const stateCode = feature.properties.code;
   const url = context.data?.[stateCode]?.url;
 
   if (url) {
-    window.open(url, '_blank', 'noopener');
+    if (context.mapConfig?.openInNewTab) {
+      window.open(url, '_blank', 'noopener');
+    } else {
+      window.location.assign(url);
+    }
   }
 }
 
@@ -271,8 +563,17 @@ function drawFeatures(mapSvg, features, d3PathGenerator, context) {
     path.style.stroke = context.mapConfig?.strokeColor || '#ffffff';
     path.style.strokeWidth = context.mapConfig?.strokeWidth || '2';
 
-    path.addEventListener('mouseover', () => {
+    path.addEventListener('mouseover', mouseEvent => {
       setActive(context, path, feature);
+      showTooltip(context, feature, mouseEvent);
+    });
+
+    path.addEventListener('mousemove', mouseEvent => {
+      moveTooltip(context, mouseEvent);
+    });
+
+    path.addEventListener('mouseout', () => {
+      hideTooltip(context);
     });
 
     path.addEventListener('click', () => {
@@ -326,8 +627,17 @@ function drawBadge(mapSvg, badge, context) {
   //    single active shape and stays active after the pointer leaves.
   //    Note: pass `circle` (not the group) to setActive/hideActive,
   //    since .style.fill needs to land on the shape.
-  group.addEventListener('mouseover', () => {
+  group.addEventListener('mouseover', mouseEvent => {
     setActive(context, circle, feature);
+    showTooltip(context, feature, mouseEvent);
+  });
+
+  group.addEventListener('mousemove', mouseEvent => {
+    moveTooltip(context, mouseEvent);
+  });
+
+  group.addEventListener('mouseout', () => {
+    hideTooltip(context);
   });
 
   group.addEventListener('click', () => {
@@ -348,7 +658,7 @@ function drawBadge(mapSvg, badge, context) {
   });
 }
 
-function buildInfoPanel(mapWidget, infoPanelConfig) {
+function buildInfoPanel(mapWidget) {
   const panel = createElement('div', 'map-widget__panel');
 
   panel.setAttribute('role', 'region');
@@ -361,28 +671,37 @@ function buildInfoPanel(mapWidget, infoPanelConfig) {
 
   mapWidget.appendChild(panel);
 
-  renderInfoPlaceholder(panel, infoPanelConfig);
+  return panel;
+}
 
-  // Re-render the placeholder if the device's hover capability changes (e.g. a
-  // 2-in-1 switching between touchscreen and trackpad), so the guidance text
-  // always matches the current primary input.
+// Render the panel's default "nothing selected" view and keep it in sync with
+// the device's hover capability. Called once after the context is ready.
+function setupDefaultView(context) {
+  renderDefaultView(context);
+
+  // Re-render the default view if the device's hover capability changes (e.g. a
+  // 2-in-1 switching between touchscreen and trackpad), so the placeholder
+  // guidance text always matches the current primary input.
   if (typeof window.matchMedia === 'function') {
     const hoverQuery = window.matchMedia('(hover: hover)');
-    const onHoverChange = () => {
-      // Only replace the text while the placeholder is showing; don't clobber a
-      // selected state's details.
-      if (panel.dataset.showingPlaceholder === 'true') {
-        renderInfoPlaceholder(panel, infoPanelConfig);
+    hoverQuery.addEventListener('change', () => {
+      // Only re-render while the default view is showing; don't clobber a
+      // selected feature's details.
+      if (context.panel.dataset.showingPlaceholder === 'true') {
+        renderDefaultView(context);
       }
-    };
-    if (typeof hoverQuery.addEventListener === 'function') {
-      hoverQuery.addEventListener('change', onHoverChange);
-    } else if (typeof hoverQuery.addListener === 'function') {
-      hoverQuery.addListener(onHoverChange);
-    }
+    });
   }
+}
 
-  return panel;
+// Choose the panel's default "nothing selected" content: the summary view when
+// it's enabled and the data has categories, otherwise the placeholder text.
+function renderDefaultView(context) {
+  if (context.mapConfig?.showSummary && context.categories) {
+    renderSummary(context);
+  } else {
+    renderInfoPlaceholder(context.panel, context.infoPanelConfig);
+  }
 }
 
 // Build a visually hidden, keyboard-focusable control for every mapped feature
@@ -443,6 +762,97 @@ function renderInfoPlaceholder(panel, infoPanelConfig) {
   panel.dataset.showingPlaceholder = 'true';
 }
 
+// Render the summary view shown when no feature is selected (opt-in via
+// show_summary, and only when the data has categories): the configured heading
+// and badge, then a list of every category with its total across all features.
+function renderSummary(context) {
+  const { panel, mapConfig, categories, data } = context;
+
+  panel.innerHTML = '';
+  panel.dataset.showingPlaceholder = 'true';
+
+  //    Shared header (heading + pill badge + separator), using the configured
+  //    summary heading/badge text (e.g. "Nationwide" / "USA").
+  renderPanelHeader(context, mapConfig.summaryHeadingText, mapConfig.summaryBadgeText);
+
+  //    Tally category totals across every feature's actions.
+  const allActions = Object.values(data).flatMap(state => state.actions || []);
+  const counts = countActionsByCategory(allActions);
+
+  //    Optional total line, shown above the list (where the per-state subheading
+  //    sits). The template is split on {count} so the grand total of all actions
+  //    renders in its own span (independently styleable from the surrounding
+  //    text).
+  if (mapConfig.summaryTotalText) {
+    const total = createElement('p', 'map-widget__summary-total');
+    if (mapConfig.summaryTotalClasses) {
+      total.className = `map-widget__summary-total ${mapConfig.summaryTotalClasses}`;
+    }
+
+    const countClass = ['map-widget__summary-total-count'];
+    if (mapConfig.summaryTotalCountClasses) {
+      countClass.push(mapConfig.summaryTotalCountClasses);
+    }
+
+    const parts = mapConfig.summaryTotalText.split('{count}');
+    parts.forEach((part, index) => {
+      // Between parts (i.e. wherever {count} appeared), insert the count span.
+      if (index > 0) {
+        const countEl = createElement('span', countClass.join(' '));
+        countEl.textContent = allActions.length;
+        total.appendChild(countEl);
+      }
+      if (part) {
+        total.appendChild(document.createTextNode(part));
+      }
+    });
+
+    panel.appendChild(total);
+  }
+
+  //    One row per category (alphabetical; context.categories is pre-sorted).
+  //    Every category in the union has at least one action somewhere, so there
+  //    are no zero rows to worry about here.
+  const list = createElement('ul', 'map-widget__summary');
+  if (mapConfig.summaryListClasses) {
+    list.className = `map-widget__summary ${mapConfig.summaryListClasses}`;
+  }
+
+  const labelClasses = ['map-widget__summary-category-label'];
+  if (mapConfig.summaryCategoryLabelClasses) {
+    labelClasses.push(mapConfig.summaryCategoryLabelClasses);
+  }
+  const labelClass = labelClasses.join(' ');
+
+  const countClasses = ['map-widget__summary-category-count'];
+  if (mapConfig.summaryCategoryCountClasses) {
+    countClasses.push(mapConfig.summaryCategoryCountClasses);
+  }
+  const countClass = countClasses.join(' ');
+
+  const itemClasses = ['map-widget__summary-item'];
+  if (mapConfig.summaryItemClasses) {
+    itemClasses.push(mapConfig.summaryItemClasses);
+  }
+  const itemClass = itemClasses.join(' ');
+
+  for (const category of categories) {
+    const item = createElement('li', itemClass);
+
+    const label = createElement('span', labelClass);
+    label.textContent = category;
+
+    const count = createElement('span', countClass);
+    count.textContent = counts[category] || 0;
+
+    item.appendChild(label);
+    item.appendChild(count);
+    list.appendChild(item);
+  }
+
+  panel.appendChild(list);
+}
+
 function createTextBadge(agency) {
   const badge = createElement('span', 'map-widget__agency-badge');
   badge.textContent = agency;
@@ -485,6 +895,34 @@ function getAgencyBadge(context, agency) {
   return badgeCache[agency].cloneNode(true);
 }
 
+// Build the info-panel header — the heading (feature/summary name) and its pill
+// badge, followed by the accent separator — and append it to the panel. Shared
+// by the per-state view (renderInfo) and the summary view (renderSummary).
+function renderPanelHeader(context, name, code) {
+  const { panel, infoPanelConfig } = context;
+
+  //    Build a flex container so the badge and heading sit side by side.
+  const headingContainer = createElement('div', 'map-widget__heading-container');
+
+  const heading = createElement('h2');
+  heading.textContent = name;
+  if (infoPanelConfig?.headingClasses) {
+    heading.className = infoPanelConfig.headingClasses;
+  }
+  headingContainer.appendChild(heading);
+
+  //    Add the small pill badge (e.g. a state's abbreviation like "CA").
+  const badge = createElement('span', 'map-widget__state-badge');
+  badge.textContent = code;
+  headingContainer.appendChild(badge);
+
+  panel.appendChild(headingContainer);
+
+  //    Add the short accent bar shown beneath the heading.
+  const separator = createElement('div', 'map-widget__separator');
+  panel.appendChild(separator);
+}
+
 function renderInfo(context, feature) {
   const { panel, data, infoPanelConfig } = context;
 
@@ -501,32 +939,36 @@ function renderInfo(context, feature) {
   //    back to the feature's own name).
   const stateName = stateData?.name ?? feature.properties.name;
 
-  //    Build a flex container so the state badge and heading sit side by side.
-  const headingContainer = createElement('div', 'map-widget__heading-container');
+  //    Render the shared header (heading + pill badge + separator).
+  renderPanelHeader(context, stateName, stateCode);
 
-  //    Add the heading with the full state name, preferring the data set's
-  //    name and falling back to the feature's own name.
-  const heading = createElement('h2');
-  heading.textContent = stateName;
-  if (infoPanelConfig?.headingClasses) {
-    heading.className = infoPanelConfig.headingClasses;
+  //    Optional subheading, shown beneath the separator. Supports the {state}
+  //    placeholder.
+  if (infoPanelConfig?.subheadingText) {
+    const subheading = createElement('p', 'map-widget__subheading');
+    if (infoPanelConfig.subheadingClasses) {
+      subheading.className = `map-widget__subheading ${infoPanelConfig.subheadingClasses}`;
+    }
+    subheading.textContent = infoPanelConfig.subheadingText.replace('{state}', stateName);
+    panel.appendChild(subheading);
   }
-  headingContainer.appendChild(heading);
 
-  //    Add the small pill badge showing the state's abbreviation (e.g. "CA").
-  const stateBadge = createElement('span', 'map-widget__state-badge');
-  stateBadge.textContent = stateCode;
-  headingContainer.appendChild(stateBadge);
+  //    Grab all actions, remember the true total
+  const allActions = stateData?.actions ?? [];
+  const total = allActions.length;
 
-  //    Add the heading row into the panel.
-  panel.appendChild(headingContainer);
+  // Sort the actions
+  // Undated actions are sorted first in "asc", last in "desc"
+  const sortOrder = infoPanelConfig?.sortOrder || 'desc';
+  let sortedActions = [];
+  if (sortOrder === 'desc') {
+    sortedActions = allActions.slice().sort((a, b) => getActionSortKey(b) - getActionSortKey(a));
+  } else {
+    sortedActions = allActions.slice().sort((a, b) => getActionSortKey(a) - getActionSortKey(b));
+  }
 
-  //    Add the short accent bar shown beneath the heading.
-  const separator = createElement('div', 'map-widget__separator');
-  panel.appendChild(separator);
-
-  //    If the state has no actions, show the "no data" message and stop here.
-  const actionsList = stateData?.actions ?? [];
+  const maxItems = infoPanelConfig?.maxItems;
+  const actionsList = maxItems > 0 ? sortedActions.slice(0, maxItems) : sortedActions;
 
   if (actionsList?.length === 0) {
     const noDataParagraph = createElement('p');
@@ -573,15 +1015,23 @@ function renderInfo(context, feature) {
 
     // 10e. Add the action's description text.
     const text = createElement('span', 'map-widget__action-text');
+    if (infoPanelConfig?.actionTextClasses) {
+      text.className = `map-widget__action-text ${infoPanelConfig.actionTextClasses}`;
+    }
     text.textContent = action.action;
-    content.appendChild(text);
+    // content.appendChild(text);
 
     // 10f. Add a formatted date when one is present.
     if (action.date !== null) {
       const date = createElement('div', 'map-widget__action-date');
+      if (infoPanelConfig?.actionDateClasses) {
+        date.className = `map-widget__action-date ${infoPanelConfig.actionDateClasses}`;
+      }
       date.textContent = formatActionDate(action.date);
       content.appendChild(date);
     }
+
+    content.appendChild(text);
 
     // 10g. Assemble the row and append the finished item to the list.
     row.appendChild(content);
@@ -593,6 +1043,104 @@ function renderInfo(context, feature) {
 
   // 11. Append the fully built actions list to the panel.
   panel.appendChild(list);
+
+  //    When the state has more actions than we showed, add a line pointing to
+  //    the full list. Supports {count} (true total) and {state} placeholders.
+  if (maxItems > 0 && total > maxItems && infoPanelConfig?.overflowText) {
+    const overflow = createElement('p', 'map-widget__actions-overflow');
+    if (infoPanelConfig.overflowClasses) {
+      overflow.className = `map-widget__actions-overflow ${infoPanelConfig.overflowClasses}`;
+    }
+    overflow.textContent = infoPanelConfig.overflowText
+      .replace('{count}', total)
+      .replace('{state}', stateName);
+    panel.appendChild(overflow);
+  }
+}
+
+// Fill the category bar with one slot per known category, showing how many
+// of the selected state's actions fall into each. Counts use the state's
+// FULL actions list (not the capped info-panel list). Every category is
+// always rendered, even if the count is zero, so that the layout stays
+// stable.
+function renderCategoryBar(context, feature) {
+  const bar = context.categoryBar;
+  if (!bar) {
+    return;
+  }
+
+  const { mapConfig } = context;
+  const stateData = context.data[feature.properties.code];
+  const actions = stateData?.actions ?? [];
+  const stateName = stateData?.name ?? feature.properties.name;
+
+  // Tally actions by category.
+  const counts = countActionsByCategory(actions);
+
+  // Fill the caption's state-name prefix — the only per-state part of the
+  // caption (the static text was set once in createCategoryBar). {state} is
+  // replaced with the selected state's name.
+  const captionState = bar.querySelector('.map-widget__category-bar-caption-state');
+  if (captionState) {
+    captionState.textContent = mapConfig.captionStateText.replace('{state}', stateName);
+  }
+
+  const totalCountEl = bar.querySelector('.map-widget__category-bar-total-count');
+  if (totalCountEl) {
+    totalCountEl.textContent = actions.length;
+  }
+
+  // Rebuild the slots. Render every known category in alphabetical order
+  // (context.categories is already sorted); dim zero counts for a stable layout.
+  const slots = bar.querySelector('.map-widget__category-slots');
+  slots.innerHTML = '';
+
+  const slotLabelClasses = ['map-widget__category-slot-label'];
+  if (mapConfig.categorySlotLabelClasses) {
+    slotLabelClasses.push(mapConfig.categorySlotLabelClasses);
+  }
+  const slotLabelClass = slotLabelClasses.join(' ');
+
+  const slotCountClasses = ['map-widget__category-slot-count'];
+  if (mapConfig.categorySlotCountClasses) {
+    slotCountClasses.push(mapConfig.categorySlotCountClasses);
+  }
+  const slotCountClass = slotCountClasses.join(' ');
+
+  // Empty-slot variants: zero-count slots use their own base classes
+  // (map-widget__category-slot-empty-label/-count) plus any configured empty
+  // classes, fully replacing the normal label/count classes rather than
+  // layering on top — so their styling always wins with no cascade conflict.
+  const slotEmptyLabelClasses = ['map-widget__category-slot-empty-label'];
+  if (mapConfig.categorySlotEmptyLabelClasses) {
+    slotEmptyLabelClasses.push(mapConfig.categorySlotEmptyLabelClasses);
+  }
+  const slotEmptyLabelClass = slotEmptyLabelClasses.join(' ');
+
+  const slotEmptyCountClasses = ['map-widget__category-slot-empty-count'];
+  if (mapConfig.categorySlotEmptyCountClasses) {
+    slotEmptyCountClasses.push(mapConfig.categorySlotEmptyCountClasses);
+  }
+  const slotEmptyCountClass = slotEmptyCountClasses.join(' ');
+
+  for (const category of context.categories) {
+    const count = counts[category] || 0;
+    const isEmpty = count === 0;
+
+    const slot = createElement('div', 'map-widget__category-slot');
+
+    const label = createElement('span', isEmpty ? slotEmptyLabelClass : slotLabelClass);
+    label.textContent = category;
+
+    const value = createElement('span', isEmpty ? slotEmptyCountClass : slotCountClass);
+    value.textContent = count;
+
+    slot.appendChild(value);
+    slot.appendChild(label);
+    slots.appendChild(slot);
+  }
+
+  bar.hidden = false;
 }
 
 async function initMapWidget(mapWidget) {
@@ -618,7 +1166,27 @@ async function initMapWidget(mapWidget) {
 
   const mapConfig = getMapConfig(mapWidget);
   const infoPanelConfig = getInfoPanelConfig(mapWidget);
-  const panel = buildInfoPanel(mapWidget, infoPanelConfig);
+  const panel = buildInfoPanel(mapWidget);
+
+  let tooltip = null;
+  if (mapConfig.showTooltip) {
+    tooltip = createTooltip(mapElement);
+  }
+
+  // Categories power both the (optional) category bar and the (optional) summary
+  // view, so collect them when either is enabled and the data has any.
+  let categories = null;
+  if (mapConfig.showCategoryBar || mapConfig.showSummary) {
+    const found = collectCategories(data);
+    if (found.length) {
+      categories = found;
+    }
+  }
+
+  let categoryBar = null;
+  if (mapConfig.showCategoryBar && categories) {
+    categoryBar = createCategoryBar(mapElement, mapConfig);
+  }
 
   const context = {
     panel: panel,
@@ -629,8 +1197,33 @@ async function initMapWidget(mapWidget) {
     brokenSeals: brokenSeals,
     badgeCache: {},
     active: null,
-    focusables: []
+    focusables: [],
+    tooltip: tooltip,
+    categories: categories,
+    categoryBar: categoryBar
   };
+
+  //    Paint the panel's initial default view (summary or placeholder).
+  setupDefaultView(context);
+
+  // Accessibility: Escape provides a keyboard exit without moving the pointer.
+  // The first press dismisses the hover tooltip (if it's showing); once the
+  // tooltip is hidden, a further press clears the active (hovered/selected)
+  // feature, returning the map to its placeholder state.
+  document.addEventListener('keydown', keyEvent => {
+    if (keyEvent.key !== 'Escape') {
+      return;
+    }
+
+    if (context.tooltip && !context.tooltip.hidden) {
+      hideTooltip(context);
+      return;
+    }
+
+    if (context.active) {
+      clearActive(context);
+    }
+  });
 
   drawFeatures(mapSvg, features, d3PathGenerator, context);
 

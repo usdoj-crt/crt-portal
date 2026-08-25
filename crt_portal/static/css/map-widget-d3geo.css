@@ -27,11 +27,136 @@
 .map-widget__map {
   flex: 2;
   padding: 0.5rem;
-  border-radius: 8px;
+  /*border-radius: 8px;*/
   background: #ffffff;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  /*box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);*/
+
   /* Clip the SVG's corners to the rounded box. */
   overflow: hidden;
+  position: relative;
+}
+
+/* Cursor-following hover tooltip (opt-in via the show_tooltip argument).
+   Hidden by default and only revealed at the desktop breakpoint below, so it
+   never shows on mobile/tablet (where there is no cursor to follow). */
+.map-widget__tooltip {
+  position: absolute;
+  z-index: 5;
+  display: none;
+  align-items: center;
+  gap: 0.5rem;
+  pointer-events: none;
+  padding: 0.5rem;
+  border-radius: 8px;
+  background: #1b1b1b;
+  color: #ffffff;
+  font-size: 1rem;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+@media (min-width: 1024px) {
+  /* `:not([hidden])` preserves the JS `hidden` toggle — without it this rule
+     would override `hidden` and keep the tooltip visible after mouseleave. */
+  .map-widget__tooltip:not([hidden]) {
+    display: flex;
+  }
+}
+
+/* Category summary bar — sits below the map SVG, inside the map card, so its
+   position is independent of the info panel's height. Hidden on mobile
+   (the mockup only shows it on wider screens) and hidden until a state
+   is selected (via the `hidden` attribute toggled in renderCategoryBar). */
+.map-widget__category-bar {
+  display: none;
+
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  background: rgba(10, 19, 34, 0.9); /* #0a1322 at 90% */
+  backdrop-filter: blur(3px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+}
+
+@media (min-width: 1024px) {
+  /* `:not([hidden])` keeps the browser's `hidden` behavior working — without
+     it, this display rule would override `hidden` and reveal the bar before a
+     state is selected. */
+  .map-widget__category-bar:not([hidden]) {
+    display: flex;
+  }
+}
+
+.map-widget__category-bar-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.map-widget__category-bar-caption {
+  color: white;
+  padding-left: 1rem;
+}
+
+.map-widget__category-bar-caption-state {
+  margin-right: 0.25em;
+}
+
+.map-widget__category-bar-total {
+  flex: none;
+  display: flex;
+  align-items: baseline;
+  gap: 0.25rem;
+  padding-right: 1rem;
+}
+
+.map-widget__category-bar-total-label {
+  color: white;
+}
+
+.map-widget__category-bar-total-count {
+  color: white;
+}
+
+.map-widget__category-slots {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 0.5rem;
+  border-top: 1px solid #565c65;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.map-widget__category-slot {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 0.75rem;
+  border-left: 1px solid #565c65;
+}
+
+.map-widget__category-slot:first-child {
+  border-left: 0;
+}
+
+.map-widget__category-slot-label {
+  text-align: center;
+}
+
+.map-widget__category-slot-count {
+  text-align: center;
+}
+
+.map-widget__category-slot-empty-label {
+  text-align: center;
+}
+
+.map-widget__category-slot-empty-count {
+  text-align: center;
 }
 
 /* The SVG scales to fill the map area; viewBox handles the aspect ratio. */
@@ -44,10 +169,14 @@
 
 .map-widget__panel {
   flex: 1;
-  padding: 1.0rem;
-  border-radius: 8px;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  padding-left: 1rem;
+  padding-right: 3rem;
+  /*border-radius: 8px;*/
   background: #ffffff;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  /*box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);*/
+
   /* Clip the SVG's corners to the rounded box. */
   overflow: hidden;
 }
@@ -55,7 +184,7 @@
 /* Short gold/yellow accent bar shown above the info-panel heading. */
 .map-widget__separator {
   margin-top: 0.25rem;
-  margin-bottom: 1.0rem;
+  margin-bottom: 1rem;
   border: 2px solid #ffbe2e;
   border-radius: 2px;
   background: #ffbe2e;
@@ -132,8 +261,15 @@
 
 .map-widget__action-date {
   margin-top: 0.125rem;
-  color: #71767a;
-  font-size: 0.8rem;
+}
+
+/* Summary list (the default "nothing selected" view). Mirrors the actions-list
+   reset so its items align with the panel heading instead of inheriting the
+   usa-list bullet indentation. */
+.map-widget__summary {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 /* Visually hidden container for the keyboard/screen-reader state controls.
