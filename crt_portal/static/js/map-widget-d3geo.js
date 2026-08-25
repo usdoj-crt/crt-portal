@@ -268,6 +268,8 @@ function getMapConfig(mapWidget) {
 
   mapConfig.showTooltip = mapWidget?.dataset?.mapShowTooltip === 'true';
 
+  mapConfig.openInNewTab = mapWidget?.dataset?.mapOpenInNewTab === 'true';
+
   mapConfig.showCategoryBar = mapWidget?.dataset?.mapShowCategoryBar === 'true';
 
   mapConfig.categoryBarCaption = mapWidget?.dataset?.mapCategoryBarCaption || '';
@@ -477,15 +479,37 @@ function setActive(context, shape, feature) {
   context.active = { shape: shape, feature: feature };
 }
 
-// Open the URL associated with a feature (from the loaded data set) in a new
-// tab. Used by pointer clicks and keyboard/screen-reader activation. Hover and
-// focus intentionally do NOT call this — they only highlight via setActive().
+// Clear the active (hovered/selected) feature: reset its fill, drop the active
+// reference, restore the info-panel placeholder, and hide the category bar.
+// Returns the widget to its initial "nothing selected" state.
+function clearActive(context) {
+  if (context.active) {
+    hideActive(context.active.shape, context.mapConfig);
+    context.active = null;
+  }
+
+  renderInfoPlaceholder(context.panel, context.infoPanelConfig);
+
+  if (context.categoryBar) {
+    context.categoryBar.hidden = true;
+  }
+}
+
+// Navigate to the URL associated with a feature (from the loaded data set).
+// Opens in a new tab when the open_in_new_tab option is set, otherwise in the
+// current tab (the accessible default). Used by pointer clicks and
+// keyboard/screen-reader activation. Hover and focus intentionally do NOT call
+// this — they only highlight via setActive().
 function openFeatureUrl(context, feature) {
   const stateCode = feature.properties.code;
   const url = context.data?.[stateCode]?.url;
 
   if (url) {
-    window.open(url, '_blank', 'noopener');
+    if (context.mapConfig?.openInNewTab) {
+      window.open(url, '_blank', 'noopener');
+    } else {
+      window.location.assign(url);
+    }
   }
 }
 
@@ -1036,16 +1060,24 @@ async function initMapWidget(mapWidget) {
     categoryBar: categoryBar
   };
 
-  // Accessibility: The hover tooltip overlays the map,
-  // so it must be dismissable from the keyboard
-  // without moving the pointer.
-  if (context.tooltip) {
-    document.addEventListener('keydown', keyEvent => {
-      if (keyEvent.key === 'Escape') {
-        hideTooltip(context);
-      }
-    });
-  }
+  // Accessibility: Escape provides a keyboard exit without moving the pointer.
+  // The first press dismisses the hover tooltip (if it's showing); once the
+  // tooltip is hidden, a further press clears the active (hovered/selected)
+  // feature, returning the map to its placeholder state.
+  document.addEventListener('keydown', keyEvent => {
+    if (keyEvent.key !== 'Escape') {
+      return;
+    }
+
+    if (context.tooltip && !context.tooltip.hidden) {
+      hideTooltip(context);
+      return;
+    }
+
+    if (context.active) {
+      clearActive(context);
+    }
+  });
 
   drawFeatures(mapSvg, features, d3PathGenerator, context);
 

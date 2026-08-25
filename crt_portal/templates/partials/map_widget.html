@@ -40,6 +40,10 @@ Optional (fall back to the widget's built-in defaults if omitted):
                                while hovering a feature, showing its name and
                                code. Defaults to "false".
 
+  open_in_new_tab              When "true", activating a feature opens its URL in
+                               a new tab. Defaults to "false" (opens in the
+                               current tab, the accessible default).
+
   show_category_bar            When "true", a bar is shown below the map that
                                breaks down the selected feature's actions by
                                category. The set of categories is derived from
@@ -148,6 +152,7 @@ Optional (fall back to the widget's built-in defaults if omitted):
   data-map-badge-text-color="{{ badge_text_color|default:'' }}"
   data-map-badge-radius="{{ badge_radius|default:'' }}"
   data-map-show-tooltip="{{ show_tooltip|default:'false'}}"
+  data-map-open-in-new-tab="{{ open_in_new_tab|default:'false' }}"
   data-map-show-category-bar="{{ show_category_bar|default:'false' }}"
   data-map-category-bar-caption="{{ category_bar_caption|default:'' }}"
   data-map-category-bar-caption-classes="{{ category_bar_caption_classes|default:'' }}"
