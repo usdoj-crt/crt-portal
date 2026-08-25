@@ -4,10 +4,10 @@ US map widget — renders a single interactive map of the United States.
 
 Usage (include once per map you want on the page):
 
-    {% include "partials/map_widget.html" with data_name="example-map" %}
+    {% include "map_widget/map_widget.html" with data_name="example-map" %}
 
 You must ALSO include the shared assets once per page (see
-"partials/map_widget_assets.html"), which loads the CSS, d3, and the widget JS.
+"map_widget/map_widget_assets.html"), which loads the CSS, d3, and the widget JS.
 The widget JS boots every ".map-widget" element on the page, so multiple
 includes of this partial render multiple independent maps.
 

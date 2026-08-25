@@ -12,7 +12,7 @@ class NewsColumnWidget(forms.Textarea):
     toggle lets power users edit the JSON directly.
     """
 
-    template_name = 'news_widget/news_column.html'
+    template_name = 'news_widget/news_column_admin.html'
 
     class Media:
         js = ('js/news_column_admin.js',)
