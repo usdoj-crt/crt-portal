@@ -263,6 +263,15 @@
   margin-top: 0.125rem;
 }
 
+/* Summary list (the default "nothing selected" view). Mirrors the actions-list
+   reset so its items align with the panel heading instead of inheriting the
+   usa-list bullet indentation. */
+.map-widget__summary {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
 /* Visually hidden container for the keyboard/screen-reader state controls.
    The buttons stay in the accessibility tree and the tab order; only their
    visual presentation is removed. Focusing a button highlights the matching
