@@ -31,3 +31,28 @@ class NewsWidgetColumnData(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class NewsWidgetCardsData(models.Model):
+
+    class Meta:
+        app_label = 'news_widget'
+        verbose_name = 'News widget card set'
+        verbose_name_plural = 'News widget card sets'
+
+    name = models.CharField(
+        max_length=256,
+        unique=True,
+        blank=False,
+        null=False,
+        validators=[NewsWidgetNameValidator],
+        help_text="A unique name used to identify this news card set's data. Data is fetched by this name.",
+    )
+    data = models.JSONField(
+        default=list,
+        blank=True,
+        help_text='The list of news cards formatted as JSON for a news carousel',
+    )
+
+    def __str__(self):
+        return self.name

@@ -1,7 +1,7 @@
 from django import forms
 
 
-class NewsColumnWidget(forms.Textarea):
+class NewsColumnAdminWidget(forms.Textarea):
     """Admin widget for editing a news column's list of articles.
 
     The underlying value is still a JSON array of ``{date, title, link}``

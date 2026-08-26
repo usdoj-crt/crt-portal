@@ -2,27 +2,22 @@
 <!--
 News card — renders a single "In the News" card.
 
-Usage (inside a {% for %} loop over the list of news items):
-
-    {% for item in news_items %}
-        {% include "news_widget/news_card.html" with item=item %}
-    {% endfor %}
+Usage: rendered for each item by news_widget/news_carousel.html, which is
+driven by the {% render_news_card_carousel %} template tag.
 
 Expected `item` fields:
-    type          Item type shown in the pill, e.g. "Press Release" (rendered
-                  in all caps via CSS).
-    thumbnail     URL/path for the thumbnail image, or null/empty.
-    agency        Agency code, e.g. "DOJ". Used for the badge fallback.
-    badge_image   (optional) Resolved seal image URL for `agency`. When
-                  `thumbnail` is empty and this is present, the seal is shown
-                  centered on a blue-gradient background instead of a thumbnail.
-    date          Publish date, e.g. "7/7/2026".
-    linkUrl       URL the headline links to.
-    linkText      Headline text; also the clickable link text.
-    source        Publisher/source name, e.g. "DOJ Civil Rights Division".
+    type                    Item type shown in the pill, e.g. "Press Release" (rendered
+                            in all caps via CSS).
 
-Layout: top 50% is the thumbnail (or agency seal fallback); bottom 50% is a
-white panel with the type pill, headline link, and "source - date" meta.
+    thumbnail               URL/path for the thumbnail image, or null/empty.
+
+    placeholder_thumbnail   (optional) Resolved URL of a fallback image shown when
+                            `thumbnail` is empty.
+
+    date                    Publish date, e.g. "7/7/2026".
+    linkUrl                 URL the headline links to.
+    linkText                Headline text; also the clickable link text.
+    source                  Publisher/source name, e.g. "DOJ Civil Rights Division".
 -->
 {% endcomment %}
 <article class="news-card">
@@ -30,9 +25,9 @@ white panel with the type pill, headline link, and "source - date" meta.
         <div class="news-card__thumbnail">
             <img src="{{ item.thumbnail }}" alt="{{ item.linkText }}" loading="lazy">
         </div>
-    {% elif item.badge_image %}
+    {% elif item.placeholder_thumbnail %}
         <div class="news-card__thumbnail news-card__thumbnail--seal">
-            <img src="{{ item.badge_image }}" alt="{{ item.agency }}" loading="lazy">
+            <img src="{{ item.placeholder_thumbnail }}" alt="{{ item.linkText }}" loading="lazy">
         </div>
     {% else %}
         <div class="news-card__thumbnail news-card__thumbnail--seal"></div>

@@ -1,49 +1,47 @@
-{
-    "items": [
-        {
-            "type": "Press Release",
-            "thumbnail": null,
-            "agency": "DOJ",
-            "date": "7/7/2026",
-            "linkUrl": "https://www.justice.gov/opa/pr",
-            "linkText": "Justice Department sues four additional states and one locality for failure to comply with federal elections laws",
-            "source": "DOJ Civil Rights Division"
-        },
-        {
-            "type": "Press Release",
-            "thumbnail": null,
-            "agency": "DOJ",
-            "date": "7/7/2026",
-            "linkUrl": "https://www.justice.gov/opa/pr",
-            "linkText": "Justice Department sues four additional states and one locality for failure to comply with federal elections laws",
-            "source": "DOJ Civil Rights Division"
-        },
-        {
-            "type": "Partner",
-            "thumbnail": "../../../img/trump-hero.jpg",
-            "agency": "DHS",
-            "date": "6/20/2026",
-            "linkUrl": "https://www.dhs.gov/news",
-            "linkText": "DHS and DOJ announce joint initiative to safeguard the integrity of the 2026 elections",
-            "source": "Department of Homeland Security"
-        },
-        {
-            "type": "Announcement",
-            "thumbnail": null,
-            "agency": "DHS",
-            "date": "6/20/2026",
-            "linkUrl": "https://www.dhs.gov/news",
-            "linkText": "DHS and DOJ announce joint initiative to safeguard the integrity of the 2026 elections",
-            "source": "Department of Homeland Security"
-        },
-        {
-            "type": "Partner",
-            "thumbnail": "../../../img/trump-hero.jpg",
-            "agency": "DHS",
-            "date": "6/20/2026",
-            "linkUrl": "https://www.dhs.gov/news",
-            "linkText": "DHS and DOJ announce joint initiative to safeguard the integrity of the 2026 elections",
-            "source": "Department of Homeland Security"
-        }
-    ]
-}
+[
+    {
+        "type": "Press Release",
+        "thumbnail": null,
+        "placeholder_thumbnail": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
+        "date": "7/7/2026",
+        "linkUrl": "https://www.justice.gov/opa/pr",
+        "linkText": "Justice Department sues four additional states and one locality for failure to comply with federal elections laws",
+        "source": "DOJ Civil Rights Division"
+    },
+    {
+        "type": "Press Release",
+        "thumbnail": null,
+        "placeholder_thumbnail": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
+        "date": "7/7/2026",
+        "linkUrl": "https://www.justice.gov/opa/pr",
+        "linkText": "Justice Department sues four additional states and one locality for failure to comply with federal elections laws",
+        "source": "DOJ Civil Rights Division"
+    },
+    {
+        "type": "Partner",
+        "thumbnail": "static:img/trump-hero.jpg",
+        "placeholder_thumbnail": null,
+        "date": "6/20/2026",
+        "linkUrl": "https://www.dhs.gov/news",
+        "linkText": "DHS and DOJ announce joint initiative to safeguard the integrity of the 2026 elections",
+        "source": "Department of Homeland Security"
+    },
+    {
+        "type": "Announcement",
+        "thumbnail": null,
+        "placeholder_thumbnail": "static:img/Seal_of_the_United_States_Department_of_Homeland_Security.svg",
+        "date": "6/20/2026",
+        "linkUrl": "https://www.dhs.gov/news",
+        "linkText": "DHS and DOJ announce joint initiative to safeguard the integrity of the 2026 elections",
+        "source": "Department of Homeland Security"
+    },
+    {
+        "type": "Partner",
+        "thumbnail": "static:img/trump-hero.jpg",
+        "placeholder_thumbnail": null,
+        "date": "6/20/2026",
+        "linkUrl": "https://www.dhs.gov/news",
+        "linkText": "DHS and DOJ announce joint initiative to safeguard the integrity of the 2026 elections",
+        "source": "Department of Homeland Security"
+    }
+]
