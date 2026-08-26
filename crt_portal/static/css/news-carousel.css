@@ -72,11 +72,29 @@
 
 .news-carousel__nav {
     flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    border: 1px solid #a9aeb1;
+    background: white;
+    color: #162e51;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.20);
 }
 
 .news-carousel__nav .icon-arrow {
   width: 1.5rem;
   height: 1.5rem;
+}
+
+.news-carousel__nav:hover,
+.news-carousel__nav:focus-visible {
+  background: #162e51;
+  color: white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.40);   /* lift a bit more */
 }
 
 /* At the far-left/right end of the rail the matching button is disabled by JS.

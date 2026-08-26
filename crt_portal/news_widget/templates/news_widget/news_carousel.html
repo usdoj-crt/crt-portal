@@ -3,7 +3,13 @@
         <svg class="icon-arrow" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
     </button>
 
-    <ul class="news-carousel__track usa-list usa-list--unstyled" tabindex="0" data-news-carousel-track>
+    <ul
+        class="news-carousel__track usa-list usa-list--unstyled"
+        tabindex="0"
+        role="group"
+        aria-label="{{ label|default:'Latest news and media' }}, use arrow keys to scroll"
+        data-news-carousel-track
+    >
         {% for item in items %}
             <li class="news-carousel__item">
                 {% include "news_widget/news_card.html" with item=item %}
