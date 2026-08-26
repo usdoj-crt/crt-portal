@@ -33,10 +33,20 @@
   padding-inline: 1rem;
 
   /* padding around items */
-  padding-block: 1rem;
+  padding-block: 1.25rem;
 
   /* smooth programmatic scrolling. */
   scroll-behavior: smooth;
+
+  /* Hide the visual scrollbar (Firefox). The rail is still fully scrollable
+     via swipe/wheel/keyboard and the prev/next buttons, so this only removes
+     the bar, not the scrolling. The buttons are the visible affordance. */
+  scrollbar-width: none;
+}
+
+/* Hide the visual scrollbar (Chrome/Safari/Edge). */
+.news-carousel__track::-webkit-scrollbar {
+  display: none;
 }
 
 .news-carousel__item {
