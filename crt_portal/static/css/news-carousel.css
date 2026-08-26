@@ -52,7 +52,7 @@
 .news-carousel__item {
     display: flex;
     /* Mobile: one dominant card centered, neighbors peeking at the edges. */
-    flex: 0 0 75vw;
+    flex: 0 0 70vw;
 
     /* this item's snap position is its CENTER. Combined with the
        track padding above, snapping to any card parks it dead-center. */
