@@ -427,55 +427,34 @@ async function loadData(mapWidget) {
   }
 }
 
-// Load the agency-to-image badge mapping named in the widget's
-// data-badge-mapping-src attribute. Returns {} if the attribute is missing or
-// the file cannot be loaded, so the caller can safely fall back to text badges.
-async function loadBadgeMapping(mapWidget) {
-  const url = mapWidget.dataset.badgeMappingSrc;
-  if (!url) {
-    return {};
+// Collect the distinct bullet image URLs used across all actions in the data
+// set, so each image is only preloaded once. Keyed by URL (not label), since
+// two actions may share a label but point at different images.
+function collectBulletImageUrls(data) {
+  const urls = new Set();
+  if (!data || typeof data !== 'object') {
+    return urls;
   }
-
-  try {
-    const response = await fetch(url);
-    if (!response.ok) {
-      console.warn(
-        `MapWidget: could not load badge mapping "${url}" (HTTP ${response.status}). Falling back to text badges.`
-      );
-      return {};
+  for (const state of Object.values(data)) {
+    for (const action of state?.actions ?? []) {
+      const image = action?.bullet?.image;
+      if (image) {
+        urls.add(image);
+      }
     }
-    const mapping = await response.json();
-
-    // Resolve each image path relative to the mapping file's own URL so the
-    // entries stay environment-agnostic (they work whether the static root
-    // is served locally or from an absolute CDN URL).
-    const resolved = {};
-    for (const [agency, imagePath] of Object.entries(mapping)) {
-      resolved[agency] = imagePath
-        ? new URL(imagePath, new URL(url, window.location.href)).href
-        : imagePath;
-    }
-    return resolved;
-  } catch (error) {
-    console.warn(
-      `MapWidget: could not load badge mapping "${url}". Falling back to text badges.`,
-      error
-    );
-    return {};
   }
+  return urls;
 }
 
-// Preload the badges images browser cache and decode each seal once so when
-// we show an agency badge, we don't pause to fetch/decode the image. Iterates the
-// mapping per agency (rather than per URL) so we can report exactly which
-// agencies have a broken or missing seal. Returns a Set of those agency codes
-// so that the badge cache can fall straight to a text badge for them.
-async function preloadBadgeImages(badgeMapping) {
-  const brokenAgencies = new Set();
+// Preload each distinct bullet image and decode it once, so rendering a bullet
+// doesn't pause to fetch/decode. Returns a Set of the image URLs that are
+// broken or missing, so a bullet using one can fall straight to a text pill.
+async function preloadAndFindBrokenBulletUrls(data) {
+  const brokenBulletImageUrls = new Set();
 
-  const entries = Object.entries(badgeMapping).filter(([, url]) => url);
+  const urls = [...collectBulletImageUrls(data)];
   await Promise.all(
-    entries.map(async ([agency, url]) => {
+    urls.map(async url => {
       const image = new Image();
       image.src = url;
       // decode() resolves once the image is fully decoded, and
@@ -483,12 +462,12 @@ async function preloadBadgeImages(badgeMapping) {
       try {
         await image.decode();
       } catch {
-        brokenAgencies.add(agency);
+        brokenBulletImageUrls.add(url);
       }
     })
   );
 
-  return brokenAgencies;
+  return brokenBulletImageUrls;
 }
 
 function showActive(path, mapConfig) {
@@ -853,46 +832,41 @@ function renderSummary(context) {
   panel.appendChild(list);
 }
 
-function createTextBadge(agency) {
-  const badge = createElement('span', 'map-widget__agency-badge');
-  badge.textContent = agency;
-  return badge;
+// Create the text-pill variant of an action's bullet, showing the label.
+function createBulletText(label) {
+  const pill = createElement('span', 'map-widget__bullet-text');
+  pill.textContent = label;
+  return pill;
 }
 
-function createAgencyBadge(agency, badgeMapping) {
-  const imageUrl = badgeMapping?.[agency];
+// Create the image variant of an action's bullet. Uses the bullet's image when
+// present; otherwise falls back to the text pill with the label.
+function createBulletImage(bullet) {
+  const imageUrl = bullet?.image;
 
   if (imageUrl && typeof imageUrl === 'string' && imageUrl !== '') {
-    const image = createElement('img', 'map-widget__agency-badge-image');
+    const image = createElement('img', 'map-widget__bullet-image');
     image.src = imageUrl;
-    image.alt = agency;
+    image.alt = bullet?.label ?? '';
 
     return image;
   }
 
-  return createTextBadge(agency);
+  return createBulletText(bullet?.label ?? '');
 }
 
-// Build the badge shown as the leading "bullet" for an action. If the agency is
-// present in the badge mapping, an <img> of its seal is used; otherwise it falls
-// back to the gold text badge with the agency code.
-//
-// Reuses previously created agency badges that were added to the cache
-function getAgencyBadge(context, agency) {
-  const { badgeCache, badgeMapping, brokenSeals } = context;
+// Build the bullet shown at the start of an action row. When the bullet has an
+// image that isn't known-broken, the image is used; otherwise it falls back to
+// the text pill with the bullet's label.
+function getActionBullet(context, bullet) {
+  const { brokenBulletImageUrls } = context;
+  const image = bullet?.image;
 
-  // Check if the badgeCache has this agency already
-  // If not, create a text badge IF the seal is 'broken'
-  // otherwise, create the real agency badge.
-  // Add the result to the cache
-  if (!badgeCache[agency]) {
-    badgeCache[agency] = brokenSeals?.has(agency)
-      ? createTextBadge(agency)
-      : createAgencyBadge(agency, badgeMapping);
+  if (image && !brokenBulletImageUrls?.has(image)) {
+    return createBulletImage(bullet);
   }
 
-  // Reuse the cached badge
-  return badgeCache[agency].cloneNode(true);
+  return createBulletText(bullet?.label ?? '');
 }
 
 // Build the info-panel header — the heading (feature/summary name) and its pill
@@ -1001,14 +975,13 @@ function renderInfo(context, feature) {
       item.className = `map-widget__action ${infoPanelConfig.listItemClasses}`;
     }
 
-    //    Create the flex row holding the agency badge and content.
+    //    Create the flex row holding the action's bullet and content.
     const row = createElement('div', 'map-widget__action-row');
 
-    //    Add the agency badge, used as the row's leading "bullet". When
-    //    the agency has an image in the mapping we use that; otherwise we
-    //    fall back to the gold text badge.
-    const badge = getAgencyBadge(context, action.agency);
-    row.appendChild(badge);
+    //    Add the action's leading bullet. When the bullet has an image we use
+    //    that; otherwise we fall back to the text pill with the bullet's label.
+    const bullet = getActionBullet(context, action.bullet);
+    row.appendChild(bullet);
 
     // 10d. Build the content block that holds the action text (and date).
     const content = createElement('div', 'map-widget__action-content');
@@ -1145,8 +1118,7 @@ function renderCategoryBar(context, feature) {
 
 async function initMapWidget(mapWidget) {
   const data = await loadData(mapWidget);
-  const badgeMapping = await loadBadgeMapping(mapWidget);
-  const brokenSeals = await preloadBadgeImages(badgeMapping);
+  const brokenBulletImageUrls = await preloadAndFindBrokenBulletUrls(data);
 
   const mapElement = createElement('div', 'map-widget__map');
   mapWidget.appendChild(mapElement);
@@ -1193,9 +1165,7 @@ async function initMapWidget(mapWidget) {
     data: data,
     mapConfig: mapConfig,
     infoPanelConfig: infoPanelConfig,
-    badgeMapping: badgeMapping,
-    brokenSeals: brokenSeals,
-    badgeCache: {},
+    brokenBulletImageUrls: brokenBulletImageUrls,
     active: null,
     focusables: [],
     tooltip: tooltip,

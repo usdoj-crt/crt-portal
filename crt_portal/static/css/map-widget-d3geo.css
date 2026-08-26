@@ -227,8 +227,9 @@
   gap: 0.5rem;
 }
 
-/* Rounded badge showing the agency, used as the bullet for each action. */
-.map-widget__agency-badge {
+/* Rounded text pill used as the bullet for an action (the fallback when the
+   action's bullet has no image). */
+.map-widget__bullet-text {
   flex-shrink: 0;
   display: inline-block;
   padding: 0.1rem 0.5rem;
@@ -241,13 +242,13 @@
   white-space: nowrap;
 }
 
-/* Image variant of the agency badge (e.g. an agency seal). */
-.map-widget__agency-badge-image {
+/* Image variant of an action's bullet (e.g. a logo or seal). */
+.map-widget__bullet-image {
   flex-shrink: 0;
   display: block;
   width: 1.75rem;
   height: 1.75rem;
-  /* Align the seal's top edge with the first line of the action text. The row
+  /* Align the image's top edge with the first line of the action text. The row
      uses `align-items: baseline`, which images don't participate in cleanly, so
      nudge it to line up with the text's cap height. */
   align-self: flex-start;

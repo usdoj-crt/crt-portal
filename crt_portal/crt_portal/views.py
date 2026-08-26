@@ -1,5 +1,4 @@
 import os
-import json
 import urllib.parse
 
 from django.conf import settings
