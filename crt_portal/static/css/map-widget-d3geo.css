@@ -34,6 +34,8 @@
   /* Clip the SVG's corners to the rounded box. */
   overflow: hidden;
   position: relative;
+
+  min-width: 640px;
 }
 
 /* Cursor-following hover tooltip (opt-in via the show_tooltip argument).

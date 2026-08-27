@@ -110,12 +110,24 @@
     font-size: clamp(10px, 1.4vw, 1rem);
 }
 
+// -------------------------------------
+//   Go Deeper Section (figures)
+// -------------------------------------
+.go-deeper__inner {
+    // flex gap so spacing applies on both axes, including when the
+    // figures wrap below the copy on mobile.
+    gap: 2rem;
 
-
-.election-integrity-map-dark-gold {
-    color: #7a6222;
+    // Let the copy and figures grow to fill the row so no dead space pools
+    // on the right when the figures wrap onto their own line.
+    > * {
+        flex: 1 1 20rem;
+    }
 }
 
+.go-deeper__figures {
+    gap: 1rem 1rem;
+}
 
 // -------------------------------------
 //   FEATURED MEDIA (news cards)
@@ -311,4 +323,16 @@
     @include at-media-max("desktop") {
         font-size: 16px;
     }
+}
+
+// -------------------------------------
+//  Other
+// -------------------------------------
+
+.election-integrity-dark-gold {
+    color: #7a6222;
+}
+
+.election-integrity-number-figure {
+    font-size: clamp(2.5rem, 6vw, 64px);
 }
