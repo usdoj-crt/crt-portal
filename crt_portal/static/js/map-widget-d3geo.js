@@ -1177,7 +1177,7 @@ function renderCategoryBar(context, feature) {
     const icon = createCategoryIcon(
       category,
       context.categoryIcons,
-      isEmpty ? slotEmptyIconClasses : slotIconClasses,
+      isEmpty ? slotEmptyIconClasses : slotIconClasses
     );
     const value = createElement('span', isEmpty ? slotEmptyCountClass : slotCountClass);
     value.textContent = count;
