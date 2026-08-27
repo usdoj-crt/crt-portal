@@ -13,7 +13,62 @@
      gap: 0.5rem;
      width: 100%;
      min-width: 0;
+     position: relative;
  }
+
+/*
+ * Edge fades: a soft gradient over the left/right edges of the rail that only
+ * appears when there is more content to scroll to on that side (classes toggled
+ * by news-carousel.js). Purely a visual cue — pointer-events:none keeps the rail
+ * fully scrollable and clickable through the overlay.
+ */
+.news-carousel::before,
+.news-carousel::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  /* Smaller/lighter on mobile, where wide cards make a big fade intrusive. */
+  width: 2.5rem;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.news-carousel::before {
+  left: 0;
+  background: linear-gradient(to right, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0));
+}
+
+.news-carousel::after {
+  right: 0;
+  background: linear-gradient(to left, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0));
+}
+
+/* From tablet up there's more room, so make the fade a bit more pronounced. */
+@media (min-width: 640px) {
+  .news-carousel::before,
+  .news-carousel::after {
+    width: 4rem;
+  }
+
+  .news-carousel::before {
+    background: linear-gradient(to right, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0));
+  }
+
+  .news-carousel::after {
+    background: linear-gradient(to left, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0));
+  }
+}
+
+.news-carousel--has-prev::before {
+  opacity: 1;
+}
+
+.news-carousel--has-next::after {
+  opacity: 1;
+}
 
 .news-carousel__track {
   flex: 1 1 auto;
@@ -130,7 +185,7 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  z-index: 1;
+  z-index: 3;
 }
 
 .news-carousel--overlay-buttons .news-carousel__nav--prev {

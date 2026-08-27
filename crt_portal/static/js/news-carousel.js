@@ -62,6 +62,11 @@ function initNewsCarousel(carousel) {
     if (nextBtn) {
       nextBtn.disabled = atEnd;
     }
+
+    // Show an edge fade on whichever side has more content to scroll to, as a
+    // visual cue that the rail is scrollable. CSS keys off these classes.
+    carousel.classList.toggle('news-carousel--has-prev', !atStart);
+    carousel.classList.toggle('news-carousel--has-next', !atEnd);
   }
 
   function scrollByStep(direction) {

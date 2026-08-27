@@ -21,6 +21,19 @@
 
 .news-card:hover {
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18);
+  transform: translateY(-4px);
+}
+
+/* Respect reduced-motion preferences: keep the shadow cue but drop the lift
+   (and its animation) for users who ask for less movement. */
+@media (prefers-reduced-motion: reduce) {
+  .news-card {
+    transition: box-shadow 0.2s ease;
+  }
+
+  .news-card:hover {
+    transform: none;
+  }
 }
 
 
