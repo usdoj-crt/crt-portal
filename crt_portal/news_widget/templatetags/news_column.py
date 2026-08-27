@@ -23,7 +23,7 @@ def _format_display_date(value):
     return parsed.strftime('%b %d, %Y')
 
 
-@register.inclusion_tag('partials/news_column.html')
+@register.inclusion_tag('news_widget/news_column.html')
 def render_news_column(name, labelledby=''):
     try:
         column = NewsWidgetColumnData.objects.get(name=name)

@@ -110,8 +110,54 @@
     font-size: clamp(10px, 1.4vw, 1rem);
 }
 
-.election-integrity-map-dark-gold {
-    color: #7a6222;
+// -------------------------------------
+//   Go Deeper Section (figures)
+// -------------------------------------
+.go-deeper__inner {
+    // flex gap so spacing applies on both axes, including when the
+    // figures wrap below the copy on mobile.
+    gap: 2rem;
+
+    // Let the copy and figures grow to fill the row so no dead space pools
+    // on the right when the figures wrap onto their own line.
+    > * {
+        flex: 1 1 20rem;
+    }
+}
+
+.go-deeper__figures {
+    gap: 1rem 1rem;
+}
+
+// -------------------------------------
+//   FEATURED MEDIA (news cards)
+// -------------------------------------
+
+.featured-media {
+    background-color: #eef1f6;
+}
+
+// Grid layout for the featured news cards. The card component itself is
+// styled by news_widget's self-contained news-card.css; this only lays them
+// out on this page.
+.card-container {
+    display: grid;
+    // Three cards per row on desktop.
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    width: 100%;
+    max-width: 75rem;
+
+    // Two per row on tablets.
+    @include at-media-max(desktop) {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+
+    // Single column on mobile.
+    @include at-media-max(mobile-lg) {
+        grid-template-columns: 1fr;
+    }
 }
 
 // -------------------------------------
@@ -277,4 +323,16 @@
     @include at-media-max("desktop") {
         font-size: 16px;
     }
+}
+
+// -------------------------------------
+//  Other
+// -------------------------------------
+
+.election-integrity-dark-gold {
+    color: #7a6222;
+}
+
+.election-integrity-number-figure {
+    font-size: clamp(2.5rem, 6vw, 64px);
 }

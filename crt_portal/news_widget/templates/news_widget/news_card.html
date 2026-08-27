@@ -1,0 +1,49 @@
+{% comment %}
+<!--
+News card — renders a single "In the News" card.
+
+Usage: rendered for each item by news_widget/news_carousel.html, which is
+driven by the {% render_news_card_carousel %} template tag.
+
+Expected `item` fields:
+    type                    Item type shown in the pill, e.g. "Press Release" (rendered
+                            in all caps via CSS).
+
+    thumbnail               URL/path for the thumbnail image, or null/empty.
+
+    placeholder_thumbnail   (optional) Resolved URL of a fallback image shown when
+                            `thumbnail` is empty.
+
+    date                    Publish date, e.g. "7/7/2026".
+    linkUrl                 URL the headline links to.
+    linkText                Headline text; also the clickable link text.
+    source                  Publisher/source name, e.g. "DOJ Civil Rights Division".
+-->
+{% endcomment %}
+<article class="news-card">
+    {% if item.thumbnail %}
+        <div class="news-card__thumbnail">
+            <img src="{{ item.thumbnail }}" alt="{{ item.linkText }}" loading="lazy">
+        </div>
+    {% elif item.placeholder_thumbnail %}
+        <div class="news-card__thumbnail news-card__thumbnail--seal">
+            <img src="{{ item.placeholder_thumbnail }}" alt="{{ item.linkText }}" loading="lazy">
+        </div>
+    {% else %}
+        <div class="news-card__thumbnail news-card__thumbnail--seal"></div>
+    {% endif %}
+    <div class="news-card__body">
+        {% if item.type %}
+            <span class="news-card__pill">{{ item.type }}</span>
+        {% endif %}
+        <a class="news-card__headline usa-link usa-link--external" href="{{ item.linkUrl }}" target="_blank" rel="noopener noreferrer">{{ item.linkText }}</a>
+        <div class="display-flex flex-column flex-1 flex-justify-end">
+            <div>
+                <span class="news-card__meta">{{ item.source }}</span>
+                <span class="news-card__meta padding-x-1">|</span>
+                <span class="news-card__meta">{{ item.date }}</span>
+            </div>
+        </div>
+
+    </div>
+</article>

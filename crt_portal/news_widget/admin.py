@@ -6,8 +6,8 @@ from django.core.exceptions import ValidationError
 from django.core.validators import URLValidator
 
 from utils.admin import CrtModelAdmin
-from .models import NewsWidgetColumnData
-from .widgets import ArticleListWidget
+from .models import NewsWidgetColumnData, NewsWidgetCardsData
+from .widgets import NewsColumnAdminWidget
 
 
 _validate_link = URLValidator(schemes=['http', 'https'])
@@ -32,7 +32,7 @@ class NewsWidgetColumnDataForm(forms.ModelForm):
     class Meta:
         model = NewsWidgetColumnData
         fields = '__all__'
-        widgets = {'data': ArticleListWidget}
+        widgets = {'data': NewsColumnAdminWidget}
 
     def clean_data(self):
         articles = self.cleaned_data.get('data')
@@ -73,3 +73,11 @@ class NewsWidgetColumnAdmin(CrtModelAdmin):
 
 
 admin.site.register(NewsWidgetColumnData, NewsWidgetColumnAdmin)
+
+
+class NewsWidgetCardsDataAdmin(CrtModelAdmin):
+    list_display = ('pk', 'name')
+    search_fields = ('name',)
+
+
+admin.site.register(NewsWidgetCardsData, NewsWidgetCardsDataAdmin)

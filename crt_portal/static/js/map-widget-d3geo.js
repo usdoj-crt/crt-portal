@@ -83,12 +83,58 @@ function createMapSvg(mapElement) {
   return svg;
 }
 
+// Build an inline SVG icon for a category, colorable via CSS (the paths use
+// `currentColor`, so the icon takes the `color` of whatever slot contains it).
+// The markup lives in the widget data's `categories` map as shape-only inner
+// SVG (no <svg> wrapper). Returns null when the category has no icon.
+//
+// The icon is decorative (aria-hidden): the category name is always shown as
+// adjacent text, so labeling the icon would announce the category twice.
+function createCategoryIcon(category, categoryIcons, extraClasses = '') {
+  const markup = categoryIcons?.[category]?.icon;
+  if (!markup) {
+    return null;
+  }
+
+  // Modifier class from the category name (e.g. "Military Voting" ->
+  // "military-voting"), so page CSS can color each category's icon.
+  const slug = category
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg.classList.add('map-widget__category-icon', `map-widget__category-icon--${slug}`);
+
+  // Optional extra classes (e.g. the configured empty-slot icon classes). The
+  // base and per-category classes are kept so page CSS can still target the
+  // icon; these are layered on top.
+  if (extraClasses) {
+    for (const cls of extraClasses.split(/\s+/)) {
+      if (cls) {
+        svg.classList.add(cls);
+      }
+    }
+  }
+
+  svg.setAttribute('viewBox', '0 0 24 24');
+  svg.setAttribute('aria-hidden', 'true');
+  svg.innerHTML = markup;
+  return svg;
+}
+
 /**
- * Collects the unique set of action categories across data actions,
- * sorted alphabetically. Used to render the (optional) category bar.
- * Returns [] if no actions have categories.
+ * Returns the ordered list of category names to display. When the data
+ * provides a `categories` map, its key order is the source of truth (so the
+ * seed file controls both icons and ordering). Otherwise, falls back to the
+ * distinct categories found across all actions, sorted alphabetically.
+ * Returns [] if neither yields any categories.
  */
-function collectCategories(data) {
+function collectCategories(data, categoryIcons) {
+  const fromMap = Object.keys(categoryIcons || {});
+  if (fromMap.length) {
+    return fromMap;
+  }
   const seen = new Set();
   for (const state of Object.values(data)) {
     for (const action of state.actions || []) {
@@ -299,11 +345,18 @@ function getMapConfig(mapWidget) {
 
   mapConfig.categorySlotCountClasses = mapWidget?.dataset?.mapCategorySlotCountClasses || '';
 
+  mapConfig.categorySlotIconClasses = mapWidget?.dataset?.mapCategorySlotIconClasses || '';
+
   mapConfig.categorySlotEmptyLabelClasses =
     mapWidget?.dataset?.mapCategorySlotEmptyLabelClasses || '';
 
   mapConfig.categorySlotEmptyCountClasses =
     mapWidget?.dataset?.mapCategorySlotEmptyCountClasses || '';
+
+  mapConfig.categorySlotEmptyIconClasses =
+    mapWidget?.dataset?.mapCategorySlotEmptyIconClasses || '';
+
+  mapConfig.summaryIconClasses = mapWidget?.dataset?.mapSummaryIconClasses || '';
 
   mapConfig.categoryBarTotalLabel = mapWidget?.dataset?.mapCategoryBarTotalLabel || '';
 
@@ -427,55 +480,34 @@ async function loadData(mapWidget) {
   }
 }
 
-// Load the agency-to-image badge mapping named in the widget's
-// data-badge-mapping-src attribute. Returns {} if the attribute is missing or
-// the file cannot be loaded, so the caller can safely fall back to text badges.
-async function loadBadgeMapping(mapWidget) {
-  const url = mapWidget.dataset.badgeMappingSrc;
-  if (!url) {
-    return {};
+// Collect the distinct bullet image URLs used across all actions in the data
+// set, so each image is only preloaded once. Keyed by URL (not label), since
+// two actions may share a label but point at different images.
+function collectBulletImageUrls(data) {
+  const urls = new Set();
+  if (!data || typeof data !== 'object') {
+    return urls;
   }
-
-  try {
-    const response = await fetch(url);
-    if (!response.ok) {
-      console.warn(
-        `MapWidget: could not load badge mapping "${url}" (HTTP ${response.status}). Falling back to text badges.`
-      );
-      return {};
+  for (const state of Object.values(data)) {
+    for (const action of state?.actions ?? []) {
+      const image = action?.bullet?.image;
+      if (image) {
+        urls.add(image);
+      }
     }
-    const mapping = await response.json();
-
-    // Resolve each image path relative to the mapping file's own URL so the
-    // entries stay environment-agnostic (they work whether the static root
-    // is served locally or from an absolute CDN URL).
-    const resolved = {};
-    for (const [agency, imagePath] of Object.entries(mapping)) {
-      resolved[agency] = imagePath
-        ? new URL(imagePath, new URL(url, window.location.href)).href
-        : imagePath;
-    }
-    return resolved;
-  } catch (error) {
-    console.warn(
-      `MapWidget: could not load badge mapping "${url}". Falling back to text badges.`,
-      error
-    );
-    return {};
   }
+  return urls;
 }
 
-// Preload the badges images browser cache and decode each seal once so when
-// we show an agency badge, we don't pause to fetch/decode the image. Iterates the
-// mapping per agency (rather than per URL) so we can report exactly which
-// agencies have a broken or missing seal. Returns a Set of those agency codes
-// so that the badge cache can fall straight to a text badge for them.
-async function preloadBadgeImages(badgeMapping) {
-  const brokenAgencies = new Set();
+// Preload each distinct bullet image and decode it once, so rendering a bullet
+// doesn't pause to fetch/decode. Returns a Set of the image URLs that are
+// broken or missing, so a bullet using one can fall straight to a text pill.
+async function preloadAndFindBrokenBulletUrls(data) {
+  const brokenBulletImageUrls = new Set();
 
-  const entries = Object.entries(badgeMapping).filter(([, url]) => url);
+  const urls = [...collectBulletImageUrls(data)];
   await Promise.all(
-    entries.map(async ([agency, url]) => {
+    urls.map(async url => {
       const image = new Image();
       image.src = url;
       // decode() resolves once the image is fully decoded, and
@@ -483,12 +515,12 @@ async function preloadBadgeImages(badgeMapping) {
       try {
         await image.decode();
       } catch {
-        brokenAgencies.add(agency);
+        brokenBulletImageUrls.add(url);
       }
     })
   );
 
-  return brokenAgencies;
+  return brokenBulletImageUrls;
 }
 
 function showActive(path, mapConfig) {
@@ -766,7 +798,7 @@ function renderInfoPlaceholder(panel, infoPanelConfig) {
 // show_summary, and only when the data has categories): the configured heading
 // and badge, then a list of every category with its total across all features.
 function renderSummary(context) {
-  const { panel, mapConfig, categories, data } = context;
+  const { panel, mapConfig, categories, categoryIcons, data } = context;
 
   panel.innerHTML = '';
   panel.dataset.showingPlaceholder = 'true';
@@ -810,9 +842,9 @@ function renderSummary(context) {
     panel.appendChild(total);
   }
 
-  //    One row per category (alphabetical; context.categories is pre-sorted).
-  //    Every category in the union has at least one action somewhere, so there
-  //    are no zero rows to worry about here.
+  //    One row per category, in context.categories order (seed order when the
+  //    data provides a categories map). Categories with no actions for the
+  //    current view render a zero count.
   const list = createElement('ul', 'map-widget__summary');
   if (mapConfig.summaryListClasses) {
     list.className = `map-widget__summary ${mapConfig.summaryListClasses}`;
@@ -839,13 +871,21 @@ function renderSummary(context) {
   for (const category of categories) {
     const item = createElement('li', itemClass);
 
+    const labelGroup = createElement('span', 'map-widget__summary-label-group');
+
+    const icon = createCategoryIcon(category, categoryIcons, mapConfig.summaryIconClasses || '');
+    if (icon) {
+      labelGroup.appendChild(icon);
+    }
+
     const label = createElement('span', labelClass);
     label.textContent = category;
+    labelGroup.appendChild(label);
 
     const count = createElement('span', countClass);
     count.textContent = counts[category] || 0;
 
-    item.appendChild(label);
+    item.appendChild(labelGroup);
     item.appendChild(count);
     list.appendChild(item);
   }
@@ -853,46 +893,41 @@ function renderSummary(context) {
   panel.appendChild(list);
 }
 
-function createTextBadge(agency) {
-  const badge = createElement('span', 'map-widget__agency-badge');
-  badge.textContent = agency;
-  return badge;
+// Create the text-pill variant of an action's bullet, showing the label.
+function createBulletText(label) {
+  const pill = createElement('span', 'map-widget__bullet-text');
+  pill.textContent = label;
+  return pill;
 }
 
-function createAgencyBadge(agency, badgeMapping) {
-  const imageUrl = badgeMapping?.[agency];
+// Create the image variant of an action's bullet. Uses the bullet's image when
+// present; otherwise falls back to the text pill with the label.
+function createBulletImage(bullet) {
+  const imageUrl = bullet?.image;
 
   if (imageUrl && typeof imageUrl === 'string' && imageUrl !== '') {
-    const image = createElement('img', 'map-widget__agency-badge-image');
+    const image = createElement('img', 'map-widget__bullet-image');
     image.src = imageUrl;
-    image.alt = agency;
+    image.alt = bullet?.label ?? '';
 
     return image;
   }
 
-  return createTextBadge(agency);
+  return createBulletText(bullet?.label ?? '');
 }
 
-// Build the badge shown as the leading "bullet" for an action. If the agency is
-// present in the badge mapping, an <img> of its seal is used; otherwise it falls
-// back to the gold text badge with the agency code.
-//
-// Reuses previously created agency badges that were added to the cache
-function getAgencyBadge(context, agency) {
-  const { badgeCache, badgeMapping, brokenSeals } = context;
+// Build the bullet shown at the start of an action row. When the bullet has an
+// image that isn't known-broken, the image is used; otherwise it falls back to
+// the text pill with the bullet's label.
+function getActionBullet(context, bullet) {
+  const { brokenBulletImageUrls } = context;
+  const image = bullet?.image;
 
-  // Check if the badgeCache has this agency already
-  // If not, create a text badge IF the seal is 'broken'
-  // otherwise, create the real agency badge.
-  // Add the result to the cache
-  if (!badgeCache[agency]) {
-    badgeCache[agency] = brokenSeals?.has(agency)
-      ? createTextBadge(agency)
-      : createAgencyBadge(agency, badgeMapping);
+  if (image && !brokenBulletImageUrls?.has(image)) {
+    return createBulletImage(bullet);
   }
 
-  // Reuse the cached badge
-  return badgeCache[agency].cloneNode(true);
+  return createBulletText(bullet?.label ?? '');
 }
 
 // Build the info-panel header — the heading (feature/summary name) and its pill
@@ -1001,14 +1036,13 @@ function renderInfo(context, feature) {
       item.className = `map-widget__action ${infoPanelConfig.listItemClasses}`;
     }
 
-    //    Create the flex row holding the agency badge and content.
+    //    Create the flex row holding the action's bullet and content.
     const row = createElement('div', 'map-widget__action-row');
 
-    //    Add the agency badge, used as the row's leading "bullet". When
-    //    the agency has an image in the mapping we use that; otherwise we
-    //    fall back to the gold text badge.
-    const badge = getAgencyBadge(context, action.agency);
-    row.appendChild(badge);
+    //    Add the action's leading bullet. When the bullet has an image we use
+    //    that; otherwise we fall back to the text pill with the bullet's label.
+    const bullet = getActionBullet(context, action.bullet);
+    row.appendChild(bullet);
 
     // 10d. Build the content block that holds the action text (and date).
     const content = createElement('div', 'map-widget__action-content');
@@ -1090,7 +1124,7 @@ function renderCategoryBar(context, feature) {
     totalCountEl.textContent = actions.length;
   }
 
-  // Rebuild the slots. Render every known category in alphabetical order
+  // Rebuild the slots. Render every known category in order of the context categories
   // (context.categories is already sorted); dim zero counts for a stable layout.
   const slots = bar.querySelector('.map-widget__category-slots');
   slots.innerHTML = '';
@@ -1123,20 +1157,45 @@ function renderCategoryBar(context, feature) {
   }
   const slotEmptyCountClass = slotEmptyCountClasses.join(' ');
 
+  // Empty-slot icon: any configured classes are layered on top of the icon's
+  // base/per-category classes (unlike the label/count, which fully replace),
+  // so the per-category `--slug` hook stays available to page CSS.
+  const slotEmptyIconClasses = mapConfig.categorySlotEmptyIconClasses || '';
+
+  // Non-empty slot icon classes, layered on the same way.
+  const slotIconClasses = mapConfig.categorySlotIconClasses || '';
+
   for (const category of context.categories) {
     const count = counts[category] || 0;
     const isEmpty = count === 0;
 
     const slot = createElement('div', 'map-widget__category-slot');
 
-    const label = createElement('span', isEmpty ? slotEmptyLabelClass : slotLabelClass);
-    label.textContent = category;
+    // Create the top
+    const top = createElement('div', 'map-widget__category-slot-top');
 
+    const icon = createCategoryIcon(
+      category,
+      context.categoryIcons,
+      isEmpty ? slotEmptyIconClasses : slotIconClasses
+    );
     const value = createElement('span', isEmpty ? slotEmptyCountClass : slotCountClass);
     value.textContent = count;
 
-    slot.appendChild(value);
+    if (icon) {
+      top.appendChild(icon);
+    }
+    top.appendChild(value);
+
+    // Add top to slot
+    slot.appendChild(top);
+
+    // Create the label
+    const label = createElement('span', isEmpty ? slotEmptyLabelClass : slotLabelClass);
+    label.textContent = category;
     slot.appendChild(label);
+
+    // Add to slots
     slots.appendChild(slot);
   }
 
@@ -1144,9 +1203,11 @@ function renderCategoryBar(context, feature) {
 }
 
 async function initMapWidget(mapWidget) {
-  const data = await loadData(mapWidget);
-  const badgeMapping = await loadBadgeMapping(mapWidget);
-  const brokenSeals = await preloadBadgeImages(badgeMapping);
+  const loaded = await loadData(mapWidget);
+  const data = loaded.data || {};
+  const categoryIcons = loaded.categories || {};
+
+  const brokenBulletImageUrls = await preloadAndFindBrokenBulletUrls(data);
 
   const mapElement = createElement('div', 'map-widget__map');
   mapWidget.appendChild(mapElement);
@@ -1177,7 +1238,7 @@ async function initMapWidget(mapWidget) {
   // view, so collect them when either is enabled and the data has any.
   let categories = null;
   if (mapConfig.showCategoryBar || mapConfig.showSummary) {
-    const found = collectCategories(data);
+    const found = collectCategories(data, categoryIcons);
     if (found.length) {
       categories = found;
     }
@@ -1193,13 +1254,12 @@ async function initMapWidget(mapWidget) {
     data: data,
     mapConfig: mapConfig,
     infoPanelConfig: infoPanelConfig,
-    badgeMapping: badgeMapping,
-    brokenSeals: brokenSeals,
-    badgeCache: {},
+    brokenBulletImageUrls: brokenBulletImageUrls,
     active: null,
     focusables: [],
     tooltip: tooltip,
     categories: categories,
+    categoryIcons: categoryIcons,
     categoryBar: categoryBar
   };
 

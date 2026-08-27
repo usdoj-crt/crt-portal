@@ -1,0 +1,197 @@
+/*
+ * News carousel
+ * Rendered by news_widget/templates/news_widget/news_carousel.html
+ *
+ * A horizontally-scrolling row of news cards. The rail scrolls/swipes
+ * natively and is keyboard-focusable, so no JavaScript is required.
+ */
+
+ /* make news carousel fill whatever container it is in */
+ .news-carousel {
+     display: flex;
+     align-items: center;
+     gap: 0.5rem;
+     width: 100%;
+     min-width: 0;
+     position: relative;
+ }
+
+/*
+ * Edge fades: a soft gradient over the left/right edges of the rail that only
+ * appears when there is more content to scroll to on that side (classes toggled
+ * by news-carousel.js). Purely a visual cue — pointer-events:none keeps the rail
+ * fully scrollable and clickable through the overlay.
+ */
+.news-carousel::before,
+.news-carousel::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  /* Smaller/lighter on mobile, where wide cards make a big fade intrusive. */
+  width: 2.5rem;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.news-carousel::before {
+  left: 0;
+  background: linear-gradient(to right, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0));
+}
+
+.news-carousel::after {
+  right: 0;
+  background: linear-gradient(to left, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0));
+}
+
+/* From tablet up there's more room, so make the fade a bit more pronounced. */
+@media (min-width: 640px) {
+  .news-carousel::before,
+  .news-carousel::after {
+    width: 4rem;
+  }
+
+  .news-carousel::before {
+    background: linear-gradient(to right, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0));
+  }
+
+  .news-carousel::after {
+    background: linear-gradient(to left, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0));
+  }
+}
+
+.news-carousel--has-prev::before {
+  opacity: 1;
+}
+
+.news-carousel--has-next::after {
+  opacity: 1;
+}
+
+.news-carousel__track {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  gap: 1.25rem;
+
+  /* make the rail scroll horizontally */
+  overflow-x: auto;
+
+  /* snapping. `x` = horizontal axis. `mandatory` = the rail
+     MUST come to rest on a snap point (never between cards). */
+  scroll-snap-type: x mandatory;
+
+  /* side padding so the FIRST and LAST cards can physically
+     reach the center of the rail.*/
+  padding-inline: 1rem;
+
+  /* padding around items */
+  padding-block: 1.25rem;
+
+  /* smooth programmatic scrolling. */
+  scroll-behavior: smooth;
+
+  /* Hide the visual scrollbar (Firefox). The rail is still fully scrollable
+     via swipe/wheel/keyboard and the prev/next buttons, so this only removes
+     the bar, not the scrolling. The buttons are the visible affordance. */
+  scrollbar-width: none;
+}
+
+/* Hide the visual scrollbar (Chrome/Safari/Edge). */
+.news-carousel__track::-webkit-scrollbar {
+  display: none;
+}
+
+.news-carousel__item {
+    display: flex;
+    /* Mobile: one dominant card centered, neighbors peeking at the edges. */
+    flex: 0 0 70vw;
+
+    /* this item's snap position is its CENTER. Combined with the
+       track padding above, snapping to any card parks it dead-center. */
+    scroll-snap-align: center;
+}
+
+/* Tablet: ~2 cards with the centered one flanked by peeks. */
+@media (min-width: 640px) {
+  .news-carousel__item {
+    flex: 0 0 80%;
+  }
+}
+
+/* Desktop: responsive cards ~3 across
+   (try for 35% of visible area),
+   middle one centered if possible . */
+@media (min-width: 1024px) {
+  .news-carousel__item {
+    flex: 0 0 clamp(360px, 35%, 720px);
+  }
+}
+
+/* Ends are flush to the rail edges so there's no empty void beside
+   the first or last card; middle cards still snap centered. */
+.news-carousel__item:first-child { scroll-snap-align: start; }
+.news-carousel__item:last-child  { scroll-snap-align: end;   }
+
+.news-carousel__nav {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    border: 1px solid #a9aeb1;
+    background: white;
+    color: #162e51;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.20);
+}
+
+.news-carousel__nav .icon-arrow {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.news-carousel__nav:hover,
+.news-carousel__nav:focus-visible {
+  background: #162e51;
+  color: white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.40);   /* lift a bit more */
+}
+
+/* At the far-left/right end of the rail the matching button is disabled by JS.
+   Fade it out and take it out of interaction so it reads as "hidden" while
+   staying in the DOM (keyboard focus is never yanked away). */
+.news-carousel__nav:disabled {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/*
+ * Overlay-buttons mode (opt-in via `overlay_buttons="true"` on the include).
+ * The nav buttons float over the left/right edges of the rail instead of
+ * sitting beside it, so the track keeps the full available width. Everything
+ * else (scroll, snap, buttons, JS) is identical to the default in-flow mode.
+ */
+.news-carousel--overlay-buttons {
+  display: block;
+  position: relative;
+}
+
+.news-carousel--overlay-buttons .news-carousel__nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 3;
+}
+
+.news-carousel--overlay-buttons .news-carousel__nav--prev {
+  left: 0.5rem;
+}
+
+.news-carousel--overlay-buttons .news-carousel__nav--next {
+  right: 0.5rem;
+}

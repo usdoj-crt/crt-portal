@@ -4,10 +4,10 @@ US map widget — renders a single interactive map of the United States.
 
 Usage (include once per map you want on the page):
 
-    {% include "partials/map_widget.html" with data_name="example-map" %}
+    {% include "map_widget/map_widget.html" with data_name="example-map" %}
 
 You must ALSO include the shared assets once per page (see
-"partials/map_widget_assets.html"), which loads the CSS, d3, and the widget JS.
+"map_widget/map_widget_assets.html"), which loads the CSS, d3, and the widget JS.
 The widget JS boots every ".map-widget" element on the page, so multiple
 includes of this partial render multiple independent maps.
 
@@ -84,6 +84,11 @@ Optional (fall back to the widget's built-in defaults if omitted):
                                CSS classes applied to each category slot's count
                                (the number) in the breakdown bar.
 
+  category_slot_icon_classes
+                               CSS classes ADDED to each category slot's icon in the
+                               breakdown bar (layered on top of its base and
+                               per-category classes). Use them to color the icons.
+
   category_slot_empty_label_classes
                                CSS classes for a category slot's label span when
                                its count is zero. When set, these REPLACE
@@ -97,6 +102,15 @@ Optional (fall back to the widget's built-in defaults if omitted):
                                Same as above, but for a category slot's count span
                                (replaces category_slot_count_classes on empty
                                slots).
+
+  category_slot_empty_icon_classes
+                               CSS classes ADDED to a category slot's icon when its
+                               count is zero. Unlike the empty label/count classes
+                               (which replace), these layer on top of the icon's
+                               base and per-category classes, so page CSS targeting
+                               map-widget__category-icon--<slug> still applies.
+                               Use them to dim the empty slot's icon to match its
+                               empty label/count styling. No effect when unset.
 
   show_summary                 When "true" (and the data has categories), the
                                info panel's default "nothing selected" state shows
@@ -113,6 +127,11 @@ Optional (fall back to the widget's built-in defaults if omitted):
   summary_category_label_classes
                                CSS classes for each category's label in the
                                summary list.
+
+  summary_icon_classes
+                               CSS classes ADDED to each category's icon in the
+                               summary list (layered on top of its base and
+                               per-category classes). Use them to color the icons.
 
   summary_category_count_classes
                                CSS classes for each category's count (total) in
@@ -135,10 +154,6 @@ Optional (fall back to the widget's built-in defaults if omitted):
                                summary total line, styleable independently of
                                the surrounding text.
 
-  badge_mapping                Path (relative to the static root) to a JSON file
-                               mapping agency codes to badge image URLs. When an
-                               agency is found in the mapping its image is used;
-                               otherwise the text badge is used as a fallback.
   info_placeholder_text        Info-panel text before a state is selected,
                                shown on devices that support hover. Defaults to
                                "Hover or Click a feature to view details".
@@ -181,7 +196,6 @@ Optional (fall back to the widget's built-in defaults if omitted):
   class="map-widget {{ map_classes|default:'' }}"
   data-geojson-urls="{% static 'data/map-widget/regions/contiguous.geojson' %},{% static 'data/map-widget/regions/alaska.geojson' %},{% static 'data/map-widget/regions/hawaii.geojson' %}"
   data-data-src="{% url 'map_widget:data' name=data_name %}"
-  data-badge-mapping-src="{% if badge_mapping %}{% static badge_mapping %}{% endif %}"
   data-map-default-fill-color="{{ map_default_fill_color|default:'' }}"
   data-map-active-fill-color="{{ map_active_fill_color|default:'' }}"
   data-map-stroke-color="{{ map_stroke_color|default:'' }}"
@@ -200,13 +214,16 @@ Optional (fall back to the widget's built-in defaults if omitted):
   data-map-caption-state-classes="{{ caption_state_classes|default:'' }}"
   data-map-category-slot-label-classes="{{ category_slot_label_classes|default:'' }}"
   data-map-category-slot-count-classes="{{ category_slot_count_classes|default:'' }}"
+  data-map-category-slot-icon-classes="{{ category_slot_icon_classes|default:'' }}"
   data-map-category-slot-empty-label-classes="{{ category_slot_empty_label_classes|default:'' }}"
   data-map-category-slot-empty-count-classes="{{ category_slot_empty_count_classes|default:'' }}"
+  data-map-category-slot-empty-icon-classes="{{ category_slot_empty_icon_classes|default:'' }}"
   data-map-show-summary="{{ show_summary|default:'false' }}"
   data-map-summary-heading-text="{{ summary_heading_text|default:'' }}"
   data-map-summary-badge-text="{{ summary_badge_text|default:'' }}"
   data-map-summary-category-label-classes="{{ summary_category_label_classes|default:'' }}"
   data-map-summary-category-count-classes="{{ summary_category_count_classes|default:'' }}"
+  data-map-summary-icon-classes="{{ summary_icon_classes|default:'' }}"
   data-map-summary-list-classes="{{ summary_list_classes|default:'' }}"
   data-map-summary-item-classes="{{ summary_item_classes|default:'' }}"
   data-map-summary-total-text="{{ summary_total_text|default:'' }}"
