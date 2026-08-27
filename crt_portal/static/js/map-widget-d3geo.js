@@ -124,15 +124,30 @@ function createCategoryIcon(category, categoryIcons, extraClasses = '') {
 }
 
 /**
- * Returns the ordered list of category names to display. When the data
- * provides a `categories` map, its key order is the source of truth (so the
- * seed file controls both icons and ordering). Otherwise, falls back to the
- * distinct categories found across all actions, sorted alphabetically.
- * Returns [] if neither yields any categories.
+ * Returns the ordered list of category names to display.
+ *
+ * Ordering precedence:
+ *   1. An explicit `categoryOrder` array in the data, when present. This is the
+ *      recommended source of truth because it survives storage in Postgres
+ *      `jsonb`, which does NOT preserve object key order. Any names in the
+ *      `categories` map that are missing from `categoryOrder` are appended in
+ *      map key order, so a stale/partial `categoryOrder` never drops a category.
+ *   2. Otherwise, the `categories` map's key order (fragile: key order is not
+ *      guaranteed to survive a `jsonb` round-trip).
+ *   3. Otherwise, the distinct categories found across all actions, sorted
+ *      alphabetically.
+ * Returns [] if none of these yield any categories.
  */
-function collectCategories(data, categoryIcons) {
+function collectCategories(data, categoryIcons, categoryOrder) {
   const fromMap = Object.keys(categoryIcons || {});
   if (fromMap.length) {
+    if (Array.isArray(categoryOrder) && categoryOrder.length) {
+      const known = new Set(fromMap);
+      const ordered = categoryOrder.filter(name => known.has(name));
+      const seenInOrder = new Set(ordered);
+      // Append any categories missing from categoryOrder so none are dropped.
+      return ordered.concat(fromMap.filter(name => !seenInOrder.has(name)));
+    }
     return fromMap;
   }
   const seen = new Set();
@@ -1206,6 +1221,7 @@ async function initMapWidget(mapWidget) {
   const loaded = await loadData(mapWidget);
   const data = loaded.data || {};
   const categoryIcons = loaded.categories || {};
+  const categoryOrder = loaded.categoryOrder;
 
   const brokenBulletImageUrls = await preloadAndFindBrokenBulletUrls(data);
 
@@ -1238,7 +1254,7 @@ async function initMapWidget(mapWidget) {
   // view, so collect them when either is enabled and the data has any.
   let categories = null;
   if (mapConfig.showCategoryBar || mapConfig.showSummary) {
-    const found = collectCategories(data, categoryIcons);
+    const found = collectCategories(data, categoryIcons, categoryOrder);
     if (found.length) {
       categories = found;
     }
