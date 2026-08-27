@@ -83,12 +83,47 @@ function createMapSvg(mapElement) {
   return svg;
 }
 
+// Build an inline SVG icon for a category, colorable via CSS (the paths use
+// `currentColor`, so the icon takes the `color` of whatever slot contains it).
+// The markup lives in the widget data's `categories` map as shape-only inner
+// SVG (no <svg> wrapper). Returns null when the category has no icon.
+//
+// The icon is decorative (aria-hidden): the category name is always shown as
+// adjacent text, so labeling the icon would announce the category twice.
+function createCategoryIcon(category, categoryIcons) {
+  const markup = categoryIcons?.[category]?.icon;
+  if (!markup) {
+    return null;
+  }
+
+  // Modifier class from the category name (e.g. "Military Voting" ->
+  // "military-voting"), so page CSS can color each category's icon.
+  const slug = category
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg.classList.add('map-widget__category-icon', `map-widget__category-icon--${slug}`);
+
+  svg.setAttribute('viewBox', '0 0 24 24');
+  svg.setAttribute('aria-hidden', 'true');
+  svg.innerHTML = markup;
+  return svg;
+}
+
 /**
- * Collects the unique set of action categories across data actions,
- * sorted alphabetically. Used to render the (optional) category bar.
- * Returns [] if no actions have categories.
+ * Returns the ordered list of category names to display. When the data
+ * provides a `categories` map, its key order is the source of truth (so the
+ * seed file controls both icons and ordering). Otherwise, falls back to the
+ * distinct categories found across all actions, sorted alphabetically.
+ * Returns [] if neither yields any categories.
  */
-function collectCategories(data) {
+function collectCategories(data, categoryIcons) {
+  const fromMap = Object.keys(categoryIcons || {});
+  if (fromMap.length) {
+    return fromMap;
+  }
   const seen = new Set();
   for (const state of Object.values(data)) {
     for (const action of state.actions || []) {
@@ -745,7 +780,7 @@ function renderInfoPlaceholder(panel, infoPanelConfig) {
 // show_summary, and only when the data has categories): the configured heading
 // and badge, then a list of every category with its total across all features.
 function renderSummary(context) {
-  const { panel, mapConfig, categories, data } = context;
+  const { panel, mapConfig, categories, categoryIcons, data } = context;
 
   panel.innerHTML = '';
   panel.dataset.showingPlaceholder = 'true';
@@ -789,9 +824,9 @@ function renderSummary(context) {
     panel.appendChild(total);
   }
 
-  //    One row per category (alphabetical; context.categories is pre-sorted).
-  //    Every category in the union has at least one action somewhere, so there
-  //    are no zero rows to worry about here.
+  //    One row per category, in context.categories order (seed order when the
+  //    data provides a categories map). Categories with no actions for the
+  //    current view render a zero count.
   const list = createElement('ul', 'map-widget__summary');
   if (mapConfig.summaryListClasses) {
     list.className = `map-widget__summary ${mapConfig.summaryListClasses}`;
@@ -818,13 +853,21 @@ function renderSummary(context) {
   for (const category of categories) {
     const item = createElement('li', itemClass);
 
+    const labelGroup = createElement('span', 'map-widget__summary-label-group');
+
+    const icon = createCategoryIcon(category, categoryIcons);
+    if (icon) {
+      labelGroup.appendChild(icon);
+    }
+
     const label = createElement('span', labelClass);
     label.textContent = category;
+    labelGroup.appendChild(label);
 
     const count = createElement('span', countClass);
     count.textContent = counts[category] || 0;
 
-    item.appendChild(label);
+    item.appendChild(labelGroup);
     item.appendChild(count);
     list.appendChild(item);
   }
@@ -1063,7 +1106,7 @@ function renderCategoryBar(context, feature) {
     totalCountEl.textContent = actions.length;
   }
 
-  // Rebuild the slots. Render every known category in alphabetical order
+  // Rebuild the slots. Render every known category in order of the context categories
   // (context.categories is already sorted); dim zero counts for a stable layout.
   const slots = bar.querySelector('.map-widget__category-slots');
   slots.innerHTML = '';
@@ -1102,14 +1145,27 @@ function renderCategoryBar(context, feature) {
 
     const slot = createElement('div', 'map-widget__category-slot');
 
-    const label = createElement('span', isEmpty ? slotEmptyLabelClass : slotLabelClass);
-    label.textContent = category;
+    // Create the top
+    const top = createElement('div', 'map-widget__category-slot-top');
 
+    const icon = createCategoryIcon(category, context.categoryIcons);
     const value = createElement('span', isEmpty ? slotEmptyCountClass : slotCountClass);
     value.textContent = count;
 
-    slot.appendChild(value);
+    if (icon) {
+      top.appendChild(icon);
+    }
+    top.appendChild(value);
+
+    // Add top to slot
+    slot.appendChild(top);
+
+    // Create the label
+    const label = createElement('span', isEmpty ? slotEmptyLabelClass : slotLabelClass);
+    label.textContent = category;
     slot.appendChild(label);
+
+    // Add to slots
     slots.appendChild(slot);
   }
 
@@ -1117,7 +1173,10 @@ function renderCategoryBar(context, feature) {
 }
 
 async function initMapWidget(mapWidget) {
-  const data = await loadData(mapWidget);
+  const loaded = await loadData(mapWidget);
+  const data = loaded.data || {};
+  const categoryIcons = loaded.categories || {};
+
   const brokenBulletImageUrls = await preloadAndFindBrokenBulletUrls(data);
 
   const mapElement = createElement('div', 'map-widget__map');
@@ -1149,7 +1208,7 @@ async function initMapWidget(mapWidget) {
   // view, so collect them when either is enabled and the data has any.
   let categories = null;
   if (mapConfig.showCategoryBar || mapConfig.showSummary) {
-    const found = collectCategories(data);
+    const found = collectCategories(data, categoryIcons);
     if (found.length) {
       categories = found;
     }
@@ -1170,6 +1229,7 @@ async function initMapWidget(mapWidget) {
     focusables: [],
     tooltip: tooltip,
     categories: categories,
+    categoryIcons: categoryIcons,
     categoryBar: categoryBar
   };
 

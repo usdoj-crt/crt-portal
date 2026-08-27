@@ -63,6 +63,19 @@
   }
 }
 
+/* Category icons (category bar + summary list). Shape-only inline SVG; the
+   fill/stroke live here so the icon inherits `color` from its container,
+   letting the bar and panel color it independently. */
+.map-widget__category-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
 /* Category summary bar — sits below the map SVG, inside the map card, so its
    position is independent of the info panel's height. Hidden on mobile
    (the mockup only shows it on wider screens) and hidden until a state
@@ -141,6 +154,15 @@
 
 .map-widget__category-slot:first-child {
   border-left: 0;
+}
+
+/* Top row of a category slot: the icon sits to the left of the count, with the
+   label on its own line below (a normal child of the column-flex slot). */
+.map-widget__category-slot-top {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
 }
 
 .map-widget__category-slot-label {
@@ -271,6 +293,12 @@
   list-style: none;
   margin: 0;
   padding: 0;
+}
+
+.map-widget__summary-label-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 /* Visually hidden container for the keyboard/screen-reader state controls.
