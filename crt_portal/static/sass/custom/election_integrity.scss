@@ -116,32 +116,6 @@
     color: #7a6222;
 }
 
-// -------------------------------------
-//   MAP WIDGET
-// -------------------------------------
-
-// Category icon colors, scoped per location so the bar and panel can differ.
-// Slugs come from the category names in the seed data (lowercased, spaces → -).
-.map-widget__category-slots {
-    .map-widget__category-icon--cybersecurity       { color: #73b3e7; }
-    .map-widget__category-icon--warning             { color: #ffbe2e; }
-    .map-widget__category-icon--military-voting      { color: #ffffff; }
-    .map-widget__category-icon--list-maintenance     { color: #70e17b; }
-    .map-widget__category-icon--civil-action         { color: #c3b3e6; }
-    .map-widget__category-icon--election-monitoring  { color: #5dc0d1; }
-    .map-widget__category-icon--criminal-action      { color: #ff8f8f; }
-}
-
-.map-widget__summary {
-    .map-widget__category-icon--cybersecurity       { color: #005ea2; }
-    .map-widget__category-icon--warning             { color: #c05600; }
-    .map-widget__category-icon--military-voting      { color: #162e51; }
-    .map-widget__category-icon--list-maintenance     { color: #4d8055; }
-    .map-widget__category-icon--civil-action         { color: #745ba6; }
-    .map-widget__category-icon--election-monitoring  { color: #0081a1; }
-    .map-widget__category-icon--criminal-action      { color: #b50909; }
-}
-
 
 // -------------------------------------
 //   FEATURED MEDIA (news cards)

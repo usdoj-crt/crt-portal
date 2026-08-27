@@ -90,7 +90,7 @@ function createMapSvg(mapElement) {
 //
 // The icon is decorative (aria-hidden): the category name is always shown as
 // adjacent text, so labeling the icon would announce the category twice.
-function createCategoryIcon(category, categoryIcons) {
+function createCategoryIcon(category, categoryIcons, extraClasses = '') {
   const markup = categoryIcons?.[category]?.icon;
   if (!markup) {
     return null;
@@ -105,6 +105,17 @@ function createCategoryIcon(category, categoryIcons) {
 
   const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
   svg.classList.add('map-widget__category-icon', `map-widget__category-icon--${slug}`);
+
+  // Optional extra classes (e.g. the configured empty-slot icon classes). The
+  // base and per-category classes are kept so page CSS can still target the
+  // icon; these are layered on top.
+  if (extraClasses) {
+    for (const cls of extraClasses.split(/\s+/)) {
+      if (cls) {
+        svg.classList.add(cls);
+      }
+    }
+  }
 
   svg.setAttribute('viewBox', '0 0 24 24');
   svg.setAttribute('aria-hidden', 'true');
@@ -334,11 +345,18 @@ function getMapConfig(mapWidget) {
 
   mapConfig.categorySlotCountClasses = mapWidget?.dataset?.mapCategorySlotCountClasses || '';
 
+  mapConfig.categorySlotIconClasses = mapWidget?.dataset?.mapCategorySlotIconClasses || '';
+
   mapConfig.categorySlotEmptyLabelClasses =
     mapWidget?.dataset?.mapCategorySlotEmptyLabelClasses || '';
 
   mapConfig.categorySlotEmptyCountClasses =
     mapWidget?.dataset?.mapCategorySlotEmptyCountClasses || '';
+
+  mapConfig.categorySlotEmptyIconClasses =
+    mapWidget?.dataset?.mapCategorySlotEmptyIconClasses || '';
+
+  mapConfig.summaryIconClasses = mapWidget?.dataset?.mapSummaryIconClasses || '';
 
   mapConfig.categoryBarTotalLabel = mapWidget?.dataset?.mapCategoryBarTotalLabel || '';
 
@@ -855,7 +873,7 @@ function renderSummary(context) {
 
     const labelGroup = createElement('span', 'map-widget__summary-label-group');
 
-    const icon = createCategoryIcon(category, categoryIcons);
+    const icon = createCategoryIcon(category, categoryIcons, mapConfig.summaryIconClasses || '');
     if (icon) {
       labelGroup.appendChild(icon);
     }
@@ -1139,6 +1157,14 @@ function renderCategoryBar(context, feature) {
   }
   const slotEmptyCountClass = slotEmptyCountClasses.join(' ');
 
+  // Empty-slot icon: any configured classes are layered on top of the icon's
+  // base/per-category classes (unlike the label/count, which fully replace),
+  // so the per-category `--slug` hook stays available to page CSS.
+  const slotEmptyIconClasses = mapConfig.categorySlotEmptyIconClasses || '';
+
+  // Non-empty slot icon classes, layered on the same way.
+  const slotIconClasses = mapConfig.categorySlotIconClasses || '';
+
   for (const category of context.categories) {
     const count = counts[category] || 0;
     const isEmpty = count === 0;
@@ -1148,7 +1174,11 @@ function renderCategoryBar(context, feature) {
     // Create the top
     const top = createElement('div', 'map-widget__category-slot-top');
 
-    const icon = createCategoryIcon(category, context.categoryIcons);
+    const icon = createCategoryIcon(
+      category,
+      context.categoryIcons,
+      isEmpty ? slotEmptyIconClasses : slotIconClasses,
+    );
     const value = createElement('span', isEmpty ? slotEmptyCountClass : slotCountClass);
     value.textContent = count;
 
