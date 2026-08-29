@@ -9,7 +9,7 @@ register = template.Library()
 
 
 @register.inclusion_tag('news_widget/news_carousel.html')
-def render_news_card_carousel(name, label='', overlay_buttons='', classes=''):
+def render_news_card_carousel(name, label='', overlay_buttons='', clickable_thumbnail='', classes=''):
     try:
         card_set = NewsWidgetCardsData.objects.get(name=name)
         raw_cards = card_set.data or []
@@ -36,5 +36,6 @@ def render_news_card_carousel(name, label='', overlay_buttons='', classes=''):
         'items': items,
         'label': label,
         'overlay_buttons': overlay_buttons,
+        'clickable_thumbnail': clickable_thumbnail,
         'classes': classes,
     }

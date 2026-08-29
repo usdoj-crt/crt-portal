@@ -8,6 +8,11 @@
 
  /* make news carousel fill whatever container it is in */
  .news-carousel {
+     /* Solid color for the edge-fade gradients (see ::before/::after below).
+        The fade goes from this color to transparent. Override per-carousel to
+        match the parent background. Fade intensity is controlled by the width
+        of the ::before/::after pseudo-elements, not by opacity. */
+     --news-carousel-fade-color: #eef1f6;
      display: flex;
      align-items: center;
      gap: 0.5rem;
@@ -38,27 +43,20 @@
 
 .news-carousel::before {
   left: 0;
-  background: linear-gradient(to right, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0));
+  background: linear-gradient(to right, var(--news-carousel-fade-color), transparent);
 }
 
 .news-carousel::after {
   right: 0;
-  background: linear-gradient(to left, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0));
+  background: linear-gradient(to left, var(--news-carousel-fade-color), transparent);
 }
 
-/* From tablet up there's more room, so make the fade a bit more pronounced. */
+/* From tablet up there's more room, so widen the fade to make it more
+   pronounced. The color/opacity is unchanged — only the width grows. */
 @media (min-width: 640px) {
   .news-carousel::before,
   .news-carousel::after {
     width: 4rem;
-  }
-
-  .news-carousel::before {
-    background: linear-gradient(to right, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0));
-  }
-
-  .news-carousel::after {
-    background: linear-gradient(to left, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0));
   }
 }
 
