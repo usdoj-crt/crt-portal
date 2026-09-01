@@ -1,4 +1,31 @@
-<div class="news-carousel {% if overlay_buttons == 'true' %}news-carousel--overlay-buttons{% endif %}" role="group" aria-roledescription="carousel" aria-label="{{ label|default:'Latest news and media' }}">
+{% comment %}
+<!--
+News carousel — renders a horizontally scrollable set of "In the News" cards.
+
+Usage: driven by the {% render_news_card_carousel %} template tag
+(news_widget/templatetags/news_card_carousel.py), which supplies the context
+below. Each item is rendered via news_widget/news_card.html.
+
+Context variables (supplied by the template tag):
+    items                   List of card dicts. See news_widget/news_card.html
+                            for the fields each item is expected to contain.
+
+    label                   (optional) Accessible label for the carousel and its
+                            scrollable track. Defaults to "Latest news and media".
+
+    overlay_buttons         (optional) "true" to render the prev/next nav buttons
+                            overlaid on the track (adds the
+                            news-carousel--overlay-buttons modifier).
+
+    clickable_thumbnail     (optional) "true" to make every card's thumbnail a
+                            link to its news item. Passed through to each
+                            news_card.html. Defaults to not clickable.
+
+    classes                 (optional) Extra CSS classes appended to the
+                            carousel's root element.
+-->
+{% endcomment %}
+<div class="news-carousel {% if overlay_buttons == 'true' %}news-carousel--overlay-buttons{% endif %} {{ classes }}" role="group" aria-roledescription="carousel" aria-label="{{ label|default:'Latest news and media' }}">
     <button type="button" class="news-carousel__nav news-carousel__nav--prev" aria-label="Previous" data-news-carousel-prev>
         <svg class="icon-arrow" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
     </button>
@@ -12,7 +39,7 @@
     >
         {% for item in items %}
             <li class="news-carousel__item">
-                {% include "news_widget/news_card.html" with item=item %}
+                {% include "news_widget/news_card.html" with item=item clickable_thumbnail=clickable_thumbnail %}
             </li>
         {% endfor %}
     </ul>
