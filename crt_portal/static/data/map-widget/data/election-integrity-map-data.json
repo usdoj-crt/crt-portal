@@ -1,4 +1,13 @@
 {
+  "categoryOrder": [
+    "Civil Action",
+    "Criminal Action",
+    "Cybersecurity",
+    "Election Monitoring",
+    "List Maintenance",
+    "Military Voting",
+    "Warning"
+  ],
   "categories": {
     "Civil Action": {
       "icon": "<path d=\"M 2.727 8.652 l 9.273 -5.152 9.273 5.152\"/><path d=\"M 3.758 8.652 h 16.485\"/><path d=\"M 5.818 8.652 v 8.242 M 9.939 8.652 v 8.242 M 14.061 8.652 v 8.242 M 18.182 8.652 v 8.242\"/><path d=\"M 2.727 20.5 h 18.545\"/>"
