@@ -66,17 +66,17 @@
         {% include "map_widget/map_widget.html" with data_name="election-integrity-map" show_tooltip="true" map_classes="margin-top-4 margin-bottom-4" map_default_fill_color="#162e51" info_heading_classes="usa-heading margin-top-0 margin-bottom-0 text-primary-darker font-serif-xl" info_subheading_text="Latest Enforcement Actions" info_subheading_classes="election-integrity-dark-gold text-bold text-uppercase font-body-xs text-ls-1" info_list_classes="usa-list" info_list_item_classes="border-base-lighter border-top-1px padding-top-1" info_action_date_classes="election-integrity-dark-gold text-bold text-uppercase font-body-3xs text-ls-1" info_placeholder_text="Hover over a state to view details. Click a state to see all enforcement actions." info_placeholder_text_no_hover="Click a state to see all enforcement actions." info_max_items="4" info_overflow_text="All {count} actions are listed on the {state} state page. Select the state on the map to open it." info_overflow_classes="text-base-dark" show_category_bar="true" category_bar_caption="enforcement actions by type" category_bar_caption_classes="font-sans-3xs text-uppercase" caption_state_text="{state}" caption_state_classes="font-sans-3xs text-gold text-uppercase" category_bar_total_label="Total" category_bar_total_label_classes="font-sans-3xs text-uppercase" category_bar_total_count_classes="font-serif-lg" category_slot_label_classes="font-sans-3xs text-white padding-top-1" category_slot_count_classes="text-white font-serif-lg" category_slot_icon_classes="text-white" category_slot_empty_label_classes="font-sans-3xs text-base-light padding-top-1" category_slot_empty_count_classes="text-base-light font-serif-md" category_slot_empty_icon_classes="text-base-light" show_summary="true" summary_heading_text="Nationwide" summary_badge_text="USA" summary_total_text="{count} enforcement actions" summary_total_classes="font-body-xs text-base-dark display-flex flex-align-baseline" summary_total_count_classes="font-serif-2xl text-primary-darker margin-right-1" summary_list_classes="usa-list" summary_item_classes="border-base-lighter border-top-1px padding-top-1 display-flex flex-justify" summary_category_label_classes="font-sans-2xs text-primary-darker" summary_category_count_classes="font-serif-md text-primary-darker" summary_icon_classes="text-primary-darker" %}
     </section>
 
-    <section class="go-deeper padding-x-10 padding-y-10 bg-primary-darker" aria-labelledby="go-deeper-title">
-        <div class="go-deeper__inner display-flex flex-wrap">
+    <section class="go-deeper padding-y-10 bg-primary-darker" aria-labelledby="go-deeper-title">
+        <div class="go-deeper__inner">
             <!--Go deeper-->
-            <div>
+            <div class="go-deeper__info">
                 <p class="text-gold text-bold font-body-3xs text-ls-2 text-uppercase margin-0">
                     Go deeper
                 </p>
-                <h2 class="font-serif-2xl text-white text-normal margin-top-1 margin-bottom-2" id="go-deeper-title">
+                <h2 class="go-deeper__info-heading font-serif-2xl text-white text-normal margin-top-1 margin-bottom-2" id="go-deeper-title">
                     Election Monitoring
                 </h2>
-                <p class="font-sans-xs text-primary-lighter margin-0 measure-3">
+                <p class="go-deeper__info-text font-sans-xs text-primary-lighter margin-0 measure-5">
                     For over two decades, the Department of Justice has deployed federal
                     observers and Civil Rights Division monitors to safeguard elections
                     nationwide.
@@ -84,16 +84,16 @@
             </div>
 
             <!-- Figures -->
-            <div class="go-deeper__figures display-flex flex-wrap flex-justify-center flex-align-center">
+            <div class="go-deeper__figures">
                 <div class="width-card-lg display-flex flex-column flex-align-center text-center">
                     <span class="election-integrity-number-figure font-family-serif text-bold text-gold">13,868</span>
-                    <span class="font-sans-3xs margin-top-1 text-primary-lighter text-uppercase">
+                    <span class="font-sans-3xs margin-top-1 text-primary-lighter text-uppercase minh-6">
                         federal observers &amp; monitors, 2000&ndash;2025
                     </span>
                 </div>
                 <div class="width-card-lg display-flex flex-column flex-align-center text-center">
                     <span class="election-integrity-number-figure font-family-serif text-bold text-gold">1,348</span>
-                    <span class="font-sans-3xs margin-top-1 text-primary-lighter text-uppercase">
+                    <span class="font-sans-3xs margin-top-1 text-primary-lighter text-uppercase minh-6">
                         jurisdictions monitored
                     </span>
                 </div>
