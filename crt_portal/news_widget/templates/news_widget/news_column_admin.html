@@ -1,0 +1,21 @@
+{% comment %}
+Admin widget template for editing a news column's article list.
+
+The <textarea> below holds the real JSON value that is submitted and saved.
+`news_column_admin.js` finds this widget (via the data-* hooks) and progressively
+enhances it into a friendly add / remove / reorder editor. If JavaScript is
+unavailable, the raw JSON textarea is still fully editable on its own.
+{% endcomment %}
+<div class="news-column-editor" data-news-column-editor>
+  <div class="news-column-editor__rows" data-news-column-rows></div>
+  <div class="news-column-editor__actions">
+    <button type="button" class="button" data-news-column-add>+ Add article</button>
+    <button type="button" class="button news-column-editor__raw-toggle" data-news-column-toggle-raw>Show raw JSON</button>
+  </div>
+  <textarea
+    name="{{ widget.name }}"{% if widget.attrs.id %}
+    id="{{ widget.attrs.id }}"{% endif %}
+    class="news-column-editor__json"
+    data-news-column-json
+  >{% if widget.value %}{{ widget.value }}{% endif %}</textarea>
+</div>

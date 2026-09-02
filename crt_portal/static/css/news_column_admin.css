@@ -1,0 +1,48 @@
+/* Styling for the News widget column admin editor (news_column_admin.js). */
+
+.news-column-editor__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.news-column-editor__date {
+  flex: 0 0 auto;
+}
+
+.news-column-editor__title,
+.news-column-editor__link {
+  flex: 1 1 280px;
+  min-width: 0;
+}
+
+.news-column-editor__row-buttons {
+  display: flex;
+  gap: 4px;
+}
+
+.news-column-editor__move[disabled] {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.news-column-editor__actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.news-column-editor__json {
+  width: 100%;
+  min-height: 160px;
+  margin-top: 8px;
+  font-family: monospace;
+}
+
+.news-column-editor__error {
+  margin: 8px 0;
+  color: #ba2121;
+  font-weight: bold;
+}

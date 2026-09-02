@@ -11,14 +11,8 @@ const DC_BADGE = {
 const VIEWBOX_WIDTH = 960;
 const VIEWBOX_HEIGHT = 600;
 
-// Create a DOM element with an optional class name.
-function createElement(tag, className) {
-  const node = document.createElement(tag);
-  if (className) {
-    node.className = className;
-  }
-  return node;
-}
+// Horizontal/vertical gap between the cursor and the tooltip.
+const TOOLTIP_OFFSET = 16;
 
 // Format an "M/D/YYYY" date string as "Mon dd, YYYY" (e.g. "Jul 22, 2025").
 // Parses the components directly to avoid any timezone conversion.
@@ -37,6 +31,15 @@ const MONTH_ABBREVIATIONS = [
   'Dec'
 ];
 
+// Create a DOM element with an optional class name.
+function createElement(tag, className) {
+  const node = document.createElement(tag);
+  if (className) {
+    node.className = className;
+  }
+  return node;
+}
+
 function formatActionDate(dateString) {
   const parts = dateString.split('/');
   if (parts.length !== 3) {
@@ -52,6 +55,20 @@ function formatActionDate(dateString) {
   return `${MONTH_ABBREVIATIONS[month - 1]} ${paddedDay}, ${year}`;
 }
 
+// Returns a sortable number key derived from an action's "M/D/YYYY" date.
+// Undated/invalid evaluates to -> -1
+// so undated actions sort last when ordering
+// by latest date first.
+function getActionSortKey(action) {
+  const parts = String(action?.date ?? '').split('/');
+  if (parts.length !== 3) return -1;
+  const month = parseInt(parts[0], 10);
+  const day = parseInt(parts[1], 10);
+  const year = parseInt(parts[2], 10);
+  if (!month || !day || !year) return -1;
+  return year * 10000 + month * 100 + day;
+}
+
 // Create the SVG element the map will be drawn into.
 function createMapSvg(mapElement) {
   const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
@@ -64,6 +81,250 @@ function createMapSvg(mapElement) {
   svg.setAttribute('aria-hidden', 'true');
   mapElement.appendChild(svg);
   return svg;
+}
+
+// Build an inline SVG icon for a category, colorable via CSS (the paths use
+// `currentColor`, so the icon takes the `color` of whatever slot contains it).
+// The markup lives in the widget data's `categories` map as shape-only inner
+// SVG (no <svg> wrapper). Returns null when the category has no icon.
+//
+// The icon is decorative (aria-hidden): the category name is always shown as
+// adjacent text, so labeling the icon would announce the category twice.
+function createCategoryIcon(category, categoryIcons, extraClasses = '') {
+  const markup = categoryIcons?.[category]?.icon;
+  if (!markup) {
+    return null;
+  }
+
+  // Modifier class from the category name (e.g. "Military Voting" ->
+  // "military-voting"), so page CSS can color each category's icon.
+  const slug = category
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg.classList.add('map-widget__category-icon', `map-widget__category-icon--${slug}`);
+
+  // Optional extra classes (e.g. the configured empty-slot icon classes). The
+  // base and per-category classes are kept so page CSS can still target the
+  // icon; these are layered on top.
+  if (extraClasses) {
+    for (const cls of extraClasses.split(/\s+/)) {
+      if (cls) {
+        svg.classList.add(cls);
+      }
+    }
+  }
+
+  svg.setAttribute('viewBox', '0 0 24 24');
+  svg.setAttribute('aria-hidden', 'true');
+  svg.innerHTML = markup;
+  return svg;
+}
+
+/**
+ * Returns the ordered list of category names to display.
+ *
+ * Ordering precedence:
+ *   1. An explicit `categoryOrder` array in the data, when present. This is the
+ *      recommended source of truth because it survives storage in Postgres
+ *      `jsonb`, which does NOT preserve object key order. Any names in the
+ *      `categories` map that are missing from `categoryOrder` are appended in
+ *      map key order, so a stale/partial `categoryOrder` never drops a category.
+ *   2. Otherwise, the `categories` map's key order (fragile: key order is not
+ *      guaranteed to survive a `jsonb` round-trip).
+ *   3. Otherwise, the distinct categories found across all actions, sorted
+ *      alphabetically.
+ * Returns [] if none of these yield any categories.
+ */
+function collectCategories(data, categoryIcons, categoryOrder) {
+  const fromMap = Object.keys(categoryIcons || {});
+  if (fromMap.length) {
+    if (Array.isArray(categoryOrder) && categoryOrder.length) {
+      const known = new Set(fromMap);
+      const ordered = categoryOrder.filter(name => known.has(name));
+      const seenInOrder = new Set(ordered);
+      // Append any categories missing from categoryOrder so none are dropped.
+      return ordered.concat(fromMap.filter(name => !seenInOrder.has(name)));
+    }
+    return fromMap;
+  }
+  const seen = new Set();
+  for (const state of Object.values(data)) {
+    for (const action of state.actions || []) {
+      if (action.category) {
+        seen.add(action.category);
+      }
+    }
+  }
+  return Array.from(seen).sort();
+}
+
+/**
+ * Tallies a list of actions by their category. Returns an object mapping each
+ * category to its count; actions without a category are ignored. Shared by the
+ * per-state category bar and the (optional) nationwide summary view.
+ */
+function countActionsByCategory(actions) {
+  const counts = {};
+  for (const action of actions || []) {
+    if (action.category) {
+      counts[action.category] = (counts[action.category] || 0) + 1;
+    }
+  }
+  return counts;
+}
+
+// Create the category summary bar, hidden until a state is selected. Builds the
+// static structure (header with the caption text/total label, plus the slots
+// container); the per-state pieces (state-name prefix, total count, and the
+// category slots) are filled in by renderCategoryBar.
+function createCategoryBar(container, mapConfig) {
+  const bar = createElement('div', 'map-widget__category-bar');
+  bar.hidden = true;
+  // The panel (aria-live) already announces the selected state's actions,
+  // so treat this bar as a purely visual summary to avoid double-announcing.
+  bar.setAttribute('aria-hidden', 'true');
+
+  // Header row: caption on the left, total on the right, all optional. The
+  // static pieces (the caption text and the total label) are set here since
+  // they never change; the per-state pieces (the caption's state-name prefix
+  // and the total count) are filled in by renderCategoryBar.
+  if (
+    mapConfig.categoryBarCaption ||
+    mapConfig.captionStateText ||
+    mapConfig.categoryBarTotalLabel
+  ) {
+    const header = createElement('div', 'map-widget__category-bar-header');
+
+    if (mapConfig.categoryBarCaption || mapConfig.captionStateText) {
+      const caption = createElement('span', 'map-widget__category-bar-caption');
+
+      if (mapConfig.captionStateText) {
+        const stateClasses = ['map-widget__category-bar-caption-state'];
+        if (mapConfig.captionStateClasses) {
+          stateClasses.push(mapConfig.captionStateClasses);
+        }
+        const stateEl = createElement('span', stateClasses.join(' '));
+        caption.appendChild(stateEl);
+      }
+
+      if (mapConfig.categoryBarCaption) {
+        const textClasses = ['map-widget__category-bar-caption-text'];
+        if (mapConfig.categoryBarCaptionClasses) {
+          textClasses.push(mapConfig.categoryBarCaptionClasses);
+        }
+        const textEl = createElement('span', textClasses.join(' '));
+        textEl.textContent = mapConfig.categoryBarCaption;
+        caption.appendChild(textEl);
+      }
+
+      header.appendChild(caption);
+    }
+
+    if (mapConfig.categoryBarTotalLabel) {
+      const total = createElement('span', 'map-widget__category-bar-total');
+
+      const totalLabelClasses = ['map-widget__category-bar-total-label'];
+      if (mapConfig.categoryBarTotalLabelClasses) {
+        totalLabelClasses.push(mapConfig.categoryBarTotalLabelClasses);
+      }
+      const totalLabel = createElement('span', totalLabelClasses.join(' '));
+      totalLabel.textContent = mapConfig.categoryBarTotalLabel;
+
+      const totalCountClasses = ['map-widget__category-bar-total-count'];
+      if (mapConfig.categoryBarTotalCountClasses) {
+        totalCountClasses.push(mapConfig.categoryBarTotalCountClasses);
+      }
+      const totalCount = createElement('span', totalCountClasses.join(' '));
+
+      total.appendChild(totalCount);
+      total.appendChild(totalLabel);
+      header.appendChild(total);
+    }
+
+    bar.appendChild(header);
+  }
+
+  // Slots container, filled per-state by renderCategoryBar.
+  const slots = createElement('div', 'map-widget__category-slots');
+  bar.appendChild(slots);
+
+  container.appendChild(bar);
+  return bar;
+}
+
+// Create the hover tooltip element, hidden until shown. It's positioned
+// relative to the map area, so it's appended inside `.map-widget__map`.
+function createTooltip(mapElement) {
+  const tooltip = createElement('div', 'map-widget__tooltip');
+  tooltip.setAttribute('aria-hidden', 'true');
+  tooltip.hidden = true;
+  mapElement.appendChild(tooltip);
+  return tooltip;
+}
+
+// Show the tooltip for a feature: fill in its name + code, then position it.
+function showTooltip(context, feature, event) {
+  const tooltip = context.tooltip;
+  if (!tooltip) {
+    return;
+  }
+
+  const code = feature.properties.code;
+  const name = context.data?.[code]?.name ?? feature.properties.name;
+
+  tooltip.innerHTML = '';
+
+  const tooltipName = createElement('span', 'map-widget__tooltip-name');
+  tooltipName.textContent = name;
+  tooltip.appendChild(tooltipName);
+
+  const tooltipBadge = createElement('span', 'map-widget__state-badge');
+  tooltipBadge.textContent = code;
+  tooltip.appendChild(tooltipBadge);
+
+  tooltip.hidden = false;
+  moveTooltip(context, event);
+}
+
+// Position the tooltip next to the cursor, measured relative to the map area.
+function moveTooltip(context, mouseEvent) {
+  const tooltip = context.tooltip;
+  if (!tooltip || tooltip.hidden) {
+    return;
+  }
+
+  const mapElement = tooltip.parentElement;
+  const bounds = mapElement.getBoundingClientRect();
+  const x = mouseEvent.clientX - bounds.left;
+  const y = mouseEvent.clientY - bounds.top;
+
+  // If a right-side tooltip would overflow the map's right edge, flip it to the
+  // left of the cursor so it stays within the (overflow-clipped) map area.
+  const overflowsRight = x + TOOLTIP_OFFSET + tooltip.offsetWidth > bounds.width;
+  const left = overflowsRight ? x - TOOLTIP_OFFSET - tooltip.offsetWidth : x + TOOLTIP_OFFSET;
+
+  // Likewise flip above the cursor when we would overflow the bottom edge. When
+  // the category bar is visible it sits at the bottom of the map area, so treat
+  // its top as the boundary to keep the tooltip from disappearing behind it.
+  const categoryBar = context.categoryBar;
+  let bottomBoundary = bounds.height;
+  if (categoryBar && categoryBar.offsetHeight > 0) {
+    bottomBoundary = categoryBar.getBoundingClientRect().top - bounds.top;
+  }
+  const overflowsBottom = y + TOOLTIP_OFFSET + tooltip.offsetHeight > bottomBoundary;
+  const top = overflowsBottom ? y - TOOLTIP_OFFSET - tooltip.offsetHeight : y + TOOLTIP_OFFSET;
+
+  tooltip.style.left = `${left}px`;
+  tooltip.style.top = `${top}px`;
+}
+
+function hideTooltip(context) {
+  if (context.tooltip) {
+    context.tooltip.hidden = true;
+  }
 }
 
 function getMapConfig(mapWidget) {
@@ -81,6 +342,65 @@ function getMapConfig(mapWidget) {
 
   mapConfig.badgeRadius = mapWidget?.dataset?.mapBadgeRadius || '16';
 
+  mapConfig.showTooltip = mapWidget?.dataset?.mapShowTooltip === 'true';
+
+  mapConfig.openInNewTab = mapWidget?.dataset?.mapOpenInNewTab === 'true';
+
+  mapConfig.showCategoryBar = mapWidget?.dataset?.mapShowCategoryBar === 'true';
+
+  mapConfig.categoryBarCaption = mapWidget?.dataset?.mapCategoryBarCaption || '';
+
+  mapConfig.categoryBarCaptionClasses = mapWidget?.dataset?.mapCategoryBarCaptionClasses || '';
+
+  mapConfig.captionStateText = mapWidget?.dataset?.mapCaptionStateText || '';
+
+  mapConfig.captionStateClasses = mapWidget?.dataset?.mapCaptionStateClasses || '';
+
+  mapConfig.categorySlotLabelClasses = mapWidget?.dataset?.mapCategorySlotLabelClasses || '';
+
+  mapConfig.categorySlotCountClasses = mapWidget?.dataset?.mapCategorySlotCountClasses || '';
+
+  mapConfig.categorySlotIconClasses = mapWidget?.dataset?.mapCategorySlotIconClasses || '';
+
+  mapConfig.categorySlotEmptyLabelClasses =
+    mapWidget?.dataset?.mapCategorySlotEmptyLabelClasses || '';
+
+  mapConfig.categorySlotEmptyCountClasses =
+    mapWidget?.dataset?.mapCategorySlotEmptyCountClasses || '';
+
+  mapConfig.categorySlotEmptyIconClasses =
+    mapWidget?.dataset?.mapCategorySlotEmptyIconClasses || '';
+
+  mapConfig.summaryIconClasses = mapWidget?.dataset?.mapSummaryIconClasses || '';
+
+  mapConfig.categoryBarTotalLabel = mapWidget?.dataset?.mapCategoryBarTotalLabel || '';
+
+  mapConfig.categoryBarTotalLabelClasses =
+    mapWidget?.dataset?.mapCategoryBarTotalLabelClasses || '';
+
+  mapConfig.categoryBarTotalCountClasses =
+    mapWidget?.dataset?.mapCategoryBarTotalCountClasses || '';
+
+  mapConfig.showSummary = mapWidget?.dataset?.mapShowSummary === 'true';
+
+  mapConfig.summaryHeadingText = mapWidget?.dataset?.mapSummaryHeadingText || '';
+
+  mapConfig.summaryBadgeText = mapWidget?.dataset?.mapSummaryBadgeText || '';
+
+  mapConfig.summaryCategoryLabelClasses = mapWidget?.dataset?.mapSummaryCategoryLabelClasses || '';
+
+  mapConfig.summaryCategoryCountClasses = mapWidget?.dataset?.mapSummaryCategoryCountClasses || '';
+
+  mapConfig.summaryItemClasses = mapWidget?.dataset?.mapSummaryItemClasses || '';
+
+  mapConfig.summaryListClasses = mapWidget?.dataset?.mapSummaryListClasses || '';
+
+  mapConfig.summaryTotalText = mapWidget?.dataset?.mapSummaryTotalText || '';
+
+  mapConfig.summaryTotalClasses = mapWidget?.dataset?.mapSummaryTotalClasses || '';
+
+  mapConfig.summaryTotalCountClasses = mapWidget?.dataset?.mapSummaryTotalCountClasses || '';
+
   return mapConfig;
 }
 
@@ -94,14 +414,31 @@ function getInfoPanelConfig(mapWidget) {
 
   infoPanelConfig.headingClasses = mapWidget?.dataset?.infoPanelHeadingClasses || '';
 
+  infoPanelConfig.subheadingText = mapWidget?.dataset?.infoPanelSubheadingText || '';
+
+  infoPanelConfig.subheadingClasses = mapWidget?.dataset?.infoPanelSubheadingClasses || '';
+
   infoPanelConfig.listClasses = mapWidget?.dataset?.infoPanelListClasses || '';
 
   infoPanelConfig.listItemClasses = mapWidget?.dataset?.infoPanelListItemClasses || '';
+
+  infoPanelConfig.actionTextClasses = mapWidget?.dataset?.infoPanelActionTextClasses || '';
+
+  infoPanelConfig.actionDateClasses = mapWidget?.dataset?.infoPanelActionDateClasses || '';
 
   infoPanelConfig.noDataText = mapWidget?.dataset?.infoPanelNoDataText || '';
 
   infoPanelConfig.noDataParagraphClasses =
     mapWidget?.dataset?.infoPanelNoDataParagraphClasses || '';
+
+  const parsedMax = parseInt(mapWidget?.dataset?.infoPanelMaxItems, 10);
+  infoPanelConfig.maxItems = Number.isNaN(parsedMax) ? null : parsedMax;
+
+  infoPanelConfig.overflowText = mapWidget.dataset?.infoPanelOverflowText || '';
+
+  infoPanelConfig.overflowClasses = mapWidget?.dataset?.infoPanelOverflowClasses || '';
+
+  infoPanelConfig.sortOrder = mapWidget?.dataset?.infoPanelSortOrder === 'asc' ? 'asc' : 'desc';
 
   return infoPanelConfig;
 }
@@ -158,55 +495,34 @@ async function loadData(mapWidget) {
   }
 }
 
-// Load the agency-to-image badge mapping named in the widget's
-// data-badge-mapping-src attribute. Returns {} if the attribute is missing or
-// the file cannot be loaded, so the caller can safely fall back to text badges.
-async function loadBadgeMapping(mapWidget) {
-  const url = mapWidget.dataset.badgeMappingSrc;
-  if (!url) {
-    return {};
+// Collect the distinct bullet image URLs used across all actions in the data
+// set, so each image is only preloaded once. Keyed by URL (not label), since
+// two actions may share a label but point at different images.
+function collectBulletImageUrls(data) {
+  const urls = new Set();
+  if (!data || typeof data !== 'object') {
+    return urls;
   }
-
-  try {
-    const response = await fetch(url);
-    if (!response.ok) {
-      console.warn(
-        `MapWidget: could not load badge mapping "${url}" (HTTP ${response.status}). Falling back to text badges.`
-      );
-      return {};
+  for (const state of Object.values(data)) {
+    for (const action of state?.actions ?? []) {
+      const image = action?.bullet?.image;
+      if (image) {
+        urls.add(image);
+      }
     }
-    const mapping = await response.json();
-
-    // Resolve each image path relative to the mapping file's own URL so the
-    // entries stay environment-agnostic (they work whether the static root
-    // is served locally or from an absolute CDN URL).
-    const resolved = {};
-    for (const [agency, imagePath] of Object.entries(mapping)) {
-      resolved[agency] = imagePath
-        ? new URL(imagePath, new URL(url, window.location.href)).href
-        : imagePath;
-    }
-    return resolved;
-  } catch (error) {
-    console.warn(
-      `MapWidget: could not load badge mapping "${url}". Falling back to text badges.`,
-      error
-    );
-    return {};
   }
+  return urls;
 }
 
-// Preload the badges images browser cache and decode each seal once so when
-// we show an agency badge, we don't pause to fetch/decode the image. Iterates the
-// mapping per agency (rather than per URL) so we can report exactly which
-// agencies have a broken or missing seal. Returns a Set of those agency codes
-// so that the badge cache can fall straight to a text badge for them.
-async function preloadBadgeImages(badgeMapping) {
-  const brokenAgencies = new Set();
+// Preload each distinct bullet image and decode it once, so rendering a bullet
+// doesn't pause to fetch/decode. Returns a Set of the image URLs that are
+// broken or missing, so a bullet using one can fall straight to a text pill.
+async function preloadAndFindBrokenBulletUrls(data) {
+  const brokenBulletImageUrls = new Set();
 
-  const entries = Object.entries(badgeMapping).filter(([, url]) => url);
+  const urls = [...collectBulletImageUrls(data)];
   await Promise.all(
-    entries.map(async ([agency, url]) => {
+    urls.map(async url => {
       const image = new Image();
       image.src = url;
       // decode() resolves once the image is fully decoded, and
@@ -214,12 +530,12 @@ async function preloadBadgeImages(badgeMapping) {
       try {
         await image.decode();
       } catch {
-        brokenAgencies.add(agency);
+        brokenBulletImageUrls.add(url);
       }
     })
   );
 
-  return brokenAgencies;
+  return brokenBulletImageUrls;
 }
 
 function showActive(path, mapConfig) {
@@ -240,19 +556,42 @@ function setActive(context, shape, feature) {
 
   showActive(shape, context.mapConfig);
   renderInfo(context, feature);
+  renderCategoryBar(context, feature);
 
   context.active = { shape: shape, feature: feature };
 }
 
-// Open the URL associated with a feature (from the loaded data set) in a new
-// tab. Used by pointer clicks and keyboard/screen-reader activation. Hover and
-// focus intentionally do NOT call this — they only highlight via setActive().
+// Clear the active (hovered/selected) feature: reset its fill, drop the active
+// reference, restore the info-panel placeholder, and hide the category bar.
+// Returns the widget to its initial "nothing selected" state.
+function clearActive(context) {
+  if (context.active) {
+    hideActive(context.active.shape, context.mapConfig);
+    context.active = null;
+  }
+
+  renderDefaultView(context);
+
+  if (context.categoryBar) {
+    context.categoryBar.hidden = true;
+  }
+}
+
+// Navigate to the URL associated with a feature (from the loaded data set).
+// Opens in a new tab when the open_in_new_tab option is set, otherwise in the
+// current tab (the accessible default). Used by pointer clicks and
+// keyboard/screen-reader activation. Hover and focus intentionally do NOT call
+// this — they only highlight via setActive().
 function openFeatureUrl(context, feature) {
   const stateCode = feature.properties.code;
   const url = context.data?.[stateCode]?.url;
 
   if (url) {
-    window.open(url, '_blank', 'noopener');
+    if (context.mapConfig?.openInNewTab) {
+      window.open(url, '_blank', 'noopener');
+    } else {
+      window.location.assign(url);
+    }
   }
 }
 
@@ -271,8 +610,17 @@ function drawFeatures(mapSvg, features, d3PathGenerator, context) {
     path.style.stroke = context.mapConfig?.strokeColor || '#ffffff';
     path.style.strokeWidth = context.mapConfig?.strokeWidth || '2';
 
-    path.addEventListener('mouseover', () => {
+    path.addEventListener('mouseover', mouseEvent => {
       setActive(context, path, feature);
+      showTooltip(context, feature, mouseEvent);
+    });
+
+    path.addEventListener('mousemove', mouseEvent => {
+      moveTooltip(context, mouseEvent);
+    });
+
+    path.addEventListener('mouseout', () => {
+      hideTooltip(context);
     });
 
     path.addEventListener('click', () => {
@@ -326,8 +674,17 @@ function drawBadge(mapSvg, badge, context) {
   //    single active shape and stays active after the pointer leaves.
   //    Note: pass `circle` (not the group) to setActive/hideActive,
   //    since .style.fill needs to land on the shape.
-  group.addEventListener('mouseover', () => {
+  group.addEventListener('mouseover', mouseEvent => {
     setActive(context, circle, feature);
+    showTooltip(context, feature, mouseEvent);
+  });
+
+  group.addEventListener('mousemove', mouseEvent => {
+    moveTooltip(context, mouseEvent);
+  });
+
+  group.addEventListener('mouseout', () => {
+    hideTooltip(context);
   });
 
   group.addEventListener('click', () => {
@@ -348,7 +705,7 @@ function drawBadge(mapSvg, badge, context) {
   });
 }
 
-function buildInfoPanel(mapWidget, infoPanelConfig) {
+function buildInfoPanel(mapWidget) {
   const panel = createElement('div', 'map-widget__panel');
 
   panel.setAttribute('role', 'region');
@@ -361,28 +718,37 @@ function buildInfoPanel(mapWidget, infoPanelConfig) {
 
   mapWidget.appendChild(panel);
 
-  renderInfoPlaceholder(panel, infoPanelConfig);
+  return panel;
+}
 
-  // Re-render the placeholder if the device's hover capability changes (e.g. a
-  // 2-in-1 switching between touchscreen and trackpad), so the guidance text
-  // always matches the current primary input.
+// Render the panel's default "nothing selected" view and keep it in sync with
+// the device's hover capability. Called once after the context is ready.
+function setupDefaultView(context) {
+  renderDefaultView(context);
+
+  // Re-render the default view if the device's hover capability changes (e.g. a
+  // 2-in-1 switching between touchscreen and trackpad), so the placeholder
+  // guidance text always matches the current primary input.
   if (typeof window.matchMedia === 'function') {
     const hoverQuery = window.matchMedia('(hover: hover)');
-    const onHoverChange = () => {
-      // Only replace the text while the placeholder is showing; don't clobber a
-      // selected state's details.
-      if (panel.dataset.showingPlaceholder === 'true') {
-        renderInfoPlaceholder(panel, infoPanelConfig);
+    hoverQuery.addEventListener('change', () => {
+      // Only re-render while the default view is showing; don't clobber a
+      // selected feature's details.
+      if (context.panel.dataset.showingPlaceholder === 'true') {
+        renderDefaultView(context);
       }
-    };
-    if (typeof hoverQuery.addEventListener === 'function') {
-      hoverQuery.addEventListener('change', onHoverChange);
-    } else if (typeof hoverQuery.addListener === 'function') {
-      hoverQuery.addListener(onHoverChange);
-    }
+    });
   }
+}
 
-  return panel;
+// Choose the panel's default "nothing selected" content: the summary view when
+// it's enabled and the data has categories, otherwise the placeholder text.
+function renderDefaultView(context) {
+  if (context.mapConfig?.showSummary && context.categories) {
+    renderSummary(context);
+  } else {
+    renderInfoPlaceholder(context.panel, context.infoPanelConfig);
+  }
 }
 
 // Build a visually hidden, keyboard-focusable control for every mapped feature
@@ -443,46 +809,168 @@ function renderInfoPlaceholder(panel, infoPanelConfig) {
   panel.dataset.showingPlaceholder = 'true';
 }
 
-function createTextBadge(agency) {
-  const badge = createElement('span', 'map-widget__agency-badge');
-  badge.textContent = agency;
-  return badge;
+// Render the summary view shown when no feature is selected (opt-in via
+// show_summary, and only when the data has categories): the configured heading
+// and badge, then a list of every category with its total across all features.
+function renderSummary(context) {
+  const { panel, mapConfig, categories, categoryIcons, data } = context;
+
+  panel.innerHTML = '';
+  panel.dataset.showingPlaceholder = 'true';
+
+  //    Shared header (heading + pill badge + separator), using the configured
+  //    summary heading/badge text (e.g. "Nationwide" / "USA").
+  renderPanelHeader(context, mapConfig.summaryHeadingText, mapConfig.summaryBadgeText);
+
+  //    Tally category totals across every feature's actions.
+  const allActions = Object.values(data).flatMap(state => state.actions || []);
+  const counts = countActionsByCategory(allActions);
+
+  //    Optional total line, shown above the list (where the per-state subheading
+  //    sits). The template is split on {count} so the grand total of all actions
+  //    renders in its own span (independently styleable from the surrounding
+  //    text).
+  if (mapConfig.summaryTotalText) {
+    const total = createElement('p', 'map-widget__summary-total');
+    if (mapConfig.summaryTotalClasses) {
+      total.className = `map-widget__summary-total ${mapConfig.summaryTotalClasses}`;
+    }
+
+    const countClass = ['map-widget__summary-total-count'];
+    if (mapConfig.summaryTotalCountClasses) {
+      countClass.push(mapConfig.summaryTotalCountClasses);
+    }
+
+    const parts = mapConfig.summaryTotalText.split('{count}');
+    parts.forEach((part, index) => {
+      // Between parts (i.e. wherever {count} appeared), insert the count span.
+      if (index > 0) {
+        const countEl = createElement('span', countClass.join(' '));
+        countEl.textContent = allActions.length;
+        total.appendChild(countEl);
+      }
+      if (part) {
+        total.appendChild(document.createTextNode(part));
+      }
+    });
+
+    panel.appendChild(total);
+  }
+
+  //    One row per category, in context.categories order (seed order when the
+  //    data provides a categories map). Categories with no actions for the
+  //    current view render a zero count.
+  const list = createElement('ul', 'map-widget__summary');
+  if (mapConfig.summaryListClasses) {
+    list.className = `map-widget__summary ${mapConfig.summaryListClasses}`;
+  }
+
+  const labelClasses = ['map-widget__summary-category-label'];
+  if (mapConfig.summaryCategoryLabelClasses) {
+    labelClasses.push(mapConfig.summaryCategoryLabelClasses);
+  }
+  const labelClass = labelClasses.join(' ');
+
+  const countClasses = ['map-widget__summary-category-count'];
+  if (mapConfig.summaryCategoryCountClasses) {
+    countClasses.push(mapConfig.summaryCategoryCountClasses);
+  }
+  const countClass = countClasses.join(' ');
+
+  const itemClasses = ['map-widget__summary-item'];
+  if (mapConfig.summaryItemClasses) {
+    itemClasses.push(mapConfig.summaryItemClasses);
+  }
+  const itemClass = itemClasses.join(' ');
+
+  for (const category of categories) {
+    const item = createElement('li', itemClass);
+
+    const labelGroup = createElement('span', 'map-widget__summary-label-group');
+
+    const icon = createCategoryIcon(category, categoryIcons, mapConfig.summaryIconClasses || '');
+    if (icon) {
+      labelGroup.appendChild(icon);
+    }
+
+    const label = createElement('span', labelClass);
+    label.textContent = category;
+    labelGroup.appendChild(label);
+
+    const count = createElement('span', countClass);
+    count.textContent = counts[category] || 0;
+
+    item.appendChild(labelGroup);
+    item.appendChild(count);
+    list.appendChild(item);
+  }
+
+  panel.appendChild(list);
 }
 
-function createAgencyBadge(agency, badgeMapping) {
-  const imageUrl = badgeMapping?.[agency];
+// Create the text-pill variant of an action's bullet, showing the label.
+function createBulletText(label) {
+  const pill = createElement('span', 'map-widget__bullet-text');
+  pill.textContent = label;
+  return pill;
+}
+
+// Create the image variant of an action's bullet. Uses the bullet's image when
+// present; otherwise falls back to the text pill with the label.
+function createBulletImage(bullet) {
+  const imageUrl = bullet?.image;
 
   if (imageUrl && typeof imageUrl === 'string' && imageUrl !== '') {
-    const image = createElement('img', 'map-widget__agency-badge-image');
+    const image = createElement('img', 'map-widget__bullet-image');
     image.src = imageUrl;
-    image.alt = agency;
+    image.alt = bullet?.label ?? '';
 
     return image;
   }
 
-  return createTextBadge(agency);
+  return createBulletText(bullet?.label ?? '');
 }
 
-// Build the badge shown as the leading "bullet" for an action. If the agency is
-// present in the badge mapping, an <img> of its seal is used; otherwise it falls
-// back to the gold text badge with the agency code.
-//
-// Reuses previously created agency badges that were added to the cache
-function getAgencyBadge(context, agency) {
-  const { badgeCache, badgeMapping, brokenSeals } = context;
+// Build the bullet shown at the start of an action row. When the bullet has an
+// image that isn't known-broken, the image is used; otherwise it falls back to
+// the text pill with the bullet's label.
+function getActionBullet(context, bullet) {
+  const { brokenBulletImageUrls } = context;
+  const image = bullet?.image;
 
-  // Check if the badgeCache has this agency already
-  // If not, create a text badge IF the seal is 'broken'
-  // otherwise, create the real agency badge.
-  // Add the result to the cache
-  if (!badgeCache[agency]) {
-    badgeCache[agency] = brokenSeals?.has(agency)
-      ? createTextBadge(agency)
-      : createAgencyBadge(agency, badgeMapping);
+  if (image && !brokenBulletImageUrls?.has(image)) {
+    return createBulletImage(bullet);
   }
 
-  // Reuse the cached badge
-  return badgeCache[agency].cloneNode(true);
+  return createBulletText(bullet?.label ?? '');
+}
+
+// Build the info-panel header — the heading (feature/summary name) and its pill
+// badge, followed by the accent separator — and append it to the panel. Shared
+// by the per-state view (renderInfo) and the summary view (renderSummary).
+function renderPanelHeader(context, name, code) {
+  const { panel, infoPanelConfig } = context;
+
+  //    Build a flex container so the badge and heading sit side by side.
+  const headingContainer = createElement('div', 'map-widget__heading-container');
+
+  const heading = createElement('h2');
+  heading.textContent = name;
+  if (infoPanelConfig?.headingClasses) {
+    heading.className = infoPanelConfig.headingClasses;
+  }
+  headingContainer.appendChild(heading);
+
+  //    Add the small pill badge (e.g. a state's abbreviation like "CA").
+  const badge = createElement('span', 'map-widget__state-badge');
+  badge.textContent = code;
+  headingContainer.appendChild(badge);
+
+  panel.appendChild(headingContainer);
+
+  //    Add the short accent bar shown beneath the heading.
+  const separator = createElement('div', 'map-widget__separator');
+  panel.appendChild(separator);
 }
 
 function renderInfo(context, feature) {
@@ -501,32 +989,36 @@ function renderInfo(context, feature) {
   //    back to the feature's own name).
   const stateName = stateData?.name ?? feature.properties.name;
 
-  //    Build a flex container so the state badge and heading sit side by side.
-  const headingContainer = createElement('div', 'map-widget__heading-container');
+  //    Render the shared header (heading + pill badge + separator).
+  renderPanelHeader(context, stateName, stateCode);
 
-  //    Add the heading with the full state name, preferring the data set's
-  //    name and falling back to the feature's own name.
-  const heading = createElement('h2');
-  heading.textContent = stateName;
-  if (infoPanelConfig?.headingClasses) {
-    heading.className = infoPanelConfig.headingClasses;
+  //    Optional subheading, shown beneath the separator. Supports the {state}
+  //    placeholder.
+  if (infoPanelConfig?.subheadingText) {
+    const subheading = createElement('p', 'map-widget__subheading');
+    if (infoPanelConfig.subheadingClasses) {
+      subheading.className = `map-widget__subheading ${infoPanelConfig.subheadingClasses}`;
+    }
+    subheading.textContent = infoPanelConfig.subheadingText.replace('{state}', stateName);
+    panel.appendChild(subheading);
   }
-  headingContainer.appendChild(heading);
 
-  //    Add the small pill badge showing the state's abbreviation (e.g. "CA").
-  const stateBadge = createElement('span', 'map-widget__state-badge');
-  stateBadge.textContent = stateCode;
-  headingContainer.appendChild(stateBadge);
+  //    Grab all actions, remember the true total
+  const allActions = stateData?.actions ?? [];
+  const total = allActions.length;
 
-  //    Add the heading row into the panel.
-  panel.appendChild(headingContainer);
+  // Sort the actions
+  // Undated actions are sorted first in "asc", last in "desc"
+  const sortOrder = infoPanelConfig?.sortOrder || 'desc';
+  let sortedActions = [];
+  if (sortOrder === 'desc') {
+    sortedActions = allActions.slice().sort((a, b) => getActionSortKey(b) - getActionSortKey(a));
+  } else {
+    sortedActions = allActions.slice().sort((a, b) => getActionSortKey(a) - getActionSortKey(b));
+  }
 
-  //    Add the short accent bar shown beneath the heading.
-  const separator = createElement('div', 'map-widget__separator');
-  panel.appendChild(separator);
-
-  //    If the state has no actions, show the "no data" message and stop here.
-  const actionsList = stateData?.actions ?? [];
+  const maxItems = infoPanelConfig?.maxItems;
+  const actionsList = maxItems > 0 ? sortedActions.slice(0, maxItems) : sortedActions;
 
   if (actionsList?.length === 0) {
     const noDataParagraph = createElement('p');
@@ -559,29 +1051,36 @@ function renderInfo(context, feature) {
       item.className = `map-widget__action ${infoPanelConfig.listItemClasses}`;
     }
 
-    //    Create the flex row holding the agency badge and content.
+    //    Create the flex row holding the action's bullet and content.
     const row = createElement('div', 'map-widget__action-row');
 
-    //    Add the agency badge, used as the row's leading "bullet". When
-    //    the agency has an image in the mapping we use that; otherwise we
-    //    fall back to the gold text badge.
-    const badge = getAgencyBadge(context, action.agency);
-    row.appendChild(badge);
+    //    Add the action's leading bullet. When the bullet has an image we use
+    //    that; otherwise we fall back to the text pill with the bullet's label.
+    const bullet = getActionBullet(context, action.bullet);
+    row.appendChild(bullet);
 
     // 10d. Build the content block that holds the action text (and date).
     const content = createElement('div', 'map-widget__action-content');
 
     // 10e. Add the action's description text.
     const text = createElement('span', 'map-widget__action-text');
+    if (infoPanelConfig?.actionTextClasses) {
+      text.className = `map-widget__action-text ${infoPanelConfig.actionTextClasses}`;
+    }
     text.textContent = action.action;
-    content.appendChild(text);
+    // content.appendChild(text);
 
     // 10f. Add a formatted date when one is present.
     if (action.date !== null) {
       const date = createElement('div', 'map-widget__action-date');
+      if (infoPanelConfig?.actionDateClasses) {
+        date.className = `map-widget__action-date ${infoPanelConfig.actionDateClasses}`;
+      }
       date.textContent = formatActionDate(action.date);
       content.appendChild(date);
     }
+
+    content.appendChild(text);
 
     // 10g. Assemble the row and append the finished item to the list.
     row.appendChild(content);
@@ -593,12 +1092,138 @@ function renderInfo(context, feature) {
 
   // 11. Append the fully built actions list to the panel.
   panel.appendChild(list);
+
+  //    When the state has more actions than we showed, add a line pointing to
+  //    the full list. Supports {count} (true total) and {state} placeholders.
+  if (maxItems > 0 && total > maxItems && infoPanelConfig?.overflowText) {
+    const overflow = createElement('p', 'map-widget__actions-overflow');
+    if (infoPanelConfig.overflowClasses) {
+      overflow.className = `map-widget__actions-overflow ${infoPanelConfig.overflowClasses}`;
+    }
+    overflow.textContent = infoPanelConfig.overflowText
+      .replace('{count}', total)
+      .replace('{state}', stateName);
+    panel.appendChild(overflow);
+  }
+}
+
+// Fill the category bar with one slot per known category, showing how many
+// of the selected state's actions fall into each. Counts use the state's
+// FULL actions list (not the capped info-panel list). Every category is
+// always rendered, even if the count is zero, so that the layout stays
+// stable.
+function renderCategoryBar(context, feature) {
+  const bar = context.categoryBar;
+  if (!bar) {
+    return;
+  }
+
+  const { mapConfig } = context;
+  const stateData = context.data[feature.properties.code];
+  const actions = stateData?.actions ?? [];
+  const stateName = stateData?.name ?? feature.properties.name;
+
+  // Tally actions by category.
+  const counts = countActionsByCategory(actions);
+
+  // Fill the caption's state-name prefix — the only per-state part of the
+  // caption (the static text was set once in createCategoryBar). {state} is
+  // replaced with the selected state's name.
+  const captionState = bar.querySelector('.map-widget__category-bar-caption-state');
+  if (captionState) {
+    captionState.textContent = mapConfig.captionStateText.replace('{state}', stateName);
+  }
+
+  const totalCountEl = bar.querySelector('.map-widget__category-bar-total-count');
+  if (totalCountEl) {
+    totalCountEl.textContent = actions.length;
+  }
+
+  // Rebuild the slots. Render every known category in order of the context categories
+  // (context.categories is already sorted); dim zero counts for a stable layout.
+  const slots = bar.querySelector('.map-widget__category-slots');
+  slots.innerHTML = '';
+
+  const slotLabelClasses = ['map-widget__category-slot-label'];
+  if (mapConfig.categorySlotLabelClasses) {
+    slotLabelClasses.push(mapConfig.categorySlotLabelClasses);
+  }
+  const slotLabelClass = slotLabelClasses.join(' ');
+
+  const slotCountClasses = ['map-widget__category-slot-count'];
+  if (mapConfig.categorySlotCountClasses) {
+    slotCountClasses.push(mapConfig.categorySlotCountClasses);
+  }
+  const slotCountClass = slotCountClasses.join(' ');
+
+  // Empty-slot variants: zero-count slots use their own base classes
+  // (map-widget__category-slot-empty-label/-count) plus any configured empty
+  // classes, fully replacing the normal label/count classes rather than
+  // layering on top — so their styling always wins with no cascade conflict.
+  const slotEmptyLabelClasses = ['map-widget__category-slot-empty-label'];
+  if (mapConfig.categorySlotEmptyLabelClasses) {
+    slotEmptyLabelClasses.push(mapConfig.categorySlotEmptyLabelClasses);
+  }
+  const slotEmptyLabelClass = slotEmptyLabelClasses.join(' ');
+
+  const slotEmptyCountClasses = ['map-widget__category-slot-empty-count'];
+  if (mapConfig.categorySlotEmptyCountClasses) {
+    slotEmptyCountClasses.push(mapConfig.categorySlotEmptyCountClasses);
+  }
+  const slotEmptyCountClass = slotEmptyCountClasses.join(' ');
+
+  // Empty-slot icon: any configured classes are layered on top of the icon's
+  // base/per-category classes (unlike the label/count, which fully replace),
+  // so the per-category `--slug` hook stays available to page CSS.
+  const slotEmptyIconClasses = mapConfig.categorySlotEmptyIconClasses || '';
+
+  // Non-empty slot icon classes, layered on the same way.
+  const slotIconClasses = mapConfig.categorySlotIconClasses || '';
+
+  for (const category of context.categories) {
+    const count = counts[category] || 0;
+    const isEmpty = count === 0;
+
+    const slot = createElement('div', 'map-widget__category-slot');
+
+    // Create the top
+    const top = createElement('div', 'map-widget__category-slot-top');
+
+    const icon = createCategoryIcon(
+      category,
+      context.categoryIcons,
+      isEmpty ? slotEmptyIconClasses : slotIconClasses
+    );
+    const value = createElement('span', isEmpty ? slotEmptyCountClass : slotCountClass);
+    value.textContent = count;
+
+    if (icon) {
+      top.appendChild(icon);
+    }
+    top.appendChild(value);
+
+    // Add top to slot
+    slot.appendChild(top);
+
+    // Create the label
+    const label = createElement('span', isEmpty ? slotEmptyLabelClass : slotLabelClass);
+    label.textContent = category;
+    slot.appendChild(label);
+
+    // Add to slots
+    slots.appendChild(slot);
+  }
+
+  bar.hidden = false;
 }
 
 async function initMapWidget(mapWidget) {
-  const data = await loadData(mapWidget);
-  const badgeMapping = await loadBadgeMapping(mapWidget);
-  const brokenSeals = await preloadBadgeImages(badgeMapping);
+  const loaded = await loadData(mapWidget);
+  const data = loaded.data || {};
+  const categoryIcons = loaded.categories || {};
+  const categoryOrder = loaded.categoryOrder;
+
+  const brokenBulletImageUrls = await preloadAndFindBrokenBulletUrls(data);
 
   const mapElement = createElement('div', 'map-widget__map');
   mapWidget.appendChild(mapElement);
@@ -618,19 +1243,63 @@ async function initMapWidget(mapWidget) {
 
   const mapConfig = getMapConfig(mapWidget);
   const infoPanelConfig = getInfoPanelConfig(mapWidget);
-  const panel = buildInfoPanel(mapWidget, infoPanelConfig);
+  const panel = buildInfoPanel(mapWidget);
+
+  let tooltip = null;
+  if (mapConfig.showTooltip) {
+    tooltip = createTooltip(mapElement);
+  }
+
+  // Categories power both the (optional) category bar and the (optional) summary
+  // view, so collect them when either is enabled and the data has any.
+  let categories = null;
+  if (mapConfig.showCategoryBar || mapConfig.showSummary) {
+    const found = collectCategories(data, categoryIcons, categoryOrder);
+    if (found.length) {
+      categories = found;
+    }
+  }
+
+  let categoryBar = null;
+  if (mapConfig.showCategoryBar && categories) {
+    categoryBar = createCategoryBar(mapElement, mapConfig);
+  }
 
   const context = {
     panel: panel,
     data: data,
     mapConfig: mapConfig,
     infoPanelConfig: infoPanelConfig,
-    badgeMapping: badgeMapping,
-    brokenSeals: brokenSeals,
-    badgeCache: {},
+    brokenBulletImageUrls: brokenBulletImageUrls,
     active: null,
-    focusables: []
+    focusables: [],
+    tooltip: tooltip,
+    categories: categories,
+    categoryIcons: categoryIcons,
+    categoryBar: categoryBar
   };
+
+  //    Paint the panel's initial default view (summary or placeholder).
+  setupDefaultView(context);
+
+  // Accessibility: Escape provides a keyboard exit without moving the pointer.
+  // The first press dismisses the hover tooltip (if it's showing); once the
+  // tooltip is hidden, a further press clears the active (hovered/selected)
+  // feature, returning the map to its placeholder state.
+  document.addEventListener('keydown', keyEvent => {
+    if (keyEvent.key !== 'Escape') {
+      return;
+    }
+
+    if (context.tooltip && !context.tooltip.hidden) {
+      hideTooltip(context);
+      return;
+    }
+
+    if (context.active) {
+      clearActive(context);
+    }
+  });
 
   drawFeatures(mapSvg, features, d3PathGenerator, context);
 

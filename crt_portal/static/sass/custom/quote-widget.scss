@@ -4,10 +4,6 @@
 // Quote rotator widget
 // Rendered by templates/partials/quote_widget.html and driven by
 // static/js/quote-rotator.js.
-//
-// Layout: the stage is a fixed-height flex column with the quote at the top
-// and the controls pinned to the bottom, so the controls never shift as
-// quotes of different lengths rotate through.
 // -------------------------------------
 
 .quote-section {
@@ -18,18 +14,13 @@
 .quote-stage {
     padding: 4rem 8rem;
 
-    // Fixed height with the quote at the top and controls pinned to the bottom.
-    // Shorter quotes just leave a gap; the controls never shift.
-    height: 32rem;
-
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-end;
 
     @include at-media-max("desktop") {
-        padding: 1rem 1rem;
-        height: 24rem;
+        padding: 2rem 1rem;
     }
 }
 
@@ -143,6 +134,16 @@
 .quote-stage__block {
     margin: 0;
 
+    // Stack every layer (the live one plus the hidden sizer copies that
+    // quote-rotator.js appends) in a single grid cell so they overlap. The
+    // block is then as tall as the TALLEST layer, i.e. the longest quote, and
+    // stays that height through the whole rotation -- so the controls below
+    // never move. `align-items: center` vertically centers the live quote
+    // within that reserved height.
+    display: grid;
+    align-items: center;
+    width: 100%;
+
     // Fade between quotes as their content is swapped. The duration is set by
     // the widget via the `--quote-fade-ms` custom property (single source of
     // truth in quote-rotator.js); the fallback keeps a sensible fade if the JS
@@ -162,6 +163,20 @@
             opacity: 1;
         }
     }
+}
+
+// Every quote (live and sizer) occupies the same grid cell so they all pile on
+// top of each other and jointly determine the block's height.
+.quote-stage__layer {
+    grid-area: 1 / 1;
+}
+
+// Sizer copies exist only to reserve height for the tallest quote. They keep
+// their layout box (and therefore their height) but are never shown, and are
+// kept out of hit-testing and the accessibility tree.
+.quote-stage__layer.is-sizer {
+    visibility: hidden;
+    pointer-events: none;
 }
 
 .quote-stage__text {
