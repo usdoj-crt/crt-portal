@@ -74,6 +74,8 @@
   display: flex;
   gap: 1.25rem;
 
+  outline: none !important;
+
   /* make the rail scroll horizontally */
   overflow-x: auto;
 
