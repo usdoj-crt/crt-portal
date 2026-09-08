@@ -1,0 +1,15 @@
+{% comment %}
+Shared styles for the news widget (news card + news carousel).
+
+Include this ONCE per page that renders any news_widget partial:
+
+    {% include "news_widget/news_widget_assets.html" %}
+
+The card and carousel are plain-CSS components, so this makes the widget
+self-contained: including this partial is all that's needed to style any
+number of news cards or carousels on the page.
+{% endcomment %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/news-card.css' %}" />
+<link rel="stylesheet" href="{% static 'css/news-carousel.css' %}" />
+<script src="{% static 'js/news-carousel.js' %}"></script>

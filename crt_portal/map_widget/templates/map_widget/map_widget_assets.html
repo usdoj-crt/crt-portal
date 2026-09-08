@@ -3,12 +3,12 @@ Shared assets for the US map widget (CSS + d3 + widget JS).
 
 Include this ONCE per page, regardless of how many maps are rendered:
 
-    {% include "partials/map_widget_assets.html" %}
+    {% include "map_widget/map_widget_assets.html" %}
 
 The widget JS boots every element with the `.map-widget` class on DOM ready,
 so a single load of these assets supports any number of maps on the page.
 
-Per-map markup is rendered by "partials/map_widget.html".
+Per-map markup is rendered by "map_widget/map_widget.html".
 {% endcomment %}
 <link rel="stylesheet" href="{% static 'css/map-widget-d3geo.css' %}" />
 <script src="{% static 'vendor/d3.min.js' %}"></script>

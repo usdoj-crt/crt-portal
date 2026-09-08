@@ -50,8 +50,13 @@ Optional (fall back to the widget's built-in defaults if omitted):
          data-show-counter="{{ show_counter|default:'false' }}">
 
         <blockquote class="quote-stage__block" data-quote-block>
-            <p class="quote-stage__text font-serif-xl text-center margin-0" data-quote-text></p>
-            <cite class="quote-stage__cite text-center margin-top-2" data-quote-cite></cite>
+            <div class="quote-stage__layer" data-quote-layer>
+                <p class="quote-stage__text font-serif-xl text-center margin-0" data-quote-text></p>
+                <cite class="quote-stage__cite text-center margin-top-2" data-quote-cite></cite>
+            </div>
+            <!-- quote-rotator.js appends one hidden .quote-stage__layer.is-sizer
+                 copy of every quote here, so the block reserves the height of the
+                 tallest quote and the controls below never shift as quotes rotate. -->
         </blockquote>
 
         <p class="usa-sr-only" role="alert" aria-atomic="true" data-quote-status></p>

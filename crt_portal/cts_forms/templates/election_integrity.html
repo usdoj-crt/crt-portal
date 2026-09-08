@@ -1,6 +1,8 @@
 {% extends "landing.html" %}
 {% load i18n %}
 {% load static %}
+{% load news_card_carousel %}
+{% load news_column %}
 {% block meta_title %}
 {% trans "Civil Rights Division - Department of Justice - Election Integrity" as meta_title %}
 <meta property="og:title" content="{{meta_title}}" />
@@ -23,7 +25,7 @@
 {% trans "Civil Rights Division - Department of Justice - Election Integrity" %}
 </title>
 {% endblock %}
-{% block head %} {% include "partials/map_widget_assets.html" %} {% include "partials/quote_widget_assets.html" %} {% endblock %}
+{% block head %} {% include "map_widget/map_widget_assets.html" %} {% include "news_widget/news_widget_assets.html" %} {% include "partials/quote_widget_assets.html" %} {% endblock %}
 {% block hero %}
     <section class="hero-section" aria-labelledby="hero-title">
         <picture>
@@ -54,29 +56,64 @@
 {% endblock %}
 
 {% block content %}
-    <section id="enforcement-map" class="enforcement-map padding-x-4 padding-y-4" aria-label="Nationwide Enforcement Actions Section">
+    <section id="enforcement-map" class="enforcement-map padding-x-4 padding-y-4 bg-white" aria-label="Nationwide Enforcement Actions Section">
         <div class="display-flex flex-column flex-align-center margin-top-6">
             <h2 class="font-serif-3xl text-normal text-primary-darker margin-0 text-center">
                 Nationwide Enforcement Actions
             </h2>
-            <p class="text-primary-darker margin-0 text-center">Explore past and upcoming activity by state</p>
+            <p class="text-base-dark margin-0 text-center">Explore past and upcoming election integrity activity by state</p>
         </div>
-        {% include "partials/map_widget.html" with data_name="election-integrity-map" badge_mapping="data/agency-badges/agency-badge-map.json" map_classes="margin-top-4 margin-bottom-4" map_default_fill_color="#162e51" info_heading_classes="usa-heading margin-top-0 margin-bottom-0 text-primary-darker font-serif-xl" info_list_classes="usa-list" info_placeholder_text="Hover over a state to view details. Click a state to see all enforcement actions." info_placeholder_text_no_hover="Click a state to see all enforcement actions." %}
+        {% include "map_widget/map_widget.html" with data_name="election-integrity-map" show_tooltip="true" map_classes="margin-top-4 margin-bottom-4" map_default_fill_color="#162e51" info_heading_classes="usa-heading margin-top-0 margin-bottom-0 text-primary-darker font-serif-xl" info_subheading_text="Latest Enforcement Actions" info_subheading_classes="election-integrity-dark-gold text-bold text-uppercase font-body-xs text-ls-1" info_list_classes="usa-list" info_list_item_classes="border-base-lighter border-top-1px padding-top-1" info_action_date_classes="election-integrity-dark-gold text-bold text-uppercase font-body-3xs text-ls-1" info_placeholder_text="Hover over a state to view details. Click a state to see all enforcement actions." info_placeholder_text_no_hover="Click a state to see all enforcement actions." info_max_items="4" info_overflow_text="All {count} actions are listed on the {state} state page. Select the state on the map to open it." info_overflow_classes="text-base-dark" show_category_bar="true" category_bar_caption="enforcement actions by type" category_bar_caption_classes="font-sans-3xs text-uppercase" caption_state_text="{state}" caption_state_classes="font-sans-3xs text-gold text-uppercase" category_bar_total_label="Total" category_bar_total_label_classes="font-sans-3xs text-uppercase" category_bar_total_count_classes="font-serif-lg" category_slot_label_classes="font-sans-3xs text-white padding-top-1" category_slot_count_classes="text-white font-serif-lg" category_slot_icon_classes="text-white" category_slot_empty_label_classes="font-sans-3xs text-base-light padding-top-1" category_slot_empty_count_classes="text-base-light font-serif-md" category_slot_empty_icon_classes="text-base-light" show_summary="true" summary_heading_text="Nationwide" summary_badge_text="USA" summary_total_text="{count} enforcement actions" summary_total_classes="font-body-xs text-base-dark display-flex flex-align-baseline" summary_total_count_classes="font-serif-2xl text-primary-darker margin-right-1" summary_list_classes="usa-list" summary_item_classes="border-base-lighter border-top-1px padding-top-1 display-flex flex-justify" summary_category_label_classes="font-sans-2xs text-primary-darker" summary_category_count_classes="font-serif-md text-primary-darker" summary_icon_classes="text-primary-darker" %}
     </section>
 
-    <!--<section id="in-the-news" class="in-the-news padding-x-2 padding-top-6 bg-base-lighter" aria-label="Election Integrity in the News">
-        <div class="display-flex flex-column flex-align-center">
-            <h2 class="font-serif-2xl text-normal text-primary-darker margin-0 text-center">
-                Election Integrity in the News
-            </h2>
-            <div class="card-container">
-                {% for item in news_items %}
-                    {% include "partials/news_card.html" with item=item %}
-                {% endfor %}
+    <section class="go-deeper padding-y-10 bg-primary-darker" aria-labelledby="go-deeper-title">
+        <div class="go-deeper__inner">
+            <!--Go deeper-->
+            <div class="go-deeper__info">
+                <p class="text-gold text-bold font-body-3xs text-ls-2 text-uppercase margin-0">
+                    Go deeper
+                </p>
+                <h2 class="go-deeper__info-heading font-serif-2xl text-white text-normal margin-top-1 margin-bottom-2" id="go-deeper-title">
+                    Election Monitoring
+                </h2>
+                <p class="go-deeper__info-text font-sans-xs text-primary-lighter margin-0 measure-5">
+                    For over two decades, the Department of Justice has deployed federal
+                    observers and Civil Rights Division monitors to safeguard elections
+                    nationwide.
+                </p>
+            </div>
+
+            <!-- Figures -->
+            <div class="go-deeper__figures">
+                <div class="width-card-lg display-flex flex-column flex-align-center text-center">
+                    <span class="election-integrity-number-figure font-family-serif text-bold text-gold">13,868</span>
+                    <span class="font-sans-3xs margin-top-1 text-primary-lighter text-uppercase minh-6">
+                        federal observers &amp; monitors, 2000&ndash;2025
+                    </span>
+                </div>
+                <div class="width-card-lg display-flex flex-column flex-align-center text-center">
+                    <span class="election-integrity-number-figure font-family-serif text-bold text-gold">1,348</span>
+                    <span class="font-sans-3xs margin-top-1 text-primary-lighter text-uppercase minh-6">
+                        jurisdictions monitored
+                    </span>
+                </div>
             </div>
         </div>
-    </section>-->
+    </section>
 
+    <section id="featured-media" class="featured-media padding-x-2 padding-top-10 padding-bottom-2 bg-base-lighter" aria-label="Featured Video & Media">
+        <div class="display-flex flex-column flex-align-center">
+            <h3 class="font-sans-md text-center margin-0 election-integrity-dark-gold text-ls-2 text-uppercase">
+                Latest Coverage
+            </h3>
+            <h2 class="font-serif-2xl text-normal text-primary-darker margin-0 text-center">
+                Featured Video & Media
+            </h2>
+            <div class="margin-top-4 width-full">
+                {% render_news_card_carousel "election-integrity-news" label="Featured video and media" overlay_buttons="true" clickable_thumbnail="true" %}
+            </div>
+        </div>
+    </section>
 
     <section id="in-the-news" class="in-the-news padding-x-2 padding-y-10"
         aria-label="Election Integrity in the News">
@@ -94,42 +131,11 @@
                             alt="Seal of the U.S. Department of Justice">
                         <h3 class="font-serif-lg text-normal text-primary-darker margin-0" id="news-doj-h">Department of Justice</h3>
                     </div>
-                    <ul class="usa-list usa-list--unstyled margin-0" aria-labelledby="news-doj-h">
-                        <li class="simplenews__item padding-y-3 margin-x-2">
-                            <span class="simplenews__date display-block text-bold text-uppercase font-body-3xs text-ls-1">Feb 26, 2026</span>
-                            <a class="simplenews__link external-link--blue text-primary-darker text-no-underline"
-                                href="https://www.justice.gov/opa/pr/justice-department-sues-five-additional-states-failure-produce-voter-rolls"
-                                target="_blank" rel="noopener">Justice Department Sues Five Additional States for Failure to Produce Voter Rolls</a>
-                        </li>
-                        <li class="simplenews__item padding-y-3 margin-x-2">
-                            <span class="simplenews__date display-block text-bold text-uppercase font-body-3xs text-ls-1">Jan 16, 2026</span>
-                            <a class="simplenews__link external-link--blue text-primary-darker text-no-underline"
-                                href="https://www.justice.gov/opa/pr/justice-department-sues-virginia-failure-produce-voter-rolls"
-                                target="_blank" rel="noopener">Justice Department Sues Virginia for Failure to Produce Voter Rolls</a>
-                        </li>
-                        <li class="simplenews__item padding-y-3 margin-x-2">
-                            <span class="simplenews__date display-block text-bold text-uppercase font-body-3xs text-ls-1">Jan 6, 2026</span>
-                            <a class="simplenews__link external-link--blue text-primary-darker text-no-underline"
-                                href="https://www.justice.gov/opa/pr/justice-department-sues-arizona-and-connecticut-failure-produce-voter-rolls"
-                                target="_blank" rel="noopener">Justice Department Sues Arizona and Connecticut for Failure to Produce Voter Rolls</a>
-                        </li>
-                        <li class="simplenews__item padding-y-3 margin-x-2">
-                            <span class="simplenews__date display-block text-bold text-uppercase font-body-3xs text-ls-1">Dec 12, 2025</span>
-                            <a class="simplenews__link external-link--blue text-primary-darker text-no-underline"
-                                href="https://www.justice.gov/opa/pr/justice-department-sues-four-additional-states-and-one-locality-failure-comply-federal"
-                                target="_blank" rel="noopener">Justice Department Sues Four Additional States and One Locality for Failure to Comply with Federal Elections Laws</a>
-                        </li>
-                        <li class="simplenews__item padding-y-3 margin-x-2">
-                            <span class="simplenews__date display-block text-bold text-uppercase font-body-3xs text-ls-1">Dec 2, 2025</span>
-                            <a class="simplenews__link external-link--blue text-primary-darker text-no-underline"
-                                href="https://www.justice.gov/opa/pr/justice-department-sues-six-additional-states-failure-provide-voter-registration-rolls"
-                                target="_blank" rel="noopener">Justice Department Sues Six Additional States for Failure to Provide Voter Registration Rolls</a>
-                        </li>
-                    </ul>
+                    {% render_news_column "doj-election-news" labelledby="news-doj-h" %}
                     <p class="margin-top-2 margin-left-2 margin-bottom-0">
                         <a class="external-link--blue text-bold"
-                            href="https://www.justice.gov/crt/civil-rights-division-press-releases-speeches?f%5B0%5D=facet_components%3A436&amp;f%5B1%5D=facet_topics%3A43861"
-                            target="_blank" rel="noopener">View all voting &amp; election news on justice.gov</a>
+                            href="https://www.justice.gov/crt/civil-rights-division-press-releases-speeches?search_api_fulltext=voting&start_date=&end_date=&sort_by=field_date"
+                            rel="noopener">View all voting &amp; election news on justice.gov</a>
                     </p>
                 </div>
 
@@ -141,42 +147,11 @@
                             alt="Seal of the U.S. Department of Homeland Security">
                         <h3 class="font-serif-lg text-normal text-primary-darker margin-0" id="news-dhs-h">Homeland Security</h3>
                     </div>
-                    <ul class="usa-list usa-list--unstyled margin-0" aria-labelledby="news-dhs-h">
-                        <li class="simplenews__item padding-y-3 margin-x-2">
-                            <span class="simplenews__date display-block text-bold text-uppercase font-body-3xs text-ls-1">Jul 10, 2026</span>
-                            <a class="simplenews__link external-link--blue text-primary-darker text-no-underline"
-                                href="https://www.dhs.gov/news/2026/07/10/dhs-requires-states-adopt-common-sense-election-security-measures-receiving-federal"
-                                target="_blank" rel="noopener">DHS Requires States to Adopt Common-Sense Election Security Measures Before Receiving Federal Funds</a>
-                        </li>
-                        <li class="simplenews__item padding-y-3 margin-x-2">
-                            <span class="simplenews__date display-block text-bold text-uppercase font-body-3xs text-ls-1">Jul 9, 2026</span>
-                            <a class="simplenews__link external-link--blue text-primary-darker text-no-underline"
-                                href="https://www.dhs.gov/news/2026/07/09/ice-arrests-alien-new-jersey-who-illegally-voted-federal-elections"
-                                target="_blank" rel="noopener">ICE Arrests Alien in New Jersey Who Illegally Voted in Federal Elections</a>
-                        </li>
-                        <li class="simplenews__item padding-y-3 margin-x-2">
-                            <span class="simplenews__date display-block text-bold text-uppercase font-body-3xs text-ls-1">Jul 7, 2026</span>
-                            <a class="simplenews__link external-link--blue text-primary-darker text-no-underline"
-                                href="https://www.dhs.gov/news/2026/07/07/ice-investigation-leads-arrest-australian-alien-who-illegally-voted-multiple"
-                                target="_blank" rel="noopener">ICE Investigation Leads to Arrest of Australian Alien Who Illegally Voted in Multiple Federal Elections</a>
-                        </li>
-                        <li class="simplenews__item padding-y-3 margin-x-2">
-                            <span class="simplenews__date display-block text-bold text-uppercase font-body-3xs text-ls-1">Jun 9, 2026</span>
-                            <a class="simplenews__link external-link--blue text-primary-darker text-no-underline"
-                                href="https://www.dhs.gov/news/2026/06/09/dhs-directs-ice-deport-aliens-who-vote-american-elections"
-                                target="_blank" rel="noopener">DHS Directs ICE to Deport Aliens Who Vote in American Elections</a>
-                        </li>
-                        <li class="simplenews__item padding-y-3 margin-x-2">
-                            <span class="simplenews__date display-block text-bold text-uppercase font-body-3xs text-ls-1">Apr 22, 2026</span>
-                            <a class="simplenews__link external-link--blue text-primary-darker text-no-underline"
-                                href="https://www.dhs.gov/news/2026/04/22/alien-mexico-pleads-guilty-and-convicted-voter-fraud-falsely-claiming-be-us-citizen"
-                                target="_blank" rel="noopener">Alien From Mexico Pleads Guilty and Convicted of Voter Fraud for Falsely Claiming To Be a U.S. Citizen</a>
-                        </li>
-                    </ul>
+                    {% render_news_column "dhs-election-news" labelledby="news-dhs-h" %}
                     <p class="margin-top-2 margin-left-2 margin-bottom-0">
                         <a class="external-link--blue text-bold"
                             href="https://www.dhs.gov/news-releases/press-releases?combine=election&amp;created=&amp;field_taxonomy_topics_target_id=All&amp;items_per_page=10"
-                            target="_blank" rel="noopener">View all voting &amp; election news on dhs.gov</a>
+                            rel="noopener">View all voting &amp; election news on dhs.gov</a>
                     </p>
                 </div>
 
