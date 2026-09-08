@@ -12,6 +12,33 @@
 // -------------------------------------
 
 // -------------------------------------
+//   MONITORING MAP — administration switcher
+// -------------------------------------
+.monitoring-map-controls {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.monitoring-map-controls__btn {
+    border: 1px solid color('gray-5');
+    border-radius: 999px;
+    background: white;
+    padding: 0.5rem 1.05rem;
+    cursor: pointer;
+
+    &:hover {
+        border-color: color('primary-darker');
+    }
+
+    &[aria-pressed="true"] {
+        background: color('primary-darker');
+        color: white;
+    }
+}
+
+// -------------------------------------
 //   MONITORING STATS SECTION
 //
 //   DESKTOP: two columns - the copy + figures on the LEFT, the static

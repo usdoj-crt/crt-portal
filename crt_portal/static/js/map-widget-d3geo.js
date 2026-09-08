@@ -1309,6 +1309,11 @@ async function initMapWidget(mapWidget) {
   // Build the keyboard/screen-reader controls once every feature (and the DC
   // badge) has registered itself on context.focusables.
   buildAccessibleControls(mapElement, context);
+
+  // Signal that this map has finished loading (used e.g. to hide a loading
+  // indicator on the page).
+  mapWidget.dataset.loaded = 'true';
+  mapWidget.dispatchEvent(new CustomEvent('map-widget:loaded', { bubbles: true }));
 }
 
 function initAllMapWidgets() {

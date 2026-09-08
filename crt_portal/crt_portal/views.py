@@ -61,7 +61,29 @@ def election_monitoring_view(request):
         },
     }
 
-    return render(request, 'election_monitoring.html', featured_stories)
+    # The map is split into one MapWidgetData record per administration (plus an
+    # "all years" record). The page renders one map_widget include per entry and
+    # a button controller swaps which one is visible. `key` is both the button's
+    # value and the suffix of the record name: election-monitoring-map-<key>.
+    administrations = [
+        {'key': 'all', 'label': 'All years', 'default': False},
+        {'key': 'trump2', 'label': 'Trump \u201925\u2013present', 'default': True},
+        {'key': 'biden', 'label': 'Biden \u201921\u2013\u201925', 'default': False},
+        {'key': 'trump1', 'label': 'Trump \u201917\u2013\u201921', 'default': False},
+        {'key': 'obama', 'label': 'Obama \u201909\u2013\u201917', 'default': False},
+        {'key': 'bush', 'label': 'Bush \u201901\u2013\u201909', 'default': False},
+    ]
+
+    # Ensure exactly one administration is marked default, so only one map
+    # shows on load. First flagged wins, falling back to the first entry.
+    default_admin = next((a for a in administrations if a.get('default')), administrations[0])
+    for admin in administrations:
+        admin['default'] = admin is default_admin
+
+    return render(request, 'election_monitoring.html', {
+        **featured_stories,
+        'administrations': administrations,
+    })
 
 
 def retrieve_and_save_next_url_in_session(request):
