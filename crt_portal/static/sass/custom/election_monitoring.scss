@@ -1,0 +1,194 @@
+@use "uswds-core" as *;
+
+// -------------------------------------
+// Election Monitoring page
+// Rendered by cts_forms/templates/election_monitoring.html
+//
+// This page shares its hero, gold-figure tokens (.election-integrity-*), and
+// the .action-bar radial-glow treatment with the Election Integrity page.
+// Those selectors are defined in election_integrity.scss and both pages load
+// the same compiled styles.css, so they are NOT redeclared here - this file
+// only holds the styling that is unique to Election Monitoring.
+// -------------------------------------
+
+// -------------------------------------
+//   MONITORING STATS SECTION
+//
+//   DESKTOP: two columns - the copy + figures on the LEFT, the static
+//            per-state deployment map on the RIGHT.
+//   MOBILE:  the columns stack, the map drops BELOW the copy/figures, and
+//            everything centers (mirroring the go-deeper section on the
+//            Election Integrity page).
+// -------------------------------------
+.monitoring-stats-section {
+    padding-left: 6rem;
+    padding-right: 6rem;
+
+    @include at-media-max("tablet") {
+        padding-left: 4rem;
+        padding-right: 4rem;
+    }
+
+    @include at-media-max("mobile-lg") {
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+}
+
+.monitoring-stats-section__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    // flex gap so spacing applies on both axes, including when the map wraps
+    // below the copy on mobile.
+    gap: 2rem clamp(2.5rem, 6vw, 5rem);
+
+    @include at-media-max("desktop") {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+.monitoring-stats-section__info {
+    flex: 1 1 26rem;
+    max-width: 38rem;
+    min-width: 0;
+
+    @include at-media-max("desktop") {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+.monitoring-stats-section__info-heading {
+    @include at-media-max("desktop") {
+        text-align: center;
+    }
+}
+
+.monitoring-stats-section__info-text {
+    @include at-media-max("desktop") {
+        text-align: center;
+    }
+}
+
+.monitoring-stats-section__figures {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 1rem 2.5rem;
+    margin-top: 1.75rem;
+
+    @include at-media-max("desktop") {
+        justify-content: center;
+    }
+
+    // Stack the two figures on the smallest screens.
+    @include at-media-max("mobile-lg") {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+.monitoring-stats-section__map {
+    // The map is the visual anchor of the right column, so let it take the
+    // larger share of the row while still shrinking gracefully.
+    flex: 2 1 500px;
+    min-width: 280px;
+    max-width: 770px;
+    width: 100%;
+
+    @include at-media-max("desktop") {
+        // Once stacked, the map sits below the copy/figures and centers.
+        flex-basis: 100%;
+        max-width: 640px;
+    }
+}
+
+.monitoring-stats-section__map-img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.monitoring-stats-section__map-caption {
+    color: #f0d69a;
+    margin-top: 0.5rem;
+
+    strong {
+        color: inherit;
+        font-weight: inherit;
+    }
+}
+
+// -------------------------------------
+//   MONITORING HISTORY
+// -------------------------------------
+.monitoring-history-section {
+    padding-left: 4rem;
+    padding-right: 4rem;
+
+    @include at-media-max("tablet") {
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+
+    @include at-media-max("mobile-lg") {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+}
+
+.monitoring-history-section__stats {
+    display: flex;
+    justify-content: center;
+
+    margin-top: 2rem;
+
+    @include at-media-max("desktop") {
+        flex-direction: column;
+        align-items: center;
+        margin-top: 1rem;
+    }
+}
+
+.monitoring-history-section__stat {
+    @include at-media-max("desktop") {
+        margin-top: 1rem;
+        border-left: none !important;
+    }
+}
+
+.monitoring-history-section__stories {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+
+    @include at-media-max("desktop") {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+.monitoring-history-section__stat {
+    text-align: center;
+}
+
+// Cards grow to share the row evenly.
+.monitoring-history-section__stories .news-card {
+    flex: 1;
+}
+
+// -------------------------------------
+//   ACTION BAR (back link)
+// -------------------------------------
+.monitoring-action-bar a {
+    border-bottom: 1px solid transparent;
+
+    &:hover,
+    &:focus {
+        text-decoration: none;
+        border-bottom-color: white;
+    }
+}

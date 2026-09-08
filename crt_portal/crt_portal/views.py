@@ -39,6 +39,31 @@ def election_integrity_view(request):
     })
 
 
+def election_monitoring_view(request):
+    featured_stories = {
+        'story_polls_24': {
+            'type': 'Press Release',
+            'linkText': 'Justice Department to Monitor Polls in 24 States for Compliance With Federal Voting Rights Laws',
+            'linkUrl': 'https://www.justice.gov/archives/opa/pr/justice-department-monitor-polls-24-states-compliance-federal-voting-rights-laws',
+            'source': 'justice.gov',
+        },
+        'story_about_observers': {
+            'type': 'Civil Rights Division',
+            'linkText': 'About Federal Observers and Election Monitoring',
+            'linkUrl': 'https://www.justice.gov/crt/about-federal-observers-and-election-monitoring',
+            'source': 'justice.gov',
+        },
+        'story_again_monitor': {
+            'type': 'Press Release',
+            'linkText': 'Justice Department to Again Monitor Compliance With Federal Voting Rights Laws on Election Day',
+            'linkUrl': 'https://www.justice.gov/archives/opa/pr/justice-department-again-monitor-compliance-federal-voting-rights-laws-election-day',
+            'source': 'justice.gov',
+        },
+    }
+
+    return render(request, 'election_monitoring.html', featured_stories)
+
+
 def retrieve_and_save_next_url_in_session(request):
     next_url = request.GET.get('next', '/')
     request.session['next_page'] = next_url
