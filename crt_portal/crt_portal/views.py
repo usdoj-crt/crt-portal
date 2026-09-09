@@ -67,11 +67,11 @@ def election_monitoring_view(request):
     # value and the suffix of the record name: election-monitoring-map-<key>.
     administrations = [
         {'key': 'all', 'label': 'All years', 'default': False},
-        {'key': 'trump2', 'label': 'Trump \u201925\u2013present', 'default': True},
-        {'key': 'biden', 'label': 'Biden \u201921\u2013\u201925', 'default': False},
-        {'key': 'trump1', 'label': 'Trump \u201917\u2013\u201921', 'default': False},
-        {'key': 'obama', 'label': 'Obama \u201909\u2013\u201917', 'default': False},
-        {'key': 'bush', 'label': 'Bush \u201901\u2013\u201909', 'default': False},
+        {'key': '2025', 'label': 'Trump \u201925\u2013present', 'default': True},
+        {'key': '2021', 'label': 'Biden \u201921\u2013\u201925', 'default': False},
+        {'key': '2017', 'label': 'Trump \u201917\u2013\u201921', 'default': False},
+        {'key': '2009', 'label': 'Obama \u201909\u2013\u201917', 'default': False},
+        {'key': '2001', 'label': 'Bush \u201901\u2013\u201909', 'default': False},
     ]
 
     # Ensure exactly one administration is marked default, so only one map

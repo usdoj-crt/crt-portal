@@ -1,0 +1,444 @@
+/* USA Map Widget styles (standalone).
+ *
+ * This stylesheet is intentionally independent of the legacy map widget's CSS
+ * (map-widget-d3geo.css). It uses its own `usa-map-widget__*` class namespace so
+ * the two widgets can never collide, even on the same page.
+ *
+ * SCOPE: this file contains the MAP ENGINE styles (the map area, SVG, tooltip,
+ * state badge, panel container, and accessibility controls) followed by the
+ * INFO-PANEL BLOCK styles (heading, separator, subheading, note, stat,
+ * lineItem, list) and the CATEGORY BAR component.
+ */
+
+.usa-map-widget {
+  /* Project serif stack (matches USWDS $theme-font-serif). Defined once here so
+     serif blocks don't repeat the long font list. */
+  --usa-map-widget-serif: "Merriweather Web", Tinos, Georgia, Cambria,
+    "Times New Roman", Times, serif;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  /* Cap the width on very large / ultra-wide displays so the map (whose height
+     is derived from its width via aspect-ratio) doesn't grow taller than the
+     viewport. Centered so it stays balanced within its full-width container. */
+  width: 100%;
+  max-width: 2800px;
+  margin-left: auto;
+  margin-right: auto;
+  /* Small buffer so keyboard focus scrolling (see scrollWidgetIntoView in
+     usa-map-widget.js) leaves a little breathing room above the map. */
+  scroll-margin-top: 1rem;
+}
+
+/* Render map + panel side by side if there is enough space. */
+@media (min-width: 1024px) {
+  .usa-map-widget {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+}
+
+.usa-map-widget__map {
+  flex: 2;
+  padding: 0.5rem;
+  background: #ffffff;
+
+  /* Clip the SVG's corners and keep the tooltip's absolute positioning scoped
+     to this box (the tooltip measures against this element's bounds). */
+  overflow: hidden;
+  position: relative;
+}
+
+/* The SVG scales to fill the map area; viewBox handles the aspect ratio. */
+.usa-map-widget__svg {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 960 / 600;
+  display: block;
+}
+
+/* Cursor-following hover tooltip (opt-in via the show_tooltip argument).
+   Hidden by default and only revealed at the desktop breakpoint below, so it
+   never shows on mobile/tablet (where there is no cursor to follow). */
+.usa-map-widget__tooltip {
+  position: absolute;
+  z-index: 5;
+  display: none;
+  align-items: center;
+  gap: 0.5rem;
+  pointer-events: none;
+  padding: 0.5rem;
+  border-radius: 8px;
+  background: #1b1b1b;
+  color: #ffffff;
+  font-size: 1rem;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+@media (min-width: 1024px) {
+  /* `:not([hidden])` preserves the JS `hidden` toggle — without it this rule
+     would override `hidden` and keep the tooltip visible after mouseleave. */
+  .usa-map-widget__tooltip:not([hidden]) {
+    display: flex;
+  }
+}
+
+.usa-map-widget__panel {
+  flex: 1;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  padding-left: 1rem;
+  padding-right: 3rem;
+  background: #ffffff;
+  overflow: hidden;
+}
+
+/* Rounded pill/tag (e.g. a state abbreviation). Used in the tooltip and the
+   heading block. Distinct from the SVG map badges drawn by drawBadge(). */
+.usa-map-widget__pill {
+  flex-shrink: 0;
+  display: inline-block;
+  padding: 0.1rem 0.5rem;
+  border-radius: 999px;
+  background: #ffbe2e;
+  color: #1b1b1b;
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+/* separator block: divider between sections (styled as a short accent bar). */
+.usa-map-widget__separator {
+  width: 50px;
+  height: 4px;
+  border-radius: 2px;
+  background: #ffbe2e;
+  margin: 0.25rem 0 1rem;
+}
+
+/* Visually hidden container for the keyboard/screen-reader state controls.
+   The buttons stay in the accessibility tree and the tab order; only their
+   visual presentation is removed. Focusing a button highlights the matching
+   state on the (aria-hidden) map, which is the visible focus indicator. */
+.usa-map-widget__sr-controls {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ===========================================================================
+ * INFO-PANEL BLOCKS
+ *
+ * Styles for the block vocabulary rendered into the panel (heading, separator,
+ * subheading, note, stat, lineItem, list).
+ * ======================================================================== */
+
+/* heading block: state name + optional badge. */
+.usa-map-widget__heading {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.usa-map-widget__heading-title {
+  margin: 0;
+  font-family: var(--usa-map-widget-serif);
+  font-size: 2rem;
+  color: #162e51;
+}
+
+/* subheading block: section label (matches the election-integrity styling:
+   dark gold, bold, uppercase, xs, letter-spaced). */
+.usa-map-widget__subheading {
+  margin: 0.5rem 0 0.75rem;
+  color: #7a6222;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.88rem;
+  letter-spacing: 0.025em;
+}
+
+/* note block: prose paragraph. */
+.usa-map-widget__note {
+  margin: 0;
+  color: #565c65;
+}
+
+/* stat block: a prominent value with a descriptive label. The value (and an
+   optional icon) sit on a "top" line, with the label alongside/below. */
+.usa-map-widget__stat {
+  display: flex;
+  align-items: baseline;
+  margin-bottom: 1rem;
+}
+
+.usa-map-widget__stat-top {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.usa-map-widget__stat-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  flex-shrink: 0;
+  /* Inline SVG line icon: it inherits its color from the surrounding text via
+     currentColor, so it can be recolored per surface (navy in the panel, white
+     in the bar). */
+  color: #162e51;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.usa-map-widget__stat-value {
+  font-family: var(--usa-map-widget-serif);
+  font-size: 1.75rem;
+  /* Collapse the serif's tall default line box so the digit centers against the
+     icon on the stat-top line (align-items: center centers the boxes, and the
+     glyph fills its box once line-height is 1). */
+  line-height: 1;
+  color: #162e51;
+}
+
+/* Label sits alongside the large value at body size. */
+.usa-map-widget__stat-label {
+  font-size: 1rem;
+  color: #565c65;
+  margin-left: 0.5rem;
+}
+
+/* lineItem block: icon + label on the left, value on the right, with a hairline
+   rule above each item so stacked items read as a bordered breakdown (matches
+   the legacy Nationwide category list). */
+.usa-map-widget__line-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.5rem 0;
+  border-top: 1px solid #dfe1e2;
+}
+
+/* Close the breakdown with a rule under the final item too. */
+.usa-map-widget__line-item:last-child {
+  border-bottom: 1px solid #dfe1e2;
+}
+
+.usa-map-widget__line-item-left {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.usa-map-widget__line-item-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  flex-shrink: 0;
+  color: #162e51;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.usa-map-widget__line-item-label {
+  color: #162e51;
+  font-size: 0.88rem;
+}
+
+.usa-map-widget__line-item-value {
+  flex-shrink: 0;
+  font-family: var(--usa-map-widget-serif);
+  font-size: 1.25rem;
+  line-height: 1;
+  color: #162e51;
+}
+
+/* list block */
+.usa-map-widget__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.usa-map-widget__list-item {
+  display: flex;
+  gap: 0.75rem;
+  padding-top: 0.5rem;
+  padding-bottom: 1rem;
+  border-top: 1px solid #dfe1e2;
+}
+
+/* date eyebrow: small dark-gold uppercase, above the label */
+.usa-map-widget__list-date {
+  display: block;
+  color: #7a6222;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.81rem;
+  letter-spacing: 0.025em;
+}
+
+.usa-map-widget__list-label {
+  display: block;
+}
+
+.usa-map-widget__bullet-image {
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
+  object-fit: contain;
+}
+
+.usa-map-widget__bullet-pill {
+  flex-shrink: 0;
+  /* pill styling — reuse the pill recipe */
+  padding: 0.1rem 0.5rem;
+  border-radius: 999px;
+  background: #ffbe2e;
+  color: #1b1b1b;
+  font-size: 0.81rem;
+}
+
+/* ===========================================================================
+ * CATEGORY BAR (component rendered into the bar surface)
+ *
+ * Opt-in via the show_bar argument. Rendered INSIDE the map card, below the
+ * SVG, so it's map-width and its position is independent of the info panel's
+ * height. Matches the legacy election-integrity category bar: near-black navy
+ * card, white text, a header (caption + total), then a strip of category slots.
+ * Hidden below the desktop breakpoint (the legacy map only shows it on desktop).
+ *
+ * These rules are all CLASS-based and map 1:1 to the component's DOM (see
+ * renderCategoryBar). No positional/structural selectors carry meaning.
+ * ======================================================================== */
+.usa-map-widget__bar {
+  margin-top: 0.5rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  background: rgba(10, 19, 34, 0.9); /* #0a1322 at 90% */
+  backdrop-filter: blur(3px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  color: #ffffff;
+}
+
+/* The legacy map only surfaces the category bar on desktop. */
+@media (max-width: 1023px) {
+  .usa-map-widget__bar {
+    display: none;
+  }
+}
+
+/* Header: caption on the left, total on the right. */
+.usa-map-widget__category-bar-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.usa-map-widget__category-bar-caption {
+  font-size: 0.81rem;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+}
+
+/* State-name prefix: gold, spaced from the caption text. */
+.usa-map-widget__category-bar-caption-state {
+  margin-right: 0.25em;
+  color: #ffbe2e;
+}
+
+.usa-map-widget__category-bar-total {
+  flex: none;
+  display: flex;
+  align-items: baseline;
+  gap: 0.25rem;
+}
+
+.usa-map-widget__category-bar-total-count {
+  font-family: var(--usa-map-widget-serif);
+  font-size: 1.75rem;
+  line-height: 1;
+}
+
+.usa-map-widget__category-bar-total-label {
+  font-size: 0.81rem;
+}
+
+/* Slots strip: evenly spread columns divided by rules, with a rule above. */
+.usa-map-widget__category-bar-slots {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 0.5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  border-top: 1px solid #565c65;
+}
+
+.usa-map-widget__category-bar-slot {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0 0.75rem;
+  border-left: 1px solid #565c65;
+}
+
+.usa-map-widget__category-bar-slot:first-child {
+  border-left: 0;
+}
+
+.usa-map-widget__category-bar-slot-top {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.usa-map-widget__category-bar-slot-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  flex-shrink: 0;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.usa-map-widget__category-bar-slot-count {
+  font-family: var(--usa-map-widget-serif);
+  font-size: 1.75rem;
+  line-height: 1;
+  text-align: center;
+}
+
+.usa-map-widget__category-bar-slot-label {
+  font-size: 0.75rem;
+  text-align: center;
+}
+
+/* Zero-count slots are dimmed for a stable layout (matches the legacy
+   empty-slot styling). */
+.usa-map-widget__category-bar-slot--empty {
+  color: #a9aeb1;
+}

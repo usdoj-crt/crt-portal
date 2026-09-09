@@ -6,13 +6,11 @@
 // `data-monitoring-admin="<key>"`. This shows exactly one panel at a time and
 // keeps the buttons' aria-pressed state in sync. No data is fetched here — the
 // maps load their own data; this only toggles visibility.
-(function () {
+(function() {
   'use strict';
 
   function init() {
-    var buttons = Array.prototype.slice.call(
-      document.querySelectorAll('[data-monitoring-admin]')
-    );
+    var buttons = Array.prototype.slice.call(document.querySelectorAll('[data-monitoring-admin]'));
     var panels = Array.prototype.slice.call(
       document.querySelectorAll('[data-monitoring-admin-panel]')
     );
@@ -22,27 +20,27 @@
     }
 
     function select(key) {
-      buttons.forEach(function (button) {
+      buttons.forEach(function(button) {
         button.setAttribute(
           'aria-pressed',
           button.dataset.monitoringAdmin === key ? 'true' : 'false'
         );
       });
-      panels.forEach(function (panel) {
+      panels.forEach(function(panel) {
         panel.hidden = panel.dataset.monitoringAdminPanel !== key;
       });
     }
 
-    buttons.forEach(function (button) {
-      button.addEventListener('click', function () {
+    buttons.forEach(function(button) {
+      button.addEventListener('click', function() {
         select(button.dataset.monitoringAdmin);
       });
     });
 
     // Each map dispatches `map-widget:loaded` (bubbling) when it finishes.
     // Remove that panel's loading indicator when its map is ready.
-    panels.forEach(function (panel) {
-      panel.addEventListener('map-widget:loaded', function () {
+    panels.forEach(function(panel) {
+      panel.addEventListener('map-widget:loaded', function() {
         var loading = panel.querySelector('.spinner');
         if (loading) {
           loading.remove();

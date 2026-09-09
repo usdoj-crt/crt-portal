@@ -1,0 +1,72 @@
+{% comment %}
+<!--
+US map widget — renders a single interactive map of the United States with a
+block-driven info panel.
+
+Usage (include once per map you want on the page):
+
+    {% include "map_widget/usa_map_widget.html" with data_name="example-map" %}
+
+You must ALSO include the shared assets once per page (see
+"map_widget/usa_map_widget_assets.html"), which loads the CSS, d3, and the widget
+JS. The widget JS boots every ".usa-map-widget" element on the page, so multiple
+includes of this partial render multiple independent maps.
+
+Unlike the legacy widget, the info panel's STRUCTURE and CONTENT come entirely
+from the map's JSON data (its "blocks"), not from template parameters. This
+partial therefore only configures the MAP itself (colors, tooltip, link
+behavior). Panel styling is handled in CSS targeting the stable classes the
+renderer emits.
+
+Arguments
+---------
+Required:
+  data_name                    Unique name of a MapWidgetData record (editable in
+                               the Django admin). The widget fetches its JSON from
+                               the server by this name, so the map's data can be
+                               changed without a code redeployment.
+
+Optional (fall back to the widget's built-in defaults if omitted):
+  map_classes                  Extra CSS classes added to the widget container.
+
+  map_default_fill_color       Resting fill for states. Defaults to "#3498db".
+
+  map_active_fill_color        Fill for the hovered/selected state. Defaults to
+                               "#f4c430".
+
+  map_stroke_color             Border color. Defaults to "#ffffff".
+
+  map_stroke_width             Border width. Defaults to "1".
+
+  badge_text_color             Text color for the DC badge label. Defaults to
+                               "#ffffff".
+
+  badge_radius                 Radius of the DC badge circle. Defaults to "16".
+
+  show_tooltip                 When "true", a small tooltip follows the cursor
+                               while hovering a feature, showing its name and
+                               code. Defaults to "false".
+
+  open_in_new_tab              When "true", activating a feature opens its URL in
+                               a new tab. Defaults to "false" (opens in the
+                               current tab, the accessible default).
+
+  show_bar                     When "true", a summary bar renders beneath the map
+                               for records that supply `display.bar` blocks.
+                               Defaults to "false" (no bar element).
+-->
+{% endcomment %}
+<div
+  class="usa-map-widget {{ map_classes|default:'' }}"
+  data-geojson-urls="{% static 'data/map-widget/regions/contiguous.geojson' %},{% static 'data/map-widget/regions/alaska.geojson' %},{% static 'data/map-widget/regions/hawaii.geojson' %}"
+  data-data-src="{% url 'map_widget:data' name=data_name %}"
+  data-map-default-fill-color="{{ map_default_fill_color|default:'' }}"
+  data-map-active-fill-color="{{ map_active_fill_color|default:'' }}"
+  data-map-stroke-color="{{ map_stroke_color|default:'' }}"
+  data-map-stroke-width="{{ map_stroke_width|default:'' }}"
+  data-map-badge-text-color="{{ badge_text_color|default:'' }}"
+  data-map-badge-radius="{{ badge_radius|default:'' }}"
+  data-map-show-tooltip="{{ show_tooltip|default:'false' }}"
+  data-map-open-in-new-tab="{{ open_in_new_tab|default:'false' }}"
+  data-map-show-bar="{{ show_bar|default:'false' }}"
+></div>
