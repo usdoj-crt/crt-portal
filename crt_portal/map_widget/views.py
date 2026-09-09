@@ -8,10 +8,9 @@ from .models import MapWidgetData
 def _resolve_blocks(blocks):
     """Resolve image references within a list of display blocks, in place.
 
-    Walks the block vocabulary the USA map widget renders: `list` blocks carry
-    `items[].bullet.image` references, and `row` blocks nest one level of child
-    blocks. Any `static:` (or http) reference is resolved to a real URL so the
-    browser can load it.
+    Walks the panel block vocabulary the USA map widget renders: `list` blocks
+    carry `items[].bullet.image` references. Any `static:` (or http) reference is
+    resolved to a real URL so the browser can load it.
     """
     for block in blocks or []:
         if not isinstance(block, dict):
@@ -25,14 +24,17 @@ def _resolve_blocks(blocks):
 
 
 def _resolve_record(record):
-    """Resolve bullet references across every display surface of one record."""
+    """Resolve image references in one record's `panel` blocks, in place.
+
+    Only the `panel` surface holds resolvable references; the `categoryBar`
+    component carries sprite-slug icons (not image URLs), so it's left as-is.
+    """
     if not isinstance(record, dict):
         return
     display = record.get('display')
     if not isinstance(display, dict):
         return
-    for surface in display.values():
-        _resolve_blocks(surface)
+    _resolve_blocks(display.get('panel'))
 
 
 def _resolve_bullets(map_widget_data):

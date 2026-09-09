@@ -1,8 +1,7 @@
 /* USA Map Widget styles (standalone).
  *
- * This stylesheet is intentionally independent of the legacy map widget's CSS
- * (map-widget-d3geo.css). It uses its own `usa-map-widget__*` class namespace so
- * the two widgets can never collide, even on the same page.
+ * Uses its own `usa-map-widget__*` class namespace, so it stays isolated from
+ * any other page styles and multiple maps can safely coexist on one page.
  *
  * SCOPE: this file contains the MAP ENGINE styles (the map area, SVG, tooltip,
  * state badge, panel container, and accessibility controls) followed by the
