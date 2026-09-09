@@ -167,9 +167,13 @@
   letter-spacing: 0.025em;
 }
 
-/* note block: prose paragraph. */
+/* note block: prose paragraph. Top margin separates it from the list or
+   lineItem breakdown it typically follows. */
 .usa-map-widget__note {
-  margin: 0;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  margin-left: 0;
+  margin-right: 0;
   color: #565c65;
 }
 
