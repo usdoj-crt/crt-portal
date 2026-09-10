@@ -176,6 +176,10 @@
   color: #565c65;
 }
 
+.usa-map-widget__note-emphasis {
+  font-weight: 700;
+}
+
 /* stat block: a prominent value with a descriptive label. The value (and an
    optional icon) sit on a "top" line, with the label alongside/below. */
 .usa-map-widget__stat {

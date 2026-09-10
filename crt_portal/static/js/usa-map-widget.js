@@ -58,6 +58,9 @@
 //     { "type": "separator" }                                    // divider rule
 //     { "type": "subheading", "value": "Latest Actions" }        // section label
 //     { "type": "note", "value": "Hover a state..." }            // prose <p>
+//         // `value` may instead be an array of segments to emphasize a run,
+//         // e.g. [{ "text": "Most monitored: " },
+//         //       { "text": "Florida", "emphasis": true }, { "text": " (42)" }]
 //     { "type": "stat", "value": 32, "label": "counties monitored" }
 //     { "type": "stat", "icon": "cybersecurity", "value": 6,
 //         "label": "Cybersecurity" }   // icon = a sprite symbol slug (renders
@@ -691,10 +694,37 @@ function renderSubheading(context, record, block, target) {
   target.appendChild(subheading);
 }
 
-// note block: a plain prose paragraph (also used for the placeholder message).
+// note block: a prose paragraph (also used for the placeholder message).
+//
+// `value` is normally a plain string. It may also be an array of text SEGMENTS,
+// each `{ "text": "...", "emphasis": true? }`, to bold a run of words without
+// smuggling raw HTML through the data. Each segment's text is set via
+// textContent (never innerHTML), so this stays a closed, safe vocabulary:
+//   "value": [
+//     { "text": "Most monitored: " },
+//     { "text": "Florida", "emphasis": true },
+//     { "text": " (42)" }
+//   ]
 function renderNote(context, record, block, target) {
   const note = createElement('p', 'usa-map-widget__note');
-  note.textContent = block.value ?? '';
+
+  if (Array.isArray(block.value)) {
+    for (const segment of block.value) {
+      if (segment == null) {
+        continue;
+      }
+      if (segment.emphasis) {
+        const strong = createElement('strong', 'usa-map-widget__note-emphasis');
+        strong.textContent = segment.text ?? '';
+        note.appendChild(strong);
+      } else {
+        note.appendChild(document.createTextNode(segment.text ?? ''));
+      }
+    }
+  } else {
+    note.textContent = block.value ?? '';
+  }
+
   target.appendChild(note);
 }
 

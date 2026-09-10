@@ -1,0 +1,1902 @@
+{
+  "default": {
+    "name": "All administrations",
+    "display": {
+      "panel": [
+        {
+          "type": "heading",
+          "value": "All administrations"
+        },
+        {
+          "type": "separator"
+        },
+        {
+          "type": "stat",
+          "value": 1058,
+          "label": "monitoring deployments"
+        },
+        {
+          "type": "lineItem",
+          "label": "Attorneys & observers",
+          "value": 4445
+        },
+        {
+          "type": "lineItem",
+          "label": "States covered",
+          "value": 42
+        },
+        {
+          "type": "lineItem",
+          "label": "Counties monitored",
+          "value": 289
+        },
+        {
+          "type": "note",
+          "value": [
+            {
+              "text": "Most monitored: "
+            },
+            {
+              "text": "New York",
+              "emphasis": true
+            },
+            {
+              "text": " (97)"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "features": {
+    "AK": {
+      "name": "Alaska",
+      "display": {
+        "panel": [
+          {
+            "type": "heading",
+            "value": "Alaska",
+            "badge": "AK"
+          },
+          {
+            "type": "separator"
+          },
+          {
+            "type": "stat",
+            "value": 24,
+            "label": "monitoring deployments"
+          },
+          {
+            "type": "lineItem",
+            "label": "Attorneys & observers",
+            "value": 36
+          },
+          {
+            "type": "lineItem",
+            "label": "Counties monitored",
+            "value": 7
+          },
+          {
+            "type": "lineItem",
+            "label": "Years monitored",
+            "value": 7
+          },
+          {
+            "type": "note",
+            "value": "Monitored 2004–2024"
+          }
+        ]
+      }
+    },
+    "AL": {
+      "name": "Alabama",
+      "display": {
+        "panel": [
+          {
+            "type": "heading",
+            "value": "Alabama",
+            "badge": "AL"
+          },
+          {
+            "type": "separator"
+          },
+          {
+            "type": "stat",
+            "value": 10,
+            "label": "monitoring deployments"
+          },
+          {
+            "type": "lineItem",
+            "label": "Attorneys & observers",
+            "value": 21
+          },
+          {
+            "type": "lineItem",
+            "label": "Counties monitored",
+            "value": 5
+          },
+          {
+            "type": "lineItem",
+            "label": "Years monitored",
+            "value": 7
+          },
+          {
+            "type": "note",
+            "value": "Monitored 2000–2013"
+          }
+        ]
+      }
+    },
+    "AR": {
+      "name": "Arkansas",
+      "display": {
+        "panel": [
+          {
+            "type": "heading",
+            "value": "Arkansas",
+            "badge": "AR"
+          },
+          {
+            "type": "separator"
+          },
+          {
+            "type": "stat",
+            "value": 4,
+            "label": "monitoring deployments"
+          },
+          {
+            "type": "lineItem",
+            "label": "Attorneys & observers",
+            "value": 15
+          },
+          {
+            "type": "lineItem",
+            "label": "Counties monitored",
+            "value": 1
+          },
+          {
+            "type": "lineItem",
+            "label": "Years monitored",
+            "value": 2
+          },
+          {
+            "type": "note",
+            "value": "Monitored 2004–2006"
+          }
+        ]
+      }
+    },
+    "AZ": {
+      "name": "Arizona",
+      "display": {
+        "panel": [
+          {
+            "type": "heading",
+            "value": "Arizona",
+            "badge": "AZ"
+          },
+          {
+            "type": "separator"
+          },
+          {
+            "type": "stat",
+            "value": 45,
+            "label": "monitoring deployments"
+          },
+          {
+            "type": "lineItem",
+            "label": "Attorneys & observers",
+            "value": 258
+          },
+          {
+            "type": "lineItem",
+            "label": "Counties monitored",
+            "value": 17
+          },
+          {
+            "type": "lineItem",
+            "label": "Years monitored",
+            "value": 13
+          },
+          {
+            "type": "note",
+            "value": "Monitored 2000–2024"
+          }
+        ]
+      }
+    },
+    "CA": {
+      "name": "California",
+      "display": {
+        "panel": [
+          {
+            "type": "heading",
+            "value": "California",
+            "badge": "CA"
+          },
+          {
+            "type": "separator"
+          },
+          {
+            "type": "stat",
+            "value": 61,
+            "label": "monitoring deployments"
+          },
+          {
+            "type": "lineItem",
+            "label": "Attorneys & observers",
+            "value": 302
+          },
+          {
+            "type": "lineItem",
+            "label": "Counties monitored",
+            "value": 18
+          },
+          {
+            "type": "lineItem",
+            "label": "Years monitored",
+            "value": 19
+          },
+          {
+            "type": "note",
+            "value": "Monitored 2000–2024"
+          }
+        ]
+      }
+    },
+    "CO": {
+      "name": "Colorado",
+      "display": {
+        "panel": [
+          {
+            "type": "heading",
+            "value": "Colorado",
+            "badge": "CO"
+          },
+          {
+            "type": "separator"
+          },
+          {
+            "type": "stat",
+            "value": 8,
+            "label": "monitoring deployments"
+          },
+          {
+            "type": "lineItem",
+            "label": "Attorneys & observers",
+            "value": 43
+          },
+          {
+            "type": "lineItem",
+            "label": "Counties monitored",
+            "value": 5
+          },
+          {
+            "type": "lineItem",
+            "label": "Years monitored",
+            "value": 4
+          },
+          {
+            "type": "note",
+            "value": "Monitored 2006–2022"
+          }
+        ]
+      }
+    },
+    "CT": {
+      "name": "Connecticut",
+      "display": {
+        "panel": [
+          {
+            "type": "heading",
+            "value": "Connecticut",
+            "badge": "CT"
+          },
+          {
+            "type": "separator"
+          },
+          {
+            "type": "stat",
+            "value": 9,
+            "label": "monitoring deployments"
+          },
+          {
+            "type": "lineItem",
+            "label": "Attorneys & observers",
+            "value": 15
+          },
+          {
+            "type": "lineItem",
+            "label": "Counties monitored",
+            "value": 3
+          },
+          {
+            "type": "lineItem",
+            "label": "Years monitored",
+            "value": 3
+          },
+          {
+            "type": "note",
+            "value": "Monitored 2002–2019"
+          }
+        ]
+      }
+    },
+    "DC": {
+      "name": "District of Columbia",
+      "display": {
+        "panel": [
+          {
+            "type": "heading",
+            "value": "District of Columbia",
+            "badge": "DC"
+          },
+          {
+            "type": "separator"
+          },
+          {
+            "type": "stat",
+            "value": 0,
+            "label": "monitoring deployments"
+          },
+          {
+            "type": "note",
+            "value": "No monitoring on record for this period"
+          }
+        ]
+      }
+    },
+    "DE": {
+      "name": "Delaware",
+      "display": {
+        "panel": [
+          {
+            "type": "heading",
+            "value": "Delaware",
+            "badge": "DE"
+          },
+          {
+            "type": "separator"
+          },
+          {
+            "type": "stat",
+            "value": 0,
+            "label": "monitoring deployments"
+          },
+          {
+            "type": "note",
+            "value": "No monitoring on record for this period"
+          }
+        ]
+      }
+    },
+    "FL": {
+      "name": "Florida",
+      "display": {
+        "panel": [
+          {
+            "type": "heading",
+            "value": "Florida",
+            "badge": "FL"
+          },
+          {
+            "type": "separator"
+          },
+          {
+            "type": "stat",
+            "value": 85,
+            "label": "monitoring deployments"
+          },
+          {
+            "type": "lineItem",
+            "label": "Attorneys & observers",
+            "value": 514
+          },
+          {
+            "type": "lineItem",
+            "label": "Counties monitored",
+            "value": 17
+          },
+          {
+            "type": "lineItem",
+            "label": "Years monitored",
+            "value": 16
+          },
+          {
+            "type": "note",
+            "value": "Monitored 2001–2024"
+          }
+        ]
+      }
+    },
+    "GA": {
+      "name": "Georgia",
+      "display": {
+        "panel": [
+          {
+            "type": "heading",
+            "value": "Georgia",
+            "badge": "GA"
+          },
+          {
+            "type": "separator"
+          },
+          {
+            "type": "stat",
+            "value": 67,
+            "label": "monitoring deployments"
+          },
+          {
+            "type": "lineItem",
+            "label": "Attorneys & observers",
+            "value": 251
+          },
+          {
+            "type": "lineItem",
+            "label": "Counties monitored",
+            "value": 19
+          },
+          {
+            "type": "lineItem",
+            "label": "Years monitored",
+            "value": 15
+          },
+          {
+            "type": "note",
+            "value": "Monitored 2000–2024"
+          }
+        ]
+      }
+    },
+    "HI": {
+      "name": "Hawaii",
+      "display": {
+        "panel": [
+          {
+            "type": "heading",
+            "value": "Hawaii",
+            "badge": "HI"
+          },
+          {
+            "type": "separator"
+          },
+          {
+            "type": "stat",
+            "value": 5,
+            "label": "monitoring deployments"
+          },
+          {
+            "type": "lineItem",
+            "label": "Attorneys & observers",
+            "value": 14
+          },
+          {
+            "type": "lineItem",
+            "label": "Counties monitored",
+            "value": 2
+          },
+          {
+            "type": "lineItem",
+            "label": "Years monitored",
+            "value": 3
+          },
+          {
+            "type": "note",
+            "value": "Monitored 2003–2024"
+          }
+        ]
+      }
+    },
+    "IA": {
+      "name": "Iowa",
+      "display": {
+        "panel": [
+          {
+            "type": "heading",
+            "value": "Iowa",
+            "badge": "IA"
+          },
+          {
+            "type": "separator"
+          },
+          {
+            "type": "stat",
+            "value": 3,
+            "label": "monitoring deployments"
+          },
+          {
+            "type": "lineItem",
+            "label": "Attorneys & observers",
+            "value": 9
+          },
+          {
+            "type": "lineItem",
+            "label": "Counties monitored",
+            "value": 2
+          },
+          {
+            "type": "lineItem",
+            "label": "Years monitored",
+            "value": 3
+          },
+          {
+            "type": "note",
+            "value": "Monitored 2004–2018"
+          }
+        ]
+      }
+    },
+    "ID": {
+      "name": "Idaho",
+      "display": {
+        "panel": [
+          {
+            "type": "heading",
+            "value": "Idaho",
+            "badge": "ID"
+          },
+          {
+            "type": "separator"
+          },
+          {
+            "type": "stat",
+            "value": 0,
+            "label": "monitoring deployments"
+          },
+          {
+            "type": "note",
+            "value": "No monitoring on record for this period"
+          }
+        ]
+      }
+    },
+    "IL": {
+      "name": "Illinois",
+      "display": {
+        "panel": [
+          {
+            "type": "heading",
+            "value": "Illinois",
+            "badge": "IL"
+          },
+          {
+            "type": "separator"
+          },
+          {
+            "type": "stat",
+            "value": 23,
+            "label": "monitoring deployments"
+          },
+          {
+            "type": "lineItem",
+            "label": "Attorneys & observers",
+            "value": 129
+          },
+          {
+            "type": "lineItem",
+            "label": "Counties monitored",
+            "value": 3
+          },
+          {
+            "type": "lineItem",
+            "label": "Years monitored",
+            "value": 10
+          },
+          {
+            "type": "note",
+            "value": "Monitored 2003–2020"
+          }
+        ]
+      }
+    },
+    "IN": {
+      "name": "Indiana",
+      "display": {
+        "panel": [
+          {
+            "type": "heading",
+            "value": "Indiana",
+            "badge": "IN"
+          },
+          {
+            "type": "separator"
+          },
+          {
+            "type": "stat",
+            "value": 4,
+            "label": "monitoring deployments"
+          },
+          {
+            "type": "lineItem",
+            "label": "Attorneys & observers",
+            "value": 15
+          },
+          {
+            "type": "lineItem",
+            "label": "Counties monitored",
+            "value": 3
+          },
+          {
+            "type": "lineItem",
+            "label": "Years monitored",
+            "value": 4
+          },
+          {
+            "type": "note",
+            "value": "Monitored 2004–2012"
+          }
+        ]
+      }
+    },
+    "KS": {
+      "name": "Kansas",
+      "display": {
+        "panel": [
+          {
+            "type": "heading",
+            "value": "Kansas",
+            "badge": "KS"
+          },
+          {
+            "type": "separator"
+          },
+          {
+            "type": "stat",
+            "value": 13,
+            "label": "monitoring deployments"
+          },
+          {
+            "type": "lineItem",
+            "label": "Attorneys & observers",
+            "value": 34
+          },
+          {
+            "type": "lineItem",
+            "label": "Counties monitored",
+            "value": 3
+          },
+          {
+            "type": "lineItem",
+            "label": "Years monitored",
+            "value": 8
+          },
+          {
+            "type": "note",
+            "value": "Monitored 2006–2018"
+          }
+        ]
+      }
+    },
+    "KY": {
+      "name": "Kentucky",
+      "display": {
+        "panel": [
+          {
+            "type": "heading",
+            "value": "Kentucky",
+            "badge": "KY"
+          },
+          {
+            "type": "separator"
+          },
+          {
+            "type": "stat",
+            "value": 2,
+            "label": "monitoring deployments"
+          },
+          {
+            "type": "lineItem",
+            "label": "Attorneys & observers",
+            "value": 4
+          },
+          {
+            "type": "lineItem",
+            "label": "Counties monitored",
+            "value": 1
+          },
+          {
+            "type": "lineItem",
+            "label": "Years monitored",
+            "value": 2
+          },
+          {
+            "type": "note",
+            "value": "Monitored 2003–2004"
+          }
+        ]
+      }
+    },
+    "LA": {
+      "name": "Louisiana",
+      "display": {
+        "panel": [
+          {
+            "type": "heading",
+            "value": "Louisiana",
+            "badge": "LA"
+          },
+          {
+            "type": "separator"
+          },
+          {
+            "type": "stat",
+            "value": 27,
+            "label": "monitoring deployments"
+          },
+          {
+            "type": "lineItem",
+            "label": "Attorneys & observers",
+            "value": 172
+          },
+          {
+            "type": "lineItem",
+            "label": "Counties monitored",
+            "value": 10
+          },
+          {
+            "type": "lineItem",
+            "label": "Years monitored",
+            "value": 9
+          },
+          {
+            "type": "note",
+            "value": "Monitored 2002–2016"
+          }
+        ]
+      }
+    },
+    "MA": {
+      "name": "Massachusetts",
+      "display": {
+        "panel": [
+          {
+            "type": "heading",
+            "value": "Massachusetts",
+            "badge": "MA"
+          },
+          {
+            "type": "separator"
+          },
+          {
+            "type": "stat",
+            "value": 44,
+            "label": "monitoring deployments"
+          },
+          {
+            "type": "lineItem",
+            "label": "Attorneys & observers",
+            "value": 111
+          },
+          {
+            "type": "lineItem",
+            "label": "Counties monitored",
+            "value": 7
+          },
+          {
+            "type": "lineItem",
+            "label": "Years monitored",
+            "value": 12
+          },
+          {
+            "type": "note",
+            "value": "Monitored 2001–2024"
+          }
+        ]
+      }
+    },
+    "MD": {
+      "name": "Maryland",
+      "display": {
+        "panel": [
+          {
+            "type": "heading",
+            "value": "Maryland",
+            "badge": "MD"
+          },
+          {
+            "type": "separator"
+          },
+          {
+            "type": "stat",
+            "value": 9,
+            "label": "monitoring deployments"
+          },
+          {
+            "type": "lineItem",
+            "label": "Attorneys & observers",
+            "value": 51
+          },
+          {
+            "type": "lineItem",
+            "label": "Counties monitored",
+            "value": 3
+          },
+          {
+            "type": "lineItem",
+            "label": "Years monitored",
+            "value": 5
+          },
+          {
+            "type": "note",
+            "value": "Monitored 2012–2025"
+          }
+        ]
+      }
+    },
+    "ME": {
+      "name": "Maine",
+      "display": {
+        "panel": [
+          {
+            "type": "heading",
+            "value": "Maine",
+            "badge": "ME"
+          },
+          {
+            "type": "separator"
+          },
+          {
+            "type": "stat",
+            "value": 0,
+            "label": "monitoring deployments"
+          },
+          {
+            "type": "note",
+            "value": "No monitoring on record for this period"
+          }
+        ]
+      }
+    },
+    "MI": {
+      "name": "Michigan",
+      "display": {
+        "panel": [
+          {
+            "type": "heading",
+            "value": "Michigan",
+            "badge": "MI"
+          },
+          {
+            "type": "separator"
+          },
+          {
+            "type": "stat",
+            "value": 36,
+            "label": "monitoring deployments"
+          },
+          {
+            "type": "lineItem",
+            "label": "Attorneys & observers",
+            "value": 124
+          },
+          {
+            "type": "lineItem",
+            "label": "Counties monitored",
+            "value": 9
+          },
+          {
+            "type": "lineItem",
+            "label": "Years monitored",
+            "value": 13
+          },
+          {
+            "type": "note",
+            "value": "Monitored 2000–2024"
+          }
+        ]
+      }
+    },
+    "MN": {
+      "name": "Minnesota",
+      "display": {
+        "panel": [
+          {
+            "type": "heading",
+            "value": "Minnesota",
+            "badge": "MN"
+          },
+          {
+            "type": "separator"
+          },
+          {
+            "type": "stat",
+            "value": 8,
+            "label": "monitoring deployments"
+          },
+          {
+            "type": "lineItem",
+            "label": "Attorneys & observers",
+            "value": 45
+          },
+          {
+            "type": "lineItem",
+            "label": "Counties monitored",
+            "value": 2
+          },
+          {
+            "type": "lineItem",
+            "label": "Years monitored",
+            "value": 4
+          },
+          {
+            "type": "note",
+            "value": "Monitored 2004–2024"
+          }
+        ]
+      }
+    },
+    "MO": {
+      "name": "Missouri",
+      "display": {
+        "panel": [
+          {
+            "type": "heading",
+            "value": "Missouri",
+            "badge": "MO"
+          },
+          {
+            "type": "separator"
+          },
+          {
+            "type": "stat",
+            "value": 6,
+            "label": "monitoring deployments"
+          },
+          {
+            "type": "lineItem",
+            "label": "Attorneys & observers",
+            "value": 21
+          },
+          {
+            "type": "lineItem",
+            "label": "Years monitored",
+            "value": 5
+          },
+          {
+            "type": "note",
+            "value": "Monitored 2001–2016"
+          }
+        ]
+      }
+    },
+    "MS": {
+      "name": "Mississippi",
+      "display": {
+        "panel": [
+          {
+            "type": "heading",
+            "value": "Mississippi",
+            "badge": "MS"
+          },
+          {
+            "type": "separator"
+          },
+          {
+            "type": "stat",
+            "value": 55,
+            "label": "monitoring deployments"
+          },
+          {
+            "type": "lineItem",
+            "label": "Attorneys & observers",
+            "value": 131
+          },
+          {
+            "type": "lineItem",
+            "label": "Counties monitored",
+            "value": 21
+          },
+          {
+            "type": "lineItem",
+            "label": "Years monitored",
+            "value": 16
+          },
+          {
+            "type": "note",
+            "value": "Monitored 2000–2023"
+          }
+        ]
+      }
+    },
+    "MT": {
+      "name": "Montana",
+      "display": {
+        "panel": [
+          {
+            "type": "heading",
+            "value": "Montana",
+            "badge": "MT"
+          },
+          {
+            "type": "separator"
+          },
+          {
+            "type": "stat",
+            "value": 2,
+            "label": "monitoring deployments"
+          },
+          {
+            "type": "lineItem",
+            "label": "Attorneys & observers",
+            "value": 5
+          },
+          {
+            "type": "lineItem",
+            "label": "Counties monitored",
+            "value": 2
+          },
+          {
+            "type": "lineItem",
+            "label": "Years monitored",
+            "value": 2
+          },
+          {
+            "type": "note",
+            "value": "Monitored 2006–2024"
+          }
+        ]
+      }
+    },
+    "NC": {
+      "name": "North Carolina",
+      "display": {
+        "panel": [
+          {
+            "type": "heading",
+            "value": "North Carolina",
+            "badge": "NC"
+          },
+          {
+            "type": "separator"
+          },
+          {
+            "type": "stat",
+            "value": 23,
+            "label": "monitoring deployments"
+          },
+          {
+            "type": "lineItem",
+            "label": "Attorneys & observers",
+            "value": 125
+          },
+          {
+            "type": "lineItem",
+            "label": "Counties monitored",
+            "value": 11
+          },
+          {
+            "type": "lineItem",
+            "label": "Years monitored",
+            "value": 9
+          },
+          {
+            "type": "note",
+            "value": "Monitored 2004–2024"
+          }
+        ]
+      }
+    },
+    "ND": {
+      "name": "North Dakota",
+      "display": {
+        "panel": [
+          {
+            "type": "heading",
+            "value": "North Dakota",
+            "badge": "ND"
+          },
+          {
+            "type": "separator"
+          },
+          {
+            "type": "stat",
+            "value": 4,
+            "label": "monitoring deployments"
+          },
+          {
+            "type": "lineItem",
+            "label": "Attorneys & observers",
+            "value": 11
+          },
+          {
+            "type": "lineItem",
+            "label": "Counties monitored",
+            "value": 2
+          },
+          {
+            "type": "lineItem",
+            "label": "Years monitored",
+            "value": 2
+          },
+          {
+            "type": "note",
+            "value": "Monitored 2016–2018"
+          }
+        ]
+      }
+    },
+    "NE": {
+      "name": "Nebraska",
+      "display": {
+        "panel": [
+          {
+            "type": "heading",
+            "value": "Nebraska",
+            "badge": "NE"
+          },
+          {
+            "type": "separator"
+          },
+          {
+            "type": "stat",
+            "value": 11,
+            "label": "monitoring deployments"
+          },
+          {
+            "type": "lineItem",
+            "label": "Attorneys & observers",
+            "value": 32
+          },
+          {
+            "type": "lineItem",
+            "label": "Counties monitored",
+            "value": 2
+          },
+          {
+            "type": "lineItem",
+            "label": "Years monitored",
+            "value": 7
+          },
+          {
+            "type": "note",
+            "value": "Monitored 2006–2016"
+          }
+        ]
+      }
+    },
+    "NH": {
+      "name": "New Hampshire",
+      "display": {
+        "panel": [
+          {
+            "type": "heading",
+            "value": "New Hampshire",
+            "badge": "NH"
+          },
+          {
+            "type": "separator"
+          },
+          {
+            "type": "stat",
+            "value": 0,
+            "label": "monitoring deployments"
+          },
+          {
+            "type": "note",
+            "value": "No monitoring on record for this period"
+          }
+        ]
+      }
+    },
+    "NJ": {
+      "name": "New Jersey",
+      "display": {
+        "panel": [
+          {
+            "type": "heading",
+            "value": "New Jersey",
+            "badge": "NJ"
+          },
+          {
+            "type": "separator"
+          },
+          {
+            "type": "stat",
+            "value": 45,
+            "label": "monitoring deployments"
+          },
+          {
+            "type": "lineItem",
+            "label": "Attorneys & observers",
+            "value": 283
+          },
+          {
+            "type": "lineItem",
+            "label": "Counties monitored",
+            "value": 7
+          },
+          {
+            "type": "lineItem",
+            "label": "Years monitored",
+            "value": 18
+          },
+          {
+            "type": "note",
+            "value": "Monitored 2002–2024"
+          }
+        ]
+      }
+    },
+    "NM": {
+      "name": "New Mexico",
+      "display": {
+        "panel": [
+          {
+            "type": "heading",
+            "value": "New Mexico",
+            "badge": "NM"
+          },
+          {
+            "type": "separator"
+          },
+          {
+            "type": "stat",
+            "value": 20,
+            "label": "monitoring deployments"
+          },
+          {
+            "type": "lineItem",
+            "label": "Attorneys & observers",
+            "value": 77
+          },
+          {
+            "type": "lineItem",
+            "label": "Counties monitored",
+            "value": 6
+          },
+          {
+            "type": "lineItem",
+            "label": "Years monitored",
+            "value": 10
+          },
+          {
+            "type": "note",
+            "value": "Monitored 2000–2024"
+          }
+        ]
+      }
+    },
+    "NV": {
+      "name": "Nevada",
+      "display": {
+        "panel": [
+          {
+            "type": "heading",
+            "value": "Nevada",
+            "badge": "NV"
+          },
+          {
+            "type": "separator"
+          },
+          {
+            "type": "stat",
+            "value": 9,
+            "label": "monitoring deployments"
+          },
+          {
+            "type": "lineItem",
+            "label": "Attorneys & observers",
+            "value": 47
+          },
+          {
+            "type": "lineItem",
+            "label": "Counties monitored",
+            "value": 3
+          },
+          {
+            "type": "lineItem",
+            "label": "Years monitored",
+            "value": 5
+          },
+          {
+            "type": "note",
+            "value": "Monitored 2004–2024"
+          }
+        ]
+      }
+    },
+    "NY": {
+      "name": "New York",
+      "display": {
+        "panel": [
+          {
+            "type": "heading",
+            "value": "New York",
+            "badge": "NY"
+          },
+          {
+            "type": "separator"
+          },
+          {
+            "type": "stat",
+            "value": 97,
+            "label": "monitoring deployments"
+          },
+          {
+            "type": "lineItem",
+            "label": "Attorneys & observers",
+            "value": 281
+          },
+          {
+            "type": "lineItem",
+            "label": "Counties monitored",
+            "value": 10
+          },
+          {
+            "type": "lineItem",
+            "label": "Years monitored",
+            "value": 19
+          },
+          {
+            "type": "note",
+            "value": "Monitored 2001–2024"
+          }
+        ]
+      }
+    },
+    "OH": {
+      "name": "Ohio",
+      "display": {
+        "panel": [
+          {
+            "type": "heading",
+            "value": "Ohio",
+            "badge": "OH"
+          },
+          {
+            "type": "separator"
+          },
+          {
+            "type": "stat",
+            "value": 27,
+            "label": "monitoring deployments"
+          },
+          {
+            "type": "lineItem",
+            "label": "Attorneys & observers",
+            "value": 128
+          },
+          {
+            "type": "lineItem",
+            "label": "Counties monitored",
+            "value": 5
+          },
+          {
+            "type": "lineItem",
+            "label": "Years monitored",
+            "value": 13
+          },
+          {
+            "type": "note",
+            "value": "Monitored 2001–2024"
+          }
+        ]
+      }
+    },
+    "OK": {
+      "name": "Oklahoma",
+      "display": {
+        "panel": [
+          {
+            "type": "heading",
+            "value": "Oklahoma",
+            "badge": "OK"
+          },
+          {
+            "type": "separator"
+          },
+          {
+            "type": "stat",
+            "value": 5,
+            "label": "monitoring deployments"
+          },
+          {
+            "type": "lineItem",
+            "label": "Attorneys & observers",
+            "value": 8
+          },
+          {
+            "type": "lineItem",
+            "label": "Counties monitored",
+            "value": 4
+          },
+          {
+            "type": "lineItem",
+            "label": "Years monitored",
+            "value": 2
+          },
+          {
+            "type": "note",
+            "value": "Monitored 2004–2018"
+          }
+        ]
+      }
+    },
+    "OR": {
+      "name": "Oregon",
+      "display": {
+        "panel": [
+          {
+            "type": "heading",
+            "value": "Oregon",
+            "badge": "OR"
+          },
+          {
+            "type": "separator"
+          },
+          {
+            "type": "stat",
+            "value": 0,
+            "label": "monitoring deployments"
+          },
+          {
+            "type": "note",
+            "value": "No monitoring on record for this period"
+          }
+        ]
+      }
+    },
+    "PA": {
+      "name": "Pennsylvania",
+      "display": {
+        "panel": [
+          {
+            "type": "heading",
+            "value": "Pennsylvania",
+            "badge": "PA"
+          },
+          {
+            "type": "separator"
+          },
+          {
+            "type": "stat",
+            "value": 39,
+            "label": "monitoring deployments"
+          },
+          {
+            "type": "lineItem",
+            "label": "Attorneys & observers",
+            "value": 282
+          },
+          {
+            "type": "lineItem",
+            "label": "Counties monitored",
+            "value": 7
+          },
+          {
+            "type": "lineItem",
+            "label": "Years monitored",
+            "value": 15
+          },
+          {
+            "type": "note",
+            "value": "Monitored 2001–2024"
+          }
+        ]
+      }
+    },
+    "RI": {
+      "name": "Rhode Island",
+      "display": {
+        "panel": [
+          {
+            "type": "heading",
+            "value": "Rhode Island",
+            "badge": "RI"
+          },
+          {
+            "type": "separator"
+          },
+          {
+            "type": "stat",
+            "value": 18,
+            "label": "monitoring deployments"
+          },
+          {
+            "type": "lineItem",
+            "label": "Attorneys & observers",
+            "value": 64
+          },
+          {
+            "type": "lineItem",
+            "label": "Counties monitored",
+            "value": 1
+          },
+          {
+            "type": "lineItem",
+            "label": "Years monitored",
+            "value": 5
+          },
+          {
+            "type": "note",
+            "value": "Monitored 2016–2024"
+          }
+        ]
+      }
+    },
+    "SC": {
+      "name": "South Carolina",
+      "display": {
+        "panel": [
+          {
+            "type": "heading",
+            "value": "South Carolina",
+            "badge": "SC"
+          },
+          {
+            "type": "separator"
+          },
+          {
+            "type": "stat",
+            "value": 20,
+            "label": "monitoring deployments"
+          },
+          {
+            "type": "lineItem",
+            "label": "Attorneys & observers",
+            "value": 58
+          },
+          {
+            "type": "lineItem",
+            "label": "Counties monitored",
+            "value": 12
+          },
+          {
+            "type": "lineItem",
+            "label": "Years monitored",
+            "value": 11
+          },
+          {
+            "type": "note",
+            "value": "Monitored 2000–2024"
+          }
+        ]
+      }
+    },
+    "SD": {
+      "name": "South Dakota",
+      "display": {
+        "panel": [
+          {
+            "type": "heading",
+            "value": "South Dakota",
+            "badge": "SD"
+          },
+          {
+            "type": "separator"
+          },
+          {
+            "type": "stat",
+            "value": 56,
+            "label": "monitoring deployments"
+          },
+          {
+            "type": "lineItem",
+            "label": "Attorneys & observers",
+            "value": 112
+          },
+          {
+            "type": "lineItem",
+            "label": "Counties monitored",
+            "value": 12
+          },
+          {
+            "type": "lineItem",
+            "label": "Years monitored",
+            "value": 10
+          },
+          {
+            "type": "note",
+            "value": "Monitored 2004–2024"
+          }
+        ]
+      }
+    },
+    "TN": {
+      "name": "Tennessee",
+      "display": {
+        "panel": [
+          {
+            "type": "heading",
+            "value": "Tennessee",
+            "badge": "TN"
+          },
+          {
+            "type": "separator"
+          },
+          {
+            "type": "stat",
+            "value": 8,
+            "label": "monitoring deployments"
+          },
+          {
+            "type": "lineItem",
+            "label": "Attorneys & observers",
+            "value": 21
+          },
+          {
+            "type": "lineItem",
+            "label": "Counties monitored",
+            "value": 2
+          },
+          {
+            "type": "lineItem",
+            "label": "Years monitored",
+            "value": 5
+          },
+          {
+            "type": "note",
+            "value": "Monitored 2006–2016"
+          }
+        ]
+      }
+    },
+    "TX": {
+      "name": "Texas",
+      "display": {
+        "panel": [
+          {
+            "type": "heading",
+            "value": "Texas",
+            "badge": "TX"
+          },
+          {
+            "type": "separator"
+          },
+          {
+            "type": "stat",
+            "value": 75,
+            "label": "monitoring deployments"
+          },
+          {
+            "type": "lineItem",
+            "label": "Attorneys & observers",
+            "value": 333
+          },
+          {
+            "type": "lineItem",
+            "label": "Counties monitored",
+            "value": 28
+          },
+          {
+            "type": "lineItem",
+            "label": "Years monitored",
+            "value": 22
+          },
+          {
+            "type": "note",
+            "value": "Monitored 2000–2024"
+          }
+        ]
+      }
+    },
+    "UT": {
+      "name": "Utah",
+      "display": {
+        "panel": [
+          {
+            "type": "heading",
+            "value": "Utah",
+            "badge": "UT"
+          },
+          {
+            "type": "separator"
+          },
+          {
+            "type": "stat",
+            "value": 7,
+            "label": "monitoring deployments"
+          },
+          {
+            "type": "lineItem",
+            "label": "Attorneys & observers",
+            "value": 35
+          },
+          {
+            "type": "lineItem",
+            "label": "Counties monitored",
+            "value": 3
+          },
+          {
+            "type": "lineItem",
+            "label": "Years monitored",
+            "value": 5
+          },
+          {
+            "type": "note",
+            "value": "Monitored 2004–2024"
+          }
+        ]
+      }
+    },
+    "VA": {
+      "name": "Virginia",
+      "display": {
+        "panel": [
+          {
+            "type": "heading",
+            "value": "Virginia",
+            "badge": "VA"
+          },
+          {
+            "type": "separator"
+          },
+          {
+            "type": "stat",
+            "value": 21,
+            "label": "monitoring deployments"
+          },
+          {
+            "type": "lineItem",
+            "label": "Attorneys & observers",
+            "value": 120
+          },
+          {
+            "type": "lineItem",
+            "label": "Counties monitored",
+            "value": 6
+          },
+          {
+            "type": "lineItem",
+            "label": "Years monitored",
+            "value": 9
+          },
+          {
+            "type": "note",
+            "value": "Monitored 2008–2024"
+          }
+        ]
+      }
+    },
+    "VT": {
+      "name": "Vermont",
+      "display": {
+        "panel": [
+          {
+            "type": "heading",
+            "value": "Vermont",
+            "badge": "VT"
+          },
+          {
+            "type": "separator"
+          },
+          {
+            "type": "stat",
+            "value": 0,
+            "label": "monitoring deployments"
+          },
+          {
+            "type": "note",
+            "value": "No monitoring on record for this period"
+          }
+        ]
+      }
+    },
+    "WA": {
+      "name": "Washington",
+      "display": {
+        "panel": [
+          {
+            "type": "heading",
+            "value": "Washington",
+            "badge": "WA"
+          },
+          {
+            "type": "separator"
+          },
+          {
+            "type": "stat",
+            "value": 6,
+            "label": "monitoring deployments"
+          },
+          {
+            "type": "lineItem",
+            "label": "Attorneys & observers",
+            "value": 34
+          },
+          {
+            "type": "lineItem",
+            "label": "Counties monitored",
+            "value": 4
+          },
+          {
+            "type": "lineItem",
+            "label": "Years monitored",
+            "value": 3
+          },
+          {
+            "type": "note",
+            "value": "Monitored 2004–2008"
+          }
+        ]
+      }
+    },
+    "WI": {
+      "name": "Wisconsin",
+      "display": {
+        "panel": [
+          {
+            "type": "heading",
+            "value": "Wisconsin",
+            "badge": "WI"
+          },
+          {
+            "type": "separator"
+          },
+          {
+            "type": "stat",
+            "value": 17,
+            "label": "monitoring deployments"
+          },
+          {
+            "type": "lineItem",
+            "label": "Attorneys & observers",
+            "value": 74
+          },
+          {
+            "type": "lineItem",
+            "label": "Counties monitored",
+            "value": 4
+          },
+          {
+            "type": "lineItem",
+            "label": "Years monitored",
+            "value": 6
+          },
+          {
+            "type": "note",
+            "value": "Monitored 2012–2024"
+          }
+        ]
+      }
+    },
+    "WV": {
+      "name": "West Virginia",
+      "display": {
+        "panel": [
+          {
+            "type": "heading",
+            "value": "West Virginia",
+            "badge": "WV"
+          },
+          {
+            "type": "separator"
+          },
+          {
+            "type": "stat",
+            "value": 0,
+            "label": "monitoring deployments"
+          },
+          {
+            "type": "note",
+            "value": "No monitoring on record for this period"
+          }
+        ]
+      }
+    },
+    "WY": {
+      "name": "Wyoming",
+      "display": {
+        "panel": [
+          {
+            "type": "heading",
+            "value": "Wyoming",
+            "badge": "WY"
+          },
+          {
+            "type": "separator"
+          },
+          {
+            "type": "stat",
+            "value": 0,
+            "label": "monitoring deployments"
+          },
+          {
+            "type": "note",
+            "value": "No monitoring on record for this period"
+          }
+        ]
+      }
+    }
+  }
+}
