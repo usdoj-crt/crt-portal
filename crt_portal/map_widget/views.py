@@ -5,18 +5,50 @@ from utils.static_data import resolve_reference_string
 from .models import MapWidgetData
 
 
+def _resolve_blocks(blocks):
+    """Resolve image references within a list of display blocks, in place.
+
+    Walks the panel block vocabulary the USA map widget renders: `list` blocks
+    carry `items[].bullet.image` references. Any `static:` (or http) reference is
+    resolved to a real URL so the browser can load it.
+    """
+    for block in blocks or []:
+        if not isinstance(block, dict):
+            continue
+        block_type = block.get('type')
+        if block_type == 'list':
+            for item in block.get('items', []) or []:
+                bullet = item.get('bullet') if isinstance(item, dict) else None
+                if isinstance(bullet, dict) and bullet.get('image'):
+                    bullet['image'] = resolve_reference_string(bullet['image'])
+
+
+def _resolve_record(record):
+    """Resolve image references in one record's `panel` blocks, in place.
+
+    Only the `panel` surface holds resolvable references; the `categoryBar`
+    component carries sprite-slug icons (not image URLs), so it's left as-is.
+    """
+    if not isinstance(record, dict):
+        return
+    display = record.get('display')
+    if not isinstance(display, dict):
+        return
+    _resolve_blocks(display.get('panel'))
+
+
 def _resolve_bullets(map_widget_data):
-    """Resolve each action's bullet.image reference into a real URL, in place."""
+    """Resolve every bullet.image reference into a real URL, in place.
+
+    Covers each feature record under `features` as well as the `default` record.
+    """
     if not isinstance(map_widget_data, dict):
         return map_widget_data
-    data = map_widget_data.get('data', map_widget_data)
-    for feature in data.values():
-        if not isinstance(feature, dict):
-            continue
-        for action in feature.get('actions', []) or []:
-            bullet = action.get('bullet')
-            if isinstance(bullet, dict) and bullet.get('image'):
-                bullet['image'] = resolve_reference_string(bullet['image'])
+    features = map_widget_data.get('features', {})
+    if isinstance(features, dict):
+        for record in features.values():
+            _resolve_record(record)
+    _resolve_record(map_widget_data.get('default'))
     return map_widget_data
 
 
