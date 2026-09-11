@@ -12,27 +12,17 @@
         },
         {
           "type": "stat",
-          "value": 1,
-          "label": "monitoring deployment"
+          "value": 23,
+          "label": "monitoring actions"
         },
         {
           "type": "lineItem",
-          "label": "Attorneys & observers",
-          "value": 3
-        },
-        {
-          "type": "lineItem",
-          "label": "States covered",
-          "value": 1
-        },
-        {
-          "type": "lineItem",
-          "label": "Counties monitored",
-          "value": 1
+          "label": "States with monitoring",
+          "value": 9
         },
         {
           "type": "note",
-          "value": "Current-term monitoring from live activity Richer metrics arrive with the enriched dataset"
+          "value": "Current-term monitoring from [insert date]."
         }
       ]
     }

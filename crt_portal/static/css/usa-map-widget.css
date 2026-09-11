@@ -211,7 +211,7 @@
 
 .usa-map-widget__stat-value {
   font-family: var(--usa-map-widget-serif);
-  font-size: 1.75rem;
+  font-size: 2.0rem;
   /* Collapse the serif's tall default line box so the digit centers against the
      icon on the stat-top line (align-items: center centers the boxes, and the
      glyph fills its box once line-height is 1). */
@@ -234,7 +234,8 @@
   align-items: center;
   justify-content: space-between;
   gap: 0.5rem;
-  padding: 0.5rem 0;
+  padding-top: 0.7rem;
+  padding-bottom: 0.7rem;
   border-top: 1px solid #dfe1e2;
 }
 
