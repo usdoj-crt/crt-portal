@@ -81,6 +81,12 @@
                     observers and Civil Rights Division monitors to safeguard elections
                     nationwide.
                 </p>
+                <a class="actionbtn actionbtn__doj bg-gold margin-top-4" href="{% url 'election_monitoring' %}">
+                    <span class="actionbtn__label display-flex flex-align-center">
+                        <span class="actionbtn__text font-sans-md text-bold">View Election Monitoring</span>
+                        <span class="margin-left-1 actionbtn__text text-bold" aria-hidden="true">&rarr;</span>
+                    </span>
+                </a>
             </div>
 
             <!-- Figures -->
@@ -163,21 +169,26 @@
             <h2 class="font-serif-2xl text-white margin-0 text-center" id="action-heading">Support Election Integrity</h2>
             <p class="action-bar__subtext text-white text-center">Help the Department of Justice and Department of Homeland Security protect the vote by
                 reporting concerns and staying informed.</p>
-            <div class="button-container">
-                <a class="actionbtn actionbtn__doj bg-gold" href="https://civilrights.justice.gov/#report-a-violation">
-                    <img class="actionbtn__seal" src="{% static 'img/Seal_of_the_United_States_Department_of_Justice.svg' %}" alt="" aria-hidden="true">
-                    <span class="actionbtn__label display-flex flex-column">
-                        <span class="actionbtn__agency text-bold font-body-3xs text-ls-2 text-base-darkest">DEPARTMENT OF JUSTICE</span>
-                        <span class="actionbtn__text font-serif-lg">Report an Election Issue</span>
-                    </span>
-                </a>
-                <a class="actionbtn actionbtn__dhs bg-white" href="https://www.dhs.gov/report-incidents">
-                    <img class="actionbtn__seal" src="{% static 'img/Seal_of_the_United_States_Department_of_Homeland_Security.svg' %}" alt="" aria-hidden="true">
-                    <span class="actionbtn__label display-flex flex-column">
-                        <span class="actionbtn__agency text-bold font-body-3xs text-ls-2 text-primary-vivid">HOMELAND SECURITY</span>
-                        <span class="actionbtn__text font-serif-lg">Report an Election Issue</span>
-                    </span>
-                </a>
+
+            <div class="grid-row grid-gap-2 flex-justify-center">
+                <div class="tablet:grid-col-6 display-flex flex-justify-center padding-top-4">
+                    <a class="actionbtn actionbtn__doj bg-gold" href="https://civilrights.justice.gov/#report-a-violation">
+                        <img class="actionbtn__seal" src="{% static 'img/Seal_of_the_United_States_Department_of_Justice.svg' %}" alt="" aria-hidden="true">
+                        <span class="actionbtn__label display-flex flex-column">
+                            <span class="actionbtn__agency text-bold font-body-3xs text-ls-2 text-base-darkest">DEPARTMENT OF JUSTICE</span>
+                            <span class="actionbtn__text font-serif-lg">Report an Election Issue</span>
+                        </span>
+                    </a>
+                </div>
+                <div class="tablet:grid-col-6 display-flex flex-justify-center padding-top-4">
+                    <a class="actionbtn actionbtn__dhs bg-white" href="https://www.dhs.gov/report-incidents">
+                        <img class="actionbtn__seal" src="{% static 'img/Seal_of_the_United_States_Department_of_Homeland_Security.svg' %}" alt="" aria-hidden="true">
+                        <span class="actionbtn__label display-flex flex-column">
+                            <span class="actionbtn__agency text-bold font-body-3xs text-ls-2 text-primary-vivid">HOMELAND SECURITY</span>
+                            <span class="actionbtn__text font-serif-lg">Report an Election Issue</span>
+                        </span>
+                    </a>
+                </div>
             </div>
         </div>
     </section>
