@@ -45,6 +45,11 @@ Optional (fall back to the widget's built-in defaults if omitted):
   badge_text_color             Text color for the DC badge label. Defaults to
                                "#ffffff".
 
+  badge_active_text_color      Text color for the DC badge label while the badge
+                               is hovered/active (e.g. dark text on a gold active
+                               circle). When omitted, the label keeps its resting
+                               color on hover.
+
   badge_radius                 Radius of the DC badge circle. Defaults to "16".
 
   show_tooltip                 When "true", a small tooltip follows the cursor
@@ -70,6 +75,7 @@ Optional (fall back to the widget's built-in defaults if omitted):
   data-map-stroke-color="{{ map_stroke_color|default:'' }}"
   data-map-stroke-width="{{ map_stroke_width|default:'' }}"
   data-map-badge-text-color="{{ badge_text_color|default:'' }}"
+  data-map-badge-active-text-color="{{ badge_active_text_color|default:'' }}"
   data-map-badge-radius="{{ badge_radius|default:'' }}"
   data-map-show-tooltip="{{ show_tooltip|default:'false' }}"
   data-map-open-in-new-tab="{{ open_in_new_tab|default:'false' }}"

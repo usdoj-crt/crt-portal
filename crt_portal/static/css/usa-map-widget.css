@@ -57,6 +57,13 @@
   display: block;
 }
 
+/* Interactive shapes (states + the DC badge) behave like links/buttons, so
+   show the pointer cursor on hover. */
+.usa-map-widget__feature,
+.usa-map-widget__badge {
+  cursor: pointer;
+}
+
 /* Cursor-following hover tooltip (opt-in via the show_tooltip argument).
    Hidden by default and only revealed at the desktop breakpoint below, so it
    never shows on mobile/tablet (where there is no cursor to follow). */

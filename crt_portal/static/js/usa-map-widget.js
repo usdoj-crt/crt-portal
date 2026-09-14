@@ -144,6 +144,8 @@ function getMapConfig(mapWidget) {
   mapConfig.strokeColor = mapWidget?.dataset?.mapStrokeColor || '#ffffff';
   mapConfig.strokeWidth = mapWidget?.dataset?.mapStrokeWidth || '1';
   mapConfig.badgeTextColor = mapWidget?.dataset?.mapBadgeTextColor || '#ffffff';
+  // No default: when unset, the badge label keeps its resting color on hover.
+  mapConfig.badgeActiveTextColor = mapWidget?.dataset?.mapBadgeActiveTextColor || '';
   mapConfig.badgeRadius = mapWidget?.dataset?.mapBadgeRadius || '16';
   mapConfig.showTooltip = mapWidget?.dataset?.mapShowTooltip === 'true';
   mapConfig.openInNewTab = mapWidget?.dataset?.mapOpenInNewTab === 'true';
@@ -284,10 +286,24 @@ function hideTooltip(context) {
 
 function showActive(path, mapConfig) {
   path.style.fill = mapConfig?.activeFillColor || '#f4c430';
+
+  // If this shape is a DC badge circle with an associated text label, and an
+  // active text color is configured, swap the label color to match the active
+  // fill (e.g. dark text on a gold active circle). Left unchanged otherwise.
+  const badgeText = path._badgeText;
+  if (badgeText && mapConfig?.badgeActiveTextColor) {
+    badgeText.style.fill = mapConfig.badgeActiveTextColor;
+  }
 }
 
 function hideActive(path, mapConfig) {
   path.style.fill = mapConfig?.defaultFillColor || '#3498db';
+
+  // Restore the badge label to its resting color when the badge deactivates.
+  const badgeText = path._badgeText;
+  if (badgeText && mapConfig?.badgeActiveTextColor) {
+    badgeText.style.fill = mapConfig.badgeTextColor || '#ffffff';
+  }
 }
 
 // Make `shape` the single active shape: restore the previously active shape (if
@@ -407,6 +423,10 @@ function drawBadge(mapSvg, badge, context) {
   text.style.fill = context.mapConfig?.badgeTextColor || '#ffffff';
   text.textContent = badge.label;
   group.appendChild(text);
+
+  // Associate the label with its circle so showActive/hideActive can recolor it
+  // in lockstep with the circle's active fill (see those functions).
+  circle._badgeText = text;
 
   // Build the synthetic feature the panel renderer expects.
   const feature = {
