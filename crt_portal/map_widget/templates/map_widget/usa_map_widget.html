@@ -29,6 +29,10 @@ Required:
 Optional (fall back to the widget's built-in defaults if omitted):
   map_classes                  Extra CSS classes added to the widget container.
 
+  map_lazy_load                  When true, map will NOT initialize itself when the
+                                 parent page loads. Instead, the page must call the widget's
+                                 `init()` method to initialize it.
+
   map_default_fill_color       Resting fill for states. Defaults to "#3498db".
 
   map_active_fill_color        Fill for the hovered/selected state. Defaults to
@@ -60,6 +64,7 @@ Optional (fall back to the widget's built-in defaults if omitted):
   class="usa-map-widget {{ map_classes|default:'' }}"
   data-geojson-urls="{% static 'data/map-widget/regions/contiguous.geojson' %},{% static 'data/map-widget/regions/alaska.geojson' %},{% static 'data/map-widget/regions/hawaii.geojson' %}"
   data-data-src="{% url 'map_widget:data' name=data_name %}"
+  data-map-lazy-load="{{ map_lazy_load|default:'false' }}"
   data-map-default-fill-color="{{ map_default_fill_color|default:'' }}"
   data-map-active-fill-color="{{ map_active_fill_color|default:'' }}"
   data-map-stroke-color="{{ map_stroke_color|default:'' }}"

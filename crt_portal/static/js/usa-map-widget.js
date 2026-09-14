@@ -955,6 +955,12 @@ function renderDefaultView(context) {
 // ---------------------------------------------------------------------------
 
 async function initMapWidget(mapWidget) {
+  if (mapWidget.dataset.booted === 'true') {
+    // Already booting or booted.
+    return;
+  }
+  mapWidget.dataset.booted = 'true';
+
   const loaded = await loadData(mapWidget);
   const features = loaded.features || {};
 
@@ -1041,6 +1047,11 @@ function initAllMapWidgets() {
   const mapWidgets = document.querySelectorAll('.usa-map-widget');
 
   for (const mapWidget of mapWidgets) {
+    if (mapWidget.dataset.mapLazyLoad === 'true') {
+      // Booted on demand by whatever controls this map's visibility.
+      continue;
+    }
+
     initMapWidget(mapWidget).catch(error => {
       const dataSrc = mapWidget.dataset.dataSrc || '(no data-data-src set)';
       console.error(
@@ -1050,6 +1061,21 @@ function initAllMapWidgets() {
     });
   }
 }
+
+// Public hook so on-page controllers can boot a
+// lazy-loaded map when they reveal it.
+window.UsaMapWidget = window.UsaMapWidget || {};
+window.UsaMapWidget.init = async function(mapWidget) {
+  try {
+    await initMapWidget(mapWidget);
+  } catch (error) {
+    const dataSrc = mapWidget.dataset.dataSrc || '(no data-src set)';
+    console.error(
+      `USA Map Widget: lazy init failed. Could not load data from "${dataSrc}".`,
+      error
+    );
+  }
+};
 
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', initAllMapWidgets);
