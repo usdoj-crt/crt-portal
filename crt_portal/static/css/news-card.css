@@ -110,3 +110,15 @@
   font-size: 0.875rem;
   color: #71767a;
 }
+
+/* Thumbnail-less variant (show_thumbnail="false"): no image block, so give the
+   body a little breathing room at the top that the thumbnail used to provide. */
+.news-card--no-thumbnail .news-card__body {
+  padding-top: 1.25rem;
+}
+
+/* Fill the grid column when laid out in a flex parent (the carousel gives cards
+   a fixed width, but grids don't). */
+.news-card--no-thumbnail {
+  width: 100%;
+}

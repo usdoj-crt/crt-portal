@@ -1,0 +1,16 @@
+{% comment %}
+Shared assets for the USA map widget (CSS + d3 + widget JS).
+
+Include this ONCE per page, regardless of how many maps are rendered:
+
+    {% include "map_widget/usa_map_widget_assets.html" %}
+
+The widget JS boots every element with the `.usa-map-widget` class on DOM ready,
+so a single load of these assets supports any number of maps on the page.
+
+Per-map markup is rendered by "map_widget/usa_map_widget.html".
+{% endcomment %}
+<link rel="stylesheet" href="{% static 'css/usa-map-widget.css' %}" />
+<script src="{% static 'vendor/d3.min.js' %}"></script>
+<script src="{% static 'js/usa-map-widget.js' %}"></script>
+{% include "map_widget/usa_map_widget_icon_sprite.html" %}

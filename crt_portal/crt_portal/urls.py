@@ -39,7 +39,7 @@ from django.shortcuts import redirect
 from django.urls import include, path, re_path
 from django.views.generic import TemplateView
 
-from .views import crt_loggedin_view, crt_logout_view, crt_loggedout_view, CrtLoginView, CrtAdminLoginView, election_integrity_view
+from .views import crt_loggedin_view, crt_logout_view, crt_loggedout_view, CrtLoginView, CrtAdminLoginView, election_integrity_view, election_monitoring_view
 
 environment = os.environ.get('ENV', 'UNDEFINED')
 auth = []
@@ -114,6 +114,7 @@ urlpatterns = auth + [
     path('hate-crime-human-trafficking', TemplateView.as_view(template_name="hate_crime_human_trafficking.html"), name='hate_crime_human_trafficking'),
     path('diversity-equity-inclusion-illegal-discrimination', TemplateView.as_view(template_name="dei-discrimination.html"), name='dei_discrimination'),
     path('electionintegrity', election_integrity_view, name='election_integrity'),
+    path('electionmonitoring', election_monitoring_view, name='election_monitoring'),
     path('housing-resources', TemplateView.as_view(template_name="hce_resources.html"), name='hce_resources'),
     path('voting-resources', TemplateView.as_view(template_name="vot_resources.html"), name='vot_resources'),
     path('', LandingPageView.as_view(), name='crt_landing_page'),

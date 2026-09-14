@@ -6,6 +6,10 @@ Usage: rendered for each item by news_widget/news_carousel.html, which is
 driven by the {% render_news_card_carousel %} template tag.
 
 Properties:
+    show_thumbnail: (Optional) |
+                            If "false", the thumbnail block is omitted entirely
+                            (no image, no seal fallback). Defaults to shown.
+
     clickable_thumbnail: (Optional) |
                             If true, the thumbnail image is wrapped in
                             a link to the news item, making it clickable.
@@ -26,8 +30,9 @@ Expected `item` fields:
     source                  Publisher/source name, e.g. "DOJ Civil Rights Division".
 -->
 {% endcomment %}
-<article class="news-card">
-    {% if item.thumbnail %}
+<article class="news-card{% if show_thumbnail == 'false' %} news-card--no-thumbnail{% endif %}">
+    {% if show_thumbnail == 'false' %}
+    {% elif item.thumbnail %}
         <div class="news-card__thumbnail">
             {% if clickable_thumbnail == 'true' %}
                 <a href="{{ item.linkUrl }}">
@@ -58,8 +63,10 @@ Expected `item` fields:
         <div class="display-flex flex-column flex-1 flex-justify-end">
             <div>
                 <span class="news-card__meta">{{ item.source }}</span>
-                <span class="news-card__meta padding-x-1">|</span>
-                <span class="news-card__meta">{{ item.date }}</span>
+                {% if item.date %}
+                    <span class="news-card__meta padding-x-1">|</span>
+                    <span class="news-card__meta">{{ item.date }}</span>
+                {% endif %}
             </div>
         </div>
 
