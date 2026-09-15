@@ -1026,6 +1026,10 @@ async function initMapWidget(mapWidget) {
     tooltip: tooltip
   };
 
+  // Expose the context on the element so on-page controllers (e.g. a map
+  // switcher) can clear this map's active state when they reveal it.
+  mapWidget._usaMapWidgetContext = context;
+
   // Paint the panel's initial default view.
   setupDefaultView(context);
 
@@ -1095,6 +1099,23 @@ window.UsaMapWidget.init = async function(mapWidget) {
       error
     );
   }
+};
+
+// Public hook so on-page controllers can reset a map's remembered active
+// (hovered/selected) state, returning it to its "nothing selected" view.
+window.UsaMapWidget.clear = function(mapWidget) {
+  if (!mapWidget) {
+    return;
+  }
+
+  // The context is stashed on the element once its map finishes booting.
+  // If it's not there yet, there's no active state to clear.
+  const context = mapWidget._usaMapWidgetContext;
+  if (!context) {
+    return;
+  }
+
+  clearActive(context);
 };
 
 if (document.readyState === 'loading') {
