@@ -13,7 +13,9 @@
   'use strict';
 
   function init() {
-    var buttons = Array.prototype.slice.call(document.querySelectorAll('[data-monitoring-administration-select]'));
+    var buttons = Array.prototype.slice.call(
+      document.querySelectorAll('[data-monitoring-administration-select]')
+    );
     var panels = Array.prototype.slice.call(
       document.querySelectorAll('[data-monitoring-administration-map-panel]')
     );
@@ -30,7 +32,7 @@
     }
 
     function select(key) {
-      buttons.forEach(function (button) {
+      buttons.forEach(function(button) {
         // Accessibility: Set aria-pressed to 'true'
         // for the selected button, 'false' for all others.
         button.setAttribute(
