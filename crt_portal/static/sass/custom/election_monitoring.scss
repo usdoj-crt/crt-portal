@@ -187,24 +187,49 @@
     }
 }
 
-.monitoring-history-section__stories {
-    display: flex;
-    justify-content: center;
-    gap: 1.5rem;
-
-    @include at-media-max("desktop") {
-        flex-direction: column;
-        align-items: center;
-    }
-}
-
 .monitoring-history-section__stat {
     text-align: center;
 }
 
-// Cards grow to share the row evenly.
+// Responsive card grid for featured stories.
+//
+// `auto-fit` + `minmax()` lets any number of cards flow into as many equal
+// columns as fit the row, wrapping into new rows automatically. Each column is
+// at least `--story-card-min` wide, so as the viewport narrows the column count
+// drops (3 -> 2 -> 1) and cards stack vertically on mobile without any
+// per-breakpoint rules. The `min()` guards against overflow when the viewport
+// is narrower than the minimum card width.
+.monitoring-history-section__stories {
+    --story-card-min: 18rem;
+
+    display: grid;
+    grid-template-columns: repeat(
+        auto-fit,
+        minmax(min(var(--story-card-min), 100%), 1fr)
+    );
+    gap: 1.5rem;
+    justify-content: center;
+
+    // Keep the row from stretching cards too wide when there are only a few
+    // stories (e.g. 3 cards read best around this width, centered).
+    max-width: 80rem;
+    margin-left: auto;
+    margin-right: auto;
+
+    // Shrink the minimum column width on smaller screens so two cards can still
+    // sit side by side on tablets before collapsing to one column on mobile.
+    @include at-media-max("tablet") {
+        --story-card-min: 15rem;
+    }
+
+    @include at-media-max("mobile-lg") {
+        --story-card-min: 100%;
+    }
+}
+
 .monitoring-history-section__stories .news-card {
-    flex: 1;
+    // Cards fill their grid cell; the grid handles equal widths.
+    width: 100%;
 }
 
 // -------------------------------------
