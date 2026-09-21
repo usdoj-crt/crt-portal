@@ -1,6 +1,7 @@
 {% extends "landing.html" %}
 {% load i18n %}
 {% load static %}
+{% load news_card_carousel %}
 {% block meta_title %}
 {% trans "Civil Rights Division - Department of Justice - Election Monitoring" as meta_title %}
 <meta property="og:title" content="{{meta_title}}" />
@@ -167,9 +168,7 @@
         <div class="monitoring-history-section__featured-stories margin-top-8">
             <h3 class="font-serif-lg text-normal text-primary-darker text-center">Featured stories</h3>
             <div class="monitoring-history-section__stories">
-                {% include "news_widget/news_card.html" with item=story_polls_24 show_thumbnail="false" %}
-                {% include "news_widget/news_card.html" with item=story_about_observers show_thumbnail="false" %}
-                {% include "news_widget/news_card.html" with item=story_again_monitor show_thumbnail="false" %}
+                {% render_news_card_set "election-monitoring-featured-stories" show_thumbnail="false" %}
             </div>
         </div>
     </section>

@@ -1,0 +1,20 @@
+[
+    {
+        "type": "Press Release",
+        "linkUrl": "https://www.justice.gov/archives/opa/pr/justice-department-monitor-polls-24-states-compliance-federal-voting-rights-laws",
+        "linkText": "Justice Department to Monitor Polls in 24 States for Compliance With Federal Voting Rights Laws",
+        "source": "justice.gov"
+    },
+    {
+        "type": "Civil Rights Division",
+        "linkUrl": "https://www.justice.gov/crt/about-federal-observers-and-election-monitoring",
+        "linkText": "About Federal Observers and Election Monitoring",
+        "source": "justice.gov"
+    },
+    {
+        "type": "Press Release",
+        "linkUrl": "https://www.justice.gov/archives/opa/pr/justice-department-again-monitor-compliance-federal-voting-rights-laws-election-day",
+        "linkText": "Justice Department to Again Monitor Compliance With Federal Voting Rights Laws on Election Day",
+        "source": "justice.gov"
+    }
+]

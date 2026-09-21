@@ -40,27 +40,6 @@ def election_integrity_view(request):
 
 
 def election_monitoring_view(request):
-    featured_stories = {
-        'story_polls_24': {
-            'type': 'Press Release',
-            'linkText': 'Justice Department to Monitor Polls in 24 States for Compliance With Federal Voting Rights Laws',
-            'linkUrl': 'https://www.justice.gov/archives/opa/pr/justice-department-monitor-polls-24-states-compliance-federal-voting-rights-laws',
-            'source': 'justice.gov',
-        },
-        'story_about_observers': {
-            'type': 'Civil Rights Division',
-            'linkText': 'About Federal Observers and Election Monitoring',
-            'linkUrl': 'https://www.justice.gov/crt/about-federal-observers-and-election-monitoring',
-            'source': 'justice.gov',
-        },
-        'story_again_monitor': {
-            'type': 'Press Release',
-            'linkText': 'Justice Department to Again Monitor Compliance With Federal Voting Rights Laws on Election Day',
-            'linkUrl': 'https://www.justice.gov/archives/opa/pr/justice-department-again-monitor-compliance-federal-voting-rights-laws-election-day',
-            'source': 'justice.gov',
-        },
-    }
-
     # The map is split into one MapWidgetData record per administration (plus an
     # "all years" record). The page renders one map_widget include per entry and
     # a button controller swaps which one is visible. `key` is both the button's
@@ -81,7 +60,6 @@ def election_monitoring_view(request):
         admin['default'] = admin is default_admin
 
     return render(request, 'election_monitoring.html', {
-        **featured_stories,
         'administrations': administrations,
     })
 
