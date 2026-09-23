@@ -202,7 +202,6 @@ async function loadData(mapWidget) {
   }
 }
 
-
 // ---------------------------------------------------------------------------
 // Heatmap Mode
 // ---------------------------------------------------------------------------
@@ -225,20 +224,23 @@ function resolveHeatmap(loaded, mapConfig) {
   const bands = heatmap?.bands;
 
   if (!Array.isArray(bands) || bands.length === 0) {
-    console.warn('map-widget: heatmap-mode is on but data has no heatmap.bands; falling back to flat rendering.');
+    console.warn(
+      'map-widget: heatmap-mode is on but data has no heatmap.bands; falling back to flat rendering.'
+    );
     return null;
   }
 
   // Every band must have numeric min, a numeric-or-null max, and the three
   // colors. Anything malformed disables heatmap entirely (all-or-nothing keeps
   // the map in one consistent, tested state rather than a half-colored one).
-  const valid = bands.every(band =>
-    band &&
-    typeof band.min === 'number' &&
-    (band.max === null || typeof band.max === 'number') &&
-    typeof band.fill === 'string' &&
-    typeof band.text === 'string' &&
-    typeof band.stroke === 'string'
+  const valid = bands.every(
+    band =>
+      band &&
+      typeof band.min === 'number' &&
+      (band.max === null || typeof band.max === 'number') &&
+      typeof band.fill === 'string' &&
+      typeof band.text === 'string' &&
+      typeof band.stroke === 'string'
   );
 
   if (!valid) {
@@ -434,8 +436,8 @@ function hideActive(path, mapConfig) {
 
   // Restore the badge label to its resting color when the badge deactivates.
   const badgeText = path._badgeText;
-  if (badgeText && mapConfig?.badgeActiveTextColor) {
-    badgeText.style.fill = mapConfig.badgeTextColor || '#ffffff';
+  if (badgeText) {
+    badgeText.style.fill = badgeText._heatText || mapConfig?.badgeTextColor || '#ffffff';
   }
 }
 
@@ -545,7 +547,7 @@ function drawFeatures(mapSvg, features, d3PathGenerator, context) {
   }
 }
 
-function drawBadge(mapSvg, badge, context) {
+function drawFeatureBadge(mapSvg, badge, context) {
   // Create a <g> group so the circle + label share listeners.
   const group = document.createElementNS('http://www.w3.org/2000/svg', 'g');
   group.setAttribute('class', 'usa-map-widget__badge');
@@ -577,6 +579,15 @@ function drawBadge(mapSvg, badge, context) {
   const feature = {
     properties: { code: badge.code, name: badge.name }
   };
+
+  // Set properties for heatmap mode
+  if (context.heatmap) {
+    const band = heatBandFor(context, badge.code);
+    circle._heatFill = band.fill;
+    circle.style.stroke = band.stroke;
+    text.style.fill = band.text;
+    text._heatText = band.text;
+  }
 
   // Wire the listeners as a state. On hover/click the badge becomes the single
   // active shape and stays active after the pointer leaves. Note: pass `circle`
@@ -781,7 +792,10 @@ function renderCategoryBar(context, record, config) {
 function buildAccessibleControls(mapElement, context) {
   const controls = createElement('div', 'usa-map-widget__sr-controls');
   controls.setAttribute('role', 'group');
-  controls.setAttribute('aria-label', 'Select a state to view its details. Press enter to navigate to the state page if the page is available');
+  controls.setAttribute(
+    'aria-label',
+    'Select a state to view its details. Press enter to navigate to the state page if the page is available'
+  );
 
   const sorted = context.focusables.slice().sort((a, b) => a.name.localeCompare(b.name));
 
@@ -1209,7 +1223,7 @@ async function initMapWidget(mapWidget) {
   drawFeatures(mapSvg, geoFeatures, d3PathGenerator, context);
 
   // Draw DC.
-  drawBadge(mapSvg, DC_BADGE, context);
+  drawFeatureBadge(mapSvg, DC_BADGE, context);
 
   // Build the keyboard/screen-reader controls once every feature (and the DC
   // badge) has registered itself on context.focusables.
