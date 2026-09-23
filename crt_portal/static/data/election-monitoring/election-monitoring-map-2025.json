@@ -1,6 +1,6 @@
 {
   "heatmap": {
-    "legendTitle": "Deployments",
+    "legendTitle": "Monitoring actions per state:",
     "bands": [
       {
         "label": "None",
