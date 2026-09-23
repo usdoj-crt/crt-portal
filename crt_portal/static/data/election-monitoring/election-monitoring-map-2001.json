@@ -1,9 +1,8 @@
 {
   "heatmap": {
-    "legendTitle": "Monitoring actions per state:",
+    "legendTitle": "Shading — monitoring deployments per state:",
     "bands": [
       {
-        "label": "None",
         "min": 0,
         "max": 0,
         "fill": "#f7efdc",
@@ -11,7 +10,6 @@
         "stroke": "#0b1d33"
       },
       {
-        "label": "1–5",
         "min": 1,
         "max": 5,
         "fill": "#ecd9a6",
@@ -19,7 +17,6 @@
         "stroke": "#0b1d33"
       },
       {
-        "label": "6–13",
         "min": 6,
         "max": 13,
         "fill": "#dcbb63",
@@ -27,7 +24,6 @@
         "stroke": "#0b1d33"
       },
       {
-        "label": "17–26",
         "min": 17,
         "max": 26,
         "fill": "#c49a2e",
@@ -35,7 +31,6 @@
         "stroke": "#0b1d33"
       },
       {
-        "label": "27–35",
         "min": 27,
         "max": 35,
         "fill": "#997515",
@@ -43,9 +38,8 @@
         "stroke": "#0b1d33"
       },
       {
-        "label": "40–42",
         "min": 40,
-        "max": 42,
+        "max": null,
         "fill": "#664d09",
         "text": "#ffffff",
         "stroke": "#0b1d33"
