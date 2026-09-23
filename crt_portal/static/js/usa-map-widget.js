@@ -150,6 +150,7 @@ function getMapConfig(mapWidget) {
   mapConfig.showTooltip = mapWidget?.dataset?.mapShowTooltip === 'true';
   mapConfig.openInNewTab = mapWidget?.dataset?.mapOpenInNewTab === 'true';
   mapConfig.showBar = mapWidget?.dataset?.mapShowBar === 'true';
+  mapConfig.heatmapMode = mapWidget?.dataset?.mapHeatmapMode === 'true';
 
   return mapConfig;
 }
@@ -199,6 +200,138 @@ async function loadData(mapWidget) {
   } catch (error) {
     return {};
   }
+}
+
+
+// ---------------------------------------------------------------------------
+// Heatmap Mode
+// ---------------------------------------------------------------------------
+
+// Decide whether heatmap mode is actually active, and if so return its ramp.
+//
+// Two conditions must BOTH hold (see design): the template flag requested it,
+// AND the data carries a well-formed ramp. If the flag is on but the ramp is
+// missing or invalid, we warn and return null so the caller falls back to the
+// normal flat rendering — a malformed ramp must never break the map.
+//
+// Returns the validated heatmap config object ({ legendTitle, bands }) when
+// active, or null otherwise.
+function resolveHeatmap(loaded, mapConfig) {
+  if (!mapConfig.heatmapMode) {
+    return null; // not requested; nothing to do
+  }
+
+  const heatmap = loaded?.heatmap;
+  const bands = heatmap?.bands;
+
+  if (!Array.isArray(bands) || bands.length === 0) {
+    console.warn('map-widget: heatmap-mode is on but data has no heatmap.bands; falling back to flat rendering.');
+    return null;
+  }
+
+  // Every band must have numeric min, a numeric-or-null max, and the three
+  // colors. Anything malformed disables heatmap entirely (all-or-nothing keeps
+  // the map in one consistent, tested state rather than a half-colored one).
+  const valid = bands.every(band =>
+    band &&
+    typeof band.min === 'number' &&
+    (band.max === null || typeof band.max === 'number') &&
+    typeof band.fill === 'string' &&
+    typeof band.text === 'string' &&
+    typeof band.stroke === 'string'
+  );
+
+  if (!valid) {
+    console.warn('map-widget: heatmap.bands is malformed; falling back to flat rendering.');
+    return null;
+  }
+
+  return heatmap;
+}
+
+// Find the band a numeric value falls into, using each band's [min, max] range.
+// `max === null` means "and up" (no upper bound), so the top band catches
+// everything above its min.
+//
+// Absent/non-numeric values (a feature with no heatValue) return null, and the
+// caller treats "no band" as "no data" — it does NOT silently fall into the
+// lowest band, which would misrepresent missing data as a real low value.
+function findHeatBand(value, bands) {
+  if (typeof value !== 'number' || !Number.isFinite(value)) {
+    return null;
+  }
+
+  for (const band of bands) {
+    const aboveMin = value >= band.min;
+    const belowMax = band.max === null || value <= band.max;
+    if (aboveMin && belowMax) {
+      return band;
+    }
+  }
+
+  // A finite value that matched no band (e.g. a gap in the ranges, or below the
+  // lowest min). Return null
+  return null;
+}
+
+// Resolve the band a feature should be drawn with, by its code.
+//
+// Reads the feature's heatValue from the loaded records and matches it to a
+// band. Per design, a missing/zero/unmatched value falls back to bands[0] — the
+// "None" band — so authors must always define band 0 as the None band.
+//
+// Assumes context.heatmap is non-null; callers must gate on that first.
+function heatBandFor(context, code) {
+  const bands = context.heatmap.bands;
+  const value = context.features?.[code]?.heatValue;
+  return findHeatBand(value, bands) || bands[0];
+}
+
+// Format a band's numeric range for the legend: "0", "3–4", or "5+".
+function formatHeatmapBandRange(band) {
+  if (band.max === null) {
+    return `${band.min}+`;
+  }
+  if (band.min === band.max) {
+    return `${band.min}`;
+  }
+  return `${band.min}\u2013${band.max}`; // en dash
+}
+
+// Build the heatmap legend: a title plus one swatch+range row per band. Purely
+// derived from the ramp data (band.fill and band.min/max), so it stays in sync
+// with whatever the data authors. Only called when heatmap mode is active.
+function buildHeatmapLegend(parent, heatmap) {
+  const legend = createElement('div', 'usa-map-widget__heatmap-legend');
+  legend.setAttribute('role', 'group');
+  legend.setAttribute('aria-label', heatmap.legendTitle || 'Legend');
+
+  if (heatmap.legendTitle) {
+    const title = createElement('div', 'usa-map-widget__heatmap-legend-title');
+    title.textContent = heatmap.legendTitle;
+    legend.appendChild(title);
+  }
+
+  const items = createElement('div', 'usa-map-widget__heatmap-legend-items');
+
+  for (const band of heatmap.bands) {
+    const item = createElement('div', 'usa-map-widget__heatmap-legend-item');
+
+    const swatch = createElement('span', 'usa-map-widget__heatmap-legend-swatch');
+    swatch.style.backgroundColor = band.fill;
+    swatch.setAttribute('aria-hidden', 'true');
+
+    const label = createElement('span', 'usa-map-widget__heatmap-legend-label');
+    label.textContent = formatHeatmapBandRange(band);
+
+    item.appendChild(swatch);
+    item.appendChild(label);
+    items.appendChild(item);
+  }
+
+  legend.appendChild(items);
+  parent.appendChild(legend);
+  return legend;
 }
 
 // ---------------------------------------------------------------------------
@@ -297,7 +430,7 @@ function showActive(path, mapConfig) {
 }
 
 function hideActive(path, mapConfig) {
-  path.style.fill = mapConfig?.defaultFillColor || '#3498db';
+  path.style.fill = path._heatFill || mapConfig?.defaultFillColor || '#3498db';
 
   // Restore the badge label to its resting color when the badge deactivates.
   const badgeText = path._badgeText;
@@ -368,6 +501,18 @@ function drawFeatures(mapSvg, features, d3PathGenerator, context) {
 
     path.style.stroke = context.mapConfig?.strokeColor || '#ffffff';
     path.style.strokeWidth = context.mapConfig?.strokeWidth || '2';
+
+    // Heatmap mode: paint this state with its band's colors. The resting fill
+    // and stroke come from the band; we stash the fill on the element so
+    // hideActive can restore it after a hover (handled in a later step). When
+    // context.heatmap is null this whole block is skipped and the flat path
+    // (existing behavior) runs unchanged.
+    if (context.heatmap) {
+      const band = heatBandFor(context, feature.properties.code);
+      path.style.fill = band.fill;
+      path.style.stroke = band.stroke;
+      path._heatFill = band.fill;
+    }
 
     path.addEventListener('mouseover', mouseEvent => {
       setActive(context, path, feature);
@@ -636,7 +781,7 @@ function renderCategoryBar(context, record, config) {
 function buildAccessibleControls(mapElement, context) {
   const controls = createElement('div', 'usa-map-widget__sr-controls');
   controls.setAttribute('role', 'group');
-  controls.setAttribute('aria-label', 'Select a state to view its details');
+  controls.setAttribute('aria-label', 'Select a state to view its details. Press enter to navigate to the state page if the page is available');
 
   const sorted = context.focusables.slice().sort((a, b) => a.name.localeCompare(b.name));
 
@@ -1000,6 +1145,10 @@ async function initMapWidget(mapWidget) {
   );
 
   const mapConfig = getMapConfig(mapWidget);
+
+  // null unless heatmap-mode is on AND the data carried a valid ramp (step 3).
+  // When null, every heatmap branch below is skipped and the map renders flat.
+  const heatmap = resolveHeatmap(loaded, mapConfig);
   const panel = buildInfoPanel(mapWidget);
 
   let bar = null;
@@ -1008,6 +1157,10 @@ async function initMapWidget(mapWidget) {
     // position is independent of the info panel's height, matching the legacy
     // widget.
     bar = buildBar(mapElement);
+  }
+
+  if (heatmap) {
+    buildHeatmapLegend(mapElement, heatmap);
   }
 
   let tooltip = null;
@@ -1019,6 +1172,7 @@ async function initMapWidget(mapWidget) {
     panel: panel,
     bar: bar,
     features: features,
+    heatmap: heatmap,
     defaultRecord: loaded.default,
     mapConfig: mapConfig,
     active: null,
