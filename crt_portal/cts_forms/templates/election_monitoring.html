@@ -87,7 +87,7 @@
             data-monitoring-administration-map-panel="{{ admin.key }}"
             {% if not admin.default %}hidden{% endif %}>
             {% include "partials/spinner.html" with label="Loading map…" %}
-            {% include "map_widget/usa_map_widget.html" with data_name="election-monitoring-map-"|add:admin.key show_tooltip="true" map_classes="margin-top-4 margin-bottom-4" map_default_fill_color="#C49A2E" map_active_fill_color="#916D0C" map_stroke_color="#ffffff" badge_text_color="#000000" badge_active_text_color="#ffffff" map_lazy_load="false" %}
+            {% include "map_widget/usa_map_widget.html" with data_name="election-monitoring-map-"|add:admin.key show_tooltip="true" map_classes="margin-top-4 margin-bottom-4" map_default_fill_color="#C49A2E" map_active_fill_color="#162e51" map_stroke_color="#ffffff" badge_text_color="#000000" badge_active_text_color="#ffffff" map_lazy_load="false" heatmap_mode="true" %}
         </div>
         {% endfor %}
     </section>
