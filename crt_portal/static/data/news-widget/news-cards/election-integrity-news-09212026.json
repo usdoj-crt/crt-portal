@@ -1,48 +1,12 @@
 [
     {
         "type": "Video",
-        "thumbnail": "static:img/thumbnails/mullin-noncitizen-voting-crackdown.jpg",
-        "placeholder_thumbnail": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
-        "date": "Sep 19, 2026",
-        "linkUrl": "https://x.com/RapidResponse47/status/2101373789179146466",
-        "linkText": "DHS Secretary Mullin on the noncitizen voting crackdown(opens on X)",
-        "source": "@RapidResponse47 on X"
-    },
-    {
-        "type": "Video",
-        "thumbnail": "static:img/thumbnails/ag-blanche-fraud-crackdown.jpg",
-        "placeholder_thumbnail": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
-        "date": "Sep 15, 2026",
-        "linkUrl": "https://x.com/FoxNews/status/2099925859398463872",
-        "linkText": "Attorney General Blanche on the administration’s fraud crackdown",
-        "source": "@FoxNews on X"
-    },
-    {
-        "type": "Video",
         "thumbnail": "static:img/thumbnails/doj-warns-50-states-noncitizen-voting-illegal.jpg",
         "placeholder_thumbnail": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
         "date": "Jul 10, 2026",
         "linkUrl": "https://x.com/AAGDhillon/status/2075598096365400070",
         "linkText": "DOJ warns all 50 states: allowing noncitizens to vote is illegal",
         "source": "@AAGDhillon on X"
-    },
-    {
-        "type": "Video",
-        "thumbnail": "static:img/thumbnails/mullin-one-illegal-vote-too-many.jpg",
-        "placeholder_thumbnail": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
-        "date": "Jun 14, 2026",
-        "linkUrl": "https://www.youtube.com/watch?v=1tDIm9GDsv4",
-        "linkText": "‘One person voting illegally is one too many’ — Mullin on voter fraud",
-        "source": "Forbes Breaking News on YouTube"
-    },
-    {
-        "type": "Video",
-        "thumbnail": "static:img/thumbnails/mullin-election-integrity.jpg",
-        "placeholder_thumbnail": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
-        "date": "Jul 17, 2026",
-        "linkUrl": "https://x.com/NEWSMAX/status/2078143643962024186",
-        "linkText": "DHS Secretary Mullin on election integrity",
-        "source": "@NEWSMAX on X"
     },
     {
         "type": "Video",
@@ -97,14 +61,5 @@
         "linkUrl": "https://x.com/AAGDhillon/status/2074992379447099681",
         "linkText": "Election officials on notice over noncitizen voting",
         "source": "@AAGDhillon on X"
-    },
-    {
-        "type": "Video",
-        "thumbnail": "static:img/thumbnails/noem-election-security-dhs-press-conference.jpg",
-        "placeholder_thumbnail": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
-        "date": "Feb 13, 2026",
-        "linkUrl": "https://www.youtube.com/watch?v=V3tidQKKsG4",
-        "linkText": "Secretary Noem on election security — full DHS press conference",
-        "source": "DWS News on YouTube"
     }
 ]

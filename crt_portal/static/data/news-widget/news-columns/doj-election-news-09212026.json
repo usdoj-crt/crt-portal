@@ -1,10 +1,5 @@
 [
   {
-    "date": "2026-08-04",
-    "title": "Justice Department Announces Monitoring of Polling Sites in Four Michigan Cities",
-    "link": "https://www.justice.gov/opa/pr/justice-department-announces-monitoring-polling-sites-four-michigan-cities"
-  },
-  {
     "date": "2026-02-26",
     "title": "Justice Department Sues Five Additional States for Failure to Produce Voter Rolls",
     "link": "https://www.justice.gov/opa/pr/justice-department-sues-five-additional-states-failure-produce-voter-rolls"
@@ -23,5 +18,10 @@
     "date": "2025-12-12",
     "title": "Justice Department Sues Four Additional States and One Locality for Failure to Comply with Federal Elections Laws",
     "link": "https://www.justice.gov/opa/pr/justice-department-sues-four-additional-states-and-one-locality-failure-comply-federal"
+  },
+  {
+    "date": "2025-12-02",
+    "title": "Justice Department Sues Six Additional States for Failure to Provide Voter Registration Rolls",
+    "link": "https://www.justice.gov/opa/pr/justice-department-sues-six-additional-states-failure-provide-voter-registration-rolls"
   }
 ]
