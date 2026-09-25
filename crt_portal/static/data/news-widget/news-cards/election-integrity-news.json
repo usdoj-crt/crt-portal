@@ -1,7 +1,16 @@
 [
     {
         "type": "Video",
-        "thumbnail": "static:img/thumbnails/thumb-2099925859398463872.jpg",
+        "thumbnail": "static:img/thumbnails/mullin-noncitizen-voting-crackdown.jpg",
+        "placeholder_thumbnail": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
+        "date": "Sep 19, 2026",
+        "linkUrl": "https://x.com/RapidResponse47/status/2101373789179146466",
+        "linkText": "DHS Secretary Mullin on the noncitizen voting crackdown(opens on X)",
+        "source": "@RapidResponse47 on X"
+    },
+    {
+        "type": "Video",
+        "thumbnail": "static:img/thumbnails/ag-blanche-fraud-crackdown.jpg",
         "placeholder_thumbnail": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
         "date": "Sep 15, 2026",
         "linkUrl": "https://x.com/FoxNews/status/2099925859398463872",
@@ -10,16 +19,7 @@
     },
     {
         "type": "Video",
-        "thumbnail": "static:img/thumbnails/thumb-1tDIm9GDsv4.jpg",
-        "placeholder_thumbnail": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
-        "date": "Jun 14, 2026",
-        "linkUrl": "https://www.youtube.com/watch?v=1tDIm9GDsv4",
-        "linkText": "‘One person voting illegally is one too many’ — Mullin on voter fraud",
-        "source": "Forbes Breaking News on YouTube"
-    },
-    {
-        "type": "Video",
-        "thumbnail": "static:img/thumbnails/thumb-2075598096365400070.jpg",
+        "thumbnail": "static:img/thumbnails/doj-warns-50-states-noncitizen-voting-illegal.jpg",
         "placeholder_thumbnail": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
         "date": "Jul 10, 2026",
         "linkUrl": "https://x.com/AAGDhillon/status/2075598096365400070",
@@ -28,7 +28,16 @@
     },
     {
         "type": "Video",
-        "thumbnail": "static:img/thumbnails/thumb-2078143643962024186.jpg",
+        "thumbnail": "static:img/thumbnails/mullin-one-illegal-vote-too-many.jpg",
+        "placeholder_thumbnail": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
+        "date": "Jun 14, 2026",
+        "linkUrl": "https://www.youtube.com/watch?v=1tDIm9GDsv4",
+        "linkText": "‘One person voting illegally is one too many’ — Mullin on voter fraud",
+        "source": "Forbes Breaking News on YouTube"
+    },
+    {
+        "type": "Video",
+        "thumbnail": "static:img/thumbnails/mullin-election-integrity.jpg",
         "placeholder_thumbnail": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
         "date": "Jul 17, 2026",
         "linkUrl": "https://x.com/NEWSMAX/status/2078143643962024186",
@@ -37,7 +46,7 @@
     },
     {
         "type": "Video",
-        "thumbnail": "static:img/thumbnails/thumb-2075553770696540256.jpg",
+        "thumbnail": "static:img/thumbnails/doj-election-monitors-6-states.jpg",
         "placeholder_thumbnail": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
         "date": "Jul 10, 2026",
         "linkUrl": "https://x.com/AAGDhillon/status/2075553770696540256",
@@ -46,7 +55,7 @@
     },
     {
         "type": "Video",
-        "thumbnail": "static:img/thumbnails/thumb-2075373968937082938.jpg",
+        "thumbnail": "static:img/thumbnails/monitors-15-jurisdictions-6-states.jpg",
         "placeholder_thumbnail": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
         "date": "Jul 09, 2026",
         "linkUrl": "https://x.com/AAGDhillon/status/2075373968937082938",
@@ -55,7 +64,7 @@
     },
     {
         "type": "Video",
-        "thumbnail": "static:img/thumbnails/thumb-2075357230447149129.jpg",
+        "thumbnail": "static:img/thumbnails/officials-crime-allowing-noncitizens-vote.jpg",
         "placeholder_thumbnail": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
         "date": "Jul 09, 2026",
         "linkUrl": "https://x.com/AAGDhillon/status/2075357230447149129",
@@ -64,7 +73,7 @@
     },
     {
         "type": "Video",
-        "thumbnail": "static:img/thumbnails/thumb-2075305236025987131.jpg",
+        "thumbnail": "static:img/thumbnails/dhillon-newsmax-election-monitors-primaries.jpg",
         "placeholder_thumbnail": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
         "date": "Jul 09, 2026",
         "linkUrl": "https://x.com/NEWSMAX/status/2075305236025987131",
@@ -73,7 +82,7 @@
     },
     {
         "type": "Video",
-        "thumbnail": "static:img/thumbnails/thumb-2075214887538565300.jpg",
+        "thumbnail": "static:img/thumbnails/doj-election-hotspots-6-states-primaries.jpg",
         "placeholder_thumbnail": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
         "date": "Jul 09, 2026",
         "linkUrl": "https://x.com/AAGDhillon/status/2075214887538565300",
@@ -82,7 +91,7 @@
     },
     {
         "type": "Video",
-        "thumbnail": "static:img/thumbnails/thumb-2074992379447099681.jpg",
+        "thumbnail": "static:img/thumbnails/election-officials-on-notice-noncitizen-voting.jpg",
         "placeholder_thumbnail": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
         "date": "Jul 08, 2026",
         "linkUrl": "https://x.com/AAGDhillon/status/2074992379447099681",
@@ -91,7 +100,7 @@
     },
     {
         "type": "Video",
-        "thumbnail": "static:img/thumbnails/thumb-V3tidQKKsG4.jpg",
+        "thumbnail": "static:img/thumbnails/noem-election-security-dhs-press-conference.jpg",
         "placeholder_thumbnail": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
         "date": "Feb 13, 2026",
         "linkUrl": "https://www.youtube.com/watch?v=V3tidQKKsG4",
