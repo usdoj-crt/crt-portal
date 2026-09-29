@@ -39,7 +39,8 @@ from django.shortcuts import redirect
 from django.urls import include, path, re_path
 from django.views.generic import TemplateView
 
-from .views import crt_loggedin_view, crt_logout_view, crt_loggedout_view, CrtLoginView, CrtAdminLoginView, election_integrity_view, election_monitoring_view
+from .views import crt_loggedin_view, crt_logout_view, crt_loggedout_view, CrtLoginView, CrtAdminLoginView
+from .views_public import election_integrity_view, election_monitoring_view
 
 environment = os.environ.get('ENV', 'UNDEFINED')
 auth = []

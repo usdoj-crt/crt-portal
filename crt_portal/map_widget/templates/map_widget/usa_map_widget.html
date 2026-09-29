@@ -63,6 +63,12 @@ Optional (fall back to the widget's built-in defaults if omitted):
   show_bar                     When "true", a summary bar renders beneath the map
                                for records that supply `display.bar` blocks.
                                Defaults to "false" (no bar element).
+
+  heatmap_mode                 When "true", the map renders as a banded choropleth
+                               ("heatmap") driven by per-feature numeric values and a
+                               band ramp defined in the map's data. Defaults to "false".
+                               If "true" but the data does not include a valid ramp, the
+                               widget falls back to the normal rendering.
 -->
 {% endcomment %}
 <div
@@ -80,4 +86,5 @@ Optional (fall back to the widget's built-in defaults if omitted):
   data-map-show-tooltip="{{ show_tooltip|default:'false' }}"
   data-map-open-in-new-tab="{{ open_in_new_tab|default:'false' }}"
   data-map-show-bar="{{ show_bar|default:'false' }}"
+  data-map-heatmap-mode="{{ heatmap_mode|default:'false' }}"
 ></div>

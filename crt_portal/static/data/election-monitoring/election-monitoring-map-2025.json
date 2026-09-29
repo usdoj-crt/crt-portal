@@ -1,4 +1,37 @@
 {
+  "heatmap": {
+    "legendTitle": "Shading — monitoring deployments per state:",
+    "bands": [
+      {
+        "min": 0,
+        "max": 0,
+        "fill": "#f7efdc",
+        "text": "#0b1d33",
+        "stroke": "#0b1d33"
+      },
+      {
+        "min": 1,
+        "max": 2,
+        "fill": "#dcbb63",
+        "text": "#0b1d33",
+        "stroke": "#0b1d33"
+      },
+      {
+        "min": 3,
+        "max": 4,
+        "fill": "#c49a2e",
+        "text": "#0b1d33",
+        "stroke": "#0b1d33"
+      },
+      {
+        "min": 5,
+        "max": null,
+        "fill": "#664d09",
+        "text": "#ffffff",
+        "stroke": "#0b1d33"
+      }
+    ]
+  },
   "default": {
     "name": "Trump Administration",
     "display": {
@@ -30,6 +63,7 @@
   "features": {
     "AK": {
       "name": "Alaska",
+      "heatValue": 0,
       "display": {
         "panel": [
           {
@@ -54,6 +88,7 @@
     },
     "AL": {
       "name": "Alabama",
+      "heatValue": 0,
       "display": {
         "panel": [
           {
@@ -78,6 +113,7 @@
     },
     "AR": {
       "name": "Arkansas",
+      "heatValue": 0,
       "display": {
         "panel": [
           {
@@ -102,6 +138,7 @@
     },
     "AZ": {
       "name": "Arizona",
+      "heatValue": 3,
       "display": {
         "panel": [
           {
@@ -114,7 +151,7 @@
           },
           {
             "type": "stat",
-            "value": 0,
+            "value": 3,
             "label": "monitoring deployments"
           },
           {
@@ -126,6 +163,7 @@
     },
     "CA": {
       "name": "California",
+      "heatValue": 5,
       "display": {
         "panel": [
           {
@@ -138,7 +176,7 @@
           },
           {
             "type": "stat",
-            "value": 0,
+            "value": 5,
             "label": "monitoring deployments"
           },
           {
@@ -150,6 +188,7 @@
     },
     "CO": {
       "name": "Colorado",
+      "heatValue": 0,
       "display": {
         "panel": [
           {
@@ -174,6 +213,7 @@
     },
     "CT": {
       "name": "Connecticut",
+      "heatValue": 0,
       "display": {
         "panel": [
           {
@@ -198,6 +238,7 @@
     },
     "DC": {
       "name": "District of Columbia",
+      "heatValue": 0,
       "display": {
         "panel": [
           {
@@ -222,6 +263,7 @@
     },
     "DE": {
       "name": "Delaware",
+      "heatValue": 0,
       "display": {
         "panel": [
           {
@@ -246,6 +288,7 @@
     },
     "FL": {
       "name": "Florida",
+      "heatValue": 0,
       "display": {
         "panel": [
           {
@@ -270,6 +313,7 @@
     },
     "GA": {
       "name": "Georgia",
+      "heatValue": 0,
       "display": {
         "panel": [
           {
@@ -294,6 +338,7 @@
     },
     "HI": {
       "name": "Hawaii",
+      "heatValue": 0,
       "display": {
         "panel": [
           {
@@ -318,6 +363,7 @@
     },
     "IA": {
       "name": "Iowa",
+      "heatValue": 0,
       "display": {
         "panel": [
           {
@@ -342,6 +388,7 @@
     },
     "ID": {
       "name": "Idaho",
+      "heatValue": 0,
       "display": {
         "panel": [
           {
@@ -366,6 +413,7 @@
     },
     "IL": {
       "name": "Illinois",
+      "heatValue": 0,
       "display": {
         "panel": [
           {
@@ -390,6 +438,7 @@
     },
     "IN": {
       "name": "Indiana",
+      "heatValue": 0,
       "display": {
         "panel": [
           {
@@ -414,6 +463,7 @@
     },
     "KS": {
       "name": "Kansas",
+      "heatValue": 0,
       "display": {
         "panel": [
           {
@@ -438,6 +488,7 @@
     },
     "KY": {
       "name": "Kentucky",
+      "heatValue": 0,
       "display": {
         "panel": [
           {
@@ -462,6 +513,7 @@
     },
     "LA": {
       "name": "Louisiana",
+      "heatValue": 0,
       "display": {
         "panel": [
           {
@@ -486,6 +538,7 @@
     },
     "MA": {
       "name": "Massachusetts",
+      "heatValue": 2,
       "display": {
         "panel": [
           {
@@ -498,7 +551,7 @@
           },
           {
             "type": "stat",
-            "value": 0,
+            "value": 2,
             "label": "monitoring deployments"
           },
           {
@@ -510,6 +563,7 @@
     },
     "MD": {
       "name": "Maryland",
+      "heatValue": 1,
       "display": {
         "panel": [
           {
@@ -549,6 +603,7 @@
     },
     "ME": {
       "name": "Maine",
+      "heatValue": 0,
       "display": {
         "panel": [
           {
@@ -573,6 +628,7 @@
     },
     "MI": {
       "name": "Michigan",
+      "heatValue": 3,
       "display": {
         "panel": [
           {
@@ -585,7 +641,7 @@
           },
           {
             "type": "stat",
-            "value": 0,
+            "value": 3,
             "label": "monitoring deployments"
           },
           {
@@ -597,6 +653,7 @@
     },
     "MN": {
       "name": "Minnesota",
+      "heatValue": 2,
       "display": {
         "panel": [
           {
@@ -609,7 +666,7 @@
           },
           {
             "type": "stat",
-            "value": 0,
+            "value": 2,
             "label": "monitoring deployments"
           },
           {
@@ -621,6 +678,7 @@
     },
     "MO": {
       "name": "Missouri",
+      "heatValue": 0,
       "display": {
         "panel": [
           {
@@ -645,6 +703,7 @@
     },
     "MS": {
       "name": "Mississippi",
+      "heatValue": 0,
       "display": {
         "panel": [
           {
@@ -669,6 +728,7 @@
     },
     "MT": {
       "name": "Montana",
+      "heatValue": 0,
       "display": {
         "panel": [
           {
@@ -693,6 +753,7 @@
     },
     "NC": {
       "name": "North Carolina",
+      "heatValue": 0,
       "display": {
         "panel": [
           {
@@ -717,6 +778,7 @@
     },
     "ND": {
       "name": "North Dakota",
+      "heatValue": 0,
       "display": {
         "panel": [
           {
@@ -741,6 +803,7 @@
     },
     "NE": {
       "name": "Nebraska",
+      "heatValue": 0,
       "display": {
         "panel": [
           {
@@ -765,6 +828,7 @@
     },
     "NH": {
       "name": "New Hampshire",
+      "heatValue": 2,
       "display": {
         "panel": [
           {
@@ -777,7 +841,7 @@
           },
           {
             "type": "stat",
-            "value": 0,
+            "value": 2,
             "label": "monitoring deployments"
           },
           {
@@ -789,6 +853,7 @@
     },
     "NJ": {
       "name": "New Jersey",
+      "heatValue": 3,
       "display": {
         "panel": [
           {
@@ -801,7 +866,7 @@
           },
           {
             "type": "stat",
-            "value": 0,
+            "value": 3,
             "label": "monitoring deployments"
           },
           {
@@ -813,6 +878,7 @@
     },
     "NM": {
       "name": "New Mexico",
+      "heatValue": 0,
       "display": {
         "panel": [
           {
@@ -837,6 +903,7 @@
     },
     "NV": {
       "name": "Nevada",
+      "heatValue": 0,
       "display": {
         "panel": [
           {
@@ -861,6 +928,7 @@
     },
     "NY": {
       "name": "New York",
+      "heatValue": 0,
       "display": {
         "panel": [
           {
@@ -885,6 +953,7 @@
     },
     "OH": {
       "name": "Ohio",
+      "heatValue": 0,
       "display": {
         "panel": [
           {
@@ -909,6 +978,7 @@
     },
     "OK": {
       "name": "Oklahoma",
+      "heatValue": 0,
       "display": {
         "panel": [
           {
@@ -933,6 +1003,7 @@
     },
     "OR": {
       "name": "Oregon",
+      "heatValue": 0,
       "display": {
         "panel": [
           {
@@ -957,6 +1028,7 @@
     },
     "PA": {
       "name": "Pennsylvania",
+      "heatValue": 0,
       "display": {
         "panel": [
           {
@@ -981,6 +1053,7 @@
     },
     "RI": {
       "name": "Rhode Island",
+      "heatValue": 0,
       "display": {
         "panel": [
           {
@@ -1005,6 +1078,7 @@
     },
     "SC": {
       "name": "South Carolina",
+      "heatValue": 0,
       "display": {
         "panel": [
           {
@@ -1029,6 +1103,7 @@
     },
     "SD": {
       "name": "South Dakota",
+      "heatValue": 0,
       "display": {
         "panel": [
           {
@@ -1053,6 +1128,7 @@
     },
     "TN": {
       "name": "Tennessee",
+      "heatValue": 0,
       "display": {
         "panel": [
           {
@@ -1077,6 +1153,7 @@
     },
     "TX": {
       "name": "Texas",
+      "heatValue": 0,
       "display": {
         "panel": [
           {
@@ -1101,6 +1178,7 @@
     },
     "UT": {
       "name": "Utah",
+      "heatValue": 0,
       "display": {
         "panel": [
           {
@@ -1125,6 +1203,7 @@
     },
     "VA": {
       "name": "Virginia",
+      "heatValue": 2,
       "display": {
         "panel": [
           {
@@ -1137,7 +1216,7 @@
           },
           {
             "type": "stat",
-            "value": 0,
+            "value": 2,
             "label": "monitoring deployments"
           },
           {
@@ -1149,6 +1228,7 @@
     },
     "VT": {
       "name": "Vermont",
+      "heatValue": 0,
       "display": {
         "panel": [
           {
@@ -1173,6 +1253,7 @@
     },
     "WA": {
       "name": "Washington",
+      "heatValue": 0,
       "display": {
         "panel": [
           {
@@ -1197,6 +1278,7 @@
     },
     "WI": {
       "name": "Wisconsin",
+      "heatValue": 0,
       "display": {
         "panel": [
           {
@@ -1221,6 +1303,7 @@
     },
     "WV": {
       "name": "West Virginia",
+      "heatValue": 0,
       "display": {
         "panel": [
           {
@@ -1245,6 +1328,7 @@
     },
     "WY": {
       "name": "Wyoming",
+      "heatValue": 0,
       "display": {
         "panel": [
           {
