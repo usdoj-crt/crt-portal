@@ -3,5 +3,11 @@
 admin-user:
 	docker-compose run web python /code/crt_portal/manage.py createsuperuser
 
+admin-user-podman:
+	podman compose run web python /code/crt_portal/manage.py createsuperuser
+
 test-data:
 	docker compose run web python /code/crt_portal/manage.py create_mock_reports 1500
+
+test-data-podman:
+	podman compose run web python /code/crt_portal/manage.py create_mock_reports 1500
