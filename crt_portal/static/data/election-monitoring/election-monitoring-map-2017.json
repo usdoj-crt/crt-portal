@@ -18,27 +18,27 @@
       },
       {
         "min": 3,
-        "max": 6,
+        "max": 9,
         "fill": "#dcbb63",
         "text": "#0b1d33",
         "stroke": "#0b1d33"
       },
       {
-        "min": 8,
-        "max": 15,
+        "min": 10,
+        "max": 29,
         "fill": "#c49a2e",
         "text": "#0b1d33",
         "stroke": "#0b1d33"
       },
       {
         "min": 30,
-        "max": 30,
+        "max": 99,
         "fill": "#997515",
         "text": "#ffffff",
         "stroke": "#0b1d33"
       },
       {
-        "min": 55,
+        "min": 100,
         "max": null,
         "fill": "#664d09",
         "text": "#ffffff",
@@ -60,7 +60,7 @@
         {
           "type": "stat",
           "value": 223,
-          "label": "monitoring deployments"
+          "label": "elections monitored"
         },
         {
           "type": "lineItem",
