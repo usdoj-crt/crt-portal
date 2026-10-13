@@ -25,33 +25,6 @@
 </title>
 {% endblock %}
 {% block head %} {% include "map_widget/usa_map_widget_assets.html" %} {% include "news_widget/news_widget_assets.html" %} {% endblock %}
-{% block hero %}
-    <!--<section class="hero-section" aria-labelledby="hero-title">
-        <picture>
-            <source srcset="{% static 'img/trump-hero.webp' %}" type="image/webp">
-            <img class="hero-image" src="{% static 'img/trump-hero.jpg' %}" alt="Election Monitoring Hero Image - President Trump">
-        </picture>
-        <div class="hero-overlay">
-            <div class="hero-text">
-                <h1 id="hero-title" class="hero-text__title font-family-serif">
-                    Election Monitoring
-                </h1>
-                <div class="hero-collab">
-                    <div class="hero-collab__seals" aria-hidden="true">
-                        <span role="img" aria-label="U.S. Department of Justice">
-                            <img class="hero-collab__seal" src="{% static 'img/Seal_of_the_United_States_Department_of_Justice.svg' %}" alt="Seal of the U.S. Department of Justice">
-                        </span>
-                        <span role="img" aria-label="U.S. Department of Homeland Security">
-                            <img class="hero-collab__seal" src="{% static 'img/Seal_of_the_United_States_Department_of_Homeland_Security.svg' %}" alt="Seal of the U.S. Department of Homeland Security">
-                        </span>
-                    </div>
-                    <p class="hero-collab__text measure-5">Federal observers and monitors of the U.S. Department of Justice, Civil Rights Division &mdash; safeguarding compliance with federal voting rights laws.</p>
-                </div>
-            </div>
-        </div>
-    </section>-->
-{% endblock %}
-
 {% block content %}
     <section id="monitoring-map-section" class="enforcement-map padding-x-4 padding-y-4 bg-white" aria-label="Election Monitoring History Section">
         <div class="display-flex flex-column flex-align-center margin-top-6">
