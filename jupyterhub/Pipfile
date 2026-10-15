@@ -17,10 +17,10 @@ numpy = "*"
 pandas = "*"
 plotly = ">=6.8.0"
 exceptiongroup = "*"
-pyzmq = "26.4.0"
+# pyzmq = "26.4.0"
 
 [requires]
-python_version = "3.14.6"
+python_version = "3.14.8"
 
 [pipenv]
 allow_prereleases = true
