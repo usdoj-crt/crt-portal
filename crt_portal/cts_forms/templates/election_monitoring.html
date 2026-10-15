@@ -31,7 +31,9 @@
             <h2 class="font-serif-3xl text-normal text-primary-darker margin-0 text-center">
                 Election Monitoring History
             </h2>
-            <p class="text-base-dark margin-0 text-center">Federal election-monitoring deployments by state</p>
+            <p class="text-base-dark margin-0 text-center">
+                Elections monitored and observed by state, 1965 to October 20, 2026 — select an administration
+            </p>
         </div>
 
         <div class="monitoring-map-controls margin-top-4" role="group" aria-label="Select an administration">
@@ -73,16 +75,80 @@
                     Election Monitoring
                 </h2>
                 <p class="monitoring-stats-section__info-text font-sans-xs text-primary-lighter margin-0 measure-5">
-                    Since the Civil Rights Division was formed in 1957, the Department of Justice has deployed
-                    federal election monitors and observers to safeguard elections nationwide.
+                    Since the Civil Rights Division was formed in 1957,
+                    the Department of Justice has deployed federal
+                    <span class="crt-popover text-base-lightest">
+                        <button
+                            type="button"
+                            class="crt-popover__trigger crt-popover__trigger--link"
+                            id="observers-trigger"
+                            aria-controls="observers-pop"
+                            aria-expanded="false"
+                        >
+                            election monitors and observers
+                        </button>
+                        <span class="crt-popover__content" id="observers-pop" hidden>
+                            <span class="display-block margin-bottom-4">
+                              <strong class="display-block font-body-md">Federal observer:</strong>
+                              <span class="font-body-2xs">
+                                  An employee or contractor of the Office of Personnel Management (OPM)
+                                  authorized by a federal court order to serve as a neutral and impartial
+                                  observer of election-day procedures covered by the order.
+                              </span>
+                            </span>
+                            <span class="display-block">
+                              <strong class="display-block font-body-md">Federal election monitor:</strong>
+                              <span class="font-body-2xs">
+                                  A Department attorney or staff member assigned to assess compliance with
+                                  federal voting rights laws in jurisdictions not currently eligible for
+                                  assignment of federal observers.
+                              </span>
+                            </span>
+                        </span>
+                    </span>
+                    to safeguard elections nationwide. Explore monitoring
+                    activity by administration, between 1965 and
+                    October 20, 2026.
                 </p>
 
                 <!-- Figures -->
                 <div class="monitoring-stats-section__figures">
-                    <div class="width-card-lg display-flex flex-column flex-align-center text-center">
+                    <div class="width-card-xl display-flex flex-column flex-align-center text-center">
                         <span class="election-integrity-number-figure font-family-serif text-bold text-gold">13,868</span>
-                        <span class="font-sans-3xs margin-top-1 text-primary-lighter text-uppercase minh-6">
-                            election monitors/observers 1965-2026
+                        <span class="font-sans-3xs margin-top-1 text-primary-lighter minh-6">
+                            <span class="crt-popover margin-right-05">
+                                <button
+                                    type="button"
+                                    class="crt-popover__trigger crt-popover__trigger--icon margin-0 margin-right-1"
+                                    id="observers-trigger-2"
+                                    aria-controls="observers-pop-2"
+                                    aria-expanded="false"
+                                    aria-label="What are election monitors and observers?"
+                                >
+                                    <span class="crt-popover__icon" aria-hidden="true"></span>
+                                </button>
+                                <span class="crt-popover__content" id="observers-pop-2" hidden>
+                                    <span class="display-block margin-bottom-4">
+                                      <strong class="display-block font-body-md">Federal observer:</strong>
+                                      <span class="font-body-2xs">
+                                          An employee or contractor of the Office of Personnel Management (OPM)
+                                          authorized by a federal court order to serve as a neutral and impartial
+                                          observer of election-day procedures covered by the order.
+                                      </span>
+                                    </span>
+                                    <span class="display-block">
+                                      <strong class="display-block font-body-md">Federal election monitor:</strong>
+                                      <span class="font-body-2xs">
+                                          A Department attorney or staff member assigned to assess compliance with
+                                          federal voting rights laws in jurisdictions not currently eligible for
+                                          assignment of federal observers.
+                                      </span>
+                                    </span>
+                                </span>
+                            </span>
+                            <span class="text-uppercase">
+                                election monitors/observers, 1965–2026
+                            </span>
                         </span>
                     </div>
                     <div class="width-card-lg display-flex flex-column flex-align-center text-center">
@@ -112,7 +178,7 @@
             <h2 class="font-serif-2xl text-normal text-primary-darker margin-0 text-center" id="history-of-monitoring-title">
                 History of Election Monitoring
             </h2>
-            <p class="text-base-dark text-center measure-5 margin-top-2">
+            <p class="text-base-dark text-center measure-6 margin-top-2">
                 Since 1965, the Department of Justice has sent federal observers
                 and Civil Rights Division personnel to monitor elections nationwide,
                 ensuring compliance with the Voting Rights Act and other federal laws.
@@ -124,21 +190,21 @@
         </div>
 
         <div class="monitoring-history-section__stats">
-            <div class="monitoring-history-section__stat padding-x-4">
-                <span class="font-serif-2xl text-bold text-primary-darker display-block">2,608</span>
-                <span class="font-sans-3xs text-base-dark text-uppercase">elections monitored</span>
+            <div class="monitoring-history-section__stat padding-x-4 margin-top-2">
+                <div class="font-serif-2xl text-bold text-primary-darker">2,608</div>
+                <div class="font-sans-3xs text-base-dark margin-top-1">elections monitored</div>
             </div>
-            <div class="monitoring-history-section__stat padding-x-4 border-base border-left-1px">
-                <span class="font-serif-2xl text-bold text-primary-darker display-block">37,412</span>
-                <span class="font-sans-3xs text-base-dark text-uppercase">election monitors/observers deployed</span>
+            <div class="monitoring-history-section__stat padding-x-4 margin-top-2 border-base border-left-1px">
+                <div class="font-serif-2xl text-bold text-primary-darker">37,412</div>
+                <div class="font-sans-3xs text-base-dark margin-top-1">election monitors/observers deployed</div>
             </div>
-            <div class="monitoring-history-section__stat padding-x-4 border-base border-left-1px">
-                <span class="font-serif-2xl text-bold text-primary-darker display-block">44</span>
-                <span class="font-sans-3xs text-base-dark text-uppercase">states covered</span>
+            <div class="monitoring-history-section__stat padding-x-4 margin-top-2 border-base border-left-1px">
+                <div class="font-serif-2xl text-bold text-primary-darker">44</div>
+                <div class="font-sans-3xs text-base-dark margin-top-1">states covered</div>
             </div>
-            <div class="monitoring-history-section__stat padding-x-4 border-base border-left-1px">
-                <span class="font-serif-2xl text-bold text-primary-darker display-block">1965–2026</span>
-                <span class="font-sans-3xs text-base-dark text-uppercase">period on record</span>
+            <div class="monitoring-history-section__stat padding-x-4 margin-top-2 border-base border-left-1px">
+                <div class="font-serif-2xl text-bold text-primary-darker">1965–2026</div>
+                <div class="font-sans-3xs text-base-dark margin-top-1">period on record</div>
             </div>
         </div>
 
@@ -162,4 +228,5 @@
 {% block page_js %}
     {{ block.super }}
     <script src="{% static 'js/election-monitoring-map-switcher.min.js' %}"></script>
+    <script src="{% static 'js/crt_popover.min.js' %}"></script>
 {% endblock %}

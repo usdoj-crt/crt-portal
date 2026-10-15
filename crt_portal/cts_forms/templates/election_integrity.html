@@ -257,5 +257,6 @@
     </section>
 {% endblock %}
 {% block page_js %}
+  {{ block.super }}
   <script src="{% static 'js/crt_popover.min.js' %}"></script>
 {% endblock %}

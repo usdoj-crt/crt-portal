@@ -61,11 +61,30 @@
     content.hidden = false;
     trigger.setAttribute('aria-expanded', 'true');
 
+    // Clamp horizontally so the popover never clips outside the viewport.
+    // The CSS centers it on the trigger (left:50% + translateX(-50%)); when the
+    // trigger is near an edge, nudge the content so it stays fully on-screen.
+    // Only applies to the absolute (desktop) layout; on mobile the popover is
+    // position:fixed and already clamped to the viewport by its own rules.
+    //
+    // Reset any previous inline nudge BEFORE measuring, otherwise we'd be
+    // measuring an already-clamped rect and the clamp would self-cancel on
+    // every subsequent open/close cycle.
+    const margin = 8;
+    if (getComputedStyle(content).position !== 'fixed') {
+      content.style.transform = '';
+      const rect = content.getBoundingClientRect();
+      let dx = 0;
+      if (rect.left < margin) dx = margin - rect.left;
+      else if (rect.right > window.innerWidth - margin)
+        dx = window.innerWidth - margin - rect.right;
+      if (dx !== 0) content.style.transform = `translateX(calc(-50% + ${dx}px))`;
+    }
+
     // Only scroll if the popover actually overflows the viewport.
     // (block:'nearest' is relative to the nearest scrollable ancestor, which
     // can be far up the tree — so we gate it on a real overflow instead.)
     const rect = content.getBoundingClientRect();
-    const margin = 8;
     if (rect.top < margin || rect.bottom > window.innerHeight - margin) {
       content.scrollIntoView({ block: 'nearest' });
     }
