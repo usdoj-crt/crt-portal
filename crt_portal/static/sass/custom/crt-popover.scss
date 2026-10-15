@@ -15,9 +15,23 @@
   max-width: 90vw;
   background: #1b1b1b;
   color: white;
+  text-align: left; // don't inherit page-level alignment
+  line-height: 1.6;  // don't inherit parent's line-height
   border-radius: radius($theme-button-border-radius);
   padding: 0.5rem 1.0rem;
   z-index: 1000;
+
+  // On narrow screens, center the popover on the screen (viewport) rather than
+  // anchoring it to the trigger, so it never clips off either edge.
+  // `position: fixed` + inset centering guarantees it's horizontally centered
+  // on the screen regardless of where the trigger sits.
+  @include at-media-max("mobile-lg") {
+    position: fixed;
+    left: 50%;
+    top: 0.5rem;   // pin near the top of the screen; height-independent
+    transform: translateX(-50%);
+    bottom: auto;
+  }
 
   &[hidden] { display: none; }
 }
@@ -50,8 +64,20 @@
   &--icon {
     width: 1.25rem;
     height: 1.25rem;
-    margin-left: 0.25rem;
     vertical-align: middle;
-    .crt-popover__icon { width: 100%; height: 100%; }
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    .crt-popover__icon {
+      width: 100%;
+      height: 100%;
+      display: inline-block;
+      // USWDS usa-icons ship as black SVGs; mask them to currentColor
+      // so the icon picks up the surrounding text color (gold on navy).
+      background-color: currentColor;
+      -webkit-mask: url("/static/img/usa-icons/info.svg") no-repeat center / contain;
+      mask: url("/static/img/usa-icons/info.svg") no-repeat center / contain;
+    }
   }
 }
