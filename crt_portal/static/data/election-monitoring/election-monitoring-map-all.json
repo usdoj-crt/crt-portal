@@ -1,6 +1,6 @@
 {
   "heatmap": {
-    "legendTitle": "Shading — monitoring deployments per state:",
+    "legendTitle": "Shading — elections monitored per state:",
     "bands": [
       {
         "min": 0,
@@ -10,35 +10,35 @@
         "stroke": "#0b1d33"
       },
       {
-        "min": 2,
-        "max": 11,
+        "min": 1,
+        "max": 2,
         "fill": "#ecd9a6",
         "text": "#0b1d33",
         "stroke": "#0b1d33"
       },
       {
-        "min": 13,
-        "max": 36,
+        "min": 3,
+        "max": 9,
         "fill": "#dcbb63",
         "text": "#0b1d33",
         "stroke": "#0b1d33"
       },
       {
-        "min": 39,
-        "max": 56,
+        "min": 10,
+        "max": 29,
         "fill": "#c49a2e",
         "text": "#0b1d33",
         "stroke": "#0b1d33"
       },
       {
-        "min": 61,
-        "max": 75,
+        "min": 30,
+        "max": 99,
         "fill": "#997515",
         "text": "#ffffff",
         "stroke": "#0b1d33"
       },
       {
-        "min": 85,
+        "min": 100,
         "max": null,
         "fill": "#664d09",
         "text": "#ffffff",
@@ -59,23 +59,23 @@
         },
         {
           "type": "stat",
-          "value": 1058,
-          "label": "monitoring deployments"
+          "value": "2,608",
+          "label": "elections monitored"
         },
         {
           "type": "lineItem",
-          "label": "Attorneys & observers",
-          "value": 4445
+          "label": "Election monitors/observers",
+          "value": "37,412"
         },
         {
           "type": "lineItem",
           "label": "States covered",
-          "value": 42
+          "value": "44"
         },
         {
           "type": "lineItem",
           "label": "Counties monitored",
-          "value": 289
+          "value": "411"
         },
         {
           "type": "note",
@@ -84,13 +84,17 @@
               "text": "Most monitored: "
             },
             {
-              "text": "New York",
+              "text": "Mississippi",
               "emphasis": true
             },
             {
-              "text": " (97)"
+              "text": " (674)"
             }
           ]
+        },
+        {
+          "type": "note",
+          "value": "Headcount not reported for 7 of these 2,608 elections."
         }
       ]
     }
@@ -98,7 +102,7 @@
   "features": {
     "AK": {
       "name": "Alaska",
-      "heatValue": 24,
+      "heatValue": 57,
       "display": {
         "panel": [
           {
@@ -111,23 +115,23 @@
           },
           {
             "type": "stat",
-            "value": 24,
-            "label": "monitoring deployments"
+            "value": "57",
+            "label": "elections monitored"
           },
           {
             "type": "lineItem",
-            "label": "Attorneys & observers",
-            "value": 36
+            "label": "Election monitors/observers",
+            "value": "346"
           },
           {
             "type": "lineItem",
             "label": "Counties monitored",
-            "value": 7
+            "value": "8"
           },
           {
             "type": "lineItem",
             "label": "Years monitored",
-            "value": 7
+            "value": "11"
           },
           {
             "type": "note",
@@ -138,7 +142,7 @@
     },
     "AL": {
       "name": "Alabama",
-      "heatValue": 10,
+      "heatValue": 200,
       "display": {
         "panel": [
           {
@@ -151,27 +155,27 @@
           },
           {
             "type": "stat",
-            "value": 10,
-            "label": "monitoring deployments"
+            "value": "200",
+            "label": "elections monitored"
           },
           {
             "type": "lineItem",
-            "label": "Attorneys & observers",
-            "value": 21
+            "label": "Election monitors/observers",
+            "value": "5,293"
           },
           {
             "type": "lineItem",
             "label": "Counties monitored",
-            "value": 5
+            "value": "24"
           },
           {
             "type": "lineItem",
             "label": "Years monitored",
-            "value": 7
+            "value": "32"
           },
           {
             "type": "note",
-            "value": "Monitored 2000–2013"
+            "value": "Monitored 1966–2016"
           }
         ]
       }
@@ -191,23 +195,23 @@
           },
           {
             "type": "stat",
-            "value": 4,
-            "label": "monitoring deployments"
+            "value": "4",
+            "label": "elections monitored"
           },
           {
             "type": "lineItem",
-            "label": "Attorneys & observers",
-            "value": 15
+            "label": "Election monitors/observers",
+            "value": "15"
           },
           {
             "type": "lineItem",
             "label": "Counties monitored",
-            "value": 1
+            "value": "1"
           },
           {
             "type": "lineItem",
             "label": "Years monitored",
-            "value": 2
+            "value": "2"
           },
           {
             "type": "note",
@@ -218,7 +222,7 @@
     },
     "AZ": {
       "name": "Arizona",
-      "heatValue": 45,
+      "heatValue": 111,
       "display": {
         "panel": [
           {
@@ -231,34 +235,34 @@
           },
           {
             "type": "stat",
-            "value": 45,
-            "label": "monitoring deployments"
+            "value": "111",
+            "label": "elections monitored"
           },
           {
             "type": "lineItem",
-            "label": "Attorneys & observers",
-            "value": 258
+            "label": "Election monitors/observers",
+            "value": "1,983"
           },
           {
             "type": "lineItem",
             "label": "Counties monitored",
-            "value": 17
+            "value": "17"
           },
           {
             "type": "lineItem",
             "label": "Years monitored",
-            "value": 13
+            "value": "26"
           },
           {
             "type": "note",
-            "value": "Monitored 2000–2024"
+            "value": "Monitored 1986–2026"
           }
         ]
       }
     },
     "CA": {
       "name": "California",
-      "heatValue": 61,
+      "heatValue": 109,
       "display": {
         "panel": [
           {
@@ -271,27 +275,31 @@
           },
           {
             "type": "stat",
-            "value": 61,
-            "label": "monitoring deployments"
+            "value": "109",
+            "label": "elections monitored"
           },
           {
             "type": "lineItem",
-            "label": "Attorneys & observers",
-            "value": 302
+            "label": "Election monitors/observers",
+            "value": "1,945"
           },
           {
             "type": "lineItem",
             "label": "Counties monitored",
-            "value": 18
+            "value": "20"
           },
           {
             "type": "lineItem",
             "label": "Years monitored",
-            "value": 19
+            "value": "26"
           },
           {
             "type": "note",
-            "value": "Monitored 2000–2024"
+            "value": "Headcount not reported for 5 of these 109 elections."
+          },
+          {
+            "type": "note",
+            "value": "Monitored 1978–2025"
           }
         ]
       }
@@ -311,23 +319,23 @@
           },
           {
             "type": "stat",
-            "value": 8,
-            "label": "monitoring deployments"
+            "value": "8",
+            "label": "elections monitored"
           },
           {
             "type": "lineItem",
-            "label": "Attorneys & observers",
-            "value": 43
+            "label": "Election monitors/observers",
+            "value": "43"
           },
           {
             "type": "lineItem",
             "label": "Counties monitored",
-            "value": 5
+            "value": "5"
           },
           {
             "type": "lineItem",
             "label": "Years monitored",
-            "value": 4
+            "value": "4"
           },
           {
             "type": "note",
@@ -351,23 +359,23 @@
           },
           {
             "type": "stat",
-            "value": 9,
-            "label": "monitoring deployments"
+            "value": "9",
+            "label": "elections monitored"
           },
           {
             "type": "lineItem",
-            "label": "Attorneys & observers",
-            "value": 15
+            "label": "Election monitors/observers",
+            "value": "15"
           },
           {
             "type": "lineItem",
             "label": "Counties monitored",
-            "value": 3
+            "value": "3"
           },
           {
             "type": "lineItem",
             "label": "Years monitored",
-            "value": 3
+            "value": "3"
           },
           {
             "type": "note",
@@ -391,8 +399,8 @@
           },
           {
             "type": "stat",
-            "value": 0,
-            "label": "monitoring deployments"
+            "value": "0",
+            "label": "elections monitored"
           },
           {
             "type": "note",
@@ -416,8 +424,8 @@
           },
           {
             "type": "stat",
-            "value": 0,
-            "label": "monitoring deployments"
+            "value": "0",
+            "label": "elections monitored"
           },
           {
             "type": "note",
@@ -428,7 +436,7 @@
     },
     "FL": {
       "name": "Florida",
-      "heatValue": 85,
+      "heatValue": 86,
       "display": {
         "panel": [
           {
@@ -441,34 +449,34 @@
           },
           {
             "type": "stat",
-            "value": 85,
-            "label": "monitoring deployments"
+            "value": "86",
+            "label": "elections monitored"
           },
           {
             "type": "lineItem",
-            "label": "Attorneys & observers",
-            "value": 514
+            "label": "Election monitors/observers",
+            "value": "520"
           },
           {
             "type": "lineItem",
             "label": "Counties monitored",
-            "value": 17
+            "value": "17"
           },
           {
             "type": "lineItem",
             "label": "Years monitored",
-            "value": 16
+            "value": "17"
           },
           {
             "type": "note",
-            "value": "Monitored 2001–2024"
+            "value": "Monitored 2001–2026"
           }
         ]
       }
     },
     "GA": {
       "name": "Georgia",
-      "heatValue": 67,
+      "heatValue": 163,
       "display": {
         "panel": [
           {
@@ -481,27 +489,27 @@
           },
           {
             "type": "stat",
-            "value": 67,
-            "label": "monitoring deployments"
+            "value": "163",
+            "label": "elections monitored"
           },
           {
             "type": "lineItem",
-            "label": "Attorneys & observers",
-            "value": 251
+            "label": "Election monitors/observers",
+            "value": "1,634"
           },
           {
             "type": "lineItem",
             "label": "Counties monitored",
-            "value": 19
+            "value": "44"
           },
           {
             "type": "lineItem",
             "label": "Years monitored",
-            "value": 15
+            "value": "40"
           },
           {
             "type": "note",
-            "value": "Monitored 2000–2024"
+            "value": "Monitored 1966–2024"
           }
         ]
       }
@@ -521,23 +529,23 @@
           },
           {
             "type": "stat",
-            "value": 5,
-            "label": "monitoring deployments"
+            "value": "5",
+            "label": "elections monitored"
           },
           {
             "type": "lineItem",
-            "label": "Attorneys & observers",
-            "value": 14
+            "label": "Election monitors/observers",
+            "value": "14"
           },
           {
             "type": "lineItem",
             "label": "Counties monitored",
-            "value": 2
+            "value": "2"
           },
           {
             "type": "lineItem",
             "label": "Years monitored",
-            "value": 3
+            "value": "3"
           },
           {
             "type": "note",
@@ -561,23 +569,23 @@
           },
           {
             "type": "stat",
-            "value": 3,
-            "label": "monitoring deployments"
+            "value": "3",
+            "label": "elections monitored"
           },
           {
             "type": "lineItem",
-            "label": "Attorneys & observers",
-            "value": 9
+            "label": "Election monitors/observers",
+            "value": "9"
           },
           {
             "type": "lineItem",
             "label": "Counties monitored",
-            "value": 2
+            "value": "2"
           },
           {
             "type": "lineItem",
             "label": "Years monitored",
-            "value": 3
+            "value": "3"
           },
           {
             "type": "note",
@@ -601,8 +609,8 @@
           },
           {
             "type": "stat",
-            "value": 0,
-            "label": "monitoring deployments"
+            "value": "0",
+            "label": "elections monitored"
           },
           {
             "type": "note",
@@ -613,7 +621,7 @@
     },
     "IL": {
       "name": "Illinois",
-      "heatValue": 23,
+      "heatValue": 32,
       "display": {
         "panel": [
           {
@@ -626,34 +634,34 @@
           },
           {
             "type": "stat",
-            "value": 23,
-            "label": "monitoring deployments"
+            "value": "32",
+            "label": "elections monitored"
           },
           {
             "type": "lineItem",
-            "label": "Attorneys & observers",
-            "value": 129
+            "label": "Election monitors/observers",
+            "value": "400"
           },
           {
             "type": "lineItem",
             "label": "Counties monitored",
-            "value": 3
+            "value": "3"
           },
           {
             "type": "lineItem",
             "label": "Years monitored",
-            "value": 10
+            "value": "16"
           },
           {
             "type": "note",
-            "value": "Monitored 2003–2020"
+            "value": "Monitored 2001–2020"
           }
         ]
       }
     },
     "IN": {
       "name": "Indiana",
-      "heatValue": 4,
+      "heatValue": 7,
       "display": {
         "panel": [
           {
@@ -666,23 +674,23 @@
           },
           {
             "type": "stat",
-            "value": 4,
-            "label": "monitoring deployments"
+            "value": "7",
+            "label": "elections monitored"
           },
           {
             "type": "lineItem",
-            "label": "Attorneys & observers",
-            "value": 15
+            "label": "Election monitors/observers",
+            "value": "161"
           },
           {
             "type": "lineItem",
             "label": "Counties monitored",
-            "value": 3
+            "value": "3"
           },
           {
             "type": "lineItem",
             "label": "Years monitored",
-            "value": 4
+            "value": "4"
           },
           {
             "type": "note",
@@ -706,23 +714,23 @@
           },
           {
             "type": "stat",
-            "value": 13,
-            "label": "monitoring deployments"
+            "value": "13",
+            "label": "elections monitored"
           },
           {
             "type": "lineItem",
-            "label": "Attorneys & observers",
-            "value": 34
+            "label": "Election monitors/observers",
+            "value": "34"
           },
           {
             "type": "lineItem",
             "label": "Counties monitored",
-            "value": 3
+            "value": "3"
           },
           {
             "type": "lineItem",
             "label": "Years monitored",
-            "value": 8
+            "value": "8"
           },
           {
             "type": "note",
@@ -746,23 +754,23 @@
           },
           {
             "type": "stat",
-            "value": 2,
-            "label": "monitoring deployments"
+            "value": "2",
+            "label": "elections monitored"
           },
           {
             "type": "lineItem",
-            "label": "Attorneys & observers",
-            "value": 4
+            "label": "Election monitors/observers",
+            "value": "4"
           },
           {
             "type": "lineItem",
             "label": "Counties monitored",
-            "value": 1
+            "value": "1"
           },
           {
             "type": "lineItem",
             "label": "Years monitored",
-            "value": 2
+            "value": "2"
           },
           {
             "type": "note",
@@ -773,7 +781,7 @@
     },
     "LA": {
       "name": "Louisiana",
-      "heatValue": 27,
+      "heatValue": 101,
       "display": {
         "panel": [
           {
@@ -786,34 +794,34 @@
           },
           {
             "type": "stat",
-            "value": 27,
-            "label": "monitoring deployments"
+            "value": "101",
+            "label": "elections monitored"
           },
           {
             "type": "lineItem",
-            "label": "Attorneys & observers",
-            "value": 172
+            "label": "Election monitors/observers",
+            "value": "1,623"
           },
           {
             "type": "lineItem",
             "label": "Counties monitored",
-            "value": 10
+            "value": "21"
           },
           {
             "type": "lineItem",
             "label": "Years monitored",
-            "value": 9
+            "value": "27"
           },
           {
             "type": "note",
-            "value": "Monitored 2002–2016"
+            "value": "Monitored 1966–2016"
           }
         ]
       }
     },
     "MA": {
       "name": "Massachusetts",
-      "heatValue": 44,
+      "heatValue": 66,
       "display": {
         "panel": [
           {
@@ -826,27 +834,27 @@
           },
           {
             "type": "stat",
-            "value": 44,
-            "label": "monitoring deployments"
+            "value": "66",
+            "label": "elections monitored"
           },
           {
             "type": "lineItem",
-            "label": "Attorneys & observers",
-            "value": 111
+            "label": "Election monitors/observers",
+            "value": "839"
           },
           {
             "type": "lineItem",
             "label": "Counties monitored",
-            "value": 7
+            "value": "7"
           },
           {
             "type": "lineItem",
             "label": "Years monitored",
-            "value": 12
+            "value": "15"
           },
           {
             "type": "note",
-            "value": "Monitored 2001–2024"
+            "value": "Monitored 2001–2026"
           }
         ]
       }
@@ -866,23 +874,23 @@
           },
           {
             "type": "stat",
-            "value": 9,
-            "label": "monitoring deployments"
+            "value": "9",
+            "label": "elections monitored"
           },
           {
             "type": "lineItem",
-            "label": "Attorneys & observers",
-            "value": 51
+            "label": "Election monitors/observers",
+            "value": "51"
           },
           {
             "type": "lineItem",
             "label": "Counties monitored",
-            "value": 3
+            "value": "3"
           },
           {
             "type": "lineItem",
             "label": "Years monitored",
-            "value": 5
+            "value": "5"
           },
           {
             "type": "note",
@@ -906,8 +914,8 @@
           },
           {
             "type": "stat",
-            "value": 0,
-            "label": "monitoring deployments"
+            "value": "0",
+            "label": "elections monitored"
           },
           {
             "type": "note",
@@ -918,7 +926,7 @@
     },
     "MI": {
       "name": "Michigan",
-      "heatValue": 36,
+      "heatValue": 53,
       "display": {
         "panel": [
           {
@@ -931,34 +939,34 @@
           },
           {
             "type": "stat",
-            "value": 36,
-            "label": "monitoring deployments"
+            "value": "53",
+            "label": "elections monitored"
           },
           {
             "type": "lineItem",
-            "label": "Attorneys & observers",
-            "value": 124
+            "label": "Election monitors/observers",
+            "value": "526"
           },
           {
             "type": "lineItem",
             "label": "Counties monitored",
-            "value": 9
+            "value": "10"
           },
           {
             "type": "lineItem",
             "label": "Years monitored",
-            "value": 13
+            "value": "18"
           },
           {
             "type": "note",
-            "value": "Monitored 2000–2024"
+            "value": "Monitored 2000–2026"
           }
         ]
       }
     },
     "MN": {
       "name": "Minnesota",
-      "heatValue": 8,
+      "heatValue": 10,
       "display": {
         "panel": [
           {
@@ -971,27 +979,27 @@
           },
           {
             "type": "stat",
-            "value": 8,
-            "label": "monitoring deployments"
+            "value": "10",
+            "label": "elections monitored"
           },
           {
             "type": "lineItem",
-            "label": "Attorneys & observers",
-            "value": 45
+            "label": "Election monitors/observers",
+            "value": "60"
           },
           {
             "type": "lineItem",
             "label": "Counties monitored",
-            "value": 2
+            "value": "2"
           },
           {
             "type": "lineItem",
             "label": "Years monitored",
-            "value": 4
+            "value": "5"
           },
           {
             "type": "note",
-            "value": "Monitored 2004–2024"
+            "value": "Monitored 2004–2026"
           }
         ]
       }
@@ -1011,18 +1019,23 @@
           },
           {
             "type": "stat",
-            "value": 6,
-            "label": "monitoring deployments"
+            "value": "6",
+            "label": "elections monitored"
           },
           {
             "type": "lineItem",
-            "label": "Attorneys & observers",
-            "value": 21
+            "label": "Election monitors/observers",
+            "value": "21"
+          },
+          {
+            "type": "lineItem",
+            "label": "Counties monitored",
+            "value": "0"
           },
           {
             "type": "lineItem",
             "label": "Years monitored",
-            "value": 5
+            "value": "5"
           },
           {
             "type": "note",
@@ -1033,7 +1046,7 @@
     },
     "MS": {
       "name": "Mississippi",
-      "heatValue": 55,
+      "heatValue": 674,
       "display": {
         "panel": [
           {
@@ -1046,27 +1059,27 @@
           },
           {
             "type": "stat",
-            "value": 55,
-            "label": "monitoring deployments"
+            "value": "674",
+            "label": "elections monitored"
           },
           {
             "type": "lineItem",
-            "label": "Attorneys & observers",
-            "value": 131
+            "label": "Election monitors/observers",
+            "value": "11,940"
           },
           {
             "type": "lineItem",
             "label": "Counties monitored",
-            "value": 21
+            "value": "55"
           },
           {
             "type": "lineItem",
             "label": "Years monitored",
-            "value": 16
+            "value": "50"
           },
           {
             "type": "note",
-            "value": "Monitored 2000–2023"
+            "value": "Monitored 1966–2023"
           }
         ]
       }
@@ -1086,23 +1099,23 @@
           },
           {
             "type": "stat",
-            "value": 2,
-            "label": "monitoring deployments"
+            "value": "2",
+            "label": "elections monitored"
           },
           {
             "type": "lineItem",
-            "label": "Attorneys & observers",
-            "value": 5
+            "label": "Election monitors/observers",
+            "value": "5"
           },
           {
             "type": "lineItem",
             "label": "Counties monitored",
-            "value": 2
+            "value": "2"
           },
           {
             "type": "lineItem",
             "label": "Years monitored",
-            "value": 2
+            "value": "2"
           },
           {
             "type": "note",
@@ -1113,7 +1126,7 @@
     },
     "NC": {
       "name": "North Carolina",
-      "heatValue": 23,
+      "heatValue": 29,
       "display": {
         "panel": [
           {
@@ -1126,27 +1139,27 @@
           },
           {
             "type": "stat",
-            "value": 23,
-            "label": "monitoring deployments"
+            "value": "29",
+            "label": "elections monitored"
           },
           {
             "type": "lineItem",
-            "label": "Attorneys & observers",
-            "value": 125
+            "label": "Election monitors/observers",
+            "value": "315"
           },
           {
             "type": "lineItem",
             "label": "Counties monitored",
-            "value": 11
+            "value": "12"
           },
           {
             "type": "lineItem",
             "label": "Years monitored",
-            "value": 9
+            "value": "13"
           },
           {
             "type": "note",
-            "value": "Monitored 2004–2024"
+            "value": "Monitored 1984–2024"
           }
         ]
       }
@@ -1166,23 +1179,23 @@
           },
           {
             "type": "stat",
-            "value": 4,
-            "label": "monitoring deployments"
+            "value": "4",
+            "label": "elections monitored"
           },
           {
             "type": "lineItem",
-            "label": "Attorneys & observers",
-            "value": 11
+            "label": "Election monitors/observers",
+            "value": "11"
           },
           {
             "type": "lineItem",
             "label": "Counties monitored",
-            "value": 2
+            "value": "2"
           },
           {
             "type": "lineItem",
             "label": "Years monitored",
-            "value": 2
+            "value": "2"
           },
           {
             "type": "note",
@@ -1193,7 +1206,7 @@
     },
     "NE": {
       "name": "Nebraska",
-      "heatValue": 11,
+      "heatValue": 15,
       "display": {
         "panel": [
           {
@@ -1206,23 +1219,23 @@
           },
           {
             "type": "stat",
-            "value": 11,
-            "label": "monitoring deployments"
+            "value": "15",
+            "label": "elections monitored"
           },
           {
             "type": "lineItem",
-            "label": "Attorneys & observers",
-            "value": 32
+            "label": "Election monitors/observers",
+            "value": "65"
           },
           {
             "type": "lineItem",
             "label": "Counties monitored",
-            "value": 2
+            "value": "2"
           },
           {
             "type": "lineItem",
             "label": "Years monitored",
-            "value": 7
+            "value": "7"
           },
           {
             "type": "note",
@@ -1233,7 +1246,7 @@
     },
     "NH": {
       "name": "New Hampshire",
-      "heatValue": 0,
+      "heatValue": 2,
       "display": {
         "panel": [
           {
@@ -1246,19 +1259,34 @@
           },
           {
             "type": "stat",
-            "value": 0,
-            "label": "monitoring deployments"
+            "value": "2",
+            "label": "elections monitored"
+          },
+          {
+            "type": "lineItem",
+            "label": "Election monitors/observers",
+            "value": "4"
+          },
+          {
+            "type": "lineItem",
+            "label": "Counties monitored",
+            "value": "1"
+          },
+          {
+            "type": "lineItem",
+            "label": "Years monitored",
+            "value": "1"
           },
           {
             "type": "note",
-            "value": "No monitoring on record for this period"
+            "value": "Monitored in 2026"
           }
         ]
       }
     },
     "NJ": {
       "name": "New Jersey",
-      "heatValue": 45,
+      "heatValue": 76,
       "display": {
         "panel": [
           {
@@ -1271,34 +1299,38 @@
           },
           {
             "type": "stat",
-            "value": 45,
-            "label": "monitoring deployments"
+            "value": "76",
+            "label": "elections monitored"
           },
           {
             "type": "lineItem",
-            "label": "Attorneys & observers",
-            "value": 283
+            "label": "Election monitors/observers",
+            "value": "970"
           },
           {
             "type": "lineItem",
             "label": "Counties monitored",
-            "value": 7
+            "value": "7"
           },
           {
             "type": "lineItem",
             "label": "Years monitored",
-            "value": 18
+            "value": "24"
           },
           {
             "type": "note",
-            "value": "Monitored 2002–2024"
+            "value": "Headcount not reported for 2 of these 76 elections."
+          },
+          {
+            "type": "note",
+            "value": "Monitored 1999–2026"
           }
         ]
       }
     },
     "NM": {
       "name": "New Mexico",
-      "heatValue": 20,
+      "heatValue": 111,
       "display": {
         "panel": [
           {
@@ -1311,34 +1343,34 @@
           },
           {
             "type": "stat",
-            "value": 20,
-            "label": "monitoring deployments"
+            "value": "111",
+            "label": "elections monitored"
           },
           {
             "type": "lineItem",
-            "label": "Attorneys & observers",
-            "value": 77
+            "label": "Election monitors/observers",
+            "value": "1,599"
           },
           {
             "type": "lineItem",
             "label": "Counties monitored",
-            "value": 6
+            "value": "9"
           },
           {
             "type": "lineItem",
             "label": "Years monitored",
-            "value": 10
+            "value": "27"
           },
           {
             "type": "note",
-            "value": "Monitored 2000–2024"
+            "value": "Monitored 1986–2024"
           }
         ]
       }
     },
     "NV": {
       "name": "Nevada",
-      "heatValue": 9,
+      "heatValue": 10,
       "display": {
         "panel": [
           {
@@ -1351,34 +1383,34 @@
           },
           {
             "type": "stat",
-            "value": 9,
-            "label": "monitoring deployments"
+            "value": "10",
+            "label": "elections monitored"
           },
           {
             "type": "lineItem",
-            "label": "Attorneys & observers",
-            "value": 47
+            "label": "Election monitors/observers",
+            "value": "50"
           },
           {
             "type": "lineItem",
             "label": "Counties monitored",
-            "value": 3
+            "value": "4"
           },
           {
             "type": "lineItem",
             "label": "Years monitored",
-            "value": 5
+            "value": "6"
           },
           {
             "type": "note",
-            "value": "Monitored 2004–2024"
+            "value": "Monitored 1978–2024"
           }
         ]
       }
     },
     "NY": {
       "name": "New York",
-      "heatValue": 97,
+      "heatValue": 172,
       "display": {
         "panel": [
           {
@@ -1391,34 +1423,34 @@
           },
           {
             "type": "stat",
-            "value": 97,
-            "label": "monitoring deployments"
+            "value": "172",
+            "label": "elections monitored"
           },
           {
             "type": "lineItem",
-            "label": "Attorneys & observers",
-            "value": 281
+            "label": "Election monitors/observers",
+            "value": "1,786"
           },
           {
             "type": "lineItem",
             "label": "Counties monitored",
-            "value": 10
+            "value": "11"
           },
           {
             "type": "lineItem",
             "label": "Years monitored",
-            "value": 19
+            "value": "31"
           },
           {
             "type": "note",
-            "value": "Monitored 2001–2024"
+            "value": "Monitored 1985–2024"
           }
         ]
       }
     },
     "OH": {
       "name": "Ohio",
-      "heatValue": 27,
+      "heatValue": 36,
       "display": {
         "panel": [
           {
@@ -1431,23 +1463,23 @@
           },
           {
             "type": "stat",
-            "value": 27,
-            "label": "monitoring deployments"
+            "value": "36",
+            "label": "elections monitored"
           },
           {
             "type": "lineItem",
-            "label": "Attorneys & observers",
-            "value": 128
+            "label": "Election monitors/observers",
+            "value": "414"
           },
           {
             "type": "lineItem",
             "label": "Counties monitored",
-            "value": 5
+            "value": "5"
           },
           {
             "type": "lineItem",
             "label": "Years monitored",
-            "value": 13
+            "value": "15"
           },
           {
             "type": "note",
@@ -1471,23 +1503,23 @@
           },
           {
             "type": "stat",
-            "value": 5,
-            "label": "monitoring deployments"
+            "value": "5",
+            "label": "elections monitored"
           },
           {
             "type": "lineItem",
-            "label": "Attorneys & observers",
-            "value": 8
+            "label": "Election monitors/observers",
+            "value": "8"
           },
           {
             "type": "lineItem",
             "label": "Counties monitored",
-            "value": 4
+            "value": "4"
           },
           {
             "type": "lineItem",
             "label": "Years monitored",
-            "value": 2
+            "value": "2"
           },
           {
             "type": "note",
@@ -1511,8 +1543,8 @@
           },
           {
             "type": "stat",
-            "value": 0,
-            "label": "monitoring deployments"
+            "value": "0",
+            "label": "elections monitored"
           },
           {
             "type": "note",
@@ -1523,7 +1555,7 @@
     },
     "PA": {
       "name": "Pennsylvania",
-      "heatValue": 39,
+      "heatValue": 48,
       "display": {
         "panel": [
           {
@@ -1536,23 +1568,23 @@
           },
           {
             "type": "stat",
-            "value": 39,
-            "label": "monitoring deployments"
+            "value": "48",
+            "label": "elections monitored"
           },
           {
             "type": "lineItem",
-            "label": "Attorneys & observers",
-            "value": 282
+            "label": "Election monitors/observers",
+            "value": "794"
           },
           {
             "type": "lineItem",
             "label": "Counties monitored",
-            "value": 7
+            "value": "7"
           },
           {
             "type": "lineItem",
             "label": "Years monitored",
-            "value": 15
+            "value": "17"
           },
           {
             "type": "note",
@@ -1563,7 +1595,7 @@
     },
     "RI": {
       "name": "Rhode Island",
-      "heatValue": 18,
+      "heatValue": 21,
       "display": {
         "panel": [
           {
@@ -1576,34 +1608,34 @@
           },
           {
             "type": "stat",
-            "value": 18,
-            "label": "monitoring deployments"
+            "value": "21",
+            "label": "elections monitored"
           },
           {
             "type": "lineItem",
-            "label": "Attorneys & observers",
-            "value": 64
+            "label": "Election monitors/observers",
+            "value": "144"
           },
           {
             "type": "lineItem",
             "label": "Counties monitored",
-            "value": 1
+            "value": "1"
           },
           {
             "type": "lineItem",
             "label": "Years monitored",
-            "value": 5
+            "value": "6"
           },
           {
             "type": "note",
-            "value": "Monitored 2016–2024"
+            "value": "Monitored 2016–2026"
           }
         ]
       }
     },
     "SC": {
       "name": "South Carolina",
-      "heatValue": 20,
+      "heatValue": 62,
       "display": {
         "panel": [
           {
@@ -1616,34 +1648,34 @@
           },
           {
             "type": "stat",
-            "value": 20,
-            "label": "monitoring deployments"
+            "value": "62",
+            "label": "elections monitored"
           },
           {
             "type": "lineItem",
-            "label": "Attorneys & observers",
-            "value": 58
+            "label": "Election monitors/observers",
+            "value": "1,078"
           },
           {
             "type": "lineItem",
             "label": "Counties monitored",
-            "value": 12
+            "value": "19"
           },
           {
             "type": "lineItem",
             "label": "Years monitored",
-            "value": 11
+            "value": "25"
           },
           {
             "type": "note",
-            "value": "Monitored 2000–2024"
+            "value": "Monitored 1966–2026"
           }
         ]
       }
     },
     "SD": {
       "name": "South Dakota",
-      "heatValue": 56,
+      "heatValue": 67,
       "display": {
         "panel": [
           {
@@ -1656,23 +1688,23 @@
           },
           {
             "type": "stat",
-            "value": 56,
-            "label": "monitoring deployments"
+            "value": "67",
+            "label": "elections monitored"
           },
           {
             "type": "lineItem",
-            "label": "Attorneys & observers",
-            "value": 112
+            "label": "Election monitors/observers",
+            "value": "245"
           },
           {
             "type": "lineItem",
             "label": "Counties monitored",
-            "value": 12
+            "value": "12"
           },
           {
             "type": "lineItem",
             "label": "Years monitored",
-            "value": 10
+            "value": "11"
           },
           {
             "type": "note",
@@ -1696,23 +1728,23 @@
           },
           {
             "type": "stat",
-            "value": 8,
-            "label": "monitoring deployments"
+            "value": "8",
+            "label": "elections monitored"
           },
           {
             "type": "lineItem",
-            "label": "Attorneys & observers",
-            "value": 21
+            "label": "Election monitors/observers",
+            "value": "21"
           },
           {
             "type": "lineItem",
             "label": "Counties monitored",
-            "value": 2
+            "value": "2"
           },
           {
             "type": "lineItem",
             "label": "Years monitored",
-            "value": 5
+            "value": "5"
           },
           {
             "type": "note",
@@ -1723,7 +1755,7 @@
     },
     "TX": {
       "name": "Texas",
-      "heatValue": 75,
+      "heatValue": 144,
       "display": {
         "panel": [
           {
@@ -1736,34 +1768,34 @@
           },
           {
             "type": "stat",
-            "value": 75,
-            "label": "monitoring deployments"
+            "value": "144",
+            "label": "elections monitored"
           },
           {
             "type": "lineItem",
-            "label": "Attorneys & observers",
-            "value": 333
+            "label": "Election monitors/observers",
+            "value": "1,819"
           },
           {
             "type": "lineItem",
             "label": "Counties monitored",
-            "value": 28
+            "value": "41"
           },
           {
             "type": "lineItem",
             "label": "Years monitored",
-            "value": 22
+            "value": "31"
           },
           {
             "type": "note",
-            "value": "Monitored 2000–2024"
+            "value": "Monitored 1976–2024"
           }
         ]
       }
     },
     "UT": {
       "name": "Utah",
-      "heatValue": 7,
+      "heatValue": 16,
       "display": {
         "panel": [
           {
@@ -1776,34 +1808,34 @@
           },
           {
             "type": "stat",
-            "value": 7,
-            "label": "monitoring deployments"
+            "value": "16",
+            "label": "elections monitored"
           },
           {
             "type": "lineItem",
-            "label": "Attorneys & observers",
-            "value": 35
+            "label": "Election monitors/observers",
+            "value": "220"
           },
           {
             "type": "lineItem",
             "label": "Counties monitored",
-            "value": 3
+            "value": "3"
           },
           {
             "type": "lineItem",
             "label": "Years monitored",
-            "value": 5
+            "value": "13"
           },
           {
             "type": "note",
-            "value": "Monitored 2004–2024"
+            "value": "Monitored 1988–2024"
           }
         ]
       }
     },
     "VA": {
       "name": "Virginia",
-      "heatValue": 21,
+      "heatValue": 23,
       "display": {
         "panel": [
           {
@@ -1816,23 +1848,23 @@
           },
           {
             "type": "stat",
-            "value": 21,
-            "label": "monitoring deployments"
+            "value": "23",
+            "label": "elections monitored"
           },
           {
             "type": "lineItem",
-            "label": "Attorneys & observers",
-            "value": 120
+            "label": "Election monitors/observers",
+            "value": "134"
           },
           {
             "type": "lineItem",
             "label": "Counties monitored",
-            "value": 6
+            "value": "6"
           },
           {
             "type": "lineItem",
             "label": "Years monitored",
-            "value": 9
+            "value": "10"
           },
           {
             "type": "note",
@@ -1856,8 +1888,8 @@
           },
           {
             "type": "stat",
-            "value": 0,
-            "label": "monitoring deployments"
+            "value": "0",
+            "label": "elections monitored"
           },
           {
             "type": "note",
@@ -1868,7 +1900,7 @@
     },
     "WA": {
       "name": "Washington",
-      "heatValue": 6,
+      "heatValue": 9,
       "display": {
         "panel": [
           {
@@ -1881,23 +1913,23 @@
           },
           {
             "type": "stat",
-            "value": 6,
-            "label": "monitoring deployments"
+            "value": "9",
+            "label": "elections monitored"
           },
           {
             "type": "lineItem",
-            "label": "Attorneys & observers",
-            "value": 34
+            "label": "Election monitors/observers",
+            "value": "172"
           },
           {
             "type": "lineItem",
             "label": "Counties monitored",
-            "value": 4
+            "value": "4"
           },
           {
             "type": "lineItem",
             "label": "Years monitored",
-            "value": 3
+            "value": "4"
           },
           {
             "type": "note",
@@ -1908,7 +1940,7 @@
     },
     "WI": {
       "name": "Wisconsin",
-      "heatValue": 17,
+      "heatValue": 19,
       "display": {
         "panel": [
           {
@@ -1921,27 +1953,27 @@
           },
           {
             "type": "stat",
-            "value": 17,
-            "label": "monitoring deployments"
+            "value": "19",
+            "label": "elections monitored"
           },
           {
             "type": "lineItem",
-            "label": "Attorneys & observers",
-            "value": 74
+            "label": "Election monitors/observers",
+            "value": "80"
           },
           {
             "type": "lineItem",
             "label": "Counties monitored",
-            "value": 4
+            "value": "5"
           },
           {
             "type": "lineItem",
             "label": "Years monitored",
-            "value": 6
+            "value": "7"
           },
           {
             "type": "note",
-            "value": "Monitored 2012–2024"
+            "value": "Monitored 1978–2024"
           }
         ]
       }
@@ -1961,8 +1993,8 @@
           },
           {
             "type": "stat",
-            "value": 0,
-            "label": "monitoring deployments"
+            "value": "0",
+            "label": "elections monitored"
           },
           {
             "type": "note",
@@ -1973,7 +2005,7 @@
     },
     "WY": {
       "name": "Wyoming",
-      "heatValue": 0,
+      "heatValue": 1,
       "display": {
         "panel": [
           {
@@ -1986,12 +2018,27 @@
           },
           {
             "type": "stat",
-            "value": 0,
-            "label": "monitoring deployments"
+            "value": "1",
+            "label": "elections monitored"
+          },
+          {
+            "type": "lineItem",
+            "label": "Election monitors/observers",
+            "value": "2"
+          },
+          {
+            "type": "lineItem",
+            "label": "Counties monitored",
+            "value": "1"
+          },
+          {
+            "type": "lineItem",
+            "label": "Years monitored",
+            "value": "1"
           },
           {
             "type": "note",
-            "value": "No monitoring on record for this period"
+            "value": "Monitored in 2026"
           }
         ]
       }

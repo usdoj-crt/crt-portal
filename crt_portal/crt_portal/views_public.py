@@ -38,6 +38,8 @@ def election_monitoring_view(request):
         {'key': '2017', 'label': 'Trump \u201917\u2013\u201921', 'default': False},
         {'key': '2009', 'label': 'Obama \u201909\u2013\u201917', 'default': False},
         {'key': '2001', 'label': 'Bush \u201901\u2013\u201909', 'default': False},
+        {'key': '1993', 'label': 'Clinton \u201993\u2013\u201901', 'default': False},
+        {'key': '1965', 'label': '1965\u20131992', 'default': False},
     ]
 
     # Ensure exactly one administration is marked default, so only one map

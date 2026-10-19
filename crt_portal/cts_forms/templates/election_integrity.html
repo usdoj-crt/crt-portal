@@ -77,8 +77,40 @@
                     Election Monitoring
                 </h2>
                 <p class="go-deeper__info-text font-sans-xs text-primary-lighter margin-0 measure-5">
-                    Since the Civil Rights Division was formed in 1957, the Department of Justice has
-                    deployed federal election monitors and observers to safeguard elections nationwide.
+                    Since the Civil Rights Division was formed in 1957,
+                    the Department of Justice has deployed federal
+                    <span class="crt-popover text-base-lightest">
+                        <button
+                            type="button"
+                            class="crt-popover__trigger crt-popover__trigger--link"
+                            id="observers-trigger"
+                            aria-controls="observers-pop"
+                            aria-expanded="false"
+                        >
+                            election monitors and observers
+                        </button>
+                        <span class="crt-popover__content" id="observers-pop" hidden>
+                            <span class="display-block margin-bottom-4">
+                              <strong class="display-block font-body-md">Federal observer:</strong>
+                              <span class="font-body-2xs">
+                                  An employee or contractor of the Office of Personnel Management (OPM)
+                                  authorized by a federal court order to serve as a neutral and impartial
+                                  observer of election-day procedures covered by the order.
+                              </span>
+                            </span>
+                            <span class="display-block">
+                              <strong class="display-block font-body-md">Federal election monitor:</strong>
+                              <span class="font-body-2xs">
+                                  A Department attorney or staff member assigned to assess compliance with
+                                  federal voting rights laws in jurisdictions not currently eligible for
+                                  assignment of federal observers.
+                              </span>
+                            </span>
+                        </span>
+                    </span>
+                    to safeguard elections nationwide. Explore monitoring
+                    activity by administration, between 1965 and
+                    October 20, 2026.
                 </p>
                 <a class="actionbtn actionbtn__doj bg-gold margin-top-4" href="{% url 'election_monitoring' %}">
                     <span class="actionbtn__label display-flex flex-align-center">
@@ -90,10 +122,42 @@
 
             <!-- Figures -->
             <div class="go-deeper__figures">
-                <div class="width-card-lg display-flex flex-column flex-align-center text-center">
+                <div class="width-card-xl display-flex flex-column flex-align-center text-center">
                     <span class="election-integrity-number-figure font-family-serif text-bold text-gold">13,868</span>
-                    <span class="font-sans-3xs margin-top-1 text-primary-lighter text-uppercase minh-6">
-                        federal observers &amp; monitors, 2000&ndash;2025
+                    <span class="font-sans-3xs margin-top-1 text-primary-lighter minh-6">
+                        <span class="crt-popover margin-right-05">
+                            <button
+                                type="button"
+                                class="crt-popover__trigger crt-popover__trigger--icon margin-0 margin-right-1"
+                                id="observers-trigger-2"
+                                aria-controls="observers-pop-2"
+                                aria-expanded="false"
+                                aria-label="What are election monitors and observers?"
+                            >
+                                <span class="crt-popover__icon" aria-hidden="true"></span>
+                            </button>
+                            <span class="crt-popover__content" id="observers-pop-2" hidden>
+                                <span class="display-block margin-bottom-4">
+                                  <strong class="display-block font-body-md">Federal observer:</strong>
+                                  <span class="font-body-2xs">
+                                      An employee or contractor of the Office of Personnel Management (OPM)
+                                      authorized by a federal court order to serve as a neutral and impartial
+                                      observer of election-day procedures covered by the order.
+                                  </span>
+                                </span>
+                                <span class="display-block">
+                                  <strong class="display-block font-body-md">Federal election monitor:</strong>
+                                  <span class="font-body-2xs">
+                                      A Department attorney or staff member assigned to assess compliance with
+                                      federal voting rights laws in jurisdictions not currently eligible for
+                                      assignment of federal observers.
+                                  </span>
+                                </span>
+                            </span>
+                        </span>
+                        <span class="text-uppercase">
+                            election monitors/observers, 1965–2026
+                        </span>
                     </span>
                 </div>
                 <div class="width-card-lg display-flex flex-column flex-align-center text-center">
@@ -191,4 +255,8 @@
             </div>
         </div>
     </section>
+{% endblock %}
+{% block page_js %}
+  {{ block.super }}
+  <script src="{% static 'js/crt_popover.min.js' %}"></script>
 {% endblock %}
