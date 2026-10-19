@@ -33,7 +33,7 @@ applications:
     MAX_FILE_SIZE: 100M
     SIGNATURE_CHECKS: 8
   docker:
-    image: ajilaag/clamav-rest:20251201    # ##20240106
+    image: ajilaag/clamav-rest:0.6.6 ## ajilaag/clamav-rest:20251201
   routes:
   - route: clamav-rest-prod.apps.internal
 
