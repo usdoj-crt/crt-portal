@@ -1,6 +1,6 @@
 {
   "heatmap": {
-    "legendTitle": "Shading — elections monitored per state:",
+    "legendTitle": "Shading: elections monitored per state:",
     "bands": [
       {
         "min": 0,
