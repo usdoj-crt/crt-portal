@@ -18,7 +18,8 @@
   text-align: left; // don't inherit page-level alignment
   line-height: 1.6;  // don't inherit parent's line-height
   border-radius: radius($theme-button-border-radius);
-  padding: 0.5rem 1.0rem;
+  // Extra top/right padding leaves room for the close button.
+  padding: 1.75rem 2.25rem 0.75rem 1rem;
   z-index: 1000;
 
   // On narrow screens, center the popover on the screen (viewport) rather than
@@ -34,6 +35,43 @@
   }
 
   &[hidden] { display: none; }
+}
+
+.crt-popover__close {
+  position: absolute;
+  top: 0.375rem;
+  right: 0.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.25rem;
+  height: 1.25rem;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  color: rgba(white, 0.7);
+
+  &:hover {
+    color: white;
+  }
+
+  &:focus-visible {
+    outline: 2px solid color($theme-focus-color);
+    outline-offset: 2px;
+  }
+
+  .crt-popover__close-icon {
+    width: 1rem;
+    height: 1rem;
+    display: inline-block;
+    // USWDS usa-icons ship as black SVGs; mask them to currentColor
+    // so the icon picks up the surrounding text color.
+    background-color: currentColor;
+    -webkit-mask: url("/static/img/usa-icons/close.svg") no-repeat center / contain;
+    mask: url("/static/img/usa-icons/close.svg") no-repeat center / contain;
+  }
 }
 
 .crt-popover__trigger {
