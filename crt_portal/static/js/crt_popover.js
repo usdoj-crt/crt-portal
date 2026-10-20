@@ -12,6 +12,7 @@
  *       …trigger text or icon…
  *     </button>
  *     <span class="crt-popover__content" id="UNIQUE-CONTENT-ID" hidden>
+ *       <button class="crt-popover__close" type="button" aria-label="Close">…</button>
  *       …popover body…
  *     </span>
  *   </span>
@@ -35,11 +36,16 @@
  *  4. The content MUST start with the `hidden` attribute. The JS toggles
  *     .hidden, not a class.
  *
+ *  5. The close button is OPTIONAL, but when present it MUST be
+ *     type="button" and MUST live inside the content span (it anchors to
+ *     it). Clicking it dismisses the popover and returns focus to the
+ *     trigger, like every other dismiss action.
+ *
  * Behaviour:
  *  - Opens on click of the trigger (NOT hover — accessibility requirement).
  *  - One popover open at a time: opening one closes any other open instance.
- *  - Dismisses on: Escape, click outside the popover, or re-clicking the
- *    same trigger.
+ *  - Dismisses on: Escape, click outside the popover, re-clicking the same
+ *    trigger, or the close button (if present).
  *  - Clicking inside an open popover does NOT dismiss it.
  *  - Scrolls into view only if the opened popover overflows the viewport.
  *  - On close, focus returns to the trigger.
@@ -91,6 +97,16 @@
   };
 
   document.addEventListener('click', e => {
+    // Close button (if present): dismiss this popover, focus back on trigger.
+    // Must be checked before the "clicked inside content" rule below.
+    const closeBtn = e.target.closest('.crt-popover__close');
+    if (closeBtn) {
+      e.preventDefault();
+      const wrapper = closeBtn.closest('.crt-popover');
+      const trigger = wrapper && wrapper.querySelector('.crt-popover__trigger');
+      if (trigger) close(trigger);
+      return;
+    }
     const trigger = e.target.closest('.crt-popover__trigger');
     if (trigger) {
       e.preventDefault();
