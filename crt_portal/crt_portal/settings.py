@@ -142,8 +142,8 @@ OAUTH2_PROVIDER = {
     },
     "OAUTH2_VALIDATOR_CLASS": "crt_portal.oauth_classes.CustomOAuth2Validator",
     # django-oauth-toolkit 2.7 hashes client secrets by default, which breaks
-    # HS256 JWT signing. Use the library's auto-managed RSA keypair instead.
-    "ALGORITHM": "RS256",
+    # HS256 JWT signing. Store the secret in plaintext so HS256 can use it.
+    "HASH_CLIENT_SECRET": False,
 }
 
 # Disallow requests from other hosts (eventually jupyter will be allowed)
