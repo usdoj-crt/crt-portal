@@ -74,23 +74,8 @@
         },
         {
           "type": "lineItem",
-          "label": "Counties monitored",
+          "label": "Jurisdictions monitored",
           "value": "140"
-        },
-        {
-          "type": "note",
-          "value": [
-            {
-              "text": "Most monitored: "
-            },
-            {
-              "text": "Mississippi",
-              "emphasis": true
-            },
-            {
-              "text": " (422)"
-            }
-          ]
         }
       ]
     }
@@ -146,7 +131,7 @@
           },
           {
             "type": "lineItem",
-            "label": "Counties monitored",
+            "label": "Jurisdictions monitored",
             "value": "18"
           },
           {
@@ -211,7 +196,7 @@
           },
           {
             "type": "lineItem",
-            "label": "Counties monitored",
+            "label": "Jurisdictions monitored",
             "value": "3"
           },
           {
@@ -251,7 +236,7 @@
           },
           {
             "type": "lineItem",
-            "label": "Counties monitored",
+            "label": "Jurisdictions monitored",
             "value": "1"
           },
           {
@@ -416,7 +401,7 @@
           },
           {
             "type": "lineItem",
-            "label": "Counties monitored",
+            "label": "Jurisdictions monitored",
             "value": "28"
           },
           {
@@ -631,7 +616,7 @@
           },
           {
             "type": "lineItem",
-            "label": "Counties monitored",
+            "label": "Jurisdictions monitored",
             "value": "10"
           },
           {
@@ -821,7 +806,7 @@
           },
           {
             "type": "lineItem",
-            "label": "Counties monitored",
+            "label": "Jurisdictions monitored",
             "value": "45"
           },
           {
@@ -886,7 +871,7 @@
           },
           {
             "type": "lineItem",
-            "label": "Counties monitored",
+            "label": "Jurisdictions monitored",
             "value": "1"
           },
           {
@@ -1026,7 +1011,7 @@
           },
           {
             "type": "lineItem",
-            "label": "Counties monitored",
+            "label": "Jurisdictions monitored",
             "value": "3"
           },
           {
@@ -1066,7 +1051,7 @@
           },
           {
             "type": "lineItem",
-            "label": "Counties monitored",
+            "label": "Jurisdictions monitored",
             "value": "1"
           },
           {
@@ -1106,7 +1091,7 @@
           },
           {
             "type": "lineItem",
-            "label": "Counties monitored",
+            "label": "Jurisdictions monitored",
             "value": "3"
           },
           {
@@ -1271,7 +1256,7 @@
           },
           {
             "type": "lineItem",
-            "label": "Counties monitored",
+            "label": "Jurisdictions monitored",
             "value": "11"
           },
           {
@@ -1361,7 +1346,7 @@
           },
           {
             "type": "lineItem",
-            "label": "Counties monitored",
+            "label": "Jurisdictions monitored",
             "value": "14"
           },
           {
@@ -1401,7 +1386,7 @@
           },
           {
             "type": "lineItem",
-            "label": "Counties monitored",
+            "label": "Jurisdictions monitored",
             "value": "1"
           },
           {
@@ -1516,7 +1501,7 @@
           },
           {
             "type": "lineItem",
-            "label": "Counties monitored",
+            "label": "Jurisdictions monitored",
             "value": "1"
           },
           {
