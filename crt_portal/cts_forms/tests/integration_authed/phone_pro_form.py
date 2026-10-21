@@ -46,6 +46,11 @@ def test_form(page, *, report):
     })
 
     page.locator('input#id_crt_reciept_year').fill('2023')
+
+    # The incident date is required on the pro form now, so provide it before saving.
+    page.locator('input#id_last_incident_month').fill('8')
+    page.locator('input#id_last_incident_year').fill('2023')
+
     page.locator('button[data-saves]').click()
     page.locator('.usa-alert').filter(has_text="Successfully created report").wait_for()
     report.screenshot(page, full_page=True, caption="One key feature of the phone intake form is that information can be partially filled in, saved, and then edited without leaving the page. We've only filled in the contact first and last name here before clicking save, and we're already presented with a Record Locator we can give to the caller.")
@@ -53,7 +58,7 @@ def test_form(page, *, report):
     admin_models.fill_fields(page, selector_format='#id_{}', fields={
         k: v for k, v in TEST_DATA.items() if k not in ["contact_first_name", "contact_last_name", "primary_complaint", "intake_format"]
     })
-    report.screenshot(page, full_page=True, caption="After filling the remaining fields, we can click save again to finish up the form.")
+    report.screenshot(page, full_page=True, caption="After filling the remaining fields (the incident date was already required and provided on the first save), we can click save again to finish up the form.")
     page.locator('[data-saves]').click()
     page.locator('.usa-alert').filter(has_text="Successfully updated report").wait_for()
     page.locator('.usa-alert').filter(has_text="1234 Fake Ave").wait_for()
