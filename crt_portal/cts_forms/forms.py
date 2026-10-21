@@ -1293,7 +1293,14 @@ def get_phone_form_config(working_group):
                         'pattern': '[0-9]*',
                         'inputmode': 'numeric',
                     }),
-                    {'label': 'Month'}),
+                    {
+                        'label': 'Month',
+                        'required': True,
+                        'error_messages': {
+                            'required': DATE_ERRORS['month_required'],
+                            'invalid': DATE_ERRORS['month_invalid'],
+                        }
+                    }),
         FieldConfig('last_incident_day',
                     TextInput(attrs={
                         'class': 'usa-input usa-input--small',
@@ -1312,7 +1319,14 @@ def get_phone_form_config(working_group):
                         'pattern': '[0-9]*',
                         'inputmode': 'numeric',
                     }),
-                    {'label': 'Year'}),
+                    {
+                        'label': 'Year',
+                        'required': True,
+                        'error_messages': {
+                            'required': DATE_ERRORS['year_required'],
+                            'invalid': DATE_ERRORS['no_past']
+                        }
+                    }),
 
         FieldConfig('public_id',
                     TextInput(attrs={'class': 'usa-input'}),

@@ -31,7 +31,7 @@
       </section>
 
       {% csrf_token %}
-      <h2>Contact</h2>
+      <h2 class="margin-top-4 margin-bottom-0">Contact</h2>
 
       <div class="grid-row margin-top-2">
         {% include 'partials/field.html' with field=form.contact_first_name %}
@@ -65,8 +65,11 @@
       </div>
 
       <div class="grid-row margin-top-2">
-        {% include 'partials/field.html' with field=form.contact_city field_size=6 extra_class="padding-right-2" %}
-        {% include 'partials/field.html' with field=form.contact_state extra_class="padding-right-2" field_size=6 %}
+        {% include 'partials/field.html' with field=form.contact_city %}
+      </div>
+
+      <div class="grid-row margin-top-2">
+        {% include 'partials/field.html' with field=form.contact_state %}
       </div>
 
       <div class="grid-row margin-top-2">
@@ -76,7 +79,7 @@
       <hr>
       {% include 'partials/end_expandable.html' %}
 
-      <h2>Incident location</h2>
+      <h2 class="margin-top-4 margin-bottom-0">Incident location</h2>
 
       <div class="grid-row margin-top-2">
         {% include 'partials/field.html' with field=form.location_name %}
@@ -91,8 +94,11 @@
       </div>
 
       <div class="grid-row margin-top-2">
-        {% include 'partials/field.html' with field=form.location_city_town field_size=6 extra_class="padding-right-2" %}
-        {% include 'partials/field.html' with field=form.location_state field_size=6 %}
+        {% include 'partials/field.html' with field=form.location_city_town %}
+      </div>
+
+      <div class="grid-row margin-top-2">
+        {% include 'partials/field.html' with field=form.location_state %}
       </div>
 
       <div class="grid-row margin-top-2 margin-bottom-3">
@@ -101,15 +107,60 @@
 
       <hr>
 
-      <hr>
-
-      <h2>Primary concern</h2>
+      <h2 class="margin-top-4 margin-bottom-0">Primary concern</h2>
 
       <div class="grid-row margin-top-2">
         {% include 'partials/field.html' with field=form.primary_complaint strong_label=True %}
       </div>
 
-      <h2>Summary</h2>
+      <h2 class="margin-top-4 margin-bottom-0">Incident date</h2>
+      <p class="text-primary-darker margin-0" id="incident-date-help-text">
+          Enter the date the incident occurred.
+      </p>
+      <div class="date-field-group">
+          <div class="display-flex flex-align-end">
+            <div class="usa-memorable-date" aria-labelledby="incident-date-help-text">
+              <div class="usa-form-group usa-form-group--month">
+                <label class="usa-label" for="{{ form.last_incident_month.id_for_label }}">
+                  {{ form.last_incident_month.label }}<span class="text-secondary-dark">*</span>
+                </label>
+                {{ form.last_incident_month|withInputError }}
+              </div>
+              <div class="usa-form-group usa-form-group--day">
+                <label class="usa-label" for="{{ form.last_incident_day.id_for_label }}">
+                  {{ form.last_incident_day.label }}
+                </label>
+                {{ form.last_incident_day|withInputError }}
+              </div>
+              <div class="usa-form-group usa-form-group--year">
+                <label class="usa-label" for="{{ form.last_incident_year.id_for_label }}">
+                  {{ form.last_incident_year.label }}<span class="text-secondary-dark">*</span>
+                </label>
+                {{ form.last_incident_year|withInputError }}
+              </div>
+            </div>
+            <button
+                id="today-incident-btn"
+                name="today-incident-date"
+                label="autofill incident date"
+                class="usa-button usa-button--unstyled autofill_today_btn"
+                type="button">
+                    Today
+            </button>
+          </div>
+      </div>
+      {% if form.last_incident_month.errors %}
+        {% include "forms/snippets/error_alert.html" with errors=form.last_incident_month.errors %}
+      {% endif %}
+      {% if form.last_incident_day.errors %}
+        {% include "forms/snippets/error_alert.html" with errors=form.last_incident_day.errors %}
+      {% endif %}
+      {% if form.last_incident_year.errors %}
+        {% include "forms/snippets/error_alert.html" with errors=form.last_incident_year.errors %}
+      {% endif %}
+
+
+      <h2 class="margin-top-4 margin-bottom-0">Summary</h2>
       <div class="margin-top-1 margin-bottom-2">
         {% include "forms/question_cards/single_question.html" with field=form.violation_summary card_title="Personal Description" %}
         {% include "forms/word_counter.html" with word_limit=500 %}
@@ -117,9 +168,40 @@
 
       <hr>
 
-      <div class="margin-bottom-3 margin-top-3 display-flex flex-align-end">
-        {% include "forms/question_cards/date.html" with question='Receipt date' month=form.crt_reciept_month day=form.crt_reciept_day year=form.crt_reciept_year required=True proform_required=True %}
+      <h2>Receipt date</h2>
+      <p class="text-primary-darker margin-0" id="receipt-date-help-text">
+          Enter the date the Civil Rights Division (CRT) received the complaint.
+      </p>
+      <div class="usa-memorable-date" aria-labelledby="receipt-date-help-text">
+        <div class="usa-form-group usa-form-group--month">
+          <label class="usa-label" for="{{ form.crt_reciept_month.id_for_label }}">
+            {{ form.crt_reciept_month.label }}<span class="text-secondary-dark">*</span>
+          </label>
+          {{ form.crt_reciept_month|withInputError }}
+        </div>
+        <div class="usa-form-group usa-form-group--day">
+          <label class="usa-label" for="{{ form.crt_reciept_day.id_for_label }}">
+            {{ form.crt_reciept_day.label }}<span class="text-secondary-dark">*</span>
+          </label>
+          {{ form.crt_reciept_day|withInputError }}
+        </div>
+        <div class="usa-form-group usa-form-group--year">
+          <label class="usa-label" for="{{ form.crt_reciept_year.id_for_label }}">
+            {{ form.crt_reciept_year.label }}<span class="text-secondary-dark">*</span>
+          </label>
+          {{ form.crt_reciept_year|withInputError }}
+        </div>
       </div>
+      {% if form.crt_reciept_month.errors %}
+        {% include "forms/snippets/error_alert.html" with errors=form.crt_reciept_month.errors %}
+      {% endif %}
+      {% if form.crt_reciept_day.errors %}
+        {% include "forms/snippets/error_alert.html" with errors=form.crt_reciept_day.errors %}
+      {% endif %}
+      {% if form.crt_reciept_year.errors %}
+        {% include "forms/snippets/error_alert.html" with errors=form.crt_reciept_year.errors %}
+      {% endif %}
+
 
       {# These are hidden inputs: #}
       {{form.working_group}}
@@ -131,7 +213,7 @@
 <div class="intake-sidebar grid-col-3 margin-top-3">
   <div class="crt-portal-card margin-top-2">
     <div class="crt-portal-card__content">
-      <h2>Quick Links</h2>
+      <h2 class="margin-top-4 margin-bottom-0">Quick Links</h2>
       {% configurable_content 'vot-form-links' %}
     </div>
   </div>
