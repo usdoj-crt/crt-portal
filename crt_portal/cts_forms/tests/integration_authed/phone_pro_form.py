@@ -23,6 +23,9 @@ TEST_DATA = {
     "crt_reciept_month": '8',
     "crt_reciept_day": '15',
     "crt_reciept_year": '2023',
+    "last_incident_month": '8',
+    "last_incident_day": '15',
+    "last_incident_year": '2023',
     "intake_format": "phone",
 }
 
