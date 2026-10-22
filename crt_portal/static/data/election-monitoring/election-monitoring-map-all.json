@@ -74,23 +74,8 @@
         },
         {
           "type": "lineItem",
-          "label": "Counties monitored",
+          "label": "Jurisdictions monitored",
           "value": "411"
-        },
-        {
-          "type": "note",
-          "value": [
-            {
-              "text": "Most monitored: "
-            },
-            {
-              "text": "Mississippi",
-              "emphasis": true
-            },
-            {
-              "text": " (674)"
-            }
-          ]
         },
         {
           "type": "note",
@@ -125,7 +110,7 @@
           },
           {
             "type": "lineItem",
-            "label": "Counties monitored",
+            "label": "Jurisdictions monitored",
             "value": "8"
           },
           {
@@ -165,7 +150,7 @@
           },
           {
             "type": "lineItem",
-            "label": "Counties monitored",
+            "label": "Jurisdictions monitored",
             "value": "24"
           },
           {
@@ -205,7 +190,7 @@
           },
           {
             "type": "lineItem",
-            "label": "Counties monitored",
+            "label": "Jurisdictions monitored",
             "value": "1"
           },
           {
@@ -245,7 +230,7 @@
           },
           {
             "type": "lineItem",
-            "label": "Counties monitored",
+            "label": "Jurisdictions monitored",
             "value": "17"
           },
           {
@@ -285,7 +270,7 @@
           },
           {
             "type": "lineItem",
-            "label": "Counties monitored",
+            "label": "Jurisdictions monitored",
             "value": "20"
           },
           {
@@ -329,7 +314,7 @@
           },
           {
             "type": "lineItem",
-            "label": "Counties monitored",
+            "label": "Jurisdictions monitored",
             "value": "5"
           },
           {
@@ -369,7 +354,7 @@
           },
           {
             "type": "lineItem",
-            "label": "Counties monitored",
+            "label": "Jurisdictions monitored",
             "value": "3"
           },
           {
@@ -459,7 +444,7 @@
           },
           {
             "type": "lineItem",
-            "label": "Counties monitored",
+            "label": "Jurisdictions monitored",
             "value": "17"
           },
           {
@@ -499,7 +484,7 @@
           },
           {
             "type": "lineItem",
-            "label": "Counties monitored",
+            "label": "Jurisdictions monitored",
             "value": "44"
           },
           {
@@ -539,7 +524,7 @@
           },
           {
             "type": "lineItem",
-            "label": "Counties monitored",
+            "label": "Jurisdictions monitored",
             "value": "2"
           },
           {
@@ -579,7 +564,7 @@
           },
           {
             "type": "lineItem",
-            "label": "Counties monitored",
+            "label": "Jurisdictions monitored",
             "value": "2"
           },
           {
@@ -644,7 +629,7 @@
           },
           {
             "type": "lineItem",
-            "label": "Counties monitored",
+            "label": "Jurisdictions monitored",
             "value": "3"
           },
           {
@@ -684,7 +669,7 @@
           },
           {
             "type": "lineItem",
-            "label": "Counties monitored",
+            "label": "Jurisdictions monitored",
             "value": "3"
           },
           {
@@ -724,7 +709,7 @@
           },
           {
             "type": "lineItem",
-            "label": "Counties monitored",
+            "label": "Jurisdictions monitored",
             "value": "3"
           },
           {
@@ -764,7 +749,7 @@
           },
           {
             "type": "lineItem",
-            "label": "Counties monitored",
+            "label": "Jurisdictions monitored",
             "value": "1"
           },
           {
@@ -804,7 +789,7 @@
           },
           {
             "type": "lineItem",
-            "label": "Counties monitored",
+            "label": "Jurisdictions monitored",
             "value": "21"
           },
           {
@@ -844,7 +829,7 @@
           },
           {
             "type": "lineItem",
-            "label": "Counties monitored",
+            "label": "Jurisdictions monitored",
             "value": "7"
           },
           {
@@ -884,7 +869,7 @@
           },
           {
             "type": "lineItem",
-            "label": "Counties monitored",
+            "label": "Jurisdictions monitored",
             "value": "3"
           },
           {
@@ -949,7 +934,7 @@
           },
           {
             "type": "lineItem",
-            "label": "Counties monitored",
+            "label": "Jurisdictions monitored",
             "value": "10"
           },
           {
@@ -989,7 +974,7 @@
           },
           {
             "type": "lineItem",
-            "label": "Counties monitored",
+            "label": "Jurisdictions monitored",
             "value": "2"
           },
           {
@@ -1029,7 +1014,7 @@
           },
           {
             "type": "lineItem",
-            "label": "Counties monitored",
+            "label": "Jurisdictions monitored",
             "value": "0"
           },
           {
@@ -1069,7 +1054,7 @@
           },
           {
             "type": "lineItem",
-            "label": "Counties monitored",
+            "label": "Jurisdictions monitored",
             "value": "55"
           },
           {
@@ -1109,7 +1094,7 @@
           },
           {
             "type": "lineItem",
-            "label": "Counties monitored",
+            "label": "Jurisdictions monitored",
             "value": "2"
           },
           {
@@ -1149,7 +1134,7 @@
           },
           {
             "type": "lineItem",
-            "label": "Counties monitored",
+            "label": "Jurisdictions monitored",
             "value": "12"
           },
           {
@@ -1189,7 +1174,7 @@
           },
           {
             "type": "lineItem",
-            "label": "Counties monitored",
+            "label": "Jurisdictions monitored",
             "value": "2"
           },
           {
@@ -1229,7 +1214,7 @@
           },
           {
             "type": "lineItem",
-            "label": "Counties monitored",
+            "label": "Jurisdictions monitored",
             "value": "2"
           },
           {
@@ -1269,7 +1254,7 @@
           },
           {
             "type": "lineItem",
-            "label": "Counties monitored",
+            "label": "Jurisdictions monitored",
             "value": "1"
           },
           {
@@ -1309,7 +1294,7 @@
           },
           {
             "type": "lineItem",
-            "label": "Counties monitored",
+            "label": "Jurisdictions monitored",
             "value": "7"
           },
           {
@@ -1353,7 +1338,7 @@
           },
           {
             "type": "lineItem",
-            "label": "Counties monitored",
+            "label": "Jurisdictions monitored",
             "value": "9"
           },
           {
@@ -1393,7 +1378,7 @@
           },
           {
             "type": "lineItem",
-            "label": "Counties monitored",
+            "label": "Jurisdictions monitored",
             "value": "4"
           },
           {
@@ -1433,7 +1418,7 @@
           },
           {
             "type": "lineItem",
-            "label": "Counties monitored",
+            "label": "Jurisdictions monitored",
             "value": "11"
           },
           {
@@ -1473,7 +1458,7 @@
           },
           {
             "type": "lineItem",
-            "label": "Counties monitored",
+            "label": "Jurisdictions monitored",
             "value": "5"
           },
           {
@@ -1513,7 +1498,7 @@
           },
           {
             "type": "lineItem",
-            "label": "Counties monitored",
+            "label": "Jurisdictions monitored",
             "value": "4"
           },
           {
@@ -1578,7 +1563,7 @@
           },
           {
             "type": "lineItem",
-            "label": "Counties monitored",
+            "label": "Jurisdictions monitored",
             "value": "7"
           },
           {
@@ -1618,7 +1603,7 @@
           },
           {
             "type": "lineItem",
-            "label": "Counties monitored",
+            "label": "Jurisdictions monitored",
             "value": "1"
           },
           {
@@ -1658,7 +1643,7 @@
           },
           {
             "type": "lineItem",
-            "label": "Counties monitored",
+            "label": "Jurisdictions monitored",
             "value": "19"
           },
           {
@@ -1698,7 +1683,7 @@
           },
           {
             "type": "lineItem",
-            "label": "Counties monitored",
+            "label": "Jurisdictions monitored",
             "value": "12"
           },
           {
@@ -1738,7 +1723,7 @@
           },
           {
             "type": "lineItem",
-            "label": "Counties monitored",
+            "label": "Jurisdictions monitored",
             "value": "2"
           },
           {
@@ -1778,7 +1763,7 @@
           },
           {
             "type": "lineItem",
-            "label": "Counties monitored",
+            "label": "Jurisdictions monitored",
             "value": "41"
           },
           {
@@ -1818,7 +1803,7 @@
           },
           {
             "type": "lineItem",
-            "label": "Counties monitored",
+            "label": "Jurisdictions monitored",
             "value": "3"
           },
           {
@@ -1858,7 +1843,7 @@
           },
           {
             "type": "lineItem",
-            "label": "Counties monitored",
+            "label": "Jurisdictions monitored",
             "value": "6"
           },
           {
@@ -1923,7 +1908,7 @@
           },
           {
             "type": "lineItem",
-            "label": "Counties monitored",
+            "label": "Jurisdictions monitored",
             "value": "4"
           },
           {
@@ -1963,7 +1948,7 @@
           },
           {
             "type": "lineItem",
-            "label": "Counties monitored",
+            "label": "Jurisdictions monitored",
             "value": "5"
           },
           {
@@ -2028,7 +2013,7 @@
           },
           {
             "type": "lineItem",
-            "label": "Counties monitored",
+            "label": "Jurisdictions monitored",
             "value": "1"
           },
           {
