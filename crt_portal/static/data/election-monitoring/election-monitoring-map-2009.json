@@ -83,7 +83,7 @@
   "features": {
     "AK": {
       "name": "Alaska",
-      "heatValue": 13,
+      "heatValue": 6,
       "display": {
         "panel": [
           {
@@ -96,7 +96,7 @@
           },
           {
             "type": "stat",
-            "value": "13",
+            "value": "6",
             "label": "elections monitored"
           },
           {
@@ -123,7 +123,7 @@
     },
     "AL": {
       "name": "Alabama",
-      "heatValue": 12,
+      "heatValue": 7,
       "display": {
         "panel": [
           {
@@ -136,7 +136,7 @@
           },
           {
             "type": "stat",
-            "value": "12",
+            "value": "7",
             "label": "elections monitored"
           },
           {
@@ -188,7 +188,7 @@
     },
     "AZ": {
       "name": "Arizona",
-      "heatValue": 16,
+      "heatValue": 10,
       "display": {
         "panel": [
           {
@@ -201,7 +201,7 @@
           },
           {
             "type": "stat",
-            "value": "16",
+            "value": "10",
             "label": "elections monitored"
           },
           {
@@ -228,7 +228,7 @@
     },
     "CA": {
       "name": "California",
-      "heatValue": 23,
+      "heatValue": 12,
       "display": {
         "panel": [
           {
@@ -241,7 +241,7 @@
           },
           {
             "type": "stat",
-            "value": "23",
+            "value": "12",
             "label": "elections monitored"
           },
           {
@@ -268,7 +268,7 @@
     },
     "CO": {
       "name": "Colorado",
-      "heatValue": 2,
+      "heatValue": 1,
       "display": {
         "panel": [
           {
@@ -281,7 +281,7 @@
           },
           {
             "type": "stat",
-            "value": "2",
+            "value": "1",
             "label": "elections monitored"
           },
           {
@@ -308,7 +308,7 @@
     },
     "CT": {
       "name": "Connecticut",
-      "heatValue": 7,
+      "heatValue": 1,
       "display": {
         "panel": [
           {
@@ -321,7 +321,7 @@
           },
           {
             "type": "stat",
-            "value": "7",
+            "value": "1",
             "label": "elections monitored"
           },
           {
@@ -398,7 +398,7 @@
     },
     "FL": {
       "name": "Florida",
-      "heatValue": 26,
+      "heatValue": 8,
       "display": {
         "panel": [
           {
@@ -411,7 +411,7 @@
           },
           {
             "type": "stat",
-            "value": "26",
+            "value": "8",
             "label": "elections monitored"
           },
           {
@@ -438,7 +438,7 @@
     },
     "GA": {
       "name": "Georgia",
-      "heatValue": 16,
+      "heatValue": 11,
       "display": {
         "panel": [
           {
@@ -451,7 +451,7 @@
           },
           {
             "type": "stat",
-            "value": "16",
+            "value": "11",
             "label": "elections monitored"
           },
           {
@@ -568,7 +568,7 @@
     },
     "IL": {
       "name": "Illinois",
-      "heatValue": 13,
+      "heatValue": 8,
       "display": {
         "panel": [
           {
@@ -581,7 +581,7 @@
           },
           {
             "type": "stat",
-            "value": "13",
+            "value": "8",
             "label": "elections monitored"
           },
           {
@@ -753,7 +753,7 @@
     },
     "MA": {
       "name": "Massachusetts",
-      "heatValue": 6,
+      "heatValue": 5,
       "display": {
         "panel": [
           {
@@ -766,7 +766,7 @@
           },
           {
             "type": "stat",
-            "value": "6",
+            "value": "5",
             "label": "elections monitored"
           },
           {
@@ -858,7 +858,7 @@
     },
     "MI": {
       "name": "Michigan",
-      "heatValue": 8,
+      "heatValue": 4,
       "display": {
         "panel": [
           {
@@ -871,7 +871,7 @@
           },
           {
             "type": "stat",
-            "value": "8",
+            "value": "4",
             "label": "elections monitored"
           },
           {
@@ -963,7 +963,7 @@
     },
     "MS": {
       "name": "Mississippi",
-      "heatValue": 53,
+      "heatValue": 14,
       "display": {
         "panel": [
           {
@@ -976,7 +976,7 @@
           },
           {
             "type": "stat",
-            "value": "53",
+            "value": "14",
             "label": "elections monitored"
           },
           {
@@ -1028,7 +1028,7 @@
     },
     "NC": {
       "name": "North Carolina",
-      "heatValue": 9,
+      "heatValue": 4,
       "display": {
         "panel": [
           {
@@ -1041,7 +1041,7 @@
           },
           {
             "type": "stat",
-            "value": "9",
+            "value": "4",
             "label": "elections monitored"
           },
           {
@@ -1068,7 +1068,7 @@
     },
     "ND": {
       "name": "North Dakota",
-      "heatValue": 2,
+      "heatValue": 1,
       "display": {
         "panel": [
           {
@@ -1081,7 +1081,7 @@
           },
           {
             "type": "stat",
-            "value": "2",
+            "value": "1",
             "label": "elections monitored"
           },
           {
@@ -1108,7 +1108,7 @@
     },
     "NE": {
       "name": "Nebraska",
-      "heatValue": 12,
+      "heatValue": 9,
       "display": {
         "panel": [
           {
@@ -1121,7 +1121,7 @@
           },
           {
             "type": "stat",
-            "value": "12",
+            "value": "9",
             "label": "elections monitored"
           },
           {
@@ -1173,7 +1173,7 @@
     },
     "NJ": {
       "name": "New Jersey",
-      "heatValue": 10,
+      "heatValue": 6,
       "display": {
         "panel": [
           {
@@ -1186,7 +1186,7 @@
           },
           {
             "type": "stat",
-            "value": "10",
+            "value": "6",
             "label": "elections monitored"
           },
           {
@@ -1213,7 +1213,7 @@
     },
     "NM": {
       "name": "New Mexico",
-      "heatValue": 12,
+      "heatValue": 7,
       "display": {
         "panel": [
           {
@@ -1226,7 +1226,7 @@
           },
           {
             "type": "stat",
-            "value": "12",
+            "value": "7",
             "label": "elections monitored"
           },
           {
@@ -1253,7 +1253,7 @@
     },
     "NV": {
       "name": "Nevada",
-      "heatValue": 2,
+      "heatValue": 1,
       "display": {
         "panel": [
           {
@@ -1266,7 +1266,7 @@
           },
           {
             "type": "stat",
-            "value": "2",
+            "value": "1",
             "label": "elections monitored"
           },
           {
@@ -1293,7 +1293,7 @@
     },
     "NY": {
       "name": "New York",
-      "heatValue": 26,
+      "heatValue": 18,
       "display": {
         "panel": [
           {
@@ -1306,7 +1306,7 @@
           },
           {
             "type": "stat",
-            "value": "26",
+            "value": "18",
             "label": "elections monitored"
           },
           {
@@ -1333,7 +1333,7 @@
     },
     "OH": {
       "name": "Ohio",
-      "heatValue": 20,
+      "heatValue": 9,
       "display": {
         "panel": [
           {
@@ -1346,7 +1346,7 @@
           },
           {
             "type": "stat",
-            "value": "20",
+            "value": "9",
             "label": "elections monitored"
           },
           {
@@ -1423,7 +1423,7 @@
     },
     "PA": {
       "name": "Pennsylvania",
-      "heatValue": 13,
+      "heatValue": 7,
       "display": {
         "panel": [
           {
@@ -1436,7 +1436,7 @@
           },
           {
             "type": "stat",
-            "value": "13",
+            "value": "7",
             "label": "elections monitored"
           },
           {
@@ -1463,7 +1463,7 @@
     },
     "RI": {
       "name": "Rhode Island",
-      "heatValue": 4,
+      "heatValue": 2,
       "display": {
         "panel": [
           {
@@ -1476,7 +1476,7 @@
           },
           {
             "type": "stat",
-            "value": "4",
+            "value": "2",
             "label": "elections monitored"
           },
           {
@@ -1503,7 +1503,7 @@
     },
     "SC": {
       "name": "South Carolina",
-      "heatValue": 11,
+      "heatValue": 6,
       "display": {
         "panel": [
           {
@@ -1516,7 +1516,7 @@
           },
           {
             "type": "stat",
-            "value": "11",
+            "value": "6",
             "label": "elections monitored"
           },
           {
@@ -1543,7 +1543,7 @@
     },
     "SD": {
       "name": "South Dakota",
-      "heatValue": 15,
+      "heatValue": 9,
       "display": {
         "panel": [
           {
@@ -1556,7 +1556,7 @@
           },
           {
             "type": "stat",
-            "value": "15",
+            "value": "9",
             "label": "elections monitored"
           },
           {
@@ -1583,7 +1583,7 @@
     },
     "TN": {
       "name": "Tennessee",
-      "heatValue": 7,
+      "heatValue": 6,
       "display": {
         "panel": [
           {
@@ -1596,7 +1596,7 @@
           },
           {
             "type": "stat",
-            "value": "7",
+            "value": "6",
             "label": "elections monitored"
           },
           {
@@ -1623,7 +1623,7 @@
     },
     "TX": {
       "name": "Texas",
-      "heatValue": 49,
+      "heatValue": 20,
       "display": {
         "panel": [
           {
@@ -1636,7 +1636,7 @@
           },
           {
             "type": "stat",
-            "value": "49",
+            "value": "20",
             "label": "elections monitored"
           },
           {
@@ -1703,7 +1703,7 @@
     },
     "VA": {
       "name": "Virginia",
-      "heatValue": 2,
+      "heatValue": 1,
       "display": {
         "panel": [
           {
@@ -1716,7 +1716,7 @@
           },
           {
             "type": "stat",
-            "value": "2",
+            "value": "1",
             "label": "elections monitored"
           },
           {
