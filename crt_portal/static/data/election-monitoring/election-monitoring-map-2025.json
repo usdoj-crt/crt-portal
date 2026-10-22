@@ -59,7 +59,7 @@
         },
         {
           "type": "stat",
-          "value": "29",
+          "value": "15",
           "label": "elections monitored"
         },
         {
@@ -79,7 +79,7 @@
         },
         {
           "type": "note",
-          "value": "Headcount not reported for 7 of these 29 elections."
+          "value": "Headcount not reported for 7 of these 15 elections."
         }
       ]
     }
@@ -162,7 +162,7 @@
     },
     "AZ": {
       "name": "Arizona",
-      "heatValue": 3,
+      "heatValue": 1,
       "display": {
         "panel": [
           {
@@ -175,7 +175,7 @@
           },
           {
             "type": "stat",
-            "value": "3",
+            "value": "1",
             "label": "elections monitored"
           },
           {
@@ -202,7 +202,7 @@
     },
     "CA": {
       "name": "California",
-      "heatValue": 5,
+      "heatValue": 1,
       "display": {
         "panel": [
           {
@@ -215,7 +215,7 @@
           },
           {
             "type": "stat",
-            "value": "5",
+            "value": "1",
             "label": "elections monitored"
           },
           {
@@ -607,7 +607,7 @@
     },
     "MA": {
       "name": "Massachusetts",
-      "heatValue": 3,
+      "heatValue": 1,
       "display": {
         "panel": [
           {
@@ -620,7 +620,7 @@
           },
           {
             "type": "stat",
-            "value": "3",
+            "value": "1",
             "label": "elections monitored"
           },
           {
@@ -712,7 +712,7 @@
     },
     "MI": {
       "name": "Michigan",
-      "heatValue": 4,
+      "heatValue": 1,
       "display": {
         "panel": [
           {
@@ -725,7 +725,7 @@
           },
           {
             "type": "stat",
-            "value": "4",
+            "value": "1",
             "label": "elections monitored"
           },
           {
@@ -752,7 +752,7 @@
     },
     "MN": {
       "name": "Minnesota",
-      "heatValue": 2,
+      "heatValue": 1,
       "display": {
         "panel": [
           {
@@ -765,7 +765,7 @@
           },
           {
             "type": "stat",
-            "value": "2",
+            "value": "1",
             "label": "elections monitored"
           },
           {
@@ -942,7 +942,7 @@
     },
     "NH": {
       "name": "New Hampshire",
-      "heatValue": 2,
+      "heatValue": 1,
       "display": {
         "panel": [
           {
@@ -955,7 +955,7 @@
           },
           {
             "type": "stat",
-            "value": "2",
+            "value": "1",
             "label": "elections monitored"
           },
           {
@@ -1381,7 +1381,7 @@
     },
     "VA": {
       "name": "Virginia",
-      "heatValue": 2,
+      "heatValue": 1,
       "display": {
         "panel": [
           {
@@ -1394,7 +1394,7 @@
           },
           {
             "type": "stat",
-            "value": "2",
+            "value": "1",
             "label": "elections monitored"
           },
           {
