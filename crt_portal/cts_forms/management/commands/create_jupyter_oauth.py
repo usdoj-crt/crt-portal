@@ -49,7 +49,7 @@ class Command(BaseCommand):  # pragma: no cover
             client_type='confidential',
             authorization_grant_type='authorization-code',
             redirect_uris=redirect_uris,
-            algorithm='RS256',
+            algorithm='HS256',
             skip_authorization=True,
         )
 
