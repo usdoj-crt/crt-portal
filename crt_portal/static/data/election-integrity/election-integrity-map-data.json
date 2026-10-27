@@ -104,7 +104,7 @@
             },
             {
               "icon": "list-maintenance",
-              "value": 0,
+              "value": 1,
               "label": "List Maintenance"
             },
             {
@@ -785,7 +785,7 @@
         "categoryBar": {
           "caption": "enforcement actions by type",
           "total": {
-            "value": 5,
+            "value": 4,
             "label": "Total"
           },
           "slots": [
@@ -2300,7 +2300,7 @@
         "categoryBar": {
           "caption": "enforcement actions by type",
           "total": {
-            "value": 16,
+            "value": 7,
             "label": "Total"
           },
           "slots": [
@@ -2316,7 +2316,7 @@
             },
             {
               "icon": "cybersecurity",
-              "value": 6,
+              "value": 0,
               "label": "Cybersecurity"
             },
             {
@@ -2326,7 +2326,7 @@
             },
             {
               "icon": "list-maintenance",
-              "value": 1,
+              "value": 0,
               "label": "List Maintenance"
             },
             {
@@ -2336,7 +2336,7 @@
             },
             {
               "icon": "warning",
-              "value": 3,
+              "value": 1,
               "label": "Warning"
             }
           ]
@@ -2384,11 +2384,11 @@
                 }
               },
               {
-                "label": "DHS CISA Election Report Finding U.S. Election Systems are Subject to Outdated Certifications, Vulnerabilities, and Persistent Cybersecurity Gaps",
-                "date": "Jul 13, 2026",
+                "label": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting",
+                "date": "Jul 7, 2026",
                 "bullet": {
-                  "image": "static:img/Seal_of_the_United_States_Department_of_Homeland_Security.svg",
-                  "label": "DHS"
+                  "image": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
+                  "label": "DOJ"
                 }
               }
             ]
@@ -2401,7 +2401,7 @@
         "categoryBar": {
           "caption": "enforcement actions by type",
           "total": {
-            "value": 15,
+            "value": 6,
             "label": "Total"
           },
           "slots": [
@@ -2417,7 +2417,7 @@
             },
             {
               "icon": "cybersecurity",
-              "value": 6,
+              "value": 0,
               "label": "Cybersecurity"
             },
             {
@@ -2427,7 +2427,7 @@
             },
             {
               "icon": "list-maintenance",
-              "value": 1,
+              "value": 0,
               "label": "List Maintenance"
             },
             {
@@ -2437,7 +2437,7 @@
             },
             {
               "icon": "warning",
-              "value": 3,
+              "value": 1,
               "label": "Warning"
             }
           ]
@@ -2469,24 +2469,24 @@
                 }
               },
               {
-                "label": "DHS CISA Election Report Finding U.S. Election Systems are Subject to Outdated Certifications, Vulnerabilities, and Persistent Cybersecurity Gaps",
-                "date": "Jul 13, 2026",
-                "bullet": {
-                  "image": "static:img/Seal_of_the_United_States_Department_of_Homeland_Security.svg",
-                  "label": "DHS"
-                }
-              },
-              {
-                "label": "DHS Creates Policy Requiring States to Adopt Five New Election Security Measures to Receive FEMA Grants",
-                "date": "Jul 9, 2026",
-                "bullet": {
-                  "image": "static:img/Seal_of_the_United_States_Department_of_Homeland_Security.svg",
-                  "label": "DHS"
-                }
-              },
-              {
                 "label": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting",
                 "date": "Jul 7, 2026",
+                "bullet": {
+                  "image": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
+                  "label": "DOJ"
+                }
+              },
+              {
+                "label": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law",
+                "date": "Jun 20, 2026",
+                "bullet": {
+                  "image": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
+                  "label": "DOJ"
+                }
+              },
+              {
+                "label": "DOJ Inspected Federal Election Records to Ensure Eligible Americans Vote With Missouri's Support",
+                "date": "Sep 8, 2025",
                 "bullet": {
                   "image": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
                   "label": "DOJ"
@@ -2502,7 +2502,7 @@
         "categoryBar": {
           "caption": "enforcement actions by type",
           "total": {
-            "value": 14,
+            "value": 4,
             "label": "Total"
           },
           "slots": [
@@ -2518,7 +2518,7 @@
             },
             {
               "icon": "cybersecurity",
-              "value": 6,
+              "value": 0,
               "label": "Cybersecurity"
             },
             {
@@ -2528,7 +2528,7 @@
             },
             {
               "icon": "list-maintenance",
-              "value": 3,
+              "value": 1,
               "label": "List Maintenance"
             },
             {
@@ -2538,7 +2538,7 @@
             },
             {
               "icon": "warning",
-              "value": 3,
+              "value": 1,
               "label": "Warning"
             }
           ]
@@ -2570,24 +2570,24 @@
                 }
               },
               {
-                "label": "DHS CISA Election Report Finding U.S. Election Systems are Subject to Outdated Certifications, Vulnerabilities, and Persistent Cybersecurity Gaps",
-                "date": "Jul 13, 2026",
-                "bullet": {
-                  "image": "static:img/Seal_of_the_United_States_Department_of_Homeland_Security.svg",
-                  "label": "DHS"
-                }
-              },
-              {
-                "label": "DHS Creates Policy Requiring States to Adopt Five New Election Security Measures to Receive FEMA Grants",
-                "date": "Jul 9, 2026",
-                "bullet": {
-                  "image": "static:img/Seal_of_the_United_States_Department_of_Homeland_Security.svg",
-                  "label": "DHS"
-                }
-              },
-              {
                 "label": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting",
                 "date": "Jul 7, 2026",
+                "bullet": {
+                  "image": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
+                  "label": "DOJ"
+                }
+              },
+              {
+                "label": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law",
+                "date": "Jan 24, 2026",
+                "bullet": {
+                  "image": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
+                  "label": "DOJ"
+                }
+              },
+              {
+                "label": "DOJ Inspected Federal Election Records to Ensure Eligible Americans Vote With Mississippi's Support",
+                "date": "Jul 25, 2025",
                 "bullet": {
                   "image": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
                   "label": "DOJ"
@@ -2603,7 +2603,7 @@
         "categoryBar": {
           "caption": "enforcement actions by type",
           "total": {
-            "value": 13,
+            "value": 4,
             "label": "Total"
           },
           "slots": [
@@ -2619,7 +2619,7 @@
             },
             {
               "icon": "cybersecurity",
-              "value": 6,
+              "value": 0,
               "label": "Cybersecurity"
             },
             {
@@ -2629,7 +2629,7 @@
             },
             {
               "icon": "list-maintenance",
-              "value": 2,
+              "value": 1,
               "label": "List Maintenance"
             },
             {
@@ -2639,7 +2639,7 @@
             },
             {
               "icon": "warning",
-              "value": 3,
+              "value": 1,
               "label": "Warning"
             }
           ]
@@ -2671,24 +2671,24 @@
                 }
               },
               {
-                "label": "DHS CISA Election Report Finding U.S. Election Systems are Subject to Outdated Certifications, Vulnerabilities, and Persistent Cybersecurity Gaps",
-                "date": "Jul 13, 2026",
-                "bullet": {
-                  "image": "static:img/Seal_of_the_United_States_Department_of_Homeland_Security.svg",
-                  "label": "DHS"
-                }
-              },
-              {
-                "label": "DHS Creates Policy Requiring States to Adopt Five New Election Security Measures to Receive FEMA Grants",
-                "date": "Jul 9, 2026",
-                "bullet": {
-                  "image": "static:img/Seal_of_the_United_States_Department_of_Homeland_Security.svg",
-                  "label": "DHS"
-                }
-              },
-              {
                 "label": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting",
                 "date": "Jul 7, 2026",
+                "bullet": {
+                  "image": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
+                  "label": "DOJ"
+                }
+              },
+              {
+                "label": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law",
+                "date": "Apr 17, 2026",
+                "bullet": {
+                  "image": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
+                  "label": "DOJ"
+                }
+              },
+              {
+                "label": "DOJ Inspected Federal Election Records to Ensure Eligible Americans Vote With Montana's Support",
+                "date": "Aug 14, 2025",
                 "bullet": {
                   "image": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
                   "label": "DOJ"
@@ -2704,7 +2704,7 @@
         "categoryBar": {
           "caption": "enforcement actions by type",
           "total": {
-            "value": 13,
+            "value": 4,
             "label": "Total"
           },
           "slots": [
@@ -2720,7 +2720,7 @@
             },
             {
               "icon": "cybersecurity",
-              "value": 6,
+              "value": 0,
               "label": "Cybersecurity"
             },
             {
@@ -2730,7 +2730,7 @@
             },
             {
               "icon": "list-maintenance",
-              "value": 2,
+              "value": 1,
               "label": "List Maintenance"
             },
             {
@@ -2740,7 +2740,7 @@
             },
             {
               "icon": "warning",
-              "value": 3,
+              "value": 1,
               "label": "Warning"
             }
           ]
@@ -2772,24 +2772,24 @@
                 }
               },
               {
-                "label": "DHS CISA Election Report Finding U.S. Election Systems are Subject to Outdated Certifications, Vulnerabilities, and Persistent Cybersecurity Gaps",
-                "date": "Jul 13, 2026",
-                "bullet": {
-                  "image": "static:img/Seal_of_the_United_States_Department_of_Homeland_Security.svg",
-                  "label": "DHS"
-                }
-              },
-              {
-                "label": "DHS Creates Policy Requiring States to Adopt Five New Election Security Measures to Receive FEMA Grants",
-                "date": "Jul 9, 2026",
-                "bullet": {
-                  "image": "static:img/Seal_of_the_United_States_Department_of_Homeland_Security.svg",
-                  "label": "DHS"
-                }
-              },
-              {
                 "label": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting",
                 "date": "Jul 7, 2026",
+                "bullet": {
+                  "image": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
+                  "label": "DOJ"
+                }
+              },
+              {
+                "label": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law",
+                "date": "Jan 17, 2026",
+                "bullet": {
+                  "image": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
+                  "label": "DOJ"
+                }
+              },
+              {
+                "label": "DOJ Obtains a Court Order That North Carolina Remedy 100,000+ Voter Registrations",
+                "date": "Sep 8, 2025",
                 "bullet": {
                   "image": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
                   "label": "DOJ"
@@ -2805,13 +2805,13 @@
         "categoryBar": {
           "caption": "enforcement actions by type",
           "total": {
-            "value": 16,
+            "value": 6,
             "label": "Total"
           },
           "slots": [
             {
               "icon": "civil-action",
-              "value": 2,
+              "value": 1,
               "label": "Civil Action"
             },
             {
@@ -2821,7 +2821,7 @@
             },
             {
               "icon": "cybersecurity",
-              "value": 6,
+              "value": 0,
               "label": "Cybersecurity"
             },
             {
@@ -2841,7 +2841,7 @@
             },
             {
               "icon": "warning",
-              "value": 4,
+              "value": 1,
               "label": "Warning"
             }
           ]
@@ -2873,24 +2873,16 @@
                 }
               },
               {
-                "label": "DHS CISA Election Report Finding U.S. Election Systems are Subject to Outdated Certifications, Vulnerabilities, and Persistent Cybersecurity Gaps",
-                "date": "Jul 13, 2026",
-                "bullet": {
-                  "image": "static:img/Seal_of_the_United_States_Department_of_Homeland_Security.svg",
-                  "label": "DHS"
-                }
-              },
-              {
-                "label": "DHS Creates Policy Requiring States to Adopt Five New Election Security Measures to Receive FEMA Grants",
-                "date": "Jul 9, 2026",
-                "bullet": {
-                  "image": "static:img/Seal_of_the_United_States_Department_of_Homeland_Security.svg",
-                  "label": "DHS"
-                }
-              },
-              {
                 "label": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting",
                 "date": "Jul 7, 2026",
+                "bullet": {
+                  "image": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
+                  "label": "DOJ"
+                }
+              },
+              {
+                "label": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law",
+                "date": "Apr 25, 2026",
                 "bullet": {
                   "image": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
                   "label": "DOJ"
@@ -2906,7 +2898,7 @@
         "categoryBar": {
           "caption": "enforcement actions by type",
           "total": {
-            "value": 12,
+            "value": 3,
             "label": "Total"
           },
           "slots": [
@@ -2922,7 +2914,7 @@
             },
             {
               "icon": "cybersecurity",
-              "value": 6,
+              "value": 0,
               "label": "Cybersecurity"
             },
             {
@@ -2932,7 +2924,7 @@
             },
             {
               "icon": "list-maintenance",
-              "value": 1,
+              "value": 0,
               "label": "List Maintenance"
             },
             {
@@ -2942,7 +2934,7 @@
             },
             {
               "icon": "warning",
-              "value": 3,
+              "value": 1,
               "label": "Warning"
             }
           ]
@@ -2974,24 +2966,24 @@
                 }
               },
               {
-                "label": "DHS CISA Election Report Finding U.S. Election Systems are Subject to Outdated Certifications, Vulnerabilities, and Persistent Cybersecurity Gaps",
-                "date": "Jul 13, 2026",
-                "bullet": {
-                  "image": "static:img/Seal_of_the_United_States_Department_of_Homeland_Security.svg",
-                  "label": "DHS"
-                }
-              },
-              {
-                "label": "DHS Creates Policy Requiring States to Adopt Five New Election Security Measures to Receive FEMA Grants",
-                "date": "Jul 9, 2026",
-                "bullet": {
-                  "image": "static:img/Seal_of_the_United_States_Department_of_Homeland_Security.svg",
-                  "label": "DHS"
-                }
-              },
-              {
                 "label": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting",
                 "date": "Jul 7, 2026",
+                "bullet": {
+                  "image": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
+                  "label": "DOJ"
+                }
+              },
+              {
+                "label": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law",
+                "date": "Mar 28, 2026",
+                "bullet": {
+                  "image": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
+                  "label": "DOJ"
+                }
+              },
+              {
+                "label": "DOJ Inspected Federal Election Records to Ensure Eligible Americans Vote With Nebraska's Support",
+                "date": "Sep 8, 2025",
                 "bullet": {
                   "image": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
                   "label": "DOJ"
@@ -3007,7 +2999,7 @@
         "categoryBar": {
           "caption": "enforcement actions by type",
           "total": {
-            "value": 13,
+            "value": 4,
             "label": "Total"
           },
           "slots": [
@@ -3023,7 +3015,7 @@
             },
             {
               "icon": "cybersecurity",
-              "value": 6,
+              "value": 0,
               "label": "Cybersecurity"
             },
             {
@@ -3033,7 +3025,7 @@
             },
             {
               "icon": "list-maintenance",
-              "value": 2,
+              "value": 1,
               "label": "List Maintenance"
             },
             {
@@ -3043,7 +3035,7 @@
             },
             {
               "icon": "warning",
-              "value": 3,
+              "value": 1,
               "label": "Warning"
             }
           ]
@@ -3108,7 +3100,7 @@
         "categoryBar": {
           "caption": "enforcement actions by type",
           "total": {
-            "value": 15,
+            "value": 6,
             "label": "Total"
           },
           "slots": [
@@ -3124,7 +3116,7 @@
             },
             {
               "icon": "cybersecurity",
-              "value": 6,
+              "value": 0,
               "label": "Cybersecurity"
             },
             {
@@ -3134,7 +3126,7 @@
             },
             {
               "icon": "list-maintenance",
-              "value": 1,
+              "value": 0,
               "label": "List Maintenance"
             },
             {
@@ -3144,7 +3136,7 @@
             },
             {
               "icon": "warning",
-              "value": 3,
+              "value": 1,
               "label": "Warning"
             }
           ]
@@ -3176,27 +3168,27 @@
                 }
               },
               {
-                "label": "DHS Secretary Mullin Sends Letter to New Jersey Secretary of State Warning About Noncitizens on Voter Rolls",
-                "date": "Jul 17, 2026",
+                "label": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting",
+                "date": "Jul 7, 2026",
                 "bullet": {
-                  "image": "static:img/Seal_of_the_United_States_Department_of_Homeland_Security.svg",
-                  "label": "DHS"
+                  "image": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
+                  "label": "DOJ"
                 }
               },
               {
-                "label": "DHS CISA Election Report Finding U.S. Election Systems are Subject to Outdated Certifications, Vulnerabilities, and Persistent Cybersecurity Gaps",
-                "date": "Jul 13, 2026",
+                "label": "DOJ Sent Election Monitors to Union County to Ensure Federal Law Compliance",
+                "date": "Jun 2, 2026",
                 "bullet": {
-                  "image": "static:img/Seal_of_the_United_States_Department_of_Homeland_Security.svg",
-                  "label": "DHS"
+                  "image": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
+                  "label": "DOJ"
                 }
               },
               {
-                "label": "DHS Creates Policy Requiring States to Adopt Five New Election Security Measures to Receive FEMA Grants",
-                "date": "Jul 9, 2026",
+                "label": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law",
+                "date": "Apr 18, 2026",
                 "bullet": {
-                  "image": "static:img/Seal_of_the_United_States_Department_of_Homeland_Security.svg",
-                  "label": "DHS"
+                  "image": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
+                  "label": "DOJ"
                 }
               }
             ]
@@ -3209,7 +3201,7 @@
         "categoryBar": {
           "caption": "enforcement actions by type",
           "total": {
-            "value": 19,
+            "value": 7,
             "label": "Total"
           },
           "slots": [
@@ -3220,12 +3212,12 @@
             },
             {
               "icon": "criminal-action",
-              "value": 1,
+              "value": 0,
               "label": "Criminal Action"
             },
             {
               "icon": "cybersecurity",
-              "value": 6,
+              "value": 0,
               "label": "Cybersecurity"
             },
             {
@@ -3235,7 +3227,7 @@
             },
             {
               "icon": "list-maintenance",
-              "value": 1,
+              "value": 0,
               "label": "List Maintenance"
             },
             {
@@ -3245,7 +3237,7 @@
             },
             {
               "icon": "warning",
-              "value": 5,
+              "value": 1,
               "label": "Warning"
             }
           ]
@@ -3277,24 +3269,24 @@
                 }
               },
               {
-                "label": "DHS CISA Election Report Finding U.S. Election Systems are Subject to Outdated Certifications, Vulnerabilities, and Persistent Cybersecurity Gaps",
-                "date": "Jul 13, 2026",
-                "bullet": {
-                  "image": "static:img/Seal_of_the_United_States_Department_of_Homeland_Security.svg",
-                  "label": "DHS"
-                }
-              },
-              {
-                "label": "DHS Creates Policy Requiring States to Adopt Five New Election Security Measures to Receive FEMA Grants",
-                "date": "Jul 9, 2026",
-                "bullet": {
-                  "image": "static:img/Seal_of_the_United_States_Department_of_Homeland_Security.svg",
-                  "label": "DHS"
-                }
-              },
-              {
                 "label": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting",
                 "date": "Jul 7, 2026",
+                "bullet": {
+                  "image": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
+                  "label": "DOJ"
+                }
+              },
+              {
+                "label": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law",
+                "date": "Apr 18, 2026",
+                "bullet": {
+                  "image": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
+                  "label": "DOJ"
+                }
+              },
+              {
+                "label": "DOJ Sued New Mexico for Failing to Provide Federal Election Records",
+                "date": "Dec 2, 2025",
                 "bullet": {
                   "image": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
                   "label": "DOJ"
@@ -3310,7 +3302,7 @@
         "categoryBar": {
           "caption": "enforcement actions by type",
           "total": {
-            "value": 13,
+            "value": 4,
             "label": "Total"
           },
           "slots": [
@@ -3326,7 +3318,7 @@
             },
             {
               "icon": "cybersecurity",
-              "value": 6,
+              "value": 0,
               "label": "Cybersecurity"
             },
             {
@@ -3336,7 +3328,7 @@
             },
             {
               "icon": "list-maintenance",
-              "value": 1,
+              "value": 0,
               "label": "List Maintenance"
             },
             {
@@ -3346,7 +3338,7 @@
             },
             {
               "icon": "warning",
-              "value": 3,
+              "value": 1,
               "label": "Warning"
             }
           ]
@@ -3378,27 +3370,27 @@
                 }
               },
               {
-                "label": "DHS Secretary Mullin Sends Letter to Nevada Secretary of State Warning About Noncitizens on Voter Rolls",
-                "date": "Jul 17, 2026",
+                "label": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting",
+                "date": "Jul 7, 2026",
                 "bullet": {
-                  "image": "static:img/Seal_of_the_United_States_Department_of_Homeland_Security.svg",
-                  "label": "DHS"
+                  "image": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
+                  "label": "DOJ"
                 }
               },
               {
-                "label": "DHS CISA Election Report Finding U.S. Election Systems are Subject to Outdated Certifications, Vulnerabilities, and Persistent Cybersecurity Gaps",
-                "date": "Jul 13, 2026",
+                "label": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law",
+                "date": "Apr 25, 2026",
                 "bullet": {
-                  "image": "static:img/Seal_of_the_United_States_Department_of_Homeland_Security.svg",
-                  "label": "DHS"
+                  "image": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
+                  "label": "DOJ"
                 }
               },
               {
-                "label": "DHS Creates Policy Requiring States to Adopt Five New Election Security Measures to Receive FEMA Grants",
-                "date": "Jul 9, 2026",
+                "label": "DOJ Sued Nevada for Failing to Provide Federal Election Records",
+                "date": "Dec 12, 2025",
                 "bullet": {
-                  "image": "static:img/Seal_of_the_United_States_Department_of_Homeland_Security.svg",
-                  "label": "DHS"
+                  "image": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
+                  "label": "DOJ"
                 }
               }
             ]
@@ -3411,7 +3403,7 @@
         "categoryBar": {
           "caption": "enforcement actions by type",
           "total": {
-            "value": 14,
+            "value": 4,
             "label": "Total"
           },
           "slots": [
@@ -3427,7 +3419,7 @@
             },
             {
               "icon": "cybersecurity",
-              "value": 6,
+              "value": 0,
               "label": "Cybersecurity"
             },
             {
@@ -3437,7 +3429,7 @@
             },
             {
               "icon": "list-maintenance",
-              "value": 1,
+              "value": 0,
               "label": "List Maintenance"
             },
             {
@@ -3447,7 +3439,7 @@
             },
             {
               "icon": "warning",
-              "value": 4,
+              "value": 1,
               "label": "Warning"
             }
           ]
@@ -3479,24 +3471,24 @@
                 }
               },
               {
-                "label": "DHS CISA Election Report Finding U.S. Election Systems are Subject to Outdated Certifications, Vulnerabilities, and Persistent Cybersecurity Gaps",
-                "date": "Jul 13, 2026",
-                "bullet": {
-                  "image": "static:img/Seal_of_the_United_States_Department_of_Homeland_Security.svg",
-                  "label": "DHS"
-                }
-              },
-              {
-                "label": "DHS Creates Policy Requiring States to Adopt Five New Election Security Measures to Receive FEMA Grants",
-                "date": "Jul 9, 2026",
-                "bullet": {
-                  "image": "static:img/Seal_of_the_United_States_Department_of_Homeland_Security.svg",
-                  "label": "DHS"
-                }
-              },
-              {
                 "label": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting",
                 "date": "Jul 7, 2026",
+                "bullet": {
+                  "image": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
+                  "label": "DOJ"
+                }
+              },
+              {
+                "label": "DOJ Demanded NY Provide a HAVA ID for Each Registered Voter on the Voter Rolls",
+                "date": "Jun 10, 2026",
+                "bullet": {
+                  "image": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
+                  "label": "DOJ"
+                }
+              },
+              {
+                "label": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law",
+                "date": "May 9, 2026",
                 "bullet": {
                   "image": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
                   "label": "DOJ"
@@ -3512,7 +3504,7 @@
         "categoryBar": {
           "caption": "enforcement actions by type",
           "total": {
-            "value": 14,
+            "value": 5,
             "label": "Total"
           },
           "slots": [
@@ -3528,7 +3520,7 @@
             },
             {
               "icon": "cybersecurity",
-              "value": 6,
+              "value": 0,
               "label": "Cybersecurity"
             },
             {
@@ -3548,7 +3540,7 @@
             },
             {
               "icon": "warning",
-              "value": 4,
+              "value": 1,
               "label": "Warning"
             }
           ]
@@ -3580,24 +3572,24 @@
                 }
               },
               {
-                "label": "DHS CISA Election Report Finding U.S. Election Systems are Subject to Outdated Certifications, Vulnerabilities, and Persistent Cybersecurity Gaps",
-                "date": "Jul 13, 2026",
-                "bullet": {
-                  "image": "static:img/Seal_of_the_United_States_Department_of_Homeland_Security.svg",
-                  "label": "DHS"
-                }
-              },
-              {
-                "label": "DHS Creates Policy Requiring States to Adopt Five New Election Security Measures to Receive FEMA Grants",
-                "date": "Jul 9, 2026",
-                "bullet": {
-                  "image": "static:img/Seal_of_the_United_States_Department_of_Homeland_Security.svg",
-                  "label": "DHS"
-                }
-              },
-              {
                 "label": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting",
                 "date": "Jul 7, 2026",
+                "bullet": {
+                  "image": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
+                  "label": "DOJ"
+                }
+              },
+              {
+                "label": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law",
+                "date": "Mar 21, 2026",
+                "bullet": {
+                  "image": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
+                  "label": "DOJ"
+                }
+              },
+              {
+                "label": "DOJ Inspected Federal Election Records to Ensure Eligible Americans Vote With Ohio's Support",
+                "date": "Aug 6, 2025",
                 "bullet": {
                   "image": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
                   "label": "DOJ"
@@ -3613,7 +3605,7 @@
         "categoryBar": {
           "caption": "enforcement actions by type",
           "total": {
-            "value": 14,
+            "value": 4,
             "label": "Total"
           },
           "slots": [
@@ -3629,7 +3621,7 @@
             },
             {
               "icon": "cybersecurity",
-              "value": 6,
+              "value": 0,
               "label": "Cybersecurity"
             },
             {
@@ -3639,7 +3631,7 @@
             },
             {
               "icon": "list-maintenance",
-              "value": 3,
+              "value": 1,
               "label": "List Maintenance"
             },
             {
@@ -3649,7 +3641,7 @@
             },
             {
               "icon": "warning",
-              "value": 3,
+              "value": 1,
               "label": "Warning"
             }
           ]
@@ -3681,24 +3673,24 @@
                 }
               },
               {
-                "label": "DHS CISA Election Report Finding U.S. Election Systems are Subject to Outdated Certifications, Vulnerabilities, and Persistent Cybersecurity Gaps",
-                "date": "Jul 13, 2026",
-                "bullet": {
-                  "image": "static:img/Seal_of_the_United_States_Department_of_Homeland_Security.svg",
-                  "label": "DHS"
-                }
-              },
-              {
-                "label": "DHS Creates Policy Requiring States to Adopt Five New Election Security Measures to Receive FEMA Grants",
-                "date": "Jul 9, 2026",
-                "bullet": {
-                  "image": "static:img/Seal_of_the_United_States_Department_of_Homeland_Security.svg",
-                  "label": "DHS"
-                }
-              },
-              {
                 "label": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting",
                 "date": "Jul 7, 2026",
+                "bullet": {
+                  "image": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
+                  "label": "DOJ"
+                }
+              },
+              {
+                "label": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law",
+                "date": "May 2, 2026",
+                "bullet": {
+                  "image": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
+                  "label": "DOJ"
+                }
+              },
+              {
+                "label": "DOJ Sued Oklahoma, and Oklahoma Then Agreed to Produce Its Voter Rolls",
+                "date": "Feb 26, 2026",
                 "bullet": {
                   "image": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
                   "label": "DOJ"
@@ -3714,7 +3706,7 @@
         "categoryBar": {
           "caption": "enforcement actions by type",
           "total": {
-            "value": 13,
+            "value": 4,
             "label": "Total"
           },
           "slots": [
@@ -3730,7 +3722,7 @@
             },
             {
               "icon": "cybersecurity",
-              "value": 6,
+              "value": 0,
               "label": "Cybersecurity"
             },
             {
@@ -3740,7 +3732,7 @@
             },
             {
               "icon": "list-maintenance",
-              "value": 1,
+              "value": 0,
               "label": "List Maintenance"
             },
             {
@@ -3750,7 +3742,7 @@
             },
             {
               "icon": "warning",
-              "value": 3,
+              "value": 1,
               "label": "Warning"
             }
           ]
@@ -3782,24 +3774,24 @@
                 }
               },
               {
-                "label": "DHS CISA Election Report Finding U.S. Election Systems are Subject to Outdated Certifications, Vulnerabilities, and Persistent Cybersecurity Gaps",
-                "date": "Jul 13, 2026",
-                "bullet": {
-                  "image": "static:img/Seal_of_the_United_States_Department_of_Homeland_Security.svg",
-                  "label": "DHS"
-                }
-              },
-              {
-                "label": "DHS Creates Policy Requiring States to Adopt Five New Election Security Measures to Receive FEMA Grants",
-                "date": "Jul 9, 2026",
-                "bullet": {
-                  "image": "static:img/Seal_of_the_United_States_Department_of_Homeland_Security.svg",
-                  "label": "DHS"
-                }
-              },
-              {
                 "label": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting",
                 "date": "Jul 7, 2026",
+                "bullet": {
+                  "image": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
+                  "label": "DOJ"
+                }
+              },
+              {
+                "label": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law",
+                "date": "Apr 4, 2026",
+                "bullet": {
+                  "image": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
+                  "label": "DOJ"
+                }
+              },
+              {
+                "label": "DOJ Sued Oregon for Failing to Provide Federal Election Records",
+                "date": "Sep 16, 2025",
                 "bullet": {
                   "image": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
                   "label": "DOJ"
@@ -3815,13 +3807,13 @@
         "categoryBar": {
           "caption": "enforcement actions by type",
           "total": {
-            "value": 14,
+            "value": 5,
             "label": "Total"
           },
           "slots": [
             {
               "icon": "civil-action",
-              "value": 2,
+              "value": 1,
               "label": "Civil Action"
             },
             {
@@ -3831,7 +3823,7 @@
             },
             {
               "icon": "cybersecurity",
-              "value": 6,
+              "value": 0,
               "label": "Cybersecurity"
             },
             {
@@ -3851,7 +3843,7 @@
             },
             {
               "icon": "warning",
-              "value": 3,
+              "value": 1,
               "label": "Warning"
             }
           ]
@@ -3883,27 +3875,27 @@
                 }
               },
               {
-                "label": "DHS Secretary Mullin Sends Letter to Pennsylvania Secretary of State Warning About Noncitizens on Voter Rolls",
-                "date": "Jul 17, 2026",
+                "label": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting",
+                "date": "Jul 7, 2026",
                 "bullet": {
-                  "image": "static:img/Seal_of_the_United_States_Department_of_Homeland_Security.svg",
-                  "label": "DHS"
+                  "image": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
+                  "label": "DOJ"
                 }
               },
               {
-                "label": "DHS CISA Election Report Finding U.S. Election Systems are Subject to Outdated Certifications, Vulnerabilities, and Persistent Cybersecurity Gaps",
-                "date": "Jul 13, 2026",
+                "label": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law",
+                "date": "Apr 4, 2026",
                 "bullet": {
-                  "image": "static:img/Seal_of_the_United_States_Department_of_Homeland_Security.svg",
-                  "label": "DHS"
+                  "image": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
+                  "label": "DOJ"
                 }
               },
               {
-                "label": "DHS Creates Policy Requiring States to Adopt Five New Election Security Measures to Receive FEMA Grants",
-                "date": "Jul 9, 2026",
+                "label": "DOJ Sued Pennsylvania for Failing to Provide Federal Election Records",
+                "date": "Sep 25, 2025",
                 "bullet": {
-                  "image": "static:img/Seal_of_the_United_States_Department_of_Homeland_Security.svg",
-                  "label": "DHS"
+                  "image": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
+                  "label": "DOJ"
                 }
               }
             ]
@@ -3916,7 +3908,7 @@
         "categoryBar": {
           "caption": "enforcement actions by type",
           "total": {
-            "value": 15,
+            "value": 4,
             "label": "Total"
           },
           "slots": [
@@ -3927,12 +3919,12 @@
             },
             {
               "icon": "criminal-action",
-              "value": 1,
+              "value": 0,
               "label": "Criminal Action"
             },
             {
               "icon": "cybersecurity",
-              "value": 6,
+              "value": 0,
               "label": "Cybersecurity"
             },
             {
@@ -3942,7 +3934,7 @@
             },
             {
               "icon": "list-maintenance",
-              "value": 1,
+              "value": 0,
               "label": "List Maintenance"
             },
             {
@@ -3952,7 +3944,7 @@
             },
             {
               "icon": "warning",
-              "value": 4,
+              "value": 1,
               "label": "Warning"
             }
           ]
@@ -3992,19 +3984,19 @@
                 }
               },
               {
-                "label": "DHS CISA Election Report Finding U.S. Election Systems are Subject to Outdated Certifications, Vulnerabilities, and Persistent Cybersecurity Gaps",
-                "date": "Jul 13, 2026",
+                "label": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting",
+                "date": "Jul 7, 2026",
                 "bullet": {
-                  "image": "static:img/Seal_of_the_United_States_Department_of_Homeland_Security.svg",
-                  "label": "DHS"
+                  "image": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
+                  "label": "DOJ"
                 }
               },
               {
-                "label": "DHS Creates Policy Requiring States to Adopt Five New Election Security Measures to Receive FEMA Grants",
-                "date": "Jul 9, 2026",
+                "label": "DOJ Sued Rhode Island for Failing to Provide Federal Election Records",
+                "date": "Dec 2, 2025",
                 "bullet": {
-                  "image": "static:img/Seal_of_the_United_States_Department_of_Homeland_Security.svg",
-                  "label": "DHS"
+                  "image": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
+                  "label": "DOJ"
                 }
               }
             ]
@@ -4017,7 +4009,7 @@
         "categoryBar": {
           "caption": "enforcement actions by type",
           "total": {
-            "value": 13,
+            "value": 4,
             "label": "Total"
           },
           "slots": [
@@ -4033,7 +4025,7 @@
             },
             {
               "icon": "cybersecurity",
-              "value": 6,
+              "value": 0,
               "label": "Cybersecurity"
             },
             {
@@ -4043,7 +4035,7 @@
             },
             {
               "icon": "list-maintenance",
-              "value": 1,
+              "value": 0,
               "label": "List Maintenance"
             },
             {
@@ -4053,7 +4045,7 @@
             },
             {
               "icon": "warning",
-              "value": 3,
+              "value": 1,
               "label": "Warning"
             }
           ]
@@ -4085,24 +4077,24 @@
                 }
               },
               {
-                "label": "DHS CISA Election Report Finding U.S. Election Systems are Subject to Outdated Certifications, Vulnerabilities, and Persistent Cybersecurity Gaps",
-                "date": "Jul 13, 2026",
-                "bullet": {
-                  "image": "static:img/Seal_of_the_United_States_Department_of_Homeland_Security.svg",
-                  "label": "DHS"
-                }
-              },
-              {
-                "label": "DHS Creates Policy Requiring States to Adopt Five New Election Security Measures to Receive FEMA Grants",
-                "date": "Jul 9, 2026",
-                "bullet": {
-                  "image": "static:img/Seal_of_the_United_States_Department_of_Homeland_Security.svg",
-                  "label": "DHS"
-                }
-              },
-              {
                 "label": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting",
                 "date": "Jul 7, 2026",
+                "bullet": {
+                  "image": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
+                  "label": "DOJ"
+                }
+              },
+              {
+                "label": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law",
+                "date": "Apr 25, 2026",
+                "bullet": {
+                  "image": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
+                  "label": "DOJ"
+                }
+              },
+              {
+                "label": "DOJ Inspected Federal Election Records to Ensure Eligible Americans Vote With South Carolina's Support",
+                "date": "Aug 6, 2025",
                 "bullet": {
                   "image": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
                   "label": "DOJ"
@@ -4118,7 +4110,7 @@
         "categoryBar": {
           "caption": "enforcement actions by type",
           "total": {
-            "value": 13,
+            "value": 4,
             "label": "Total"
           },
           "slots": [
@@ -4134,7 +4126,7 @@
             },
             {
               "icon": "cybersecurity",
-              "value": 6,
+              "value": 0,
               "label": "Cybersecurity"
             },
             {
@@ -4144,7 +4136,7 @@
             },
             {
               "icon": "list-maintenance",
-              "value": 2,
+              "value": 1,
               "label": "List Maintenance"
             },
             {
@@ -4154,7 +4146,7 @@
             },
             {
               "icon": "warning",
-              "value": 3,
+              "value": 1,
               "label": "Warning"
             }
           ]
@@ -4186,24 +4178,24 @@
                 }
               },
               {
-                "label": "DHS CISA Election Report Finding U.S. Election Systems are Subject to Outdated Certifications, Vulnerabilities, and Persistent Cybersecurity Gaps",
-                "date": "Jul 13, 2026",
-                "bullet": {
-                  "image": "static:img/Seal_of_the_United_States_Department_of_Homeland_Security.svg",
-                  "label": "DHS"
-                }
-              },
-              {
-                "label": "DHS Creates Policy Requiring States to Adopt Five New Election Security Measures to Receive FEMA Grants",
-                "date": "Jul 9, 2026",
-                "bullet": {
-                  "image": "static:img/Seal_of_the_United_States_Department_of_Homeland_Security.svg",
-                  "label": "DHS"
-                }
-              },
-              {
                 "label": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting",
                 "date": "Jul 7, 2026",
+                "bullet": {
+                  "image": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
+                  "label": "DOJ"
+                }
+              },
+              {
+                "label": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law",
+                "date": "Apr 18, 2026",
+                "bullet": {
+                  "image": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
+                  "label": "DOJ"
+                }
+              },
+              {
+                "label": "DOJ Inspected Federal Election Records to Ensure Eligible Americans Vote With South Dakota's Support",
+                "date": "Jul 29, 2025",
                 "bullet": {
                   "image": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
                   "label": "DOJ"
@@ -4219,7 +4211,7 @@
         "categoryBar": {
           "caption": "enforcement actions by type",
           "total": {
-            "value": 13,
+            "value": 4,
             "label": "Total"
           },
           "slots": [
@@ -4235,7 +4227,7 @@
             },
             {
               "icon": "cybersecurity",
-              "value": 6,
+              "value": 0,
               "label": "Cybersecurity"
             },
             {
@@ -4245,7 +4237,7 @@
             },
             {
               "icon": "list-maintenance",
-              "value": 2,
+              "value": 1,
               "label": "List Maintenance"
             },
             {
@@ -4255,7 +4247,7 @@
             },
             {
               "icon": "warning",
-              "value": 3,
+              "value": 1,
               "label": "Warning"
             }
           ]
@@ -4287,24 +4279,24 @@
                 }
               },
               {
-                "label": "DHS CISA Election Report Finding U.S. Election Systems are Subject to Outdated Certifications, Vulnerabilities, and Persistent Cybersecurity Gaps",
-                "date": "Jul 13, 2026",
-                "bullet": {
-                  "image": "static:img/Seal_of_the_United_States_Department_of_Homeland_Security.svg",
-                  "label": "DHS"
-                }
-              },
-              {
-                "label": "DHS Creates Policy Requiring States to Adopt Five New Election Security Measures to Receive FEMA Grants",
-                "date": "Jul 9, 2026",
-                "bullet": {
-                  "image": "static:img/Seal_of_the_United_States_Department_of_Homeland_Security.svg",
-                  "label": "DHS"
-                }
-              },
-              {
                 "label": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting",
                 "date": "Jul 7, 2026",
+                "bullet": {
+                  "image": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
+                  "label": "DOJ"
+                }
+              },
+              {
+                "label": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law",
+                "date": "Jun 22, 2026",
+                "bullet": {
+                  "image": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
+                  "label": "DOJ"
+                }
+              },
+              {
+                "label": "DOJ Inspected Federal Election Records to Ensure Eligible Americans Vote With Tennessee's Support",
+                "date": "Aug 7, 2025",
                 "bullet": {
                   "image": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
                   "label": "DOJ"
@@ -4320,7 +4312,7 @@
         "categoryBar": {
           "caption": "enforcement actions by type",
           "total": {
-            "value": 14,
+            "value": 4,
             "label": "Total"
           },
           "slots": [
@@ -4336,7 +4328,7 @@
             },
             {
               "icon": "cybersecurity",
-              "value": 6,
+              "value": 0,
               "label": "Cybersecurity"
             },
             {
@@ -4346,7 +4338,7 @@
             },
             {
               "icon": "list-maintenance",
-              "value": 3,
+              "value": 1,
               "label": "List Maintenance"
             },
             {
@@ -4356,7 +4348,7 @@
             },
             {
               "icon": "warning",
-              "value": 3,
+              "value": 1,
               "label": "Warning"
             }
           ]
@@ -4388,24 +4380,24 @@
                 }
               },
               {
-                "label": "DHS CISA Election Report Finding U.S. Election Systems are Subject to Outdated Certifications, Vulnerabilities, and Persistent Cybersecurity Gaps",
-                "date": "Jul 13, 2026",
-                "bullet": {
-                  "image": "static:img/Seal_of_the_United_States_Department_of_Homeland_Security.svg",
-                  "label": "DHS"
-                }
-              },
-              {
-                "label": "DHS Creates Policy Requiring States to Adopt Five New Election Security Measures to Receive FEMA Grants",
-                "date": "Jul 9, 2026",
-                "bullet": {
-                  "image": "static:img/Seal_of_the_United_States_Department_of_Homeland_Security.svg",
-                  "label": "DHS"
-                }
-              },
-              {
                 "label": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting",
                 "date": "Jul 7, 2026",
+                "bullet": {
+                  "image": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
+                  "label": "DOJ"
+                }
+              },
+              {
+                "label": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law",
+                "date": "Jan 17, 2026",
+                "bullet": {
+                  "image": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
+                  "label": "DOJ"
+                }
+              },
+              {
+                "label": "DOJ Inspected Federal Election Records to Ensure Eligible Americans Vote With Texas's Support",
+                "date": "Jul 8, 2025",
                 "bullet": {
                   "image": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
                   "label": "DOJ"
@@ -4421,7 +4413,7 @@
         "categoryBar": {
           "caption": "enforcement actions by type",
           "total": {
-            "value": 15,
+            "value": 5,
             "label": "Total"
           },
           "slots": [
@@ -4437,7 +4429,7 @@
             },
             {
               "icon": "cybersecurity",
-              "value": 6,
+              "value": 0,
               "label": "Cybersecurity"
             },
             {
@@ -4447,7 +4439,7 @@
             },
             {
               "icon": "list-maintenance",
-              "value": 3,
+              "value": 1,
               "label": "List Maintenance"
             },
             {
@@ -4457,7 +4449,7 @@
             },
             {
               "icon": "warning",
-              "value": 3,
+              "value": 1,
               "label": "Warning"
             }
           ]
@@ -4489,24 +4481,24 @@
                 }
               },
               {
-                "label": "DHS CISA Election Report Finding U.S. Election Systems are Subject to Outdated Certifications, Vulnerabilities, and Persistent Cybersecurity Gaps",
-                "date": "Jul 13, 2026",
-                "bullet": {
-                  "image": "static:img/Seal_of_the_United_States_Department_of_Homeland_Security.svg",
-                  "label": "DHS"
-                }
-              },
-              {
-                "label": "DHS Creates Policy Requiring States to Adopt Five New Election Security Measures to Receive FEMA Grants",
-                "date": "Jul 9, 2026",
-                "bullet": {
-                  "image": "static:img/Seal_of_the_United_States_Department_of_Homeland_Security.svg",
-                  "label": "DHS"
-                }
-              },
-              {
                 "label": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting",
                 "date": "Jul 7, 2026",
+                "bullet": {
+                  "image": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
+                  "label": "DOJ"
+                }
+              },
+              {
+                "label": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law",
+                "date": "May 9, 2026",
+                "bullet": {
+                  "image": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
+                  "label": "DOJ"
+                }
+              },
+              {
+                "label": "DOJ Sued Utah for Failing to Provide Federal Election Records",
+                "date": "Feb 26, 2026",
                 "bullet": {
                   "image": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
                   "label": "DOJ"
@@ -4522,7 +4514,7 @@
         "categoryBar": {
           "caption": "enforcement actions by type",
           "total": {
-            "value": 13,
+            "value": 4,
             "label": "Total"
           },
           "slots": [
@@ -4538,7 +4530,7 @@
             },
             {
               "icon": "cybersecurity",
-              "value": 6,
+              "value": 0,
               "label": "Cybersecurity"
             },
             {
@@ -4548,7 +4540,7 @@
             },
             {
               "icon": "list-maintenance",
-              "value": 1,
+              "value": 0,
               "label": "List Maintenance"
             },
             {
@@ -4558,7 +4550,7 @@
             },
             {
               "icon": "warning",
-              "value": 3,
+              "value": 1,
               "label": "Warning"
             }
           ]
@@ -4590,7 +4582,7 @@
                 }
               },
               {
-                "label": "DOJ Sends Election Monitors to Fairfax County to Ensure Federal Law Compliance",
+                "label": "DOJ Will Send Election Monitors to Fairfax County to Ensure Federal Law Compliance",
                 "date": "Aug 4, 2026",
                 "bullet": {
                   "image": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
@@ -4598,7 +4590,7 @@
                 }
               },
               {
-                "label": "DOJ Sends Election Monitors to Prince William County to Ensure Federal Law Compliance",
+                "label": "DOJ Will Send Election Monitors to Prince William County to Ensure Federal Law Compliance",
                 "date": "Aug 4, 2026",
                 "bullet": {
                   "image": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
@@ -4606,11 +4598,11 @@
                 }
               },
               {
-                "label": "DHS CISA Election Report Finding U.S. Election Systems are Subject to Outdated Certifications, Vulnerabilities, and Persistent Cybersecurity Gaps",
-                "date": "Jul 13, 2026",
+                "label": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting",
+                "date": "Jul 7, 2026",
                 "bullet": {
-                  "image": "static:img/Seal_of_the_United_States_Department_of_Homeland_Security.svg",
-                  "label": "DHS"
+                  "image": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
+                  "label": "DOJ"
                 }
               }
             ]
@@ -4623,7 +4615,7 @@
         "categoryBar": {
           "caption": "enforcement actions by type",
           "total": {
-            "value": 15,
+            "value": 6,
             "label": "Total"
           },
           "slots": [
@@ -4639,7 +4631,7 @@
             },
             {
               "icon": "cybersecurity",
-              "value": 6,
+              "value": 0,
               "label": "Cybersecurity"
             },
             {
@@ -4649,7 +4641,7 @@
             },
             {
               "icon": "list-maintenance",
-              "value": 1,
+              "value": 0,
               "label": "List Maintenance"
             },
             {
@@ -4659,7 +4651,7 @@
             },
             {
               "icon": "warning",
-              "value": 3,
+              "value": 1,
               "label": "Warning"
             }
           ]
@@ -4691,24 +4683,24 @@
                 }
               },
               {
-                "label": "DHS CISA Election Report Finding U.S. Election Systems are Subject to Outdated Certifications, Vulnerabilities, and Persistent Cybersecurity Gaps",
-                "date": "Jul 13, 2026",
-                "bullet": {
-                  "image": "static:img/Seal_of_the_United_States_Department_of_Homeland_Security.svg",
-                  "label": "DHS"
-                }
-              },
-              {
-                "label": "DHS Creates Policy Requiring States to Adopt Five New Election Security Measures to Receive FEMA Grants",
-                "date": "Jul 9, 2026",
-                "bullet": {
-                  "image": "static:img/Seal_of_the_United_States_Department_of_Homeland_Security.svg",
-                  "label": "DHS"
-                }
-              },
-              {
                 "label": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting",
                 "date": "Jul 7, 2026",
+                "bullet": {
+                  "image": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
+                  "label": "DOJ"
+                }
+              },
+              {
+                "label": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law",
+                "date": "Jun 27, 2026",
+                "bullet": {
+                  "image": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
+                  "label": "DOJ"
+                }
+              },
+              {
+                "label": "DOJ Sued Vermont for Failing to Provide Federal Election Records",
+                "date": "Dec 2, 2025",
                 "bullet": {
                   "image": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
                   "label": "DOJ"
@@ -4724,7 +4716,7 @@
         "categoryBar": {
           "caption": "enforcement actions by type",
           "total": {
-            "value": 13,
+            "value": 4,
             "label": "Total"
           },
           "slots": [
@@ -4740,7 +4732,7 @@
             },
             {
               "icon": "cybersecurity",
-              "value": 6,
+              "value": 0,
               "label": "Cybersecurity"
             },
             {
@@ -4750,7 +4742,7 @@
             },
             {
               "icon": "list-maintenance",
-              "value": 1,
+              "value": 0,
               "label": "List Maintenance"
             },
             {
@@ -4760,7 +4752,7 @@
             },
             {
               "icon": "warning",
-              "value": 3,
+              "value": 1,
               "label": "Warning"
             }
           ]
@@ -4893,24 +4885,24 @@
                 }
               },
               {
-                "label": "DHS CISA Election Report Finding U.S. Election Systems are Subject to Outdated Certifications, Vulnerabilities, and Persistent Cybersecurity Gaps",
-                "date": "Jul 13, 2026",
-                "bullet": {
-                  "image": "static:img/Seal_of_the_United_States_Department_of_Homeland_Security.svg",
-                  "label": "DHS"
-                }
-              },
-              {
-                "label": "DHS Creates Policy Requiring States to Adopt Five New Election Security Measures to Receive FEMA Grants",
-                "date": "Jul 9, 2026",
-                "bullet": {
-                  "image": "static:img/Seal_of_the_United_States_Department_of_Homeland_Security.svg",
-                  "label": "DHS"
-                }
-              },
-              {
                 "label": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting",
                 "date": "Jul 7, 2026",
+                "bullet": {
+                  "image": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
+                  "label": "DOJ"
+                }
+              },
+              {
+                "label": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law",
+                "date": "Jun 27, 2026",
+                "bullet": {
+                  "image": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
+                  "label": "DOJ"
+                }
+              },
+              {
+                "label": "DOJ Sued Wisconsin for Failing to Provide Federal Election Records",
+                "date": "Dec 18, 2025",
                 "bullet": {
                   "image": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
                   "label": "DOJ"
@@ -4926,7 +4918,7 @@
         "categoryBar": {
           "caption": "enforcement actions by type",
           "total": {
-            "value": 13,
+            "value": 4,
             "label": "Total"
           },
           "slots": [
@@ -4942,7 +4934,7 @@
             },
             {
               "icon": "cybersecurity",
-              "value": 6,
+              "value": 0,
               "label": "Cybersecurity"
             },
             {
@@ -4952,7 +4944,7 @@
             },
             {
               "icon": "list-maintenance",
-              "value": 1,
+              "value": 0,
               "label": "List Maintenance"
             },
             {
@@ -4962,7 +4954,7 @@
             },
             {
               "icon": "warning",
-              "value": 3,
+              "value": 1,
               "label": "Warning"
             }
           ]
@@ -4994,24 +4986,24 @@
                 }
               },
               {
-                "label": "DHS CISA Election Report Finding U.S. Election Systems are Subject to Outdated Certifications, Vulnerabilities, and Persistent Cybersecurity Gaps",
-                "date": "Jul 13, 2026",
-                "bullet": {
-                  "image": "static:img/Seal_of_the_United_States_Department_of_Homeland_Security.svg",
-                  "label": "DHS"
-                }
-              },
-              {
-                "label": "DHS Creates Policy Requiring States to Adopt Five New Election Security Measures to Receive FEMA Grants",
-                "date": "Jul 9, 2026",
-                "bullet": {
-                  "image": "static:img/Seal_of_the_United_States_Department_of_Homeland_Security.svg",
-                  "label": "DHS"
-                }
-              },
-              {
                 "label": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting",
                 "date": "Jul 7, 2026",
+                "bullet": {
+                  "image": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
+                  "label": "DOJ"
+                }
+              },
+              {
+                "label": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law",
+                "date": "Mar 28, 2026",
+                "bullet": {
+                  "image": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
+                  "label": "DOJ"
+                }
+              },
+              {
+                "label": "DOJ Sued West Virginia for Failing to Provide Federal Election Records",
+                "date": "Feb 26, 2026",
                 "bullet": {
                   "image": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
                   "label": "DOJ"
@@ -5027,7 +5019,7 @@
         "categoryBar": {
           "caption": "enforcement actions by type",
           "total": {
-            "value": 13,
+            "value": 4,
             "label": "Total"
           },
           "slots": [
@@ -5043,7 +5035,7 @@
             },
             {
               "icon": "cybersecurity",
-              "value": 6,
+              "value": 0,
               "label": "Cybersecurity"
             },
             {
@@ -5053,7 +5045,7 @@
             },
             {
               "icon": "list-maintenance",
-              "value": 1,
+              "value": 0,
               "label": "List Maintenance"
             },
             {
@@ -5063,7 +5055,7 @@
             },
             {
               "icon": "warning",
-              "value": 3,
+              "value": 1,
               "label": "Warning"
             }
           ]
@@ -5095,24 +5087,24 @@
                 }
               },
               {
-                "label": "DHS CISA Election Report Finding U.S. Election Systems are Subject to Outdated Certifications, Vulnerabilities, and Persistent Cybersecurity Gaps",
-                "date": "Jul 13, 2026",
-                "bullet": {
-                  "image": "static:img/Seal_of_the_United_States_Department_of_Homeland_Security.svg",
-                  "label": "DHS"
-                }
-              },
-              {
-                "label": "DHS Creates Policy Requiring States to Adopt Five New Election Security Measures to Receive FEMA Grants",
-                "date": "Jul 9, 2026",
-                "bullet": {
-                  "image": "static:img/Seal_of_the_United_States_Department_of_Homeland_Security.svg",
-                  "label": "DHS"
-                }
-              },
-              {
                 "label": "DOJ Warns State Officials of Their Criminal Liability Regarding Illegal Voting",
                 "date": "Jul 7, 2026",
+                "bullet": {
+                  "image": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
+                  "label": "DOJ"
+                }
+              },
+              {
+                "label": "DOJ Ensures Primary Election Military Ballots Are Sent Early to Comply With Federal Law",
+                "date": "Jul 4, 2026",
+                "bullet": {
+                  "image": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
+                  "label": "DOJ"
+                }
+              },
+              {
+                "label": "DOJ Sent Wyoming a Letter Demanding the State Add All Required Fields to Its Voter Registration",
+                "date": "Aug 14, 2025",
                 "bullet": {
                   "image": "static:img/Seal_of_the_United_States_Department_of_Justice.svg",
                   "label": "DOJ"
@@ -5128,13 +5120,13 @@
         "categoryBar": {
           "caption": "enforcement actions by type",
           "total": {
-            "value": 16,
+            "value": 6,
             "label": "Total"
           },
           "slots": [
             {
               "icon": "civil-action",
-              "value": 1,
+              "value": 0,
               "label": "Civil Action"
             },
             {
@@ -5144,7 +5136,7 @@
             },
             {
               "icon": "cybersecurity",
-              "value": 6,
+              "value": 0,
               "label": "Cybersecurity"
             },
             {
@@ -5164,7 +5156,7 @@
             },
             {
               "icon": "warning",
-              "value": 4,
+              "value": 1,
               "label": "Warning"
             }
           ]
