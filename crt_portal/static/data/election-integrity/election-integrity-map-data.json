@@ -13,55 +13,8 @@
           "type": "separator"
         },
         {
-          "type": "stat",
-          "value": 715,
-          "label": "Election Integrity Actions"
-        },
-        {
-          "type": "lineItem",
-          "icon": "civil-action",
-          "label": "Civil Action",
-          "value": 43
-        },
-        {
-          "type": "lineItem",
-          "icon": "criminal-action",
-          "label": "Criminal Action",
-          "value": 5
-        },
-        {
-          "type": "lineItem",
-          "icon": "cybersecurity",
-          "label": "Cybersecurity",
-          "value": 300
-        },
-        {
-          "type": "lineItem",
-          "icon": "election-monitoring",
-          "label": "Election Monitoring",
-          "value": 23
-        },
-        {
-          "type": "lineItem",
-          "icon": "list-maintenance",
-          "label": "List Maintenance",
-          "value": 80
-        },
-        {
-          "type": "lineItem",
-          "icon": "military-voting",
-          "label": "Military Voting",
-          "value": 102
-        },
-        {
-          "type": "lineItem",
-          "icon": "warning",
-          "label": "Warning",
-          "value": 162
-        },
-        {
           "type": "note",
-          "value": "Select a state to see its latest enforcement actions."
+          "value": "Hover over a state to view details. Click a state to see all enforcement actions."
         }
       ]
     }
