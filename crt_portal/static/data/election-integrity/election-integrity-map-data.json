@@ -81,10 +81,6 @@
             "type": "separator"
           },
           {
-            "type": "subheading",
-            "value": "Latest Enforcement Actions"
-          },
-          {
             "type": "list",
             "items": [
               {
@@ -123,7 +119,7 @@
           },
           {
             "type": "note",
-            "value": "All 13 actions are listed on the Alaska state page. Select the state on the map to open it."
+            "value": "All actions are listed on the Alaska state page. Select the state on the map to open it."
           }
         ],
         "categoryBar": {
@@ -186,10 +182,6 @@
             "type": "separator"
           },
           {
-            "type": "subheading",
-            "value": "Latest Enforcement Actions"
-          },
-          {
             "type": "list",
             "items": [
               {
@@ -228,7 +220,7 @@
           },
           {
             "type": "note",
-            "value": "All 17 actions are listed on the Alabama state page. Select the state on the map to open it."
+            "value": "All actions are listed on the Alabama state page. Select the state on the map to open it."
           }
         ],
         "categoryBar": {
@@ -291,10 +283,6 @@
             "type": "separator"
           },
           {
-            "type": "subheading",
-            "value": "Latest Enforcement Actions"
-          },
-          {
             "type": "list",
             "items": [
               {
@@ -333,7 +321,7 @@
           },
           {
             "type": "note",
-            "value": "All 14 actions are listed on the Arkansas state page. Select the state on the map to open it."
+            "value": "All actions are listed on the Arkansas state page. Select the state on the map to open it."
           }
         ],
         "categoryBar": {
@@ -396,10 +384,6 @@
             "type": "separator"
           },
           {
-            "type": "subheading",
-            "value": "Latest Enforcement Actions"
-          },
-          {
             "type": "list",
             "items": [
               {
@@ -438,7 +422,7 @@
           },
           {
             "type": "note",
-            "value": "All 17 actions are listed on the Arizona state page. Select the state on the map to open it."
+            "value": "All actions are listed on the Arizona state page. Select the state on the map to open it."
           }
         ],
         "categoryBar": {
@@ -501,10 +485,6 @@
             "type": "separator"
           },
           {
-            "type": "subheading",
-            "value": "Latest Enforcement Actions"
-          },
-          {
             "type": "list",
             "items": [
               {
@@ -543,7 +523,7 @@
           },
           {
             "type": "note",
-            "value": "All 21 actions are listed on the California state page. Select the state on the map to open it."
+            "value": "All actions are listed on the California state page. Select the state on the map to open it."
           }
         ],
         "categoryBar": {
@@ -606,10 +586,6 @@
             "type": "separator"
           },
           {
-            "type": "subheading",
-            "value": "Latest Enforcement Actions"
-          },
-          {
             "type": "list",
             "items": [
               {
@@ -648,7 +624,7 @@
           },
           {
             "type": "note",
-            "value": "All 13 actions are listed on the Colorado state page. Select the state on the map to open it."
+            "value": "All actions are listed on the Colorado state page. Select the state on the map to open it."
           }
         ],
         "categoryBar": {
@@ -711,10 +687,6 @@
             "type": "separator"
           },
           {
-            "type": "subheading",
-            "value": "Latest Enforcement Actions"
-          },
-          {
             "type": "list",
             "items": [
               {
@@ -753,7 +725,7 @@
           },
           {
             "type": "note",
-            "value": "All 13 actions are listed on the Connecticut state page. Select the state on the map to open it."
+            "value": "All actions are listed on the Connecticut state page. Select the state on the map to open it."
           }
         ],
         "categoryBar": {
@@ -816,10 +788,6 @@
             "type": "separator"
           },
           {
-            "type": "subheading",
-            "value": "Latest Enforcement Actions"
-          },
-          {
             "type": "list",
             "items": [
               {
@@ -858,7 +826,7 @@
           },
           {
             "type": "note",
-            "value": "All 5 actions are listed on the District of Columbia state page. Select the state on the map to open it."
+            "value": "All actions are listed on the District of Columbia state page. Select the state on the map to open it."
           }
         ],
         "categoryBar": {
@@ -921,10 +889,6 @@
             "type": "separator"
           },
           {
-            "type": "subheading",
-            "value": "Latest Enforcement Actions"
-          },
-          {
             "type": "list",
             "items": [
               {
@@ -963,7 +927,7 @@
           },
           {
             "type": "note",
-            "value": "All 13 actions are listed on the Delaware state page. Select the state on the map to open it."
+            "value": "All actions are listed on the Delaware state page. Select the state on the map to open it."
           }
         ],
         "categoryBar": {
@@ -1026,10 +990,6 @@
             "type": "separator"
           },
           {
-            "type": "subheading",
-            "value": "Latest Enforcement Actions"
-          },
-          {
             "type": "list",
             "items": [
               {
@@ -1068,7 +1028,7 @@
           },
           {
             "type": "note",
-            "value": "All 13 actions are listed on the Florida state page. Select the state on the map to open it."
+            "value": "All actions are listed on the Florida state page. Select the state on the map to open it."
           }
         ],
         "categoryBar": {
@@ -1131,10 +1091,6 @@
             "type": "separator"
           },
           {
-            "type": "subheading",
-            "value": "Latest Enforcement Actions"
-          },
-          {
             "type": "list",
             "items": [
               {
@@ -1173,7 +1129,7 @@
           },
           {
             "type": "note",
-            "value": "All 14 actions are listed on the Georgia state page. Select the state on the map to open it."
+            "value": "All actions are listed on the Georgia state page. Select the state on the map to open it."
           }
         ],
         "categoryBar": {
@@ -1236,10 +1192,6 @@
             "type": "separator"
           },
           {
-            "type": "subheading",
-            "value": "Latest Enforcement Actions"
-          },
-          {
             "type": "list",
             "items": [
               {
@@ -1278,7 +1230,7 @@
           },
           {
             "type": "note",
-            "value": "All 13 actions are listed on the Hawaii state page. Select the state on the map to open it."
+            "value": "All actions are listed on the Hawaii state page. Select the state on the map to open it."
           }
         ],
         "categoryBar": {
@@ -1341,10 +1293,6 @@
             "type": "separator"
           },
           {
-            "type": "subheading",
-            "value": "Latest Enforcement Actions"
-          },
-          {
             "type": "list",
             "items": [
               {
@@ -1383,7 +1331,7 @@
           },
           {
             "type": "note",
-            "value": "All 13 actions are listed on the Iowa state page. Select the state on the map to open it."
+            "value": "All actions are listed on the Iowa state page. Select the state on the map to open it."
           }
         ],
         "categoryBar": {
@@ -1446,10 +1394,6 @@
             "type": "separator"
           },
           {
-            "type": "subheading",
-            "value": "Latest Enforcement Actions"
-          },
-          {
             "type": "list",
             "items": [
               {
@@ -1488,7 +1432,7 @@
           },
           {
             "type": "note",
-            "value": "All 14 actions are listed on the Idaho state page. Select the state on the map to open it."
+            "value": "All actions are listed on the Idaho state page. Select the state on the map to open it."
           }
         ],
         "categoryBar": {
@@ -1551,10 +1495,6 @@
             "type": "separator"
           },
           {
-            "type": "subheading",
-            "value": "Latest Enforcement Actions"
-          },
-          {
             "type": "list",
             "items": [
               {
@@ -1593,7 +1533,7 @@
           },
           {
             "type": "note",
-            "value": "All 14 actions are listed on the Illinois state page. Select the state on the map to open it."
+            "value": "All actions are listed on the Illinois state page. Select the state on the map to open it."
           }
         ],
         "categoryBar": {
@@ -1656,10 +1596,6 @@
             "type": "separator"
           },
           {
-            "type": "subheading",
-            "value": "Latest Enforcement Actions"
-          },
-          {
             "type": "list",
             "items": [
               {
@@ -1698,7 +1634,7 @@
           },
           {
             "type": "note",
-            "value": "All 13 actions are listed on the Indiana state page. Select the state on the map to open it."
+            "value": "All actions are listed on the Indiana state page. Select the state on the map to open it."
           }
         ],
         "categoryBar": {
@@ -1761,10 +1697,6 @@
             "type": "separator"
           },
           {
-            "type": "subheading",
-            "value": "Latest Enforcement Actions"
-          },
-          {
             "type": "list",
             "items": [
               {
@@ -1803,7 +1735,7 @@
           },
           {
             "type": "note",
-            "value": "All 15 actions are listed on the Kansas state page. Select the state on the map to open it."
+            "value": "All actions are listed on the Kansas state page. Select the state on the map to open it."
           }
         ],
         "categoryBar": {
@@ -1866,10 +1798,6 @@
             "type": "separator"
           },
           {
-            "type": "subheading",
-            "value": "Latest Enforcement Actions"
-          },
-          {
             "type": "list",
             "items": [
               {
@@ -1908,7 +1836,7 @@
           },
           {
             "type": "note",
-            "value": "All 14 actions are listed on the Kentucky state page. Select the state on the map to open it."
+            "value": "All actions are listed on the Kentucky state page. Select the state on the map to open it."
           }
         ],
         "categoryBar": {
@@ -1971,10 +1899,6 @@
             "type": "separator"
           },
           {
-            "type": "subheading",
-            "value": "Latest Enforcement Actions"
-          },
-          {
             "type": "list",
             "items": [
               {
@@ -2013,7 +1937,7 @@
           },
           {
             "type": "note",
-            "value": "All 16 actions are listed on the Louisiana state page. Select the state on the map to open it."
+            "value": "All actions are listed on the Louisiana state page. Select the state on the map to open it."
           }
         ],
         "categoryBar": {
@@ -2076,10 +2000,6 @@
             "type": "separator"
           },
           {
-            "type": "subheading",
-            "value": "Latest Enforcement Actions"
-          },
-          {
             "type": "list",
             "items": [
               {
@@ -2118,7 +2038,7 @@
           },
           {
             "type": "note",
-            "value": "All 15 actions are listed on the Massachusetts state page. Select the state on the map to open it."
+            "value": "All actions are listed on the Massachusetts state page. Select the state on the map to open it."
           }
         ],
         "categoryBar": {
@@ -2181,10 +2101,6 @@
             "type": "separator"
           },
           {
-            "type": "subheading",
-            "value": "Latest Enforcement Actions"
-          },
-          {
             "type": "list",
             "items": [
               {
@@ -2223,7 +2139,7 @@
           },
           {
             "type": "note",
-            "value": "All 15 actions are listed on the Maryland state page. Select the state on the map to open it."
+            "value": "All actions are listed on the Maryland state page. Select the state on the map to open it."
           }
         ],
         "categoryBar": {
@@ -2286,10 +2202,6 @@
             "type": "separator"
           },
           {
-            "type": "subheading",
-            "value": "Latest Enforcement Actions"
-          },
-          {
             "type": "list",
             "items": [
               {
@@ -2328,7 +2240,7 @@
           },
           {
             "type": "note",
-            "value": "All 13 actions are listed on the Maine state page. Select the state on the map to open it."
+            "value": "All actions are listed on the Maine state page. Select the state on the map to open it."
           }
         ],
         "categoryBar": {
@@ -2391,10 +2303,6 @@
             "type": "separator"
           },
           {
-            "type": "subheading",
-            "value": "Latest Enforcement Actions"
-          },
-          {
             "type": "list",
             "items": [
               {
@@ -2433,7 +2341,7 @@
           },
           {
             "type": "note",
-            "value": "All 16 actions are listed on the Michigan state page. Select the state on the map to open it."
+            "value": "All actions are listed on the Michigan state page. Select the state on the map to open it."
           }
         ],
         "categoryBar": {
@@ -2496,10 +2404,6 @@
             "type": "separator"
           },
           {
-            "type": "subheading",
-            "value": "Latest Enforcement Actions"
-          },
-          {
             "type": "list",
             "items": [
               {
@@ -2538,7 +2442,7 @@
           },
           {
             "type": "note",
-            "value": "All 15 actions are listed on the Minnesota state page. Select the state on the map to open it."
+            "value": "All actions are listed on the Minnesota state page. Select the state on the map to open it."
           }
         ],
         "categoryBar": {
@@ -2601,10 +2505,6 @@
             "type": "separator"
           },
           {
-            "type": "subheading",
-            "value": "Latest Enforcement Actions"
-          },
-          {
             "type": "list",
             "items": [
               {
@@ -2643,7 +2543,7 @@
           },
           {
             "type": "note",
-            "value": "All 14 actions are listed on the Missouri state page. Select the state on the map to open it."
+            "value": "All actions are listed on the Missouri state page. Select the state on the map to open it."
           }
         ],
         "categoryBar": {
@@ -2706,10 +2606,6 @@
             "type": "separator"
           },
           {
-            "type": "subheading",
-            "value": "Latest Enforcement Actions"
-          },
-          {
             "type": "list",
             "items": [
               {
@@ -2748,7 +2644,7 @@
           },
           {
             "type": "note",
-            "value": "All 13 actions are listed on the Mississippi state page. Select the state on the map to open it."
+            "value": "All actions are listed on the Mississippi state page. Select the state on the map to open it."
           }
         ],
         "categoryBar": {
@@ -2811,10 +2707,6 @@
             "type": "separator"
           },
           {
-            "type": "subheading",
-            "value": "Latest Enforcement Actions"
-          },
-          {
             "type": "list",
             "items": [
               {
@@ -2853,7 +2745,7 @@
           },
           {
             "type": "note",
-            "value": "All 13 actions are listed on the Montana state page. Select the state on the map to open it."
+            "value": "All actions are listed on the Montana state page. Select the state on the map to open it."
           }
         ],
         "categoryBar": {
@@ -2916,10 +2808,6 @@
             "type": "separator"
           },
           {
-            "type": "subheading",
-            "value": "Latest Enforcement Actions"
-          },
-          {
             "type": "list",
             "items": [
               {
@@ -2958,7 +2846,7 @@
           },
           {
             "type": "note",
-            "value": "All 16 actions are listed on the North Carolina state page. Select the state on the map to open it."
+            "value": "All actions are listed on the North Carolina state page. Select the state on the map to open it."
           }
         ],
         "categoryBar": {
@@ -3021,10 +2909,6 @@
             "type": "separator"
           },
           {
-            "type": "subheading",
-            "value": "Latest Enforcement Actions"
-          },
-          {
             "type": "list",
             "items": [
               {
@@ -3063,7 +2947,7 @@
           },
           {
             "type": "note",
-            "value": "All 12 actions are listed on the North Dakota state page. Select the state on the map to open it."
+            "value": "All actions are listed on the North Dakota state page. Select the state on the map to open it."
           }
         ],
         "categoryBar": {
@@ -3126,10 +3010,6 @@
             "type": "separator"
           },
           {
-            "type": "subheading",
-            "value": "Latest Enforcement Actions"
-          },
-          {
             "type": "list",
             "items": [
               {
@@ -3168,7 +3048,7 @@
           },
           {
             "type": "note",
-            "value": "All 13 actions are listed on the Nebraska state page. Select the state on the map to open it."
+            "value": "All actions are listed on the Nebraska state page. Select the state on the map to open it."
           }
         ],
         "categoryBar": {
@@ -3231,10 +3111,6 @@
             "type": "separator"
           },
           {
-            "type": "subheading",
-            "value": "Latest Enforcement Actions"
-          },
-          {
             "type": "list",
             "items": [
               {
@@ -3273,7 +3149,7 @@
           },
           {
             "type": "note",
-            "value": "All 15 actions are listed on the New Hampshire state page. Select the state on the map to open it."
+            "value": "All actions are listed on the New Hampshire state page. Select the state on the map to open it."
           }
         ],
         "categoryBar": {
@@ -3336,10 +3212,6 @@
             "type": "separator"
           },
           {
-            "type": "subheading",
-            "value": "Latest Enforcement Actions"
-          },
-          {
             "type": "list",
             "items": [
               {
@@ -3378,7 +3250,7 @@
           },
           {
             "type": "note",
-            "value": "All 19 actions are listed on the New Jersey state page. Select the state on the map to open it."
+            "value": "All actions are listed on the New Jersey state page. Select the state on the map to open it."
           }
         ],
         "categoryBar": {
@@ -3441,10 +3313,6 @@
             "type": "separator"
           },
           {
-            "type": "subheading",
-            "value": "Latest Enforcement Actions"
-          },
-          {
             "type": "list",
             "items": [
               {
@@ -3483,7 +3351,7 @@
           },
           {
             "type": "note",
-            "value": "All 13 actions are listed on the New Mexico state page. Select the state on the map to open it."
+            "value": "All actions are listed on the New Mexico state page. Select the state on the map to open it."
           }
         ],
         "categoryBar": {
@@ -3546,10 +3414,6 @@
             "type": "separator"
           },
           {
-            "type": "subheading",
-            "value": "Latest Enforcement Actions"
-          },
-          {
             "type": "list",
             "items": [
               {
@@ -3588,7 +3452,7 @@
           },
           {
             "type": "note",
-            "value": "All 14 actions are listed on the Nevada state page. Select the state on the map to open it."
+            "value": "All actions are listed on the Nevada state page. Select the state on the map to open it."
           }
         ],
         "categoryBar": {
@@ -3651,10 +3515,6 @@
             "type": "separator"
           },
           {
-            "type": "subheading",
-            "value": "Latest Enforcement Actions"
-          },
-          {
             "type": "list",
             "items": [
               {
@@ -3693,7 +3553,7 @@
           },
           {
             "type": "note",
-            "value": "All 14 actions are listed on the New York state page. Select the state on the map to open it."
+            "value": "All actions are listed on the New York state page. Select the state on the map to open it."
           }
         ],
         "categoryBar": {
@@ -3756,10 +3616,6 @@
             "type": "separator"
           },
           {
-            "type": "subheading",
-            "value": "Latest Enforcement Actions"
-          },
-          {
             "type": "list",
             "items": [
               {
@@ -3798,7 +3654,7 @@
           },
           {
             "type": "note",
-            "value": "All 14 actions are listed on the Ohio state page. Select the state on the map to open it."
+            "value": "All actions are listed on the Ohio state page. Select the state on the map to open it."
           }
         ],
         "categoryBar": {
@@ -3861,10 +3717,6 @@
             "type": "separator"
           },
           {
-            "type": "subheading",
-            "value": "Latest Enforcement Actions"
-          },
-          {
             "type": "list",
             "items": [
               {
@@ -3903,7 +3755,7 @@
           },
           {
             "type": "note",
-            "value": "All 13 actions are listed on the Oklahoma state page. Select the state on the map to open it."
+            "value": "All actions are listed on the Oklahoma state page. Select the state on the map to open it."
           }
         ],
         "categoryBar": {
@@ -3966,10 +3818,6 @@
             "type": "separator"
           },
           {
-            "type": "subheading",
-            "value": "Latest Enforcement Actions"
-          },
-          {
             "type": "list",
             "items": [
               {
@@ -4008,7 +3856,7 @@
           },
           {
             "type": "note",
-            "value": "All 14 actions are listed on the Oregon state page. Select the state on the map to open it."
+            "value": "All actions are listed on the Oregon state page. Select the state on the map to open it."
           }
         ],
         "categoryBar": {
@@ -4071,10 +3919,6 @@
             "type": "separator"
           },
           {
-            "type": "subheading",
-            "value": "Latest Enforcement Actions"
-          },
-          {
             "type": "list",
             "items": [
               {
@@ -4113,7 +3957,7 @@
           },
           {
             "type": "note",
-            "value": "All 15 actions are listed on the Pennsylvania state page. Select the state on the map to open it."
+            "value": "All actions are listed on the Pennsylvania state page. Select the state on the map to open it."
           }
         ],
         "categoryBar": {
@@ -4176,10 +4020,6 @@
             "type": "separator"
           },
           {
-            "type": "subheading",
-            "value": "Latest Enforcement Actions"
-          },
-          {
             "type": "list",
             "items": [
               {
@@ -4218,7 +4058,7 @@
           },
           {
             "type": "note",
-            "value": "All 13 actions are listed on the Rhode Island state page. Select the state on the map to open it."
+            "value": "All actions are listed on the Rhode Island state page. Select the state on the map to open it."
           }
         ],
         "categoryBar": {
@@ -4281,10 +4121,6 @@
             "type": "separator"
           },
           {
-            "type": "subheading",
-            "value": "Latest Enforcement Actions"
-          },
-          {
             "type": "list",
             "items": [
               {
@@ -4323,7 +4159,7 @@
           },
           {
             "type": "note",
-            "value": "All 13 actions are listed on the South Carolina state page. Select the state on the map to open it."
+            "value": "All actions are listed on the South Carolina state page. Select the state on the map to open it."
           }
         ],
         "categoryBar": {
@@ -4386,10 +4222,6 @@
             "type": "separator"
           },
           {
-            "type": "subheading",
-            "value": "Latest Enforcement Actions"
-          },
-          {
             "type": "list",
             "items": [
               {
@@ -4428,7 +4260,7 @@
           },
           {
             "type": "note",
-            "value": "All 13 actions are listed on the South Dakota state page. Select the state on the map to open it."
+            "value": "All actions are listed on the South Dakota state page. Select the state on the map to open it."
           }
         ],
         "categoryBar": {
@@ -4491,10 +4323,6 @@
             "type": "separator"
           },
           {
-            "type": "subheading",
-            "value": "Latest Enforcement Actions"
-          },
-          {
             "type": "list",
             "items": [
               {
@@ -4533,7 +4361,7 @@
           },
           {
             "type": "note",
-            "value": "All 14 actions are listed on the Tennessee state page. Select the state on the map to open it."
+            "value": "All actions are listed on the Tennessee state page. Select the state on the map to open it."
           }
         ],
         "categoryBar": {
@@ -4596,10 +4424,6 @@
             "type": "separator"
           },
           {
-            "type": "subheading",
-            "value": "Latest Enforcement Actions"
-          },
-          {
             "type": "list",
             "items": [
               {
@@ -4638,7 +4462,7 @@
           },
           {
             "type": "note",
-            "value": "All 15 actions are listed on the Texas state page. Select the state on the map to open it."
+            "value": "All actions are listed on the Texas state page. Select the state on the map to open it."
           }
         ],
         "categoryBar": {
@@ -4701,10 +4525,6 @@
             "type": "separator"
           },
           {
-            "type": "subheading",
-            "value": "Latest Enforcement Actions"
-          },
-          {
             "type": "list",
             "items": [
               {
@@ -4743,7 +4563,7 @@
           },
           {
             "type": "note",
-            "value": "All 13 actions are listed on the Utah state page. Select the state on the map to open it."
+            "value": "All actions are listed on the Utah state page. Select the state on the map to open it."
           }
         ],
         "categoryBar": {
@@ -4806,10 +4626,6 @@
             "type": "separator"
           },
           {
-            "type": "subheading",
-            "value": "Latest Enforcement Actions"
-          },
-          {
             "type": "list",
             "items": [
               {
@@ -4848,7 +4664,7 @@
           },
           {
             "type": "note",
-            "value": "All 15 actions are listed on the Virginia state page. Select the state on the map to open it."
+            "value": "All actions are listed on the Virginia state page. Select the state on the map to open it."
           }
         ],
         "categoryBar": {
@@ -4911,10 +4727,6 @@
             "type": "separator"
           },
           {
-            "type": "subheading",
-            "value": "Latest Enforcement Actions"
-          },
-          {
             "type": "list",
             "items": [
               {
@@ -4953,7 +4765,7 @@
           },
           {
             "type": "note",
-            "value": "All 13 actions are listed on the Vermont state page. Select the state on the map to open it."
+            "value": "All actions are listed on the Vermont state page. Select the state on the map to open it."
           }
         ],
         "categoryBar": {
@@ -5016,10 +4828,6 @@
             "type": "separator"
           },
           {
-            "type": "subheading",
-            "value": "Latest Enforcement Actions"
-          },
-          {
             "type": "list",
             "items": [
               {
@@ -5058,7 +4866,7 @@
           },
           {
             "type": "note",
-            "value": "All 13 actions are listed on the Washington state page. Select the state on the map to open it."
+            "value": "All actions are listed on the Washington state page. Select the state on the map to open it."
           }
         ],
         "categoryBar": {
@@ -5121,10 +4929,6 @@
             "type": "separator"
           },
           {
-            "type": "subheading",
-            "value": "Latest Enforcement Actions"
-          },
-          {
             "type": "list",
             "items": [
               {
@@ -5163,7 +4967,7 @@
           },
           {
             "type": "note",
-            "value": "All 13 actions are listed on the Wisconsin state page. Select the state on the map to open it."
+            "value": "All actions are listed on the Wisconsin state page. Select the state on the map to open it."
           }
         ],
         "categoryBar": {
@@ -5226,10 +5030,6 @@
             "type": "separator"
           },
           {
-            "type": "subheading",
-            "value": "Latest Enforcement Actions"
-          },
-          {
             "type": "list",
             "items": [
               {
@@ -5268,7 +5068,7 @@
           },
           {
             "type": "note",
-            "value": "All 13 actions are listed on the West Virginia state page. Select the state on the map to open it."
+            "value": "All actions are listed on the West Virginia state page. Select the state on the map to open it."
           }
         ],
         "categoryBar": {
@@ -5331,10 +5131,6 @@
             "type": "separator"
           },
           {
-            "type": "subheading",
-            "value": "Latest Enforcement Actions"
-          },
-          {
             "type": "list",
             "items": [
               {
@@ -5373,7 +5169,7 @@
           },
           {
             "type": "note",
-            "value": "All 16 actions are listed on the Wyoming state page. Select the state on the map to open it."
+            "value": "All actions are listed on the Wyoming state page. Select the state on the map to open it."
           }
         ],
         "categoryBar": {
