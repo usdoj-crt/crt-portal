@@ -36,3 +36,6 @@ jupyterhub/**/.ipynb_checkpoints/
 jupyterhub/jupyterhub.sqlite*
 jupyterhub/jupyterhub_cookie_secret
 jupyterhub/jupyterhub-proxy.pid
+
+# Election Monitoring developer kit / mockup (not part of the app)
+ElectionMonitoring_dev_20260827/

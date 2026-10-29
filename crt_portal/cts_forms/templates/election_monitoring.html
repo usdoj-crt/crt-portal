@@ -1,0 +1,244 @@
+{% extends "landing.html" %}
+{% load i18n %}
+{% load static %}
+{% load news_card_carousel %}
+{% block meta_title %}
+{% trans "Civil Rights Division - Department of Justice - Election Monitoring" as meta_title %}
+<meta property="og:title" content="{{meta_title}}" />
+<meta property="name" content="{{meta_title}}" />
+{% endblock meta_title %}
+{% block meta_description %}
+{% trans "Learn more about the division's history of federal election monitoring." as meta_description %}
+<meta property="og:description" content="{{meta_description}}" />
+<meta name="description" content="{{meta_description}}" />
+{% endblock meta_description %}
+{% block meta_image %}
+<meta property="og:image" content="{% static 'img/election-integrity-og-1200x630.jpg' %}" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="{% static 'img/election-integrity-og-600x315.png' %}" />
+{% endblock meta_image %}
+{% block page_title %}
+<title>
+{% trans "Civil Rights Division - Department of Justice - Election Monitoring" %}
+</title>
+{% endblock %}
+{% block head %} {% include "map_widget/usa_map_widget_assets.html" %} {% include "news_widget/news_widget_assets.html" %} {% endblock %}
+{% block content %}
+    <section id="monitoring-map-section" class="enforcement-map padding-x-4 padding-y-4 bg-white" aria-label="Election Monitoring History Section">
+        <div class="display-flex flex-column flex-align-center margin-top-6">
+            <h2 class="font-serif-3xl text-normal text-primary-darker margin-0 text-center">
+                Election Monitoring History
+            </h2>
+            <p class="text-base-dark margin-0 text-center">
+                Elections monitored and observed by state, 1965 to October 20, 2026
+            </p>
+        </div>
+
+        <div class="monitoring-map-controls margin-top-4" role="group" aria-label="Select an administration">
+            {% for admin in administrations %}
+                <button
+                    type="button"
+                    class="monitoring-map-controls__btn"
+                    data-monitoring-administration-select="{{ admin.key }}"
+                    aria-pressed="{% if admin.default %}true{% else %}false{% endif %}">
+                    {{ admin.label }}
+                </button>
+            {% endfor %}
+        </div>
+
+        <div class="display-flex flex-column flex-align-center margin-top-4 margin-bottom-2">
+            <p class="text-base-dark margin-0 text-center measure-6">
+                President Trump’s administration is working to deploy
+                +1,000 federal election monitors to polling places throughout
+                the U.S. for the 2026 mid-term elections.
+            </p>
+        </div>
+
+        {% for admin in administrations %}
+        <div
+            class="monitoring-map-panel"
+            data-monitoring-administration-map-panel="{{ admin.key }}"
+            {% if not admin.default %}hidden{% endif %}>
+            {% include "partials/spinner.html" with label="Loading map…" %}
+            {% include "map_widget/usa_map_widget.html" with data_name="election-monitoring-map-"|add:admin.key show_tooltip="true" map_classes="margin-top-4 margin-bottom-4" map_default_fill_color="#C49A2E" map_active_fill_color="#162e51" map_stroke_color="#ffffff" badge_text_color="#000000" badge_active_text_color="#ffffff" map_lazy_load="false" heatmap_mode="true" %}
+        </div>
+        {% endfor %}
+    </section>
+
+    <section class="monitoring-stats-section padding-y-10 bg-primary-darker" aria-labelledby="monitoring-stats-section-title">
+        <div class="monitoring-stats-section__inner">
+            <!-- Left column: copy + figures -->
+            <div class="monitoring-stats-section__info">
+                <h2 class="monitoring-stats-section__info-heading font-serif-2xl text-white text-normal margin-top-1 margin-bottom-2" id="monitoring-stats-section-title">
+                    Election Monitoring
+                </h2>
+                <p class="monitoring-stats-section__info-text font-sans-xs text-primary-lighter margin-0 measure-5">
+                    Since the Civil Rights Division was formed in 1957,
+                    the Department of Justice has deployed federal
+                    <span class="crt-popover text-base-lightest">
+                        <button
+                            type="button"
+                            class="crt-popover__trigger crt-popover__trigger--link"
+                            id="observers-trigger"
+                            aria-controls="observers-pop"
+                            aria-expanded="false"
+                        >
+                            election monitors and observers
+                        </button>
+                        <span class="crt-popover__content" id="observers-pop" hidden>
+                            <button
+                                type="button"
+                                class="crt-popover__close"
+                                aria-label="Close election monitors and observers popover">
+                                <span class="crt-popover__close-icon" aria-hidden="true"></span>
+                            </button>
+                            <span class="display-block margin-bottom-4">
+                              <strong class="display-block font-body-md">Federal observer:</strong>
+                              <span class="font-body-2xs">
+                                  An employee or contractor of the Office of Personnel Management (OPM)
+                                  authorized by a federal court order to serve as a neutral and impartial
+                                  observer of election-day procedures covered by the order.
+                              </span>
+                            </span>
+                            <span class="display-block">
+                              <strong class="display-block font-body-md">Federal election monitor:</strong>
+                              <span class="font-body-2xs">
+                                  A Department attorney or staff member assigned to assess compliance with
+                                  federal voting rights laws in jurisdictions not currently eligible for
+                                  assignment of federal observers.
+                              </span>
+                            </span>
+                        </span>
+                    </span>
+                    to safeguard elections nationwide. Explore monitoring
+                    activity by administration, between 1965 and
+                    October 20, 2026.
+                </p>
+
+                <!-- Figures -->
+                <div class="monitoring-stats-section__figures">
+                    <div class="width-card-xl display-flex flex-column flex-align-center text-center">
+                        <span class="election-integrity-number-figure font-family-serif text-bold text-gold">37,412</span>
+                        <span class="font-sans-3xs margin-top-1 text-primary-lighter minh-6">
+                            <span class="crt-popover margin-right-05">
+                                <button
+                                    type="button"
+                                    class="crt-popover__trigger crt-popover__trigger--icon margin-0 margin-right-1"
+                                    id="observers-trigger-2"
+                                    aria-controls="observers-pop-2"
+                                    aria-expanded="false"
+                                    aria-label="What are election monitors and observers?"
+                                >
+                                    <span class="crt-popover__icon" aria-hidden="true"></span>
+                                </button>
+                                <span class="crt-popover__content" id="observers-pop-2" hidden>
+                                    <button
+                                        type="button"
+                                        class="crt-popover__close"
+                                        aria-label="Close election monitors and observers popover">
+                                        <span class="crt-popover__close-icon" aria-hidden="true"></span>
+                                    </button>
+                                    <span class="display-block margin-bottom-4">
+                                      <strong class="display-block font-body-md">Federal observer:</strong>
+                                      <span class="font-body-2xs">
+                                          An employee or contractor of the Office of Personnel Management (OPM)
+                                          authorized by a federal court order to serve as a neutral and impartial
+                                          observer of election-day procedures covered by the order.
+                                      </span>
+                                    </span>
+                                    <span class="display-block">
+                                      <strong class="display-block font-body-md">Federal election monitor:</strong>
+                                      <span class="font-body-2xs">
+                                          A Department attorney or staff member assigned to assess compliance with
+                                          federal voting rights laws in jurisdictions not currently eligible for
+                                          assignment of federal observers.
+                                      </span>
+                                    </span>
+                                </span>
+                            </span>
+                            <span class="text-uppercase">
+                                election monitors/observers, 1965–2026
+                            </span>
+                        </span>
+                    </div>
+                    <div class="width-card-lg display-flex flex-column flex-align-center text-center">
+                        <span class="election-integrity-number-figure font-family-serif text-bold text-gold">411</span>
+                        <span class="font-sans-3xs margin-top-1 text-primary-lighter text-uppercase minh-6">
+                            jurisdictions monitored
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right column: static per-state deployment map -->
+            <div class="monitoring-stats-section__map">
+                <img class="monitoring-stats-section__map-img"
+                    src="{% static 'img/election-monitoring-state-map-20260925.png' %}"
+                    alt="Map of the United States showing the number of federal observers deployed to each state between 2000 and 2025.">
+                <p class="monitoring-stats-section__map-caption font-sans-xs margin-0 text-center">
+                    <strong>Monitors/Observers deployed</strong> by state: 1965-2026
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="history-of-monitoring" class="monitoring-history-section padding-y-10"
+        aria-labelledby="history-of-monitoring-title">
+        <div class="display-flex flex-column flex-align-center">
+            <h2 class="font-serif-2xl text-normal text-primary-darker margin-0 text-center" id="history-of-monitoring-title">
+                History of Election Monitoring
+            </h2>
+            <p class="text-base-dark text-center measure-6 margin-top-2">
+                Since 1965, the Department of Justice has sent federal observers
+                and Civil Rights Division personnel to monitor elections nationwide,
+                ensuring compliance with the Voting Rights Act and other federal laws.
+                This record combines the Division’s chronological attorney-coverage
+                listing, from 2000 to the present, its listing of federal observer
+                deployments from 1965 onward, and the Voting Section’s 2026 primary
+                monitoring summary.
+            </p>
+        </div>
+
+        <div class="monitoring-history-section__stats">
+            <div class="monitoring-history-section__stat padding-x-4 margin-top-2">
+                <div class="font-serif-2xl text-bold text-primary-darker">1,139</div>
+                <div class="font-sans-3xs text-base-dark margin-top-1">elections monitored</div>
+            </div>
+            <div class="monitoring-history-section__stat padding-x-4 margin-top-2 border-base border-left-1px">
+                <div class="font-serif-2xl text-bold text-primary-darker">37,412</div>
+                <div class="font-sans-3xs text-base-dark margin-top-1">election monitors/observers deployed</div>
+            </div>
+            <div class="monitoring-history-section__stat padding-x-4 margin-top-2 border-base border-left-1px">
+                <div class="font-serif-2xl text-bold text-primary-darker">44</div>
+                <div class="font-sans-3xs text-base-dark margin-top-1">states covered</div>
+            </div>
+            <div class="monitoring-history-section__stat padding-x-4 margin-top-2 border-base border-left-1px">
+                <div class="font-serif-2xl text-bold text-primary-darker">1965–2026</div>
+                <div class="font-sans-3xs text-base-dark margin-top-1">period on record</div>
+            </div>
+        </div>
+
+        <div class="monitoring-history-section__featured-stories margin-top-8">
+            <h3 class="font-serif-lg text-normal text-primary-darker text-center">Featured stories</h3>
+            <div class="monitoring-history-section__stories">
+                {% render_news_card_set "election-monitoring-featured-stories" show_thumbnail="false" %}
+            </div>
+        </div>
+    </section>
+
+    <section id="action-bar" class="monitoring-action-bar padding-x-2 padding-y-10 bg-primary-darker" aria-label="Site navigation">
+        <div class="display-flex flex-column flex-align-center">
+            <a class="text-white text-bold" href="{% url 'election_integrity' %}">
+                <span class="text-white text-bold margin-right-1" aria-hidden="true">&larr;</span><span class="text-white text-bold">Back to the Election Integrity page</span>
+            </a>
+        </div>
+    </section>
+{% endblock %}
+
+{% block page_js %}
+    {{ block.super }}
+    <script src="{% static 'js/election-monitoring-map-switcher.min.js' %}"></script>
+    <script src="{% static 'js/crt_popover.min.js' %}"></script>
+{% endblock %}

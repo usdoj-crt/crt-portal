@@ -1,0 +1,23 @@
+{% comment %}
+<!--
+News card set — renders a group of cards without a carousel.
+
+Usage: driven by the {% render_news_card_set %} template tag
+(news_widget/templatetags/news_card_carousel.py), which supplies the context
+below. Each item is rendered via news_widget/news_card.html.
+
+Context variables (supplied by the template tag):
+    items                   List of card dicts. See news_widget/news_card.html
+                            for the fields each item is expected to contain.
+
+    show_thumbnail          (optional) "false" to omit the thumbnail block on
+                            every card. Passed through to each news_card.html.
+
+    clickable_thumbnail     (optional) "true" to make every card's thumbnail a
+                            link to its news item. Passed through to each
+                            news_card.html. Defaults to not clickable.
+-->
+{% endcomment %}
+{% for item in items %}
+    {% include "news_widget/news_card.html" with item=item show_thumbnail=show_thumbnail clickable_thumbnail=clickable_thumbnail %}
+{% endfor %}

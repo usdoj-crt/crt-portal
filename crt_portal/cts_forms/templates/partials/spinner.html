@@ -1,0 +1,17 @@
+{% comment %}
+<!--
+Loading spinner — a small reusable spinner with an optional label.
+
+Usage:
+    {% include "partials/spinner.html" %}
+    {% include "partials/spinner.html" with label="Loading map…" %}
+
+Properties:
+    label    (optional) Text shown next to the spinner. Defaults to "Loading…".
+    classes  (optional) Extra CSS classes appended to the wrapper.
+-->
+{% endcomment %}
+<div class="spinner {{ classes|default:'' }}" aria-live="polite">
+    <span class="spinner__icon" aria-hidden="true"></span>
+    <span>{{ label|default:"Loading…" }}</span>
+</div>

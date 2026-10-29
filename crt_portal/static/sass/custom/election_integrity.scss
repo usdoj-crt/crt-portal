@@ -118,8 +118,8 @@
     padding-right: 6rem;
 
     @include at-media-max("tablet") {
-        padding-left: 4rem;
-        padding-right: 4rem;
+        padding-left: 2rem;
+        padding-right: 2rem;
     }
 }
 
@@ -274,36 +274,12 @@
     }
 }
 
-// Button container: lays the action buttons out centered and side by side
-// wrapping to a single column on mobile. Each button fills its equal-width
-// column.
-.button-container {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
-    width: 100%;
-    max-width: 60rem;
-    margin-top: 1.5rem;
-    justify-items: center;
-    padding-left: 4rem;
-    padding-right: 4rem;
-
-    // Stack into a single column on tablet/mobile.
-    @include at-media-max("tablet") {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-        // Drop the wide horizontal padding so buttons have room on narrow screens.
-        padding-left: 0;
-        padding-right: 0;
-    }
-}
-
 .actionbtn {
     // Rounded square button: seal on the left, agency + action text stacked
     // to its right, both vertically centered together.
     display: flex;
     align-items: center;
-    // Fill the grid cell so every button is the same width.
+    justify-content: center;
     width: 100%;
     max-width: 26rem;
     gap: 1rem;
@@ -321,8 +297,8 @@
     }
 
     @include at-media-max("desktop") {
-        // On screens below desktop, use full-width buttons and tighter padding.
-        max-width: 100%;
+        // On screens below desktop, wider buttons and tighter padding.
+        max-width: 32rem;
         gap: 0.75rem;
         padding: 0.5rem 0.75rem;
     }

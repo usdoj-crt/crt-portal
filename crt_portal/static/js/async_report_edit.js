@@ -30,11 +30,16 @@
       return;
     }
 
-    const field = dom.querySelector(`[name="${message.field}"]`).closest('div');
-    if (!field) {
+    const input = dom.querySelector(`[name="${message.field}"]`);
+    if (!input) {
       console.error(`Field ${message.field} not found`);
       return;
     }
+
+    // Attach the alert to the date field group if the field is inside one,
+    // so it doesn't expand an individual form-group in the flex row.
+    const dateBlock = input.closest('.date-field-group');
+    const field = dateBlock || input.closest('div');
     showAlert(field, message);
   }
 

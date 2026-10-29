@@ -1,0 +1,29 @@
+@use "uswds-core" as *;
+
+// -------------------------------------
+// Spinner (reusable)
+// Rendered by partials/spinner.html
+// -------------------------------------
+.spinner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 3rem 1rem;
+    color: color('base-dark');
+}
+
+.spinner__icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    border: 3px solid color('base-lighter');
+    border-top-color: color('primary-darker');
+    border-radius: 50%;
+    animation: spinner-spin 0.8s linear infinite;
+}
+
+@keyframes spinner-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}

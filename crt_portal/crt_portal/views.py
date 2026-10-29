@@ -13,30 +13,6 @@ from django.utils.encoding import iri_to_uri
 from django.shortcuts import redirect, render
 
 from .decorators import portal_access_required
-from utils.static_data import read_static_json
-
-
-def load_quotes(data_src):
-    """Load the rotating banner quotes from a static JSON file.
-
-    Returns a list of ``{"text": ..., "cite": ...}`` dicts. Missing or
-    malformed data yields an empty list so the page still renders.
-    """
-    try:
-        data = read_static_json(data_src)
-    except (OSError, ValueError):
-        return []
-    return data.get('quotes', []) if isinstance(data, dict) else []
-
-
-def election_integrity_view(request):
-    quotes = load_quotes(
-        data_src='data/election-integrity/quotes.json',
-    )
-
-    return render(request, 'election_integrity.html', {
-        'quotes': quotes,
-    })
 
 
 def retrieve_and_save_next_url_in_session(request):
