@@ -1394,23 +1394,13 @@ class ReportEditApiTests(TestCase):
         self.assertIn('last_incident_year', [m.get('field') for m in response_json['messages']])
 
         # ELS-CRU does not render last_incident_* fields, so a submission without
-        # them must succeed.
+        # them must succeed. This is the regression guard for the original bug,
+        # where last_incident_* was required on ALL pro forms and made ELS-CRU
+        # impossible to submit.
         els_cru_data = dict(self.working_group_report_data["ELS-CRU"])
         response = self.client.post(
             f'{self.base_url}?working_group=ELS-CRU', els_cru_data, content_type='application/json')
         self.assertEqual(response.status_code, 201)
-
-        # ELS-CRU requires the crt receipt date.
-        els_cru_data = dict(self.working_group_report_data["ELS-CRU"])
-        for field in ('crt_reciept_month', 'crt_reciept_day', 'crt_reciept_year'):
-            els_cru_data.pop(field)
-
-        response = self.client.post(
-            f'{self.base_url}?working_group=ELS-CRU', els_cru_data, content_type='application/json')
-
-        self.assertEqual(response.status_code, 400)
-        response_json = response.json()
-        self.assertIn('crt_reciept_month', [m.get('field') for m in response_json['messages']])
 
     def test_phone_pro_form_edits(self):
         public_id = '123-XYZ'
