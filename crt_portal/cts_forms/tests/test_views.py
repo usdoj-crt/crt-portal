@@ -1173,7 +1173,8 @@ class LoginRequiredTests(TestCase):
 
 class ReportEditApiTests(TestCase):
 
-    report_data = {
+    # Fields shared by all phone pro forms.
+    common_report_data = {
         "contact_first_name": "fakefirst",
         "contact_last_name": "fakelast",
         "contact_phone": "+15555555555",
@@ -1183,7 +1184,6 @@ class ReportEditApiTests(TestCase):
         "contact_city": "Fakington",
         "contact_state": "OH",
         "contact_zip": "12345",
-        "primary_complaint": "voting",
         "location_name": "Fake Org",
         "location_address_line_1": "1234 Fake Ave",
         "location_address_line_2": "",
@@ -1193,9 +1193,32 @@ class ReportEditApiTests(TestCase):
         "crt_reciept_month": 8,
         "crt_reciept_day": 15,
         "crt_reciept_year": 2024,
-        "last_incident_month": 8,
-        "last_incident_year": 2024,
-        "intake_format": "phone",
+    }
+
+    # Payload per working group. Each payload must contain only the fields that
+    # form actually renders, so a regression that adds a required field to one
+    # form (e.g. last_incident_* on VOT) without the form being able to supply it
+    # will fail here.
+    working_group_report_data = {
+        None: {
+            **common_report_data,
+            "primary_complaint": "voting",
+            "last_incident_month": 8,
+            "last_incident_year": 2024,
+            "intake_format": "phone",
+        },
+        "VOT": {
+            **common_report_data,
+            "primary_complaint": "voting",
+            "last_incident_month": 8,
+            "last_incident_year": 2024,
+            "intake_format": "phone",
+        },
+        "ELS-CRU": {
+            **common_report_data,
+            "primary_complaint": "workplace",
+            "intake_format": "email",
+        },
     }
 
     working_group_parameters = [None, "VOT", "ELS-CRU"]
@@ -1203,7 +1226,7 @@ class ReportEditApiTests(TestCase):
     def setUp(self):
         self.client = Client()
         self.user = UserFactory.create_user("USER_1", "user@example.com", "")
-        Report.objects.get_or_create(pk=1, public_id='1-XYZ', defaults=self.report_data)
+        Report.objects.get_or_create(pk=1, public_id='1-XYZ', defaults=self.working_group_report_data["VOT"])
         self.base_url = reverse('api:report-edit')
         self.client.login(username="USER_1", password="")  # nosec
 
@@ -1244,15 +1267,10 @@ class ReportEditApiTests(TestCase):
     def test_phone_pro_form_creates(self):
         for working_group in self.working_group_parameters:
             url = self.base_url
-            report_data = self.report_data
+            report_data = dict(self.working_group_report_data[working_group])
 
-            # We need to change the primary_complaint to workplace for ELS-CRU Proform
-            # Otherwise the form will fail validation and we get back a 400 response
             if working_group:
                 url = f"{url}?working_group={working_group}"
-                match working_group:
-                    case "ELS-CRU":
-                        report_data["primary_complaint"] = "workplace"
 
             # Just the subset from the phone pro form:
             response = self.client.post(url, report_data, content_type='application/json')
@@ -1326,8 +1344,6 @@ class ReportEditApiTests(TestCase):
                     'crt_reciept_year',
                     'employer_size',
                     'intake_format',
-                    'last_incident_month',
-                    'last_incident_year',
                     'location_address_line_1',
                     'location_city_town',
                     'location_name',
@@ -1345,7 +1361,7 @@ class ReportEditApiTests(TestCase):
             self.assertDictEqual(response_json, {
                 'changed_data': expected_changed_data[working_group],
                 'form': {
-                    **self.report_data,
+                    **report_data,
                     'public_id': public_id,
                 },
                 'messages': [
@@ -1357,9 +1373,48 @@ class ReportEditApiTests(TestCase):
                 'new_url': new_url,
             })
 
+    def test_phone_pro_form_requires_group_specific_fields(self):
+        """Submitting a pro form without its required fields must fail.
+
+        This catches regressions where a required field is added to the wrong
+        working group's form (e.g. the VOT-only last_incident_* fields leaking
+        into ELS-CRU), which would make the affected form impossible to submit.
+        """
+        # VOT requires the incident date (month and year).
+        vot_data = dict(self.working_group_report_data["VOT"])
+        for field in ('last_incident_month', 'last_incident_year'):
+            vot_data.pop(field)
+
+        response = self.client.post(
+            f'{self.base_url}?working_group=VOT', vot_data, content_type='application/json')
+
+        self.assertEqual(response.status_code, 400)
+        response_json = response.json()
+        self.assertIn('last_incident_month', [m.get('field') for m in response_json['messages']])
+        self.assertIn('last_incident_year', [m.get('field') for m in response_json['messages']])
+
+        # ELS-CRU does not render last_incident_* fields, so a submission without
+        # them must succeed.
+        els_cru_data = dict(self.working_group_report_data["ELS-CRU"])
+        response = self.client.post(
+            f'{self.base_url}?working_group=ELS-CRU', els_cru_data, content_type='application/json')
+        self.assertEqual(response.status_code, 201)
+
+        # ELS-CRU requires the crt receipt date.
+        els_cru_data = dict(self.working_group_report_data["ELS-CRU"])
+        for field in ('crt_reciept_month', 'crt_reciept_day', 'crt_reciept_year'):
+            els_cru_data.pop(field)
+
+        response = self.client.post(
+            f'{self.base_url}?working_group=ELS-CRU', els_cru_data, content_type='application/json')
+
+        self.assertEqual(response.status_code, 400)
+        response_json = response.json()
+        self.assertIn('crt_reciept_month', [m.get('field') for m in response_json['messages']])
+
     def test_phone_pro_form_edits(self):
         public_id = '123-XYZ'
-        report = Report.objects.create(**self.report_data)
+        report = Report.objects.create(**self.working_group_report_data["VOT"])
         report.public_id = public_id
         report.save()
         url = self.base_url
@@ -1368,7 +1423,7 @@ class ReportEditApiTests(TestCase):
         response = self.client.post(url,
                                     {
                                         'public_id': public_id,
-                                        **self.report_data,
+                                        **self.working_group_report_data["VOT"],
                                         'contact_first_name': 'newfirst',
                                     },
                                     content_type='application/json')
@@ -1379,7 +1434,7 @@ class ReportEditApiTests(TestCase):
         self.assertDictEqual(response_json, {
             'changed_data': ['contact_first_name'],
             'form': {
-                **self.report_data,
+                **self.working_group_report_data["VOT"],
                 'contact_first_name': 'newfirst',
                 'public_id': public_id,
             },
