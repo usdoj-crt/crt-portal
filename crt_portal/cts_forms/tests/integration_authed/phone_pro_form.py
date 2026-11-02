@@ -30,7 +30,7 @@ TEST_DATA = {
 @pytest.mark.only_browser("chromium")
 @console.raise_errors(ignore=['404', 'The user aborted a request.'])
 @reporting.capture_report('phone_pro_form_from_blank.pdf')
-def test_form(page, *, report):
+def test_form_vot_submit_and_edit(page, *, report):
     login_as_superuser(page)
     page.goto('/form/new/phone/')
 
@@ -87,3 +87,122 @@ def test_loads_page_from_id(page, *, report):
         assert str(page.locator(f'[name="{field}"]').input_value()) == TEST_DATA[field]
 
     assert page.locator('[name="primary_complaint"][checked]').input_value() == 'voting'
+
+
+@pytest.mark.only_browser("chromium")
+@console.raise_errors(ignore=['404', 'The user aborted a request.'])
+@reporting.capture_report('phone_pro_form_vot_minimal.pdf')
+def test_form_vot_submits_with_minimal_fields(page, *, report):
+    """VOT form must submit successfully with only its minimal required fields.
+
+    Minimal required fields for VOT are: contact_first_name, contact_last_name,
+    last_incident_month, last_incident_year. The receipt date is auto-filled
+    by autofill_current_date.js on page load.
+
+    This guards against regressions where a required field is made optional on
+    VOT, or a non-VOT field becomes required, breaking submission.
+    """
+    login_as_superuser(page)
+    page.goto('/form/new/phone/')
+
+    # Fill the minimal required fields.
+    admin_models.fill_fields(page, selector_format='#id_{}', fields={
+        "contact_first_name": "fakefirst",
+        "contact_last_name": "fakelast",
+    })
+    page.locator('input#id_last_incident_month').fill('8')
+    page.locator('input#id_last_incident_year').fill('2023')
+
+    # Save and verify success.
+    page.locator('button[data-saves]').click()
+    page.locator('.usa-alert').filter(has_text="Successfully created report").wait_for()
+
+
+@pytest.mark.only_browser("chromium")
+@console.raise_errors(ignore=['404', 'The user aborted a request.'])
+@reporting.capture_report('phone_pro_form_cru_minimal.pdf')
+def test_form_cru_submits_with_minimal_fields(page, *, report):
+    """ELS-CRU form must submit successfully with only its minimal required fields.
+
+    Minimal required fields for ELS-CRU are: contact_first_name, contact_last_name.
+    The receipt date is auto-filled by autofill_current_date.js on page load.
+    ELS-CRU does NOT have last_incident_* fields.
+
+    This guards against the regression where VOT-only required fields
+    (last_incident_month, last_incident_year) were accidentally added to ALL
+    phone pro forms, making ELS-CRU impossible to submit.
+    """
+    login_as_superuser(page)
+    page.goto('/form/new/pro/ELS-CRU/')
+
+    # Fill the minimal required fields.
+    admin_models.fill_fields(page, selector_format='#id_{}', fields={
+        "contact_first_name": "fakefirst",
+        "contact_last_name": "fakelast",
+    })
+
+    # Save and verify success.
+    page.locator('button[data-saves]').click()
+    page.locator('.usa-alert').filter(has_text="Successfully created report").wait_for()
+
+
+@pytest.mark.only_browser("chromium")
+@console.raise_errors(ignore=['404', 'The user aborted a request.'])
+@reporting.capture_report('phone_pro_form_cru_from_existing.pdf')
+def test_cru_loads_page_from_id(page, *, report):
+    """ELS-CRU form loads an existing report with fields populated.
+
+    Creates a report via the ELS-CRU form, then loads it and verifies that
+    the previously saved fields are displayed correctly.
+    """
+    login_as_superuser(page)
+    page.goto('/form/new/pro/ELS-CRU/')
+
+    # Fill minimal fields and save to create a report.
+    admin_models.fill_fields(page, selector_format='#id_{}', fields={
+        "contact_first_name": "fakefirst",
+        "contact_last_name": "fakelast",
+    })
+    page.locator('button[data-saves]').click()
+    page.locator('.usa-alert').filter(has_text="Successfully created report").wait_for()
+
+    # Extract the report ID from the success alert or public_id field.
+    public_id = page.locator('#id_public_id').input_value()
+    report_id = public_id.split('-')[0] if public_id else None
+
+    if not report_id:
+        pytest.fail("Could not extract report ID from public_id field")
+
+    # Navigate to the existing report.
+    page.goto(f'/form/new/pro/ELS-CRU/{report_id}/')
+
+    # Verify the contact fields are populated.
+    assert page.locator('#id_contact_first_name').input_value() == "fakefirst"
+    assert page.locator('#id_contact_last_name').input_value() == "fakelast"
+
+
+@pytest.mark.only_browser("chromium")
+@console.raise_errors(ignore=['404', 'The user aborted a request.'])
+def test_form_vot_requires_incident_date(page):
+    """VOT form must NOT submit successfully without the required incident date.
+
+    This guards against the regression where a required field was added to the
+    wrong working group's form, making it impossible to submit.
+    """
+    login_as_superuser(page)
+    page.goto('/form/new/phone/')
+
+    # Fill minimal fields but deliberately omit the required incident date
+    # (last_incident_month and last_incident_year).
+    admin_models.fill_fields(page, selector_format='#id_{}', fields={
+        "contact_first_name": "fakefirst",
+        "contact_last_name": "fakelast",
+    })
+
+    # Save and verify failure: no success alert should appear.
+    page.locator('button[data-saves]').click()
+
+    # The success alert must NOT appear. We wait briefly and assert it's not visible.
+    page.wait_for_timeout(2000)
+    success_alert = page.locator('.usa-alert').filter(has_text="Successfully created report")
+    assert not success_alert.is_visible(), "VOT form accepted submission without required incident date"
