@@ -182,7 +182,7 @@ def test_cru_loads_page_from_id(page, *, report):
 
 
 @pytest.mark.only_browser("chromium")
-@console.raise_errors(ignore=['404', 'The user aborted a request.'])
+@console.raise_errors(ignore=['400', '404', 'The user aborted a request.'])
 def test_form_vot_requires_incident_date(page):
     """VOT form must NOT submit successfully without the required incident date.
 
