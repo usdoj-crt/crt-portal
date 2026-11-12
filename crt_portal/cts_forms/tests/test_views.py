@@ -1255,6 +1255,21 @@ class ReportEditApiTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertIn('State resources', str(response.content))
 
+    def test_phone_pro_form_create_new_link(self):
+        """The 'Create New' button must link to a fresh (no report id) page of its own form.
+
+        Regression test: the button previously pointed at the legacy /form/new/phone/
+        route for both working groups, so creating a new report opened the wrong form.
+        """
+        legacy_route = '/form/new/phone/'
+
+        for working_group in ('ELS-CRU', 'VOT'):
+            response = self.client.get(f'/form/new/pro/{working_group}/')
+            self.assertEqual(response.status_code, 200)
+            content = str(response.content)
+            self.assertIn(f'href="/form/new/pro/{working_group}/"', content)
+            self.assertNotIn(legacy_route, content)
+
     def test_phone_pro_form_404s(self):
         url = self.base_url
 
