@@ -1,5 +1,5 @@
 # Pull base image. We use the python image instead of Jupyterhub to be more consistent with available Cloud Foundry buildpacks.
-FROM python:3.14.8
+FROM python:3.14.10
 
 # Brings output to the terminal
 ENV PYTHONDONTWRITEBYTECODE=1
@@ -31,9 +31,10 @@ RUN \
 RUN npm install -g configurable-http-proxy@^4.5.6
 
 COPY jupyterhub/Pipfile jupyterhub/Pipfile.lock /srv/jupyterhub
-# COPY jupyterhub/Pipfile /srv/jupyterhub
 
-# RUN pipenv install
+# COPY jupyterhub/Pipfile /srv/jupyterhub # uncomment during pipfile update
+
+# RUN pipenv install  # uncomment during pipfile update
 
 RUN pipenv sync --dev --system
 
