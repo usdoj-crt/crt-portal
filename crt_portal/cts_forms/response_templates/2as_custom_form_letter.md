@@ -9,9 +9,9 @@ is_html: true
 
 Thank you for contacting the Department of Justice on {{ date_of_intake }}. We apologize for our delayed response. The Second Amendment Section of the Civil Rights Division has reviewed your submission. Your report number is {{ record_locator }}.
 
-Law-abiding Americans have a natural right to keep and bear arms, and that right is protected by the Second Amendment. The Second Amendment Section brings enforcement actions when law enforcement agents have engaged in a pattern or practice of conduct that infringes Second Amendment rights. In addition to litigation, the Section advances Second Amendment rights via statements of interest, motions to intervene, and amicus briefs. For more information about our work, you may visit [https://www.justice.gov/crt/second-amendment-section](https://www.justice.gov/crt/second-amendment-section).
-
 [%optional group="Topic" name="Potential P or P"]
+
+Law-abiding Americans have a natural right to keep and bear arms, and that right is protected by the Second Amendment. The Second Amendment Section brings enforcement actions when law enforcement agents have engaged in a pattern or practice of conduct that infringes Second Amendment rights. In addition to litigation, the Section advances Second Amendment rights via statements of interest, motions to intervene, and amicus briefs. For more information about our work, you may visit [https://www.justice.gov/crt/second-amendment-section](https://www.justice.gov/crt/second-amendment-section).
 
 Given the large number of law enforcement agencies throughout the country, the Section values tips from the public. While we cannot represent or directly assist individuals, the experiences that individuals like you share with us can be an important source of information for the Section's efforts to find and appropriately address conduct by a law enforcement agency that deprives people of their Second Amendment rights.
 
@@ -25,6 +25,8 @@ Thank you again for contacting the Department of Justice.
 
 [%optional group="Topic" name="2AS violation litigating in that jurisdiction"]
 
+Law-abiding Americans have a natural right to keep and bear arms, and that right is protected by the Second Amendment. The Second Amendment Section brings enforcement actions when law enforcement agents have engaged in a pattern or practice of conduct that infringes Second Amendment rights. In addition to litigation, the Section advances Second Amendment rights via statements of interest, motions to intervene, and amicus briefs. For more information about our work, you may visit [https://www.justice.gov/crt/second-amendment-section](https://www.justice.gov/crt/second-amendment-section).
+
 We will carefully consider the information you provided. If we have any questions or need additional information, we will contact you. We may also contact you to ask you to be a witness or submit an affidavit to the Court for our lawsuit against {{ organization_name }}.
 
 If you want to consult with an attorney about any private right of action you may have, your state bar association or local legal assistance agency may be able to help you find an attorney to speak with. You can also search for a local attorney at [www.lsc.gov/find-legal-aid](https://www.lsc.gov/find-legal-aid).
@@ -34,6 +36,8 @@ Thank you again for contacting the Department of Justice.
 [%endoptional]
 
 [%optional group="Topic" name="Tip that may prompt enforcement action"]
+
+Law-abiding Americans have a natural right to keep and bear arms, and that right is protected by the Second Amendment. The Second Amendment Section brings enforcement actions when law enforcement agents have engaged in a pattern or practice of conduct that infringes Second Amendment rights. In addition to litigation, the Section advances Second Amendment rights via statements of interest, motions to intervene, and amicus briefs. For more information about our work, you may visit [https://www.justice.gov/crt/second-amendment-section](https://www.justice.gov/crt/second-amendment-section).
 
 Given the large number of law enforcement agencies throughout the country, the Section values tips from the public. While we cannot represent or directly assist individuals, the information and experiences that individuals like you share with us can be an important source of information for the Section's efforts to find and appropriately address widespread conduct by a law enforcement agency that deprives people of their Second Amendment rights.
 
@@ -47,6 +51,8 @@ Thank you again for contacting the Department of Justice.
 
 [%optional group="Topic" name="ATF Conduct"]
 
+Law-abiding Americans have a natural right to keep and bear arms, and that right is protected by the Second Amendment. The Second Amendment Section brings enforcement actions when law enforcement agents have engaged in a pattern or practice of conduct that infringes Second Amendment rights. In addition to litigation, the Section advances Second Amendment rights via statements of interest, motions to intervene, and amicus briefs. For more information about our work, you may visit [https://www.justice.gov/crt/second-amendment-section](https://www.justice.gov/crt/second-amendment-section).
+
 Please note that the Second Amendment Section does not have any authority over the decisions, regulations, policies, or conduct of the Bureau of Alcohol, Tobacco, and Firearms (ATF). For such concerns, you may wish to contact the ATF directly. For information about contacting the ATF, please visit [https://www.atf.gov/contact](https://www.atf.gov/contact). You may find the contact information for the field divisions of the ATF at [https://www.atf.gov/contact/locations/field-divisions](https://www.atf.gov/contact/locations/field-divisions).
 
 For the reason explained above, we do not intend to take any further action on your complaint. If you want to consult with an attorney about any private right of action you may have, your state bar association or local legal assistance agency may be able to help you find an attorney to speak with. You can also search for a local attorney at [www.lsc.gov/find-legal-aid](https://www.lsc.gov/find-legal-aid).
@@ -54,6 +60,8 @@ For the reason explained above, we do not intend to take any further action on y
 [%endoptional]
 
 [%optional group="Topic" name="Non-ATF Federal Agencies"]
+
+Law-abiding Americans have a natural right to keep and bear arms, and that right is protected by the Second Amendment. The Second Amendment Section brings enforcement actions when law enforcement agents have engaged in a pattern or practice of conduct that infringes Second Amendment rights. In addition to litigation, the Section advances Second Amendment rights via statements of interest, motions to intervene, and amicus briefs. For more information about our work, you may visit [https://www.justice.gov/crt/second-amendment-section](https://www.justice.gov/crt/second-amendment-section).
 
 Please note that the Second Amendment Section does not have any authority over the decisions, regulations, policies, or conduct of other federal agencies. For such concerns, you may wish to contact the agency you reported. You may find the contact information for federal agencies at [https://www.usa.gov/agency-index](https://www.usa.gov/agency-index).
 
@@ -63,11 +71,15 @@ For the reason explained above, we do not intend to take any further action on y
 
 [%optional group="Topic" name="Legal opinions or commentary"]
 
+Law-abiding Americans have a natural right to keep and bear arms, and that right is protected by the Second Amendment. The Second Amendment Section brings enforcement actions when law enforcement agents have engaged in a pattern or practice of conduct that infringes Second Amendment rights. In addition to litigation, the Section advances Second Amendment rights via statements of interest, motions to intervene, and amicus briefs. For more information about our work, you may visit [https://www.justice.gov/crt/second-amendment-section](https://www.justice.gov/crt/second-amendment-section).
+
 We appreciate your interest in our work and time in writing to us to express your views on Second Amendment issues. Please know that the information you have provided will receive appropriate consideration.
 <br/>
 [%endoptional]
 
 [%optional group="Topic" name="Private conduct"]
+
+Law-abiding Americans have a natural right to keep and bear arms, and that right is protected by the Second Amendment. The Second Amendment Section brings enforcement actions when law enforcement agents have engaged in a pattern or practice of conduct that infringes Second Amendment rights. In addition to litigation, the Section advances Second Amendment rights via statements of interest, motions to intervene, and amicus briefs. For more information about our work, you may visit [https://www.justice.gov/crt/second-amendment-section](https://www.justice.gov/crt/second-amendment-section).
 
 Please note that the Second Amendment does not generally impose restrictions on the conduct, rules, or policies of private parties. Therefore, we do not intend to take any further action on your complaint. If you want to consult with an attorney about any private right of action you may have, your state bar association or local legal assistance agency may be able to help you find an attorney to speak with. You can also search for a local attorney at [www.lsc.gov/find-legal-aid](https://www.lsc.gov/find-legal-aid).
 <br/>
@@ -75,11 +87,15 @@ Please note that the Second Amendment does not generally impose restrictions on 
 
 [%optional group="Topic" name="Off-topic or irrelevant"]
 
+Law-abiding Americans have a natural right to keep and bear arms, and that right is protected by the Second Amendment. The Second Amendment Section brings enforcement actions when law enforcement agents have engaged in a pattern or practice of conduct that infringes Second Amendment rights. In addition to litigation, the Section advances Second Amendment rights via statements of interest, motions to intervene, and amicus briefs. For more information about our work, you may visit [https://www.justice.gov/crt/second-amendment-section](https://www.justice.gov/crt/second-amendment-section).
+
 Unfortunately, we are unable to assist you with the issue you raised in your submission, as it is outside the scope of our work. Therefore, we do not intend to take any further action on your complaint. If you want to consult with an attorney about any private right of action you may have, your state bar association or local legal assistance agency may be able to help you find an attorney to speak with. You can also search for a local attorney at [www.lsc.gov/find-legal-aid](https://www.lsc.gov/find-legal-aid).
 <br/>
 [%endoptional]
 
 [%optional group="Topic" name="Unique situation likely not P or P"]
+
+Law-abiding Americans have a natural right to keep and bear arms, and that right is protected by the Second Amendment. The Second Amendment Section brings enforcement actions when law enforcement agents have engaged in a pattern or practice of conduct that infringes Second Amendment rights. In addition to litigation, the Section advances Second Amendment rights via statements of interest, motions to intervene, and amicus briefs. For more information about our work, you may visit [https://www.justice.gov/crt/second-amendment-section](https://www.justice.gov/crt/second-amendment-section).
 
 We will carefully consider the information you provided. If we have any questions or need additional information, we will contact you.
 
@@ -91,11 +107,15 @@ Thank you again for contacting the Department of Justice.
 
 [%optional group="Topic" name="Criminal case"]
 
+Law-abiding Americans have a natural right to keep and bear arms, and that right is protected by the Second Amendment. The Second Amendment Section brings enforcement actions when law enforcement agents have engaged in a pattern or practice of conduct that infringes Second Amendment rights. In addition to litigation, the Section advances Second Amendment rights via statements of interest, motions to intervene, and amicus briefs. For more information about our work, you may visit [https://www.justice.gov/crt/second-amendment-section](https://www.justice.gov/crt/second-amendment-section).
+
 Unfortunately, we are unable to represent or directly assist individuals. We also do not get directly involved in criminal cases. However, we will carefully consider the information you provided as we continue to actively look for opportunities to address Second Amendment violations by law enforcement agencies.
 <br/>
 [%endoptional]
 
 [%optional group="Topic" name="2AS violation litigating in another jurisdiction"]
+
+Law-abiding Americans have a natural right to keep and bear arms, and that right is protected by the Second Amendment. The Second Amendment Section brings enforcement actions when law enforcement agents have engaged in a pattern or practice of conduct that infringes Second Amendment rights. In addition to litigation, the Section advances Second Amendment rights via statements of interest, motions to intervene, and amicus briefs. For more information about our work, you may visit [https://www.justice.gov/crt/second-amendment-section](https://www.justice.gov/crt/second-amendment-section).
 
 We will carefully consider the information that you provided and will contact you if we have any questions. Although we cannot start an investigation or a lawsuit based on every tip we receive, we are litigating, or have litigated, in other jurisdictions numerous important Second Amendment issues similar to what you wrote to us about. As we continue to actively look for opportunities to address Second Amendment violations by law enforcement agencies, the information that individuals like you share with us is important to the Section's efforts to find and appropriately address such issues.
 
@@ -107,6 +127,8 @@ Thank you for your interest in the Second Amendment Section’s work.
 
 [%optional group="Topic" name="2AS violation 2AS is considering in that jurisdiction"]
 
+Law-abiding Americans have a natural right to keep and bear arms, and that right is protected by the Second Amendment. The Second Amendment Section brings enforcement actions when law enforcement agents have engaged in a pattern or practice of conduct that infringes Second Amendment rights. In addition to litigation, the Section advances Second Amendment rights via statements of interest, motions to intervene, and amicus briefs. For more information about our work, you may visit [https://www.justice.gov/crt/second-amendment-section](https://www.justice.gov/crt/second-amendment-section).
+
 We will carefully consider the information that you provided and will contact you if we have any questions. Although we cannot start an investigation or a lawsuit based on every tip we receive, we continue to actively look for opportunities to address Second Amendment violations by law enforcement agencies. We cannot represent or directly assist individuals, but the information that individuals like you share with us is important to the Section's efforts to find and appropriately address such violations.
 
 If you want to consult with an attorney about any private right of action you may have, your state bar association or local legal assistance agency may be able to help you find an attorney to speak with. You can also search for a local attorney at [www.lsc.gov/find-legal-aid](https://www.lsc.gov/find-legal-aid).
@@ -117,17 +139,21 @@ Thank you for your interest in the Second Amendment Section’s work.
 
 [%optional group="Topic" name="FFRR Inquiry"]
 
-On February 7, 2025, President Trump signed Executive Order 14206 - Protecting Second Amendment Rights. In response to this executive order, the Department of Justice began establishing a process to restore Second Amendment rights to deserving individuals. The Office of the Pardon Attorney, rather than the Second Amendment Section of the Civil Rights Division, will administer this Second Amendment rights restoration program.
+Law-abiding Americans have a natural right to keep and bear arms, and that right is protected by the Second Amendment. The Second Amendment Section brings enforcement actions when law enforcement agents have engaged in a pattern or practice of conduct that infringes Second Amendment rights. In addition to litigation, the Section advances Second Amendment rights via statements of interest, motions to intervene, and amicus briefs. For more information about our work, you may visit [https://www.justice.gov/crt/second-amendment-section](https://www.justice.gov/crt/second-amendment-section).
 
-As part of establishing the program authorized by 18 U.S.C. § 925(c), the Department of Justice has promulgated proposed rule DOJ-LA-2025-0004. _See_ Application for Relief From Disabilities Imposed by Federal Laws With Respect to the Acquisition, Receipt, Transfer, Shipment, Transportation, or Possession of Firearms, 90 Fed. Reg. 34394, 34405 (proposed Jul. 22, 2025) (to be codified at 28 C.F.R. pts. 25, 107). This rule is in the final stages of being enacted, and once it is, the Office of the Pardon Attorney will begin processing applications for relief from the disabilities imposed by Federal laws with respect to the applicant’s firearms rights. You can rest assured that the Office of the Pardon Attorney is working on the process and it is coming soon.
+On February 7, 2025, President Trump signed Executive Order 14206 - Protecting Second Amendment Rights. In response to this executive order, the Department of Justice established a process to restore Second Amendment rights to deserving individuals. The Office of the Pardon Attorney, rather than the Second Amendment Section of the Civil Rights Division, administers the Second Amendment rights restoration program.
 
-Once the application is live, it will be available at [https://www.justice.gov/pardon/ffrr](https://www.justice.gov/pardon/ffrr). In the meantime, you may contact the Office of the Pardon Attorney with any inquiries or to let them know that you are interested in applying once the application is available. Contact information for the Office of the Pardon Attorney is available at [https://www.justice.gov/pardon/webform/contact-office-pardon-attorney](https://www.justice.gov/pardon/webform/contact-office-pardon-attorney).
+As part of establishing the program authorized by 18 U.S.C. § 925(c), the Department of Justice has promulgated proposed rules to enable the Office of the Pardon Attorney to begin processing applications, codified at 27 C.F.R. pt. 478 and 28 C.F.R. pts. 0, 25, 107. The Office of the Pardon Attorney is now receiving applications for relief from the disabilities imposed by Federal laws with respect to the applicant’s firearms rights.
+
+The application is available at [https://www.justice.gov/pardon/ffrr](https://www.justice.gov/pardon/ffrr). If you have any further questions, you may contact the Office of the Pardon Attorney with any inquiries. Contact information for the Office of the Pardon Attorney is available at [https://www.justice.gov/pardon/webform/contact-office-pardon-attorney](https://www.justice.gov/pardon/webform/contact-office-pardon-attorney).
 
 We hope this information is helpful to you. Thank you for taking the time to contact the Department of Justice about your concerns.
 <br/>
 [%endoptional]
 
 [%optional group="Topic" name="FBI / NICS Inquiry"]
+
+Law-abiding Americans have a natural right to keep and bear arms, and that right is protected by the Second Amendment. The Second Amendment Section brings enforcement actions when law enforcement agents have engaged in a pattern or practice of conduct that infringes Second Amendment rights. In addition to litigation, the Section advances Second Amendment rights via statements of interest, motions to intervene, and amicus briefs. For more information about our work, you may visit [https://www.justice.gov/crt/second-amendment-section](https://www.justice.gov/crt/second-amendment-section).
 
 Please note that the Second Amendment Section does not have any authority over the decisions, regulations, policies, or conduct of the Federal Bureau of Investigation (FBI) or the National Instant Criminal Background Check System (NICS). For such concerns, you may wish to contact the FBI directly. You may write to the FBI at:
 
@@ -139,6 +165,16 @@ Clarksburg, WV 26306-9922
 You may also reach the FBI by email at [NICS_CustomerService@fbi.gov](mailto:NICS_CustomerService@fbi.gov), or by phone at (877)324-6427.
 
 For the reason explained above, we do not intend to take any further action on your complaint. If you want to consult with an attorney about any private right of action you may have, your state bar association or local legal assistance agency may be able to help you find an attorney to speak with. You can also search for a local attorney at [www.lsc.gov/find-legal-aid](https://www.lsc.gov/find-legal-aid).
+<br/>
+[%endoptional]
+
+[%optional group="Topic" name="Possibly Represented Party"]
+
+Based on your submission, it appears that you may be represented by counsel for the issue you contacted us about. If you are represented by counsel for the issue you wrote to us about and you wish to speak with us, please have your attorney submit a complaint the same way you did that mentions your name, the above report number, the issue in question, and his or her phone number and email address.
+
+If you are not represented by counsel for the issue you contacted us about, please submit another complaint using the same name and contact information, in that submission, please reference the above report number and confirm you are not represented by counsel for the issue in question.
+
+Thank you for taking the time to contact the Department of Justice.
 <br/>
 [%endoptional]
 
