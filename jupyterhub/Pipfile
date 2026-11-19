@@ -4,8 +4,8 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [packages]
-jupyterhub = "*"
-jupyterlab = "~=4.5.7"
+jupyterhub = "~=6.1.1"
+jupyterlab = "~=4.6.4"
 jupyter_client = "*"
 httpx = "~=0.28.1"
 oauthenticator = "*"
@@ -20,7 +20,7 @@ exceptiongroup = "*"
 # pyzmq = "26.4.0"
 
 [requires]
-python_version = "3.14.8"
+python_version = "3.14.10"
 
 [pipenv]
 allow_prereleases = true
